@@ -1,11 +1,9 @@
 package view;
 
-#
 # BUILD CONSTRAINT:  all views must return $content, $extension.
 # additional return values (as seen below) are optional.  However,
 # careful use of symlinks and dependency management in path.pm can
 # resolve most issues with this constraint.
-#
 
 use strict;
 use warnings;
