@@ -1,0 +1,28 @@
+{% block navigation %}
+<div id="navigation">
+    {% block project-navigation %}
+    <h5>Latest Downloads</h5>
+    <ul>
+        <li><a href="{{base}}apacheds/downloads.html">ApacheDS {{version_apacheds}}</a></li>
+        <li><a href="{{base}}studio/download.html">Studio {{version_studio}}</a></li>
+        <li><a href="{{base}}api/downloads.html">LDAP API {{version_api}}</a></li>
+    </ul>
+    {% endblock %}
+    {% block common-navigation %}
+    <h5>Community</h5>
+    <ul>
+        <li><a href="{{base}}contribute.html">How to Contribute</a></li>
+        <li><a href="{{base}}team.html">Team</a></li>
+        <li><a href="{{base}}original-project-proposal.html">Original Project Proposal</a></li>
+    </ul>
+    <h5>About Apache</h5>
+    <ul>
+        <li><a href="http://www.apache.org/">Apache</a></li>
+        <li><a href="http://www.apache.org/licenses/">License</a></li>
+        <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+        <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+        <li><a href="http://www.apache.org/security/">Security</a></li>
+    </ul>
+    {% endblock %}
+</div><!-- navigation -->
+{% endblock %}

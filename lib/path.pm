@@ -2,8 +2,26 @@ package path;
 
 # All our pages use the same view function
 our @patterns = (
-    [qr!^/.*\.html$!,   normal_page => {} ],
-    [qr!^/.*\.mdtext$!, normal_page => { template=>"page.html" } ],
+    # Basic HTML content
+    [qr!^/.*\.html$!,   template_page => {} ],
+    
+    # Apache DS sub-project pages
+    [qr!apacheds\/.*?\.mdtext$!, template_page => {
+        template => "page-apacheds.html",
+        isDirApacheDS => true } ],
+    
+    # LDAP API sub-project pages
+    [qr!api\/.*?\.mdtext$!, template_page => {
+        template => "page-api.html",
+        isDirAPI => true } ],
+    # Apache Directory Studio sub-project pages
+    [qr!studio\/.*?\.mdtext$!, template_page => {
+        template => "page-studio.html",
+        isDirStudio => true  } ],
+    # Directory project global pages  
+    [qr!^/.*\.mdtext$!, template_page => {
+        template => "page.html",
+        isDirSite => true } ]
 );
 
 # for specifying interdependencies between files

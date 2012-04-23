@@ -21,13 +21,16 @@ push @Dotiac::DTL::TEMPLATE_DIRS, "templates";
 # like foo.page/bar.mdtext will be parsed and
 # passed to the template in the "bar" (hash)
 # variable.
-sub normal_page {
+sub template_page
+{
     my %args = @_;
     my $file = "content$args{path}";
     $args{path} =~ s/\.mdtext$/\.html/;
+    $args{base} = _base($args{path});
 
     my $template = $file;
-    if($args{template}) {
+    if( $args{template} )
+    {
        $template = $args{template};
     }
 
@@ -36,8 +39,10 @@ sub normal_page {
 
     my $page_path = $file;
     $page_path =~ s/\.[^.]+$/.page/;
-    if (-d $page_path) {
-        for my $f (grep -f, glob "$page_path/*.mdtext") {
+    if ( -d $page_path )
+    {
+        for my $f (grep -f, glob "$page_path/*.mdtext")
+        {
             $f =~ m!/([^/]+)\.mdtext$! or die "Bad filename: $f\n";
             $args{$1} = {};
             read_text_file $f, $args{$1};
@@ -45,6 +50,25 @@ sub normal_page {
     }
 
     return Dotiac::DTL::Template($template)->render(\%args), html => \%args;
+}
+
+# Gets the base of the path
+sub _base
+{
+    my $path = shift;
+
+    my @path_components = split( m!/!, $path );
+    pop @path_components;
+    pop @path_components;
+
+    my $rel = "./";
+
+    for (@path_components)
+    {
+        $rel .= "../";
+    }
+
+    return $rel;
 }
 
 # Generates cwiki-style breadcrumbs

@@ -1,0 +1,40 @@
+{% extends "header.html" %}
+    {% block css %}
+        <link href="{{base}}css/common.css" rel="stylesheet" type="text/css">
+        <link href="{{base}}css/blue.css" rel="stylesheet" type="text/css">
+    {% endblock %}
+
+    {% block project-navigation %}
+        <h5>Apache Directory Studio</h5>
+        <ul>
+            <li><a href="{{base}}studio/">Home</a></li>
+            <li><a href="{{base}}studio/features.html">Features</a></li>
+            <li><a href="{{base}}studio/screenshots.html">Screenshots</a></li>
+        </ul>
+        <h5>Downloads</h5>
+        <ul>
+            <li><a href="{{base}}studio/2.0/download/">Version 2.0 M3</a>&nbsp;&nbsp;<IMG src="{{base}}images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+            <li><a href="{{base}}studio/downloads.html">Version 1.5.3</a></li>
+            <li><a href="{{base}}studio/nightly-builds.html">Nightly Builds</a></li>
+            <li><a href="{{base}}studio/download-old-versions.html">Older Versions</a></li>
+        </ul>
+        <h5>Documentation</h5>
+        <ul>
+            <li><a href="{{base}}studio/users-guide.html">User's Guide</a></li>
+            <li><a href="{{base}}studio/developers-guide.html">Developer's Guide</a></li>
+            <li><a href="{{base}}studio/gen-docs/1.5.2.v20091211/index.html">Generated reports (e.g. JavaDocs)</a></li>
+            <li><a href="{{base}}studio/faqs.html">FAQs</a></li>
+        </ul>
+        <h5>Ressources</h5>
+        <ul>
+            <li><a href="{{base}}studio/issue-tracking.html">Issue Tracking</a></li>
+            <li><a href="{{base}}studio/changelog.html">ChangeLog</a></li>
+            <li><a href="{{base}}studio/mailing-lists.html" >Mailing Lists</a></li>
+            <li><a href="{{base}}studio/testimonials.html">Testimonials</a></li>
+        </ul>
+    {% endblock %}
+{% endextends %}
+
+{% block content %}{{ content|markdown }}{% endblock %}
+
+{% include "footer.html" %}

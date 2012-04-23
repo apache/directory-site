@@ -1,0 +1,10 @@
+{% extends "header.html" %}
+{% block css %}
+	<link href="{{base}}css/common.css" rel="stylesheet" type="text/css">
+	<link href="{{base}}css/brown.css" rel="stylesheet" type="text/css">
+{% endblock %}
+{% endextends %}
+
+{% block content %}{{ content|markdown }}{% endblock %}
+
+{% include "footer.html" %}
