@@ -1,8 +1,29 @@
 {% extends "header.html" %}
-{% block css %}
-	<link href="{{base}}css/common.css" rel="stylesheet" type="text/css">
-	<link href="{{base}}css/brown.css" rel="stylesheet" type="text/css">
-{% endblock %}
+    {% block css %}
+	    <link href="{{base}}css/common.css" rel="stylesheet" type="text/css">
+	    <link href="{{base}}css/brown.css" rel="stylesheet" type="text/css">
+    {% endblock %}
+
+    {% block project-navigation %}
+    <h5>Latest Downloads</h5>
+    <ul>
+	    <li><a href="{{base}}api/downloads.html">Version 1.0.0-M11</a>&nbsp;&nbsp;<IMG src="{{base}}images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+    </ul>
+    <h5>Getting Started</h5>
+    <ul>
+        <li><a href="{{base}}api/vision.html">Vision</a></li>
+        <li><a href="{{base}}api/java-api.html">Java API</a></li>
+        <li><a href="{{base}}api/groovy-ldap.html">Groovy API</a></li>
+    </ul>
+    <h5>Documentation</h5>
+    <ul>
+	    <li><a href="{{base}}api/five-minutes-tutorial.html">Five minutes tutorial</a></li>
+	    <li><a href="{{base}}api/user-guide.html">User Guide</a></li>
+        <li><a href="{{base}}api/gen-docs/latest/apidocs/">JavaDocs</a></li>
+        <li><a href="{{base}}api/gen-docs/latest/">Generated Reports</a></li>
+        <li><a href="{{base}}api/developer-guide.html">Developer Guide</a></li>
+    </ul>
+    {% endblock %}
 {% endextends %}
 
 {% block content %}{{ content|markdown }}{% endblock %}
