@@ -5,6 +5,7 @@
 	{% endblock %}
 {% endextends %}
 
-{% block content %}{{ content|markdown }}{% endblock %}
+{% block content %}{{ content|safe }}{% endblock %}
+{{ headers.test }}
 
 {% include "footer.html" %}

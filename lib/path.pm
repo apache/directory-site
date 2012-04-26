@@ -1,9 +1,14 @@
 package path;
 
+# Versions (for download links)
+our $version_api = "1.O.0-M11";
+our $version_apacheds = "2.0.0-M6";
+our $version_studio = "2.0.0.v20120224";
+
 # All our pages use the same view function
 our @patterns = (
     # Basic HTML content
-    [qr!^/.*\.html$!,   template_page => {} ],
+    [qr!^/.*\.html$!, template_page => {} ],
     
     # Apache DS sub-project pages
     [qr!apacheds\/.*?\.mdtext$!, template_page => {
@@ -14,10 +19,18 @@ our @patterns = (
     [qr!api\/.*?\.mdtext$!, template_page => {
         template => "page-api.html",
         isDirAPI => true } ],
+        
+    # Apache Directory Studio sub-project pages
+    [qr!studio\/download-test\.mdtext$!, template_page => {
+        template => "studio/download-test.html",
+        isDirStudio => true, 
+        version => $version_studio } ],
+        
     # Apache Directory Studio sub-project pages
     [qr!studio\/.*?\.mdtext$!, template_page => {
         template => "page-studio.html",
-        isDirStudio => true  } ],
+        isDirStudio => true } ],
+        
     # Directory project global pages  
     [qr!^/.*\.mdtext$!, template_page => {
         template => "page.html",
