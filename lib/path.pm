@@ -10,28 +10,38 @@ our @patterns = (
     # Basic HTML content
     [qr!^/.*\.html$!, template_page => {} ],
     
+    #
     # Apache DS sub-project pages
+    #
     [qr!apacheds\/.*?\.mdtext$!, template_page => {
-        template => "page-apacheds.html",
+        template => "apacheds/page.html",
         isDirApacheDS => true } ],
     
+    #
     # LDAP API sub-project pages
+    #
     [qr!api\/.*?\.mdtext$!, template_page => {
-        template => "page-api.html",
+        template => "api/page.html",
         isDirAPI => true } ],
-        
+    
+    #
     # Apache Directory Studio sub-project pages
+    #
+    
+    # Download Apache Directory Studio test page
     [qr!studio\/download-test\.mdtext$!, template_page => {
         template => "studio/download-test.html",
         isDirStudio => true, 
         version => $version_studio } ],
         
-    # Apache Directory Studio sub-project pages
+    # Standard Apache Directory Studio page
     [qr!studio\/.*?\.mdtext$!, template_page => {
-        template => "page-studio.html",
+        template => "studio/page.html",
         isDirStudio => true } ],
-        
-    # Directory project global pages  
+    
+    #
+    # Apache Directory project pages
+    #
     [qr!^/.*\.mdtext$!, template_page => {
         template => "page.html",
         isDirSite => true } ]
