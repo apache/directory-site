@@ -28,9 +28,27 @@ our @patterns = (
     # Apache Directory Studio sub-project pages
     #
     
-    # Download Apache Directory Studio test page
-    [qr!studio\/download-test\.mdtext$!, template_page => {
-        template => "studio/download-test.html",
+    # Download Apache Directory Studio Linux page
+    [qr!studio\/download\/download-linux\.mdtext$!, template_page => {
+        template => "studio/download-linux.html",
+        isDirStudio => true, 
+        version => $version_studio } ],
+    
+    # Download Apache Directory Studio Mac OS X page
+    [qr!studio\/download\/download-macosx\.mdtext$!, template_page => {
+        template => "studio/download-macosx.html",
+        isDirStudio => true, 
+        version => $version_studio } ],
+    
+    # Download Apache Directory Studio Sources page
+    [qr!studio\/download\/download-sources\.mdtext$!, template_page => {
+        template => "studio/download-sources.html",
+        isDirStudio => true, 
+        version => $version_studio } ],
+    
+    # Download Apache Directory Studio Windows page
+    [qr!studio\/download\/download-windows\.mdtext$!, template_page => {
+        template => "studio/download-windows.html",
         isDirStudio => true, 
         version => $version_studio } ],
         
