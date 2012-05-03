@@ -1,7 +1,7 @@
 package path;
 
 # Versions (for download links)
-our $version_api = "1.O.0-M11";
+our $version_api = "1.0.0-M11";
 our $version_apacheds = "2.0.0-M6";
 our $version_studio = "2.0.0.v20120224";
 
@@ -18,8 +18,22 @@ our @patterns = (
         isDirApacheDS => true } ],
     
     #
-    # LDAP API sub-project pages
+    # Apache LDAP API sub-project pages
     #
+    
+    # Download Apache LDAP API Archive page
+    [qr!api\/download\/download-archive\.mdtext$!, template_page => {
+        template => "api/download-archive.html",
+        isDirAPI => true, 
+        version => $version_api } ],
+    
+    # Download Apache LDAP API Sources page
+    [qr!api\/download\/download-sources\.mdtext$!, template_page => {
+        template => "api/download-sources.html",
+        isDirAPI => true, 
+        version => $version_api } ],
+    
+    # Standard Apache LDAP API page
     [qr!api\/.*?\.mdtext$!, template_page => {
         template => "api/page.html",
         isDirAPI => true } ],
