@@ -9,53 +9,107 @@
     We suggest the following mirror site for your download:
 </p>
 
+<h2>Mac OS X 64 bit</h2>
+
 <p>
-    <div id="downloadContent">
-        <table border="0" width="100%">
+    <div class="download">
+        <table width="100%" class="noBorder">
             <tr>
                 <td>
-                    <a href="[preferred]/directory/studio/stable/{{version}}/ApacheDirectoryStudio-macosx-{{version}}.dmg">
-                        <img src="images/download.png" width="32" height="32" border="0"/>
+                    <a href="[preferred]/directory/studio/stable/{{version}}/ApacheDirectoryStudio-macosx-x86_64-{{version}}.dmg">
+                        <img src="{{base}}images/download.png" width="32" height="32" border="0"/>
                     </a>
                 </td>
                 <td>&nbsp;</td>
                 <td>
-                    <a href="[preferred]/directory/studio/stable/{{version}}/ApacheDirectoryStudio-macosx-{{version}}.dmg">
+                    <a href="[preferred]/directory/studio/stable/{{version}}/ApacheDirectoryStudio-macosx-x86_64-{{version}}.dmg">
                         <strong>
-                            [preferred]/&#91;...&#93;/ApacheDirectoryStudio-macosx-{{version}}.dmg
+                            [preferred]/&#91;...&#93;/ApacheDirectoryStudio-macosx-x86_64-{{version}}.dmg
                         </strong>
                     </a>
                 </td>
                 <td align="right">
-                    [<a href="http://archive.apache.org/dist/directory/studio/stable/{{version}}/ApacheDirectoryStudio-macosx-{{version}}.dmg.asc">ASC</a>-<a href="http://archive.apache.org/dist/directory/studio/stable/{{version}}/ApacheDirectoryStudio-macosx-{{version}}.dmg.md5">MD5</a>]
+                    [<a href="http://archive.apache.org/dist/directory/studio/stable/{{version}}/ApacheDirectoryStudio-macosx-x86_64-{{version}}.dmg.asc">ASC</a>-<a href="http://archive.apache.org/dist/directory/studio/stable/{{version}}/ApacheDirectoryStudio-macosx-x86_64-{{version}}.dmg.md5">MD5</a>]
                 </td>
             </tr>
         </table>
     </div>
 </p>
 
+<h2>Mac OS X 32 bit</h2>
+
 <p>
-    <form action="[location]" method="get" id="SelectMirror">
-        Other mirrors:
-        <select name="Preferred">
-            [if-any http]
-            <optgroup label="HTTP mirrors">
-                [for http]<option value="[http]">[http]</option>[end]
-            </potgroup>
-            [end]
-            [if-any ftp]
-            <optgroup label="FTP mirrors">
-                [for ftp]<option value="[ftp]">[ftp]</option>[end]
-            </potgroup>
-            [end]
-            [if-any backup]
-            <optgroup label="Backup mirrors">
-                [for backup]<option value="[backup]">[backup] (backup)</option>[end]
-            </potgroup>
-            [end]
-        </select>
-        <input type="submit" value="Change Mirror"/>
-    </form>
+    <div class="download">
+        <table width="100%" class="noBorder">
+            <tr>
+                <td>
+                    <a href="[preferred]/directory/studio/stable/{{version}}/ApacheDirectoryStudio-macosx-x86-{{version}}.dmg">
+                        <img src="{{base}}images/download.png" width="32" height="32" border="0"/>
+                    </a>
+                </td>
+                <td>&nbsp;</td>
+                <td>
+                    <a href="[preferred]/directory/studio/stable/{{version}}/ApacheDirectoryStudio-macosx-x86-{{version}}.dmg">
+                        <strong>
+                            [preferred]/&#91;...&#93;/ApacheDirectoryStudio-macosx-x86-{{version}}.dmg
+                        </strong>
+                    </a>
+                </td>
+                <td align="right">
+                    [<a href="http://archive.apache.org/dist/directory/studio/stable/{{version}}/ApacheDirectoryStudio-macosx-x86-{{version}}.dmg.asc">ASC</a>-<a href="http://archive.apache.org/dist/directory/studio/stable/{{version}}/ApacheDirectoryStudio-macosx-x86-{{version}}.dmg.md5">MD5</a>]
+                </td>
+            </tr>
+        </table>
+    </div>
 </p>
+
+<p>&nbsp;</p>
+
+{% include "download-change-mirror.html" %}
+
+<p>&nbsp;</p>
+
+<h1>Installation</h1>
+                    
+<p>
+    <table class="noBorder">
+        <tr>
+            <td width="64" height="64"><img src="{{base}}images/figure_1.gif" width="64" height="64"/></td>
+            <td><img src="images/installation_macosx_1.jpg" width="225" height="120"/></td>
+            <td>&nbsp;&nbsp;</td>
+            <td>Click on the link above to download Apache Directory Studio for Mac OS X.<br />Your download appears in the download manager of your web browser.</td>
+        </tr>
+        <tr>
+            <td width="64" height="64"><img src="{{base}}images/figure_2.gif" width="64" height="64"/></td>
+            <td><img src="images/installation_macosx_2.jpg" width="225" height="161"/></td>
+            <td>&nbsp;&nbsp;</td>
+            <td>Double-click on the disk image to open it.<br/>It may have already been opened by your web browser.</td>
+        </tr>
+        <tr>
+            <td width="64" height="64"><img src="{{base}}images/figure_3.gif" width="64" height="64"/></td>
+            <td><img src="images/installation_macosx_3.jpg" width="225" height="207"/></td>
+            <td>&nbsp;&nbsp;</td>
+            <td>Drag-and-drop the <em>Apache Directory Studio</em> application on the <em>Applications</em> folder to install it.</td>
+        </tr>
+    </table>
+</p>
+
+<p>&nbsp;</p>
+
+<h1>Requirements</h1>
+
+<p>
+    Apache Directory Studio for Mac OS X requires at least:
+    <ul>
+        <li>Mac OS X version 10.4 (Tiger) or later.</li>
+        <li><a href="http://www.java.com/">a Java Runtime Environment</a> 6 or later.</li>
+    </ul>
+</p>
+
+<p>&nbsp;</p>
+
+    {% extends "download-verify-file-integrity.html" %}
+        {% block filename %}ApacheDirectoryStudio-macosx-x86_64-{{version}}.dmg{% endblock %}
+    {% endextends %}
     {% endblock %}
 {% endextends %}

@@ -1,0 +1,33 @@
+<p>
+    <form action="[location]" method="get" id="SelectMirror">
+        Other mirrors:
+        <select name="Preferred">
+            [if-any http]
+            <optgroup label="HTTP mirrors">
+                [for http]<option value="[http]">[http]</option>[end]
+            </potgroup>
+            [end]
+            [if-any ftp]
+            <optgroup label="FTP mirrors">
+                [for ftp]<option value="[ftp]">[ftp]</option>[end]
+            </potgroup>
+            [end]
+            [if-any backup]
+            <optgroup label="Backup mirrors">
+                [for backup]<option value="[backup]">[backup] (backup)</option>[end]
+            </potgroup>
+            [end]
+        </select>
+        <input type="submit" value="Change Mirror"/>
+    </form>
+</p>
+
+<p>
+    <div class="noteMacro" align="center" border="0" cellpadding="5" cellspacing="8" width="85%">
+        We encourage you to <a href="#verifyIntegrity">verify the integrity</a> of the downloaded file using:
+        <ul>
+            <li>the ASC file (OpenPGP compatible signature) with the <a href="http://www.apache.org/dist/directory/KEYS">KEYS file</a> (code signing keys used to sign the product)</li>
+            <li>the MD5 file (checksum).</li>
+        </ul>
+    </div>
+</p>

@@ -9,64 +9,63 @@
     We suggest the following mirror site for your download:
 </p>
 
+<h2>Windows 64 bit</h2>
+
 <p>
     <div class="download">
         <table width="100%" class="noBorder">
             <tr>
                 <td>
-                    <a href="[preferred]/directory/studio/stable/{{version}}/ApacheDirectoryStudio-win32-{{version}}.exe">
+                    <a href="[preferred]/directory/studio/stable/{{version}}/ApacheDirectoryStudio-win32-x86_64-{{version}}.exe">
                         <img src="{{base}}images/download.png" width="32" height="32" border="0"/>
                     </a>
                 </td>
                 <td>&nbsp;</td>
                 <td>
-                    <a href="[preferred]/directory/studio/stable/{{version}}/ApacheDirectoryStudio-win32-{{version}}.exe">
+                    <a href="[preferred]/directory/studio/stable/{{version}}/ApacheDirectoryStudio-win32-x86_64-{{version}}.exe">
                         <strong>
-                            [preferred]/&#91;...&#93;/ApacheDirectoryStudio-win32-{{version}}.exe
+                            [preferred]/&#91;...&#93;/ApacheDirectoryStudio-win32-x86_64-{{version}}.exe
                         </strong>
                     </a>
                 </td>
                 <td align="right">
-                    [<a href="http://archive.apache.org/dist/directory/studio/stable/{{version}}/ApacheDirectoryStudio-win32-{{version}}.exe.asc">ASC</a>-<a href="http://archive.apache.org/dist/directory/studio/stable/{{version}}/ApacheDirectoryStudio-win32-{{version}}.exe.md5">MD5</a>]
+                    [<a href="http://archive.apache.org/dist/directory/studio/stable/{{version}}/ApacheDirectoryStudio-win32-x86_64-{{version}}.exe.asc">ASC</a>-<a href="http://archive.apache.org/dist/directory/studio/stable/{{version}}/ApacheDirectoryStudio-win32-x86_64-{{version}}.exe.md5">MD5</a>]
                 </td>
             </tr>
         </table>
     </div>
 </p>
 
-<p>
-    <form action="[location]" method="get" id="SelectMirror">
-        Other mirrors:
-        <select name="Preferred">
-            [if-any http]
-            <optgroup label="HTTP mirrors">
-                [for http]<option value="[http]">[http]</option>[end]
-            </potgroup>
-            [end]
-            [if-any ftp]
-            <optgroup label="FTP mirrors">
-                [for ftp]<option value="[ftp]">[ftp]</option>[end]
-            </potgroup>
-            [end]
-            [if-any backup]
-            <optgroup label="Backup mirrors">
-                [for backup]<option value="[backup]">[backup] (backup)</option>[end]
-            </potgroup>
-            [end]
-        </select>
-        <input type="submit" value="Change Mirror"/>
-    </form>
-</p>
+<h2>Windows 32 bit</h2>
 
 <p>
-    <div class="noteMacro" align="center" border="0" cellpadding="5" cellspacing="8" width="85%">
-        We encourage you to <a href="#verifyIntegrity">verify the integrity</a> of the downloaded file using:
-        <ul>
-            <li>the ASC file (OpenPGP compatible signature) with the <a href="http://www.apache.org/dist/directory/KEYS">KEYS file</a> (code signing keys used to sign the product)</li>
-            <li>the MD5 file (checksum).</li>
-        </ul>
+    <div class="download">
+        <table width="100%" class="noBorder">
+            <tr>
+                <td>
+                    <a href="[preferred]/directory/studio/stable/{{version}}/ApacheDirectoryStudio-win32-x86-{{version}}.exe">
+                        <img src="{{base}}images/download.png" width="32" height="32" border="0"/>
+                    </a>
+                </td>
+                <td>&nbsp;</td>
+                <td>
+                    <a href="[preferred]/directory/studio/stable/{{version}}/ApacheDirectoryStudio-win32-x86-{{version}}.exe">
+                        <strong>
+                            [preferred]/&#91;...&#93;/ApacheDirectoryStudio-win32-x86-{{version}}.exe
+                        </strong>
+                    </a>
+                </td>
+                <td align="right">
+                    [<a href="http://archive.apache.org/dist/directory/studio/stable/{{version}}/ApacheDirectoryStudio-win32-x86-{{version}}.exe.asc">ASC</a>-<a href="http://archive.apache.org/dist/directory/studio/stable/{{version}}/ApacheDirectoryStudio-win32-x86-{{version}}.exe.md5">MD5</a>]
+                </td>
+            </tr>
+        </table>
     </div>
 </p>
+
+<p>&nbsp;</p>
+
+{% include "download-change-mirror.html" %}
 
 <p>&nbsp;</p>
 
@@ -108,42 +107,15 @@
 <p>
     Apache Directory Studio for Windows requires at least:
     <ul>
-	    <li>Windows XP, Vista or 7.</li>
-	    <li><span class="nobr"><a href="http://www.java.com/">a 32-bit Java Runtime Environment</a></span> 5 or later.</li>
+        <li>Windows XP, Vista or 7.</li>
+        <li><a href="http://www.java.com/">a Java Runtime Environment</a>6 or later.</li>
     </ul>
 </p>
 
 <p>&nbsp;</p>
 
-<h1>Verify the integrity of the file</h1>
-                    
-<p>The PGP signatures can be verified using PGP or GPG. First download the <a href="http://www.apache.org/dist/directory/KEYS">KEYS</a> as well as the <em>asc</em> signature file for the relevant distribution. Then verify the signatures using:</p>
-
-<div class="preformatted">
-    <div class="preformattedContent">
-        <pre>$ pgpk -a KEYS
-$ pgpv ApacheDirectoryStudio-win32-{{version}}.exe.asc</pre>
-    </div>
-</div>
-or
-<div class="preformatted">
-    <div class="preformattedContent">
-        <pre>$ pgp -ka KEYS
-$ pgp ApacheDirectoryStudio-win32-{{version}}.exe.asc</pre>
-    </div>
-</div>
-or
-<div class="preformatted">
-    <div class="preformattedContent">
-        <pre>$ gpg --import KEYS
-$ gpg --verify ApacheDirectoryStudio-win32-{{version}}.exe.asc</pre>
-    </div>
-</div>
-
-<p>&nbsp;</p>
-
-<p>Alternatively, you can verify the MD5 signature on the files. A unix program called <em>md5</em> or <em>md5sum</em> is included in many unix distributions. It is also available as part of <a href="http://www.gnu.org/software/textutils/textutils.html">GNU Textutils</a>. Windows users can get binary md5 programs from <a href="http://www.fourmilab.ch/md5/">here</a>, <a href="http://www.pc-tools.net/win32/freeware/console/">here</a>, or <a href="http://www.slavasoft.com/fsum/">here</a>.</p>
-
-<p>&nbsp;</p>
+    {% extends "download-verify-file-integrity.html" %}
+        {% block filename %}ApacheDirectoryStudio-win32-x86_64-{{version}}.exe{% endblock %}
+    {% endextends %}
     {% endblock %}
 {% endextends %}
