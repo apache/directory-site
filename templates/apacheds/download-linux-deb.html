@@ -1,0 +1,127 @@
+{% extends "apacheds/page.html" %}
+    {% block content %}
+<h1>Downloads for Linux Debian Package</h1>
+
+<p>
+    [if-any logo]
+    <a href="[link]"><img align="right" src="[logo]" border="0" /></a>
+    [end]
+    We suggest the following mirror site for your download:
+</p>
+
+<h2>Linux Debian Package 64 bit</h2>
+
+<p>
+    <div class="download">
+        <table width="100%" class="noBorder">
+            <tr>
+                <td>
+                    <a href="[preferred]/directory/apacheds/stable/2.0/{{version}}/apacheds-{{version}}-amd64.deb">
+                        <img src="{{base}}images/download.png" width="32" height="32" border="0"/>
+                    </a>
+                </td>
+                <td>&nbsp;</td>
+                <td>
+                    <a href="[preferred]/directory/apacheds/stable/2.0/{{version}}/apacheds-{{version}}-amd64.deb">
+                        <strong>
+                            [preferred]/&#91;...&#93;/apacheds-{{version}}-amd64.deb
+                        </strong>
+                    </a>
+                </td>
+                <td align="right">
+                    [<a href="http://archive.apache.org/dist/directory/apacheds/stable/2.0/{{version}}/apacheds-{{version}}-amd64.deb.asc">ASC</a>-<a href="http://archive.apache.org/dist/directory/apacheds/stable/2.0/{{version}}/apacheds-{{version}}-amd64.deb.md5">MD5</a>]
+                </td>
+            </tr>
+        </table>
+    </div>
+</p>
+
+<h2>Linux Debian Package 32 bit</h2>
+
+<p>
+    <div class="download">
+        <table width="100%" class="noBorder">
+            <tr>
+                <td>
+                    <a href="[preferred]/directory/apacheds/stable/2.0/{{version}}/apacheds-{{version}}-i386.deb">
+                        <img src="{{base}}images/download.png" width="32" height="32" border="0"/>
+                    </a>
+                </td>
+                <td>&nbsp;</td>
+                <td>
+                    <a href="[preferred]/directory/apacheds/stable/2.0/{{version}}/apacheds-{{version}}-i386.deb">
+                        <strong>
+                            [preferred]/&#91;...&#93;/apacheds-{{version}}-i386.deb
+                        </strong>
+                    </a>
+                </td>
+                <td align="right">
+                    [<a href="http://archive.apache.org/dist/directory/apacheds/stable/2.0/{{version}}/apacheds-{{version}}-i386.deb.asc">ASC</a>-<a href="http://archive.apache.org/dist/directory/apacheds/stable/2.0/{{version}}/apacheds-{{version}}-i386.deb.md5">MD5</a>]
+                </td>
+            </tr>
+        </table>
+    </div>
+</p>
+
+<p>&nbsp;</p>
+
+{% include "download-change-mirror.html" %}
+
+<p>&nbsp;</p>
+
+<h1>Installation</h1>
+                    
+<p>
+    <table class="noBorder">
+        <tr>
+            <td width="64" height="64"><img src="{{base}}images/figure_1.gif" width="64" height="64"/></td>
+            <td><img src="images/installation_linux_deb_1.jpg" width="225" height="130"/></td>
+            <td>&nbsp;&nbsp;</td>
+            <td>Click on the link above to download ApacheDS for your Linux architecture.<br />Your download appears in the download manager of your web browser.</td>
+        </tr>
+        <tr>
+            <td width="64" height="64"><img src="{{base}}images/figure_2.gif" width="64" height="64"/></td>
+            <td><img src="images/installation_linux_deb_2.jpg" width="225" height="159"/></td>
+            <td>&nbsp;&nbsp;</td>
+            <td>Double-click on the installer to open it.<br/>It may have already been opened by your web browser.</td>
+        </tr>
+        <tr>
+            <td width="64" height="64"><img src="{{base}}images/figure_3.gif" width="64" height="64"/></td>
+            <td><img src="images/installation_linux_deb_3.jpg" width="225" height="169"/></td>
+            <td>&nbsp;&nbsp;</td>
+            <td>The installer displays some information about what's going to be installed.<br>Click the <em>Install Package</em> button to start the installation.</td>
+        </tr>
+        <tr>
+            <td width="64" height="64"><img src="{{base}}images/figure_4.gif" width="64" height="64"/></td>
+            <td><img src="images/installation_linux_deb_4.jpg" width="225" height="151"/></td>
+            <td>&nbsp;&nbsp;</td>
+            <td>You might be prompted to enter your <em>root</em> password.</td>
+        </tr>
+        <tr>
+            <td width="64" height="64"><img src="{{base}}images/figure_5.gif" width="64" height="64"/></td>
+            <td><img src="images/installation_linux_deb_5.jpg" width="225" height="115"/></td>
+            <td>&nbsp;&nbsp;</td>
+            <td>The installation starts.</td>
+        </tr>
+    </table>
+</p>
+
+<p>&nbsp;</p>
+
+<h1>Requirements</h1>
+
+<p>
+    ApacheDS requires at least:
+    <ul>
+        <li>A recent Linux distribution supporting the *.deb install packages.</li>
+        <li><a href="http://www.java.com/">a Java Runtime Environment</a> 6 or later.</li>
+    </ul>
+</p>
+
+<p>&nbsp;</p>
+
+    {% extends "download-verify-file-integrity.html" %}
+        {% block filename %}apacheds-{{version}}-amd64.deb{% endblock %}
+    {% endextends %}
+    {% endblock %}
+{% endextends %}

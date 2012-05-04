@@ -13,6 +13,50 @@ our @patterns = (
     #
     # Apache DS sub-project pages
     #
+    
+    # Download ApacheDS Archive page
+    [qr!apacheds\/download\/download-archive\.mdtext$!, template_page => {
+        template => "apacheds/download-archive.html",
+        isDirApacheDS => true, 
+        version => $version_apacheds } ],
+    
+    # Download ApacheDS Linux BIN page
+    [qr!apacheds\/download\/download-linux-bin\.mdtext$!, template_page => {
+        template => "apacheds/download-linux-bin.html",
+        isDirApacheDS => true, 
+        version => $version_apacheds } ],
+    
+    # Download ApacheDS Linux DEB page
+    [qr!apacheds\/download\/download-linux-deb\.mdtext$!, template_page => {
+        template => "apacheds/download-linux-deb.html",
+        isDirApacheDS => true, 
+        version => $version_apacheds } ],
+    
+    # Download ApacheDS Linux RPM page
+    [qr!apacheds\/download\/download-linux-rpm\.mdtext$!, template_page => {
+        template => "apacheds/download-linux-rpm.html",
+        isDirApacheDS => true, 
+        version => $version_apacheds } ],
+    
+    # Download ApacheDS Mac OS X page
+    [qr!apacheds\/download\/download-macosx\.mdtext$!, template_page => {
+        template => "apacheds/download-macosx.html",
+        isDirApacheDS => true, 
+        version => $version_apacheds } ],
+    
+    # Download ApacheDS Sources page
+    [qr!apacheds\/download\/download-sources\.mdtext$!, template_page => {
+        template => "apacheds/download-sources.html",
+        isDirApacheDS => true, 
+        version => $version_apacheds } ],
+    
+    # Download ApacheDS Windows page
+    [qr!apacheds\/download\/download-windows\.mdtext$!, template_page => {
+        template => "apacheds/download-windows.html",
+        isDirApacheDS => true, 
+        version => $version_apacheds } ],
+    
+    # Standard ApacheDS page
     [qr!apacheds\/.*?\.mdtext$!, template_page => {
         template => "apacheds/page.html",
         isDirApacheDS => true } ],
