@@ -1,0 +1,114 @@
+Title: Source Repository
+Notice: Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    .
+    http://www.apache.org/licenses/LICENSE-2.0
+    .
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+
+# Source Repository
+
+## Source Repository Address
+
+To get the source, you will need to have subversion installed. Just type the following command to get the latest development version:
+
+    svn co http://svn.apache.org/repos/asf/directory/studio/trunk studio
+    
+If you are an authorized developer, just check out the code using *https* instead of *http*.
+
+## Browse the Sources
+
+You can view and explore online SVN at this address:
+
+> <http://svn.apache.org/viewvc/directory/studio/trunk/>
+
+## Source Repository Organization
+
+The repository is organized as follows :
+
+    |-- pom.xml                                       The main pom
+    |-- application                                   The packaged applications/installers for all supported platforms
+    |   |-- application-eclipse-plugins
+    |   |-- application-features
+    |   |-- application-linux-x86
+    |   |-- application-linux-x86_64
+    |   |-- application-macosx
+    |   |-- application-macosx-dmg
+    |   |-- application-plugins
+    |   |-- application-release
+    |   |-- application-updatesite
+    |   |-- application-win32
+    |   |-- application-win32-exe
+    |   |-- docs
+    |   |-- settings-hudson.xml
+    |-- features                                      The features
+    |   |-- apacheds.configuration.feature
+    |   |-- apacheds.feature
+    |   |-- ldapbrowser.feature
+    |   |-- ldifeditor.feature
+    |   |-- rcp.feature
+    |   |-- schemaeditor.feature
+    |-- helps                                         The help plugins in Docbook format 
+    |   |-- apacheds.configuration.help
+    |   |-- apacheds.help
+    |   |-- help-plugin-pom.xml
+    |   |-- ldapbrowser.help
+    |   |-- ldifeditor.help
+    |   |-- rcp.help
+    |   |-- schemaeditor.help
+    |-- libraries                                     3rd party libraries, packaged as Eclipse plugins
+    |   |-- org.antlr.antlr
+    |   |-- org.apache.commons.codec
+    |   |-- org.apache.commons.collections
+    |   |-- org.apache.commons.io
+    |   |-- org.apache.commons.lang
+    |   |-- org.apache.commons.logging
+    |   |-- org.apache.directory.shared.dsmlparser
+    |   |-- org.apache.directory.shared.i18n
+    |   |-- org.apache.directory.shared.ldap
+    |   |-- org.apache.httpcomponents.httpclient
+    |   |-- org.apache.httpcomponents.httpcore
+    |   |-- org.apache.logging.log4j
+    |   |-- org.apache.mina.core
+    |   |-- org.bouncycastle.bcprovjdk15
+    |   |-- org.slf4j.api
+    |   |-- org.slf4j.log4j12
+    |   |-- org.xpp3.xpp3
+    |-- plugins                                       The real plugins, here is the code
+    |   |-- aciitemeditor
+    |   |-- apacheds
+    |   |-- apacheds-launcher
+    |   |-- apacheds.configuration
+    |   |-- common.core
+    |   |-- common.ui
+    |   |-- connection.core
+    |   |-- connection.ui
+    |   |-- ldapbrowser.common
+    |   |-- ldapbrowser.core
+    |   |-- ldapbrowser.ui
+    |   |-- ldapservers
+    |   |-- ldapservers.apacheds.v153
+    |   |-- ldapservers.apacheds.v154
+    |   |-- ldapservers.apacheds.v155
+    |   |-- ldapservers.apacheds.v156
+    |   |-- ldapservers.apacheds.v157
+    |   |-- ldifeditor
+    |   |-- ldifparser
+    |   |-- rcp
+    |   |-- schemaeditor
+    |   |-- valueeditors
+    |-- repository                                    A local maven repository, contains the eclipse dependencies
+    |-- tests                                         Integration Tests
+    |   |-- test.integration.core
+    |   |-- test.integration.ui
+    |-- tools

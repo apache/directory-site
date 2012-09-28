@@ -1,0 +1,60 @@
+Title: Working on Apache Directory Studio
+Notice: Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    .
+    http://www.apache.org/licenses/LICENSE-2.0
+    .
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+
+# Working on Apache Directory Studio
+
+## Get and Prepare the Sources
+
+First, check out the active development branch of Apache Directory Studio and all co-projects run the following command:
+
+    svn co https://svn.apache.org/repos/asf/directory/studio/trunk studio
+
+Now, change to studio:
+
+    cd studio
+
+Run the following command to create eclipse descriptors (.project, .classpath files and .settings folder), and create the 'lib' folder as well as the META-INF/MANIFEST.MF files (needed to launch Apache Directory Studio inside Eclipse):
+
+    mvn install studio:eclipse
+
+**Note:** To make sure MANIFEST.MF files are correctly built the goal _install_ is _not_ optional.
+
+## Prepare Eclipse
+
+Declare a classpath variable named M2_REPO, pointing to ~/.m2/repository. You can declare new variables in Eclipse in _Window -> Preferences..._ and selecting _Java -> Build Path -> Classpath Variables_.
+
+Install SWTBot from the SWTBot update site <http://download.eclipse.org/technology/swtbot/galileo/dev-build/update-site>. Select both, SWTBot SWT Feature and SWTBot Eclipse Feature.
+
+To fulfill the coding standards it is recommended to import formatting profiles and code templates as described here: <http://cwiki.apache.org/DIRxDEV/coding-standards.html>
+
+
+## Import Projects into Eclipse
+
+Open the Import Wizard, select _General -> Existing Projects into Workspace_, on the next wizard page choos _Select root directory_ and browse for the checked-out _studio_ folder, select all projects and press _Finish_.
+
+Note that all the feature projects have errors because the feature.xml files contain maven variables that are replaced by the release build. So either ignore the errors in Eclipse or close the feature projects or don't import them.
+
+
+## Start Studio Plugins in a Runtime Environment
+
+To start the studio plugins in a runtime environment select _Run -> Open Run Dialog..._, select _Studio Runtime_ and press the _Run_ button.
+
+To start the core integration tests select _Run -> Open Run Dialog..._, select _Studio-Integration-Test-Core_ and press the _Run_ button.
+
+To start the UI integration tests select _Run -> Open Run Dialog..._, select _Studio-Integration-Test-UI_ and press the _Run_ button. Please make sure to use English locale for UI integration tests. Select _Window -> Preferences -> Plug-in Development -> Target Platform -> Tab Environment_ and set Locale to _en_.
+
