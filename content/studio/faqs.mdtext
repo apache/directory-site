@@ -1,0 +1,131 @@
+Title: FAQs
+Notice: Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    .
+    http://www.apache.org/licenses/LICENSE-2.0
+    .
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+    
+# FAQs
+
+### Buttons are not working (Linux only).
+
+In version 2.28, Gnome has been changed to use client-side windows. This could cause that some GUI widgets (buttons, trees) in Apache Directory Studio won't work as expected. If you encounter any problems set the environment variable GDK_NATIVE_WINDOWS to true before starting Studio:
+
+    GDK_NATIVE_WINDOWS=1 ./ApacheDirectoryStudio
+
+More information could be found [here](https://bugs.eclipse.org/bugs/show_bug.cgi?id=291257)
+
+### How to set the language of Studio?
+
+Studio currentlly is translated in three languages: English (en), French (fr) and German (de). When starting Studio, the language setting of your operation system is used to determine the language of Studio (On linux, the LC_CTYPE environment variable is used to determinate the default language). 
+
+However it is possible to force another language:
+
+* The first option is to start Apache Directory Studio with the following command line parameters:
+
+    * On Linux:
+
+            ./ApacheDirectoryStudio -nl en
+
+    * On Windows:
+
+            "Apache Directory Studio.exe" -nl en
+
+* The second option is to create a file _Apache Directory Studio.ini_ (for Windows) or _ApacheDirectoryStudio.ini_ (for Mac OS X and Linux) in Studio's installation directory (for Mac OS X the correct location is _Apache Directory Studio/Contents/MacOS_) with the following content:
+
+        -nl
+        en
+
+Please notice the line break between -nl and the language.
+
+
+### When creating a new connection I get the part of the wizard which allows me to "You can specify additional connection parameters". Buttons back, next and finish are disabled. Basically now way to add a new connection.
+
+This is an issue of release 1.0.0 and 1.0.1. It will be fixed in the next release 1.1.0. There is a workaround: Uncheck the "Get base DNs from Root DSE" check box, the 'Next' button will be activated.
+
+### When browsing and expanding an entry, Studio only shows 1000 child entries.
+
+Studio uses a client-side count limit when browsing the DIT. This limit is defined in the connection properties. See
+[Connection Properties]( http://directory.apache.org/studio/static/users_guide/ldap_browser/tools_connection_properties.html#tools_connection_properties_options) how to change it. 
+
+### How to set the Java VM to use?
+
+* The first option is to start Apache Directory Studio with the following command line parameters:
+
+    * On Linux:
+
+            ./ApacheDirectoryStudio -vm <path to java executable>
+
+    * On Windows:
+    
+            "Apache Directory Studio.exe" -vm <path to java executable>
+
+* The second option is to create a file _Apache Directory Studio.ini_ (for Windows) or _ApacheDirectoryStudio.ini_ (for Mac OS X and Linux) in Studio's installation directory (for Mac OS X the correct location is _Apache Directory Studio/Contents/MacOS_) with the following content:
+    
+        -vm
+        <path to java executable>
+
+Please notice the line break between -vm and the path.
+
+
+### How to increase the heap memory?
+
+* The first option is to start Apache Directory Studio with the following command line parameters:
+
+    * On Linux:
+            
+            ./ApacheDirectoryStudio -vmargs -Xms128m -Xmx512m -XX:PermSize=128m
+            -XX:MaxPermSize=128m
+            
+    * On Windows:
+            
+            "Apache Directory Studio.exe" -vmargs -Xms128m -Xmx512m -XX:PermSize=128m
+            -XX:MaxPermSize=128m
+
+* The second option is to create a file _Apache Directory Studio.ini_ (for Windows) or _ApacheDirectoryStudio.ini_ (for Mac OS X and Linux) in Studio's installation directory (for Mac OS X the correct location is _Apache Directory Studio/Contents/MacOS_) with the following content:
+
+        -vmargs
+        -Xms128m
+        -Xmx512m
+        -XX:PermSize=128m
+        -XX:MaxPermSize=128m
+        
+Please notice the line breaks.
+
+
+### Location of Apache Directory Studio settings
+
+The settings are located per default in your home directory under the directory _.ApacheDirectoryStudio_.
+
+The file containing all connections is:
+
+    .ApacheDirectoryStudio/.metadata/.plugins/org.apache.directory.studio.connection.core/connections.xml
+
+The file containing all searches and bookmarks is:
+
+    .ApacheDirectoryStudio/.metadata/.plugins/org.apache.directory.studio.ldapbrowser.core/browserconnections.xml
+
+The file containing the history of the connection wizard (recently used hosts and bind users) is:
+
+    .ApacheDirectoryStudio/.metadata/.plugins/org.apache.directory.studio.connection.ui/dialog_settings.xml
+
+The file containing the history of search settings (recently used DNs, filters, returning attributes) is:
+
+    .ApacheDirectoryStudio/.metadata/.plugins/org.apache.directory.studio.ldapbrowser.common/dialog_settings.xml
+
+There are some more _dialog_settings.xml_ files in the other plugins directories.
+
+Note: the location of the settings directory could be configured by changing the parameter "osgi.instance.area.default" in configuration/config.ini.
+
+
