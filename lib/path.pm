@@ -111,6 +111,11 @@ our @patterns = (
         version => $version_studio } ],
         
     # Standard Apache Directory Studio page
+    [qr!studio\/index\.mdtext$!, template_page => {
+        template => "studio/index.html",
+        isDirStudio => true } ],
+        
+    # Standard Apache Directory Studio page
     [qr!studio\/.*?\.mdtext$!, template_page => {
         template => "studio/page.html",
         isDirStudio => true } ],
