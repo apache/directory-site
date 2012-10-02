@@ -1,0 +1,8 @@
+{% extends "api/page.html" %}
+
+{% block content %}
+    {{content|markdown}}
+    {% block news %}
+        <div class="news">{% filter markdown %}{% include "../content/api/news.mdtext" %}{% endfilter %}</div>
+    {% endblock %}
+{% endblock %}

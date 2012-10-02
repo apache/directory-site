@@ -1,7 +1,7 @@
 {% extends "studio/page.html" %}
 
 {% block content %}
-    {{ content | markdown }}
+    {{content|markdown}}
     {% block news %}
         <div class="news">{% filter markdown %}{% include "../content/studio/news.mdtext" %}{% endfilter %}</div>
     {% endblock %}

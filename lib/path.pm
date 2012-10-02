@@ -55,6 +55,11 @@ our @patterns = (
         template => "apacheds/download-windows.html",
         isDirApacheDS => true, 
         version => $version_apacheds } ],
+        
+    # ApacheDS Index page
+    [qr!apacheds\/index\.mdtext$!, template_page => {
+        template => "apacheds/index.html",
+        isDirApacheDS => true } ],
     
     # Standard ApacheDS page
     [qr!apacheds\/.*?\.mdtext$!, template_page => {
@@ -76,6 +81,11 @@ our @patterns = (
         template => "api/download-sources.html",
         isDirAPI => true, 
         version => $version_api } ],
+        
+    # Apache LDAP API Index page
+    [qr!api\/index\.mdtext$!, template_page => {
+        template => "api/index.html",
+        isDirAPI => true } ],
     
     # Standard Apache LDAP API page
     [qr!api\/.*?\.mdtext$!, template_page => {
@@ -110,7 +120,7 @@ our @patterns = (
         isDirStudio => true, 
         version => $version_studio } ],
         
-    # Standard Apache Directory Studio page
+    # Apache Directory Studio Index page
     [qr!studio\/index\.mdtext$!, template_page => {
         template => "studio/index.html",
         isDirStudio => true } ],
@@ -121,8 +131,15 @@ our @patterns = (
         isDirStudio => true } ],
     
     #
-    # Apache Directory project pages
+    # Apache Directory Project pages
     #
+        
+    # Apache Directory Project Index page
+    [qr!index\.mdtext$!, template_page => {
+        template => "index.html",
+        isDirSite => true } ],
+    
+    # Standard Apache Directory Project page
     [qr!^/.*\.mdtext$!, template_page => {
         template => "page.html",
         isDirSite => true } ]
