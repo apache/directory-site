@@ -35,6 +35,60 @@
     {% endblock %}
 {% endextends %}
 
+{% if headers.navprev or headers.navup or headers.navnext %}
+    <div class="nav">
+        <div class="nav_prev">
+        {% if headers.navprev %}
+            <a href="{{ headers.navprev }}">{{ headers.navprevtext }}</a>
+		{% else %}
+			&nbsp;
+        {% endif %}
+        </div>
+        <div class="nav_up">
+        {% if headers.navup %}
+            <a href="{{ headers.navup }}">{{ headers.navuptext }}</a>
+		{% else %}
+			&nbsp;
+        {% endif %}
+        </div>
+        <div class="nav_next">
+        {% if headers.navnext %}
+            <a href="{{ headers.navnext }}">{{ headers.navnexttext }}</a>
+		{% else %}
+			&nbsp;
+        {% endif %}
+        </div>
+        <div class="clearfix"></div>
+    </div>
+{% endif %}
+
 {% block content %}{{ content|markdown }}{% endblock %}
+
+{% if headers.navprev or headers.navup or headers.navnext %}
+    <div class="nav">
+        <div class="nav_prev">
+        {% if headers.navprev %}
+            <a href="{{ headers.navprev }}">{{ headers.navprevtext }}</a>
+		{% else %}
+			&nbsp;
+        {% endif %}
+        </div>
+        <div class="nav_up">
+        {% if headers.navup %}
+            <a href="{{ headers.navup }}">{{ headers.navuptext }}</a>
+		{% else %}
+			&nbsp;
+        {% endif %}
+        </div>
+        <div class="nav_next">
+        {% if headers.navnext %}
+            <a href="{{ headers.navnext }}">{{ headers.navnexttext }}</a>
+		{% else %}
+			&nbsp;
+        {% endif %}
+        </div>
+        <div class="clearfix"></div>
+    </div>
+{% endif %}
 
 {% include "footer.html" %}
