@@ -1,0 +1,179 @@
+
+<!--
+   Licensed to the Apache Software Foundation (ASF) under one or more
+   contributor license agreements.  See the NOTICE file distributed with
+   this work for additional information regarding copyright ownership.
+   The ASF licenses this file to You under the Apache License, Version 2.0
+   (the "License"); you may not use this file except in compliance with
+   the License.  You may obtain a copy of the License at
+ 
+        http://www.apache.org/licenses/LICENSE- 2.0
+ 
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+-->
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML>
+    <HEAD>
+        <META http-equiv="Content-Type" content="text/html;charset=UTF-8">
+        <TITLE>Apache Directory - LDAP Stored Procedures and Triggers in ApacheDS</TITLE>
+        <LINK href="http://directory.apache.org/staticresources/common.css" rel="stylesheet" type="text/css">
+        <LINK href="http://directory.apache.org/staticresources/green.css" rel="stylesheet" type="text/css">
+        <LINK rel="shortcut icon" href="http://directory.apache.org/staticresources/images/server-icon_16x16.png">
+        <!-- Google Analytics -->
+        <SCRIPT src="http://www.google-analytics.com/urchin.js" type="text/javascript"></SCRIPT>  
+        <SCRIPT type="text/javascript">
+            _uacct = "UA-1358462-1";
+            urchinTracker();
+        </SCRIPT>
+        <!-- JQuery inclusion -->
+        <SCRIPT type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></SCRIPT>
+        <!-- Loading the script for the edit button -->
+        <SCRIPT>
+            $(document).ready( function()
+            {
+                $("#editZone").hover( function()
+                {
+                    $("#editZoneLink").stop().animate({opacity: 1}, 1000, function()
+                    {
+                        $("#editZoneLink").fadeIn();
+                    });
+                }
+                , function ()
+                {
+                    $("#editZoneLink").stop().fadeOut();
+                });
+            });
+        </SCRIPT>
+    </HEAD>
+    <BODY>
+        <DIV id="editZone">
+            <DIV id="editZoneLink" style="display: none; height: 60px; width: 60px;">
+                <A href="https://cwiki.apache.org/confluence/pages/editpage.action?pageId=62861" title="Edit this page" alt="Edit this page"><IMG style="position: absolute; right:5px; top:5px;" src="http://directory.apache.org/staticresources/images/edit.png" height="52" width="39" border="0"></A>
+            </DIV>
+        </DIV>
+        <A name="top"></A>
+        <DIV id="container">
+            <DIV id="header">
+                <DIV id="subProjectsNavBar">
+                    <A href="http://directory.apache.org/"><STRONG>Apache Directory Project</STRONG></A>
+                    &nbsp;|&nbsp;
+                    <A href="http://directory.apache.org/apacheds/1.5/">ApacheDS</A>
+                    &nbsp;|&nbsp;
+                    <A href="http://directory.apache.org/studio/">Apache Directory Studio</A>
+                    &nbsp;|&nbsp;
+                    <A href="http://directory.apache.org/api/">Apache LDAP API</A>
+                </DIV><!-- subProjectsNavBar -->
+            </DIV><!-- header -->
+            <DIV id="content">
+                <DIV id="leftColumn">
+                    <DIV id="navigation">
+                                            <H5><A name="Navigation-LatestNews"></A>Latest News</H5>
+
+<UL>
+	<LI><A href="http://directory.apache.org/#news" class="external-link" rel="nofollow">ApacheDS</A></LI>
+	<LI><A href="http://directory.apache.org/studio#news" class="external-link" rel="nofollow">Apache Directory Studio</A></LI>
+	<LI><A href="http://directory.apache.org/api#news" class="external-link" rel="nofollow">Apache LDAP API</A></LI>
+</UL>
+
+
+<H5><A name="Navigation-LatestDownloads"></A>Latest Downloads</H5>
+
+<UL>
+	<LI><A href="http://directory.apache.org/apacheds/2.0/downloads.html" class="external-link" rel="nofollow">ApacheDS 2.0.0-M8</A>&nbsp;&nbsp;<IMG src="http://directory.apache.org/staticresources/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></LI>
+	<LI><A href="http://directory.apache.org/apacheds/1.5/downloads.html" class="external-link" rel="nofollow">ApacheDS 1.5.7</A></LI>
+	<LI><A href="http://directory.apache.org/studio/2.0/download/" class="external-link" rel="nofollow">Studio 2.0 M3</A>&nbsp;&nbsp;<IMG src="http://directory.apache.org/staticresources/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></LI>
+	<LI><A href="http://directory.apache.org/studio/downloads.html" class="external-link" rel="nofollow">Studio 1.5.3</A></LI>
+	<LI><A href="http://directory.apache.org/api/downloads.html" class="external-link" rel="nofollow">LDAP API 1.0.0-M13</A>&nbsp;&nbsp;<IMG src="http://directory.apache.org/staticresources/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></LI>
+</UL>
+
+
+<H5><A name="Navigation-SubProjects"></A>Sub-Projects</H5>
+
+<UL>
+	<LI><A href="http://directory.apache.org/apacheds/1.5/" class="external-link" rel="nofollow">ApacheDS</A></LI>
+	<LI><A href="http://directory.apache.org/studio/" class="external-link" rel="nofollow">Apache Directory Studio</A></LI>
+	<LI><A href="http://directory.apache.org/api/" class="external-link" rel="nofollow">Apache LDAP API</A></LI>
+</UL>
+
+
+<H5><A name="Navigation-Sandbox"></A>Sandbox</H5>
+
+<UL>
+	<LI><A href="http://directory.apache.org/triplesec/" class="external-link" rel="nofollow">Triplesec</A></LI>
+</UL>
+
+
+<H5><A name="Navigation-Resources"></A>Resources</H5>
+
+<UL>
+	<LI><A href="http://directory.apache.org/community%26resources/articles.html" class="external-link" rel="nofollow">Articles</A></LI>
+	<LI><A href="http://directory.apache.org/community%26resources/conference-materials.html" class="external-link" rel="nofollow">Conferences</A></LI>
+	<LI><A href="http://directory.apache.org/community%26resources/testimonies.html" class="external-link" rel="nofollow">Testimonials</A></LI>
+	<LI><A href="http://directory.apache.org/community%26resources/ldap-renaissance.html" class="external-link" rel="nofollow">Vision</A></LI>
+	<LI><A href="http://cwiki.apache.org/DIRxINTEROP" class="external-link" rel="nofollow">Interoperability</A></LI>
+</UL>
+
+
+<H5><A name="Navigation-Support"></A>Support</H5>
+
+<UL>
+	<LI><A href="http://directory.apache.org/community%26resources/mailing-lists-and-irc.html" class="external-link" rel="nofollow">Mailing Lists &amp; IRC</A></LI>
+	<LI><A href="http://directory.apache.org/community%26resources/sources.html" class="external-link" rel="nofollow">Sources</A></LI>
+	<LI><A href="http://directory.apache.org/community%26resources/issue-tracking.html" class="external-link" rel="nofollow">Issue Tracking</A></LI>
+	<LI><A href="http://directory.apache.org/community%26resources/commercial-support.html" class="external-link" rel="nofollow">Commercial Support</A></LI>
+</UL>
+
+
+<H5><A name="Navigation-Community"></A>Community</H5>
+
+<UL>
+	<LI><A href="http://directory.apache.org/community%26resources/contribute.html" class="external-link" rel="nofollow">How to Contribute</A></LI>
+	<LI><A href="http://directory.apache.org/community%26resources/the-team.html" class="external-link" rel="nofollow">Team</A></LI>
+	<LI><A href="http://directory.apache.org/community%26resources/open-group-certification.html" class="external-link" rel="nofollow">LDAP Certification</A></LI>
+	<LI><A href="http://directory.apache.org/community%26resources/proposal-for-an-apache-directory-project.html" class="external-link" rel="nofollow">Original Proposal</A></LI>
+	<LI><A href="http://directory.apache.org/community%26resources/thanks-to.html" class="external-link" rel="nofollow">Special Thanks</A></LI>
+</UL>
+
+
+<H5><A name="Navigation-AboutApache"></A>About Apache</H5>
+<UL>
+	<LI><A href="http://www.apache.org/" class="external-link" rel="nofollow">Apache</A></LI>
+	<LI><A href="http://www.apache.org/licenses/" class="external-link" rel="nofollow">License</A></LI>
+	<LI><A href="http://www.apache.org/foundation/sponsorship.html" class="external-link" rel="nofollow">Sponsorship</A></LI>
+	<LI><A href="http://www.apache.org/foundation/thanks.html" class="external-link" rel="nofollow">Thanks</A></LI>
+	<LI><A href="http://www.apache.org/security/" class="external-link" rel="nofollow">Security</A></LI>
+</UL>
+                    </DIV><!-- navigation -->
+                </DIV><!-- leftColumn -->
+                <DIV id="rightColumn">
+                    <H1><A name="LDAPStoredProceduresandTriggersinApacheDS-LDAPStoredProceduresandTriggersinApacheDS"></A>LDAP Stored Procedures and Triggers in ApacheDS</H1>
+
+<H2><A name="LDAPStoredProceduresandTriggersinApacheDS-Abstract"></A>Abstract</H2>
+
+<BLOCKQUOTE>
+<P>LDAP directories lack stored procedure and trigger facilities which have been provided by relational database management systems for many years. The need for these rich integration tier constructs drives information architects towards the use of relational databases for managing centralized information that would have best been served by directories. A novel model for specifying stored procedures and triggers in LDAP directories is presented. Rather than introducing incompatible changes to the protocol, these features were designed by making use of LDAP extension points. LDAP stored procedures allow users to define their own server side routines and to call them via an LDAP extended operation. LDAP triggers raised by standard LDAP operations invoke LDAP stored procedures. Triggers can be defined on individual entries or on sets of entries using subtree specifications based on the X.500 administrative model adopted by LDAP. The proposed models have been realized and tested within the Apache Directory Server.</P></BLOCKQUOTE>
+
+<H2><A name="LDAPStoredProceduresandTriggersinApacheDS-Information"></A>Information</H2>
+<UL>
+	<LI>Presented by Ersin Er on September 7 at  <A href="http://www.guug.de/veranstaltungen/ldapcon2007/abstracts.html#4_3_1" class="external-link" rel="nofollow">LDAPcon</A> in Cologne, Germany.</LI>
+</UL>
+
+
+<H2><A name="LDAPStoredProceduresandTriggersinApacheDS-Materials"></A>Materials</H2>
+<UL>
+	<LI><A href="ldap-stored-procedures-and-triggers-in-apacheds.data/LDAPcon.2007_LDAP.Stored.Procedures.and.Triggers.in.ApacheDS_by.Ersin.Er_Paper.pdf">Paper (PDF)</A></LI>
+	<LI><A href="ldap-stored-procedures-and-triggers-in-apacheds.data/LDAPcon.2007_LDAP.Stored.Procedures.and.Triggers.in.ApacheDS_by.Ersin.Er_Presentation.pdf">Presentation (PDF)</A></LI>
+</UL>
+
+                </DIV><!-- rightColumn -->
+                <DIV id="endContent"></DIV>
+            </DIV><!-- content -->
+            <DIV id="footer">&copy; 2003-2012, <A href="http://www.apache.org/">The Apache Software Foundation</A>&nbsp;-&nbsp;<A href="http://directory.apache.org/privacy-policy.html">Privacy Policy</A><BR>Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec, Triplesec, Apache, the Apache feather logo, and the Apache Directory project logos are trademarks of The Apache Software Foundation.</DIV>
+        </DIV><!-- container -->
+    </BODY>
+</HTML>
