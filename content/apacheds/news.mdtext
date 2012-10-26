@@ -1,13 +1,79 @@
 # News
 
-## News 1 _posted on MMMM DD, YYYY_
+## ApacheDS 2.0.0-M8 released _posted on October 12, 2012_
 
-Text for _News 1_
+The Apache Directory team is pleased to announce the release of ApacheDS 2.0.0-M8, the eigth milestone toward a 2.0 version.
 
-## News 2 _posted on MMMM DD, YYYY_
+ApacheDS is an extensible and embeddable directory server entirely written in Java, which has been certified LDAPv3 compatible by the Open Group. Besides LDAP it supports Kerberos 5 and the Change Password Protocol. It has been designed to introduce triggers, stored procedures, queues and views to the world of LDAP which has lacked these rich constructs.
 
-Text for _News 2_
+Here is the release note for Apache Directory ApacheDS 2.0.0-M8:
 
-## News 3 _posted on MMMM DD, YYYY_
+* [DIRSERVER-1458 - Cursor API generic usage is totally wrong](https://issues.apache.org/jira/browse/DIRSERVER-1458)
+* [DIRSERVER-1624 - Index are not created when added after the server has been started](https://issues.apache.org/jira/browse/DIRSERVER-1624)
+* [DIRSERVER-1655 - Possible incorrect insertion of modifications in the consumer log](https://issues.apache.org/jira/browse/DIRSERVER-1655)
+* [DIRSERVER-1659 - the apacheds.sh/bat files contains a hard coded revision. This is not good](https://issues.apache.org/jira/browse/DIRSERVER-1659)
+* [DIRSERVER-1663 - NPE when doing add/delete and search at the same time on the same entries](https://issues.apache.org/jira/browse/DIRSERVER-1663)
+* [DIRSERVER-1677 - Dependencies cleanup](https://issues.apache.org/jira/browse/DIRSERVER-1677)
+* [DIRSERVER-1689 - testNoSearchByNonAdmin does not throw an LdapNoPermissionException, as expected](https://issues.apache.org/jira/browse/DIRSERVER-1689)
+* [DIRSERVER-1706 - be sure we close the cursors when the session expires and if we have paged searches or persistent search going on](https://issues.apache.org/jira/browse/DIRSERVER-1706)
+* [DIRSERVER-1709 - Adding an index does not create the index if the server is already started](https://issues.apache.org/jira/browse/DIRSERVER-1709)
+* [DIRSERVER-1710 - The memory default (128M) is not enouh in most case](https://issues.apache.org/jira/browse/DIRSERVER-1710)
+* [DIRSERVER-1715 - Implement backward browse for DescendantCursor and ChildrenCursor](https://issues.apache.org/jira/browse/DIRSERVER-1715)
+* [DIRSERVER-1718 - Problems when adding a schema containing one or more uppercased letters](https://issues.apache.org/jira/browse/DIRSERVER-1718)
+* [DIRSERVER-1722 - The PagedSearchIT.testPagedSearchWrongCookie() test blocks randomly the build](https://issues.apache.org/jira/browse/DIRSERVER-1722)
+* [DIRSERVER-1723 - Potential LRUCache exhaustion with searches](https://issues.apache.org/jira/browse/DIRSERVER-1723)
+* [DIRSERVER-1726 - DefaultPasswordValidator always throws PasswordPolicyException when consecutive non-letter chars are in RDN](https://issues.apache.org/jira/browse/DIRSERVER-1726)
+* [DIRSERVER-1727 - LDAP Searches against boolean attributes with booleanMatch equality never return matches](https://issues.apache.org/jira/browse/DIRSERVER-1727)
+* [DIRSERVER-1732 - ERR_04131 The value is expected to be a String](https://issues.apache.org/jira/browse/DIRSERVER-1732)
+* [DIRSERVER-1735 - When ads-pwdmaxage attribute is set to more then 2147483, then all user passwords are expirer forever.](https://issues.apache.org/jira/browse/DIRSERVER-1735)
+* [DIRSERVER-1737 - ApacheDS should be able to start even when one of its indexed attributes can't be found in the schema manager](https://issues.apache.org/jira/browse/DIRSERVER-1737)
+* [DIRSERVER-1738 - Can't restart ApacheDS after setting a value superior to Integer.MAX_VALUE in an AT with Integer syntax](https://issues.apache.org/jira/browse/DIRSERVER-1738)
+* [DIRSERVER-1739 - LDAP Searches Slow](https://issues.apache.org/jira/browse/DIRSERVER-1739)
+* [DIRSERVER-1744 - Compex LDAP search filters returning unmatched objects](https://issues.apache.org/jira/browse/DIRSERVER-1744)
+* [DIRSERVER-1747 - Presence index is not up to date when the server is started](https://issues.apache.org/jira/browse/DIRSERVER-1747)
+* [DIRSERVER-1748 - EqualityEvaluator does not work correctly](https://issues.apache.org/jira/browse/DIRSERVER-1748)
 
-Text for _News 3_
+
+Note that this is a milestone, and some parts of the API or configuration can change before the 2.0 GA. We don't have any defined time frame for the 2.0-GA release, we do expect to release a few more milestones before reaching the 2.0-GA.
+
+Downloads are available at [http://directory.apache.org/apacheds/2.0/downloads.html](http://directory.apache.org/apacheds/2.0/downloads.html)
+
+## ApacheDS 2.0.0-M7 released _posted on May 21, 2012_
+
+The Apache Directory team is pleased to announce the release of ApacheDS 2.0.0-M7, the seventh milestone toward a 2.0 version.
+
+ApacheDS is an extensible and embeddable directory server entirely written in Java, which has been certified LDAPv3 compatible by the Open Group. Besides LDAP it supports Kerberos 5 and the Change Password Protocol. It has been designed to introduce triggers, stored procedures, queues and views to the world of LDAP which has lacked these rich constructs.
+
+Here is the release note for Apache Directory ApacheDS 2.0.0-M7:
+
+[DIRSERVER-1093 - the ResourceRecordEncoder and QuestionRecordEncoder have bug for empty domainName](https://issues.apache.org/jira/browse/DIRSERVER-1093)
+[DIRSERVER-1697 - Creation of new syntax fails due to ERR_277 Attribute m-obsolete not declared in objectClasses of entry](https://issues.apache.org/jira/browse/DIRSERVER-1697)
+[DIRSERVER-1698 - Search on entries with multiple AVA in RDN does not work correctly if the initial RDN order is not used](https://issues.apache.org/jira/browse/DIRSERVER-1698)
+[DIRSERVER-1702 - Adding an index through annotation does not work](https://issues.apache.org/jira/browse/DIRSERVER-1702)
+[DIRSERVER-1712 - If the index are created using their alias, they are deleted immediately](https://issues.apache.org/jira/browse/DIRSERVER-1712)
+[DIRSERVER-1711 - Index initialization is taking way too much time](https://issues.apache.org/jira/browse/DIRSERVER-1711)
+[DIRSERVER-1713 - Error on console with first start of clean system](https://issues.apache.org/jira/browse/DIRSERVER-1713)
+
+Note that this is a milestone, and some parts of the API or configuration can change before the 2.0 GA. We don't have any defined time frame for the 2.0-GA release, we do expect to release a few more milestones before reaching the 2.0-GA.
+
+Downloads are available at [http://directory.apache.org/apacheds/2.0/downloads.html](http://directory.apache.org/apacheds/2.0/downloads.html)
+
+## ApacheDS 2.0.0-M6 released _posted on February 29, 2012_
+The Apache Directory team is pleased to announce the release of ApacheDS 2.0.0-M6, the sixth milestone toward a 2.0 version.
+
+ApacheDS is an extensible and embeddable directory server entirely written in Java, which has been certified LDAPv3 compatible by the Open Group. Besides LDAP it supports Kerberos 5 and the Change Password Protocol. It has been designed to introduce triggers, stored procedures, queues and views to the world of LDAP which has lacked these rich constructs.
+
+Here is the release note for Apache Directory ApacheDS 2.0.0-M6:
+
+Note that this is a milestone, and some parts of the API or configuration can change before the 2.0 GA. We don't have any defined time frame for the 2.0-GA release, we do expect to release a few more milestones before reaching the 2.0-GA.
+
+[DIRSERVER-1644 - User provided value is not retained during rename operation](https://issues.apache.org/jira/browse/DIRSERVER-1644)
+[DIRSERVER-1681 - adding entries with attribute userCertificate;binary fails with "No such attribute"](https://issues.apache.org/jira/browse/DIRSERVER-1681)
+[DIRSERVER-1692 - Unable to add a JPEG image to an entry due to an 'Invalid Attribute Syntax' error](https://issues.apache.org/jira/browse/DIRSERVER-1692)
+[DIRSERVER-1693 - Renaming an entry when the RDN uses a case insensitive AT should be possible](https://issues.apache.org/jira/browse/DIRSERVER-1693)
+[DIRSERVER-1694 - Renaming an existing entry with a DN containing upper cased chars will not store the CN as provided](https://issues.apache.org/jira/browse/DIRSERVER-1694)
+[DIRSERVER-1696 - Creation of an entry like cn=test1+cn=test2, ou=system should not be allowed](https://issues.apache.org/jira/browse/DIRSERVER-1696)
+[DIRSERVER-1699 - DN/RDN handling is incorrect when there are some escaped values into them](https://issues.apache.org/jira/browse/DIRSERVER-1699)
+[DIRSERVER-1700 - Version in Root DSE is reported as '$pom.version'](https://issues.apache.org/jira/browse/DIRSERVER-1700)
+
+Downloads are available at [http://directory.apache.org/apacheds/2.0/downloads.html](http://directory.apache.org/apacheds/2.0/downloads.html)
