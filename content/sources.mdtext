@@ -1,0 +1,213 @@
+Title: Sources
+Notice: Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    .
+    http://www.apache.org/licenses/LICENSE-2.0
+    .
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+
+# Sources
+
+Sources for the Apache Directory projects are currently managed through [Subversion](http://subversion.tigris.org|subversion.tigris.org). For each project you can find a detailed description how to checkout and build the source on the project documentation. This page is just a short overview.
+
+![Subversion](images/subversion_logo.png)
+
+## Web Access to Subversion
+
+If you just want to browse the source code, you can use the [web interface to Subversion](http://svn.apache.org/viewvc/directory). This is current at all times.
+
+## Normal Subversion Access
+
+Anyone can check code out of Subversion. You only need to specify a username and password in order to update the Subversion repository, and only Directory committers have the permissions to do that. We run Subversion over standard HTTPS, so hopefully you won't have problems with intervening firewalls.
+
+### Check out from Subversion
+
+Again, anyone can do this. Use a command like:
+
+	svn checkout http://svn.apache.org/repos/asf/directory/apacheds/trunk-with-dependencies
+
+to check out the current version of the server, for instance.
+
+The following table displays the URL of each project, and the URL where you can find information about how to build each project.
+
+<div class="table-wrap">
+	<table class="confluenceTable">
+		<tbody>
+			<tr>
+				<th class="confluenceTh"> Subproject/Documentation </th>
+				<th class="confluenceTh"> SVN URL </th>
+			</tr>
+			<tr>
+				<td class="confluenceTd"> 
+					<a href="http://directory.apache.org/apacheds/1.0/building.html" class="external-link" rel="nofollow">ApacheDS  1.0</a> 
+				</td>
+				<td class="confluenceTd"> 
+					<a href="http://svn.apache.org/repos/asf/directory/apacheds/branches/1.0-with-dependencies/" class="external-link" rel="nofollow">http://svn.apache.org/repos/asf/directory/apacheds/branches/1.0-with-dependencies/</a>
+				</td>
+			</tr>
+			<tr>
+				<td class="confluenceTd"> 
+					<a href="http://directory.apache.org/apacheds/1.5/building-trunks.html" class="external-link" rel="nofollow">ApacheDS  1.5 (dev)</a> 
+				</td>
+				<td class="confluenceTd"> 
+					<a href="http://svn.apache.org/repos/asf/directory/apacheds/trunk-with-dependencies/" class="external-link" rel="nofollow">http://svn.apache.org/repos/asf/directory/apacheds/trunk-with-dependencies/</a> 
+				</td>
+			</tr>
+			<tr>
+				<td class="confluenceTd"> 
+					<a href="http://directory.apache.org/triplesec/building-triplesec-server.html" class="external-link" rel="nofollow">Triplesec</a> 
+				</td>
+				<td class="confluenceTd"> 
+					<a href="http://svn.apache.org/repos/asf/directory/triplesec/trunk-with-dependencies/" class="external-link" rel="nofollow">http://svn.apache.org/repos/asf/directory/triplesec/trunk-with-dependencies/</a> 
+				</td>
+			</tr>
+			<tr>
+				<td class="confluenceTd"> 
+					<a href="http://directory.apache.org/ldapstudio/building.html" class="external-link" rel="nofollow">Apache Directory Studio</a> 
+				</td>
+				<td class="confluenceTd"> 
+					<a href="http://svn.apache.org/repos/asf/directory/studio/trunk/" class="external-link" rel="nofollow">http://svn.apache.org/repos/asf/directory/studio/trunk/</a> 
+				</td>
+			 </tr>
+			<tr>
+				<td class="confluenceTd"> 
+					<a href="http://directory.apache.org/api/building.html" class="external-link" rel="nofollow">Apache LDAP API</a> 
+				</td>
+				<td class="confluenceTd"> 
+						<a href="http://svn.apache.org/repos/asf/directory/clients/ldap/trunk/" class="external-link" rel="nofollow">http://svn.apache.org/repos/asf/directory/clients/ldap/trunk/</a> 
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+### Commit Changes to Subversion
+
+Any Directory committer should have a shell account on svn.apache.org. Before you can commit, you'll need to set a Subversion password for yourself. To do that, log in to svn.apache.org and run the command svnpasswd.
+
+Once your password is set, you can use a command like this to commit:
+
+	svn commit
+
+If Subversion can't figure out your username, you can tell it explicitly:
+
+	svn --username you commit
+
+Subversion will prompt you for a password, and once you enter it once, it will remember it for you. Note this is the password you configured with svnpasswd, not your shell or other password.
+
+<div class="panelMacro">
+	<table class="noteMacro">
+		<colgroup><col width="24"><col></colgroup>
+		<tbody>
+			<tr>
+				<td valign="top">
+					<img src="images/icons/warning.gif" alt="" align="absmiddle" border="0" height="16" width="16">
+				</td>
+				<td>
+					For committers to be able to commit modification, they should have had checked out the project files using *https* instead of *http*.
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+
+## Read Only Git Repositories
+
+There are also read only git repositories, which are mirroring the subversion repositories.
+
+<div class="table-wrap">
+	<table class="confluenceTable">
+		<tbody>
+			<tr>
+				<td class="confluenceTd">directory-clients.git </td>
+				<td class="confluenceTd">Apache Directory Clients  </td>
+				<td class="confluenceTd">git://git.apache.org/directory-clients.git  </td>
+				<td class="confluenceTd">
+					<a href="http://git.apache.org/directory-clients.git" class="external-link" rel="nofollow">http://git.apache.org/directory-clients.git</a>
+				</td>
+			</tr>
+			<tr>
+				<td class="confluenceTd">directory-daemon.git </td>
+				<td class="confluenceTd">Apache Directory Daemon </td>
+				<td class="confluenceTd">git://git.apache.org/directory-daemon.git </td>
+				<td class="confluenceTd">
+					<a href="http://git.apache.org/directory-daemon.git" class="external-link" rel="nofollow">http://git.apache.org/directory-daemon.git</a>
+				</td>
+			</tr>
+			<tr>
+				<td class="confluenceTd">directory-installers.git</td>
+				<td class="confluenceTd">Apache Directory Installers </td>
+				<td class="confluenceTd">git://git.apache.org/directory-installers.git</td>
+				<td class="confluenceTd">
+					<a href="http://git.apache.org/directory-installers.git" class="external-link" rel="nofollow">http://git.apache.org/directory-installers.git</a>
+				</td>
+			</tr>
+			<tr>
+				<td class="confluenceTd">directory-project.git </td>
+				<td class="confluenceTd">Apache Directory Project </td>
+				<td class="confluenceTd">git://git.apache.org/directory-project.git </td>
+				<td class="confluenceTd">
+					<a href="http://git.apache.org/directory-project.git" class="external-link" rel="nofollow">http://git.apache.org/directory-project.git</a>
+				</td>
+			</tr>
+			<tr>
+				<td class="confluenceTd">directory-samples.git </td>
+				<td class="confluenceTd">Apache Directory Samples </td>
+				<td class="confluenceTd">git://git.apache.org/directory-samples.git </td>
+				<td class="confluenceTd">
+					<a href="http://git.apache.org/directory-samples.git" class="external-link" rel="nofollow">http://git.apache.org/directory-samples.git</a>
+				</td>
+			</tr>
+			<tr>
+				<td class="confluenceTd">directory-server.git </td>
+				<td class="confluenceTd">Apache Directory Server </td>
+				<td class="confluenceTd">git://git.apache.org/directory-server.git </td>
+				<td class="confluenceTd">
+					<a href="http://git.apache.org/directory-server.git" class="external-link" rel="nofollow">http://git.apache.org/directory-server.git</a>
+				</td>
+			</tr>
+			<tr>
+				<td class="confluenceTd">directory-shared.git </td>
+				<td class="confluenceTd">Apache Directory Shared </td>
+				<td class="confluenceTd">git://git.apache.org/directory-shared.git </td>
+				<td class="confluenceTd">
+					<a href="http://git.apache.org/directory-shared.git" class="external-link" rel="nofollow">http://git.apache.org/directory-shared.git</a>
+				</td>
+			</tr>
+			<tr>
+				<td class="confluenceTd">directory-skins.git </td>
+				<td class="confluenceTd">Apache Directory Skins </td>
+				<td class="confluenceTd">git://git.apache.org/directory-skins.git </td>
+				<td class="confluenceTd">
+					<a href="http://git.apache.org/directory-skins.git" class="external-link" rel="nofollow">http://git.apache.org/directory-skins.git</a>
+				</td>
+			</tr>
+			<tr>
+				<td class="confluenceTd">directory-studio-plugin.git</td>
+				<td class="confluenceTd">Apache Directory Studio Plugin </td>
+				<td class="confluenceTd">git://git.apache.org/directory-studio-plugin.git </td>
+				<td class="confluenceTd">
+					<a href="http://git.apache.org/directory-studio-plugin.git" class="external-link" rel="nofollow">http://git.apache.org/directory-studio-plugin.git</a>
+				</td>
+			</tr>
+			<tr>
+				<td class="confluenceTd">directory-studio.git </td>
+				<td class="confluenceTd">Apache Directory Studio </td>
+				<td class="confluenceTd">git://git.apache.org/directory-studio.git </td>
+				<td class="confluenceTd">
+					<a href="http://git.apache.org/directory-studio.git" class="external-link" rel="nofollow">http://git.apache.org/directory-studio.git</a>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
