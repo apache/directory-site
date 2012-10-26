@@ -16,4 +16,52 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
     specific language governing permissions and limitations
     under the License.
 
-This is the homepage for **ApacheDS**.
+# ApacheDS&trade;
+
+**ApacheDS&trade;** is an extensible and embeddable directory server entirely written in Java, which has been certified LDAPv3 compatible by the Open Group. Besides LDAP it supports Kerberos 5 and the Change Password Protocol. It has been designed to introduce triggers, stored procedures, queues and views to the world of LDAP which has lacked these rich constructs.
+
+## Versioning Scheme
+
+The version number of *ApacheDS* has the following form:
+
+<DIV class="info" markdown="1">
+	&lt;major>.&lt;minor>.&lt;micro> \[-M&lt;milestone number> or -RC&lt;release candidate number>]
+</DIV>
+
+This scheme has three number components:
+
+* The __major__ number increases when there are incompatible changes in the API.
+* The __minor__ number increases when a new feature is introduced.
+* The __micro__ number increases when a bug or a trivial change is made.
+
+and an optional label that indicates the maturity of a release:
+
+* __M__ (Milestone) means the feature set can change at any time in the next milestone releases. The last milestone release becomes the first release candidate after a vote.
+* __RC__ (Release Candidate) means the feature set is frozen and the next RC releases will focus on fixing problems unless there is a serious flaw in design. The last release candidate becomes the first GA release after a vote.
+* No label implies __GA__ (General Availability), which means the release is stable enough and therefore ready for production environment.
+
+**ApacheDS** 1.0 is considered a dead branch. **ApacheDS** **1.5.X** are intermediary versions toward **ApacheDS** **2.0**, which is currently being developped.
+
+<DIV class="tip" markdown="1">
+	Users should start with the latest *2.0* version, even if it's not stabilized yet. 
+</DIV>
+
+<DIV class="info" markdown="1">
+	A **stable** version is a version with a frozen set of features, and a frozen **API**. We don't release a version if all the integration tests are not passing, so any release should be considered stable enogh to be used.<BR/>
+	Although we may add new features between two milestones, and the data structure may change, which may imply that the data have to be extracted and reimported in order for the server to be operational.<BR/>
+	The configuration might also evolve between two versions.
+</DIV>
+
+## Important new features in ApacheDS 2.0
+
+The following new features have been added in the 2.0 version :
+
+* Dynamic Schema
+* SASL/StartTLS
+* Multi-Master Replication, RFC 4533
+* Cache
+* LDIF based Configuration
+* Better performances 
+* Password Policy
+* LDIF Partition
+
