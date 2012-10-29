@@ -1,0 +1,116 @@
+Title: 1.3 - Installing and starting the server
+NavPrev: 1.2-some-background.html
+NavPrevText:  1.2 - Some Background. Directories, directory services and LDAP
+NavUp: 1-how-to-begin.html
+NavUpText: 1.1 - How to begin
+NavNext: 1.4-basic-configuration-tasks.html
+NavNextText: 1.4 - Basic configuration tasks
+Notice: Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    .
+    http://www.apache.org/licenses/LICENSE-2.0
+    .
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+
+# 1.3 - Installing and starting the server
+
+This section describes how ApacheDS can be installed and started on different platforms.
+
+[TOC]
+
+## Prerequisites
+
+* **Java 5.0** (at least). We recommend using [Sun's JDK](http://www.oracle.com/technetwork/java/javase/downloads/index.html) , but the server has also been successfully tested with JRockit 5.0 and with IBM Java 5.0. The server also works well with Java version 6 and 7. 
+You can check your java installation with:
+
+	java -version
+
+this should response something like:
+
+	java version "1.5.0_06"
+	Java(TM) 2 Runtime Environment, Standard Edition (build 1.5.0_06-b05)
+	Java HotSpot(TM) Client VM (build 1.5.0_06-b05, mixed mode)
+
+* using Linux: you must have a X11 graphical interface
+* **384 MB RAM** for the JVM. That's the default setting, how to change that is described [here|1.4. Basic configuration tasks#MemoryAllocation]
+
+
+## Download a server installer
+
+We provide native installers for several platforms:
+
+* Windows (exe)
+* Mac OS X (dmg)
+* Solaris x86 and SPARC (pkg)
+* Debian package (deb)
+* RPM package (rpm)
+* Linux Binary (bin)
+
+Additional we provide an zip and tar.gz archive suitable for any platform.
+
+You can download them from [here](http://http://directory.apache.org/apacheds/2.0/downloads.html).
+
+An option for people familiar with tools like Subversion and Maven is to built the server from the sources on their own. This is described  [here](http://directory.apache.org/community&resources/sources.html).
+
+
+# Installation on Windows
+
+Installing can be easily done using the Windows installer. Its interface and functionality is similar to other wizard based installers.
+
+<CENTER>
+![Windows Installer](../images/Windows_Installer.png)
+</CENTER>
+
+To install the ApacheDS as Windows service you need *Administrator* privileges.
+
+### Starting and stopping the server
+
+The server can be started and stopped with Windows Services manager (*Control Panel > Administrative Tools > Services*). You must be admin to do this.
+
+From there, you can easily start, stop and restart Apache DS.
+
+## Installation on Mac OS X
+
+To install Apache DS on Mac OS X, simply open the downloaded DMG file and then the "Apache Directory Server Installer.pkg" in it.
+
+<CENTER>
+![MacOSX installer](../images/MacOSX_Installer.png)
+</CENTER>
+
+From there, you will be guided to install Apache DS on your system.
+
+### Starting and stopping the server
+
+On Mac OS X, Apache DS is installed as a [launchd](http://developer.apple.com/macosx/launchd.html) service and is loaded at startup time (and upon successful installation).
+
+You can stop the server by unloading the launchd service with the following command line:
+
+	sudo launchctl unload /Library/LaunchDaemons/org.apache.directory.server.plist
+
+You can start the server by loading the launchd service with the following command line:
+
+	sudo launchctl load /Library/LaunchDaemons/org.apache.directory.server.plist
+
+If you want to disable the automatic startup of the server, just modify the plist file :
+
+       <key>Disabled</key>
+       <false/>
+
+should be replaced by
+
+       <key>Disabled</key>
+       <true/>
+
+## Installation on Linux and Solaris
+
+The installation for different installers is described on the [Apache Directory Server 2.0 Downloads](http://directory.apache.org/apacheds/2.0/downloads.html) page.
