@@ -76,6 +76,7 @@ If the user provides the correct password during the call of the ldapsearch comm
 
 Using JNDI, authentication via simple binds is accomplished by appropriate configuration. One option is to provide the parameters in a Hashtable object like this
 
+	:::java
 	import java.util.Hashtable;
 	
 	import javax.naming.Context;
@@ -156,6 +157,7 @@ The value "{SHA}nU4eI71bcnBGqeO0t9tXvY1u5oQ=" means that _SHA_ (Secure Hash Algo
 
 With some lines of code, it is quite easy to accomplish this task programatically in Java:
 
+	:::java
 	import java.security.MessageDigest;
 	import java.security.NoSuchAlgorithmException;
 	import sun.misc.BASE64Encoder;
@@ -303,6 +305,7 @@ The algorithm described above is implemented by many software solutions which ar
 
 For illustration purposes, here is a simple Java program which performs the steps with the help of JNDI. It uses anonymous bind for the first step, hence it must be enabled (replace with a technical user, if it better meets your requirements). 
 
+	:::java
 	import java.util.Hashtable;
 	import javax.naming.Context;
 	import javax.naming.NamingEnumeration;
