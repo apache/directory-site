@@ -16,7 +16,9 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
     specific language governing permissions and limitations
     under the License.
     
-# FAQs
+<h1>FAQs</h1>
+
+[TOC]
 
 ### Buttons are not working (Linux only).
 
@@ -96,7 +98,7 @@ Please notice the line break between -vm and the path.
 * The second option is to create a file _Apache Directory Studio.ini_ (for Windows) or _ApacheDirectoryStudio.ini_ (for Mac OS X and Linux) in Studio's installation directory (for Mac OS X the correct location is _Apache Directory Studio/Contents/MacOS_) with the following content:
 
         -vmargs
-        -Xms128m
+        -Xms128m/
         -Xmx512m
         -XX:PermSize=128m
         -XX:MaxPermSize=128m
@@ -110,19 +112,19 @@ The settings are located per default in your home directory under the directory 
 
 The file containing all connections is:
 
-    .ApacheDirectoryStudio/.metadata/.plugins/org.apache.directory.studio.connection.core/connections.xml
+    ~/.ApacheDirectoryStudio/.metadata/.plugins/org.apache.directory.studio.connection.core/connections.xml
 
 The file containing all searches and bookmarks is:
 
-    .ApacheDirectoryStudio/.metadata/.plugins/org.apache.directory.studio.ldapbrowser.core/browserconnections.xml
+    ~/.ApacheDirectoryStudio/.metadata/.plugins/org.apache.directory.studio.ldapbrowser.core/browserconnections.xml
 
 The file containing the history of the connection wizard (recently used hosts and bind users) is:
 
-    .ApacheDirectoryStudio/.metadata/.plugins/org.apache.directory.studio.connection.ui/dialog_settings.xml
+    ~/.ApacheDirectoryStudio/.metadata/.plugins/org.apache.directory.studio.connection.ui/dialog_settings.xml
 
 The file containing the history of search settings (recently used DNs, filters, returning attributes) is:
 
-    .ApacheDirectoryStudio/.metadata/.plugins/org.apache.directory.studio.ldapbrowser.common/dialog_settings.xml
+    ~/.ApacheDirectoryStudio/.metadata/.plugins/org.apache.directory.studio.ldapbrowser.common/dialog_settings.xml
 
 There are some more _dialog_settings.xml_ files in the other plugins directories.
 
