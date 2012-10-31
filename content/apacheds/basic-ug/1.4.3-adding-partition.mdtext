@@ -46,7 +46,7 @@ For the examples in the following sections, we want to add a partition with the 
 
 and select the _Partitions_ tab :
 
-![Studio Apacheds Partitions Configuration](images:studio-partitions-configuration.png)
+![Studio Apacheds Partitions Configuration](images/studio-partitions-configuration.png)
 
 Add another jdbmPartition element for the sevenSeas partition, just below the _example_ partition:
 
@@ -117,52 +117,11 @@ Here is the sample code to create a new partition o=sevenseas and its context en
 
 Here is a list of the used attributes, their default values and meaning :
 
-<div class="table-wrap">
-	<table class="confluenceTable">
-		<tbody>
-			<tr>
-				<th class="confluenceTh"> Property </th>
-				<th class="confluenceTh"> Description </th>
-				<th class="confluenceTh"> Default value </th>
-				<th class="confluenceTh"> Required </th>
-			</tr>
-			<tr>
-				<td class="confluenceTd"> ads-partitionId </td>
-				<td class="confluenceTd"> uniquely identifies the partition </td>
-				<td class="confluenceTd"> N/A </td>
-				<td class="confluenceTd"> yes </td>
-			</tr>
-			<tr>
-				<td class="confluenceTd"> ads-partitionSuffix </td>
-				<td class="confluenceTd"> a DN ("dc=example, dc=com", for instance) </td>
-				<td class="confluenceTd"> N/A </td>
-				<td class="confluenceTd"> yes </td>
-			</tr>
-			<tr>
-				<td class="confluenceTd"> ads-contextEntry </td>
-				<td class="confluenceTd"> The context entry </td>
-				<td class="confluenceTd"> Will be automatically deduced <br/>
-					if no value is provided </td>
-				<td class="confluenceTd"> no </td>
-			</tr>
-			<tr>
-				<td class="confluenceTd"> optimizerEnabled </td>
-				<td class="confluenceTd"> Tells the server to turn on the optimizer</td>
-				<td class="confluenceTd"> true </td>
-				<td class="confluenceTd"> no </td>
-			</tr>
-			<tr>
-				<td class="confluenceTd"> ads-partitionCacheSize </td>
-				<td class="confluenceTd"> The cache size (only for JDBM partitions) </td>
-				<td class="confluenceTd"> -1 (no cache) </td>
-				<td class="confluenceTd"> no </td>
-			</tr>
-			<tr>
-				<td class="confluenceTd"> ads-partitionSyncOnWrite </td>
-				<td class="confluenceTd"> sync disks on every write operation </td>
-				<td class="confluenceTd"> true </td>
-				<td class="confluenceTd"> no </td>
-			</tr>
-		</tbody>
-	</table>
-</div>
+| Property | Description | Default Value | Required |
+|:-:|:-:|:-:|:-:|
+| ads-partitionId | Uniquely identifies the partition | N/A | yes |
+| ads-partitionSuffix | A DN ("dc=example, dc=com", for instance | N/A | yes |
+| ads-contextEntry | The context entry | Will be automatically deduced if no value is provided | no |
+| ads-optimizerEnabled | Tells the server to turn on the optimizer | true | no |
+| ads-partitionCacheSize | The cache size (only for JDBM partitions) | -1 (no cache) | no |
+| ads-partitionSyncOnWrite | Syncs disks on every write operation | true | no |
