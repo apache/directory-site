@@ -42,65 +42,23 @@ A filter is a set of nodes connected with operators like **and**, **or**, **not*
 
 Here is the list of possible connectors :
 
-<div class="table-wrap">
-	<table class="confluenceTable">
-		<tbody>
-			<tr>
-				<th class="confluenceTh"> Connector </th>
-				<th class="confluenceTh"> Description </th>
-				<th class="confluenceTh"> Example </th>
-			</tr>
-			<tr>
-				<td class="confluenceTd"> And </td>
-				<td class="confluenceTd">  All the nodes should be evaluated to true </td>
-				<td class="confluenceTd"> (&(objectClass=person)(cn=acme)) </td>
-			</tr>
-			<tr>
-				<td class="confluenceTd"> Or </td>
-				<td class="confluenceTd"> At least one of the node should be evaluated to true</td>
-				<td class="confluenceTd"> (|(objectClass=person)(cn=acme)) </td>
-			</tr>
-			<tr>
-				<td class="confluenceTd"> Not </td>
-				<td class="confluenceTd"> select the entries that does not evaluate to true for this filter </td>
-				<td class="confluenceTd"> (!(objectClass=person))</td>
-			</tr>
-		</tbody>
-	</table>
-</div>
+| Connector | Description | Example |
+|:-:|---|:-:|
+| And | All the nodes should be evaluated to true | (&(objectClass=person)(cn=acme)) |
+| Or | At least one of the node should be evaluated to true | (&#124;(objectClass=person)(cn=acme)) |
+| Not | Select the entries that does not evaluate to true for this filter | (!(objectClass=person)) |
 
 Each node proceeds a check on the attributeType and value provided in the filter. For instance, the **"(o=sevenseas)"** filter tells the server to look for all teh entries whcih have an "organization" atribute with a value of **"sevenseas"**. Here are the various kind of filters you can use :
 
-<div class="table-wrap">
-	<table class="confluenceTable">
-		<tbody>
-			<tr>
-				<th class="confluenceTh">Filter</th>
-			</tr>
-			<tr>
-				<td class="confluenceTd"> = (Equality)</td>
-			</tr>
-			<tr>
-				<td class="confluenceTd">Substring</td>
-			</tr>
-			<tr>
-				<td class="confluenceTd"> &gt;= </td>
-			</tr>
-			<tr>
-				<td class="confluenceTd"> &lt;= </td>
-			</tr>
-			<tr>
-				<td class="confluenceTd"> =* (Present) </td>
-			</tr>
-			<tr>
-				<td class="confluenceTd"> ~= (ApproxMatch)</td>
-			</tr>
-			<tr>
-				<td class="confluenceTd"> extensibleMatch </td>
-			</tr>
-		</tbody>
-	</table>
-</div>
+| Filter |
+|:-:|
+| = (Equality) |
+| Substring |
+| >= |
+| <= |
+| =* (Present) |
+| ~= (ApproxMatch) |
+| extensibleMatch |
 
 ## Scope
 

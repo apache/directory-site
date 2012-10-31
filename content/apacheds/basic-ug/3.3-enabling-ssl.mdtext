@@ -80,52 +80,15 @@ We will do it the last way (self-signed), primarily because it's easy and fast (
 
 First it is necessary to create a key pair (public/private key) for your server, _zanzibar_ in our case.  One option is to use the JDK tool _keytool_ for this task. In the following example, we use these options
 
-<div class="table-wrap">
-	<table class="confluenceTable">
-		<tbody>
-			<tr>
-				<th class="confluenceTh"> Option </th>
-				<th class="confluenceTh"> value </th>
-				<th class="confluenceTh"> Description </th>
-			</tr>
-			<tr>
-				<td class="confluenceTd"> -genkey </td>
-				<td class="confluenceTd">&nbsp;</td>
-				<td class="confluenceTd"> command to generate a key pair </td>
-			</tr>
-			<tr>
-				<td class="confluenceTd"> -keyalg </td>
-				<td class="confluenceTd"> "RSA" </td>
-				<td class="confluenceTd"> algorithm to be used to generate the key pair,  in our case, default is "DSA" </td>
-			</tr>
-			<tr>
-				<td class="confluenceTd"> -dname </td>
-				<td class="confluenceTd"> "cn=zanzibar, ou=ApacheDS, o=ASF, c=US" </td>
-				<td class="confluenceTd"> the X.500 Distinguished Name to be associated with alias, used as the issuer and subject fields in the self-signed certificate </td>
-			</tr>
-			<tr>
-				<td class="confluenceTd"> -alias </td>
-				<td class="confluenceTd"> zanzibar </td>
-				<td class="confluenceTd"> name to refer the entry within the keystore  </td>
-			</tr>
-			<tr>
-				<td class="confluenceTd"> -keystore </td>
-				<td class="confluenceTd"> zanzibar.ks </td>
-				<td class="confluenceTd">  keystore file location </td>
-			</tr>
-			<tr>
-				<td class="confluenceTd"> -storepass </td>
-				<td class="confluenceTd"> secret </td>
-				<td class="confluenceTd">  password used to protect the integrity of the keystore </td>
-			</tr>
-			<tr>
-				<td class="confluenceTd"> -validity </td>
-				<td class="confluenceTd"> 730 </td>
-				<td class="confluenceTd"> number of days for which the certificate should be considered valid, default is 90 </td>
-			</tr>
-		</tbody>
-	</table>
-</div>
+| Command Option | Value | Description |
+|:-:|:-:|---|
+| -genkey | - | Command to generate a key pair |
+| -keyalg | "RSA" | Algorithm to be used to generate the key pair,  in our case, default is "DSA" |
+| -dname | "cn=zanzibar, ou=ApacheDS, o=ASF, c=US" | The X.500 Distinguished Name to be associated with alias, used as the issuer and subject fields in the self-signed certificate |
+| -alias | zanzibar | Name to refer the entry within the keystore |
+| -keystore | zanzibar.ks | Keystore file location |
+| -storepass | secret | Password used to protect the integrity of the keystore |
+| -validity | 730 | Number of days for which the certificate should be considered valid, default is 90 |
 
 Learn more about keytool at the [manpage](http://java.sun.com/j2se/1.5.0/docs/tooldocs/solaris/keytool.html).
 
@@ -158,40 +121,14 @@ Enabling SSL in Apache Directory Server and using the key pair created as above 
 
 ![Keystore Configuration](images/keystore-configuration.png)
 
-
 The following properties were used :
 
-<div class="table-wrap">
-	<table class="confluenceTable">
-		<tbody>
-			<tr>
-				<th class="confluenceTh"> Property</th>
-				<th class="confluenceTh"> default value </th>
-				<th class="confluenceTh"> Description </th>
-			</tr>
-			<tr>
-				<td class="confluenceTd"> keystoreFile </td>
-				<td class="confluenceTd"> none </td>
-				<td class="confluenceTd"> path of the X509 (or JKS) certificate file for LDAPS </td>
-			</tr>
-			<tr>
-				<td class="confluenceTd"> certificatePassword </td>
-				<td class="confluenceTd"> changeit</td>
-				<td class="confluenceTd"> password which is used to load the LDAPS certificate file </td>
-			</tr>
-			<tr>
-				<td class="confluenceTd"> port </td>
-				<td class="confluenceTd"> 10636 </td>
-				<td class="confluenceTd"> LDAPS TCP/IP port number to listen to </td>
-			</tr>
-			<tr>
-				<td class="confluenceTd"> enableSSL </td>
-				<td class="confluenceTd"> true </td>
-				<td class="confluenceTd"> sets if SSL is enabled or not </td>
-			</tr>
-		</tbody>
-	</table>
-</div>
+| Property | Default Value | Description |
+|:-:|:-:|---|
+| keystoreFile | none | Path of the X509 (or JKS) certificate file for LDAPS |
+| certificatePassword | changeit | Password which is used to load the LDAPS certificate file |
+| port | 10636 | LDAPS TCP/IP port number to listen to |
+| enableSSL | true | Sets if SSL is enabled or not |
 
 After modification of the configuration, the server has to be restarted in order to take effect.
 
