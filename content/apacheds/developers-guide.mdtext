@@ -17,4 +17,49 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
     under the License.
 
 # Developers Guide
-Blah...
+
+## Getting the source, Building the trunks
+To get the source, build the *trunks* and get along with Maven, follow the instruction given in this page: [AUG : 0.2. Building trunks](advanced-ug/0.2-building-trunks.html)
+
+## Coding standards 
+
+The applicable coding standards for ADS 1.5 are described in [Coding Standards](coding-standards.html)
+
+There are some more rules, as we are using **Java 5** now :
+
+* Use generics as much as you can. Generic are a good way to avoid casting, and it enforce the usage of the correct type.
+* If you can avoid *Iterators*, do so. There is this cool construction with a **for( Type t:<collection instance> )** : use it !
+* Use **assert**. It's usefull, especially instead of a bunch of **if (<test is wrong>)** then throw Exception* when controlling incoming parameters
+* Use the new *Enum* type !
+
+## Project Internals
+
+The following points describe the differents sub-elements of the server, from the developper point of view :
+
+* [ApacheDS Bootstrapping]
+* [ApacheDS Initialization]
+* [Apache DS SchemaManager]
+* [Interceptors|1.5 Interceptors] mechanism and operations
+* Information about [Mitosis], the ADS replication system.
+* [Referral Handling Changes]
+* [Schema Subsystem Redesign]
+* [ACIItem Extensions]
+* [Administrative Model Extensions]
+* [Account and Password Policy Management]
+* [Proposed RFCs]
+* [Quartz Schedular Integration]
+* [JNDI Bridge and Interceptor Chain Refactoring]
+* [Families of Entries]
+* [Logging Subsystem]
+* [Configuration in DIT (CiDIT)]
+* [Versioning and Snapshots]
+* [Delegation of Authentication]
+* [Core Integration Testing Framework]
+* [Xdbm Partition Design]
+* [SASL NTLM Support]
+* [Supported LDAP Controls, Extended Operations and Features]
+
+## Cookbooks
+
+* [Template|Cookbook Documentation Template]
+* [Example|Cookbook Documentation Example].
