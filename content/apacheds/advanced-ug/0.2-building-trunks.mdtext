@@ -1,0 +1,320 @@
+Title: 0.2 - Building Trunks
+NavPrev: 0.1-reporting-bugs.html
+NavPrevText: 0.1 - Reporting Bugs
+NavUp: 0-community.html
+NavUpText: 0 - Community
+NavNext: 0.3-contributing.html
+NavNextText: 0.3 - Contributing
+Notice: Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    .
+    http://www.apache.org/licenses/LICENSE-2.0
+    .
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+
+# 0.2 - Building Trunks
+This page give some information about the layout of *Apache DS 2.0* trunks, and try to explain how it is built.
+
+[TOC]
+
+## Project Hierarchy
+
+The server is a composition of manuy projects, which should be built in a given order, assuming you want to build the trunk. This order is enforced by a top level pom, so you don't need to take care of this at all. 
+
+We will expose the projects hierarchy, just for information.
+
+### Project project
+
+We first have a meta-project, which contains mainly information about the maven plugins we use. This meta-project is used by all the real projects. This project has one single module : 
+
+* project
+
+### Checkstyle-Configuration project
+
+This project is used to define the checkstyle configuration we use when we generate the reports.
+
+It has one single module :
+
+* checkstyle-configuration 
+
+_Dependencies_ : project
+
+## Junit-Addons project
+
+This project is used to add concurrent tests in the server. It's a fork of [Mycila](ref needed).
+
+It has one single module :
+
+* junit-addons
+
+_Dependencies_ : project
+
+### Shared project (AKA LDAP API)
+
+This project contains all the common LDAP structures that are used by ApacheDS, Apache Studio and the Apache LDAP API. In fact, this is the Apache LDAP API (even if we do have slightly more than necessary for an LDAP API).
+
+This project depends on 'project'.
+
+Here is its hierarchy :
+
+* shared-parent
+	* shared-i18n
+    * shared-util
+	* shared-asn1-parent
+	* shared-asn1-api
+	* shared-asn1-ber
+	* shared-ldap-parent
+	* shared-ldap-model
+	* shared-ldap-codec-parent
+	* shared-ldap-codec-core
+	* shared-ldap-net-parent
+	* shared-ldap-net-mina
+	* shared-ldap-codec-standalone
+	* shared-dsml-parent
+	* shared-dsml-parser
+	* shared-ldap-extras-parent
+	* shared-ldap-extras-aci
+	* shared-ldap-schema-parent
+	* shared-ldap-schema-data
+	* shared-ldap-client-parent
+	* shared-ldap-client-api
+	* shared-dsml-engine
+	* shared-ldap-extras-codec-api
+	* shared-ldap-extras-codec
+	* shared-ldap-extras-util
+	* shared-ldap-extras-sp
+	* shared-ldap-extras-trigger
+	* shared-ldap-schema-converter
+	* shared-all
+	* shared-ldap-client-all
+	* shared-integ
+	* apache-ldap-api
+
+_Dependencies_ : project, junit-addons
+	
+	
+### JDBM project
+
+This project covers the JDBM code. It's a fork of the [JDBM 1.0 project](ref needed).
+
+The current project hierarchy is the following :
+
+* apacheds-jdbm-parent
+	* apacheds-jdbm
+	* apacheds-jdbm2
+
+_Dependencies_ : project, junit-addons
+	
+### ApacheDS project
+This project is the server itself. It depends on 'project', 'shared' and 'jdbm'.
+
+The current project hierarchy is the following (as of 2.0.0-M9-SNAPSHOT) :
+		
+* apacheds-parent
+	* apacheds-i18n
+	* apacheds-core-constants
+	* apacheds-core-api
+	* apacheds-core-shared
+	* apacheds-interceptors
+	* apacheds-interceptors-admin
+	* apacheds-interceptors-authn
+	* apacheds-interceptors-authz
+	* apacheds-interceptors-changelog
+	* apacheds-interceptors-collective
+	* apacheds-interceptors-event
+	* apacheds-interceptors-exception
+	* apacheds-interceptors-journal
+	* apacheds-interceptors-normalization
+	* apacheds-interceptors-operational
+	* apacheds-interceptors-referral
+	* apacheds-interceptors-schema
+	* apacheds-interceptors-subtree
+	* apacheds-interceptors-triggers
+	* apacheds-core
+	* apacheds-core-avl
+	* apacheds-xdbm-partition
+	* apacheds-ldif-partition
+	* apacheds-jdbm-partition
+	* apacheds-core-annotations
+	* apacheds-core-jndi
+	* apacheds-protocol-shared
+	* apacheds-kerberos-codec
+	* apacheds-interceptor-kerberos
+	* apacheds-protocol-dhcp
+	* apacheds-protocol-dns
+	* apacheds-protocol-kerberos
+	* apacheds-protocol-ldap
+	* apacheds-protocol-ntp
+	* apacheds-server-annotations
+	* apacheds-server-config
+	* apacheds-server-jndi
+	* apacheds-server-replication
+	* apacheds-test-framework
+	* apacheds-xdbm-tools
+	* apacheds-all
+	* apacheds-interceptors-logger
+	* apacheds-interceptors-hash
+	* apacheds-core-integ
+	* apacheds-server-integ
+	* apacheds-http-directory-bridge
+	* apacheds-http-integration
+	* apacheds-service-builder
+	* apacheds-kerberos-test
+	* ldap-client-test
+	* apacheds-service
+	* apacheds-wrapper
+	* apacheds-installers-maven-plugin
+	* apacheds-installers
+
+_Dependencies_ : project, junit-addons jdbm, shared,
+
+## Prerequisites for building
+
+You must have installed **Maven 3.0.4** and have a **JDK 5** (or a more recent one) installed on your computer. A working internet connection is also mandatory, unless you have all the needed dependences and plugins loaded locally.
+
+<DIV class="note" markdown="1">
+If the build hangs or you get an out of memory exception please increase the heap space:
+
+* For Linux:
+
+	MAVEN_OPTS="-Xmx256m" mvn clean install
+
+* For Windows:
+
+      SET MAVEN_OPTS="-Xmx256m"
+      mvn clean install
+</DIV>
+
+### Maven
+
+[Download](http://maven.apache.org/download.html) and install Maven 3.0.4.
+
+Add a MAVEN_HOME environment variable and add MAVEN_HOME/bin to your system path:
+
+On a Linux box you could add the following to the .bashrc file  (.bashrc is a file you'll find in your home directory)
+
+
+	...
+	export MAVEN_HOME=/opt/maven-3.0.4
+	export PATH=$JAVA_HOME:$JAVA_HOME/bin:$MAVEN_HOME/bin:$PATH
+	...
+
+Windows users, use Control Panel -> System -> Advanced -> Environment Variables
+
+### JDK 5
+
+<DIV class="note" markdown="1">
+There may be some issues with older JDK versions and Kerberos, therefore we recommend using a version >=1.5.0_09
+</DIV>
+
+Any newer version should also work.
+
+
+## Getting the code
+
+To download the sources from trunk, you must have installed a **Subversion** client.
+
+With readonly access :
+
+	svn co http://svn.apache.org/repos/asf/directory/trunks apacheds-trunk
+
+With read/write access (for committers only) :
+
+	svn co https://svn.apache.org/repos/asf/directory/trunks apacheds-trunk
+
+## Building the trunks
+
+You may either specify the profile at the command-line, each time you use 'mvn', or you may configure the profile to always be active.
+
+To use a profile at the command-line:
+
+	# mvn -Papache [options] [<goal(s)>] [<phase(s)>]
+
+
+### Building the trunks
+
+Now, we can compile the projects.
+
+The command is simple :
+
+	cd apacheds-trunk
+	mvn clean install
+
+A lot of plugins will be downloaded. If you are curious, you can then look at .m2/repository to see what has been downloaded on this step.
+Building should finish with these lines:
+
+	[INFO] ------------------------------------------------------------------------
+	[INFO] BUILD SUCCESSFUL
+	[INFO] ------------------------------------------------------------------------
+	[INFO] Total time: 8 minutes 30 seconds
+	[INFO] Finished at: Mon Oct 30 23:32:41 CET 2006
+	[INFO] Final Memory: 18M/32M
+	[INFO] ------------------------------------------------------------------------
+
+<DIV class="info" markdown="1">
+If you want to do really safe build, run the following commands in trunks:
+
+	resources/superclean.sh
+	mvn install -Dintegration
+</DIV>
+
+## Building the installers
+
+Building the installers is a two phase process :
+
+	cd apacheds-trunk
+	mvn -Pinstallers install
+
+That's it, the jars will be find in target/images/apacheds-2.0.0-M?-SNAPSHOT-<XXXXXX>-setup.jar where XXXXXX is your local system and M? is the milestone release number for the 2.0 branch.
+
+## Starting the server without installation
+
+The directory apacheds-trunk/installers/apacheds-noarch contains a script for Linux (apacheds.sh) and one for Windows (apacheds.bat) which can be used for starting the server without the need to install it first (as non-root-user on Linux and non-Windows-service on Windows).
+
+Linux:
+
+	cd apacheds-trunk/installers/apacheds-noarch
+	./apacheds.sh
+
+## Eclipse
+
+As Apache Studio is an Eclipse plugin/RCP application, we use extensively this IDE. Of course, you can use another IDE.
+
+### Building eclipse files
+
+To build the .project and .classpath files for eclipse, type the following commands :
+
+	cd apacheds-trunk
+	mvn eclipse:eclipse
+
+### Maven settings
+
+Don't forget to declare a classpath variable named M2_REPO, pointing to ~/.m2/repository, otherwise many links to existing jars will be broken.
+
+You can declare new variables in Eclipse in _Windows -> Preferences..._ and selecting _Java -> Build Path -> Classpath Variables_
+
+### Eclipse hints
+
+Add an eclipse-apacheDS.sh file in your eclipse root directory, to allow eclipse to get more memory (e.g. 750MB)
+You may also declare a specific workspace when launching eclipse. I have created a workspace-apacheDS directory in my HOME directory, where all the ApacheDS project is built when I use Eclipse.
+
+	<eclipse_root>/eclipse -data $HOME/workspace-apacheDS -vm java -vmargs -Xmx750M
+
+Launch eclipse :
+
+	<eclipse_root>/eclipse-apacheDS.sh
+
+### Coding standards
+
+The coding standards including an eclipse code formatting profile is available [here]|(../coding-standards.html)
+
