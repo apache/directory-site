@@ -28,49 +28,49 @@ We will now describe the server configuration. Usually, all the configuration is
 
 ## Configurable elements
 
-Here is the list of elements that can be configuraed :
+First, here is the list of elements that can be configured :
 
 * AdsBean
-	* boolean enabled
-	* String description
+	* _boolean_ enabled
+	* _String_ description
 
 * DirectryServiceBean -> AdsBean
-	* String directoryServiceId
-	* int dsReplicaId
-	* boolean dsAccessControlEnabled
-	* boolean dsAllowAnonymousAccess
-	* boolean dsDenormalizeOpAttrsEnabled
-	* int dsMaxPDUSize
-	* boolean dsPasswordHidden
-	* long dsSyncPeriodMillis
-	* String dsTestEntries
-	* ChangeLogBean
-	* JournalBean
-	* List<ServerBean>
-	* List<InterceptorBean>
-	* List<PartitionBean>
+	* _String_ directoryServiceId
+	* _int_ dsReplicaId
+	* _boolean_ dsAccessControlEnabled
+	* _boolean_ dsAllowAnonymousAccess
+	* _boolean_ dsDenormalizeOpAttrsEnabled
+	* _int_ dsMaxPDUSize
+	* _boolean_ dsPasswordHidden
+	* _long_ dsSyncPeriodMillis
+	* _String_ dsTestEntries
+	* _ChangeLogBean_
+	* _JournalBean_
+	* _List<ServerBean>_
+	* _List<InterceptorBean>_
+	* _List<PartitionBean>_
 		
 * ChangeLogBean -> AdsBean
-	* String changeLogId
-	* boolean changeLogExposed
+	* _String_ changeLogId
+	* _boolean_ changeLogExposed
 	
 * JournalBean -> AdsBean
-	* String journalId
-	* String journalFileName
-	* String journalWorkingDir
-	* int journalRotation
+	* _String_ journalId
+	* _String_ journalFileName
+	* _String_ journalWorkingDir
+	* _int_ journalRotation
 	
 * ServerBean -> AdsBean
-	* String serverId
-	* List<TransportBean>
+	* _String_ serverId
+	* _List<TransportBean>_
 	
 * TransportBean -> AdsBean
-	* String transportId
-	* String transportAddress
-	* int systemPort
-	* boolean transportEnableSsl
-	* int transportNbThreads
-	* int transportBackLog
+	* _String_ transportId
+	* _String_ transportAddress
+	* _int_ systemPort
+	* _boolean_ transportEnableSsl
+	* _int_ transportNbThreads
+	* _int_ transportBackLog
 	
 * TcpTransportBean -> AdsBean
 
@@ -79,150 +79,187 @@ Here is the list of elements that can be configuraed :
 * NtpServerBean -> ServerBean
 
 * HttpServerBean -> ServerBean
-	* String httpConfFile
-	* List<HttpWebAppBean>
+	* _String_ httpConfFile
+	* _List<HttpWebAppBean>_
 		
 * HttpWebAppBean -> AdsBaseBean
-	* String id
-	* String httpAppCtxPath
-	* String httpWarFile
+	* _String_ id
+	* _String_ httpAppCtxPath
+	* _String_ httpWarFile
 	
 * DSBasedServerBean -> ServerBean
-	* Dn searchBaseDn
+	* _Dn_ searchBaseDn
 
 * ChangePasswordServerBean -> DSBasedServerBean
-	* long krbAllowableClockSkew
-	* boolean krbEmptyAddressesAllowed
-	* List<String> krbEncryptionTypes
-	* String krbPrimaryRealm
-	* int chgPwdPolicyCategoryCount
-	* int chgPwdPolicyPasswordLength
-	* int chgPwdPolicyTokenSize
-	* String chgPwdServicePrincipal
+	* _long_ krbAllowableClockSkew
+	* _boolean_ krbEmptyAddressesAllowed
+	* _List<String>_ krbEncryptionTypes
+	* _String_ krbPrimaryRealm
+	* _int_ chgPwdPolicyCategoryCount
+	* _int_ chgPwdPolicyPasswordLength
+	* _int_ chgPwdPolicyTokenSize
+	* _String_ chgPwdServicePrincipal
 	
 * DhcpServerBean -> DSBasedServerBean
 
 * DnsServerBean -> DSBasedServerBean
 	
 * KdcServerBean -> DSBasedServerBean
-	* long krbAllowableClockSkew
-	* boolean krbEmptyAddressesAllowed
-	* boolean krbForwardableAllowed
-	* boolean krbPAEncTimestampRequired
-	* boolean krbPostdatedAllowed
-	* boolean krbProxiableAllowed
-	* boolean krbRenewableAllowed
-	* long krbMaximumRenewableLifetime
-	* long krbMaximumTicketLifetime
-	* String krbPrimaryRealm
-	* boolean krbBodyChecksumVerified
-	* List<String> krbEncryptionTypes
-	* String krbKdcPrincipal
+	* _long_ krbAllowableClockSkew
+	* _boolean_ krbEmptyAddressesAllowed
+	* _boolean_ krbForwardableAllowed
+	* _boolean_ krbPAEncTimestampRequired
+	* _boolean_ krbPostdatedAllowed
+	* _boolean_ krbProxiableAllowed
+	* _boolean_ krbRenewableAllowed
+	* _long_ krbMaximumRenewableLifetime
+	* _long_ krbMaximumTicketLifetime
+	* _String_ krbPrimaryRealm
+	* _boolean_ krbBodyChecksumVerified
+	* _List<String>_ krbEncryptionTypes
+	* _String_ krbKdcPrincipal
 	
 * LdapServerBean -> DSBasedServerBean
-	* boolean confidentialityRequired
-	* int maxSizeLimit
-	* int maxTimeLimit
-	* int saslHost
-	* String saslPrincipal
-	* List<String> saslRealms
-	* String keystoreFile
-	* String certificatePassword
-	* String replReqHandler
-	* List<ReplConsumerBean>
-	* List<SaslMechHandlerBean>
-	* List<ExtendedOpHandlerBean>
+	* _boolean_ confidentialityRequired
+	* _int_ maxSizeLimit
+	* _int_ maxTimeLimit
+	* _int_ saslHost
+	* _String_ saslPrincipal
+	* _List<String>_ saslRealms
+	* _String_ keystoreFile
+	* _String_ certificatePassword
+	* _String_ replReqHandler
+	* _List<ReplConsumerBean>_
+	* _List<SaslMechHandlerBean>_
+	* _List<ExtendedOpHandlerBean>_
 	
 * ReplConsumerBean -> AdsBaseBean
-	* String replConsumerId
-	* String searchBaseDn
-	* String replProvHostName
-	* int replProvPort
-	* String replAliasDerefMode
-	* List<String> replAttributes
-	* long replRefreshInterval
-	* boolean replRefreshNPersist
-	* String replSearchScope
-	* String replSearchFilter
-	* int replSearchSizeLimit
-	* int replSearchTimeout
-	* String replUserDn
-	* byte[] replUserPassword
-	* String replCookie
-	* boolean replUseTls
-	* boolean replStrictCertValidation
-	* byte[] replPeerCertificate
-	* String replConsumerImpl
+	* _String_ replConsumerId
+	* _String_ searchBaseDn
+	* _String_ replProvHostName
+	* _int_ replProvPort
+	* _String_ replAliasDerefMode
+	* _List<String>_ replAttributes
+	* _long_ replRefreshInterval
+	* _boolean_ replRefreshNPersist
+	* _String_ replSearchScope
+	* _String_ replSearchFilter
+	* _int_ replSearchSizeLimit
+	* _int_ replSearchTimeout
+	* _String_ replUserDn
+	* _byte[]_ replUserPassword
+	* _String_ replCookie
+	* _boolean_ replUseTls
+	* _boolean_ replStrictCertValidation
+	* _byte[]_ replPeerCertificate
+	* _String_ replConsumerImpl
 	
 * SaslMechHandlerBean -> AdsBaseBean
-	* String saslMechName
-	* String saslMechClassName
-	* String ntlmMechProvider
+	* _String_ saslMechName
+	* _String_ saslMechClassName
+	* _String_ ntlmMechProvider
 	
 * ExtendedOpHandlerBean -> AdsBaseBean
-	* String extendedOpId
-	* String extendedOpHandlerClass
+	* _String_ extendedOpId
+	* _String_ extendedOpHandlerClass
 	
 * InterceptorBean -> AdsBean
-	* String interceptorId
-	* String interceptorClassName
-	* int interceptorOrder
+	* _String_ _int_erceptorId
+	* _String_ _int_erceptorClassName
+	* _int_ _int_erceptorOrder
 	
 * AuthenticationInterceptorBean -> InterceptorBean
 	* List<AuthenticatorBean>
 	* List<PasswordPolicyBean>
 	
 * AuthenticatorBean -> AdsBean
-	* String authenticatorId
+	* _String_ authenticatorId
 	
 * AuthenticatorImplBean -> AuthenticatorBean
-	* String authenticatorClass
+	* _String_ authenticatorClass
 	
 * DelegatingAuthenticatorBean -> AuthenticatorBean
-	* String delegateHost
-	* int delegatePort
+	* _String_ delegateHost
+	* _int_ delegatePort
 	
 * PasswordPolicyBean -> AdsBean
-	* String pwdId
-	* String pwdAttribute
-	* int pwdMinAge
-	* int pwdMaxAge
-	* int pwdInHistory
-	* int pwdCheckQuality
-	* int pwdMinLength
-	* int pwdMaxLength
-	* int pwdExpireWarning
-	* int pwdGraceAuthNLimit
-	* int pwdGraceExpire
-	* boolean pwdLockout
-	* int pwdLockoutDuration
-	* int pwdMaxFailure
-	* int pwdFailureCountInterval
-	* boolean pwdMustChange
-	* boolean pwdAllowUserChange
-	* boolean pwdSafeModify
-	* int pwdMinDelay
-	* int pwdMaxDelay
-	* int pwdMaxIdle
+	* _String_ pwdId
+	* _String_ pwdAttribute
+	* _int_ pwdMinAge
+	* _int_ pwdMaxAge
+	* _int_ pwdInHistory
+	* _int_ pwdCheckQuality
+	* _int_ pwdMinLength
+	* _int_ pwdMaxLength
+	* _int_ pwdExpireWarning
+	* _int_ pwdGraceAuthNLimit
+	* _int_ pwdGraceExpire
+	* _boolean_ pwdLockout
+	* _int_ pwdLockoutDuration
+	* _int_ pwdMaxFailure
+	* _int_ pwdFailureCountInterval
+	* _boolean_ pwdMustChange
+	* _boolean_ pwdAllowUserChange
+	* _boolean_ pwdSafeModify
+	* _int_ pwdMinDelay
+	* _int_ pwdMaxDelay
+	* _int_ pwdMaxIdle
 	
 * PartitionBean -> AdsBean
-	* int  partitionId
-	* Dn partitionSuffix
-	* boolean partitionSyncOnWrite
-	* int  contextEntry
-	* List<IndexBean>
+	* _int_  partitionId
+	* _Dn_ partitionSuffix
+	* _boolean_ partitionSyncOnWrite
+	* _int_  contextEntry
+	* _List<IndexBean>_
 		
 * JdbmPartitionBean -> PartitionBean
-	* int partitionCacheSize
-	* boolean jdbmPartitionOptimizerEnabled	
+	* _int_ partitionCacheSize
+	* _boolean_ jdbmPartitionOptimizerEnabled	
 	
 * IndexBean -> AdsBean
-	* int indexAttributeId
-	* boolean indexHasReverse
+	* _int_ indexAttributeId
+	* _boolean_ indexHasReverse
 	
 * JdbmIndexBean -> IndexBean
-	* int indexCacheSize
-	* int indexNumDupLimit
-	* String indexFileName
-	* String indexWorkingDir
+	* _int_ indexCacheSize
+	* _int_ indexNumDupLimit
+	* _String_ indexFileName
+	* _String_ indexWorkingDir
 
+
+We will now explain each one of those elements.
+
+### Servers
+
+As we can see, we can start more than one server. We have :
+
+* a LDAP server
+* a Kerberos server
+* a changePassword server
+* an HTTP Server
+* a NTP Server
+* a DHCP server
+* a DNS server
+
+There is a distinction though between the servers backed by a Directory Service, and those that aren't (like the HTTP and NTP servers). 
+
+#### Ldap Server
+
+Let's start with the main server : the LDAP one. 
+
+The list of attributes that can be modified is exposed in the following table. 
+
+| Parameter | AttributeType | type | default value | Description |
+|---|---|---|---|---|
+| confidentialityRequired | ads-confidentialityRequired | _boolean_ |  | TODO |
+| maxSizeLimit | ads-maxSizeLimit | _int_ | 1000 | The maximum number of entries teh server will return |
+| maxTimeLimit | ads-maxTimeLimit | _int_ | 1000 | The maimum bumber of second the server will use to process a search request |
+| saslHost | ads-saslHost | _int_ |  | TODO |
+| saslPrincipal | ads-saslPrincipal | _String_ |  | TODO |
+| saslRealms | ads-saslRealms | _List<String>_ |  | TODO |
+| keystoreFile | ads-keystoreFile | _String_ |  | The place on the filesystem where the Keystore is stored |
+| certificatePassword | ads-certificatePassword | _String_ |  | The certificate's password |
+| replReqHandler | ads-replReqHandler | _String_ |  | TODO |
+| replConsumers | ads-replConsumers | _List<ReplConsumerBean>_ |  | TODO |
+| saslMechHandlers | ads-saslMechHandlers | _List<SaslMechHandlerBean>_ |  | The list of SASL mechanism handlers |
+| extendedOpHandlers | ads-extendedOpHandlers | _List<ExtendedOpHandlerBean>_ |  | The list of extended operation handlers |
