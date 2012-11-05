@@ -1,0 +1,228 @@
+Title: 2 - Server Configuration
+NavPrev: 1-architecture.html
+NavPrevText: 1 - Architecture
+NavUp: ../advanced-users-guide.html
+NavUpText: Advanced User Guide
+NavNext: 3-admin-model.html
+NavNextText: 4 - Administrative Model
+Notice: Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    .
+    http://www.apache.org/licenses/LICENSE-2.0
+    .
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+
+# 2 - Server Configuraion
+
+We will now describe the server configuration. Usually, all the configuration is done using Apache Directory Studio, which offers a pretty GUI. One can also configure the server using LDAP request, as the configuration is stored in teh **DIT**. Otherwise, all the configuration modifications won't be applied on a started server : usually, you will have to restart the server in order to get those modifications applied.
+
+## Configurable elements
+
+Here is the list of elements that can be configuraed :
+
+* AdsBean
+	* boolean enabled
+	* String description
+
+* DirectryServiceBean -> AdsBean
+	* String directoryServiceId
+	* int dsReplicaId
+	* boolean dsAccessControlEnabled
+	* boolean dsAllowAnonymousAccess
+	* boolean dsDenormalizeOpAttrsEnabled
+	* int dsMaxPDUSize
+	* boolean dsPasswordHidden
+	* long dsSyncPeriodMillis
+	* String dsTestEntries
+	* ChangeLogBean
+	* JournalBean
+	* List<ServerBean>
+	* List<InterceptorBean>
+	* List<PartitionBean>
+		
+* ChangeLogBean -> AdsBean
+	* String changeLogId
+	* boolean changeLogExposed
+	
+* JournalBean -> AdsBean
+	* String journalId
+	* String journalFileName
+	* String journalWorkingDir
+	* int journalRotation
+	
+* ServerBean -> AdsBean
+	* String serverId
+	* List<TransportBean>
+	
+* TransportBean -> AdsBean
+	* String transportId
+	* String transportAddress
+	* int systemPort
+	* boolean transportEnableSsl
+	* int transportNbThreads
+	* int transportBackLog
+	
+* TcpTransportBean -> AdsBean
+
+* UdpTransportBean -> AdsBean
+	
+* NtpServerBean -> ServerBean
+
+* HttpServerBean -> ServerBean
+	* String httpConfFile
+	* List<HttpWebAppBean>
+		
+* HttpWebAppBean -> AdsBaseBean
+	* String id
+	* String httpAppCtxPath
+	* String httpWarFile
+	
+* DSBasedServerBean -> ServerBean
+	* Dn searchBaseDn
+
+* ChangePasswordServerBean -> DSBasedServerBean
+	* long krbAllowableClockSkew
+	* boolean krbEmptyAddressesAllowed
+	* List<String> krbEncryptionTypes
+	* String krbPrimaryRealm
+	* int chgPwdPolicyCategoryCount
+	* int chgPwdPolicyPasswordLength
+	* int chgPwdPolicyTokenSize
+	* String chgPwdServicePrincipal
+	
+* DhcpServerBean -> DSBasedServerBean
+
+* DnsServerBean -> DSBasedServerBean
+	
+* KdcServerBean -> DSBasedServerBean
+	* long krbAllowableClockSkew
+	* boolean krbEmptyAddressesAllowed
+	* boolean krbForwardableAllowed
+	* boolean krbPAEncTimestampRequired
+	* boolean krbPostdatedAllowed
+	* boolean krbProxiableAllowed
+	* boolean krbRenewableAllowed
+	* long krbMaximumRenewableLifetime
+	* long krbMaximumTicketLifetime
+	* String krbPrimaryRealm
+	* boolean krbBodyChecksumVerified
+	* List<String> krbEncryptionTypes
+	* String krbKdcPrincipal
+	
+* LdapServerBean -> DSBasedServerBean
+	* boolean confidentialityRequired
+	* int maxSizeLimit
+	* int maxTimeLimit
+	* int saslHost
+	* String saslPrincipal
+	* List<String> saslRealms
+	* String keystoreFile
+	* String certificatePassword
+	* String replReqHandler
+	* List<ReplConsumerBean>
+	* List<SaslMechHandlerBean>
+	* List<ExtendedOpHandlerBean>
+	
+* ReplConsumerBean -> AdsBaseBean
+	* String replConsumerId
+	* String searchBaseDn
+	* String replProvHostName
+	* int replProvPort
+	* String replAliasDerefMode
+	* List<String> replAttributes
+	* long replRefreshInterval
+	* boolean replRefreshNPersist
+	* String replSearchScope
+	* String replSearchFilter
+	* int replSearchSizeLimit
+	* int replSearchTimeout
+	* String replUserDn
+	* byte[] replUserPassword
+	* String replCookie
+	* boolean replUseTls
+	* boolean replStrictCertValidation
+	* byte[] replPeerCertificate
+	* String replConsumerImpl
+	
+* SaslMechHandlerBean -> AdsBaseBean
+	* String saslMechName
+	* String saslMechClassName
+	* String ntlmMechProvider
+	
+* ExtendedOpHandlerBean -> AdsBaseBean
+	* String extendedOpId
+	* String extendedOpHandlerClass
+	
+* InterceptorBean -> AdsBean
+	* String interceptorId
+	* String interceptorClassName
+	* int interceptorOrder
+	
+* AuthenticationInterceptorBean -> InterceptorBean
+	* List<AuthenticatorBean>
+	* List<PasswordPolicyBean>
+	
+* AuthenticatorBean -> AdsBean
+	* String authenticatorId
+	
+* AuthenticatorImplBean -> AuthenticatorBean
+	* String authenticatorClass
+	
+* DelegatingAuthenticatorBean -> AuthenticatorBean
+	* String delegateHost
+	* int delegatePort
+	
+* PasswordPolicyBean -> AdsBean
+	* String pwdId
+	* String pwdAttribute
+	* int pwdMinAge
+	* int pwdMaxAge
+	* int pwdInHistory
+	* int pwdCheckQuality
+	* int pwdMinLength
+	* int pwdMaxLength
+	* int pwdExpireWarning
+	* int pwdGraceAuthNLimit
+	* int pwdGraceExpire
+	* boolean pwdLockout
+	* int pwdLockoutDuration
+	* int pwdMaxFailure
+	* int pwdFailureCountInterval
+	* boolean pwdMustChange
+	* boolean pwdAllowUserChange
+	* boolean pwdSafeModify
+	* int pwdMinDelay
+	* int pwdMaxDelay
+	* int pwdMaxIdle
+	
+* PartitionBean -> AdsBean
+	* int  partitionId
+	* Dn partitionSuffix
+	* boolean partitionSyncOnWrite
+	* int  contextEntry
+	* List<IndexBean>
+		
+* JdbmPartitionBean -> PartitionBean
+	* int partitionCacheSize
+	* boolean jdbmPartitionOptimizerEnabled	
+	
+* IndexBean -> AdsBean
+	* int indexAttributeId
+	* boolean indexHasReverse
+	
+* JdbmIndexBean -> IndexBean
+	* int indexCacheSize
+	* int indexNumDupLimit
+	* String indexFileName
+	* String indexWorkingDir
+

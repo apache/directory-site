@@ -1,10 +1,10 @@
-Title: 1.6 - Administrative Model
-NavPrev: 1.5-schemaManager.html
-NavPrevText: 1.5 - SchemaManager
-NavUp: 1-architecture.html
-NavUpText: 1 - Architecture
-NavNext: 2-server-config.html
-NavNextText: 2 - Server Configuration
+Title: 3 - Administrative Model
+NavPrev: 2-server-config.html
+NavPrevText: 2 - Server Configuration
+NavUp: ../advanced-users-guide.html
+NavUpText: Advanced User Guide
+NavNext: 4-.html
+NavNextText: 4 - 
 Notice: Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
     distributed with this work for additional information
@@ -22,15 +22,9 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
     specific language governing permissions and limitations
     under the License.
 
-# 1.6 - Administrative Model
+# 3 - Administrative Model
 
-The **Administrative Model** is a really critical notion that need to be understood, because it drives many of ApacheDS roles, including :
-
-* Authorization
-* Schema
-* Triggers
-* Collective Attributes
-* Replication
+The **Administrative Model** is a really critical notion that need to be understood, because it drives many of ApacheDS roles.
 
 It's directly inherited by the **X.500** Administrative model (in fact, we do implement the full **X.500** sepcification related to **AAs**).
 
@@ -58,10 +52,36 @@ We have three kind of areas :
 
 ## Administration Point
 
-Once we know which area we need to define, and the associated roles, it's mandatory to store those information in the **DIT**. This is done by adding **Administration Point**, which just are entries storing all the administrative configuration.
+An **Administration Point** is the point in the **DIT** where an area starts. It defines the roles, and the scope that applies to this area.
 
-An Administrative Point is stored as an entry (a sub-entry, to be more specific) just below the base of the defined area.
+Once we know which area we need to define, and the associated roles, it's mandatory to store those information in the **DIT**. This is done by addinga **subentries**, which just are entries storing all the administrative configuration.
+
+An Administrative Point is stored as a **subentry** (which is just a plain LDAP entry) just below the base of the defined area.
 
 <DIV class="info" markdown="1">
 	A **Subentry** is just a plain normal entry except that it contains administative model informations. They are stored below the entry they are managing, as a child entry.
 </DIV>
+
+<DIV class="note" markdown="1">
+	We also use the term "subtree" to define areas. This is due to the fact that we define a subtree specification in the administration point to express the set of selected entries.
+</DIV>
+
+## Roles
+
+The roles are the various aspects which are managed by the administration points. Currently, we manage five different roles in ApacheDS :
+
+* Authorization : manage the access to entries
+* Schema : define the schema to be used by a subtree
+* Triggers : define the triggers that can be leveraged in a subtree
+* Collective Attributes : manage attributes that are valid ofr a set of entries
+* Replication : manage the replication of a set
+
+# ApacheDS 2.0 coverage
+
+Currently, in Apache 2.0, we don't implement all this model. What is supported is :
+
+* AAA and SAA : We don't currently support IAA
+* We don't have more than one schema
+* Replication is not managed with any administration point
+
+Those missing parts will be implemented in the forthcoming versions.
