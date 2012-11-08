@@ -34,21 +34,7 @@ First, here is the list of elements that can be configured :
 	* _boolean_ enabled
 	* _String_ description
 
-* DirectryServiceBean -> AdsBean
-	* _String_ directoryServiceId
-	* _int_ dsReplicaId
-	* _boolean_ dsAccessControlEnabled
-	* _boolean_ dsAllowAnonymousAccess
-	* _boolean_ dsDenormalizeOpAttrsEnabled
-	* _int_ dsMaxPDUSize
-	* _boolean_ dsPasswordHidden
-	* _long_ dsSyncPeriodMillis
-	* _String_ dsTestEntries
-	* _ChangeLogBean_
-	* _JournalBean_
-	* _List<ServerBean>_
-	* _List<InterceptorBean>_
-	* _List<PartitionBean>_
+* [DirectoryServiceBean](#directory-service) -> AdsBean
 		
 * ChangeLogBean -> AdsBean
 	* _String_ changeLogId
@@ -60,17 +46,9 @@ First, here is the list of elements that can be configured :
 	* _String_ journalWorkingDir
 	* _int_ journalRotation
 	
-* ServerBean -> AdsBean
-	* _String_ serverId
-	* _List<TransportBean>_
+* [ServerBean](#servers) -> AdsBean
 	
-* TransportBean -> AdsBean
-	* _String_ transportId
-	* _String_ transportAddress
-	* _int_ systemPort
-	* _boolean_ transportEnableSsl
-	* _int_ transportNbThreads
-	* _int_ transportBackLog
+* [TransportBean](#servers) -> AdsBean
 	
 * TcpTransportBean -> AdsBean
 
@@ -120,18 +98,6 @@ First, here is the list of elements that can be configured :
 	* _String_ krbKdcPrincipal
 	
 * [LdapServerBean](#ldap-server) -> DSBasedServerBean
-	* _boolean_ confidentialityRequired
-	* _int_ maxSizeLimit
-	* _int_ maxTimeLimit
-	* _int_ saslHost
-	* _String_ saslPrincipal
-	* _List<String>_ saslRealms
-	* _String_ keystoreFile
-	* _String_ certificatePassword
-	* _String_ replReqHandler
-	* _List<ReplConsumerBean>_
-	* _List<SaslMechHandlerBean>_
-	* _List<ExtendedOpHandlerBean>_
 	
 * ReplConsumerBean -> AdsBaseBean
 	* _String_ replConsumerId
@@ -229,6 +195,29 @@ First, here is the list of elements that can be configured :
 
 We will now explain each one of those elements.
 
+### Directory Service
+
+This is the key of the whole server : the place where we store the data. Most of the servers are depending on this component. You maye have more than one server, but only one _DirectoryService_. This compoent itself refers to the servers that will be started, plus the backends it will depends on.
+
+Here are the configuration parameters for this components :
+
+| Parameter | AttributeType | type | default value | Description |
+|---|---|---|---|---|
+| directoryServiceId | ads-directoryServiceId | _String_ |  | The unique identifier for the service |
+| dsReplicaId | ads-dsReplicaId | _int_ |  | The replication identifier |
+| dsAccessControlEnabled | ads-dsAccessControlEnabled | _boolean_  | true | Tells if the Access Control interceptor is active |
+| dsAllowAnonymousAccess | ads-dsAllowAnonymousAccess | _boolean_  | false | Tells if the service allow anonymous access |
+| dsDenormalizeOpAttrsEnabled | ads-dsDenormalizeOpAttrsEnabled | _boolean_  | true | Tells if the service should denormalize operatonal attributes |
+| dsMaxPDUSize | ads-dsMaxPDUSize | _int_  | 2048 | The maximum size of an incomming PDU (not used) |
+| dsPasswordHidden | ads-dsPasswordHidden | _boolean_  | true | Tells if the passwords should be encrypted (not used) |
+| dsSyncPeriodMillis | ads-dsSyncPeriodMillis | _long_  | 15000 | The delai in milliseconds before we flush data on disk |
+| dsTestEntries | | _String_  |  | Not used |
+| changeLog | | _ChangeLogBean_ | N/A | The interceptor that stores the reverted modifications |
+| journal | | _JournalBean_ | N/A | The interceptor that record every modifcation |
+| servers | ads-servers | _List<ServerBean>_ | N/A | The list of started servers |
+| interceptors | ads-interceptors | _List<InterceptorBean>_ | N/A | The list of interceptors |
+| partitions | ads-partitions | _List<PartitionBean>_ | N/A | The list of existing partitions |
+
 ### Servers
 
 As we can see, we can start more than one server. We have :
@@ -243,7 +232,7 @@ As we can see, we can start more than one server. We have :
 
 There is a distinction though between the servers backed by a Directory Service, and those that aren't (like the HTTP and NTP servers). 
 
-All the servers share some common parameters, which are exposed in the following tables :
+All the servers share some common parameters, which are exposed in the following table :
 
 | Parameter | AttributeType | type | default value | Description |
 |---|---|---|---|---|
