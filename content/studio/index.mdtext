@@ -16,4 +16,283 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
     specific language governing permissions and limitations
     under the License.
 
-This is the homepage for **Apache Directory Studio**.
+
+<script type="text/javascript" src="static/js/mootools.js"></script>
+<script type="text/javascript" src="static/js/slideshow.js"></script>
+<style type="text/css" media="all">
+    #top_box
+    {
+        margin-bottom:20px;
+    }
+
+    #top_box_left
+    {
+        width:335px;
+        text-align:center;
+        vertical-align:top;
+    }
+    
+    #top_box_right
+    {
+        text-align:center;
+        vertical-align:top;
+    }
+    
+    .box_h1
+    {
+        font-size: 24px;
+        line-height: 1.2em;
+        color: #000;
+        height: 31px;
+        text-align: left;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        -webkit-mask-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,0.5)), to(rgba(0,0,0,1)));
+    }
+            
+    .box_h2
+    {
+        font-size: 20px;
+        line-height: 1.2em;
+        height: 50px;
+        color: #4775ab;
+        text-align: left;
+        margin-bottom: 5px;
+        -webkit-mask-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,0.5)), color-stop(49%, rgba(0,0,0,1)), color-stop(51%, rgba(0,0,0,0.5)), to(rgba(0,0,0,1)));
+    }
+        
+    .box_text
+    {
+        text-align:justify;
+    }
+    
+    #box_ldap_browser
+    {
+       background: url(static/images/ldap_browser_box.gif) no-repeat;
+       padding: 10px;
+       width:50%;
+       text-align:justify;
+       vertical-align:top;
+    }
+    
+    #box_ldif_editor
+    {
+       background: url(static/images/ldif_editor_box.gif) no-repeat;
+       padding: 10px;
+       width:50%;
+       text-align:justify;
+       vertical-align:top;
+    }
+    
+    #box_schema_editor
+    {
+       background: url(static/images/schema_editor_box.gif) no-repeat;
+       padding: 10px;
+       width:50%;
+       text-align:justify;
+       vertical-align:top;
+    }
+    
+    #box_embedded_apacheds
+    {
+       background: url(static/images/embedded_apacheds_box.gif) no-repeat;
+       padding: 10px;
+       width:50%;
+       text-align:justify;
+       vertical-align:top;
+    }
+    
+    #box_apacheds_configuration
+    {
+       background: url(static/images/apacheds_configuration_box.gif) no-repeat;
+       padding: 10px;
+       width:50%;
+       text-align:justify;
+       vertical-align:top;
+    }
+    
+    #box_aci_editor
+    {
+       background: url(static/images/aci_editor_box.gif) no-repeat;
+       padding: 10px;
+       width:50%;
+       text-align:justify;
+       vertical-align:top;
+    }
+    
+    #box_internationalization
+    {
+       background: url(static/images/internationalization_box.gif) no-repeat;
+       padding: 10px;
+       width:50%;
+       text-align:justify;
+       vertical-align:top;
+    }
+    
+    #box_multiplatform_and_in_eclipse
+    {
+       background: url(static/images/multiplatform_and_in_eclipse_box.gif) no-repeat;
+       padding: 10px;
+       width:50%;
+       text-align:justify;
+       vertical-align:top;
+    }
+    
+    .align_left_middle
+    {
+       text-align:left;
+       vertical-align:top;
+    }
+    
+    .zoom_td
+    {
+       text-align:right;
+       vertical-align:top;
+    }
+</style>
+    
+<table class="borderless" width="100%" border="0" id="top_box">
+    <tr>
+        <td id="top_box_left">
+            <div class="box_h1">Apache Directory Studio&trade;</div>
+            <div class="box_h2">The Eclipse based LDAP browser and directory client</div>
+            <div class="box_text">Apache Directory Studio is a complete directory tooling platform intended to be used with any LDAP server however it is particularly designed for use with ApacheDS. It is an Eclipse RCP application, composed of several Eclipse (OSGi) plugins, that can be easily upgraded with additional ones. These plugins can even run within Eclipse itself.</div>
+
+            <a href="downloads.html"><img src="static/images/download_badge.gif" border="0"></a>
+        </td>
+        <td width="25"><img src="static/images/transparent.gif" width="25" height="1" border="0"></td>
+        <td id="top_box_right" class="slideshow">
+            <div id="studio_slideshow" class="slideshow">
+                <img src="static/images/screen_ldap_browser.jpg" alt="A picture" width="377" height="287" border="0"/>
+            </div>
+            <script type="text/javascript">
+                window.onload = function()
+            { 
+                myShow = new Slideshow('studio_slideshow', {hu: 'static/images/', images: ['screen_ldap_browser.jpg','screen_ldif_editor.jpg','screen_aci_editor.jpg','screen_schema_editor.jpg','screen_apacheds_configuration.jpg'],duration: [600, 2000]});
+            }
+            </script>
+        </td>
+    </tr>
+</table>
+
+<table class="borderless" border="0" width="100%">
+    <tr>
+        <td id="box_ldap_browser">
+            <table class="borderless" border="0" width="100%" height="48">
+                <tr>
+                    <td class="">
+                        <a href="ldap-browser-plugin.html"><img src="static/images/transparent.gif" border="0" width="165" height="40"></a>
+                    </td>
+                    <td class="zoom_td">
+                        <a href="ldap-browser-plugin.html"><img src="static/images/zoom.gif" border="0" width="23" height="28"></a>
+                    </td>
+                </tr>
+            </table>
+The LDAP Browser has been designed to work with almost any LDAP server
+available. It not only permits to read and display the tree of your
+LDAP Server but also allows you to modify it by creating, editing or
+removing entries.</td>
+        <td width="10"><img src="static/images/transparent.gif" border="0" width="10" height="1"></td>
+        <td id="box_ldif_editor">
+            <table class="borderless" border="0" width="100%" height="48">
+                <tr>
+                    <td class="">
+                        <a href="ldif-editor-plugin.html"><img src="static/images/transparent.gif" border="0" width="140" height="40"></a>
+                    </td>
+                    <td class="zoom_td">
+                        <a href="ldif-editor-plugin.html"><img src="static/images/zoom.gif" border="0" width="23" height="28"></a>
+                    </td>
+                </tr>
+            </table>
+            The LDIF Editor is a tool for editing LDIF files. It provides syntax highlighting and content assistance.</td>
+    </tr>
+    <tr>
+        <td id="box_schema_editor">
+            <table class="borderless" border="0" width="100%" height="48">
+                <tr>
+                    <td class="">
+                        <a href="schema-editor-plugin.html"><img src="static/images/transparent.gif" border="0" width="165" height="40"></a>
+                    </td>
+                    <td class="zoom_td">
+                        <a href="schema-editor-plugin.html"><img src="static/images/zoom.gif" border="0" width="23" height="28"></a>
+                    </td>
+                </tr>
+            </table>
+The Schema Editor has been designed to edit the schema files in the
+OpenLDAP format. It allows you to edit easily attribute types and
+object classes for Apache Directory Server and OpenLDAP.</td>
+        <td width="10"><img src="static/images/transparent.gif" border="0" width="10" height="1"></td>
+        <td id="box_embedded_apacheds">
+            <table class="borderless" border="0" width="100%" height="48">
+                <tr>
+                    <td class="">
+                        <a href="apacheds-plugin.html"><img src="static/images/transparent.gif" border="0" width="225" height="40"></a>
+                    </td>
+                    <td class="zoom_td">
+                        <a href="apacheds-plugin.html"><img src="static/images/zoom.gif" border="0" width="23" height="28"></a>
+                    </td>
+                </tr>
+            </table>
+Apache Directory Studio bundles the latest version of the LDAPV3 certified ApacheDS. Creating and launching a new LDAP server now takes less than 10 seconds!</td>
+    </tr>
+    <tr>
+        <td id="box_apacheds_configuration">
+            <table class="borderless" border="0" width="100%" height="48">
+                <tr>
+                    <td class="">
+                        <a href="apacheds-configuration-plugin.html"><img src="static/images/transparent.gif" border="0" width="250" height="40"></a>
+                    </td>
+                    <td class="zoom_td">
+                        <a href="apacheds-configuration-plugin.html"><img src="static/images/zoom.gif" border="0" width="23" height="28"></a>
+                    </td>
+                </tr>
+            </table>
+The ApacheDS Configuration Editor can be used to edit the server
+configuration ('server.xml' file) of an Apache Directory Server
+installation.</td>
+        <td width="10"><img src="static/images/transparent.gif" border="0" width="10" height="1"></td>
+        <td id="box_aci_editor">
+            <table class="borderless" border="0" width="100%" height="48">
+                <tr>
+                    <td class="">
+                        <a href="aci-editor-plugin.html"><img src="static/images/transparent.gif" border="0" width="130" height="40"></a>
+                    </td>
+                    <td class="zoom_td">
+                        <a href="aci-editor-plugin.html"><img src="static/images/zoom.gif" border="0" width="23" height="28"></a>
+                    </td>
+                </tr>
+            </table>
+The ACI Editor allows you to define, for an entry or a set of entries,
+graphically or manually (in souce code mode), an ACI (Access Control
+Information) item specification for Apache Directory Server.</td>
+    </tr>
+    <tr>
+        <td id="box_internationalization">
+            <table class="borderless" border="0" width="100%" height="48">
+                <tr>
+                    <td class="">
+                        <a href="internationalized.html"><img src="static/images/transparent.gif" border="0" width="210" height="40"></a>
+                    </td>
+                    <td class="zoom_td">
+                        <a href="internationalized.html"><img src="static/images/zoom.gif" border="0" width="23" height="28"></a>
+                    </td>
+                </tr>
+            </table>
+Apache Directory Studio is now internationalized in English, French and German. We're also open for volunteers who want to add another language support.</td>
+        <td width="10"><img src="static/images/transparent.gif" border="0" width="10" height="1"></td>
+        <td id="box_multiplatform_and_in_eclipse">
+            <table class="borderless" border="0" width="100%" height="48">
+                <tr>
+                    <td class="">
+                        <a href="downloads.html"><img src="static/images/transparent.gif" border="0" width="260" height="40"></a>
+                    </td>
+                    <td class="zoom_td">
+                        <a href="downloads.html"><img src="static/images/zoom.gif" border="0" width="23" height="28"></a>
+                    </td>
+                </tr>
+            </table>
+Based on Eclipse, Apache Directory Studio is a multi-plaform
+application that runs on Mac OS X, Linux and Windows, and also as
+plugins inside Eclipse itself.</td>
+    </tr>
+</table>
