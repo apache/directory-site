@@ -40,6 +40,7 @@ Here are two example scripts which use Groovy LDAP in order to give you a first 
 
 The attribute values of an LDAP entry can be defined with the help of the expressive Map syntax of Groovy (\[DIRxSBOX:...\)). The following script uses the add operation to create a new entry in the directory:
 
+    :::Groovy
     import org.apache.directory.groovyldap.LDAP
 
     ldap = LDAP.newInstance('ldap://zanzibar:10389', 'uid=admin,ou=system', '******')
@@ -54,6 +55,7 @@ The attribute values of an LDAP entry can be defined with the help of the expres
 
 In LDIF format, the entry in the directory looks like this afterwards.
 
+    :::text
     dn: cn=Heather Nova,dc=example,dc=com
     cn: Heather Nova
     sn: Nova
@@ -64,6 +66,7 @@ In LDIF format, the entry in the directory looks like this afterwards.
 
 Besides the operations found in the classic LDAP API, Groovy LDAP provides advanced functionality with the help of features specific to the Groovy language. Here is an example which performs a search operation, and executes the behavior given via a closure for each entry found:
 
+    :::Groovy
     import org.apache.directory.groovyldap.LDAP
 
     ldap = LDAP.newInstance('ldap://zanzibar:10389/dc=example,dc=com')
@@ -96,7 +99,7 @@ An interesting alternative to Groovy LDAP is Gldapo (<http://gldapo.codehaus.org
 
 ## Where to go from here
 
- * [Download](groovy-ldap-download.html) a binary version including the source code
- * Read the [User Guide](groovy-ldap-user-guide.html) in order to understand which operations are already implemented, and how to use them
- * Learn more about the [implementation](groovy-ldap-download.html#implementation)
- * Learn how to [build the software](groovy-ldap-download.html#building-the-software) on your own
+ * [Download](groovy-api/1-groovy-ldap-download.html) a binary version including the source code
+ * Read the [User Guide](groovy-api/2-groovy-ldap-user-guide.html) in order to understand which operations are already implemented, and how to use them
+ * Learn more about the [implementation](groovy-api/3-groovy-ldap-download.html)
+ * Learn how to [build the software](groovy-api/4-groovy-ldap-build.html) on your own

@@ -1,4 +1,10 @@
-Title: Groovy LDAP Download, Sources & Building
+Title: 4 - Groovy LDAP : Buildng the Software
+NavPrev: 2-groovy-ldap-implementation.html
+NavPrevText: 2 - Groovy LDAP Implementation
+NavUp: ../groovy-ldap.html
+NavUpText: Groovy LDAP
+NavNext: 
+NavNextText: 
 Notice: Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
     distributed with this work for additional information
@@ -16,40 +22,7 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
     specific language governing permissions and limitations
     under the License.
 
-# Groovy LDAP Download, Sources & Building
-
-
-## Download Groovy LDAP
-
-Here is a ZIP-File which contains the source code and the compiled jar file to be used as a Groovy module.
-
-**[groovy-ldap.zip](download/groovy-ldap.zip)**
-
-
-## Implementation
-
-Currently, the implementation is comprised of some Java classes and two enumerations (search scopes and modification types). The class _LDAP_ is the main entry point for scripts, just as the class _LDAPConnection_ in the Netscape SDK. It provides the operations implemented so far. I have decided to omit methods for connecting and disconnecting explicitly (_bind_, _unbind_ in LDAP). Instead all methods handle the connection themselves, which makes the Groovy source code shorter. Class _DirContextToMapObjectFactory_ acts under the hood. It transforms a _DirContext_ object from JNDI search results and lookups into a Java map. This trick enables the script writer to use expressions like _tori.cn_ in order to retrieve an attribute value.  There are probably better solutions to accomplish this task.
-
-
-## Source code
-
-Source code of the proof of concept is currently available for review here :
-
-<http://svn.apache.org/repos/asf/directory/sandbox/szoerner/groovyldap>
-
-In order to check it out, simply type
-
-    D:\Apache>svn co http://svn.apache.org/repos/asf/directory/sandbox/szoerner/groovyldap
-    A    groovyldap\src
-    A    groovyldap\src\main
-    A    groovyldap\src\main\java
-    A    groovyldap\src\main\java\org
-    A    groovyldap\src\main\java\org\apache
-    ...
-    Checked out revision 558335.
-    
-    D:\Apache>_
-
+# 4 - Groovy LDAP : Buildng the Software
 
 ## Building the software
 
