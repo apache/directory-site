@@ -1,0 +1,58 @@
+Title: 1.3 - The Apache LDAP API rational
+NavPrev: 1.2-ldap-in-a-few-words.html
+NavPrevText: 1.2 - LDAP in a few words
+NavUp: 1-introduction.html
+NavUpText: 1 - Introduction
+NavNext: 1.4-preparation-to-code.html
+NavNextText: 1.4 - Preparation to code
+Notice: Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    .
+    http://www.apache.org/licenses/LICENSE-2.0
+    .
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+
+# 1.3 - The Apache LDAP API rational
+
+Once we start to think about creating a new **LDAP** **API**, the first thing that comes to mind is that it could be a duplication of effort : there are already many libraries offering almost everything needed to write **LDAP** code. Some of them are :
+
+    * **JNDI** : the default **JDK** **API**
+    * **Netscape** [LdapSdk](http://www.mozilla.org/directory/javasdk.html)
+    * **OpenLDAP** [JLdap](http://www.openldap.org/jldap/)
+
+So what makes the development of a new *LDAP JAVA API* a valid effort, and not another version of **[NIH](http://en.wikipedia.org/wiki/Not_Invented_Here)** syndrom ?
+
+There are many reasons why we decided to start to work on such an **API**, and we will expose them in this chapter.
+
+## history
+The Apache Directory Server project was first built on top of **JNDI**, but many of the internal **LDAP** structure were developed internally, just because **JNDI** was not designed specifically for **LDAP**, so it was not convenient for us to use those structure. Step by step, all of the **LDAP** objects (_Attribute_, _Entry_, _DN_, ...) were implemented again.
+
+At some point, we needed to communicate with another **LDAP** server without having to go through **JNDI**, so we developed our own _LdapConnection_ class. This was the last step toward a full **Java API**.
+
+Strange enough, at the very same time in 2007, the **Sun** people working on **OpenDS** contacted us to know if we would agree to work on what would have become the next version of **JNDI** ([Resurrecting The Java LDAP Centric API](https://blogs.oracle.com/treydrake/entry/resurrecting_the_java_ldap_centric). Sadly, this effort soon staled, as it seemed that *JNDI2* was not anymore an urgency for **Sun**. We decided to go on but the pace was slow.
+
+We started again to work on this API with the **OpenDS** team in 2009, and did a presentation during the 2009 **LdapCon** ([Towards a common LDAP API for the Java Platform](http://www.symas.com/ldapcon2009/papers/poitou1.shtml)). The story repeated itself with **Oracle** buying **Sun** in 2010, after months of valuable collaboration with *Sun*.
+
+At least, we get some kind of convergence in many aspects of the **API**. We agreed on some of the key features the new **LDAP API** should offer :
+
+    * A complete coverage of the **LDAP** protocol
+    * A schema aware **API**
+    * An easy to use **API**
+    * An **API** taking advantage of the new **Java** construction (generics, ellipsis, NIO)
+
+## Result
+The newly defined **API** fulfill all those aspects. 
+
+We also wanted to make this **API** available for the masses. The Apache Software Foundation value quality and community over code, which means we think that the code is the result of a collaborative work, our users being a part of this collaboration. Every bug a user find, it's an opportunity to provide a better version of the **API**.
+
+At he end, we are proud to deliver an **API** which is used in the Apache Directory Server, but also in the Ldap Browser. 

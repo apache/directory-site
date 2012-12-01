@@ -1,0 +1,40 @@
+Title: 1.4 - Preparation to code
+NavPrev: 1.3-apache-ldap-api-rational.html
+NavPrevText: 1.3 - The Apache LDAP API rational
+NavUp: 1-introduction.html
+NavUpText: 1 - Introduction
+NavNext: 2-basic-ldap-api-usage.html
+NavNextText: 2 - Basic LDAP API Usage
+Notice: Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    .
+    http://www.apache.org/licenses/LICENSE-2.0
+    .
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+
+# 1.4 - Preparation to code
+
+In order to develop with the **Apache Directory LDAP API**, you first have to use a **Java 5** JDK or higher. 
+
+Second, you have to download the **[API](http://directory.apache.org/api/downloads.html)**. This package contains not only the **LDAP API**, but also all the needed jars (like _commons-lang_, _slf4j_...).
+
+If you are using **Maven**, you don't even have to refer all the libraries that are found in the package, they will be deduced automatically. You will just have to add a dependency on _shared-all.jar_ :
+
+    :::XML
+    <dependency>
+      <groupId>org.apache.directory.shared</groupId>
+      <artifactId>shared-all</artifactId>
+    </dependency>
+
+
+This is it, you should be ready to code !
