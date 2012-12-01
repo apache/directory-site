@@ -31,13 +31,13 @@ Those two facts make it necessary to be able to communicate with a LDAP server i
 
 Of course, there are alternatives, like JNDI. We truly believe that those alternative aren't helping users to cope with the complexity of LDAP, at least they are not giving a hand to users. For instance, JNDI semantic are far awy from *LDAP semantic. Let's see how different it is :
 
-    * Bind : used in LDAP to authenticate a user, and to create an entry in JNDI
-    * Unbind : close the LDAP session in LDAP, delete an entry in JNDI
-    * Compare : this LDAP operation is mapped to a Search in JNDI
-    * Various properties have to be set in JNDI in order to connect or tweak the Search operation, which is not convenient
-    * Attributes is case sensitive by default in JNDI, and they aren't schema aware
-    * Name in JNDI are not able to do a valid comparison in JNDI
-    * NamingEnumeration have to be explcitly closed in JNDI, as they aren't closed when you disconnect, leading to some resource leaks.
+* Bind : used in LDAP to authenticate a user, and to create an entry in JNDI
+* Unbind : close the LDAP session in LDAP, delete an entry in JNDI
+* Compare : this LDAP operation is mapped to a Search in JNDI
+* Various properties have to be set in JNDI in order to connect or tweak the Search operation, which is not convenient
+* Attributes is case sensitive by default in JNDI, and they aren't schema aware
+* Name in JNDI are not able to do a valid comparison in JNDI
+* NamingEnumeration have to be explcitly closed in JNDI, as they aren't closed when you disconnect, leading to some resource leaks.
 
 Some of those problems are also true for the existing LDAP API.
 
