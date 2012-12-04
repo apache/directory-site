@@ -1,0 +1,135 @@
+Title: 2.2 - Binding and unbinding
+NavPrev: 2.1-connection-disconnection.html
+NavPrevText: 2.1 - Connection and disconnection
+NavUp: 2-basic-ldap-api-usage.html
+NavUpText: 2 - Basic LDAP API usage
+NavNext: 2.3-searching.html
+NavNextText: 2.3 Searching
+Notice: Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    .
+    http://www.apache.org/licenses/LICENSE-2.0
+    .
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+
+# 2.2 - Binding and unbinding (...)
+
+In **LDAP**, if one wants to access the data in the base, the common way to do it is to bind on the server. However, it's important to understand that binding is a different beast than connection.
+
+Creating a connection to a **LDAP** server is just about opening a socket between the client and the server. You just need to provide the address and the port. 
+
+The **bind** operation, on the other hand, create a _Session_ which will hold some user's information for the time being of the session. Those information are quite limited, they include the user's credentials.
+
+But it's important to know that it's possible to bind as anonymous, providing no name and password, and still be able to request the server (note though that the server can forbid such anonymous bind).
+
+Once the user has finished to request the server, then he can unbind, destroying his session on the server. That does not close the connection, because, one more time, _bind != connection_.
+
+## Binding
+
+You have two possible types of binds in *LDAP* :
+
+* **Simple**
+* **SASL**
+
+The first one is based on a user/password being send to the server, which check that they are valid. It's also possible to proceed an Anonymous bind explicitly.
+
+The second one is more complex, and is used if you want to proceed an authentication with some specific mechanism, like **DIGEST-MD5**, **Kerberos** or certificate based.
+
+### Simple Bind
+One can issue three kind of Simple bind :
+* _anonymous bind_
+* _name/password bind_
+* _unauthenticated authentication bind_
+
+The first one is the easiest one, but depending on the server configuration, it will be accepted or rejected (all the servers don't allow anonymous binds)
+
+Issuing an anonymous bind is very simple, you just provide no user name nor any password :
+
+    :::Java
+    @Test
+    public void testAnonymousBindRequest() throws Exception
+    {
+        BindResponse bindResponse = connection.bind();
+
+        assertNotNull( bindResponse );
+        assertEquals( ResultCodeEnum.SUCCESS, bindResponse.getLdapResult().getResultCode() );
+        assertTrue( connection.isAuthenticated() );
+    }
+
+Issuing a user/password bind is just slightly more complex, you just have to provide your user name and its password :
+
+    :::Java
+    @Test
+    public void testSimpleBindRequest() throws Exception
+    {
+        BindResponse bindResponse = connection.bind( "uid=admin,ou=system", "secret" );
+
+        assertNotNull( bindResponse );
+        assertEquals( ResultCodeEnum.SUCCESS, bindResponse.getLdapResult().getResultCode() );
+        assertTrue( connection.isAuthenticated() );
+    }
+
+>**Note** It's important to note that the user's name is a *[Dn](6.9-dn.html)*, not a simple name like 'John doe"
+
+Last, not least, there is a quite unknown feature in **LDAP** bind that allows you to issue a Bind request without providing a password. It's equivalent to an anonymous bind, except that the server can log the user's name, thus being able to trace what the user does. Servers might forbid such bind, and this will be the case if the server disallow anonymous binds.
+
+Note that this kind of bind will be supported only if the server allows anonymous binds. It's not supported by *ApacheDS*.
+
+    :::Java
+    @Test
+    public void testSimpleBindRequest() throws Exception
+    {
+
+        BindResponse bindResponse = connection.bind( "uid=admin,ou=system" );
+
+        assertNotNull( bindResponse );
+        assertEquals( ResultCodeEnum.SUCCESS, bindResponse.getLdapResult().getResultCode() );
+        assertFalse( connection.isAuthenticated() );
+    }
+
+### SASL Bind
+
+TO BE COMPLETED
+
+### Unbinding
+
+This is a trivial operation : you just send an **UnbindRequest** to the server, which will invalidate your session. 
+
+It's important to know that when you issue an **Unbind**, the connection is dropped. However, if you immediately try another bind, the **API** will open the connection again, using the information provided when the connection has been created. You can then do such a thing :
+
+    :::Java
+    @Test
+    public void testDoubleSimpleBindValid() throws Exception
+    {
+        BindResponse response = connection.bind( "uid=admin,ou=system", "secret" );
+        assertEquals( ResultCodeEnum.SUCCESS, response.getLdapResult().getResultCode() );
+        assertTrue( connection.isConnected() );
+        assertTrue( connection.isAuthenticated() );
+
+        // Now, unbind
+        connection.unBind();
+        assertFalse( connection.isConnected() );
+        assertFalse( connection.isAuthenticated() );
+
+        // And Bind again.
+        response = connection.bind( "uid=admin,ou=system", "secret" );
+        LdapResult ldapResult3 = response3.getLdapResult();
+        assertEquals( ResultCodeEnum.SUCCESS, response.getLdapResult.getResultCode() );
+        assertTrue( connection.isConnected() );
+        assertTrue( connection.isAuthenticated() );
+    }
+
+If you issue a _bind_ on the same connection with some different credentials, then the existing session will be terminated on the server, and a new one will be created. All the pending requests for the initial session will be lost.
+
+Last, not least, if you close the connection, then the session will also be terminated.
+ 

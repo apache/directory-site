@@ -23,24 +23,24 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
     under the License.
 
 # 1.1 - Java and LDAP
-Most developer will, at some point, face the tricky task to communicate with a LDAP server. LDAP seems to be a very simple technology, but when you get deep into it, you realize that many aspects are not well known, and not so easy to deal with.
+Most developer will, at some point, face the tricky task to communicate with a **LDAP** server. **LDAP** seems to be a very simple technology, but when you get deep into it, you realize that many aspects are not well known, and not so easy to deal with.
 
-Java is most certainly the number one language used in the enterprise, for around 10 years now. Some even call it the new Cobol !
+Java is most certainly the number one language used in the enterprise, for around 10 years now. Some even call it the new **Cobol** !
 
-Those two facts make it necessary to be able to communicate with a LDAP server in Java. This is ware a convenient API is useful, and this is why we decided to provide this API.
+Those two facts make it necessary to be able to communicate with a **LDAP** server in **Java**. This is ware a convenient **API** is useful, and this is why we decided to provide this **API**.
 
-Of course, there are alternatives, like JNDI. We truly believe that those alternative aren't helping users to cope with the complexity of LDAP, at least they are not giving a hand to users. For instance, JNDI semantic are far awy from *LDAP semantic. Let's see how different it is :
+Of course, there are alternatives, like **JNDI**. We truly believe that those alternative aren't helping users to cope with the complexity of **LDAP**, at least they are not giving a hand to users. For instance, **JNDI** semantic are far awy from **LDAP** semantic. Let's see how different it is :
 
-* Bind : used in LDAP to authenticate a user, and to create an entry in JNDI
-* Unbind : close the LDAP session in LDAP, delete an entry in JNDI
-* Compare : this LDAP operation is mapped to a Search in JNDI
-* Various properties have to be set in JNDI in order to connect or tweak the Search operation, which is not convenient
-* Attributes is case sensitive by default in JNDI, and they aren't schema aware
-* Name in JNDI are not able to do a valid comparison in JNDI
-* NamingEnumeration have to be explcitly closed in JNDI, as they aren't closed when you disconnect, leading to some resource leaks.
+* **Bind** : used in **LDAP** to authenticate a user, and to create an entry in **JNDI**
+* **Unbind** : close the **LDAP** session in **LDAP**, delete an entry in **JNDI**
+* **Compare **: this **LDAP** operation is mapped to a Search in **JNDI**
+* Various properties have to be set in **JNDI** in order to connect or tweak the **Search** operation, which is not convenient
+* **Attributes** is case sensitive by default in **JNDI**, and they aren't schema aware
+* **Name** in **JNDI** are not able to do a valid comparison in **JNDI**
+* **NamingEnumeration** have to be explcitly closed in **JNDI**, as they aren't closed when you disconnect, leading to some resource leaks.
 
-Some of those problems are also true for the existing LDAP API.
+Some of those problems are also true for the existing **LDAP API**.
 
-All in all, writing application including some LDAP operations in Java is just a painful task for most of the developers.
+All in all, writing application including some **LDAP** operations in **Java** is just a painful task for most of the developers.
 
-Our target is to provide a better API, that will help them getting efficient with their LDAP interaction.
+Our target is to provide a better **API**, that will help them getting efficient with their **LDAP** interaction.

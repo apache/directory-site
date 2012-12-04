@@ -1,0 +1,72 @@
+Title: 2.1 - Connection and disconnection
+NavPrev: 2-basic-ldap-api-usage.html
+NavPrevText: 2 - Basic LDAP API usage
+NavUp: 2-basic-ldap-api-usage.html
+NavUpText: 2 - Basic LDAP API usage
+NavNext: 2.2-binding-unbinding.html
+NavNextText: 2.2 - Binding and unbinding
+Notice: Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    .
+    http://www.apache.org/licenses/LICENSE-2.0
+    .
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+
+# 2.1 - Connection and disconnection
+
+**LDAP** is a protocol which requires the user to be connected - and eventually identified - in order to be able to send requests to the server. We maintain this connection potentially forever. What make the **LDAP** protocol different from, say, the *HTTP* protocol is that the connection must be issued explicitly. Let's see how we do that.
+
+## Opening a connection
+
+We can open a secure or a standard connection. 
+
+### Standard connection
+
+We can first establish a standard connection, where the data are sent and received in clear text (encoded in ASN.1 BER, but still not encrypted). This example expose the way it's done :
+
+    :::Java
+    LdapConnection connection = new LdapNetworkConnection( "localhost", 389 );
+
+Here, we just created an unsafe connection locally, using the 389 port. Quite simple...
+
+### Secure connection
+
+Although the **LDAPS** (**LDAP** over **SSL**) is now considered as deprecated, many people continue to use it. The big advantage of not using **LDAPS** is that you don't need to setup two different listening ports (one for **LDAP** -389- and another one for **LDAPS** -636- ).
+
+The only difference with the previous example is that we have to tell the connection that it has to use **SSL**, by passing **_true_** as a third parameter (incidentally, passing **_false_** set a unsafe connection).
+
+Here is an example
+
+    :::Java
+    LdapConnection connection = new LdapNetworkConnection( "localhost", 636, true );
+
+h2. Maintaining the connection opened
+
+We keep the connection opened for a limited period of time, defaulting to 30 seconds. This might be not long enough, so one can change this delay by calling the _setTimeOut()_ method :
+
+    :::Java
+    LdapConnection connection = new LdapNetworkConnection( "localhost", 389 );
+    connection.setTimeOut( 0 );
+    ...
+    connection.close();
+
+>**Note:** Setting a value equal or below 0 will keep the connection opened for ever (or a soon as the connection is not explicitly closed).
+
+## Closing the connection
+
+Once you don't need to use the connection anymore (remember that hodling a connection keeps a session opened on the server, and a socket opened between the client and the server), then you have to close it. This is done by calling the _close()_ method :
+
+    :::Java
+    LdapConnection connection = new LdapNetworkConnection( "localhost", 389 );
+    ...
+    connection.close();
