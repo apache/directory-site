@@ -1,0 +1,63 @@
+Title: 2.3 - Searching
+NavPrev: 2.2-binding-unbinding.html
+NavPrevText: 2.2 - Binding and unbinding
+NavUp: 2-basic-ldap-api-usage.html
+NavUpText: 2 - Basic LDAP API usage
+NavNext: 2.4-adding.html
+NavNextText: 2.4 - Adding entries
+Notice: Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    .
+    http://www.apache.org/licenses/LICENSE-2.0
+    .
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+
+# 2.3 - Searching (...)
+
+Searching is the most important operation in **LDAP**. It has to be fast, very fast. On the other hand, as the server does not a lot of processing while looking for entries, the client has to provide many information in order to get some accurate results.
+
+The idea is to define a search **API** which is easy to use in the simplest cases, but provides all the necessary bolts if you need to send complex search requests.
+
+<DIV class="worning" markdown="1">
+This part of the API is very likely to change in the next milestone, to provide an easier way to get the results in the simple cases.
+</DIV>
+
+## Simple search
+
+Let's first look at a simple search. What we basically need to process a search is a starting point in the tree, a filter, a scope. Here is an example :
+
+    :::java
+    @Test
+    public void testSimpleSearch() throws Exception
+    {
+        SearchCursor cursor = connection.search( "ou=system", "(objectclass=*)", SearchScope.ONELEVEL );
+        
+        while ( cursor.next() )
+        {
+            Response response = cursor.get();
+            assertNotNull( response );
+            assertTrue( response instanceof SearchResultEntry );
+            System.out.println( ((SearchResultEntry)response).getEntry() );
+        }
+
+        SearchResultDone done = cursor.getSearchResultDone();
+
+        assertNotNull( done );
+        assertEquals( ResultCodeEnum.SUCCESS, done.getLdapResult().getResultCode() );
+
+        cursor.close();
+    }
+
+In this example, the _connection_ has been previously created. We just search for all the entries starting at *ou=system* and their children, which have an _ObjectClass_ attribute (all the entries have such an attribute, so we should get back all the entries). The scope (_ONELEVEL_) says we just search one level under the starting base.
+
+We get back a cursor, which can be walked forward. Every call to the _get()_ method will return a response, which will be either a _SearchResultEntry_, a _SearchResultReference_ or an _IntermediateResponse_.

@@ -1,0 +1,172 @@
+Title: 2.4 - Adding entries
+NavPrev: 2.3-searching.html
+NavPrevText: 2.3 Searching
+NavUp: 2-basic-ldap-api-usage.html
+NavUpText: 2 - Basic LDAP API usage
+NavNext: 2.5-deleting.html
+NavNextText: 2.5 - Deleting entries
+Notice: Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    .
+    http://www.apache.org/licenses/LICENSE-2.0
+    .
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+
+# 2.4 - Adding entries
+
+Adding entries is one of the base operation a user can do on a **LDAP** server. Nevertheless, such an operation implies a lot of checks, and frequently the user gets some weird error messages. We will see how we can add an entry using the **LDAP API**, and then analyze the different error cases we can face.
+
+## Adding an entry
+We will first see the easiest way to add an entry into the server, assuming that the entry is correct. In order to add an entry, you only have to provide the place where this entry will be stored (its **[Dn]()**) and the list of its **[Attributes]()**.
+
+Here is two examples where we inject the entry using **LDIF** :
+
+    :::Java
+    @Test
+    public void testAddLdif() throws Exception
+    {
+        AddResponse response = connection.add( 
+            new DefaultEntry( 
+                "cn=testadd,ou=system",    // The Dn
+                "ObjectClass: top",
+                "ObjectClass: person",
+                "cn: testadd_cn",
+                "sn: testadd_sn"
+                ) );
+
+        assertNotNull( response );
+        assertEquals( ResultCodeEnum.SUCCESS, response.getLdapResult().getResultCode() );
+
+        assertTrue( session.exists( "cn=testadd,ou=system" ) );
+    }
+
+In this basic example, we are adding a new entry, created using some **LDIF** formatted parameters, the first one being the entry's Dn.
+Note that it is possible to use some variables in the **LDIF** instead of pure text. Here is the same example, resulting to the same entry being added:
+
+    :::Java
+    @Test
+    public void testAddLdif() throws Exception
+    {
+        String cn = "testadd_cn";
+        String sn = "testadd_sn";
+
+        AddResponse response = connection.add( 
+            new DefaultEntry( 
+                "cn=testadd,ou=system",    // The Dn
+                "ObjectClass: top",
+                "ObjectClass: person",
+                "cn", cn,                  // Note : there is no ':' when using a variable
+                "sn", sn
+                ) );
+
+        assertNotNull( response );
+        assertEquals( ResultCodeEnum.SUCCESS, response.getLdapResult().getResultCode() );
+
+        assertTrue( session.exists( "cn=testadd,ou=system" ) );
+    }
+
+Down the line, what is important is that the _add()_ operation is taking a full **[Entry]()**. 
+
+We can also create the **[Entry]()** in a different way, which will be exposed in the following paragraphs.
+
+## Sending an **[AddRequest]()**
+
+Sometimes, we want more control. We can ask the server to add an entry by sending an **[AddRequest]()**, which allows you to send a **[Control]()** at the same time.
+
+Here is an example (note that the control is just injected to demonstrate the feature, it simply does nothing in this case):
+
+    :::java
+    @Test
+    public void testAddWithControl() throws Exception
+    {
+        assertFalse( session.exists( "cn=testadd,ou=system" ) );
+        
+        Entry entry = new DefaultEntry( 
+            "cn=testadd,ou=system",
+            "ObjectClass : top",
+            "ObjectClass : person",
+            "cn: testadd_sn",
+            "sn: testadd_sn"
+            );
+        
+        AddRequest addRequest = new AddRequestImpl();
+        addRequest.setEntry( entry );
+        addRequest.addControl( new ManageDsaITImpl() );
+
+        AddResponse response = connection.add( addRequest );
+
+        assertNotNull( response );
+        assertEquals( ResultCodeEnum.SUCCESS, response.getLdapResult().getResultCode() );
+
+        assertTrue( session.exists( "cn=testadd,ou=system" ) );
+    }
+
+### Asynchronous addition
+
+Some may want to add an entry, but will not check the result immediately. It's just a matter of calling the _addAsync()_ method, which will return a _Future_ that can be checked somewhere else in the code:
+
+    :::java
+    @Test
+    public void testAddAsyncLdif() throws Exception
+    {
+        Entry entry = new DefaultEntry( 
+            "cn=testAsyncAdd,ou=system",
+            "ObjectClass: top",
+            "ObjectClass: person",
+            "cn: testAsyncAdd_cn",
+            "sn: testAsyncAdd_sn" );
+
+        assertFalse( session.exists( "cn=testAsyncAdd,ou=system" ) );
+        AddRequest addRequest = new AddRequestImpl();
+        addRequest.setEntry( entry );
+
+        AddFuture addFuture = connection.addAsync( addRequest );
+
+        // Here, we can do something else before checking that the entry has been added
+
+        AddResponse addResponse = addFuture.get( 1000, TimeUnit.MILLISECONDS );
+
+        assertNotNull( addResponse );
+        assertEquals( ResultCodeEnum.SUCCESS, addResponse.getLdapResult().getResultCode() );
+        assertTrue( session.exists( "cn=testAsyncAdd,ou=system" ) );
+    }
+
+## Do, Don't
+
+Successfully adding an entry assume that the entry is correct, ie that the attributes and the value are compatible with the schema. There are many things checked by the server. Here is a list of constraints that you should respect in order to get your entry injected:
+
+* The entry must have at least one **Structural** **[ObjectClass]()**
+* If the entry has more than one **Structural** **[ObjectClass]()**, then they must be hierarchically related
+* The *[DIRAPI:ObjectClass]es* define the list of allowed **Structural** **[AttributeTypes]()** that can be used (**MAY** and **MUST**)
+* All the **MUST** **[AttributeTypes]()** must be present
+* Each added value must follow the **[DIRAPI:AttributeType]** **[Syntax]()**
+* If the **[DIRAPI:AttributeType]** is single valued, then you can't add more than one value
+* The entry's **[Dn]()** must have a parent
+* You are not allowed as a user to inject operational attributes, unless they have the **USER-MODIFICATION** flag set to true.
+
+
+There are also some other constraints, depending on the server, if it implements **[NameForms]()**, **[DITStructureRules]()** or *[DITContentRules]()**.
+
+One other reason your entry can be rejected is that you don't have enough privilege to add it. You have to check that the server configuration allows you to add an entry where you want to add it.
+
+## Errors
+
+<DIV class="note" markdown="1">
+At first, you might expect to get an exception if the entry addition has failed. If the server is rejecting the addition, *you will get NO exception*. Exceptions are only thrown client side if the entry is not built correctly, or if the connection is not opened. 
+
+In any other case, the server will simply return a **[LdapResult]()** instance containing either **SUCCESS** or the cause of the rejection.
+</DIV>
+
+Usually, if you get an error while adding an entry, the message might be pretty tedious. Most of the cases it's because either your entry already exists, or because your entry has some schema violation.
+
+The **[LdapResult]()** in the response will give you a clue about what going on.
