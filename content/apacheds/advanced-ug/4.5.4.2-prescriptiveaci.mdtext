@@ -1,0 +1,59 @@
+Title: 4.5.4.2 PrescriptiveACI
+NavPrev: 4.5.4.1-entryaci.html
+NavPrevText: 4.5.4.1 - Entry Aci
+NavUp: 4.5.4-aci-types.html
+NavUpText: 4.5.4 - Aci Types
+NavNext: 4.5.4.3-subentryaci.html
+NavNextText: 4.5.4.3 Subentry Aci
+Notice: Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    .
+    http://www.apache.org/licenses/LICENSE-2.0
+    .
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+
+Prescriptive ACI are access controls that are applied to a collection of
+entries, not just to a single entry. Collections of entries are defined by
+the subtreeSpecifications of subentries. Hence prescriptive ACI are added
+to subentries as attributes and are applied by ApacheDS to the entries
+selected by the subentry's subtreeSpecification. ApacheDS uses the
+*prescriptiveACI* multivalued operational attribute within subentries to
+contain ACIItems that apply to the entry collection.
+
+Prescriptive ACI can save much effort when trying to control access to a
+collection of resources. Prescriptive ACI can even be specified to apply
+access controls to entries that do not yet exist within the DIT. They are a
+very powerful mechanism and for this reason they are the preferred
+mechanism for managing access to protected resources. ApacheDS is optimized
+specifically for managing access to collections of entries rather than
+point entries themselves.
+
+Users should try to avoid entry ACIs whenever possible, and use
+prescriptive ACIs instead. Entry ACIs are more for managing exceptional
+cases and should not be used excessively.
+
+{info:title=How it works!}
+For every type of LDAP operation, ApacheDS checks to see if any access
+control subentries include the protected entry in their collection. The set
+of subentries which include the protected entry are discovered very rapidly
+by the subentry subsystem. The subentry subsystem caches
+subtreeSpecifications for all subentries within the server so inclusion
+checks are fast. 
+
+For each access control subentry in the set, ApacheDS checks within a
+prescriptive ACI cache for ACI tuples. ApacheDS also caches prescriptive
+ACI information in a special form called ACI tuples. This is done so
+ACIItem parsing and conversion to an optimal representations for evaluation
+is not required at access time. This way access based on prescriptive ACIs
+is determined very rapidly.
+{info}

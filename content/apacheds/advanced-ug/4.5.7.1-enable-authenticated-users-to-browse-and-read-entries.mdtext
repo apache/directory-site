@@ -1,0 +1,182 @@
+Title: 4.5.7.1 Enable Authenticated Users to Browse and Read Entries
+{scrollbar}
+
+In this trail, we will show how we will allow all authenticated users to
+browse and read all the entries.
+
+By default, if the access control subsystem is enabled, no one but the
+administrator can browse the DIT. This is obviously not convenient ...
+
+<a name="2.5.7.1EnableAuthenticatedUserstoBrowseandReadEntries-PartitionandAccessControlAreaSetup"></a>
+# Partition and Access Control Area Setup
+
+For this example we presume you have setup a partition at the namingContext
+*dc=example,dc=com* and have turned on access controls. Now you want to
+grant browse and read access to entries and their attributes.
+
+Before you can add a *subentry* with the *prescriptiveACI* you'll need to
+create an *administrative area*. For now we'll make the root of the
+partition the *Adminstrative Point* (*AP*). Every entry including this
+entry and those underneath will be part of the autonomous administrative
+area for managing access controls. To do this we must add the
+*administrativeRole* operational attribute to the *AP* entry. 
+
+<a name="2.5.7.1EnableAuthenticatedUserstoBrowseandReadEntries-AdministrationPointsetup"></a>
+## AdministrationPoint setup
+
+In our case, the *dc=example,dc=com* context entry has to contain the
+*administrativeRole* attribute, with the *accessControlSpecificArea* value.
+
+Let's first connect to the server using the *admin* user, and select the
+*dc=example,dc=com* entry :
+
+!Screen shot 2010-07-04 at 8.45.09 PM.png|border=1!
+
+
+We will now add the *directoryOperation* attribute *administrativeRole* to
+this entry :
+
+!Screen shot 2010-07-04 at 10.17.54 PM.png|border=1!
+
+and we select the *accessControlSpecificArea* value :
+
+!Screen shot 2010-07-04 at 10.18.49 PM.png|border=1!
+
+Here is the resulting entry :
+
+!Screen shot 2010-07-04 at 10.19.44 PM.png|border=1!
+
+<a name="2.5.7.1EnableAuthenticatedUserstoBrowseandReadEntries-Subentryaddition"></a>
+## Subentry addition
+
+Now, we have to create a *subentry* in which we will add the
+*prescriptiveACI* granting access to all the users.
+
+Let's define the ACI first.
+
+<a name="2.5.7.1EnableAuthenticatedUserstoBrowseandReadEntries-ACIItemDescription"></a>
+### ACIItem Description
+
+Here's the ACIItem we will add :
+
+{newcode}
+{ 
+  identificationTag "enableSearchForAllUsers",
+  precedence 14,
+  authenticationLevel simple,
+  itemOrUserFirst userFirst: 
+  { 
+    userClasses { allUsers }, 
+    userPermissions 
+    { 
+       {
+	 protectedItems {entry, allUserAttributeTypesAndValues}, 
+	 grantsAndDenials { grantRead, grantReturnDN, grantBrowse } 
+       }
+    } 
+  } 
+}
+{newcode}
+
+There are several parameters to this simple ACIItem. Here's a breif
+exaplanation of each field and it's meaning or significance.
+
+<table>
+<tr><th> Fields </th><th> Description </th></tr>
+<tr><td> identificationTag </td><td> Identifies the ACIItem within an entry. </td></tr>
+<tr><td> precedence </td><td> Determine which ACI to apply with conflicting ACIItems. </td></tr>
+<tr><td> authenticationLevel </td><td> User's level of trust with values of none, simple,
+strong </td></tr>
+<tr><td> itemOrUserFirst </td><td> Determines order of item permissions or user
+permissions. </td></tr>
+<tr><td> userClasses </td><td> The set of users the permissions apply to. </td></tr>
+<tr><td> userPermissions </td><td> Permissions on protected items </td></tr>
+</table>
+
+In our case, we want to grant all the users :
+
+{newcode:firstline=7}
+  userClasses { allUsers }
+{newcode}
+
+to be granted a read access :
+
+{newcode:firstline=12}
+	 grantsAndDenials { grantRead, grantReturnDN, grantBrowse } 
+{newcode}
+
+for the Entry and all the values :
+
+{newcode:firstline=11}
+	 protectedItems {entry, allUserAttributeTypesAndValues}, 
+{newcode}
+
+The granted permissions are used to allow the user to browse the tree
+(*grantBrowse*), read the entries (*grantRead*) and return the DN for
+aliases (*grantReturnDN*).
+
+<a name="2.5.7.1EnableAuthenticatedUserstoBrowseandReadEntries-PrescriptiveACIaddition"></a>
+## PrescriptiveACI addition
+
+Now that we have defined the *ACIItem*, we have to add it into a *subentry*
+associated with the *administration point*. This is just an entry under the
+*administration Point*, here, we will call it *cn=enableSearchForAllUsers,
+dc=example,dc=com*.
+
+The entry is described below in a LDIF format :
+
+{newcode}
+dn: cn=enableSearchForAllUsers,dc=example,dc=com
+objectClass: top
+objectClass: subentry
+objectClass: accessControlSubentry
+subtreeSpecification: {}
+prescriptiveACI: 
+ { 
+   identificationTag "enableSearchForAllUsers",
+   precedence 14,
+   authenticationLevel simple,
+   itemOrUserFirst userFirst: 
+   { 
+     userClasses { allUsers }, 
+     userPermissions 
+     { 
+       {
+	 protectedItems {entry, allUserAttributeTypesAndValues}
+	 grantsAndDenials { grantRead, grantReturnDN, grantBrowse }
+       }
+     }
+   }
+ }
+{newcode}
+
+It's also easy to create such an entry with *Apache Directory Studio*.
+First, right click on the context entry, and select 'new Entry' :
+
+!Screen shot 2010-07-04 at 11.57.50 PM.png|border=1!
+
+Then create a new entry from scratch, and select the 'subentry' and
+'accessControlSubentry' ObjectClasses :
+
+!Screen shot 2010-07-04 at 11.59.28 PM.png|border=1!
+
+Create the RDN for this new entry :
+
+!Screen shot 2010-07-05 at 12.01.43 AM.png|border=1!
+
+Pass the subtree editor, we don't need to define anything here, and go to
+the Attributes definition :
+
+!Screen shot 2010-07-05 at 12.03.21 AM.png|border=1!
+
+The next step is to add the *rescriptiveACI* value, using the dedicated
+editor :
+
+!Screen shot 2010-07-05 at 12.12.16 AM.png|border=1!
+
+When the selection has been done, we have to add the permissions :
+
+!Screen shot 2010-07-05 at 12.13.47 AM.png|border=1!
+ 
+
+Once done, all the entries under *dc=example,dc=com* are ruled by this ACI
