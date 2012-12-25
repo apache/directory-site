@@ -29,6 +29,7 @@ The _Backend_ is the part of the server responsible for storing data in a way we
 ## Existing Backends
 
 We currently have 3 different backends :
+
 * JDBM
 * LDIF
 * In-Memory
@@ -43,9 +44,9 @@ This Backend loads in memory a full set of entries. ALl of them must be hold by 
 
 ### LDIF Backend
 
-It come sin two forms : one single file, or many fles (one per entry). It's always backed by a in-memory _Backend_, otherwise it would not be possible to retrieve the entries. 
+It comes in two forms : one single file, or many fles (one per entry). It's always backed by a in-memory _Backend_, otherwise it would not be possible to retrieve the entries. 
 
-As we depend on a in-memory backend, which handles the indexes, we have to create those index when this _Backend_ is read, which can be a costly operation. 
+As we depend on a in-memory backend, which handles the indexes, we have to create those indexes when this _Backend_ is read, which can be a costly operation. 
 
 ### Future Backends
 
@@ -61,7 +62,7 @@ Data are stored into various tables. In fact, we have one table containing all t
 
 ### MasterTable
 
-The _MasterTable_ coantins all the entries, serialized. 
+The _MasterTable_ contains all the entries, serialized. 
 
 This table is a <Key, Value> **BTree**, where the key is the entry's **UUID**, and the value the serialized entry.
 
@@ -88,11 +89,11 @@ We have 7 system indexes, which are created when the server is started :
 * OneAlias : An index used for children aliases 
 * SubAlias : An index used of descendant aliases
 
-The user may define many different index, dependening on his needs.
+The user may define many different indexes, depending on his or her needs.
 
 ### The ParentIdAndRdn index
 
-This index is special, as it's used to associate an entry to a position in the **DIT**. Assuming that each entry has a _Dn_, and that this _Dn_ describes a hierarchie, the _ParentIdAndRdn_ index depicts this hierarchy.
+This index is special, as it's used to associate an entry to a position in the **DIT**. Assuming that each entry has a _Dn_, and that this _Dn_ describes a hierarchy, the _ParentIdAndRdn_ index depicts this hierarchy.
 
 The _ParentId_ part refers to the _UUID_ of the parent for the current entry. The _Rdn_ part is the entry _Rdn_. In order to rebuild the full _Dn_ for a given entry, we must get all the _ParentIdAndRdn_ up to the root to grab all the needed _Rdn_.
 

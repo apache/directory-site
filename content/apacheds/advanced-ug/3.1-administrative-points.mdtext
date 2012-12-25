@@ -57,11 +57,13 @@ We will describe the types of Administrative Points we are managing and the
 way they impact their associated Administrative Areas (*AA*)
 
 We have three different kind of *AP*  :
+
 * Autonomous AP ( *AAP*)
 * Specific AP (*SAP*)
 * Inner AP (*IAP*)
 
-Those three different *AP*s are related with each other in this way :
+Those three different *APs* are related with each other in this way :
+
 * *AAPs* manage an *AA* as if all the possible type of *SAP* where declared
 for this area
 * *SAPs* manage an *AA* with respect to one specific kind of role (Access
@@ -79,6 +81,7 @@ be combined with any of the above *AP*.
 
 ## Roles
 *AP* are managing some administrative aspect, defined by a role :
+
 * ACI : Manage the access control
 * CollectiveAttribute : Manage the collective attributes
 * SubSchema (not handled atm) 
@@ -88,6 +91,7 @@ be combined with any of the above *AP*.
 
 Once we have defined an *AP*, we can add some *subentries* which contain
 the description of the administrative actions, including :
+
 * The area this *subentry* covers, defined by a *SubtreeSpecification*,
 named *subtree*.
 

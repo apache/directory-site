@@ -27,19 +27,21 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 This layer is the part the user connects to when he wants to obtain some data from the server. This is not a mandatory part ot the server : we don't need to use it when the server is embedded.
 
 We offer more than just LDAP protocol, the server also include various protocols :
+
 * Kerberos
 * NTP
 * DHCP
 * DNS
 * ChangePassword
 
-Not all of them are implemented in the current version, but at least the Kerberos server is available. (The other protocols have been developped as a proof of concept : as they are all dpeending on a storage database, we have used the LDAP server as a storage).
+Not all of them are implemented in the current version, but at least the Kerberos server is available. The other protocols have been developped as a proof of concept : as they are all depending upon a storage database, we have used the LDAP server as a storage.
 
 It's perfectly possible to imagine more protocols being implemented in the near future...
 
 ## Server startup
 
-This chapter title is a bit misleading. We don't start a server, we start a _DirectoryService_, then we start various servers on top of it. The _DirectoryService_ is the part responsible for the management f data (retrieval, storage, etc). All the servers can access this storage if needed.
+This chapter title is a bit misleading. We don't start a server, we start a _DirectoryService_, then we start various servers on top of it.
+The _DirectoryService_ is the part responsible for the management of data (retrieval, storage, etc). All the servers can access this storage if needed.
 
 So when the _DirectoryService_ has been started and is operational, we can start the various servers, which will accept incoming requests from remote peers.
 

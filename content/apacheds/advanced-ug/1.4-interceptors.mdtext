@@ -32,29 +32,30 @@ All in all, they will handle operations from a specific functional aspect.
 
 ## Handled operations
 
-Each _Interceptor_ handle a subset of the possible operations, among those listed in the following table :
+Each _Interceptor_ handles a subset of the possible operations, among those listed in the following table :
 
 | Operation | Description |
 |---|---|
-| Add | Add an entry in the backend |
-| Bind | Bind on the DirectoryService |
-| Compare | Compare the elements with the associated entry in the backend |
-| Delete | Delete the entry |
-| getRooDSE | Get back the RootDSE entry |
+| Add | Adds an entry in the backend |
+| Bind | Binds on the DirectoryService |
+| Compare | Compares the elements with the associated entry in the backend |
+| Delete | Deletes the entry |
+| getRooDSE | Gets back the RootDSE entry |
 | hasEntry | Tells if an entry exists |
-| Lookup | Fetch an entry |
-| Modify | Modify an entry |
-| Move | Move an entry |
-| MoveAndRename | Move and rename an entry |
-| Rename | Rename an entry |
-| Search | Search for entries |
-| Unbind | Unbind from the DirectoryService |
+| Lookup | Fetches an entry |
+| Modify | Modifies an entry |
+| Move | Moves an entry |
+| MoveAndRename | Moves and renames an entry |
+| Rename | Renames an entry |
+| Search | Searches for entries |
+| Unbind | Unbinds from the DirectoryService |
 
-It is important to understand that each operation wil go through each _Interceptor_ that are declared to handle the operation, down to the backend.
+It is important to understand that each operation will go through each _Interceptor_ declared to handle the operation, down to the backend.
 
 ## Existing interceptors
 
-The following interceptors are already present in the server, even if they are not enabled. In this table, we list all the operation each interceptor is handling, and if the _interceptor_ is enabled by default or not :
+The following interceptors are already present in the server, even if they are not enabled.
+In this table, we list all the operations each interceptor is handling, and if the _interceptor_ is enabled by default or not :
 
 | Interceptor | Enabled |add|bnd|cmp|del|DSE|has|lkp|mod|mov|m&r|ren|sea|ubd|
 |---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
@@ -80,7 +81,7 @@ The following interceptors are already present in the server, even if they are n
 
 ## Interceptors order
 
-As we already said, the _Intecreptors_ order is significant : why would we proceed an _Add_ operation through all the _Interceptors_ if the user is simply denied the right to add an entry by the _AciAuthorizationInterceptor_ ?
+As we already said, the _Interceptors_ order is significant : why would we proceed an _Add_ operation through all the _Interceptors_ if the user is simply denied the right to add an entry by the _AciAuthorizationInterceptor_ ?
 
 Currently, the following order is enforced :
 
@@ -103,7 +104,7 @@ Currently, the following order is enforced :
 
 ## Example
 
-Let's consider the _search_ operation. It will be processed successuvly by the following _Intecreptors_, as it can be deduced by the two previous tables :
+Let's consider the _search_ operation. It will be processed successively by the following _Interceptors_, as it can be deduced by the two previous tables :
 
 * NormalizationInterceptor
 * AuthenticationInterceptor
@@ -118,10 +119,10 @@ We can do the same exercise for each operation.
 
 ## Processing
 
-Basically, an _Interceptor_ receives a request for an operation, do some pre-processing, call the next _Interceptor_ in the chain, do some post-processing, and return a result. 
+Basically, an _Interceptor_ receives a request for an operation, does some pre-processing, calls the next _Interceptor_ in the chain, does some post-processing, and returns a result.
 
 Calling the next _Interceptor_ is as simple as calling the _next(OperationContext)_ method, which will compute the right _Interceptor_.
 
 The pre-processing and post-processing are standard Java code, there is nothing special there. 
 
-Each operation is passed into an instance of a specific _OperationContext_, which contains all what is needed about the operation and the environement.
+Each operation is passed into an instance of a specific _OperationContext_, which contains all what is needed about the operation and the environment.

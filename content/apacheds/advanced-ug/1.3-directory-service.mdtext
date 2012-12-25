@@ -28,11 +28,11 @@ The _DirectoryService_ is the core of the server. This is where we process incom
 
 It has an entry point, the _OperationManager_, which is in charge of pushing the requests into the _Interceptors_ chain, and to protect the server against concurrent modifications.
 
-Then the request is going through every _Interceptor_ being registred for this operation. When we have gone through all the _Interceptors_, we have reach the _PartitionNexus_, which is the connection with the backends.
+Then the request is going through every _Interceptor_ being registred for this operation. When we have gone through all the _Interceptors_, we have reached the _PartitionNexus_, which is the connection with the backends.
 
-We now just have to determinate which type of _Backend_ we should address, and this is done using the _Dn_.The request is then transmitted to the _Backend_, which returns the result.
+We now just have to determinate which type of _Backend_ we should address, and this is done using the _Dn_. The request is then transmitted to the _Backend_, which returns the result.
 
-The result bubble up through the _Interceptors_ as we unfold the stack stack, up the the _OperationManager_ and the caller.
+The result bubbles up through the _Interceptors_ as we unfold the stack stack, up to the _OperationManager_ and to the caller.
 
 ## Environment
 

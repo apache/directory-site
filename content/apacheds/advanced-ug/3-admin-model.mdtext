@@ -24,19 +24,22 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 # 3 - Administrative Model
 
-The **Administrative Model** is a really critical notion that need to be understood, because it drives many of ApacheDS roles.
+The **Administrative Model** is a really critical notion that needs to be understood, because it drives many of ApacheDS roles.
 
 It's directly inherited by the **X.500** Administrative model (in fact, we do implement the full **X.500** sepcification related to **AAs**).
 
 ## What is the Administrative Model ?
 
-The idea is to define the **DIT** as some areas which are administrated. Each area can be defined, and covers a set of entries, and each area can manage one ore more roles we want to manage. Those roles can be related to authorization, schema, etc... Each of this areas can overlap, but in any case, if two areas are overlaping, then one area totally include the other one. 
+The idea is to define the **DIT** as some areas which are administrated.
+Each area can be defined, and covers a set of entries, and each area can manage one ore more roles we want to manage.
+Those roles can be related to authorization, schema, etc... Each of these areas can overlap, but in any case, if two areas are overlapping,
+then one area totally includes the other one.
 
-The Admnistrative Model is everything we need to implement in order to be able to manage roles on some defined areas.
+The Administrative Model is everything we need to implement in order to be able to manage roles on some defined areas.
 
 ## Areas
 
-An Area describe a part of the **DIT** which will start from a specific entry, and span across a part of the subtree starting at the base entry. An area is administrated by an **AP** (Administrative Point) which holds all the needed information about the area and the roles.
+An Area describes a part of the **DIT** which will start from a specific entry, and span across a part of the subtree starting at the base entry. An area is administrated by an **AP** (Administrative Point) which holds all the needed information about the area and the roles.
 
 We have three kind of areas :
 
@@ -44,7 +47,7 @@ We have three kind of areas :
 * SAA : Specific Administrative Areas
 * IAA : Inner Administrative Areas
 
-**AAAs** cover all the roles as if we have declared one **SAA** for each existing role. They overload any area in which they can be encapsulated, hiding them.
+**AAAs** cover all the roles as if we had declared one **SAA** for each existing role. They overload any area in which they can be encapsulated, hiding them.
 
 **SAAs** cover one specific role, and overload any encapsulating area with the same role.
 
@@ -54,12 +57,13 @@ We have three kind of areas :
 
 An **Administration Point** is the point in the **DIT** where an area starts. It defines the roles, and the scope that applies to this area.
 
-Once we know which area we need to define, and the associated roles, it's mandatory to store those information in the **DIT**. This is done by addinga **subentries**, which just are entries storing all the administrative configuration.
+Once we know which area we need to define, and the associated roles, it's mandatory to store those information in the **DIT**. This is done by adding **subentries**, which just are entries storing all the administrative configuration.
 
 An Administrative Point is stored as a **subentry** (which is just a plain LDAP entry) just below the base of the defined area.
 
 <DIV class="info" markdown="1">
-	A **Subentry** is just a plain normal entry except that it contains administative model informations. They are stored below the entry they are managing, as a child entry.
+	A **Subentry** is just a plain normal entry except that it contains administrative model informations.
+	They are stored below the entry they are managing, as a child entry.
 </DIV>
 
 <DIV class="note" markdown="1">
