@@ -24,6 +24,7 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 # Operations
 There are six kind of operations we can have on an AdministrativePoint :
+
 * creating a new AP
 * removing an existing AP
 * modifying an existing AP by adding or removing a role
@@ -86,6 +87,7 @@ with each of those modifications one by one.
 ### Addition of roles
 For this modification, we will have to check for each of the roles the very
 same elements than for the Add operation above :
+
 * if the entry does not have an AdministrativeRole AT, we have to create it
 * we must have at least one value
 * the role must be syntaxicaly correct
@@ -101,7 +103,7 @@ following modification fails.
 ### Removing of roles
 First, if there is no value for this modification, then that means we must
 delete the Attribute. This case will be analyzed later.
-For each of the role to remove, we have to apply those checks :
+For each of the roles to remove, we have to apply those checks :
 * the role must be syntaxicaly correct
 * it must already exist into the attribute
 * we can't remove an AAP or a SAP if there is a direct IAP in one of its
