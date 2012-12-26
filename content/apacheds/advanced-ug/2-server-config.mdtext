@@ -26,15 +26,167 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 We will now describe the server configuration. Usually, all the configuration is done using Apache Directory Studio, which offers a pretty GUI. One can also configure the server using LDAP request, as the configuration is stored in teh **DIT**. Otherwise, all the configuration modifications won't be applied on a started server : usually, you will have to restart the server in order to get those modifications applied.
 
+It's a good policy not to modify the LDIF files by hand, but instead to use the Studio Configuration plugin to modify your configuration. 
+
+## Overall structure
+
+The configuration is stored in a hierarchical order, where sub-elements are related to their parent. For instance, the _Transports_ are associated to the _Server_ they are child of. If we have many kind of servers, we will have as many transports as we have servers.
+
+The following hierarchy describe the different kind of elements that one can configure, and their relationship :
+
+* [Directory Service](#directory-service)
+	* [ChangeLog](#change-log)
+	* [Journal](#journal)
+	* [Interceptors](#interceptors)
+		* [Authentication Interceptor](#authentication-Interceptor)
+			* [Authenticators](#authenticators)
+			* [Password Policies](#password-policies)
+	* [Partitions](#partitions)
+		* [Indexes](#indexes)
+			* [Indexed Attribute](#indexed-attribute)
+	* [Servers](#servers)
+		* [Ldap Server](#ldap-server)
+    		* [Transports](#transports)
+    		* [ReplConsumers](#repl-consumers)
+    		* [Extended Operation Handlers](#extended-op-handlers)
+    		* [SASL Mechanisms](#sasl-mechanisms)
+		* [Kerberos Server](#kerberos-server)
+    		* [Transports](#transports)
+		* [Http Server](#http-server)
+    		* [Transports](#transports)
+    		* [HttpWebApps](#http-web-apps)
+		* [ChangePassword Server](#change-password-server)
+    		* [Transports](#transports)
+
+We will now explain each one of those elements.
+
+### Directory Service
+
+<DIV class="note" markdown="1">
+Note that bold attributes are mandatory
+</DIV>
+
+This is the key of the whole server : the place where we store the data. Most of the servers are depending on this component. You maye have more than one server, but only one _DirectoryService_. This compoent itself refers to the servers that will be started, plus the backends it will depends on.
+
+Here are the configuration parameters for this components :
+
+| Parameter | AttributeType | type | default value | Description |
+|---|---|---|---|---|
+| **directoryServiceId** | ads-directoryServiceId | _String_ |  | The unique identifier for the service |
+| enabled | ads-enabled | _boolean_  | true | Tells if the DirectoryService is enabled |
+| description | description | _String_  | N/A | A short optional description |
+| **dsReplicaId** | ads-dsReplicaId | _int_ | 1 | The replication identifier |
+| **dsAccessControlEnabled** | ads-dsAccessControlEnabled | _boolean_  | true | Tells if the Access Control interceptor is active |
+| **dsAllowAnonymousAccess** | ads-dsAllowAnonymousAccess | _boolean_  | false | Tells if the service allow anonymous access |
+| **dsDenormalizeOpAttrsEnabled** | ads-dsDenormalizeOpAttrsEnabled | _boolean_  | true | Tells if the service should denormalize operational attributes |
+| **dsPasswordHidden** | ads-dsPasswordHidden | _boolean_  | true | Tells if the passwords should be encrypted (not used) |
+| **dsSyncPeriodMillis** | ads-dsSyncPeriodMillis | _long_  | 15000 | The delay in milliseconds before we flush data on disk |
+| dsTestEntries | | _String_  | N/A | Not used |
+
+
+### Change Log
+
+The _ChangeLog_ is an optional system that logs every changes made on the server, and also records the revert operation, allowing the system to rollback the changes if needed. This is extremely useful when running tests.
+
+Note that at the moment, the system works in memory.
+
+It's disabled by default.
+
+Here are the configuration element for the _ChangeLog_ elements :
+
+| Parameter | AttributeType | type | default value | Description |
+|---|---|---|---|---|
+| **changeLogId** | ads-changeLogId | _String_ |  | The unique identifier for the system |
+| enabled | ads-enabled | _boolean_  | false | Tells if the ChangeLog system is enabled |
+| description | description | _String_  | N/A | A short optional description |
+| **changeLogExposed** | ads-changeLogExposed | _boolean_  | false | Tells if the ChangeLog is exposed to the users |
+
+### Journal
+
+### Interceptors
+### Authentication Interceptor
+### Authenticators)
+### Password Policies
+### Partitions
+### Indexes
+### Indexed Attribute
+
+### Servers
+
+As we can see, we can start more than one server. We have :
+
+* a LDAP server
+* a Kerberos server
+* a changePassword server
+* an HTTP Server
+* a NTP Server
+* a DHCP server
+* a DNS server
+
+There is a distinction though between the servers backed by a _DirectoryService_, and those that aren't (like the HTTP and NTP servers). 
+
+All the _DirectoryService_ backed servers share some common parameters, which are exposed in the following table :
+
+| Parameter | AttributeType | type | default value | Description |
+|---|---|---|---|---|
+| searchBaseDn | ads-searchBaseDN | _Dn_ | N/A | The place were to start looking for authentication informations |
+| serverId | ads-serverId | _String_ | N/A | The server unique name |
+
+A server can define more than one transports : for instance, the Kerberos server uses UDP and TCP transports.
+
+### Ldap Server
+
+Let's start with the main server : the LDAP server. 
+
+The list of attributes that can be modified is exposed in the following table. 
+
+| Parameter | AttributeType | type | default value | Description |
+|---|---|---|---|---|
+| **confidentialityRequired | ads-confidentialityRequired | _boolean_ | false | Whether or not confidentiality (TLS secured connection) is required |
+| **maxSizeLimit | ads-maxSizeLimit | _int_ | 1000 | The maximum number of entries the server will return |
+| **maxTimeLimit | ads-maxTimeLimit | _int_ | 1000 | The maimum number of seconds the server will use to process a search request |
+| **maxPDUSize** | ads-maxPDUSize | _int_ | 2048 | The maximal size for a PDU. This is currently not leveraged |
+| **saslHost** | ads-saslHost | _int_ | N/A | The name of this host, validated during SASL negotiation |
+| **saslPrincipal** | ads-saslPrincipal | _String_ | N/A | The service principal, used by GSSAPI. |
+| **saslRealms** | ads-saslRealms | _List<String>_ | N/A | The list of realms serviced by this host. |
+| keystoreFile | ads-keystoreFile | _String_ | N/A | The place on the filesystem where the Keystore is stored |
+| certificatePassword | ads-certificatePassword | _String_ | N/A | The certificate's password |
+| replReqHandler | ads-replReqHandler | _String_ | org.apache.directory.server.ldap.replication.provider.SyncReplRequestHandler | The replication request handler FQCN |
+| replEnabled | ads-replEnabled | _boolean_ | FALSE | Tells if the replication system is enabled |
+	
+### Repl Consumers
+### Extended Op Handlers
+### SASL Mechanisms
+### Kerberos Server
+### Http Server
+### Http Web Apps
+### Change Password Server
+
+### Transports
+
+Here are the parameters for the Transport structure :
+
+| Parameter | AttributeType | type | default value | Description |
+|---|---|---|---|---|
+| **transportId** | ads-transportId | _String_ | N/A | The identification |
+| **transportAddress** | ads-transportAddress | _String_ | localhost | The IP Address |
+| **systemPort** | ads-systemPort | _int_ | -1 | The port |
+| transportEnableSsl | ads-transportEnableSsl | _boolean_ | false | Tells if SSL is activated (not used for UDP) |
+| transportNbThreads | ads-transportNbThreads | _int_ | 3 | he number of dedicated threads to process the messages |
+| transportBackLog | ads-transportBackLog | _int_ | 50 | The number of messages on hold if the server is overloaded (not used for UDP) |
+
+
+
 ## Configurable elements
 
 First, here is the list of elements that can be configured :
+
+* [DirectoryServiceBean](#directory-service) -> AdsBean
 
 * AdsBean
 	* _boolean_ enabled
 	* _String_ description
 
-* [DirectoryServiceBean](#directory-service) -> AdsBean
 		
 * ChangeLogBean -> AdsBean
 	* _String_ changeLogId
@@ -191,90 +343,3 @@ First, here is the list of elements that can be configured :
 	* _int_ indexNumDupLimit
 	* _String_ indexFileName
 	* _String_ indexWorkingDir
-
-
-We will now explain each one of those elements.
-
-### Directory Service
-
-This is the key of the whole server : the place where we store the data. Most of the servers are depending on this component. You maye have more than one server, but only one _DirectoryService_. This compoent itself refers to the servers that will be started, plus the backends it will depends on.
-
-Here are the configuration parameters for this components :
-
-| Parameter | AttributeType | type | default value | Description |
-|---|---|---|---|---|
-| directoryServiceId | ads-directoryServiceId | _String_ |  | The unique identifier for the service |
-| dsReplicaId | ads-dsReplicaId | _int_ |  | The replication identifier |
-| dsAccessControlEnabled | ads-dsAccessControlEnabled | _boolean_  | true | Tells if the Access Control interceptor is active |
-| dsAllowAnonymousAccess | ads-dsAllowAnonymousAccess | _boolean_  | false | Tells if the service allow anonymous access |
-| dsDenormalizeOpAttrsEnabled | ads-dsDenormalizeOpAttrsEnabled | _boolean_  | true | Tells if the service should denormalize operatonal attributes |
-| dsMaxPDUSize | ads-dsMaxPDUSize | _int_  | 2048 | The maximum size of an incoming PDU (not used) |
-| dsPasswordHidden | ads-dsPasswordHidden | _boolean_  | true | Tells if the passwords should be encrypted (not used) |
-| dsSyncPeriodMillis | ads-dsSyncPeriodMillis | _long_  | 15000 | The delay in milliseconds before we flush data on disk |
-| dsTestEntries | | _String_  |  | Not used |
-| changeLog | | _ChangeLogBean_ | N/A | The interceptor that stores the reverted modifications |
-| journal | | _JournalBean_ | N/A | The interceptor that records every modification |
-| servers | ads-servers | _List<ServerBean>_ | N/A | The list of started servers |
-| interceptors | ads-interceptors | _List<InterceptorBean>_ | N/A | The list of interceptors |
-| partitions | ads-partitions | _List<PartitionBean>_ | N/A | The list of existing partitions |
-
-### Servers
-
-As we can see, we can start more than one server. We have :
-
-* a LDAP server
-* a Kerberos server
-* a changePassword server
-* an HTTP Server
-* a NTP Server
-* a DHCP server
-* a DNS server
-
-There is a distinction though between the servers backed by a Directory Service, and those that aren't (like the HTTP and NTP servers). 
-
-All the servers share some common parameters, which are exposed in the following table :
-
-| Parameter | AttributeType | type | default value | Description |
-|---|---|---|---|---|
-| searchBaseDn | ads-searchBaseDN | _Dn_ |  | The place were to start looking for authentication informations |
-| serverId | ads-serverId | _String_ |  | The server unique name |
-| transports | ads-transports | _List<TransportBean>_ |  | The transports used by this server |
-
-A server can define more than one transports : for instance, the Kerberos server uses UDP and TCP transports.
-
-Here are the parameters for the Transport structure :
-
-| Parameter | AttributeType | type | default value | Description |
-|---|---|---|---|---|
-| transportId | ads-transportId | _String_ |  | The identification |
-| transportAddress | ads-transportAddress | _String_ |  | The IP Address |
-| systemPort | ads-systemPort | _int_ | -1 | The port |
-| transportEnableSsl | ads-transportEnableSsl | _boolean_ | false | Tells if SSL is activated (not used for UDP) |
-| transportNbThreads | ads-transportNbThreads | _int_ | 3 | he number of dedicated threads to process the messages |
-| transportBackLog | ads-transportBackLog | _int_ | 50 | The number of messages on hold if the server is overloaded (not used for UDP) |
-
-
-#### Ldap Server
-
-Let's start with the main server : the LDAP server. 
-
-The list of attributes that can be modified is exposed in the following table. 
-
-| Parameter | AttributeType | type | default value | Description |
-|---|---|---|---|---|
-| confidentialityRequired | ads-confidentialityRequired | _boolean_ |  | TODO |
-| maxSizeLimit | ads-maxSizeLimit | _int_ | 1000 | The maximum number of entries the server will return |
-| maxTimeLimit | ads-maxTimeLimit | _int_ | 1000 | The maimum number of seconds the server will use to process a search request |
-| saslHost | ads-saslHost | _int_ |  | TODO |
-| saslPrincipal | ads-saslPrincipal | _String_ |  | TODO |
-| saslRealms | ads-saslRealms | _List<String>_ |  | TODO |
-| keystoreFile | ads-keystoreFile | _String_ |  | The place on the filesystem where the Keystore is stored |
-| certificatePassword | ads-certificatePassword | _String_ |  | The certificate's password |
-| replReqHandler | ads-replReqHandler | _String_ |  | TODO |
-| replConsumers | ads-replConsumers | _List<ReplConsumerBean>_ |  | TODO |
-| saslMechHandlers | ads-saslMechHandlers | _List<SaslMechHandlerBean>_ |  | The list of SASL mechanism handlers |
-| extendedOpHandlers | ads-extendedOpHandlers | _List<ExtendedOpHandlerBean>_ |  | The list of extended operation handlers |
-	
-Most of the parameters are 
-
-#### Kerberos Server
