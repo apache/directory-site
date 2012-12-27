@@ -140,6 +140,7 @@ This _Interceptor_ is in charge of managing the users authentication. It is asso
 ### Authenticators
 
 We may have various _Authenticator_ declared for a given server. The default server has three different _Authenticators_, which are :
+
 * anonymousAuthenticator : used for anonymous requests
 * simpleAuthenticator : handle simple authentication, based on a password
 * strongAuthenticator : handle SASL authentication.
@@ -236,17 +237,19 @@ The list of attributes that can be modified is exposed in the following table.
 
 | Parameter | AttributeType | type | default value | Description |
 |---|---|---|---|---|
-| **confidentialityRequired | ads-confidentialityRequired | _boolean_ | false | Whether or not confidentiality (TLS secured connection) is required |
-| **maxSizeLimit | ads-maxSizeLimit | _int_ | 1000 | The maximum number of entries the server will return |
-| **maxTimeLimit | ads-maxTimeLimit | _int_ | 1000 | The maimum number of seconds the server will use to process a search request |
+| **confidentialityRequired** | ads-confidentialityRequired | _boolean_ | false | Whether or not confidentiality (TLS secured connection) is required |
+| **maxSizeLimit** | ads-maxSizeLimit | _int_ | 1000 | The maximum number of entries the server will return |
+| **maxTimeLimit** | ads-maxTimeLimit | _int_ | 1000 | The maimum number of seconds the server will use to process a search request |
 | **maxPDUSize** | ads-maxPDUSize | _int_ | 2048 | The maximal size for a PDU. This is currently not leveraged |
 | **saslHost** | ads-saslHost | _int_ | N/A | The name of this host, validated during SASL negotiation |
 | **saslPrincipal** | ads-saslPrincipal | _String_ | N/A | The service principal, used by GSSAPI. |
 | **saslRealms** | ads-saslRealms | _List<String>_ | N/A | The list of realms serviced by this host. |
 | keystoreFile | ads-keystoreFile | _String_ | N/A | The place on the filesystem where the Keystore is stored |
 | certificatePassword | ads-certificatePassword | _String_ | N/A | The certificate's password |
-| replReqHandler | ads-replReqHandler | _String_ | org.apache.directory.server.ldap.replication.provider.SyncReplRequestHandler | The replication request handler FQCN |
+| replReqHandler | ads-replReqHandler | _String_ | (*) | The replication request handler FQCN |
 | replEnabled | ads-replEnabled | _boolean_ | FALSE | Tells if the replication system is enabled |
+
+(*) org.apache.directory.server.ldap.replication.provider.SyncReplRequestHandler
 	
 ### Repl Consumers
 ### Extended Op Handlers
@@ -270,171 +273,3 @@ Here are the parameters for the Transport structure :
 | transportEnableSsl | ads-transportEnableSsl | _boolean_ | false | Tells if SSL is activated (not used for UDP) |
 | transportNbThreads | ads-transportNbThreads | _int_ | 3 | he number of dedicated threads to process the messages |
 | transportBackLog | ads-transportBackLog | _int_ | 50 | The number of messages on hold if the server is overloaded (not used for UDP) |
-
-
-## Configurable elements
-
-First, here is the list of elements that can be configured :
-
-* [DirectoryServiceBean](#directory-service) -> AdsBean
-
-* AdsBean
-	* _boolean_ enabled
-	* _String_ description
-
-		
-* ChangeLogBean -> AdsBean
-	* _String_ changeLogId
-	* _boolean_ changeLogExposed
-	
-* JournalBean -> AdsBean
-	* _String_ journalId
-	* _String_ journalFileName
-	* _String_ journalWorkingDir
-	* _int_ journalRotation
-	
-* [ServerBean](#servers) -> AdsBean
-	
-* [TransportBean](#servers) -> AdsBean
-	
-* TcpTransportBean -> AdsBean
-
-* UdpTransportBean -> AdsBean
-	
-* NtpServerBean -> ServerBean
-
-* HttpServerBean -> ServerBean
-	* _String_ httpConfFile
-	* _List<HttpWebAppBean>_
-		
-* HttpWebAppBean -> AdsBaseBean
-	* _String_ id
-	* _String_ httpAppCtxPath
-	* _String_ httpWarFile
-	
-* DSBasedServerBean -> ServerBean
-	* _Dn_ searchBaseDn
-
-* ChangePasswordServerBean -> DSBasedServerBean
-	* _long_ krbAllowableClockSkew
-	* _boolean_ krbEmptyAddressesAllowed
-	* _List<String>_ krbEncryptionTypes
-	* _String_ krbPrimaryRealm
-	* _int_ chgPwdPolicyCategoryCount
-	* _int_ chgPwdPolicyPasswordLength
-	* _int_ chgPwdPolicyTokenSize
-	* _String_ chgPwdServicePrincipal
-	
-* DhcpServerBean -> DSBasedServerBean
-
-* DnsServerBean -> DSBasedServerBean
-	
-* [KdcServerBean](#kerberos-server) -> DSBasedServerBean
-	* _long_ krbAllowableClockSkew
-	* _boolean_ krbEmptyAddressesAllowed
-	* _boolean_ krbForwardableAllowed
-	* _boolean_ krbPAEncTimestampRequired
-	* _boolean_ krbPostdatedAllowed
-	* _boolean_ krbProxiableAllowed
-	* _boolean_ krbRenewableAllowed
-	* _long_ krbMaximumRenewableLifetime
-	* _long_ krbMaximumTicketLifetime
-	* _String_ krbPrimaryRealm
-	* _boolean_ krbBodyChecksumVerified
-	* _List<String>_ krbEncryptionTypes
-	* _String_ krbKdcPrincipal
-	
-* [LdapServerBean](#ldap-server) -> DSBasedServerBean
-	
-* ReplConsumerBean -> AdsBaseBean
-	* _String_ replConsumerId
-	* _String_ searchBaseDn
-	* _String_ replProvHostName
-	* _int_ replProvPort
-	* _String_ replAliasDerefMode
-	* _List<String>_ replAttributes
-	* _long_ replRefreshInterval
-	* _boolean_ replRefreshNPersist
-	* _String_ replSearchScope
-	* _String_ replSearchFilter
-	* _int_ replSearchSizeLimit
-	* _int_ replSearchTimeout
-	* _String_ replUserDn
-	* _byte[]_ replUserPassword
-	* _String_ replCookie
-	* _boolean_ replUseTls
-	* _boolean_ replStrictCertValidation
-	* _byte[]_ replPeerCertificate
-	* _String_ replConsumerImpl
-	
-* SaslMechHandlerBean -> AdsBaseBean
-	* _String_ saslMechName
-	* _String_ saslMechClassName
-	* _String_ ntlmMechProvider
-	
-* ExtendedOpHandlerBean -> AdsBaseBean
-	* _String_ extendedOpId
-	* _String_ extendedOpHandlerClass
-	
-* InterceptorBean -> AdsBean
-	* _String_ interceptorId
-	* _String_ interceptorClassName
-	* _int_ interceptorOrder
-	
-* AuthenticationInterceptorBean -> InterceptorBean
-	* List<AuthenticatorBean>
-	* List<PasswordPolicyBean>
-	
-* AuthenticatorBean -> AdsBean
-	* _String_ authenticatorId
-	
-* AuthenticatorImplBean -> AuthenticatorBean
-	* _String_ authenticatorClass
-	
-* DelegatingAuthenticatorBean -> AuthenticatorBean
-	* _String_ delegateHost
-	* _int_ delegatePort
-	
-* PasswordPolicyBean -> AdsBean
-	* _String_ pwdId
-	* _String_ pwdAttribute
-	* _int_ pwdMinAge
-	* _int_ pwdMaxAge
-	* _int_ pwdInHistory
-	* _int_ pwdCheckQuality
-	* _int_ pwdMinLength
-	* _int_ pwdMaxLength
-	* _int_ pwdExpireWarning
-	* _int_ pwdGraceAuthNLimit
-	* _int_ pwdGraceExpire
-	* _boolean_ pwdLockout
-	* _int_ pwdLockoutDuration
-	* _int_ pwdMaxFailure
-	* _int_ pwdFailureCountInterval
-	* _boolean_ pwdMustChange
-	* _boolean_ pwdAllowUserChange
-	* _boolean_ pwdSafeModify
-	* _int_ pwdMinDelay
-	* _int_ pwdMaxDelay
-	* _int_ pwdMaxIdle
-	
-* PartitionBean -> AdsBean
-	* _int_  partitionId
-	* _Dn_ partitionSuffix
-	* _boolean_ partitionSyncOnWrite
-	* _int_  contextEntry
-	* _List<IndexBean>_
-		
-* JdbmPartitionBean -> PartitionBean
-	* _int_ partitionCacheSize
-	* _boolean_ jdbmPartitionOptimizerEnabled	
-	
-* IndexBean -> AdsBean
-	* _int_ indexAttributeId
-	* _boolean_ indexHasReverse
-	
-* JdbmIndexBean -> IndexBean
-	* _int_ indexCacheSize
-	* _int_ indexNumDupLimit
-	* _String_ indexFileName
-	* _String_ indexWorkingDir
