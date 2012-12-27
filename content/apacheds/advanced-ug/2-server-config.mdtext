@@ -103,13 +103,105 @@ Here are the configuration element for the _ChangeLog_ elements :
 
 ### Journal
 
+The _Journal_ system logs every modification on the file system. It's intended to be used if the _DirectoryService_ crashes, as we can reapply the journal starting from a date in the past where we know that the underlying database is correct.
+
+The configuration elements for the _Journal_ are :
+
+| Parameter | AttributeType | type | default value | Description |
+|---|---|---|---|---|
+| **journalId** | ads-journalId | _String_ | N/A | The unique identifier for the Journal |
+| enabled | ads-enabled | _boolean_  | false | Tells if the Journal system is enabled |
+| description | description | _String_  | N/A | A short optional description |
+| **journalWorkingDir** | ads-journalWorkingDir | _String_ | N/A | The working directory the Journal will be stored in |
+| **journalRotation** | ads-journalRotation | _String_ | N/A | The number of operation stored befoe the journal is rotated |
+| **journalFileName** | ads-journalFileName | _String_ | journal.txt | The file contaning the Journal |
+
 ### Interceptors
+
+The _Interceptors_ are generally not configurable. You don't want to change their order, nor remove or add some. The fact that they appear in the configuration is because we use this to initialize the server.
+
+However, at least one _Interceptor_ can be confiured : the _authenticationInterceptor_. 
+
+In the case where one would like to add an interceptor, it's enough to add the associated entry containing the interceptor identifier, under the _ou=interceptors_ entry. It must have an order. Here are the elements taht can be configured in such a case :
+
+| Parameter | AttributeType | type | default value | Description |
+|---|---|---|---|---|
+| **interceptorId** | ads-interceptorid | _String_ | N/A | The unique identifier for this Interceptor |
+| enabled | ads-enabled | _boolean_  | false | Tells if the Interceptor is enabled |
+| description | description | _String_  | N/A | A short optional description |
+| interceptorOrder | ads-interceptororder | _int_ | N/A | The position in the chain for this interceptor |
+| interceptorClassName | ads-interceptorclassname | _String_ | N/A | The class implementing this interceptor |
+
+
 ### Authentication Interceptor
-### Authenticators)
+
+This _Interceptor_ is in charge of managing the users authentication. It is associated with _[Authenticators](#authenticators)_, and with _[Password Policies](#password-policies)_.
+
+### Authenticators
+
+We may have various _Authenticator_ declared for a given server. The default server has three different _Authenticators_, which are :
+* anonymousAuthenticator : used for anonymous requests
+* simpleAuthenticator : handle simple authentication, based on a password
+* strongAuthenticator : handle SASL authentication.
+
+One can add a new _Authenticator_, 
+
 ### Password Policies
 ### Partitions
+
+The _Partition_ is the part of the server storing your data. There are many parts that need to be configured in order to obtain the best performances out of the server. It's also the part of the configuraton you are the more likely to modify, adding new _Partitions_ or adding new _Indexes_.
+
+A _Partition_ have the following configurable elements :
+
+| Parameter | AttributeType | type | default value | Description |
+|---|---|---|---|---|
+| **partitionId** | ads-partitionid | _String_ | N/A | The unique identifier for this Partition |
+| enabled | ads-enabled | _boolean_  | false | Tells if the Partition is enabled |
+| description | description | _String_  | N/A | A short optional description |
+| **suffix** | ads-partitionsuffix | _String_ | N/A | The partition DN |
+| contextEntry | ads-contextEntry | _String_ | N/A | The entry associated with the suffix (in LDIF format) |
+| partitionSyncOnWrite | ads-partitionSyncOnWrite | _boolean_ | true | Tells the server to flush on disk on each write |
+
+Once those elements have been configured, the _Partition_ is available. You still have to create some mandatory indexes though.
+
 ### Indexes
+
+Each _Partition_ have indexes, some are mandatory, and others are user provided. Here are the mandatory indexes :
+
+| Index | role |
+|---|---|
+| apacheRdn | Stores the RDN for the entry, and the relation to its parent's RDN |
+| apachePresence | Used to index the attributeTypes used in the entry |
+| apacheOneAlias | Stores the aliases one level below the current entry |
+| apacheSubAlias | Stores the aliases below the current entry |
+| apacheAlias | Stores the aliases |
+| objectClass | Stores the relatio between an ObjectClass an the entry using it |
+| entryCSN | Stores the CSN for each entry |
+| administrativeRole | Stores the entries that are AdminstrativePoints |
+
+
 ### Indexed Attribute
+
+IndexedATtributes have a type, depending on the _Partition_ they are associetd with. Currently, we have only one type, _JdbmIndex_. They have specific configurable elements.
+
+Each index attribute have four basic elements that can be configured :
+
+| Parameter | AttributeType | type | default value | Description |
+|---|---|---|---|---|
+| **indexAttributeId** | ads-indexAttributeId | _String_ | N/A | The unique identifier for this indexedAttribute |
+| enabled | ads-enabled | _boolean_  | false | Tells if the IntexedAttribute is enabled |
+| description | description | _String_  | N/A | A short optional description |
+| **indexHasReverse** | ads-indexHasReverse | _boolean_ | false | Tells if the IndexedAttribute has a reverse index |
+
+The _JdbmIndex_ type of index has some more configurable elements, all optional :
+
+| Parameter | AttributeType | type | default value | Description |
+|---|---|---|---|---|
+| indexFileName | ads-indexFileName | _String_ | N/A | The index file name (default to the associated attributeType name) |
+| indexWorkingDir | ads-indexWorkingDir | _String_ | N/A | The index working directory |
+| indexNumDupLimit | ads-indexNumDupLimit | _int_ | 512 | The maximum number of values for a single key before we use a sub-tree |
+| indexCacheSize | ads-indexCacheSize | _int_ | 100 | The numbr of cached pages for this index |
+
 
 ### Servers
 
@@ -131,6 +223,8 @@ All the _DirectoryService_ backed servers share some common parameters, which ar
 |---|---|---|---|---|
 | searchBaseDn | ads-searchBaseDN | _Dn_ | N/A | The place were to start looking for authentication informations |
 | serverId | ads-serverId | _String_ | N/A | The server unique name |
+| enabled | ads-enabled | _boolean_  | N/A | Tells if the Server is enabled |
+| description | description | _String_  | N/A | A short optional description |
 
 A server can define more than one transports : for instance, the Kerberos server uses UDP and TCP transports.
 
@@ -171,10 +265,11 @@ Here are the parameters for the Transport structure :
 | **transportId** | ads-transportId | _String_ | N/A | The identification |
 | **transportAddress** | ads-transportAddress | _String_ | localhost | The IP Address |
 | **systemPort** | ads-systemPort | _int_ | -1 | The port |
+| enabled | ads-enabled | _boolean_  | N/A | Tells if the Transport system is enabled |
+| description | description | _String_  | N/A | A short optional description |
 | transportEnableSsl | ads-transportEnableSsl | _boolean_ | false | Tells if SSL is activated (not used for UDP) |
 | transportNbThreads | ads-transportNbThreads | _int_ | 3 | he number of dedicated threads to process the messages |
 | transportBackLog | ads-transportBackLog | _int_ | 50 | The number of messages on hold if the server is overloaded (not used for UDP) |
-
 
 
 ## Configurable elements
@@ -282,9 +377,9 @@ First, here is the list of elements that can be configured :
 	* _String_ extendedOpHandlerClass
 	
 * InterceptorBean -> AdsBean
-	* _String_ _int_erceptorId
-	* _String_ _int_erceptorClassName
-	* _int_ _int_erceptorOrder
+	* _String_ interceptorId
+	* _String_ interceptorClassName
+	* _int_ interceptorOrder
 	
 * AuthenticationInterceptorBean -> InterceptorBean
 	* List<AuthenticatorBean>
