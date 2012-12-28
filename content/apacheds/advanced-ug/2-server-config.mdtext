@@ -70,18 +70,18 @@ This is the key of the whole server : the place where we store the data. Most of
 
 Here are the configuration parameters for this components :
 
-| Parameter | AttributeType | type | default value | Description |
-|---|---|---|---|---|
-| **directoryServiceId** | ads-directoryServiceId | _String_ |  | The unique identifier for the service |
-| enabled | ads-enabled | _boolean_  | true | Tells if the DirectoryService is enabled |
-| description | description | _String_  | N/A | A short optional description |
-| **dsReplicaId** | ads-dsReplicaId | _int_ | 1 | The replication identifier |
-| **dsAccessControlEnabled** | ads-dsAccessControlEnabled | _boolean_  | true | Tells if the Access Control interceptor is active |
-| **dsAllowAnonymousAccess** | ads-dsAllowAnonymousAccess | _boolean_  | false | Tells if the service allow anonymous access |
-| **dsDenormalizeOpAttrsEnabled** | ads-dsDenormalizeOpAttrsEnabled | _boolean_  | true | Tells if the service should denormalize operational attributes |
-| **dsPasswordHidden** | ads-dsPasswordHidden | _boolean_  | true | Tells if the passwords should be encrypted (not used) |
-| **dsSyncPeriodMillis** | ads-dsSyncPeriodMillis | _long_  | 15000 | The delay in milliseconds before we flush data on disk |
-| dsTestEntries | | _String_  | N/A | Not used |
+| AttributeType | type | default value | Description |
+|---|---|---|---|
+| **ads-directoryServiceId** | _String_ |  | The unique identifier for the service |
+| ads-enabled | _boolean_  | true | Tells if the DirectoryService is enabled |
+| description | _String_  | N/A | A short optional description |
+| **ads-dsReplicaId** | _int_ | 1 | The replication identifier |
+| **ads-dsAccessControlEnabled** | _boolean_  | true | Tells if the Access Control interceptor is active |
+| **ads-dsAllowAnonymousAccess** | _boolean_  | false | Tells if the service allow anonymous access |
+| **ads-dsDenormalizeOpAttrsEnabled** | _boolean_  | true | Tells if the service should denormalize operational attributes |
+| **ads-dsPasswordHidden** | _boolean_  | true | Tells if the passwords should be encrypted (not used) |
+| **ads-dsSyncPeriodMillis** | _long_  | 15000 | The delay in milliseconds before we flush data on disk |
+| ads-dsTestEntries | _String_  | N/A | Not used |
 
 
 ### Change Log
@@ -94,12 +94,12 @@ It's disabled by default.
 
 Here are the configuration element for the _ChangeLog_ elements :
 
-| Parameter | AttributeType | type | default value | Description |
-|---|---|---|---|---|
-| **changeLogId** | ads-changeLogId | _String_ |  | The unique identifier for the system |
-| enabled | ads-enabled | _boolean_  | false | Tells if the ChangeLog system is enabled |
-| description | description | _String_  | N/A | A short optional description |
-| **changeLogExposed** | ads-changeLogExposed | _boolean_  | false | Tells if the ChangeLog is exposed to the users |
+| AttributeType | type | default value | Description |
+|---|---|---|---|
+| **ads-changeLogId** | _String_ |  | The unique identifier for the system |
+| ads-enabled | _boolean_  | false | Tells if the ChangeLog system is enabled |
+| description | _String_  | N/A | A short optional description |
+| **ads-changeLogExposed** | _boolean_  | false | Tells if the ChangeLog is exposed to the users |
 
 ### Journal
 
@@ -107,14 +107,14 @@ The _Journal_ system logs every modification on the file system. It's intended t
 
 The configuration elements for the _Journal_ are :
 
-| Parameter | AttributeType | type | default value | Description |
-|---|---|---|---|---|
-| **journalId** | ads-journalId | _String_ | N/A | The unique identifier for the Journal |
-| enabled | ads-enabled | _boolean_  | false | Tells if the Journal system is enabled |
-| description | description | _String_  | N/A | A short optional description |
-| **journalWorkingDir** | ads-journalWorkingDir | _String_ | N/A | The working directory the Journal will be stored in |
-| **journalRotation** | ads-journalRotation | _String_ | N/A | The number of operation stored befoe the journal is rotated |
-| **journalFileName** | ads-journalFileName | _String_ | journal.txt | The file contaning the Journal |
+| AttributeType | type | default value | Description |
+|---|---|---|---|
+| **ads-journalId** | _String_ | N/A | The unique identifier for the Journal |
+| ads-enabled | _boolean_  | false | Tells if the Journal system is enabled |
+| description | _String_  | N/A | A short optional description |
+| **ads-journalWorkingDir** | _String_ | N/A | The working directory the Journal will be stored in |
+| **ads-journalRotation** | _String_ | N/A | The number of operation stored befoe the journal is rotated |
+| **ads-journalFileName** | _String_ | journal.txt | The file contaning the Journal |
 
 ### Interceptors
 
@@ -124,13 +124,13 @@ However, at least one _Interceptor_ can be confiured : the _authenticationInterc
 
 In the case where one would like to add an interceptor, it's enough to add the associated entry containing the interceptor identifier, under the _ou=interceptors_ entry. It must have an order. Here are the elements taht can be configured in such a case :
 
-| Parameter | AttributeType | type | default value | Description |
-|---|---|---|---|---|
-| **interceptorId** | ads-interceptorid | _String_ | N/A | The unique identifier for this Interceptor |
-| enabled | ads-enabled | _boolean_  | false | Tells if the Interceptor is enabled |
-| description | description | _String_  | N/A | A short optional description |
-| interceptorOrder | ads-interceptororder | _int_ | N/A | The position in the chain for this interceptor |
-| interceptorClassName | ads-interceptorclassname | _String_ | N/A | The class implementing this interceptor |
+| AttributeType | type | default value | Description |
+|---|---|---|---|
+| **ads-interceptorid** | _String_ | N/A | The unique identifier for this Interceptor |
+| ads-enabled | _boolean_  | false | Tells if the Interceptor is enabled |
+| description | _String_  | N/A | A short optional description |
+| ads-interceptororder | _int_ | N/A | The position in the chain for this interceptor |
+| ads-interceptorclassname | _String_ | N/A | The class implementing this interceptor |
 
 
 ### Authentication Interceptor
@@ -156,14 +156,14 @@ The _Partition_ is the part of the server storing your data. There are many part
 
 A _Partition_ have the following configurable elements :
 
-| Parameter | AttributeType | type | default value | Description |
-|---|---|---|---|---|
-| **partitionId** | ads-partitionid | _String_ | N/A | The unique identifier for this Partition |
-| enabled | ads-enabled | _boolean_  | false | Tells if the Partition is enabled |
-| description | description | _String_  | N/A | A short optional description |
-| **suffix** | ads-partitionsuffix | _String_ | N/A | The partition DN |
-| contextEntry | ads-contextEntry | _String_ | N/A | The entry associated with the suffix (in LDIF format) |
-| partitionSyncOnWrite | ads-partitionSyncOnWrite | _boolean_ | true | Tells the server to flush on disk on each write |
+| AttributeType | type | default value | Description |
+|---|---|---|---|
+| **ads-partitionid** | _String_ | N/A | The unique identifier for this Partition |
+| ads-enabled | _boolean_  | false | Tells if the Partition is enabled |
+| description | _String_  | N/A | A short optional description |
+| **ads-partitionsuffix** | _String_ | N/A | The partition DN |
+| ads-contextEntry | _String_ | N/A | The entry associated with the suffix (in LDIF format) |
+| ads-partitionSyncOnWrite | _boolean_ | true | Tells the server to flush on disk on each write |
 
 Once those elements have been configured, the _Partition_ is available. You still have to create some mandatory indexes though.
 
@@ -189,21 +189,21 @@ IndexedATtributes have a type, depending on the _Partition_ they are associetd w
 
 Each index attribute have four basic elements that can be configured :
 
-| Parameter | AttributeType | type | default value | Description |
-|---|---|---|---|---|
-| **indexAttributeId** | ads-indexAttributeId | _String_ | N/A | The unique identifier for this indexedAttribute |
-| enabled | ads-enabled | _boolean_  | false | Tells if the IntexedAttribute is enabled |
-| description | description | _String_  | N/A | A short optional description |
-| **indexHasReverse** | ads-indexHasReverse | _boolean_ | false | Tells if the IndexedAttribute has a reverse index |
+| AttributeType | type | default value | Description |
+|---|---|---|---|
+| **ads-indexAttributeId** | _String_ | N/A | The unique identifier for this indexedAttribute |
+| ads-enabled | _boolean_  | false | Tells if the IntexedAttribute is enabled |
+| description | _String_  | N/A | A short optional description |
+| **ads-indexHasReverse** | _boolean_ | false | Tells if the IndexedAttribute has a reverse index |
 
 The _JdbmIndex_ type of index has some more configurable elements, all optional :
 
-| Parameter | AttributeType | type | default value | Description |
-|---|---|---|---|---|
-| indexFileName | ads-indexFileName | _String_ | N/A | The index file name (default to the associated attributeType name) |
-| indexWorkingDir | ads-indexWorkingDir | _String_ | N/A | The index working directory |
-| indexNumDupLimit | ads-indexNumDupLimit | _int_ | 512 | The maximum number of values for a single key before we use a sub-tree |
-| indexCacheSize | ads-indexCacheSize | _int_ | 100 | The numbr of cached pages for this index |
+| AttributeType | type | default value | Description |
+|---|---|---|---|
+| ads-indexFileName | _String_ | N/A | The index file name (default to the associated attributeType name) |
+| ads-indexWorkingDir | _String_ | N/A | The index working directory |
+| ads-indexNumDupLimit | _int_ | 512 | The maximum number of values for a single key before we use a sub-tree |
+| ads-indexCacheSize | _int_ | 100 | The numbr of cached pages for this index |
 
 
 ### Servers
@@ -222,12 +222,12 @@ There is a distinction though between the servers backed by a _DirectoryService_
 
 All the _DirectoryService_ backed servers share some common parameters, which are exposed in the following table :
 
-| Parameter | AttributeType | type | default value | Description |
-|---|---|---|---|---|
-| searchBaseDn | ads-searchBaseDN | _Dn_ | N/A | The place were to start looking for authentication informations |
-| serverId | ads-serverId | _String_ | N/A | The server unique name |
-| enabled | ads-enabled | _boolean_  | N/A | Tells if the Server is enabled |
-| description | description | _String_  | N/A | A short optional description |
+| AttributeType | type | default value | Description |
+|---|---|---|---|
+| ads-searchBaseDN | _Dn_ | N/A | The place were to start looking for authentication informations |
+| ads-serverId | _String_ | N/A | The server unique name |
+| ads-enabled | _boolean_  | N/A | Tells if the Server is enabled |
+| description | _String_  | N/A | A short optional description |
 
 A server can define more than one transports : for instance, the Kerberos server uses UDP and TCP transports.
 
@@ -237,19 +237,19 @@ Let's start with the main server : the LDAP server.
 
 The list of attributes that can be modified is exposed in the following table. 
 
-| Parameter | AttributeType | type | default value | Description |
-|---|---|---|---|---|
-| **confidentialityRequired** | ads-confidentialityRequired | _boolean_ | false | Whether or not confidentiality (TLS secured connection) is required |
-| **maxSizeLimit** | ads-maxSizeLimit | _int_ | 1000 | The maximum number of entries the server will return |
-| **maxTimeLimit** | ads-maxTimeLimit | _int_ | 1000 | The maimum number of seconds the server will use to process a search request |
-| **maxPDUSize** | ads-maxPDUSize | _int_ | 2048 | The maximal size for a PDU. This is currently not leveraged |
-| **saslHost** | ads-saslHost | _int_ | N/A | The name of this host, validated during SASL negotiation |
-| **saslPrincipal** | ads-saslPrincipal | _String_ | N/A | The service principal, used by GSSAPI. |
-| **saslRealms** | ads-saslRealms | _List<String>_ | N/A | The list of realms serviced by this host. |
-| keystoreFile | ads-keystoreFile | _String_ | N/A | The place on the filesystem where the Keystore is stored |
-| certificatePassword | ads-certificatePassword | _String_ | N/A | The certificate's password |
-| replReqHandler | ads-replReqHandler | _String_ | (*) | The replication request handler FQCN |
-| replEnabled | ads-replEnabled | _boolean_ | FALSE | Tells if the replication system is enabled |
+| AttributeType | type | default value | Description |
+|---|---|---|---|
+| **ads-confidentialityRequired** | _boolean_ | false | Whether or not confidentiality (TLS secured connection) is required |
+| **ads-maxSizeLimit** | _int_ | 1000 | The maximum number of entries the server will return |
+| **ads-maxTimeLimit** | _int_ | 1000 | The maimum number of seconds the server will use to process a search request |
+| **ads-maxPDUSize** | _int_ | 2048 | The maximal size for a PDU. This is currently not leveraged |
+| **ads-saslHost** | _int_ | N/A | The name of this host, validated during SASL negotiation |
+| **ads-saslPrincipal** | _String_ | N/A | The service principal, used by GSSAPI. |
+| **sads-saslRealms** | _List<String>_ | N/A | The list of realms serviced by this host. |
+| ads-keystoreFile | _String_ | N/A | The place on the filesystem where the Keystore is stored |
+| ads-certificatePassword | _String_ | N/A | The certificate's password |
+| ads-replReqHandler | _String_ | (*) | The replication request handler FQCN |
+| ads-replEnabled | _boolean_ | FALSE | Tells if the replication system is enabled |
 
 (*) org.apache.directory.server.ldap.replication.provider.SyncReplRequestHandler
 	
@@ -261,27 +261,27 @@ All the consumers are stord under the _ou=replConsumers_ entry, under the respec
 
 Here are the configurable elements :
 
-| Parameter | AttributeType | type | default value | Description |
-|---|---|---|---|---|
-| **replConsumerId** | ads-replConsumerId | _String_ | N/A | The replica unique identifier |
-| **searchBaseDN** | ads-searchBaseDN | _String_ | N/A | The base DN for replication |
-| **replProvHostName** | ads-replProvHostName | _String_ | N/A | The provider host name |
-| **replProvPort** | ads-replProvPort | _int_ | 389 | The port of the remote server |
-| **replAliasDerefMode** | ads-replAliasDerefMode | _String_ | NEVER_DEREF_ALIASES | The alias deeferencing mode to use |
-| **replAttributes** | ads-replAttributes | _String_ | * | The list of attributes to get back |
-| **replRefreshInterval** | ads-replRefreshInterval | _int_ | 60000 | The delay between refreshes (60 seconds) |
-| **replRefreshNPersist** | ads-replRefreshNPersist | _boolean_ | true | Sets the replication mode |
-| **replSearchScope** | ads-replSearchScope | _String_ | SUBTREE | The scope to use while searching for entries |
-| **replSearchFilter** | ads-replSearchFilter | _String_ | (objectClass=*) | The filter to use |
-| **replSearchSizeLimit** | ads-replSearchSizeLimit | _int_ | 0 | The maximum numbr of entries to get back |
-| **replSearchTimeOut** | ads-replSearchTimeOut | _int_ | 0 | The maximum time to wait while fetching the entries |
-| **replUserDn** | ads-replUserDn | _String_ | N/A | The user DN used to bind on the provider |
-| **replUserPassword** | ads-replUserPassword | _String_ | N/A | The password of the user |
-| replUseTls | ads-replUseTls | _boolean_ | true | Tells the server to use startTLS during replication |
-| replStrictCertValidation | ads-replStrictCertValidation | _boolean_ | true | Tells the provider to check the certificate if provided |
-| replPeerCertificate | ads-replPeerCertificate | _byte[]_ | N/A | The certificate to use for replication |
-| replConsumerImpl | ads-replConsumerImpl | _String_ | ReplicationConsumerImpl | The implementation |
-| replCookie | ads-replCookie | _byte[]_ | N/A | The last received cookie |
+| AttributeType | type | default value | Description |
+|---|---|---|---|
+| **ads-replConsumerId** | _String_ | N/A | The replica unique identifier |
+| **ads-searchBaseDN** | _String_ | N/A | The base DN for replication |
+| **ads-replProvHostName** | _String_ | N/A | The provider host name |
+| **ads-replProvPort** | _int_ | 389 | The port of the remote server |
+| **ads-replAliasDerefMode** | _String_ | NEVER_DEREF_ALIASES | The alias deeferencing mode to use |
+| **ads-replAttributes** | _String_ | * | The list of attributes to get back |
+| **ads-replRefreshInterval** | _int_ | 60000 | The delay between refreshes (60 seconds) |
+| **ads-replRefreshNPersist** | _boolean_ | true | Sets the replication mode |
+| **ads-replSearchScope** | _String_ | SUBTREE | The scope to use while searching for entries |
+| **ads-replSearchFilter** | _String_ | (objectClass=*) | The filter to use |
+| **ads-replSearchSizeLimit** | _int_ | 0 | The maximum numbr of entries to get back |
+| **ads-replSearchTimeOut** | _int_ | 0 | The maximum time to wait while fetching the entries |
+| **ads-replUserDn** | _String_ | N/A | The user DN used to bind on the provider |
+| **ads-replUserPassword** | _String_ | N/A | The password of the user |
+| ads-replUseTls | _boolean_ | true | Tells the server to use startTLS during replication |
+| ads-replStrictCertValidation | _boolean_ | true | Tells the provider to check the certificate if provided |
+| ads-replPeerCertificate | _byte[]_ | N/A | The certificate to use for replication |
+| ads-replConsumerImpl | _String_ | ReplicationConsumerImpl | The implementation |
+| ads-replCookie | _byte[]_ | N/A | The last received cookie |
 
 
 ### Extended Op Handlers
@@ -298,13 +298,13 @@ We have various SASL mechanisms, which can be configured. the list of supported 
 
 This list is stored in the configuration. It's possible to add new mechnaism if needed, smply by adding an entry containg those elements, under the _ou=saslMechHandlers_
 
-| Parameter | AttributeType | type | default value | Description |
-|---|---|---|---|---|
-| enabled | ads-enabled | _boolean_  | true | Tells if the Transport system is enabled |
-| description | description | _String_  | N/A | A short optional description |
-| **saslMechName** | ads-saslMechName | _String_ | <one the above list> | The mechanism name|
-| **saslMechClassName** | ads-saslMechClassName | _String_ | N/A | The mechanism class name|
-| ntlmMechProvider | ads-ntlmMechProvider | _String_ | N/A | The NTLM provider |
+| AttributeType | type | default value | Description |
+|---|---|---|---|
+| ads-enabled | _boolean_  | true | Tells if the Transport system is enabled |
+| description | _String_  | N/A | A short optional description |
+| **ads-saslMechName** | _String_ | <one the above list> | The mechanism name|
+| **ads-saslMechClassName** | _String_ | N/A | The mechanism class name|
+| ads-ntlmMechProvider | _String_ | N/A | The NTLM provider |
 
 ### Kerberos Server
 To be added...
@@ -322,13 +322,13 @@ To be added...
 
 Here are the parameters for the Transport structure :
 
-| Parameter | AttributeType | type | default value | Description |
-|---|---|---|---|---|
-| **transportId** | ads-transportId | _String_ | N/A | The identification |
-| **transportAddress** | ads-transportAddress | _String_ | localhost | The IP Address |
-| **systemPort** | ads-systemPort | _int_ | -1 | The port |
-| enabled | ads-enabled | _boolean_  | N/A | Tells if the Transport system is enabled |
-| description | description | _String_  | N/A | A short optional description |
-| transportEnableSsl | ads-transportEnableSsl | _boolean_ | false | Tells if SSL is activated (not used for UDP) |
-| transportNbThreads | ads-transportNbThreads | _int_ | 3 | he number of dedicated threads to process the messages |
-| transportBackLog | ads-transportBackLog | _int_ | 50 | The number of messages on hold if the server is overloaded (not used for UDP) |
+| AttributeType | type | default value | Description |
+|---|---|---|---|
+| **ads-transportId** | _String_ | N/A | The identification |
+| **ads-transportAddress** | _String_ | localhost | The IP Address |
+| **ads-systemPort** | _int_ | -1 | The port |
+| ads-enabled | _boolean_  | N/A | Tells if the Transport system is enabled |
+| description | _String_  | N/A | A short optional description |
+| ads-transportEnableSsl | _boolean_ | false | Tells if SSL is activated (not used for UDP) |
+| ads-transportNbThreads | _int_ | 3 | he number of dedicated threads to process the messages |
+| ads-transportBackLog | _int_ | 50 | The number of messages on hold if the server is overloaded (not used for UDP) |
