@@ -145,9 +145,44 @@ We may have various _Authenticator_ declared for a given server. The default ser
 * simpleAuthenticator : handle simple authentication, based on a password
 * strongAuthenticator : handle SASL authentication.
 
-One can add a new _Authenticator_, 
+One can add a new _Authenticator_, if needed. It's just a matter of creating a new entry under the _ou=authenticators,ads-interceptorId=authenticationInterceptor,ou=interceptors_ entry, containing the two following elements :
+
+| AttributeType | type | default value | Description |
+|---|---|---|---|
+| **ads-authenticatorId** | _String_ | N/A | The unique identifier for this Authenticator |
+| ads-enabled | _boolean_  | false | Tells if the Partition is enabled |
+| description | _String_  | N/A | A short optional description |
+| **ads-authenticatorClass** | _String_ | N/A | The FQCN for the class implementing the AUthenticator |
+
 
 ### Password Policies
+
+There are many possible configurable options for the _PasswordPolicy_ system. Here is a list of all the possible elements :
+
+| AttributeType | type | default value | Description |
+|---|---|---|---|
+| **ads-pwdId** | _String_ | N/A | The unique ID of the _PasswordPolicy_ system |
+| **ads-pwdAttribute** | _String_ | userPassword | The name of the attribute to which the password policy is applied |
+| ads-pwdMinAge | _int_ | 0 | Holds the number of seconds that must elapse between modifications to the password |
+| ads-pwdMaxAge | _int_ | 0 | Holds the number of seconds after which a modified password will expire. If 0, never expires |
+| ads-pwdInHistory | _boolean_ | 0 | Specifies the maximum number of used passwords stored in the pwdHistory attribute (0 means no storage) |
+| ads-pwdCheckQuality | _boolean_ | 0 | Indicates how the password quality will be verified while being modified or added (0 means no check) |
+| ads-pwdMinLength | _int_ | 0 | The minimum number of characters that must be used in a password (0 means no limit) |
+| ads-pwdMaxLength | _int_ | 0 | The maximum number of characters that may be used in a password (0 means no limit)  |
+| ads-pwdExpireWarning | _boolean_ | 0 | The maximum number of seconds before a password is due to expire, and that expiration warning messages will be returned to an authenticating user (0 means no message wil be sent to user) |
+| ads-pwdGraceAuthNLimit | _int_ | 0 | The number of times an expired password can be used to authenticate (0 means do not allow a expired password for authentication) |
+| ads-pwdGraceExpire | _boolean_ | 0 | Specifies the number of seconds the grace authentications are valid  (0 means no limit) |
+| ads-pwdLockout | _boolean_ | false | Flag to indicate if the account needs to be locked after a specified number of
+ consecutive failed bind attempts. The maximum number of consecutive failed bind attempts is specified in ads-pwdMaxFailure |
+| ads-pwdLockoutDuration | _int_ | 300 | The number of seconds that the password cannot be used to authenticate due to too many failed bind attempts |
+| ads-pwdMaxFailure | _int_ | 0 | The number of consecutive failed bind attempts after which the password may not be used to authenticate (0 means no limit) |
+| ads-pwdFailureCountInterval | _int_ | 0 | The number of seconds after which the password failures are purged from the failure counter (0 means reset all the pwdFailureTimes after a successful authentication) |
+| ads-pwdMustChange | _boolean_ | false | Flag to indicate if the password must be changed by the user after they bind to the directory after a password is set or reset by a password administrator |
+| ads-pwdAllowUserChange | _boolean_ | true | Indicates whether users can change their own passwords |
+| ads-pwdSafeModify | _boolean_ | false | Flag to specify whether or not the existing password must be sent along with the new password when being changed |
+| ads-pwdMinDelay | _int_ | 0 | The number of seconds to delay responding to the first failed authentication attempt (0 means no delay) |
+| ads-pwdMaxDelay | _int_ | 0 | The maximum number of seconds to delay when responding to a failed authentication attempt (no delay) 0 means|
+| ads-pwdMaxIdle | _int_ | 0 | The number of seconds an account may remain unused before it becomes locked (0 means infinite) |
 
 
 ### Partitions
@@ -239,6 +274,8 @@ The list of attributes that can be modified is exposed in the following table.
 
 | AttributeType | type | default value | Description |
 |---|---|---|---|
+| ads-enabled | _boolean_  | true | Tells if the LdapServer system is enabled |
+| description | _String_  | N/A | A short optional description |
 | **ads-confidentialityRequired** | _boolean_ | false | Whether or not confidentiality (TLS secured connection) is required |
 | **ads-maxSizeLimit** | _int_ | 1000 | The maximum number of entries the server will return |
 | **ads-maxTimeLimit** | _int_ | 1000 | The maimum number of seconds the server will use to process a search request |
@@ -285,6 +322,24 @@ Here are the configurable elements :
 
 
 ### Extended Op Handlers
+
+An LDAP server can handle _ExtendedOperations_, assuming it has the code to do so. In **ApacheDS**, we do that by associating a _Java_ class with each _ExtendedOperation_. We may provide more _ExtendedOperations_ in the future. The list of supported _ExtendedOperations_ is given below :
+
+* CertGenerationRequest : Generate a certificate on demand
+* GracefulShutdownRequest : Requires the server to shutdown gracefully
+* StartTLSExtendedOperation : Process the StartTLS request
+* StoredProcedureExtendedOperation : Execute a Stored procedure
+
+Adding a new _ExntedeOperatonHandler_ is just a matter of adding a new entry under the _ou=extendedOpHandlers_ entry, with the given elements :
+
+| AttributeType | type | default value | Description |
+|---|---|---|---|
+| ads-enabled | _boolean_  | true | Tells if the ExtendedOpHandler system is enabled |
+| description | _String_  | N/A | A short optional description |
+| **ads-extendedOpId** | _String_ | N/A | The ExtendedOpHandler unique identifier |
+| **ads-extendedOpHandlerClass** | _String_ | N/A | The class FQCN that implements the handler |
+
+
 ### SASL Mechanisms
 
 We have various SASL mechanisms, which can be configured. the list of supported SASL mechanisms is :
@@ -307,7 +362,31 @@ This list is stored in the configuration. It's possible to add new mechnaism if 
 | ads-ntlmMechProvider | _String_ | N/A | The NTLM provider |
 
 ### Kerberos Server
-To be added...
+
+The _KerberosServer_ configuration is an important part of the configuration. It deoends on a _DirectoryService_ too, as most of the informations managed by a _KerberosServer_ are store there.
+
+The list of attributes that can be modified is exposed in the following table. 
+
+| AttributeType | type | default value | Description |
+|---|---|---|---|
+| ads-enabled | _boolean_  | true | Tells if the KerberosServer is enabled |
+| description | _String_  | N/A | A short optional description |
+| ads-krbAllowableClockSkew | _int_ | 300000 | The allowable clock skew in milliseconds (5 minutes) |
+| ads-krbEncryptionTypes | _List<String>_ |  | The encryption types |
+| ads-krbEmptyAddressesAllowed | _boolean_ | true | Whether empty addresses are allowed |
+| ads-krbForwardableAllowed | _boolean_ | true | Whether forwardable addresses are allowed |
+| ads-krbPaEncTimestampRequired | _boolean_ | true | Whether pre-authentication by encrypted timestamp is required |
+| ads-krbPostdatedAllowed | _boolean_ | true | Whether postdated tickets are allowed |
+| ads-krbProxiableAllowed | _boolean_ | true | Whether proxiable addresses are allowed |
+| ads-krbRenewableAllowed | _boolean_ | true | Whether renewable tickets are allowed |
+| ads-krbKdcPrincipal | _String_ | krbtgt/EXAMPLE.COM@EXAMPLE.COM | The service principal name |
+| ads-krbMaximumRenewableLifetime | _long_ | 1000 * 60 * 60 * 24 * 7 | The maximum renewable lifetime in millisconds (7 days) |
+| ads-krbMaximumTicketLifetime | _long_ | 1000 * 60 * 60 * 24 | he maximum ticket lifetime in milliseconds (24 h) |
+| ads-krbPrimaryRealm | _String_ | EXAMPLE.COM | The primary realm  |
+| ads-krbBodyChecksumVerified | _boolean_ | true | Whether to verify the body checksum |
+
+
+Of course, a _Transport_ has to be defined under the _KerberosServer_ entry (see [Transports]([)#transports)).
 
 ### Http Server
 To be added...
