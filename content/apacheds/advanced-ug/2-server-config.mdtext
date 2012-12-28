@@ -148,6 +148,8 @@ We may have various _Authenticator_ declared for a given server. The default ser
 One can add a new _Authenticator_, 
 
 ### Password Policies
+
+
 ### Partitions
 
 The _Partition_ is the part of the server storing your data. There are many parts that need to be configured in order to obtain the best performances out of the server. It's also the part of the configuraton you are the more likely to modify, adding new _Partitions_ or adding new _Indexes_.
@@ -252,12 +254,69 @@ The list of attributes that can be modified is exposed in the following table.
 (*) org.apache.directory.server.ldap.replication.provider.SyncReplRequestHandler
 	
 ### Repl Consumers
+
+This part of the configuration deals with the replication. It provides all the information for a server to become a consumer. A server can have many different consumers set. 
+
+All the consumers are stord under the _ou=replConsumers_ entry, under the respectiver server entry.
+
+Here are the configurable elements :
+
+| Parameter | AttributeType | type | default value | Description |
+|---|---|---|---|---|
+| **replConsumerId** | ads-replConsumerId | _String_ | N/A | The replica unique identifier |
+| **searchBaseDN** | ads-searchBaseDN | _String_ | N/A | The base DN for replication |
+| **replProvHostName** | ads-replProvHostName | _String_ | N/A | The provider host name |
+| **replProvPort** | ads-replProvPort | _int_ | 389 | The port of the remote server |
+| **replAliasDerefMode** | ads-replAliasDerefMode | _String_ | NEVER_DEREF_ALIASES | The alias deeferencing mode to use |
+| **replAttributes** | ads-replAttributes | _String_ | * | The list of attributes to get back |
+| **replRefreshInterval** | ads-replRefreshInterval | _int_ | 60000 | The delay between refreshes (60 seconds) |
+| **replRefreshNPersist** | ads-replRefreshNPersist | _boolean_ | true | Sets the replication mode |
+| **replSearchScope** | ads-replSearchScope | _String_ | SUBTREE | The scope to use while searching for entries |
+| **replSearchFilter** | ads-replSearchFilter | _String_ | (objectClass=*) | The filter to use |
+| **replSearchSizeLimit** | ads-replSearchSizeLimit | _int_ | 0 | The maximum numbr of entries to get back |
+| **replSearchTimeOut** | ads-replSearchTimeOut | _int_ | 0 | The maximum time to wait while fetching the entries |
+| **replUserDn** | ads-replUserDn | _String_ | N/A | The user DN used to bind on the provider |
+| **replUserPassword** | ads-replUserPassword | _String_ | N/A | The password of the user |
+| replUseTls | ads-replUseTls | _boolean_ | true | Tells the server to use startTLS during replication |
+| replStrictCertValidation | ads-replStrictCertValidation | _boolean_ | true | Tells the provider to check the certificate if provided |
+| replPeerCertificate | ads-replPeerCertificate | _byte[]_ | N/A | The certificate to use for replication |
+| replConsumerImpl | ads-replConsumerImpl | _String_ | ReplicationConsumerImpl | The implementation |
+| replCookie | ads-replCookie | _byte[]_ | N/A | The last received cookie |
+
+
 ### Extended Op Handlers
 ### SASL Mechanisms
+
+We have various SASL mechanisms, which can be configured. the list of supported SASL mechanisms is :
+
+* CRAM-MD5
+* DIGEST-MD5
+* GSS-SPNEGO
+* GSSAPI
+* NTLM
+* SIMPLE
+
+This list is stored in the configuration. It's possible to add new mechnaism if needed, smply by adding an entry containg those elements, under the _ou=saslMechHandlers_
+
+| Parameter | AttributeType | type | default value | Description |
+|---|---|---|---|---|
+| enabled | ads-enabled | _boolean_  | true | Tells if the Transport system is enabled |
+| description | description | _String_  | N/A | A short optional description |
+| **saslMechName** | ads-saslMechName | _String_ | <one the above list> | The mechanism name|
+| **saslMechClassName** | ads-saslMechClassName | _String_ | N/A | The mechanism class name|
+| ntlmMechProvider | ads-ntlmMechProvider | _String_ | N/A | The NTLM provider |
+
 ### Kerberos Server
+To be added...
+
 ### Http Server
+To be added...
+
 ### Http Web Apps
+To be added...
+
 ### Change Password Server
+To be added...
 
 ### Transports
 
