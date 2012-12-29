@@ -28,43 +28,48 @@ We will now describe the server configuration. Usually, all the configuration is
 
 It's a good policy not to modify the LDIF files by hand, but instead to use the Studio Configuration plugin to modify your configuration. 
 
-## Overall structure
+# Overall structure
 
 The configuration is stored in a hierarchical order, where sub-elements are related to their parent. For instance, the _Transports_ are associated to the _Server_ they are child of. If we have many kind of servers, we will have as many transports as we have servers.
 
 The following hierarchy describe the different kind of elements that one can configure, and their relationship :
 
-* [Directory Service](#directory-service)
-	* [ChangeLog](#change-log)
-	* [Journal](#journal)
-	* [Interceptors](#interceptors)
-		* [Authentication Interceptor](#authentication-Interceptor)
-			* [Authenticators](#authenticators)
-			* [Password Policies](#password-policies)
-	* [Partitions](#partitions)
-		* [Indexes](#indexes)
-			* [Indexed Attribute](#indexed-attribute)
-	* [Servers](#servers)
-		* [Ldap Server](#ldap-server)
-    		* [Transports](#transports)
-    		* [ReplConsumers](#repl-consumers)
-    		* [Extended Operation Handlers](#extended-op-handlers)
-    		* [SASL Mechanisms](#sasl-mechanisms)
-		* [Kerberos Server](#kerberos-server)
-    		* [Transports](#transports)
-		* [Http Server](#http-server)
-    		* [Transports](#transports)
-    		* [HttpWebApps](#http-web-apps)
-		* [ChangePassword Server](#change-password-server)
-    		* [Transports](#transports)
+* ou=config
+	* [ads-directoryServiceId=XXXXX (Directory Service)](#directory-service) 
+		* [ads-changeLogId=XXXXX (ChangeLog)](#change-log)
+		* [ads-journalId=XXXXX (Journal)](#journal)
+		* [ou=interceptors (Interceptors)](#interceptors)
+			* [ads-interceptorId=authenticationInterceptor (Authentication Interceptor)](#authentication-Interceptor)
+				* [ou=authenticators (Authenticators)](#authenticators)
+				* [ou=passwordPolicies (Password Policies)](#password-policies)
+		* [ou=partitions (Partitions)](#partitions)
+			* [ads-partitionId=system (JDBM Partition)](#jdbm-partition)
+				* [ou=indexes (Indexes)](#indexes)
+					* [ads-indexAttributeId=XXXXX (Indexed Attribute)](#indexed-attribute)
+		* [ou=servers (Servers)](#servers)
+			* [ads-serverId=ldapServer (Ldap Server)](#ldap-server)
+    			* [ou=transports (Transports)](#transports)
+    			* [ou=replConsumers (ReplConsumers)](#repl-consumers)
+    			* [ou=extendedOpHandlers (Extended Operation Handlers)](#extended-op-handlers)
+    			* [ou=saslMechHandlers (SASL Mechanisms)](#sasl-mechanisms)
+			* [ads-serverId=kerberosServer (Kerberos Server)](#kerberos-server)
+    			* [ou=transports (Transports)](#transports)
+			* [ads-serverId=httpServer (Http Server)](#http-server)
+    			* [ou=transports (Transports)](#transports)
+    			* [ou=httpWebApps (HttpWebApps)](#http-web-apps)
+			* [ads-serverId=changePasswordServer (ChangePassword Server)](#change-password-server)
+    			* [ou=transports (Transports)](#transports)
+
+Note that in order to modify one element, you have to go down the tree up to the entry containing the elements you want to modify. For instance, to modify the TCP port for LDAP, you have to modify the following entry :
+**ads-transportid=ldap, ou=transports, ads-serverId=ldapServer, ou=servers, ads-directoryServiceId=XXXXX, ou=config**
 
 We will now explain each one of those elements.
 
-### Directory Service
-
 <DIV class="note" markdown="1">
-Note that bold attributes are mandatory
+Note that bold attributes are mandatory in the following tables.
 </DIV>
+
+# Directory Service
 
 This is the key of the whole server : the place where we store the data. Most of the servers are depending on this component. You maye have more than one server, but only one _DirectoryService_. This compoent itself refers to the servers that will be started, plus the backends it will depends on.
 
@@ -84,7 +89,7 @@ Here are the configuration parameters for this components :
 | ads-dsTestEntries | _String_  | N/A | Not used |
 
 
-### Change Log
+## Change Log
 
 The _ChangeLog_ is an optional system that logs every changes made on the server, and also records the revert operation, allowing the system to rollback the changes if needed. This is extremely useful when running tests.
 
@@ -101,7 +106,7 @@ Here are the configuration element for the _ChangeLog_ elements :
 | description | _String_  | N/A | A short optional description |
 | **ads-changeLogExposed** | _boolean_  | false | Tells if the ChangeLog is exposed to the users |
 
-### Journal
+## Journal
 
 The _Journal_ system logs every modification on the file system. It's intended to be used if the _DirectoryService_ crashes, as we can reapply the journal starting from a date in the past where we know that the underlying database is correct.
 
@@ -116,7 +121,7 @@ The configuration elements for the _Journal_ are :
 | **ads-journalRotation** | _String_ | N/A | The number of operation stored befoe the journal is rotated |
 | **ads-journalFileName** | _String_ | journal.txt | The file contaning the Journal |
 
-### Interceptors
+## Interceptors
 
 The _Interceptors_ are generally not configurable. You don't want to change their order, nor remove or add some. The fact that they appear in the configuration is because we use this to initialize the server.
 
@@ -137,7 +142,7 @@ In the case where one would like to add an interceptor, it's enough to add the a
 
 This _Interceptor_ is in charge of managing the users authentication. It is associated with _[Authenticators](#authenticators)_, and with _[Password Policies](#password-policies)_.
 
-### Authenticators
+#### Authenticators
 
 We may have various _Authenticator_ declared for a given server. The default server has three different _Authenticators_, which are :
 
@@ -185,11 +190,15 @@ There are many possible configurable options for the _PasswordPolicy_ system. He
 | ads-pwdMaxIdle | _int_ | 0 | The number of seconds an account may remain unused before it becomes locked (0 means infinite) |
 
 
-### Partitions
+## Partitions
 
 The _Partition_ is the part of the server storing your data. There are many parts that need to be configured in order to obtain the best performances out of the server. It's also the part of the configuraton you are the more likely to modify, adding new _Partitions_ or adding new _Indexes_.
 
-A _Partition_ have the following configurable elements :
+You may have more than one _Partition_ in your _DirectoryService_. We have at least three existing _Partition_, the _ou=system_ _Partition_, the _ou=config_ _Partition_ and the _ou=schema_ _Partition_. The former is a _JDBM_ _Partition_, when the two others are _LDIF_ _Partitions.
+
+### JDBM Partition
+
+A _JDBM Partition_ have the following configurable elements :
 
 | AttributeType | type | default value | Description |
 |---|---|---|---|
@@ -202,7 +211,7 @@ A _Partition_ have the following configurable elements :
 
 Once those elements have been configured, the _Partition_ is available. You still have to create some mandatory indexes though.
 
-### Indexes
+#### Indexes
 
 Each _Partition_ have indexes, some are mandatory, and others are user provided. Here are the mandatory indexes :
 
@@ -218,7 +227,7 @@ Each _Partition_ have indexes, some are mandatory, and others are user provided.
 | administrativeRole | Stores the entries that are AdminstrativePoints |
 
 
-### Indexed Attribute
+##### Indexed Attribute
 
 IndexedATtributes have a type, depending on the _Partition_ they are associetd with. Currently, we have only one type, _JdbmIndex_. They have specific configurable elements.
 
@@ -241,7 +250,7 @@ The _JdbmIndex_ type of index has some more configurable elements, all optional 
 | ads-indexCacheSize | _int_ | 100 | The numbr of cached pages for this index |
 
 
-### Servers
+# Servers
 
 As we can see, we can start more than one server. We have :
 
@@ -266,7 +275,22 @@ All the _DirectoryService_ backed servers share some common parameters, which ar
 
 A server can define more than one transports : for instance, the Kerberos server uses UDP and TCP transports.
 
-### Ldap Server
+## Transports
+
+Here are the parameters for the Transport structure :
+
+| AttributeType | type | default value | Description |
+|---|---|---|---|
+| **ads-transportId** | _String_ | N/A | The identification |
+| **ads-transportAddress** | _String_ | localhost | The IP Address |
+| **ads-systemPort** | _int_ | -1 | The port |
+| ads-enabled | _boolean_  | N/A | Tells if the Transport system is enabled |
+| description | _String_  | N/A | A short optional description |
+| ads-transportEnableSsl | _boolean_ | false | Tells if SSL is activated (not used for UDP) |
+| ads-transportNbThreads | _int_ | 3 | he number of dedicated threads to process the messages |
+| ads-transportBackLog | _int_ | 50 | The number of messages on hold if the server is overloaded (not used for UDP) |
+
+## Ldap Server
 
 Let's start with the main server : the LDAP server. 
 
@@ -361,7 +385,7 @@ This list is stored in the configuration. It's possible to add new mechnaism if 
 | **ads-saslMechClassName** | _String_ | N/A | The mechanism class name|
 | ads-ntlmMechProvider | _String_ | N/A | The NTLM provider |
 
-### Kerberos Server
+## Kerberos Server
 
 The _KerberosServer_ configuration is an important part of the configuration. It deoends on a _DirectoryService_ too, as most of the informations managed by a _KerberosServer_ are store there.
 
@@ -386,28 +410,45 @@ The list of attributes that can be modified is exposed in the following table.
 | ads-krbBodyChecksumVerified | _boolean_ | true | Whether to verify the body checksum |
 
 
-Of course, a _Transport_ has to be defined under the _KerberosServer_ entry (see [Transports]([)#transports)).
+Of course, a _Transport_ has to be defined under the _KerberosServer_ entry (see [Transports](#transports)).
 
-### Http Server
-To be added...
+## Http Server
 
-### Http Web Apps
-To be added...
+We have a Http Server embedded, which is used to manage some parts of the server. One can inject a web application, which has direct access to the embedded LdapServer, for instance. It can be useful for sending LDAP requests using DSML, for instance.
 
-### Change Password Server
-To be added...
-
-### Transports
-
-Here are the parameters for the Transport structure :
+There is one single element that can be configured :
 
 | AttributeType | type | default value | Description |
 |---|---|---|---|
-| **ads-transportId** | _String_ | N/A | The identification |
-| **ads-transportAddress** | _String_ | localhost | The IP Address |
-| **ads-systemPort** | _int_ | -1 | The port |
-| ads-enabled | _boolean_  | N/A | Tells if the Transport system is enabled |
+| ads-enabled | _boolean_  | true | Tells if the HttpServer is enabled |
 | description | _String_  | N/A | A short optional description |
-| ads-transportEnableSsl | _boolean_ | false | Tells if SSL is activated (not used for UDP) |
-| ads-transportNbThreads | _int_ | 3 | he number of dedicated threads to process the messages |
-| ads-transportBackLog | _int_ | 50 | The number of messages on hold if the server is overloaded (not used for UDP) |
+| ads-httpConfFile | _String_  | N/A | The configuration file for this server |
+
+An _HttpServer_ without webApps is pretty useless, we now have to configure the underlaying web applications
+
+
+### Http Web Apps
+
+Each _WebApp_ configuration must be added under the _ou=webapps_ entry. Here are the configurable elements :
+
+| AttributeType | type | default value | Description |
+|---|---|---|---|
+| ads-enabled | _boolean_  | true | Tells if the HttpServer is enabled |
+| description | _String_  | N/A | A short optional description |
+| **ads-httpWarFile** | _String_  | N/A | The WAR file to use |
+| **ads-id** | _String_  | N/A | The unique ID for this WebApp |
+| **ads-httpAppCtxPath** | _String_  | N/A | The context |
+
+Here is an example of configuration :
+
+	dn: ads-id=webApp1,ou=httpWebApps,ads-serverId=httpServer,ou=servers,ads-directoryServiceId=default,ou=config
+	objectclass: top
+	objectclass: ads-base
+	objectclass: ads-httpWebApp
+	ads-Id: webApp1
+	ads-httpWarFile: war file 1
+	ads-httpAppCtxPath: /home/app1
+
+
+## Change Password Server
+To be added...
