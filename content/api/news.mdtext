@@ -1,30 +1,66 @@
 # News
 
-## Apache Directory LDAP API 1.0.0-M13 released _posted on Friday 12, 2012_
+## Apache Directory LDAP API 1.0.0-M15 released _posted on January 29th, 2013_
 
-The Apache Directory Team is proud to announce the availability of the 1.0.0-M13 version of the Apache Directory LDAP API.
+The Apache Directory Team is proud to announce the availability of version 1.0.0-M15 of the Apache Directory LDAP API.
 
-The Apache Directory LDAP client API is an ongoing effort to provide an enhanced LDAP API, as a replacement for JNDI and the existing LDAP API (jLdap and Mozilla LDAP API).
+The Apache Directory LDAP API is an ongoing effort to provide an enhanced LDAP API, as a replacement for JNDI and the existing LDAP API (jLdap and Mozilla LDAP API).
 
 This is a schema aware API, with some convenient ways to access a LDAP server. This API is not only targeting the Apache Directory Server, but should work pristine with any LDAP server.
 
 It's also an extensible API : new Controls, schema elements and network layer could be added or used in the near future. It's also OSGi capable.
 
-In this milestone, we have fixed some issues :
+Here are the release note for Apache Directory LDAP API 1.0.0-M15:
 
-* [DIRAPI-87 - The search() method does not return the same result if it's done with a SearchRequest or with parameters](https://issues.apache.org/jira/browse/DIRSHARED-87)
-* [DIRAPI-88 - RDN parsing fails with values containing a # character followed by other characters](https://issues.apache.org/jira/browse/DIRSHARED-88)
-* [DIRSHARED-135 - LdapNetworkConnection should be thread-safe](https://issues.apache.org/jira/browse/DIRSHARED-135)
-* [DIRSHARED-136 - NPE in AntlrSubtreeSpecificationParser when initialized with an empty schema manager](https://issues.apache.org/jira/browse/DIRSHARED-136)
-* [DIRSHARED-137 - Logically incorrect filter construction while parsing DSML search request](https://issues.apache.org/jira/browse/DIRSHARED-137)
-* [DIRSHARED-138 - Cannot transform SearchRequestDsml object to DSML format](https://issues.apache.org/jira/browse/DIRSHARED-138)
+* [DIRAPI-112](https://issues.apache.org/jira/browse/DIRSHARED-112) - Review Package Names
 
-Here is the release note for Apache Directory LDAP API 1.0.0-M13:
 Feel free to experiment, we highly appreciate your feedback !
 
-Web site : [http://directory.apache.org/api/](http://directory.apache.org/api/)
+Downloads are available [here](downloads.html) and the User's Guide is [there](user-guide.html)
 
-Download : [http://directory.apache.org/api/downloads.html](http://directory.apache.org/api/downloads.html)
 
-User Guide : [http://directory.apache.org/api/user-guide.html](http://directory.apache.org/api/user-guide.html)
-_
+## Apache Directory LDAP API 1.0.0-M14 released _posted on January 7th, 2013_
+
+The Apache Directory Team is proud to announce the availability of version 1.0.0-M15 of the Apache Directory LDAP API.
+
+The Apache Directory LDAP API is an ongoing effort to provide an enhanced LDAP API, as a replacement for JNDI and the existing LDAP API (jLdap and Mozilla LDAP API).
+
+This is a schema aware API, with some convenient ways to access a LDAP server. This API is not only targeting the Apache Directory Server, but should work pristine with any LDAP server.
+
+It's also an extensible API : new Controls, schema elements and network layer could be added or used in the near future. It's also OSGi capable.
+
+Here are the release note for Apache Directory LDAP API 1.0.0-M14:
+
+* [DIRAPI-89](https://issues.apache.org/jira/browse/DIRSHARED-89) - EntryCursorImpl loops forever in next() when using AD Server with referrals
+* [DIRAPI-92](https://issues.apache.org/jira/browse/DIRSHARED-92) - LdapConnectionPool should extend GenericObjectPool<LdapConnection>
+* [DIRAPI-94](https://issues.apache.org/jira/browse/DIRSHARED-94) - Random failure of ClientAbandonRequestTest
+
+**WARNING:** An important **package renaming** took place in this milestone. The previously named "**_org.apache.directory.shared_**" package has been renamed "**_org.apache.directory.api_**". If you were using the Apache Directory LDAP API before, please **make sure to update your own code** to match this important change.
+
+Feel free to experiment, we highly appreciate your feedback !
+
+Downloads are available [here](downloads.html) and the User's Guide is [there](user-guide.html)
+
+
+## Apache Directory LDAP API 1.0.0-M13 released _posted on October 12th, 2012_
+
+The Apache Directory Team is proud to announce the availability of version 1.0.0-M13 of the Apache Directory LDAP API.
+
+The Apache Directory LDAP API is an ongoing effort to provide an enhanced LDAP API, as a replacement for JNDI and the existing LDAP API (jLdap and Mozilla LDAP API).
+
+This is a schema aware API, with some convenient ways to access a LDAP server. This API is not only targeting the Apache Directory Server, but should work pristine with any LDAP server.
+
+It's also an extensible API : new Controls, schema elements and network layer could be added or used in the near future. It's also OSGi capable.
+
+Here are the release note for Apache Directory LDAP API 1.0.0-M13:
+
+* [DIRAPI-87](https://issues.apache.org/jira/browse/DIRSHARED-87) - The search() method does not return the same result if it's done with a SearchRequest or with parameters
+* [DIRAPI-88](https://issues.apache.org/jira/browse/DIRSHARED-88) - RDN parsing fails with values containing a # character followed by other characters
+* [DIRSHARED-135](https://issues.apache.org/jira/browse/DIRSHARED-135) - LdapNetworkConnection should be thread-safe
+* [DIRSHARED-136](https://issues.apache.org/jira/browse/DIRSHARED-136) - NPE in AntlrSubtreeSpecificationParser when initialized with an empty schema manager
+* [DIRSHARED-137](https://issues.apache.org/jira/browse/DIRSHARED-137) - Logically incorrect filter construction while parsing DSML search request
+* [DIRSHARED-138](https://issues.apache.org/jira/browse/DIRSHARED-138) - Cannot transform SearchRequestDsml object to DSML format
+
+Feel free to experiment, we highly appreciate your feedback !
+
+Downloads are available [here](downloads.html) and the User's Guide is [there](user-guide.html)
