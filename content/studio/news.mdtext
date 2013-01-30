@@ -1,15 +1,84 @@
 # News
 
-## Apache Directory Studio 2.0 M3 released _posted on March 12, 2012_
+## Apache Directory Studio 2.0-0-M4 released _posted on January 30th, 2013_
 
-The Apache Directory Team is pleased to announce the release of Apache Directory Studio 2.0 M3, the third milestone release of the version 2.0 of its Eclipse based LDAP Browser and Directory client.
+The Apache Directory Team is pleased to announce the release of Apache Directory Studio 2.0.0-M4, the fourth milestone release of the version 2.0 of its Eclipse based LDAP Browser and Directory client.
 
-You can download Apache Directory Studio 2.0 M3 as a standalone RCP application for Mac OS X, Linux and Windows here: <http://directory.apache.org/studio/2.0/download>
+You can download Apache Directory Studio 2.0.0-M4 as a standalone RCP application for Mac OS X, Linux and Windows here: <http://directory.apache.org/studio/downloads.html>
+
+You can also install it directly in Eclipse using this update site: 
+<http://directory.apache.org/studio/update/2.x/>
+
+Here are a few highlights of this new version:
+
+* The integrated Apache Directory LDAP API has been upgraded to the latest version (1.0.0-M15), fixing bugs and bringing performances improvements.
+* The LDAP Servers plugin has been updated with the latest and greatest ApacheDS (version 2.0.0-M10), which supports Multi-Master Replication.
+* The ApacheDS 2.0 Configuration plugin has also been updated to support ApacheDS 2.0.0-M10 and offers configuration for replication.
+* The RCP application is based on the latest version of Eclipse (3.8.1).
+* There are a lot more new additions, improvements and bug fixes (see release notes).
+
+Here are the release notes for Apache Directory Studio 2.0.0-M4:
+
+Bug
+
+* [DIRSTUDIO-775](https://issues.apache.org/jira/browse/DIRSTUDIO-775) - Display issues in Image Editor
+* [DIRSTUDIO-795](https://issues.apache.org/jira/browse/DIRSTUDIO-795) - Unable to delete multiple schema elements (attribute type, object class or schema)
+* [DIRSTUDIO-796](https://issues.apache.org/jira/browse/DIRSTUDIO-796) - Unable to open multiple schema elements (attribute type, object class or schema)
+* [DIRSTUDIO-799](https://issues.apache.org/jira/browse/DIRSTUDIO-799) - Unable to move object with Apache LDAP API
+* [DIRSTUDIO-802](https://issues.apache.org/jira/browse/DIRSTUDIO-802) - Confusion between ISO-8859-1 and UTF-8 in the Encode/Decode dialog
+* [DIRSTUDIO-808](https://issues.apache.org/jira/browse/DIRSTUDIO-808) - "Update existing entries" checkbox in "LDIF Import" wizard fails to work with the Apache Directory LDAP API
+* [DIRSTUDIO-810](https://issues.apache.org/jira/browse/DIRSTUDIO-810) - Fullscreen plugin is /not/ under the Apache license
+* [DIRSTUDIO-812](https://issues.apache.org/jira/browse/DIRSTUDIO-812) - Error while performing search
+* [DIRSTUDIO-822](https://issues.apache.org/jira/browse/DIRSTUDIO-822) - Typo in one of the default indexed attributes when creating a new partition in the ApacheDS Configuration Editor v2
+* [DIRSTUDIO-823](https://issues.apache.org/jira/browse/DIRSTUDIO-823) - Integer Value Editor only selects values of Java Integer magnitude
+* [DIRSTUDIO-827](https://issues.apache.org/jira/browse/DIRSTUDIO-827) - Quick Search is not displayed when folding is activated
+* [DIRSTUDIO-829](https://issues.apache.org/jira/browse/DIRSTUDIO-829) - NPE when trying to add a 'subtreeSpecification' value
+* [DIRSTUDIO-833](https://issues.apache.org/jira/browse/DIRSTUDIO-833) - NPE in ACI Item Editor when adding AttributeType permission
+* [DIRSTUDIO-834](https://issues.apache.org/jira/browse/DIRSTUDIO-834) - Unable to edit subtreeSpecification
+* [DIRSTUDIO-835](https://issues.apache.org/jira/browse/DIRSTUDIO-835) - Display issues in the Password Editor on OS X
+* [DIRSTUDIO-840](https://issues.apache.org/jira/browse/DIRSTUDIO-840) - Help system is not working
+* [DIRSTUDIO-850](https://issues.apache.org/jira/browse/DIRSTUDIO-850) - The "Remove" button for mandatory ATs in the OC Editor does nothing
+* [DIRSTUDIO-858](https://issues.apache.org/jira/browse/DIRSTUDIO-858) - The Entry Editor's Outline view should be unavailable when the selection isn't an entry or a bookmark
+* [DIRSTUDIO-864](https://issues.apache.org/jira/browse/DIRSTUDIO-864) - Error message appears: "ERR_04269 ATTRIBUTE_TYPE for OID ads-replenabled does not exist!" when trying to open configuration
+
+Improvement
+
+* [DIRSTUDIO-657](https://issues.apache.org/jira/browse/DIRSTUDIO-657) - Add options to output the resulting LDIF of a batch operation to a file or to the clipboard
+* [DIRSTUDIO-793](https://issues.apache.org/jira/browse/DIRSTUDIO-793) - Batch Operation define modification slowdown, needs scrollbar
+* [DIRSTUDIO-797](https://issues.apache.org/jira/browse/DIRSTUDIO-797) - Two different 'HistoryUtils' classes should be merged into a single one in 'common.ui' plugin
+* [DIRSTUDIO-809](https://issues.apache.org/jira/browse/DIRSTUDIO-809) - Improve the behavior of the "Execute LDIF" action of the LDIF Editor
+* [DIRSTUDIO-813](https://issues.apache.org/jira/browse/DIRSTUDIO-813) - Add default value editors for eDirectory
+* [DIRSTUDIO-828](https://issues.apache.org/jira/browse/DIRSTUDIO-828) - The Quick Search context menu item could reuse the currently selected entry in the Browser view as search base
+* [DIRSTUDIO-838](https://issues.apache.org/jira/browse/DIRSTUDIO-838) - Add support for configuring the context entry of a partition in the ApacheDS 2.0 Configuration Editor
+* [DIRSTUDIO-841](https://issues.apache.org/jira/browse/DIRSTUDIO-841) - When creating a connection from an existing ApacheDS 2.0 server, the "Open Configuration" item is not available
+* [DIRSTUDIO-851](https://issues.apache.org/jira/browse/DIRSTUDIO-851) - Add a hint in the Connection Properties dialog about Certifcate Validation with a link to the corresponding preference page
+* [DIRSTUDIO-852](https://issues.apache.org/jira/browse/DIRSTUDIO-852) - Display issues in the Certificate Validation preference page on OS X
+
+New Feature
+
+* [DIRSTUDIO-804](https://issues.apache.org/jira/browse/DIRSTUDIO-804) - Interpret Active Directory Timestamps
+* [DIRSTUDIO-806](https://issues.apache.org/jira/browse/DIRSTUDIO-806) - Editing Multiple Directory Objects at once
+* [DIRSTUDIO-843](https://issues.apache.org/jira/browse/DIRSTUDIO-843) - There is no place we can configure the KeyStore to use while configuring an ApacheDS server
+
+Task
+
+* [DIRSTUDIO-736](https://issues.apache.org/jira/browse/DIRSTUDIO-736) - Implement the "Execute Online" button of the BatchOperationWizard
+* [DIRSTUDIO-791](https://issues.apache.org/jira/browse/DIRSTUDIO-791) - Update supportedControl and supportedExtension descriptions
+* [DIRSTUDIO-811](https://issues.apache.org/jira/browse/DIRSTUDIO-811) - Review and remove any source file under Eclipse Public License (EPL) v 1.0
+* [DIRSTUDIO-816](https://issues.apache.org/jira/browse/DIRSTUDIO-816) - Update OIDs to Descriptions properties file
+* [DIRSTUDIO-839](https://issues.apache.org/jira/browse/DIRSTUDIO-839) - Update Eclipse dependencies to version 3.8.1
+
+
+## Apache Directory Studio 2.0.0-M3 released _posted on March 12, 2012_
+
+The Apache Directory Team is pleased to announce the release of Apache Directory Studio 2.0.0-M3, the third milestone release of the version 2.0 of its Eclipse based LDAP Browser and Directory client.
+
+You can download Apache Directory Studio 2.0.0-M3 as a standalone RCP application for Mac OS X, Linux and Windows here: <http://directory.apache.org/studio/downloads.html>
 
 You can install it directly in Eclipse using this update site: 
 <http://directory.apache.org/studio/update/2.x/>
 
-Here is the release note for Apache Directory Studio 2.0 M3:
+Here is the release note for Apache Directory Studio 2.0.0-M3:
 
 Bug
 
@@ -37,20 +106,19 @@ Improvement
 * [DIRSTUDIO-785](https://issues.apache.org/jira/browse/DIRSTUDIO-785) - Add the ability to sort bookmarks in the LDAP Browser view
 
 
-Click here to view the full [Release Notes](http://directory.apache.org/studio/apache-directory-studio-20.html#ApacheDirectoryStudio2.0-Releasenotes).
+Click here to view the full [Release Notes](changelog.html).
 
 
+## Apache Directory Studio 2.0.0-M2 released _posted on February 07, 2012_
 
-## Apache Directory Studio 2.0 M2 released _posted on February 07, 2012_
+The Apache Directory Team is pleased to announce the release of Apache Directory Studio 2.0.0-M2, the second milestone release of the version 2.0 of its Eclipse based LDAP Browser and Directory client.
 
-The Apache Directory Team is pleased to announce the release of Apache Directory Studio 2.0 M2, the second milestone release of the version 2.0 of its Eclipse based LDAP Browser and Directory client.
-
-You can download Apache Directory Studio 2.0 M2 as a standalone RCP application for Mac OS X, Linux and Windows here: <http://directory.apache.org/studio/2.0/download>
+You can download Apache Directory Studio 2.0.0-M2as a standalone RCP application for Mac OS X, Linux and Windows here: <http://directory.apache.org/studio/downloads.html>
 
 You can install it directly in Eclipse using this update site: 
 <http://directory.apache.org/studio/update/2.x/>
 
-Here are the release notes for Apache Directory Studio 2.0 M2:
+Here are the release notes for Apache Directory Studio 2.0.0-M2:
 
 * [DIRSTUDIO-630](https://issues.apache.org/jira/browse/DIRSTUDIO-630) - Importing a Schema project twice shouldn't be possible
 * [DIRSTUDIO-733](https://issues.apache.org/jira/browse/DIRSTUDIO-733) - Error while reading RootDSE on Sun One directory server
@@ -59,15 +127,14 @@ Here are the release notes for Apache Directory Studio 2.0 M2:
 * [DIRSTUDIO-760](https://issues.apache.org/jira/browse/DIRSTUDIO-760) - Unable to bind on an Active Directory server using 'domain\userid'
 * [DIRSTUDIO-763](https://issues.apache.org/jira/browse/DIRSTUDIO-763) - Typo in some English error messages ('occured' instead of 'occurred')
 
-Click here to view the full [Release Notes](http://directory.apache.org/studio/apache-directory-studio-20.html#ApacheDirectoryStudio2.0-Releasenotes).
+Click here to view the full [Release Notes](changelog.html).
 
 
+## Apache Directory Studio 2.0.0-M1 released _posted on January 18, 2012_
 
-## Apache Directory Studio 2.0 M1 released _posted on January 18, 2012_
+The Apache Directory Team is pleased to announce the release of Apache Directory Studio 2.0.0-M1, a first milestone release of the version 2.0 of its Eclipse based LDAP Browser and Directory client.
 
-The Apache Directory Team is pleased to announce the release of Apache Directory Studio 2.0 M1, a first milestone release of the version 2.0 of its Eclipse based LDAP Browser and Directory client.
-
-You can download Apache Directory Studio 2.0 M1 as a standalone RCP application for Mac OS X, Linux and Windows here: <http://directory.apache.org/studio/2.0/download>
+You can download Apache Directory Studio 2.0.0-M1 as a standalone RCP application for Mac OS X, Linux and Windows here: <http://directory.apache.org/studio/downloads.html>
 
 You can install it directly in Eclipse using this update site: 
 <http://directory.apache.org/studio/update/2.x/>
@@ -87,7 +154,8 @@ Here are a few highlights of this new version:
     * it is provided in two versions (32 bit and 64 bit) for each major operating system (Mac OS X, Linux & Windows)
 * There are a lot more new additions, improvements and bug fixes (see release notes)
 
-Click here to view the [Release Notes](http://directory.apache.org/studio/apache-directory-studio-20.html#ApacheDirectoryStudio2.0-Releasenotes).
+Click here to view the [Release Notes](changelog.html).
+
 
 ## Apache Directory Studio 1.5.3 released _posted on April 05, 2010_
 
@@ -108,4 +176,4 @@ Here are a few highlights of this new version:
 * various improvements in certificates handling
 * added a new 'Delete All' menu item for entries, bookmarks and searches
 
-Click here to view the [ChangeLog](changelog.html).
+Click here to view the [Release Notes](changelog.html).
