@@ -18,9 +18,178 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 # ChangeLog
 
+## Apache Directory Studio 2.0.0-M4 (January 30th 2013)
+
+**Bug**
+
+* [DIRSTUDIO-775](https://issues.apache.org/jira/browse/DIRSTUDIO-775) - Display issues in Image Editor
+* [DIRSTUDIO-795](https://issues.apache.org/jira/browse/DIRSTUDIO-795) - Unable to delete multiple schema elements (attribute type, object class or schema)
+* [DIRSTUDIO-796](https://issues.apache.org/jira/browse/DIRSTUDIO-796) - Unable to open multiple schema elements (attribute type, object class or schema)
+* [DIRSTUDIO-799](https://issues.apache.org/jira/browse/DIRSTUDIO-799) - Unable to move object with Apache LDAP API
+* [DIRSTUDIO-802](https://issues.apache.org/jira/browse/DIRSTUDIO-802) - Confusion between ISO-8859-1 and UTF-8 in the Encode/Decode dialog
+* [DIRSTUDIO-808](https://issues.apache.org/jira/browse/DIRSTUDIO-808) - "Update existing entries" checkbox in "LDIF Import" wizard fails to work with the Apache Directory LDAP API
+* [DIRSTUDIO-810](https://issues.apache.org/jira/browse/DIRSTUDIO-810) - Fullscreen plugin is /not/ under the Apache license
+* [DIRSTUDIO-812](https://issues.apache.org/jira/browse/DIRSTUDIO-812) - Error while performing search
+* [DIRSTUDIO-822](https://issues.apache.org/jira/browse/DIRSTUDIO-822) - Typo in one of the default indexed attributes when creating a new partition in the ApacheDS Configuration Editor v2
+* [DIRSTUDIO-823](https://issues.apache.org/jira/browse/DIRSTUDIO-823) - Integer Value Editor only selects values of Java Integer magnitude
+* [DIRSTUDIO-827](https://issues.apache.org/jira/browse/DIRSTUDIO-827) - Quick Search is not displayed when folding is activated
+* [DIRSTUDIO-829](https://issues.apache.org/jira/browse/DIRSTUDIO-829) - NPE when trying to add a 'subtreeSpecification' value
+* [DIRSTUDIO-833](https://issues.apache.org/jira/browse/DIRSTUDIO-833) - NPE in ACI Item Editor when adding AttributeType permission
+* [DIRSTUDIO-834](https://issues.apache.org/jira/browse/DIRSTUDIO-834) - Unable to edit subtreeSpecification
+* [DIRSTUDIO-835](https://issues.apache.org/jira/browse/DIRSTUDIO-835) - Display issues in the Password Editor on OS X
+* [DIRSTUDIO-840](https://issues.apache.org/jira/browse/DIRSTUDIO-840) - Help system is not working
+* [DIRSTUDIO-850](https://issues.apache.org/jira/browse/DIRSTUDIO-850) - The "Remove" button for mandatory ATs in the OC Editor does nothing
+* [DIRSTUDIO-858](https://issues.apache.org/jira/browse/DIRSTUDIO-858) - The Entry Editor's Outline view should be unavailable when the selection isn't an entry or a bookmark
+* [DIRSTUDIO-864](https://issues.apache.org/jira/browse/DIRSTUDIO-864) - Error message appears: "ERR_04269 ATTRIBUTE_TYPE for OID ads-replenabled does not exist!" when trying to open configuration
+
+**Improvement**
+
+* [DIRSTUDIO-657](https://issues.apache.org/jira/browse/DIRSTUDIO-657) - Add options to output the resulting LDIF of a batch operation to a file or to the clipboard
+* [DIRSTUDIO-793](https://issues.apache.org/jira/browse/DIRSTUDIO-793) - Batch Operation define modification slowdown, needs scrollbar
+* [DIRSTUDIO-797](https://issues.apache.org/jira/browse/DIRSTUDIO-797) - Two different 'HistoryUtils' classes should be merged into a single one in 'common.ui' plugin
+* [DIRSTUDIO-809](https://issues.apache.org/jira/browse/DIRSTUDIO-809) - Improve the behavior of the "Execute LDIF" action of the LDIF Editor
+* [DIRSTUDIO-813](https://issues.apache.org/jira/browse/DIRSTUDIO-813) - Add default value editors for eDirectory
+* [DIRSTUDIO-828](https://issues.apache.org/jira/browse/DIRSTUDIO-828) - The Quick Search context menu item could reuse the currently selected entry in the Browser view as search base
+* [DIRSTUDIO-838](https://issues.apache.org/jira/browse/DIRSTUDIO-838) - Add support for configuring the context entry of a partition in the ApacheDS 2.0 Configuration Editor
+* [DIRSTUDIO-841](https://issues.apache.org/jira/browse/DIRSTUDIO-841) - When creating a connection from an existing ApacheDS 2.0 server, the "Open Configuration" item is not available
+* [DIRSTUDIO-851](https://issues.apache.org/jira/browse/DIRSTUDIO-851) - Add a hint in the Connection Properties dialog about Certifcate Validation with a link to the corresponding preference page
+* [DIRSTUDIO-852](https://issues.apache.org/jira/browse/DIRSTUDIO-852) - Display issues in the Certificate Validation preference page on OS X
+
+**New Feature**
+
+* [DIRSTUDIO-804](https://issues.apache.org/jira/browse/DIRSTUDIO-804) - Interpret Active Directory Timestamps
+* [DIRSTUDIO-806](https://issues.apache.org/jira/browse/DIRSTUDIO-806) - Editing Multiple Directory Objects at once
+* [DIRSTUDIO-843](https://issues.apache.org/jira/browse/DIRSTUDIO-843) - There is no place we can configure the KeyStore to use while configuring an ApacheDS server
+
+**Task**
+
+* [DIRSTUDIO-736](https://issues.apache.org/jira/browse/DIRSTUDIO-736) - Implement the "Execute Online" button of the BatchOperationWizard
+* [DIRSTUDIO-791](https://issues.apache.org/jira/browse/DIRSTUDIO-791) - Update supportedControl and supportedExtension descriptions
+* [DIRSTUDIO-811](https://issues.apache.org/jira/browse/DIRSTUDIO-811) - Review and remove any source file under Eclipse Public License (EPL) v 1.0
+* [DIRSTUDIO-816](https://issues.apache.org/jira/browse/DIRSTUDIO-816) - Update OIDs to Descriptions properties file
+* [DIRSTUDIO-839](https://issues.apache.org/jira/browse/DIRSTUDIO-839) - Update Eclipse dependencies to version 3.8.1
+
+***
+
+## Apache Directory Studio 2.0.0-M3 (February 29th 2012)
+
+**Bug**
+
+* [DIRSTUDIO-764](https://issues.apache.org/jira/browse/DIRSTUDIO-764) - Image Editor does not work correctly
+* [DIRSTUDIO-765](https://issues.apache.org/jira/browse/DIRSTUDIO-765) - Can not export DSML
+* [DIRSTUDIO-767](https://issues.apache.org/jira/browse/DIRSTUDIO-767) - All attribute names are lowercase when using Apache Directory LDAP Client API
+* [DIRSTUDIO-768](https://issues.apache.org/jira/browse/DIRSTUDIO-768) - Error while searching using a filter on a binary attribute
+* [DIRSTUDIO-769](https://issues.apache.org/jira/browse/DIRSTUDIO-769) - Alt-S shortkey does not work in Search Dialog
+* [DIRSTUDIO-770](https://issues.apache.org/jira/browse/DIRSTUDIO-770) - Typos in french translation
+* [DIRSTUDIO-771](https://issues.apache.org/jira/browse/DIRSTUDIO-771) - Searches are not saved when closing Studio 2.0 M1/M2
+* [DIRSTUDIO-772](https://issues.apache.org/jira/browse/DIRSTUDIO-772) - Entry UUID Editor can't display eDirectory GUID
+* [DIRSTUDIO-773](https://issues.apache.org/jira/browse/DIRSTUDIO-773) - IllegalArgumentException thrown when copying the RootDSE
+* [DIRSTUDIO-776](https://issues.apache.org/jira/browse/DIRSTUDIO-776) - Misleading title for action "Open 'Search Result'/'Bookmark'/'Entry' in DIT" in LDAP Browser view context menu
+* [DIRSTUDIO-777](https://issues.apache.org/jira/browse/DIRSTUDIO-777) - Renaming entry fails when using Apache Directory LDAP API
+* [DIRSTUDIO-778](https://issues.apache.org/jira/browse/DIRSTUDIO-778) - NullPointerException when refreshing a TableEntryEditor
+* [DIRSTUDIO-779](https://issues.apache.org/jira/browse/DIRSTUDIO-779) - Label for folded attributes in TableEntryEditor is not updated when quick filter is used
+* [DIRSTUDIO-783](https://issues.apache.org/jira/browse/DIRSTUDIO-783) - The 'Rename Entry' dialog doesn't resize automatically when adding or removing RDN parts
+
+**Improvement**
+
+* [DIRSTUDIO-713](https://issues.apache.org/jira/browse/DIRSTUDIO-713) - Improve the 'Show in' sub-menu of the TableEntryEditor
+* [DIRSTUDIO-780](https://issues.apache.org/jira/browse/DIRSTUDIO-780) - Allow Apache Directory Studio to be pinned to Windows 7's taskbar
+* [DIRSTUDIO-782](https://issues.apache.org/jira/browse/DIRSTUDIO-782) - Improve Windows installer with JRE detection and creation of 'Apache Directory Studio.ini' file
+* [DIRSTUDIO-784](https://issues.apache.org/jira/browse/DIRSTUDIO-784) - Add the ability to sort searches in the LDAP Browser view
+* [DIRSTUDIO-785](https://issues.apache.org/jira/browse/DIRSTUDIO-785) - Add the ability to sort bookmarks in the LDAP Browser view
+
+**Question**
+
+* [DIRSTUDIO-821](https://issues.apache.org/jira/browse/DIRSTUDIO-821) - Where to get the public certificate used to sign the JAR of DS 1.5.3?
+
+***
+
+## Apache Directory Studio 2.0.0-M2 (February 7th 2012)
+
+**Bug**
+
+* [DIRSTUDIO-630](https://issues.apache.org/jira/browse/DIRSTUDIO-630) - Importing a Schema project twice shouldn't be possible
+* [DIRSTUDIO-733](https://issues.apache.org/jira/browse/DIRSTUDIO-733) - Error while reading RootDSE on Sun One directory server
+* [DIRSTUDIO-739](https://issues.apache.org/jira/browse/DIRSTUDIO-739) - Using 'Quick Search' in the DN editor while editing some object cancels editing and jumps to 'Quick Search' in the main window
+* [DIRSTUDIO-759](https://issues.apache.org/jira/browse/DIRSTUDIO-759) - Exit confirmation dialog is showed twice when quitting the application by closing the window on Linux and Windows
+* [DIRSTUDIO-760](https://issues.apache.org/jira/browse/DIRSTUDIO-760) - Unable to bind on an Active Directory server using 'domain\userid'
+* [DIRSTUDIO-763](https://issues.apache.org/jira/browse/DIRSTUDIO-763) - Typo in some English error messages ('occured' instead of 'occurred')
+
+***
+
+## Apache Directory Studio 2.0.0-M1 (January 18th 2012)
+
+**Bug**
+
+* [DIRSTUDIO-301](https://issues.apache.org/jira/browse/DIRSTUDIO-301) - Intermittant ClassCastException from dom4j.DocumentFactory.getInstance()
+* [DIRSTUDIO-428](https://issues.apache.org/jira/browse/DIRSTUDIO-428) - Same Name for attribute type and objectclass
+* [DIRSTUDIO-454](https://issues.apache.org/jira/browse/DIRSTUDIO-454) - Colliding attributeType and objectClass names not supported
+* [DIRSTUDIO-564](https://issues.apache.org/jira/browse/DIRSTUDIO-564) - Update ApacheDS core schema files to the latest version
+* [DIRSTUDIO-651](https://issues.apache.org/jira/browse/DIRSTUDIO-651) - Typo in french translation
+* [DIRSTUDIO-653](https://issues.apache.org/jira/browse/DIRSTUDIO-653) - The 'Choose' text for buttons on the AT and OC selection dialog has not been extracted for localization
+* [DIRSTUDIO-658](https://issues.apache.org/jira/browse/DIRSTUDIO-658) - Exiting Directory Studio consumes CPU for couple of minutes
+* [DIRSTUDIO-659](https://issues.apache.org/jira/browse/DIRSTUDIO-659) - Studio prompts for password even when "No Authentication" is selected
+* [DIRSTUDIO-663](https://issues.apache.org/jira/browse/DIRSTUDIO-663) - can't import openldap schema having an attribute and an objectclass with the same alias
+* [DIRSTUDIO-673](https://issues.apache.org/jira/browse/DIRSTUDIO-673) - Typo in the "check authentication" error message in the french translation
+* [DIRSTUDIO-696](https://issues.apache.org/jira/browse/DIRSTUDIO-696) - ApacheDS Configuration plugin fails to open configuration file version 1.5.5 and 1.5.4 when NTP is enabled
+* [DIRSTUDIO-698](https://issues.apache.org/jira/browse/DIRSTUDIO-698) - KeyDerivation interceptor missing in the ApacheDS Configuration Editor
+* [DIRSTUDIO-699](https://issues.apache.org/jira/browse/DIRSTUDIO-699) - Interceptors order is not read/saved correctly in the ApacheDS Configuration Editor
+* [DIRSTUDIO-703](https://issues.apache.org/jira/browse/DIRSTUDIO-703) - DSML Export fails to export when the size limit is hit
+* [DIRSTUDIO-704](https://issues.apache.org/jira/browse/DIRSTUDIO-704) - NullPointerException creating new online schema editor project
+* [DIRSTUDIO-708](https://issues.apache.org/jira/browse/DIRSTUDIO-708) - NPE when renaming a referral in 'Automatic' or 'Manual' Referral Handling mode
+* [DIRSTUDIO-710](https://issues.apache.org/jira/browse/DIRSTUDIO-710) - SearchResultEntryDsml not setting attribute name correctly
+* [DIRSTUDIO-716](https://issues.apache.org/jira/browse/DIRSTUDIO-716) - Error while opening connection : NPE
+* [DIRSTUDIO-724](https://issues.apache.org/jira/browse/DIRSTUDIO-724) - Too many events: Outline and Modifications Logs views are refreshed multiple times
+* [DIRSTUDIO-726](https://issues.apache.org/jira/browse/DIRSTUDIO-726) - Added a binary attributes in preference is not stored correctly
+* [DIRSTUDIO-727](https://issues.apache.org/jira/browse/DIRSTUDIO-727) - It is possible to add empty Binary Attributes and Binary Syntax Definitions in the preferences
+* [DIRSTUDIO-728](https://issues.apache.org/jira/browse/DIRSTUDIO-728) - Wrong attribute name in entry editor
+* [DIRSTUDIO-731](https://issues.apache.org/jira/browse/DIRSTUDIO-731) - Editing RDN attribute should open rename dialog
+* [DIRSTUDIO-734](https://issues.apache.org/jira/browse/DIRSTUDIO-734) - Schema error: Alias NAME is already used by another item: object class with OID
+* [DIRSTUDIO-740](https://issues.apache.org/jira/browse/DIRSTUDIO-740) - Potential bug when using String.toLowerCase() method with a Turkish locale
+* [DIRSTUDIO-742](https://issues.apache.org/jira/browse/DIRSTUDIO-742) - Directory Studio will not start if its installation directory is not writeable
+* [DIRSTUDIO-748](https://issues.apache.org/jira/browse/DIRSTUDIO-748) - Entry attribute name not displayed correctly in Table Entry Editor.
+* [DIRSTUDIO-749](https://issues.apache.org/jira/browse/DIRSTUDIO-749) - Syntaxes shouldn't have/use 'names' (or 'aliases') but 'description' instead
+* [DIRSTUDIO-754](https://issues.apache.org/jira/browse/DIRSTUDIO-754) - Some values in the 'Text Formats' preference page are not saved between launches
+
+**Improvement**
+
+* [DIRSTUDIO-413](https://issues.apache.org/jira/browse/DIRSTUDIO-413) - Add possibility to make connections read-only
+* [DIRSTUDIO-432](https://issues.apache.org/jira/browse/DIRSTUDIO-432) - Better error message for invalid LDIF records on import
+* [DIRSTUDIO-445](https://issues.apache.org/jira/browse/DIRSTUDIO-445) - Allow the user to rename a schema in the editor
+* [DIRSTUDIO-446](https://issues.apache.org/jira/browse/DIRSTUDIO-446) - Allow the user to rename any item using the F2 shortcut
+* [DIRSTUDIO-447](https://issues.apache.org/jira/browse/DIRSTUDIO-447) - Add the ability to use wildcards (?, *) in the ATs or OCs selection dialog to ease the search
+* [DIRSTUDIO-649](https://issues.apache.org/jira/browse/DIRSTUDIO-649) - The 'Installed JREs' preference page should mention Apache DS plugin and not Java projects
+* [DIRSTUDIO-655](https://issues.apache.org/jira/browse/DIRSTUDIO-655) - Switch usage of SWT MessageBox to JFace MessageDialog for info, warning and error dialogs
+* [DIRSTUDIO-685](https://issues.apache.org/jira/browse/DIRSTUDIO-685) - Move duplicated 'ViewFormWidget' class to the 'common.ui' plugin
+* [DIRSTUDIO-717](https://issues.apache.org/jira/browse/DIRSTUDIO-717) - Add application for Windows 64 Bit
+* [DIRSTUDIO-722](https://issues.apache.org/jira/browse/DIRSTUDIO-722) - LDIF parser should allow attribute names with underscore ("_")
+* [DIRSTUDIO-746](https://issues.apache.org/jira/browse/DIRSTUDIO-746) - Add support for the Full Screen feature of OS X Lion
+* [DIRSTUDIO-752](https://issues.apache.org/jira/browse/DIRSTUDIO-752) - Improve fault tolerance when reading an online schema from a connection
+
+**New Feature**
+* [DIRSTUDIO-112](https://issues.apache.org/jira/browse/DIRSTUDIO-112) - Export schema
+* [DIRSTUDIO-320](https://issues.apache.org/jira/browse/DIRSTUDIO-320) - Studio exits without showing a confirmation dialog
+* [DIRSTUDIO-692](https://issues.apache.org/jira/browse/DIRSTUDIO-692) - User should be able to supress the version line in exported LDIF files
+* [DIRSTUDIO-694](https://issues.apache.org/jira/browse/DIRSTUDIO-694) - Add ability to export certificates in the 'Certificate Validation' preference page
+* [DIRSTUDIO-712](https://issues.apache.org/jira/browse/DIRSTUDIO-712) - Add a 'Go to DN...' action to the Navigate menu in Eclipse
+* [DIRSTUDIO-755](https://issues.apache.org/jira/browse/DIRSTUDIO-755) - Implement the 'Add...' button in the 'Certificate Validation' preference page
+
+**Task**
+
+* [DIRSTUDIO-683](https://issues.apache.org/jira/browse/DIRSTUDIO-683) - Add a generic way to run Eclipse Jobs and Studio runnables in the 'common.core' plugin and extend this in other plugins
+* [DIRSTUDIO-684](https://issues.apache.org/jira/browse/DIRSTUDIO-684) - Convert remaining Eclipse Jobs in LDAP Browser to Studio runnable API
+* [DIRSTUDIO-688](https://issues.apache.org/jira/browse/DIRSTUDIO-688) - Remove the 'jars' plugins and create one specific plugin per external library dependency
+* [DIRSTUDIO-697](https://issues.apache.org/jira/browse/DIRSTUDIO-697) - Add support for ApacheDS 1.5.7 'server.xml' configuration file
+* [DIRSTUDIO-718](https://issues.apache.org/jira/browse/DIRSTUDIO-718) - Update Eclipse dependencies to version 3.6.1
+* [DIRSTUDIO-737](https://issues.apache.org/jira/browse/DIRSTUDIO-737) - Update Eclipse dependencies to version 3.7.0
+* [DIRSTUDIO-751](https://issues.apache.org/jira/browse/DIRSTUDIO-751) - Update Eclipse dependencies to version 3.7.1
+* [DIRSTUDIO-757](https://issues.apache.org/jira/browse/DIRSTUDIO-757) - Update all features with the new 'library' plugins
+
+***
+
 ## Apache Directory Studio 1.5.3 (March 30th 2010)
 
-*Bug*
+**Bug**
 
 * [DIRSTUDIO-424](https://issues.apache.org/jira/browse/DIRSTUDIO-424) - Canceling a search gives an error sometimes
 * [DIRSTUDIO-585](https://issues.apache.org/jira/browse/DIRSTUDIO-585) - Do not modify the current thread's ClassLoader; or reset it afterwards
@@ -43,7 +212,7 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 * [DIRSTUDIO-642](https://issues.apache.org/jira/browse/DIRSTUDIO-642) - ADS does not remember the certificate if two certificates are used for the same server
 * [DIRSTUDIO-643](https://issues.apache.org/jira/browse/DIRSTUDIO-643) - Missing modules when importing into Eclipse as existing project
 
-*Improvement*
+**Improvement**
 
 * [DIRSTUDIO-612](https://issues.apache.org/jira/browse/DIRSTUDIO-612) - The 'Properties' item in the context menu of the default Entry Editor should be enabled and linked to the entry properties when no particular attribute is selected in the table
 * [DIRSTUDIO-618](https://issues.apache.org/jira/browse/DIRSTUDIO-618) - The icon of the entry in the 'Outline' view for the LDIF Entry Editor should be the same as the one in the 'LDAP Browser' view
@@ -53,7 +222,7 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 * [DIRSTUDIO-634](https://issues.apache.org/jira/browse/DIRSTUDIO-634) - Add search context menu entry / simplify search
 * [DIRSTUDIO-638](https://issues.apache.org/jira/browse/DIRSTUDIO-638) - Improve the way we ask for operational attributes
 
-*Task*
+**Task**
 
 * [DIRSTUDIO-635](https://issues.apache.org/jira/browse/DIRSTUDIO-635) - Update Eclipse dependencies to version 3.5.2
 * [DIRSTUDIO-636](https://issues.apache.org/jira/browse/DIRSTUDIO-636) - Update copyright in spash screen to 2010
@@ -64,13 +233,13 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 ## Apache Directory Studio 1.5.2 (December 14th 2009)
 
-*Bug*
+**Bug**
 
 * [DIRSTUDIO-601](https://issues.apache.org/jira/browse/DIRSTUDIO-601) - The 'Perform Search/Search Again' button in the Search Result Editor does not work correctly
 * [DIRSTUDIO-602](https://issues.apache.org/jira/browse/DIRSTUDIO-602) - Unable to start an Apache DS version 1.5.5 server
 * [DIRSTUDIO-603](https://issues.apache.org/jira/browse/DIRSTUDIO-603) - Error browsing/entering rfc2307 compliant host entry
 
-*Task*
+**Task**
 
 * [DIRSTUDIO-605](https://issues.apache.org/jira/browse/DIRSTUDIO-605) - Update the help content of the configuration editor for version 1.5.5 of Apache DS
 
@@ -78,7 +247,7 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 ## Apache Directory Studio 1.5.1 (December 2nd 2009)
 
-*Bug*
+**Bug**
 
 * [DIRSTUDIO-576](https://issues.apache.org/jira/browse/DIRSTUDIO-576) - Context menu not shown after a right-click on a non-cached entry
 * [DIRSTUDIO-577](https://issues.apache.org/jira/browse/DIRSTUDIO-577) - LDIF editor doesn't notify Eclipse that the LDIF file has changed when saving
@@ -94,7 +263,7 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 * [DIRSTUDIO-597](https://issues.apache.org/jira/browse/DIRSTUDIO-597) - Modification sent to the server while browsing through the DIT and refreshing entries
 * [DIRSTUDIO-598](https://issues.apache.org/jira/browse/DIRSTUDIO-598) - Base64 encoded DN marked as invalid in LDIF editor
 
-*Improvement*
+**Improvement**
 
 * [DIRSTUDIO-595](https://issues.apache.org/jira/browse/DIRSTUDIO-595) - The icon of the entry in the 'Outline' view should be the same as the one in the 'LDAP Browser' view
 
@@ -102,7 +271,7 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 ## Apache Directory Studio 1.5.0 (November 8th 2009)
 
-*Bug*
+**Bug**
 
 * [DIRSTUDIO-282](https://issues.apache.org/jira/browse/DIRSTUDIO-282) - Save failed: null, when adding an attribute to a class, if attribute is also open in gui
 * [DIRSTUDIO-331](https://issues.apache.org/jira/browse/DIRSTUDIO-331) - Instant error when importing schema in a new schema-project
@@ -158,7 +327,7 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 * [DIRSTUDIO-571](https://issues.apache.org/jira/browse/DIRSTUDIO-571) - Modification is logged even if referred to another directory server
 * [DIRSTUDIO-575](https://issues.apache.org/jira/browse/DIRSTUDIO-575) - Bookmarks not working
 
-*Improvement*
+**Improvement**
 
 * [DIRSTUDIO-145](https://issues.apache.org/jira/browse/DIRSTUDIO-145) - Multiple tabs for entry editor
 * [DIRSTUDIO-263](https://issues.apache.org/jira/browse/DIRSTUDIO-263) - Add certificate validation for ldaps and StartTLS
@@ -180,7 +349,7 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 * [DIRSTUDIO-558](https://issues.apache.org/jira/browse/DIRSTUDIO-558) - Load special entries (aliases, referrals, subentries) per request, add menu items to browser's context menu
 * [DIRSTUDIO-574](https://issues.apache.org/jira/browse/DIRSTUDIO-574) - Add 'Cancel' button to "Select copy strategy"  (was Abort of copy/paste not possible)
 
-*New Feature*
+**New Feature**
 
 * [DIRSTUDIO-62](https://issues.apache.org/jira/browse/DIRSTUDIO-62) - Add GSSAPI authentication - Cannot connect to Active Directory if not using Simple authentication
 * [DIRSTUDIO-434](https://issues.apache.org/jira/browse/DIRSTUDIO-434) - Add value editor for Active Directory objectGUID and objectSid attributes
@@ -192,21 +361,21 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 * [DIRSTUDIO-556](https://issues.apache.org/jira/browse/DIRSTUDIO-556) - Add value editor for UUID
 * [DIRSTUDIO-562](https://issues.apache.org/jira/browse/DIRSTUDIO-562) - Add 'Copy Display Value' action, default copy action should copy displayed value
 
-*Task*
+**Task**
 
 * [DIRSTUDIO-479](https://issues.apache.org/jira/browse/DIRSTUDIO-479) - Object classes of an entry should always be present
 * [DIRSTUDIO-523](https://issues.apache.org/jira/browse/DIRSTUDIO-523) - Update Eclipse dependencies to version 3.5 Galileo
 * [DIRSTUDIO-525](https://issues.apache.org/jira/browse/DIRSTUDIO-525) - Remove support for the Linux PPC distribution
 * [DIRSTUDIO-573](https://issues.apache.org/jira/browse/DIRSTUDIO-573) - Update bundled Apache DS Schema files to version 1.5.5
 
-*Sub-task*
+**Sub-task**
 
 * [DIRSTUDIO-516](https://issues.apache.org/jira/browse/DIRSTUDIO-516) - Create a new Entry Editor extension point
 * [DIRSTUDIO-517](https://issues.apache.org/jira/browse/DIRSTUDIO-517) - Create a new single-window Entry Editor
 * [DIRSTUDIO-518](https://issues.apache.org/jira/browse/DIRSTUDIO-518) - Create a new multi-window Entry Editor
 * [DIRSTUDIO-519](https://issues.apache.org/jira/browse/DIRSTUDIO-519) - Create a new LDIF Entry Editor
 
-*Wish*
+**Wish**
 
 * [DIRSTUDIO-167](https://issues.apache.org/jira/browse/DIRSTUDIO-167) - Show custom icons for various kinds of schema elements while browsing schema data
 
@@ -214,7 +383,7 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 ## Apache Directory Studio 1.4.0 (April 10th 2009)
 
-*Bug*
+**Bug**
 
 * [DIRSTUDIO-373](https://issues.apache.org/jira/browse/DIRSTUDIO-373) - Can't delete a tagged attribute if the non tagged attribute belong to the DN
 * [DIRSTUDIO-395](https://issues.apache.org/jira/browse/DIRSTUDIO-395) - Problems with special chars (german Umlauts)
@@ -238,7 +407,7 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 * [DIRSTUDIO-470](https://issues.apache.org/jira/browse/DIRSTUDIO-470) - Schema Browser view is not bring to front when using the 'Open Schema Browser' menu item while the view is already opened but not the frontmost view
 * [DIRSTUDIO-472](https://issues.apache.org/jira/browse/DIRSTUDIO-472) - SWTException (Widget is disposed) when disabling DIT Quick Search
   
-*Improvement*
+**Improvement**
 
 * [DIRSTUDIO-115](https://issues.apache.org/jira/browse/DIRSTUDIO-115) - Unable to edit operational attribute values
 * [DIRSTUDIO-150](https://issues.apache.org/jira/browse/DIRSTUDIO-150) - Improve error handling
@@ -252,20 +421,20 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 * [DIRSTUDIO-477](https://issues.apache.org/jira/browse/DIRSTUDIO-477) - Update Eclipse dependencies to version 3.4.2
 * [DIRSTUDIO-478](https://issues.apache.org/jira/browse/DIRSTUDIO-478) - The 'Exit' menu item from the 'File' menu should be removed when running on Mac OS X
   
-*New Feature*
+**New Feature**
 
 * [DIRSTUDIO-335](https://issues.apache.org/jira/browse/DIRSTUDIO-335) - DIT Quick Search
 * [DIRSTUDIO-397](https://issues.apache.org/jira/browse/DIRSTUDIO-397) - Request for multi-language GUI
 * [DIRSTUDIO-474](https://issues.apache.org/jira/browse/DIRSTUDIO-474) - Add a new GeneralizedTime Value Editor
 * [DIRSTUDIO-474](https://issues.apache.org/jira/browse/DIRSTUDIO-474) - Support for parentOfEntry userClass in ACI Editor
   
-*Task*
+**Task**
 
 * [DIRSTUDIO-451](https://issues.apache.org/jira/browse/DIRSTUDIO-451) - (I18n) Templates not I18ned in LdifEditor
 * [DIRSTUDIO-458](https://issues.apache.org/jira/browse/DIRSTUDIO-458) - (I18n) Bundle Eclipse language packs
 * [DIRSTUDIO-480](https://issues.apache.org/jira/browse/DIRSTUDIO-480) - Update copyright year in the splash screen to 2009
   
-*Wish*
+**Wish**
 
 * [DIRSTUDIO-439](https://issues.apache.org/jira/browse/DIRSTUDIO-439) - Ldif importer should be case-insensitive in the changeType attribute
 
@@ -273,11 +442,11 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 ## Apache Directory Studio 1.3.0 (November 24th 2008)
 
-*Sub-task*
+**Sub-task**
 
 * [DIRSTUDIO-398](https://issues.apache.org/jira/browse/DIRSTUDIO-398) - Improve the DSML decorated classes by adding an empty constructor and linking the methods of the underlying ldapmessage
 
-*Bug*
+**Bug**
 
 * [DIRSTUDIO-260](https://issues.apache.org/jira/browse/DIRSTUDIO-260) - Unable to do a DSML Export from eDirectory
 * [DIRSTUDIO-291](https://issues.apache.org/jira/browse/DIRSTUDIO-291) - Adding of an objectclass requiring attributes not present to an entry in the ldap browser, modify operation fails
@@ -293,12 +462,12 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 * [DIRSTUDIO-389](https://issues.apache.org/jira/browse/DIRSTUDIO-389) - Back/Forward Navigation isn't working
 * [DIRSTUDIO-394](https://issues.apache.org/jira/browse/DIRSTUDIO-394) - SASL Realms are not correctly saved in the 1.5.2 and 1.5.3 Apache DS Configuration Editor
 
-*Improvement*
+**Improvement**
 
 * [DIRSTUDIO-114](https://issues.apache.org/jira/browse/DIRSTUDIO-114) - Group container entries first in browser view
 * [DIRSTUDIO-116](https://issues.apache.org/jira/browse/DIRSTUDIO-116) - Expand all folds by default
 * [DIRSTUDIO-147](https://issues.apache.org/jira/browse/DIRSTUDIO-147) - Allow LDIF imports to overwrite existing entries
-* [DIRSTUDIO-182](https://issues.apache.org/jira/browse/DIRSTUDIO-182) - [Ldap](https://issues.apache.org/jira/browse/DIRSTUDIO-xxx)[studio](https://issues.apache.org/jira/browse/DIRSTUDIO-xxx) Use property file to designate ldap context factory etc. instead of hard code
+* [DIRSTUDIO-182](https://issues.apache.org/jira/browse/DIRSTUDIO-182) - Use property file to designate ldap context factory etc. instead of hard code
 * [DIRSTUDIO-228](https://issues.apache.org/jira/browse/DIRSTUDIO-228) - Mask userPassword in the log view
 * [DIRSTUDIO-244](https://issues.apache.org/jira/browse/DIRSTUDIO-244) - Add selection for copy strategy if an entry to copy already exists
 * [DIRSTUDIO-255](https://issues.apache.org/jira/browse/DIRSTUDIO-255) - Run in background should be configurable so one could set it to true by default
@@ -319,7 +488,7 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 * [DIRSTUDIO-407](https://issues.apache.org/jira/browse/DIRSTUDIO-407) - Stack the Servers view aside the Connections view as a perpective extension of the LDAP Browser Perpective
 * [DIRSTUDIO-408](https://issues.apache.org/jira/browse/DIRSTUDIO-408) - In the NewEntryWizard, the first selected object class on the left side should be added if the Enter key is hit in the text field
 
-*New Feature*
+**New Feature**
 
 * [DIRSTUDIO-85](https://issues.apache.org/jira/browse/DIRSTUDIO-85) - Add support for search dialog to include * and + for returnable attributes
 * [DIRSTUDIO-107](https://issues.apache.org/jira/browse/DIRSTUDIO-107) - Enable Select/Copy in Property page of RootDSE in order to copy and paste detected OIDs
@@ -328,7 +497,7 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 * [DIRSTUDIO-356](https://issues.apache.org/jira/browse/DIRSTUDIO-356) - Add a way to get the connection config as an URL
 * [DIRSTUDIO-385](https://issues.apache.org/jira/browse/DIRSTUDIO-385) - Add dialog to create a new context entry
 
-*Task*
+**Task**
 
 * [DIRSTUDIO-19](https://issues.apache.org/jira/browse/DIRSTUDIO-19) - Add Javadoc to LDAP Browser classes
 * [DIRSTUDIO-374](https://issues.apache.org/jira/browse/DIRSTUDIO-374) - Clean duplicated dependencies in plugins
@@ -339,7 +508,7 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 ## Apache Directory Studio 1.2.0 (August 19th 2008)
 
-*Bug*
+**Bug**
 
 * [DIRSTUDIO-89](https://issues.apache.org/jira/browse/DIRSTUDIO-89) - Entry painted even though not created in server
 * [DIRSTUDIO-121](https://issues.apache.org/jira/browse/DIRSTUDIO-121) - Some property pages make the dialog very tall
@@ -366,7 +535,7 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 * [DIRSTUDIO-364](https://issues.apache.org/jira/browse/DIRSTUDIO-364) - Installing in Eclipse fails
 * [DIRSTUDIO-365](https://issues.apache.org/jira/browse/DIRSTUDIO-365) - Can't delete entry with studio 1.1.0. works with 1.0.1
 
-*Improvement*
+**Improvement**
 
 * [DIRSTUDIO-46](https://issues.apache.org/jira/browse/DIRSTUDIO-46) - Add connections import/export
 * [DIRSTUDIO-126](https://issues.apache.org/jira/browse/DIRSTUDIO-126) - Triple click to edit attribute
@@ -375,12 +544,12 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 * [DIRSTUDIO-337](https://issues.apache.org/jira/browse/DIRSTUDIO-337) - Add Save and Print actions in the toolbar of the RCP application
 * [DIRSTUDIO-361](https://issues.apache.org/jira/browse/DIRSTUDIO-361) - Auto-activate 'show operational attributes' when adding an operational attribute
 
-*New Feature*
+**New Feature**
 
 * [DIRSTUDIO-321](https://issues.apache.org/jira/browse/DIRSTUDIO-321) - Need to be able to set SOCKS proxy in the RCP version
 * [DIRSTUDIO-328](https://issues.apache.org/jira/browse/DIRSTUDIO-328) - Search Logs View
 
-*Task*
+**Task**
 
 * [DIRSTUDIO-128](https://issues.apache.org/jira/browse/DIRSTUDIO-128) - Replace internal schema parser with the schema parser in shared-ldap.
 * [DIRSTUDIO-317](https://issues.apache.org/jira/browse/DIRSTUDIO-317) - Update legal files after moving to Apache Directory Shared LDAP version 0.9.9
@@ -398,7 +567,7 @@ See changelog of Apache Directory Studio 1.1.0 RC and Apache Directory Studio 1.
 
 ## Apache Directory Studio 1.1.0 RC2 (March 4th 2008)
 
-*Bug*
+**Bug**
 
 * [DIRSTUDIO-286](https://issues.apache.org/jira/browse/DIRSTUDIO-286) - Update Site is not working, missing dependencies in ldifeditor, ldapbrower and schemaeditor feature
 * [DIRSTUDIO-285](https://issues.apache.org/jira/browse/DIRSTUDIO-285) - Export into LDIF format could be corrupted
@@ -407,7 +576,7 @@ See changelog of Apache Directory Studio 1.1.0 RC and Apache Directory Studio 1.
 * [DIRSTUDIO-279](https://issues.apache.org/jira/browse/DIRSTUDIO-279) - Filter Editor doesn't remove spaces and line breaks after OK
 * [DIRSTUDIO-270](https://issues.apache.org/jira/browse/DIRSTUDIO-270) - Copy and paste does not work when value being edited
 
-*Task*
+**Task**
 
 * [DIRSTUDIO-280](https://issues.apache.org/jira/browse/DIRSTUDIO-280) - Remove remaining unwanted contributions from Eclipse
 
@@ -415,11 +584,11 @@ See changelog of Apache Directory Studio 1.1.0 RC and Apache Directory Studio 1.
 
 ## Apache Directory Studio 1.1.0 RC (February 20th 2008)
 
-*Sub-task*
+**Sub-task**
 
 * [DIRSTUDIO-142](https://issues.apache.org/jira/browse/DIRSTUDIO-142) - Add SASL authentication
 
-*Bug*
+**Bug**
 
 * [DIRSTUDIO-48](https://issues.apache.org/jira/browse/DIRSTUDIO-48) - Errors when help is open
 * [DIRSTUDIO-95](https://issues.apache.org/jira/browse/DIRSTUDIO-95) - Not returning large queries
@@ -468,7 +637,7 @@ See changelog of Apache Directory Studio 1.1.0 RC and Apache Directory Studio 1.
 * [DIRSTUDIO-267](https://issues.apache.org/jira/browse/DIRSTUDIO-267) - Clicking on a bookmark loops and does not display attributes
 * [DIRSTUDIO-269](https://issues.apache.org/jira/browse/DIRSTUDIO-269) - Attributes not displayed when browsing BEA Weblogic embedded LDAP
 
-*Improvement*
+**Improvement**
 
 * [DIRSTUDIO-37](https://issues.apache.org/jira/browse/DIRSTUDIO-37) - Improve authentication methods and security mechanisms
 * [DIRSTUDIO-119](https://issues.apache.org/jira/browse/DIRSTUDIO-119) - Allow user to disabled the Modification logs windows
@@ -493,7 +662,7 @@ See changelog of Apache Directory Studio 1.1.0 RC and Apache Directory Studio 1.
 * [DIRSTUDIO-257](https://issues.apache.org/jira/browse/DIRSTUDIO-257) - Use system small fonts on Mac OS X
 * [DIRSTUDIO-275](https://issues.apache.org/jira/browse/DIRSTUDIO-275) - Import/Export wizards should display an error if no Schema Project is open
 
-*New Feature*
+**New Feature**
 
 * [DIRSTUDIO-192](https://issues.apache.org/jira/browse/DIRSTUDIO-192) - Add an extension point in the Schema Editor for SchemaConnectors
 * [DIRSTUDIO-193](https://issues.apache.org/jira/browse/DIRSTUDIO-193) - Add the abitilty to import/export the Schema from/to a directory Server
@@ -501,7 +670,7 @@ See changelog of Apache Directory Studio 1.1.0 RC and Apache Directory Studio 1.
 * [DIRSTUDIO-246](https://issues.apache.org/jira/browse/DIRSTUDIO-246) - Add support for simulated renaming of non-leaf entries
 * [DIRSTUDIO-248](https://issues.apache.org/jira/browse/DIRSTUDIO-248) - Add support for simulated moving of non-leaf entries
 
-*Task*
+**Task**
 
 * [DIRSTUDIO-218](https://issues.apache.org/jira/browse/DIRSTUDIO-218) - Some packages are not signed
 * [DIRSTUDIO-225](https://issues.apache.org/jira/browse/DIRSTUDIO-225) - Update documentation for Schema Editor Plugin
@@ -513,7 +682,7 @@ See changelog of Apache Directory Studio 1.1.0 RC and Apache Directory Studio 1.
 
 ## Apache Directory Studio 1.0.1 (September 18th 2007)
 
-*Bug*
+**Bug**
 
 * [DIRSTUDIO-162](https://issues.apache.org/jira/browse/DIRSTUDIO-162) - Delete old RDN on rename has no effect
 * [DIRSTUDIO-180](https://issues.apache.org/jira/browse/DIRSTUDIO-180) - Connection wizard and properties tabs are out of order
@@ -521,11 +690,11 @@ See changelog of Apache Directory Studio 1.1.0 RC and Apache Directory Studio 1.
 * [DIRSTUDIO-186](https://issues.apache.org/jira/browse/DIRSTUDIO-186) - When copying an entry it isn't displayed correctly in the browser tree
 * [DIRSTUDIO-190](https://issues.apache.org/jira/browse/DIRSTUDIO-190) - SSL connections are no longer working
 
-*Improvement*
+**Improvement**
 
 * [DIRSTUDIO-185](https://issues.apache.org/jira/browse/DIRSTUDIO-185) - Provide completion for all attribute types in the attribute wizard
 
-*Task*
+**Task**
 
 * [DIRSTUDIO-181](https://issues.apache.org/jira/browse/DIRSTUDIO-181) - Update the documentation of the Schema Editor Plugin
 * [DIRSTUDIO-188](https://issues.apache.org/jira/browse/DIRSTUDIO-188) - Move LDIF Editor help to its own help plugin
@@ -534,14 +703,14 @@ See changelog of Apache Directory Studio 1.1.0 RC and Apache Directory Studio 1.
 
 ## Apache Directory Studio 1.0.0 (September 4th 2007)
 
-*Sub-task*
+**Sub-task**
 
 * [DIRSTUDIO-131](https://issues.apache.org/jira/browse/DIRSTUDIO-131) - Rename package names and plugin IDs for ldap browser plugins and features
 * [DIRSTUDIO-140](https://issues.apache.org/jira/browse/DIRSTUDIO-140) - Add Eclipse Intro mecanism to the Apache Directory Studio RCP plugin
 * [DIRSTUDIO-141](https://issues.apache.org/jira/browse/DIRSTUDIO-141) - Add content to Apache Directory Studio Intro
 * [DIRSTUDIO-177](https://issues.apache.org/jira/browse/DIRSTUDIO-177) - Update dependencies on Apache DS jars
 
-*Bug*
+**Bug**
 
 * [DIRSTUDIO-73](https://issues.apache.org/jira/browse/DIRSTUDIO-73) - Password appears in clear
 * [DIRSTUDIO-96](https://issues.apache.org/jira/browse/DIRSTUDIO-96) - installation into existing Eclipse ruins key bindings for JDT
@@ -553,7 +722,7 @@ See changelog of Apache Directory Studio 1.1.0 RC and Apache Directory Studio 1.
 * [DIRSTUDIO-168](https://issues.apache.org/jira/browse/DIRSTUDIO-168) - NPE when opening search dialog and connection is closed
 * [DIRSTUDIO-172](https://issues.apache.org/jira/browse/DIRSTUDIO-172) - Syntax length definitions in schemas exported from LDAP Studio throws exception on Apache DS start-up.
 
-*Improvement*
+**Improvement**
 
 * [DIRSTUDIO-47](https://issues.apache.org/jira/browse/DIRSTUDIO-47) - Improve filter widget and filter editor dialog
 * [DIRSTUDIO-67](https://issues.apache.org/jira/browse/DIRSTUDIO-67) - Clear "Modification Logs" functionality missing
@@ -574,11 +743,11 @@ See changelog of Apache Directory Studio 1.1.0 RC and Apache Directory Studio 1.
 * [DIRSTUDIO-169](https://issues.apache.org/jira/browse/DIRSTUDIO-169) - Make connection parameters editable even if the connection is opened
 * [DIRSTUDIO-174](https://issues.apache.org/jira/browse/DIRSTUDIO-174) - Use an unique ID as connection identifier instead of the connection name
 
-*New Feature*
+**New Feature**
 
 * [DIRSTUDIO-90](https://issues.apache.org/jira/browse/DIRSTUDIO-90) - Add a Welcome view that is displayed at first launch
 
-*Task*
+**Task**
 
 * [DIRSTUDIO-113](https://issues.apache.org/jira/browse/DIRSTUDIO-113) - Rename "LDAP Studio" to "Apache Directory Studio"
 * [DIRSTUDIO-129](https://issues.apache.org/jira/browse/DIRSTUDIO-129) - Rename project names in trunk
@@ -588,7 +757,7 @@ See changelog of Apache Directory Studio 1.1.0 RC and Apache Directory Studio 1.
 * [DIRSTUDIO-176](https://issues.apache.org/jira/browse/DIRSTUDIO-176) - Edit Release Notes.txt files for the 1.0 release
 * [DIRSTUDIO-178](https://issues.apache.org/jira/browse/DIRSTUDIO-178) - Edit features and update site with the new update site URL
 
-*Wish*
+**Wish**
 
 * [DIRSTUDIO-100](https://issues.apache.org/jira/browse/DIRSTUDIO-100) - Interface IRootDSE does not sufficiently define return values of methods
 
@@ -596,7 +765,7 @@ See changelog of Apache Directory Studio 1.1.0 RC and Apache Directory Studio 1.
 
 ## Apache LDAP Studio 0.8.1 (July 24th 2007)
 
-*Bug*
+**Bug**
 
 * [DIRSTUDIO-80](https://issues.apache.org/jira/browse/DIRSTUDIO-80) - LDAP Studio does not work on x86_64
 * [DIRSTUDIO-144](https://issues.apache.org/jira/browse/DIRSTUDIO-144) - Unable to install plugins from updatesite on x86_64 architecture
@@ -605,7 +774,7 @@ See changelog of Apache Directory Studio 1.1.0 RC and Apache Directory Studio 1.
 
 ## Apache LDAP Studio 0.8.0 (May 4th 2007)
 
-*Bug*
+**Bug**
 
 * [DIRSTUDIO-71](https://issues.apache.org/jira/browse/DIRSTUDIO-71) - LDAP Studio installer creates bad shortcuts
 * [DIRSTUDIO-74](https://issues.apache.org/jira/browse/DIRSTUDIO-74) - empty DN does not work
@@ -615,11 +784,11 @@ See changelog of Apache Directory Studio 1.1.0 RC and Apache Directory Studio 1.
 * [DIRSTUDIO-86](https://issues.apache.org/jira/browse/DIRSTUDIO-86) - No way to specify search on rootDSE in search dialog
 * [DIRSTUDIO-88](https://issues.apache.org/jira/browse/DIRSTUDIO-88) - Schema export to Apache DS has a spelling error which causes the import to fail.
 
-*Improvement*
+**Improvement**
 
 * [DIRSTUDIO-78](https://issues.apache.org/jira/browse/DIRSTUDIO-78) - Refactor browser-ui plugin
 
-*New Feature*
+**New Feature**
 
 * [DIRSTUDIO-12](https://issues.apache.org/jira/browse/DIRSTUDIO-12) - Editor for editing ACIs
 * [DIRSTUDIO-76](https://issues.apache.org/jira/browse/DIRSTUDIO-76) - Value editor for administrativeRole
@@ -630,7 +799,7 @@ See changelog of Apache Directory Studio 1.1.0 RC and Apache Directory Studio 1.
 
 ## Apache LDAP Studio 0.7.0 (April 6th 2007)
 
-*Bug*
+**Bug**
 
 * [DIRSTUDIO-1](https://issues.apache.org/jira/browse/DIRSTUDIO-1) - DSML Parser does not throw an exception when it doesn't find a requestID attribute when processing=parallel and responseOrder=unordered
 * [DIRSTUDIO-4](https://issues.apache.org/jira/browse/DIRSTUDIO-4) - Selection in Schema
@@ -640,7 +809,7 @@ See changelog of Apache Directory Studio 1.1.0 RC and Apache Directory Studio 1.
 * [DIRSTUDIO-64](https://issues.apache.org/jira/browse/DIRSTUDIO-64) - Unable to modify an Attribute Type's OID
 * [DIRSTUDIO-69](https://issues.apache.org/jira/browse/DIRSTUDIO-69) - Problems with search base and DN serialization
 
-*Improvement*
+**Improvement**
 
 * [DIRSTUDIO-33](https://issues.apache.org/jira/browse/DIRSTUDIO-33) - Add syntax coloring to the Source Code view of AT, OC & Schema editors
 * [DIRSTUDIO-35](https://issues.apache.org/jira/browse/DIRSTUDIO-35) - Disable action icons of the Schemas view when actions are not available
@@ -658,7 +827,7 @@ See changelog of Apache Directory Studio 1.1.0 RC and Apache Directory Studio 1.
 * [DIRSTUDIO-61](https://issues.apache.org/jira/browse/DIRSTUDIO-61) - Pressing the down key in the search field of the Search View should pass the focus to the search results table
 * [DIRSTUDIO-66](https://issues.apache.org/jira/browse/DIRSTUDIO-66) - Refresh of the LDAP Browser viewer after import
 
-*New Feature*
+**New Feature**
 
 * [DIRSTUDIO-7](https://issues.apache.org/jira/browse/DIRSTUDIO-7) - OID View
 * [DIRSTUDIO-41](https://issues.apache.org/jira/browse/DIRSTUDIO-41) - Add an Overview page on the Schema Editor that displays all ATs and OCs of the schema 
