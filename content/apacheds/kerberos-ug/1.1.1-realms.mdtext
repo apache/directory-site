@@ -46,12 +46,14 @@ The **Realm** name wil be used all over Kerberos to name **Principals** and **Se
 
 When you set up an **ApacheDS Kerberos Server**, the **Realm** name is set to **EXAMPLE.COM**. This can be changed either through **Studio**, by accessing the server configuration and changing the 'Primary KDC Realm', as show in this picture :
 
+<DIV align="center">
 ![Kerberos Realm Configuration](images/kerberos-realm-config.png)
+</DIV>
 
 or by modifying the LDIF configuration directly, by modifying the following entry :
 
-    dn: ads-serverId=kerberosServer,ou=servers,ads-directoryServiceId=default,ou=config
-    ...
-    ads-krbprimaryrealm: EXAMPLE.COM
-    ...
+>    dn: ads-serverId=kerberosServer,ou=servers,ads-directoryServiceId=default,ou=config
+>    ...
+>    ads-krbprimaryrealm: EXAMPLE.COM
+>    ...
 
