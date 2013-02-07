@@ -1,0 +1,57 @@
+Title: 1.1.1 - Realms
+NavPrev: 1.1-introduction.html
+NavPrevText: 1.1 - Introduction
+NavUp: 1.1-introduction.html
+NavUpText: 1.1 - Introduction
+NavNext: 1.1.2-principal.html
+NavNextText: 1.1.2 - Principal
+Notice: Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    .
+    http://www.apache.org/licenses/LICENSE-2.0
+    .
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+
+# Realms
+
+A **Realm** is associated with a Kerberos administrative domain. In other words, it covers everything the Kerberos server manage :
+* Users
+* Services
+
+Note that if a Kerberos Server manage one **Realm** only, a **Realm** can be managed by more than one Kerberos server : this is mandatory to avoid created a single point of failure, if the Kerberos server halts for any reason. Usually, the Kerberos servers are sharing the database - or in our case, the database is being replicated between the Kerberos Servers.
+
+## Realm name
+
+In order to distinguish the **Realms**, we give them a unique name. This name can be anything, but a convention is to use the DNS name of the Kerberos server, and to use uppercase.
+
+For instance, say that th Kerberos server is installed on a machine which domain name is **apache.org**, then we will use **APACHE.ORG** as the **Realm** name (but you could have used **Apache.org** or even **MyApacheDomain**).
+
+<DIV class="info" markdown="1">
+Note that the name is case sensitive. **apache.org** is a different realm than **APACHE.ORG**.
+</DIV>
+
+The **Realm** name wil be used all over Kerberos to name **Principals** and **Services**
+
+## Default Realm for ApacheDS Kerberos Server
+
+When you set up an **ApacheDS Kerberos Server**, the **Realm** name is set to **EXAMPLE.COM**. This can be changed either through **Studio**, by accessing the server configuration and changing the 'Primary KDC Realm', as show in this picture :
+
+![Kerberos Realm Configuration](images/kerberos-realm-config.png)
+
+or by modifying the LDIF configuration directly, by modifying the following entry :
+
+    dn: ads-serverId=kerberosServer,ou=servers,ads-directoryServiceId=default,ou=config
+    ...
+    ads-krbprimaryrealm: EXAMPLE.COM
+    ...
+
