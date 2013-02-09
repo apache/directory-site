@@ -22,7 +22,7 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
     specific language governing permissions and limitations
     under the License.
 
-# Keys
+# 1.1.3 - Keys
 
 The **Kerberos** server generates keys based on the password we provide. Those keys are stored in the **KDC** and used to encrypt and decrypt the data being exchanged with the client.
 
@@ -60,13 +60,15 @@ There is a special case : if the password is "randomkey", the key will be genera
 <DIV class="INFO" mardown="1">
 Note that we will generate more than one key : we generate one key per configured cipher. 
 
-ApacheDS Kerberos server default set of ciphers is :
+ApacheDS Kerberos server supported set of ciphers is :
 
     * DES_CBC_MD5
     * DES3_CBC_SHA1_KD
     * RC4_HMAC
     * AES128_CTS_HMAC_SHA1_96
     * AES256_CTS_HMAC_SHA1_96
+
+The default cipher is DES_CBC_MD5, so if you want to use another one, you must add it to the list of supported EncryptionTypes.
 </DIV>
 
 <DIV class="WARN" mardown="1">
