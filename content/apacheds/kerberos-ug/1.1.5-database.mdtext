@@ -1,0 +1,97 @@
+Title: 1.1.5 - Database
+NavPrev: 1.1.4-kdc.html
+NavPrevText: 1.1.4 - KDC (Key Distribution Center)
+NavUp: 1.1-introduction.html
+NavUpText: 1.1 - Introduction
+NavNext: 1.1.6-as.html
+NavNextText: 1.1.6 - AS (Authentication Server)
+Notice: Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    .
+    http://www.apache.org/licenses/LICENSE-2.0
+    .
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+
+# 1.1.5 - Database
+
+This is the place where all the private keys are stored. This is pretty natural to store all those keys in a LDAP server, even more natural when the **Kerberos** server is built as a part of an existing LDAP server, as for **Apache Directory Server* !
+
+When **Apache Directory Server** was started, it was also thought as a repository for **Kerberos** keys, so we just had to develop the logic to manage those keys, and the Kerberos protocol. 
+
+In other words, you have everything embedded in a single server :
+* The LDAP server to store the keys and other related informations
+* The Kerberos protocol
+* The Authentication Server
+* The Ticket Granting Server
+
+## Structure
+
+There is an existing **LDAP** schema to manage the keys and other informations, named **krb5kdc**. It contains 3 ObjectClasses and 15 AttributeTypes.
+
+All the ObjectClasses are auxilliary.
+
+### krb5Principal
+
+This ObjectClass is used to store a Principal. It contains one mandatory AttributeType, _krb5PrincipalName_, and two optionnal (_cn_ and _krb5PrincipalRealm_)
+
+### krb5Realm
+
+This ObjectClass describes a Kerberos Realm. It just contains the Realm's name (_krb5RealName_ AttributeType).
+
+## krb5kdcEntry
+
+This ObjectClass is used to store all the information needed to manage a Kerberos user or service. It has one mandatory AttributeType, _krb5KeyVersioNumber_, which is set to 0 for newly crated users or services, and incremented after each modification done on the password (which leads to the generation of new keys).
+
+Here is a list of optional AttributeTypes the entry can have :
+
+| AttributeType | Description |
+|---|---|
+| krb5ValidStart | The date at which the keys are valid |
+| krb5ValidEnd | The date at which the keys aren't valid any more |
+| krb5PasswordEnd | The end of password validity |
+| krb5MaxLife | The maximum duration |
+| krb5MaxRenew | Th maximum number of renew |
+| krb5KDCFlags | The KDC flags |
+| krb5EncryptionType | The EncryptionTypes |
+| krb5Key | The generated keys |
+| krb5AccountDisabled | The account has been disabled |
+| krb5AccountLockedOut | The account has been locked out |
+| krb5AccountExpirationTime | The account expiration time |
+
+## Sample
+
+Here is a sample entry, which has the _Krb5KdcEntry_ and  _Krb5Principal_ ObjectClasses set :
+
+
+    :::text
+    dn: uid=hnelson,ou=users,dc=example,dc=com
+    objectClass: inetOrgPerson
+    objectClass: organizationalPerson
+    objectClass: person
+    objectClass: krb5principal
+    objectClass: krb5kdcentry
+    objectClass: top
+    uid: hnelson
+    userPassword: secret
+    krb5PrincipalName: hnelson@EXAMPLE.COM
+    krb5KeyVersionNumber: 0
+    cn: Horatio Nelson
+    sn: Nelson
+    krb5Key: '0x30 0x29 0xA0 0x03 0x02 0x01 0x12 0xA1 0x22 0x04 0x20 0x3D 0x33 0x31 0x8F 0xBE ...'
+    krb5Key: '0x30 0x21 0xA0 0x03 0x02 0x01 0x10 0xA1 0x1A 0x04 0x18 0x57 0x07 0xCE 0x29 0x52 ...'
+    krb5Key: '0x30 0x19 0xA0 0x03 0x02 0x01 0x17 0xA1 0x12 0x04 0x10 0x87 0x8D 0x80 0x14 0x60 ...'
+    krb5Key: '0x30 0x11 0xA0 0x03 0x02 0x01 0x03 0xA1 0x0A 0x04 0x08 0xF4 0xA7 0x13 0x64 0x8A ...'
+    krb5Key: '0x30 0x19 0xA0 0x03 0x02 0x01 0x11 0xA1 0x12 0x04 0x10 0xAD 0x21 0x4B 0x38 0xB6 ...'
+
+
+
