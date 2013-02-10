@@ -25,13 +25,13 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 # 1.1.4 - KDC (Key Distribution Center)
 
 The **KDC** contains three components :
-* the Authentication Server
-* the database (ApacheDS)
-* and the Ticket Granting Server
+* an Authentication Service
+* a Ticket Granting Service
+* a database (ApacheDS)
 
-The **KDC** role is to distribute tickets and to authenticate users, based on the informations stored into its database.
+The **KDC** role is to authenticate users and distribute tickets based on the information stored in its database.
 
-In some way, the **Apache Kerberos Server** is a **KDC**.
+The **Apache Kerberos Server** contains all these three components and hence is a **KDC**.
 
 <DIV class="info" markdown="1">
 We could allow the **Kerberos Server** to manage more than one **KDC**, but this is not currently possible.
@@ -45,6 +45,6 @@ The following schema expose the way the **KDC** works :
 ![KDC usage](images/kerberos-auth.png)
 </DIV>
 
-In order to use a service, the client will grab a ticket for this service on the **KDC**. This requires a two steps process, where the client first authenticate, and then get back a ticket to use with the targeted server.
+In order to use a service, the client needs to get a ticket for this service from the **KDC**. This requires a two step process, where the client first authenticates himself, and then get back a ticket to use with the targeted server.
 
-In the previous schema, the **TGS** is a service that will expect a Ticket to be delivered in order to generate new tickets for any other services. It can sound weird that the authentication process does not deliver a Ticket for the targeted server, but there is no reason for the Autehntication Server to be the same server than the Ticket Granting Server.
+Though the Autehntication and Ticket Granting services look like running in separate servers, a signle Kerberos server implementation oftent contains both.

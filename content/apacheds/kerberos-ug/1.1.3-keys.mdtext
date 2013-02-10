@@ -24,12 +24,12 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 # 1.1.3 - Keys
 
-The **Kerberos** server generates keys based on the password we provide. Those keys are stored in the **KDC** and used to encrypt and decrypt the data being exchanged with the client.
+The **Kerberos** server generates keys based on the password we provide. Those keys are stored in the server and used to encrypt and decrypt the data being exchanged with the client.
 
 The Key is computed using either the user's password or a random value, and is salted with the realm. 
 
 <DIV class="INFO" markdown="1">
-Using the realm as the salt is a protection : if one's key is broken on a realm, that does not mean the password is compromised. The key on another realm would still be safe.
+Using the realm as the salt offers a level of protection : if one's key is broken on a realm, that does not mean the password is compromised. The key on another realm would still be safe.
 </DIV>
 
 ## How it works in ApacheDS ?
@@ -51,35 +51,9 @@ When you add a new entry in the server, it generates a secret key using the pass
     cn: Horatio Nelson
     sn: Nelson
 
-the server will compute the krb5key values automatically, and add it the the entry. 
+the server will automatically create the keys (each one is encoded in ASN.1 BER format), set them as values of krb5key attribute and add to the entry. 
 
-<DIV class="INFO" mardown="1">
-There is a special case : if the password is "randomkey", the key will be generated using a random number created on the fly.
-</DIV>
-
-<DIV class="INFO" mardown="1">
-Note that we will generate more than one key : we generate one key per configured cipher. 
-
-ApacheDS Kerberos server supported set of ciphers is :
-
-    * DES_CBC_MD5
-    * DES3_CBC_SHA1_KD
-    * RC4_HMAC
-    * AES128_CTS_HMAC_SHA1_96
-    * AES256_CTS_HMAC_SHA1_96
-
-The default cipher is DES_CBC_MD5, so if you want to use another one, you must add it to the list of supported EncryptionTypes.
-</DIV>
-
-<DIV class="WARN" mardown="1">
-Note that the key generation is an extremely costly operation. If you have many supported ciphers, you will multiply the time it takes to generate the keys by the number of ciphers. It's smart to limit the configured ciphers to the minimal, accordingly to your needs.
-
-Provisionning thousands of users will inheritently be a slow operation.
-</DIV>
-
-Once the keys have been computed, we modify the entry to inject an ASN.1 BER encoded EncryptionKey instance into it.
-
-The EncryptionKey structure is the following ASN.1 desciption :
+Each value of krb5Key attribbute will be in the following ASN.1 format :
     
     ::text
     EncryptionKey   ::= SEQUENCE {
@@ -87,7 +61,26 @@ The EncryptionKey structure is the following ASN.1 desciption :
         keyvalue        [1] OCTET STRING
     }
 
-The modified entry will now looks like :
+<DIV class="INFO" mardown="1">
+There is a special case : if the password is "randomkey", the key will be generated using a random number created on the fly.
+</DIV>
+
+<DIV class="INFO" mardown="1">
+Note that we will generate more than one key : we generate one key for each of the supported encryption types. 
+
+ApacheDS Kerberos server supports the following set of encryption types :
+
+    * DES_CBC_MD5
+    * DES3_CBC_SHA1_KD
+    * RC4_HMAC
+    * AES128_CTS_HMAC_SHA1_96
+    * AES256_CTS_HMAC_SHA1_96
+
+The default encryption types used by the server are, aes128-cts-hmac-sha1-96, des-cbc-md5 and des3-cbc-sha1-kd DES_CBC_MD5. The supported encryption types can be added or removed by modifying the Kerberos server configuration.
+</DIV>
+
+
+The modified entry will now look like :
 
     :::text
     dn: uid=hnelson,ou=users,dc=example,dc=com

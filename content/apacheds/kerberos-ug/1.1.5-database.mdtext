@@ -24,19 +24,19 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 # 1.1.5 - Database
 
-This is the place where all the private keys are stored. This is pretty natural to store all those keys in a LDAP server, even more natural when the **Kerberos** server is built as a part of an existing LDAP server, as for **Apache Directory Server* !
+This is the place where all the private keys are stored. It is very common to store all the keys in an LDAP server, even more natural when the **Kerberos** server is a part of an existing LDAP server, like **Apache Directory Server* !
 
 When **Apache Directory Server** was started, it was also thought as a repository for **Kerberos** keys, so we just had to develop the logic to manage those keys, and the Kerberos protocol. 
 
 In other words, you have everything embedded in a single server :
-* The LDAP server to store the keys and other related informations
+* The LDAP server to store the keys and other related information
 * The Kerberos protocol
 * The Authentication Server
 * The Ticket Granting Server
 
 ## Structure
 
-There is an existing **LDAP** schema to manage the keys and other informations, named **krb5kdc**. It contains 3 ObjectClasses and 15 AttributeTypes.
+There is an existing **LDAP** schema to manage the keys and other information, named **krb5kdc**. It contains 3 ObjectClasses and 15 AttributeTypes.
 
 All the ObjectClasses are auxilliary.
 

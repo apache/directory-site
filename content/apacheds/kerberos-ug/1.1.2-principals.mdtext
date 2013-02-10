@@ -28,17 +28,17 @@ The Kerberos **Principal** is any entity to which the server can assign a **Tick
 
     * Users
     * Services
-    * hosts
+    * Hosts
 
 Each **Principal** is unique in the Kerberos database. This is the way we identify the entity.
 
-A Kerberos **Principal** is a combinaison of three parts :
+A Kerberos **Principal** is a combination of three parts :
     
     * the name (the primary)
     * an optional instance
     * the realm they are associated with
 
-The optional instance is used to provide more than one role to an entity, without having to create N **Principal** for a single user (an administrator is also a normal user, and it's good to qualify the user by adding his admin qualificiation in one **Principal** to create a new and easy to remember **Principal**)
+The optional instance is used to provide more than one role to an entity, without having to create N Principals for a single user (an administrator is also a normal user, and it's good to qualify the user by adding his admin qualificiation in one **Principal** to create a new and easy to remember **Principal**)
 
 The **Principal** syntax is the following :
 
@@ -56,5 +56,3 @@ Those are examples of valid **Principals**
     john/admin@APACHE.ORG                       A user who is an admin
     host/www.apache.org/apache.org@APACHE.ORG   A host with two hostnames
     ldap/www.apache.org@APACHE.ORG              A service (Ldap server)
-
-

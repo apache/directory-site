@@ -24,17 +24,17 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 # 1.1.1 - Realms
 
-A **Realm** is associated with a Kerberos administrative domain. In other words, it covers everything the Kerberos server manage :
+A **Realm** is associated with a Kerberos administrative domain. In other words, it covers everything the Kerberos server manages :
 * Users
 * Services
 
-Note that if a Kerberos Server manage one **Realm** only, a **Realm** can be managed by more than one Kerberos server : this is mandatory to avoid created a single point of failure, if the Kerberos server halts for any reason. Usually, the Kerberos servers are sharing the database - or in our case, the database is being replicated between the Kerberos Servers.
+Note that a Kerberos Server manages **one** Realm only, a Realm can be managed by more than one Kerberos server : this is mandatory to avoid a single point of failure, if a Kerberos server halts for any reason.
 
 ## Realm name
 
 In order to distinguish the **Realms**, we give them a unique name. This name can be anything, but a convention is to use the DNS name of the Kerberos server, and to use uppercase.
 
-For instance, say that th Kerberos server is installed on a machine which domain name is **apache.org**, then we will use **APACHE.ORG** as the **Realm** name (but you could have used **Apache.org** or even **MyApacheDomain**).
+For instance, say that th Kerberos server is installed on a machine whose domain name is **apache.org**, then we will use **APACHE.ORG** as the **Realm** name (but you could use **Apache.org** or even **MyApacheDomain**).
 
 <DIV class="info" markdown="1">
 Note that the name is case sensitive. **apache.org** is a different realm than **APACHE.ORG**.
@@ -44,7 +44,7 @@ The **Realm** name wil be used all over Kerberos to name **Principals** and **Se
 
 ## Default Realm for ApacheDS Kerberos Server
 
-When you set up an **ApacheDS Kerberos Server**, the **Realm** name is set to **EXAMPLE.COM**. This can be changed either through **Studio**, by accessing the server configuration and changing the 'Primary KDC Realm', as show in this picture :
+When **ApacheDS Kerberos Server** installed, the default **Realm** name is set to **EXAMPLE.COM**. This can be changed  either using **Studio**, by accessing the server configuration and changing the 'Primary KDC Realm', as show in this picture :
 
 <DIV align="center">
 ![Kerberos Realm Configuration](images/kerberos-realm-config.png)
@@ -57,4 +57,3 @@ or by modifying the LDIF configuration directly, by modifying the following entr
     ...
     ads-krbprimaryrealm: EXAMPLE.COM
     ...
-
