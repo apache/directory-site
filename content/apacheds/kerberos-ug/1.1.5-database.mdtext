@@ -34,6 +34,20 @@ In other words, you have everything embedded in a single server :
 * The Authentication Server
 * The Ticket Granting Server
 
+We will focus on the database in this section.
+
+## Storage
+
+We store everthing related to users, hosts and services in the LDAP base, as entries. In order to be able to retrieve them, we have to store them in a known place in the hierarchy. This position is fknown by the kerberos server using the 
+**Search Base DN** parameter.
+
+Everytime the **Kerberos** server received a request for a ticket from a principal, it will do a LDAP search starting from the **Search Base DN**, looking for any entry matching the filter _'(krb5PrincipalName=<the principal>)'_. This entry should contain the Kerberos keys that will be used to generate the ticket.
+
+One more requirement : the key as a version which allows a user to keep going with a previous key when he just changed its password (an operation that will change the Kerberos keys). 
+
+So for an LDAP entry to be seen as a valid Kerberos entry, it has to contain a _Krb5PrincipalName_, a _Krb5Key_ and one more attribute, the _Krb5KeyVersionNumber_.
+
+
 ## Structure
 
 There is an existing **LDAP** schema to manage the keys and other information, named **krb5kdc**. It contains 3 ObjectClasses and 15 AttributeTypes.

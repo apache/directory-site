@@ -1,0 +1,65 @@
+Title: 1.1.6 - AS (Authentication Server)
+NavPrev: 1.1.5-database.html
+NavPrevText: 1.1.5 - Database
+NavUp: 1.1-introduction.html
+NavUpText: 1.1 - Introduction
+NavNext: 1.1.7-tgs.html
+NavNextText: 1.1.7 - TGS (Ticket Granting Server)
+Notice: Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    .
+    http://www.apache.org/licenses/LICENSE-2.0
+    .
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+
+# 1.1.6 - AS (Authentication Server)
+
+One of the two services offered by a **Kerberos** server is the Authentication Server, which is in charge to authenticate the clients, and issues a ticket (**TGT**, or _Ticket Granting Ticket_)that the user can send to the **TGS** to get back a service ticket.
+
+<DIV class="info" markdown="1">
+The **TGT**, or _Ticket Granting Ticket_, is a ticket that a client can use to get a service ticket. In fact, the **AS** just consider the **TGS** as a standard service, and generates a ticket for the user to access this service.
+</DIV>
+
+The beauty of the **AS** is that it does not verify that the client issuing a request is a valid client : it just return a tickat that an attacker won't be able to process if it does not have the client's password.
+
+## Exhanges between the client and the AS
+
+As we can see, for the client to get a **TGT**, it's just a matter of sending a simple request, which is sent without any encryption whatsoever (some might consider that a BER encoded message is already cryptic enough, though ;-).
+
+Here is the standard exchange :
+
+<DIV align="center">
+![Kerberos Authentication with no pre-auth](images/kerberos-as-no-padata.png)
+</DIV>
+
+There is still a potential security breach in this scenario : as the server issues a **TGT** to the client, containing the secret key built using the user's password, it's potentially possible to decrypt the ticket using a brute force attack (and this is more likely to happen as the passwords are generally weak...)
+
+Of course, as each ticket as a limited time to live, the ticket won't be valid when the attaker will have successfully cracked the ticket, but that doesn't matter : the user's password is now known, and a new ticket can be requested safely, giving access to the services.
+
+**Kerberos 5** introduced a mechanism to somehow workaround this issue : the user has to provide a proof that he is who he pretends to be. As we can see, it defeats the premise we made : the **Kerberos** still want to check the users...
+
+Note that it's an option, so if you trust your users' password strength, then you don't need to send the server this proof.
+
+### Pre-Authentication
+
+Now, let's see how does a client 'proves' that he is who he pretends to be. The protocol allows the server to ask for some proof, by the mean of asking the client to send the server a timestamp encrypted with the user's secret key : if the server can decrypt the timestamp using the client secret key, then that prove the client's identity, and the server can now send the **TGT** This exchanged is called PreAuthentication.
+
+Here is the exchange, when  :
+
+<DIV align="center">
+![Kerberos Authentication with pre-auth](images/kerberos-as-padata.png)
+</DIV>
+
+
+
+
