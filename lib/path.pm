@@ -3,8 +3,8 @@ package path;
 # Versions (for download links)
 our $version_api = "1.0.0-M15";
 our $version_apacheds = "2.0.0-M10";
-our $version_studio = "2.0.0.v20130125";
-our $version_studio_name = "2.0.0-M4";
+our $version_studio = "2.0.0.v20130131";
+our $version_studio_name = "2.0.0-M5";
 
 # All our pages use the same view function
 our @patterns = (
