@@ -22,4 +22,168 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
     specific language governing permissions and limitations
     under the License.
 
-# 4.1 - Authenticate with kinit on Linux
+# 4.1 - Authenticate with Studio
+
+We will explain how to use the kerberos server to authentify users on a LDAP server. Let's first define the way we will store data in the LDAP server
+
+## Servers configuration
+
+We first have to configure the **LDAP** and **Kerberos** server, in order to be able to use the kerberos server to authenticate on the ldap server.
+
+If you have installed the **ApacheDS** package, the simplest way is to start the server, and to connect on it using Studio, using the _uid=admin,ou=system_ user with _secret_ as a password (this password will have to be changed later !).
+
+<DIV align="center">
+![connection](images/connection.png)
+</DIV>
+
+and :
+
+<DIV align="center">
+![authentication](images/authentication.png)
+</DIV>
+
+
+## LDAP Hierarchy
+
+We will distinguish between **users** and **services** :
+* Users are human beings, or applications that can log on a service
+* Services are applications on which a user can log in
+
+In our case, the ldap server and the **TGS** are services.
+
+Each user and each service will be declared using an _entry_ in the ldap server.
+
+We will store those entries in a part of the **DIT** where the kerberos server and the ldap server will be able to find them. Assuming we have created our own partition named **dc=example,dc=com**, we will define this hierarchy starting from there :
+
+<DIV align="center">
+![Authentification hierarchy](images/authent-hierarchy.png)
+</DIV>
+
+This can be injected in the LDAP server using this LDIF :
+
+    :::text
+    dn: dc=security,dc=example,dc=com
+    objectClass: top
+    objectClass: domain
+    dc: security
+
+    dn: ou=services,dc=security,dc=example,dc=com
+    objectClass: top
+    objectClass: organizationalUnit
+    ou: services
+
+    dn: ou=users,dc=security,dc=example,dc=com
+    objectClass: top
+    objectClass: organizationalUnit
+    ou: users
+
+## Users and Service declaration
+
+Now that we have built our container for users and services, we have to declare the users and services so that they can be used through **kerberos**.
+
+### Users
+
+Each user must have the **krb5KDCEntry** objectclass, and the **userPassword** attributeType (which is present in one of the following objectclasses : _dmd_, _domain_, _organization_, _organizationalUnit_, _person_, _posixAccount_, _posixGroup_ and _shadowAccount_, or one of their inheriting objectclass. You can also add it to your own objectclass).
+
+Our users will be _organizationalPerson_, which inherits from _person_.
+
+For our sample test, here is a person we will inject in th eLDAP server :
+
+    :::text
+    dn: uid=hnelson,ou=users,dc=security,dc=example,dc=com
+    objectClass: top
+    objectClass: krb5KDCEntry
+    objectClass: inetOrgPerson
+    objectClass: krb5Principal
+    objectClass: person
+    objectClass: organizationalPerson
+    cn: Horatio Nelson
+    krb5KeyVersionNumber: 1
+    krb5PrincipalName: hnelson@EXAMPLE.COM
+    sn: Nelson
+    uid: hnelson
+    userPassword: secret
+
+This user does not have a password yet.
+
+<DIV class="info" markdown="1">
+The import thing is the _krb5PrincipalName_, which is the one that will be used to bind the user. It has a user login (**hnelson**) and a realm (**EXAMPLE.COM**).
+</DIV>
+
+Once the user has been injected, we can see that the server has created some krb5Key attributes :
+
+    :::text
+   dn: uid=hnelson,ou=users,dc=security,dc=example,dc=com
+    objectClass: top
+    objectClass: krb5KDCEntry
+    objectClass: inetOrgPerson
+    objectClass: krb5Principal
+    objectClass: person
+    objectClass: organizationalPerson
+    cn: Horatio Nelson
+    krb5KeyVersionNumber: 0
+    krb5PrincipalName: hnelson@EXAMPLE.COM
+    sn: Nelson
+    krb5Key:: MBGgAwIBA6EKBAj0pxNkimHOWw==
+    krb5Key:: MBmgAwIBEaESBBCtIUs4tp38yqzxXzRtQXuQ
+    krb5Key:: MCGgAwIBEKEaBBhXB84pUpIsHIy/Q8I9j4xenoz3XT5KXiU=
+    krb5Key:: MBmgAwIBF6ESBBCHjYAUYGzaKWd6RO+hNT/H
+    uid: hnelson
+    userPassword:: e1NTSEF9VnhjYUl4U3JxUnAraWh1dXo2NEhzN1EwbXE0ZHBBQTNsUHJXMGc9P
+     Q== 
+
+Those keys have been computed automatically by the Kerberos server. Every time you will change the password, the keys will be updated.
+
+We can add as many users as we want, but keep in mind that the login name should be the first part of the **krb5PrincipalName** attributeType.
+
+### Services
+
+We now have to declare some services : the **krbtgt** service, which delivers tickets, and the **ldap** service.
+
+A user (or a service) which will try to authenticate on the LDAP server will first get a ticket from the **krbtgt** service, then will access the **ldap** service with the provided ticket.
+
+#### krbtgt service
+
+It's pretty much the same operation than for the user : create the entry, define a _krb5PrincipalName_, create a _userPassword_ and inject the entry into the LDAP server. 
+
+Here is the associated LDIF file :
+
+    :::text
+    dn: uid=ldap,ou=services,dc=security,dc=example,dc=com
+    objectClass: top
+    objectClass: inetOrgPerson
+    objectClass: krb5KDCEntry
+    objectClass: person
+    objectClass: krb5Principal
+    objectClass: organizationalPerson
+    cn: LDAP
+    krb5KeyVersionNumber: 0
+    krb5PrincipalName: ldap/localhost@EXAMPLE.COM
+    sn: Service
+    uid: ldap
+    userPassword: randomKey
+
+    dn: uid=krbtgt,ou=services,dc=security,dc=example,dc=com
+    objectClass: top
+    objectClass: inetOrgPerson
+    objectClass: krb5KDCEntry
+    objectClass: person
+    objectClass: krb5Principal
+    objectClass: organizationalPerson
+    cn: KDC Service
+    krb5KeyVersionNumber: 0
+    krb5PrincipalName: krbtgt/EXAMPLE.COM@EXAMPLE.COM
+    sn: Service
+    uid: krbtgt
+    userPassword:: randomkey
+
+<DIV class="info" markdown="1">
+Three important things :
+
+    * the userPassword is 'randomkey'. The key won't be generated based on a know password, they will use a random key.
+    * the _krb5PrincipalName_ has one more information, after the '/' character : _EXAMPLE.COM_ for the **krbtgt** service, and **localhost** for the **ldap** service.
+</DIV>
+
+Again, once those entries have been injected in the LDAP server, the krb5Key attributeTypes will be created
+
+## 
