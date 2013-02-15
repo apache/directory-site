@@ -71,6 +71,20 @@ Here is a snapshot of this configuration :
 
 ### Kerberos Server configuration
 
+Now, you can switch to the Kerberos tab, where some more configuration must be set :
+
+    * The _Primary KDC Realm_ is EXAMPLE.COM
+    * The _Search Base DN_ is the same as for the LDAP server : _dc=security,dc=example,dc=com_
+
+Here is a Ssnapshot of this configuration :
+
+<DIV align="center">
+![Kerberos configuration](images/kerberos-config.png)
+</DIV>
+
+
+Once those modifications have been done, you must restart the server.
+
 ### Other configuration
 
 There is one more thing that you need to configure : your domain name (here, _EXAMPLE.COM_) has to be reachable on your machine. Either you define in on a **DNS** server, or you can also add it in your _/etc/hosts_ file.
@@ -229,4 +243,4 @@ Three important things :
 
 Again, once those entries have been injected in the LDAP server, the _krb5Key_ attributeTypes will be created
 
-## 
+## Login using Studio
