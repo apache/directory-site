@@ -42,6 +42,49 @@ and :
 ![authentication](images/authentication.png)
 </DIV>
 
+Once connected, right click on the connection :
+
+<DIV align="center">
+![Open Configuration](images/open-config.png)
+</DIV>
+
+On the **Overview** tab, check the **Enable Kerberos Server** box :
+
+<DIV align="center">
+![Enable Kerberos Server](images/enable-kerberos.png)
+</DIV>
+
+### LDAP Server configuration
+
+There are a few parameters that are to be set in the **LDAP** configuration :
+
+    * The _SASL host_ must be the local server name (here, EXAMPLE.COM)
+    * The _SASL principal_ is **ldap/EXAMPLE.COM@EXAMPLE.COM**
+    * The _Search Base DN_ should point to the place under which we store users and services (_dc=security,dc=example,dc=com_)
+
+Here is a snapshot of this configuration :
+
+<DIV align="center">
+![LDAP configuration](images/ldap-config.png)
+</DIV>
+
+
+### Kerberos Server configuration
+
+### Other configuration
+
+There is one more thing that you need to configure : your domain name (here, _EXAMPLE.COM_) has to be reachable on your machine. Either you define in on a **DNS** server, or you can also add it in your _/etc/hosts_ file.
+
+Here is a way to add it on a local host :
+
+    :::
+    ...
+    127.0.0.1 localhost EXAMPLE.COM
+    ...
+
+<DIV class="warning" markdown="1">
+It's largely preferable to declare the server in a DNS.
+</DIV>
 
 ## LDAP Hierarchy
 
@@ -113,7 +156,7 @@ The import thing is the _krb5PrincipalName_, which is the one that will be used 
 Once the user has been injected, we can see that the server has created some krb5Key attributes :
 
     :::text
-   dn: uid=hnelson,ou=users,dc=security,dc=example,dc=com
+    dn: uid=hnelson,ou=users,dc=security,dc=example,dc=com
     objectClass: top
     objectClass: krb5KDCEntry
     objectClass: inetOrgPerson
@@ -180,10 +223,10 @@ Here is the associated LDIF file :
 <DIV class="info" markdown="1">
 Three important things :
 
-    * the userPassword is 'randomkey'. The key won't be generated based on a know password, they will use a random key.
-    * the _krb5PrincipalName_ has one more information, after the '/' character : _EXAMPLE.COM_ for the **krbtgt** service, and **localhost** for the **ldap** service.
+    - the userPassword is 'randomkey'. The key won't be generated based on a know password, they will use a random key.
+    - the _krb5PrincipalName_ has one more information, after the '/' character : _EXAMPLE.COM_ for the **krbtgt** service, and **localhost** for the **ldap** service.
 </DIV>
 
-Again, once those entries have been injected in the LDAP server, the krb5Key attributeTypes will be created
+Again, once those entries have been injected in the LDAP server, the _krb5Key_ attributeTypes will be created
 
 ## 
