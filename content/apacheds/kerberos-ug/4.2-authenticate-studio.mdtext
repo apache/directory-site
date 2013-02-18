@@ -208,39 +208,86 @@ Here is the associated LDIF file :
     :::text
     dn: uid=ldap,ou=services,dc=security,dc=example,dc=com
     objectClass: top
-    objectClass: inetOrgPerson
+    objectClass: organizationalUnit
     objectClass: krb5KDCEntry
-    objectClass: person
+    objectClass: uidObject
     objectClass: krb5Principal
-    objectClass: organizationalPerson
-    cn: LDAP
     krb5KeyVersionNumber: 0
     krb5PrincipalName: ldap/localhost@EXAMPLE.COM
-    sn: Service
     uid: ldap
     userPassword: randomKey
+    ou: TGT
 
     dn: uid=krbtgt,ou=services,dc=security,dc=example,dc=com
     objectClass: top
-    objectClass: inetOrgPerson
+    objectClass: organizationalUnit
     objectClass: krb5KDCEntry
-    objectClass: person
+    objectClass: uidObject
     objectClass: krb5Principal
-    objectClass: organizationalPerson
-    cn: KDC Service
     krb5KeyVersionNumber: 0
     krb5PrincipalName: krbtgt/EXAMPLE.COM@EXAMPLE.COM
-    sn: Service
     uid: krbtgt
     userPassword:: randomkey
+    ou: LDAP
 
 <DIV class="info" markdown="1">
 Three important things :
 
     - the userPassword is 'randomkey'. The key won't be generated based on a know password, they will use a random key.
-    - the _krb5PrincipalName_ has one more information, after the '/' character : _EXAMPLE.COM_ for the **krbtgt** service, and **localhost** for the **ldap** service.
+    - the _krb5PrincipalName_ has one more information, after the / character : _EXAMPLE.COM_ for 
+    the **krbtgt** service, and **localhost** for the **ldap** service.
+    - the krb5KeyVersionNumber is 0
 </DIV>
 
 Again, once those entries have been injected in the LDAP server, the _krb5Key_ attributeTypes will be created
 
 ## Login using Studio
+
+Now that the server is set, and the services and users are stored into it, we can create a new connection using the Kerberos authentication for the created users.
+
+### Create a new connection
+
+On the "Connections" tab, right click and select 'New Connection...'
+
+<DIV align="center">
+![New Connection](images/new-connection.png)
+</DIV>
+
+You will now have to set the network parameters, as in the following popup. Typically, set :
+
+    * The connection name (here, **Kerberos User**)
+    * The LDAP server host (**localhost**)
+    * The LDAP server port (**10389**)
+    * The Provider (pick **Apache Directory LDAP Client API**)
+
+You can check the connection on cliking the 'check network connection' button, you should get back a popup stating that the connection was established successfully.
+
+Here is the screenshot :
+
+
+<DIV align="center">
+![Network Parameters](images/network-parameters.png)
+</DIV>
+
+Then click on Next to setup the authentication part.
+Select the following parameters and values :
+
+    * Authentication method : **GSSAPI**
+    * Bind DN : the user name (here, **hnelson**)
+    * Bind password : here, **secret**
+    * Don't change anything in the SASL settings
+    * Kerberos settings 
+        * Obtain TGT from KDC
+        * Use following configuration :
+            * Kerberos Realm : **EXAMPLE.COM**
+            * KDC Host : **localhost**
+            * KDC port : ** 60088**
+
+Here is the resulting screen :
+
+<DIV align="center">
+![Kerberos authentification](images/kerberos-authent.png)
+</DIV>
+
+Clinking in the 'Check Authentication' buton should be succesful.
+
