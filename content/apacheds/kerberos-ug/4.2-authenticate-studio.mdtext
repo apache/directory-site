@@ -243,7 +243,7 @@ Three important things :
 
 - the userPassword is 'randomkey'. The key will not be generated based on a know password, they will use a random key.
 - the _krb5PrincipalName_ has one more information, after the / character : _EXAMPLE.COM_ for 
-    the **krbtgt** service, and **example.net** for the **ldap** service. For the **krbtgt** principal, the instance is always the realm name. For the **ldap** principal, the instance is the hostname, in lowercase.
+    the **krbtgt** service, and _example.net_ for the **ldap** service. For the **krbtgt** principal, the instance is always the realm name. For the **ldap** principal, the instance is the hostname, in lowercase.
 - the krb5KeyVersionNumber is 0
 </DIV>
 
@@ -280,16 +280,16 @@ Here is the screenshot :
 Then click on Next to setup the authentication part.
 Select the following parameters and values :
 
-    * Authentication method : **GSSAPI**
-    * Bind DN : the user name (here, **hnelson**)
-    * Bind password : here, **secret**
-    * Don't change anything in the SASL settings
+    * Authentication method : <b>GSSAPI</b>
+    * Bind DN : the user name (here, <b>hnelson</b>)
+    * Bind password : here, <b>secret</b>
+    * Do not change anything in the SASL settings
     * Kerberos settings 
         * Obtain TGT from KDC
         * Use following configuration :
-            * Kerberos Realm : **EXAMPLE.COM**
-            * KDC Host : **example.net**
-            * KDC port : ** 60088**
+            * Kerberos Realm : <b>EXAMPLE.COM</b>
+            * KDC Host : <b>example.net</b>
+            * KDC port : <b>60088</b>
 
 Here is the resulting screen :
 
