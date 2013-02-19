@@ -26,6 +26,10 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 We will explain how to use the kerberos server to authentify users on a LDAP server. Let's first define the way we will store data in the LDAP server
 
+<DIV class="info" markdown="1">
+We will suppose that the **Kerberos** server is installed on a server which _hostName_ is **example.net** and the _realm_ is **EXAMPLE.COM** in the following paragraphes.
+</DIV>
+
 ## Servers configuration
 
 We first have to configure the **LDAP** and **Kerberos** server, in order to be able to use the kerberos server to authenticate on the ldap server.
@@ -33,13 +37,13 @@ We first have to configure the **LDAP** and **Kerberos** server, in order to be 
 If you have installed the **ApacheDS** package, the simplest way is to start the server, and to connect on it using Studio, using the _uid=admin,ou=system_ user with _secret_ as a password (this password will have to be changed later !).
 
 <DIV align="center">
-![connection](images/connection.png)
+![Admin Connection](images/admin-connection.png)
 </DIV>
 
 and :
 
 <DIV align="center">
-![authentication](images/authentication.png)
+![Admin Authentication](images/admin-authentication.png)
 </DIV>
 
 Once connected, right click on the connection :
@@ -58,9 +62,13 @@ On the **Overview** tab, check the **Enable Kerberos Server** box :
 
 There are a few parameters that are to be set in the **LDAP** configuration :
 
-    * The _SASL host_ must be the local server name (here, EXAMPLE.COM)
-    * The _SASL principal_ is **ldap/EXAMPLE.COM@EXAMPLE.COM**
+    * The _SASL host_ must be the local server name (here, example.net)
+    * The _SASL principal_ is **ldap/example.net@EXAMPLE.COM**
     * The _Search Base DN_ should point to the place under which we store users and services (_dc=security,dc=example,dc=com_)
+
+<DIV class="warning" markdown="1">
+The _SASL principal_ instance part (ie, **example.net**) is in lower case, as the hostname is not case sensitive. Sadly, the _KrbPrincipalName_ attributeType is case sensitive, so if the left part is not lowercased, the server won't be able to retrieve the information from the LDAP server.
+</DIV>
 
 Here is a snapshot of this configuration :
 
@@ -87,13 +95,13 @@ Once those modifications have been done, you must restart the server.
 
 ### Other configuration
 
-There is one more thing that you need to configure : your domain name (here, _EXAMPLE.COM_) has to be reachable on your machine. Either you define in on a **DNS** server, or you can also add it in your _/etc/hosts_ file.
+There is one more thing that you need to configure : your domain name (here, example.net_) has to be reachable on your machine. Either you define in on a **DNS** server, or you can also add it in your _/etc/hosts_ file.
 
 Here is a way to add it on a local host :
 
     :::
     ...
-    127.0.0.1 localhost EXAMPLE.COM
+    127.0.0.1 localhost example.net
     ...
 
 <DIV class="warning" markdown="1">
@@ -144,7 +152,7 @@ Each user must have the **krb5KDCEntry** objectclass, and the **userPassword** a
 
 Our users will be _organizationalPerson_, which inherits from _person_.
 
-For our sample test, here is a person we will inject in th eLDAP server :
+For our sample test, here is a person we will inject in the LDAP server :
 
     :::text
     dn: uid=hnelson,ou=users,dc=security,dc=example,dc=com
@@ -213,7 +221,7 @@ Here is the associated LDIF file :
     objectClass: uidObject
     objectClass: krb5Principal
     krb5KeyVersionNumber: 0
-    krb5PrincipalName: ldap/localhost@EXAMPLE.COM
+    krb5PrincipalName: ldap/example.net@EXAMPLE.COM
     uid: ldap
     userPassword: randomKey
     ou: TGT
@@ -233,10 +241,10 @@ Here is the associated LDIF file :
 <DIV class="info" markdown="1">
 Three important things :
 
-    - the userPassword is 'randomkey'. The key won't be generated based on a know password, they will use a random key.
-    - the _krb5PrincipalName_ has one more information, after the / character : _EXAMPLE.COM_ for 
-    the **krbtgt** service, and **localhost** for the **ldap** service.
-    - the krb5KeyVersionNumber is 0
+- the userPassword is 'randomkey'. The key will not be generated based on a know password, they will use a random key.
+- the _krb5PrincipalName_ has one more information, after the / character : _EXAMPLE.COM_ for 
+    the **krbtgt** service, and **example.net** for the **ldap** service. For the **krbtgt** principal, the instance is always the realm name. For the **ldap** principal, the instance is the hostname, in lowercase.
+- the krb5KeyVersionNumber is 0
 </DIV>
 
 Again, once those entries have been injected in the LDAP server, the _krb5Key_ attributeTypes will be created
@@ -256,7 +264,7 @@ On the "Connections" tab, right click and select 'New Connection...'
 You will now have to set the network parameters, as in the following popup. Typically, set :
 
     * The connection name (here, **Kerberos User**)
-    * The LDAP server host (**localhost**)
+    * The LDAP server host (**example.net**)
     * The LDAP server port (**10389**)
     * The Provider (pick **Apache Directory LDAP Client API**)
 
@@ -280,7 +288,7 @@ Select the following parameters and values :
         * Obtain TGT from KDC
         * Use following configuration :
             * Kerberos Realm : **EXAMPLE.COM**
-            * KDC Host : **localhost**
+            * KDC Host : **example.net**
             * KDC port : ** 60088**
 
 Here is the resulting screen :
@@ -289,5 +297,5 @@ Here is the resulting screen :
 ![Kerberos authentification](images/kerberos-authent.png)
 </DIV>
 
-Clinking in the 'Check Authentication' buton should be succesful.
+Clinking in the 'Check Authentication' buton should be succesfull.
 
