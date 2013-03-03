@@ -1,5 +1,31 @@
 # News
 
+## ApacheDS 2.0.0-M11 released _posted on March 3rd, 2013_
+
+The Apache Directory team is pleased to announce the release of ApacheDS 2.0.0-M11, the eleventh milestone towards a 2.0 version.
+
+ApacheDS is an extensible and embeddable directory server entirely written in Java, which has been certified LDAPv3 compatible by the Open Group. Besides LDAP it supports Kerberos 5 and the Change Password Protocol. It has been designed to introduce triggers, stored procedures, queues and views to the world of LDAP which has lacked these rich constructs.
+
+Here is the release note for Apache Directory ApacheDS 2.0.0-M11:
+
+  * [DIRSERVER-1281](https://issues.apache.org/jira/browse/DIRSERVER-1281) - StreamCorruptedException after brutal shutdown
+  * [DIRSERVER-1797](https://issues.apache.org/jira/browse/DIRSERVER-1797) - The AdministrativeRole AT is not indexed, leadings to huge delay when starting the server
+  * [DIRSERVER-1798](https://issues.apache.org/jira/browse/DIRSERVER-1798) - The AdministrativePoint interceptor is always activated, even if it's not part of the config
+  * [DIRSERVER-1799](https://issues.apache.org/jira/browse/DIRSERVER-1799) - When deleting values from an existing entry, the presence index might get out of date
+  * [DIRSERVER-1802](https://issues.apache.org/jira/browse/DIRSERVER-1802) - Disabling an authenticator results in a NPE
+  * [DIRSERVER-1803](https://issues.apache.org/jira/browse/DIRSERVER-1803) - When the SimpleAuthenticator is disabled, and the auth level is set to SIMPLE, we can bind freely
+  * [DIRSERVER-1804](https://issues.apache.org/jira/browse/DIRSERVER-1804) - [patch] Fix ApacheDS code to allow control and reduce number of outputted logs
+  * [DIRSERVER-1805](https://issues.apache.org/jira/browse/DIRSERVER-1805) - The replication janitor thread is not stopped correctly when teh server is stopped
+  * [DIRKRB-85](https://issues.apache.org/jira/browse/DIRKRB-85) - @CreateKdcServer should include searchBaseDn attribute
+  * [DIRSERVER-1321](https://issues.apache.org/jira/browse/DIRSERVER-1321) - Clarify relationship between partition.syncOnWrite and apacheDS.syncPeriodMillis configuration attributes
+  * [DIRSERVER-1322](https://issues.apache.org/jira/browse/DIRSERVER-1322) - Auto inferring context entry
+  * [DIRSERVER-1808](https://issues.apache.org/jira/browse/DIRSERVER-1808) - We should evaluate the Scope and any other index in a fliter only when the # of candidate is above a threshold
+  * [DIRKRB-86](https://issues.apache.org/jira/browse/DIRKRB-86) - The Kerberos server badly need some logging...
+
+Note that this is a milestone, and some parts of the API or configuration can change before the 2.0 GA. We don't have any defined time frame for the 2.0-GA release, we do expect to release a few more milestones before reaching the 2.0-GA.
+
+Downloads are available [here](downloads.html)
+
 ## ApacheDS 2.0.0-M10 released _posted on January 29th, 2013_
 
 The Apache Directory team is pleased to announce the release of ApacheDS 2.0.0-M10, the tenth milestone towards a 2.0 version.
