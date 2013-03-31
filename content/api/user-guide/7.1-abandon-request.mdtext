@@ -1,0 +1,78 @@
+Title: 7.1 - AbandonRequest
+NavPrev: 7-requests-responses.html
+NavPrevText: 7 - Requests and Responses
+NavUp: 7-requests-responses.html
+NavUpText: 7 - Requests and Responses
+NavNext: 7.2-add-request.html
+NavNextText: 7.2 - AddRequest
+Notice: Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    .
+    http://www.apache.org/licenses/LICENSE-2.0
+    .
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+
+# 7.1 AbandonRequest
+
+This request is used to tell the server that a given previous request must be abandonned. The only needed parameter is the *ID* of the request you want to stop. 
+
+    :::Java
+    public interface AbandonRequest extends Request
+    {
+        /**
+         * Gets the id of the request operation to terminate.
+         * 
+         * @return the id of the request message to abandon
+         */
+        int getAbandoned();
+
+
+        /**
+         * Sets the id of the request operation to terminate.
+         * 
+         * @param requestId the sequence id of the request message to abandon
+         * @return The AbandonRequest instance
+         */
+        AbandonRequest setAbandoned( int requestId );
+    }
+
+There are two existing implementations you can use :
+
+* _AbandonRequestImpl_ : The default implementation.
+* _AbandonRequestDsml_ : An implementation used when you want to generate a DSML request
+
+The _AbandonRequest_ message does not have a response, the abandonned request will just be stopped.
+
+## Usage
+
+It's pretty easy. You just have inject the ID of the request you want to abandon :
+
+    :::Java
+    connection.abandon( messageId );
+
+This will interrupt the request which ID is _messageId_.
+
+### Adding some controls
+
+You can add a control in the _AbandonRequest_, as soon as you create an instance of _AbandonRequestImpl :
+
+
+    :::Java
+    AbandonRequest abandonRequest = new AbandonRequestImpl( messageId );
+
+    // Add your control 
+    abandonRequest.addControl( control );
+
+    // Send the request
+    connection.abandon( abandonRequest );
+_

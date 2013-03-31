@@ -50,7 +50,7 @@ Here is two examples where we inject the entry using **LDIF** :
         assertTrue( session.exists( "cn=testadd,ou=system" ) );
     }
 
-In this basic example, we are adding a new entry, created using some **LDIF** formatted parameters, the first one being the entry's Dn.
+In this basic example, we are adding a new entry, created using some **LDIF** formatted parameters, the first one being the entry's _Dn_.
 Note that it is possible to use some variables in the **LDIF** instead of pure text. Here is the same example, resulting to the same entry being added:
 
     :::Java
@@ -75,9 +75,9 @@ Note that it is possible to use some variables in the **LDIF** instead of pure t
         assertTrue( session.exists( "cn=testadd,ou=system" ) );
     }
 
-Down the line, what is important is that the _add()_ operation is taking a full **[Entry]()**. 
+Down the line, what is important is that the _add()_ operation is taking a full **[Entry](6.12-entry.html)**. 
 
-We can also create the **[Entry]()** in a different way, which will be exposed in the following paragraphs.
+We can also create the **[Entry](6.12-entry.html)** in a different way, which will be exposed in the following paragraphs.
 
 ## Sending an **[AddRequest]()**
 

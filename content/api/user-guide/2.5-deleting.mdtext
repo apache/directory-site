@@ -23,3 +23,106 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
     under the License.
 
 # 2.5 - Deleting entries
+
+Deleting an entry is really easy. It's just a matter to know its **[Dn]()**. There is one important thing to understand though : if this entry has some children, it won't be deleted.
+
+## Simple entry deletion
+
+We can ask the deletion by providing the entry's **[Dn]()**, like what is done in the following example :
+
+    :::Java
+    @Test
+    public void testDeleteLeafNode() throws Exception
+    {
+        assertTrue( session.exists( "cn=child1,cn=parent,ou=system" ) );
+
+        DeleteResponse response = connection.delete( "cn=child1,cn=parent,ou=system" );
+        assertNotNull( response );
+        assertEquals( ResultCodeEnum.SUCCESS, response.getLdapResult().getResultCode() );
+
+        assertFalse( session.exists( "cn=child1,cn=parent,ou=system" ) );
+    }
+
+
+Trying to delete the parent alone would leads to an error (NOT_ALLOWED_ON_NON_LEAF) :
+
+    :::Java
+    @Test
+    public void testDeleteNonLeafFailure() throws Exception
+    {
+        assertTrue( session.exists( "cn=parent,ou=system" ) );
+
+        DeleteResponse response = connection.delete( "cn=parent,ou=system" );
+        assertNotNull( response );
+        assertEquals( ResultCodeEnum.NOT_ALLOWED_ON_NON_LEAF, response.getLdapResult().getResultCode() );
+
+        assertTrue( session.exists( "cn=parent,ou=system" ) );
+    }
+
+
+## Recursive deletion of entries
+
+Usually, you can't delete an entry and all of its children. However, some server accept such a request if you send a delete request and a TreeDelete control. This control is a [draft](http://tools.ietf.org/html/draft-armijo-ldap-treedelete-02), which has been implemented by **Microsoft**, **OpenDS**, **OpenDJ**. It will delete all the children and the entry itself. We don't use a normal _delete()_ method, there is a specific method, _deleteTree()_. Here is an example :
+
+    :::Java
+    @Test
+    public void testDeleteWithCascadeControl() throws Exception
+    {
+        assertTrue( session.exists( "cn=parent,ou=system" ) );
+
+
+        DeleteResponse response = connection.deleteTree( "cn=parent,ou=system" );
+        assertNotNull( response );
+        assertEquals( ResultCodeEnum.SUCCESS, response.getLdapResult().getResultCode() );
+
+        assertFalse( session.exists( "cn=parent,ou=system" ) );
+    }
+
+
+## Sending a DeleteRequest with a control
+
+It's also possible to associate a **[Control]** with the delete request. In order to do that, you have to create a **[DelRequest]()** instance. In the following example, we will add the Delete Tree control (this make this call equivalent to the _deleteTree()_ method).
+
+    :::Java
+    @Test
+    public void testDeleteWithControl() throws Exception
+    {
+        assertTrue( session.exists( "cn=parent,ou=system" ) );
+
+        if ( connection.isControlSupported( "1.2.840.113556.1.4.805" ) )
+        {
+            DeleteRequest deleteRequest = new DeleteRequestImpl();
+            deleteRequest.setName( new Dn( "cn=parent,ou=system" ) );
+            Control deleteTreeControl = new OpaqueControl( "1.2.840.113556.1.4.805" );
+            deleteRequest.addControl( deleteTreeControl );
+    
+            DeleteResponse deleteResponse = connection.delete( deleteRequest );
+    
+            assertNotNull( deleteResponse );
+            assertEquals( ResultCodeEnum.SUCCESS, deleteResponse.getLdapResult().getResultCode() );
+            assertFalse( session.exists( "cn=parent,ou=system" ) );
+        }
+    }
+
+
+## Asynchronous delete
+
+You can also decide to send an asynchronous delete request : the method will return a Future that you can check later. You have to construct a **[DeleteRequest]** instance. Here is an example :
+
+    :::Java
+    @Test
+    public void testDeleteAsync() throws Exception
+    {
+        assertTrue( session.exists( "cn=child,cn=parent,ou=system" ) );
+
+        DeleteRequest deleteRequest = new DeleteRequestImpl();
+        deleteRequest.setName( new Dn( "cn=child,cn=parent,ou=system" ) );
+
+        DeleteFuture deleteFuture = connection.deleteAsync( deleteRequest );
+
+        DeleteResponse deleteResponse = deleteFuture.get( 1000, TimeUnit.MILLISECONDS );
+
+        assertNotNull( deleteResponse );
+        assertEquals( ResultCodeEnum.SUCCESS, deleteResponse.getLdapResult().getResultCode() );
+        assertFalse( session.exists( "cn=child,cn=parent,ou=system" ) );
+    }
