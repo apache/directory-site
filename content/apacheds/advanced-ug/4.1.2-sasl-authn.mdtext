@@ -1,6 +1,4 @@
 Title: 4.1.2 SASL Authentication
-NavPrev: 4.1.1-simple-authn.html
-NavPrevText: 4.1.1-simple-authn.html
 navPrev: 4.1.1-simple-authn.html
 NavPrevText: 4.1.1 - Simple authentication
 NavUp: 4.1-authentication.html
@@ -26,9 +24,19 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 # 4.1.2 - SASL Authentication
 
+**SASL** authentication is based on a standard described in [RFC 4422](http://www.ietf.org/rfc/rfc4422.txt). **SASL** means **S**imple **A**uthentication and **S**ecurity **L**ayer.
+
+It extends the Simple authentication, by allowing the LDAP server to authenticate the user by various mechanisms.
+
+The **SASL* Authentication is used when a simple user/password authentication is not enough. Many other systems exist, and may take many parameters to authenticate a user. With **SASL**, a challenge/response system is used to get the needed information from the client, up to the point the authentication is either successful or fails.
+
+## Content
+
 * [4.1.2.1 - SASL anonymous Authentication](4.1.2.1-sasl-anonymous-authn.html)
 * [4.1.2.2 - SASL plain text Authentication](4.1.2.2-sasl-plain-text-authn.html)
 * [4.1.2.3 - SASL GSSAPI Authentication](4.1.2.3-sasl-gssapi-authn.html)
 * [4.1.2.4 - SASL CRAM-MD5 Authentication](4.1.2.4-sasl-cram-md5-authn.html)
 * [4.1.2.5 - SASL DIGEST-MD5 Authentication](4.1.2.5-sasl-digest-md5-authn.html)
 * [4.1.2.6 - SASL EXTERNAL Authentication](4.1.2.6-sasl-external-authn.html)
+* [4.1.2.7 - SASL NTLM Authentication](4.1.2.7-sasl-ntlm-authn.html)
+
