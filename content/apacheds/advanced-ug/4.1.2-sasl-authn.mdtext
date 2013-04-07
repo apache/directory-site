@@ -49,8 +49,17 @@ As **ApacheDS** is based on Java, we only support the **SASL** mechanisms the JD
     * DIGEST-MD5 : Http Digest authentication
     * GSSAPI : Kerberos authentication
     * EXTERNAL : External authentication
+    * NTLM : NTLM authentication
+    * GSS-SPNEGO : The SPNEGO authentication
 
 It's important to notice that some of those mechanisms are either useless (PLAIN) or obsolete (DIGEST-MD5).
+
+It's of course possible to modify the list of supported **SASL** mechanisms, by updating the server's configuration. The list of mechanisms is stored as entries under the following **DN** :
+
+    :::Text
+    ou=saslMechHandlers,ads-serverId=ldapServer,ou=servers,ads-directoryServiceId=default,ou=config
+
+## Specifications
 
 The SASL specifications are defined by an [IETF Working Group](http://datatracker.ietf.org/wg/sasl/) which has published the following proposed standards :
 
