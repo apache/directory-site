@@ -28,6 +28,12 @@ The **CRAM-MD5** **SASL** mechanism is defined by [RFC 2195](http://www.ietf.org
 
 We will have an exchange between the client, which will send an empty _Bind request_ (ie, the username and credentials won't be sent the first time), and the server will return a challenge.
 
+<DIV class="warn" markdown="1">
+It's not recommanded to use this mechanism.
+</DIV>
+
+## Usage
+
 The client first send a _BindRequest_ with no credentials:
 
     :::Text

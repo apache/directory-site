@@ -23,3 +23,92 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
     under the License.
 
 # 4.1.2.3 - SASL DIGEST-MD5 Authentication
+
+The **DIGEST-MD5** **SASL** mechanism is defined by [RFC 2829](http://www.ietf.org/rfc/rfc2829.txt), which has been moved to an _historic_ status by [RFC 6331](http://www.ietf.org/rfc/rfc6631.txt), due to its intrinsec weaknesses.
+
+<DIV class="warn" markdown="1">
+It's not recommanded to use this mechanism.
+</DIV>
+
+## Usage
+
+As for **CRAM-MD5** mechanism, there is an exchange between the server and the client. First, the client sends a _BindRequest_ with no credentials :
+
+    :::Text
+    MessageType : BIND_REQUEST
+    Message ID : 1
+        BindRequest
+            Version : '3'
+            Name : 'null'
+            Sasl credentials
+                Mechanism :'DIGEST-MD5'
+                Credentials : null
+
+The server respons with a _BindResponses_ containing a challenge :
+
+    :::Text
+    MessageType : BIND_RESPONSE
+    Message ID : 2
+        BindResponse
+            Ldap Result
+                Result code : (SUCCESS) success
+                Matched Dn : ''
+                Diagnostic message : ''
+            Server sasl credentials : '0x72 0x73 0x70 0x61 0x75 0x74 0x68 0x3D 0x37 0x36 0x32 0x64 0x30 0x37 0x32 0x32 0x37 0x64 0x39 0x32 0x33 0x63 0x38 0x38 0x38 0x32 0x64 0x35 0x65 0x63 0x34 0x38 0x30 0x37 0x66 0x36 0x66 0x33 0x34 0x65 '
+
+
+The client then compute the credentials, which contains many informations, some of them being digested with the server's provided data :
+
+    :::Text
+    MessageType : BIND_REQUEST
+    Message ID : 2
+        BindRequest
+            Version : '3'
+            Name : 'null'
+            Sasl credentials
+                Mechanism :'DIGEST-MD5'
+                Credentials : (omitted-for-safety)
+
+Here, the credentials content is encoded a a byte[], representing those data :
+
+    :::Text
+    charset = utf-8
+    username = "hnelson"
+    realm = "example.com"
+    nonce = "XVss/yPp4ZToAItV2acf5jgCYU1ALDNoUzGSqJZA" 
+    nc = 00000001
+    cnonce = "rQRG4H27HqvdjDVh1OhtrtYD88daWWdvfAj9XGl2"
+    digest-uri = "ldap/localhost"
+    maxbuf = 65536 
+    response = ef 63 c3 b9 c3 76 7e e6 c8 4b eb e7 7b 6e d4 56, 
+    qop = auth
+
+One of the big difference with **CRAM-MD5** is that we send a _realm_ (**example.com** here), which must be configured on the server and on the client.
+
+The authentication requires 3 pieces of information on the client side :
+
+    * the userName
+    * the realm
+    * the user password
+
+## Server configuration
+
+There are a few parameters we need to configure on the server to allow this mechanism to work. First, we need to define the _searchBaseDn_, which describes where will the server look for entries having the **UID** attributeType. This is a part of the _ldapServer_ configuration :
+
+![ApacheDS SASL searchBaseDn Configuration](images/sasl-digest-md5-config.png)
+
+This parameter (_ads_searchBaseDn_ attributeType) can be found on the following entry :
+
+    :::Text
+    ads-serverId=ldapServer,ou=servers,ads-directoryServiceId=default,ou=config
+
+You also have to configure the **SaslRealms** which is also contained into the same entry (_ads_saslrealms_ attributeType)
+
+
+<DIV class="note" markdown="1">
+ApacheDS expect the given name to be stored in the **UID** Attribute. This is not configurable in this version of the server.
+</DIV>
+
+<DIV class="warn" markdown="1">
+The password must be stored in clear text on the server. This is a serious weakness...
+</DIV>

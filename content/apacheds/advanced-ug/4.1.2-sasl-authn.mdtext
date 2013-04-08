@@ -67,6 +67,14 @@ Configuring this list can also be done using **Studio ApacheDS Configuration** p
 
 ![ApacheDS SASL mechanisms configuration](images/sasl-mechanisms-config.png)
 
+## Usage and security
+
+Most of teh existing **SASL** mechanisms are just either useless (**PLAIN**, **ANONYMOUS**) or too weak to be used in a secured environement (**DIGEST-MD5** or **CRAM-MD5**).
+
+A new **SASL** mechanism has been designed to replace the last two mechanisms : **SCRAM** ([RFC 5802](http://www.ietf.org/rfc/rfc5802.txt)).
+
+In any case, if you are using one of those mechanisms, be sure to activate **TLS**.
+
 
 ## Specifications
 
