@@ -59,6 +59,15 @@ It's of course possible to modify the list of supported **SASL** mechanisms, by 
     :::Text
     ou=saslMechHandlers,ads-serverId=ldapServer,ou=servers,ads-directoryServiceId=default,ou=config
 
+One can also check the configured **SASL** mchanisms on the server by sending a _SeachRequest_ to the server, on the _RootDSE_, looking for the _supportedSASLMechanisms_. Here is the esult on ApacheDS 2.0.0 :
+
+![ApacheDS supported SASL mechanisms](images/supported-sasl-mechanisms.png)
+
+Configuring this list can also be done using **Studio ApacheDS Configuration** plugin :
+
+![ApacheDS SASL mechanisms configuration](images/sasl-mechanisms-config.png)
+
+
 ## Specifications
 
 The SASL specifications are defined by an [IETF Working Group](http://datatracker.ietf.org/wg/sasl/) which has published the following proposed standards :
