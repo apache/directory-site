@@ -28,7 +28,7 @@ The **CRAM-MD5** **SASL** mechanism is defined by [RFC 2195](http://www.ietf.org
 
 We will have an exchange between the client, which will send an empty _Bind request_ (ie, the username and credentials won't be sent the first time), and the server will return a challenge.
 
-<DIV class="warn" markdown="1">
+<DIV class="warning" markdown="1">
 It's not recommanded to use this mechanism.
 </DIV>
 
@@ -78,6 +78,6 @@ When the server receives a **SASL PLAIN** bind request, it will look for the fir
 ApacheDS expect the given name to be stored in the **UID** Attribute. This is not configurable in this version of the server.
 </DIV>
 
-<DIV class="warn" markdown="1">
+<DIV class="warning" markdown="1">
 The password must be stored in clear text on the server. This is a serious weakness...
 </DIV>
