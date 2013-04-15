@@ -28,7 +28,34 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 This authentication mechanism is specified in the following RFCs :
 
-    * [RFC 2222](http://tools.ietf.org/html/rfc2222)
-    * [RFC ](http://tools.ietf.org/html/rfc)
     * [RFC 4752](http://tools.ietf.org/html/rfc4752)
 
+It's more specically used for Kerberos V5 authentication. As **Apache Directory Server** is also a _Kerberos Server_, it comes as a natural extension of the server.
+
+It requires some configuration though. 
+
+## Configuration
+
+The idea is for the **LDAP** server to delegate the authenticatio  to the **Kerberos** Server.
+
+
+## Usage
+
+MessageType : BIND_REQUEST
+Message ID : 1
+    BindRequest
+        Version : '3'
+        Name : ''
+        Sasl credentials
+            Mechanism :'GSSAPI'
+            Credentials : (omitted-for-safety)
+
+
+MessageType : BIND_RESPONSE
+Message ID : 1
+    BindResponse
+        Ldap Result
+            Result code : (SASL_BIND_IN_PROGRESS) saslBindInProgress -- new
+            Matched Dn : 'null'
+            Diagnostic message : 'null'
+        Server sasl credentials : ''
