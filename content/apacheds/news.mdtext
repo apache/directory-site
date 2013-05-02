@@ -1,5 +1,27 @@
 # News
 
+## ApacheDS 2.0.0-M12 released _posted on May 2nd, 2013_
+
+The Apache Directory team is pleased to announce the release of ApacheDS 2.0.0-M12, the twelwth milestone towards a 2.0 version.
+
+ApacheDS is an extensible and embeddable directory server entirely written in Java, which has been certified LDAPv3 compatible by the Open Group. Besides LDAP it supports Kerberos 5 and the Change Password Protocol. It has been designed to introduce triggers, stored procedures, queues and views to the world of LDAP which has lacked these rich constructs.
+
+Here is the release note for Apache Directory ApacheDS 2.0.0-M12:
+
+  * [DIRSERVER-1798](https://issues.apache.org/jira/browse/DIRSERVER-1798) - The AdministrativePoint interceptor is always activated, even if it's not part of the config
+  * [DIRAPI-80](https://issues.apache.org/jira/browse/DIRAPI-80) - Cannot issue a direct operation without having connected to the server
+  * [DIRSERVER-1143](https://issues.apache.org/jira/browse/DIRSERVER-1143) - ldappasswd fails to bind
+  * [DIRSERVER-1584](https://issues.apache.org/jira/browse/DIRSERVER-1584) - document how to limit the available ciphers for ldaps (how to disable SSL3_RSA_RC4_40_MD5 : SSL_EXPORT SSL3_RSA_DES_40_CBC_SHA)
+  * [DIRSERVER-1812](https://issues.apache.org/jira/browse/DIRSERVER-1812) -  The default admin account should never get locked forever 
+  * [DIRSERVER-1814](https://issues.apache.org/jira/browse/DIRSERVER-1814) - Using anon connection results in UnbindRequestHandler reporting 'LdapNoSuchObjectException: ERR_268 Cannot find a partition for ' 
+  * [DIRSERVER-1826](https://issues.apache.org/jira/browse/DIRSERVER-1826) - The ads-pwdFailureCountInterval is not taken into account
+  * [DIRSERVER-1834](https://issues.apache.org/jira/browse/DIRSERVER-1834) - Broken backend when using AT with no EQUALITY MR
+
+This is a critical version, and anyone using 2.0.0-M11 should replace it with this version.  
+
+Downloads are available [here](downloads.html)
+
+
 ## ApacheDS 2.0.0-M11 released _posted on March 3rd, 2013_
 
 The Apache Directory team is pleased to announce the release of ApacheDS 2.0.0-M11, the eleventh milestone towards a 2.0 version.
