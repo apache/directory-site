@@ -1,10 +1,10 @@
-Title: 4.5.1 Introduction
-NavPrev: 4.5-authorization.html
-NavPrevText: 4.5 - Authorization
-NavUp: 4.5-authorization.html
-NavUpText: 4.5 - Authorization
-NavNext: 4.5.2-definitions.html
-NavNextText: 4.5.2 Definitions
+Title: 4.2.1 Introduction
+NavPrev: 4.2-authorization.html
+NavPrevText: 4.2 - Authorization
+NavUp: 4.2-authorization.html
+NavUpText: 4.2 - Authorization
+NavNext: 4.2.2-definitions.html
+NavNextText: 4.2.2 Definitions
 Notice: Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
     distributed with this work for additional information
@@ -21,33 +21,37 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
-    {scrollbar}
+
+# 4.2.1 - Introduction
+
 First of all, one has to understand that Authorization in this context
 involves four components. The principle is :
  
-{panel} grants *Users* authorization to proceed some *Action* on a set of
-*Items* in a defined *Area*{panel}
+<DIV class="info" markdown="1">
+ grants <b>Users</b> authorization to proceed some <b>Action</b> on a set of
+<b>Items</b> in a defined <b>Area</b>
+</DIV>
 
 Let's define the four components.
 
-*Users* :
-bq. the set of entity being able to do some action. It can be every user,
+**Users** :
+the set of entity being able to do some action. It can be every user,
 the entry owner, a list of users, members of a group or a selection in the
-DIT. Basically, a *user* is defined as an entry in the DIT. 
+DIT. Basically, a **user** is defined as an entry in the DIT. 
 
-*Action* :
-bq. Generally speaking, a grant or denial to do something, depending on the
+**Action** :
+Generally speaking, a grant or denial to do something, depending on the
 selected item (read, delete, etc).
 
-*Items* :
-bq. An *item* is an element of the DIT. It can be an Entry, an
+**Items** :
+An **item** is an element of the DIT. It can be an Entry, an
 AttributeType, some AttributeValues. It can also define some constraints
 that will apply on the selected entries.
 
-*Area* :
-bq.It defines the set of entries on which the defined ACI applies. It can
+**Area** :
+It defines the set of entries on which the defined ACI applies. It can
 be the whole DIT, a part of the DIT, a selection of entries, an Entry.
 
-We implement those elements using *ACI*s.
+We implement those elements using **ACI**s.
 
 The following chapters will present you the system inside out.
