@@ -1,10 +1,10 @@
-Title: 4.5.7.1 Enable Authenticated Users to Browse and Read Entries
-NavPrev: 4.5.7-using-acis-trail.html
-NavPrevText: 4.5.7 Using ACIs trail
-NavUp: 4.5.7-using-acis-trail.html
-NavUpText: 4.5.7 Using ACIs trail
-NavNext: 4.5.8-acis-administration.html
-NavNextText: 4.5.8 ACIs administration
+Title: 4.2.7.1 Enable Authenticated Users to Browse and Read Entries
+NavPrev: 4.2.7-using-acis-trail.html
+NavPrevText: 4.2.7 Using ACIs trail
+NavUp: 4.2.7-using-acis-trail.html
+NavUpText: 4.2.7 Using ACIs trail
+NavNext: 4.2.8-acis-administration.html
+NavNextText: 4.2.8 ACIs administration
 Notice: Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
     distributed with this work for additional information
@@ -21,6 +21,8 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
+
+# 4.2.7.1 Enable Authenticated Users to Browse and Read Entries
 
 In this trail, we will show how we will allow all authenticated users to browse and read all the entries.
 
@@ -55,7 +57,7 @@ Here is the resulting entry :
 
 ## Subentry addition
 
-Now, we have to create a *subentry* in which we will add the **prescriptiveACI** granting access to all the users.
+Now, we have to create a **subentry** in which we will add the **prescriptiveACI** granting access to all the users.
 
 Let's define the ACI first.
 
@@ -112,10 +114,11 @@ for the Entry and all the values :
  	  protectedItems {entry, allUserAttributeTypesAndValues}, 
 
 The granted permissions are used to allow the user to browse the tree
-(*grantBrowse*), read the entries (*grantRead*) and return the DN for
-aliases (*grantReturnDN*).
+(**grantBrowse**), read the entries (*grantRead*) and return the DN for
+aliases (**grantReturnDN**).
 
 <a name="2.5.7.1EnableAuthenticatedUserstoBrowseandReadEntries-PrescriptiveACIaddition"></a>
+
 ## PrescriptiveACI addition
 
 Now that we have defined the *ACIItem*, we have to add it into a *subentry*
