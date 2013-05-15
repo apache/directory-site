@@ -40,20 +40,20 @@ In our case, the **dc=example,dc=com** context entry has to contain the **admini
 
 Let's first connect to the server using the **admin** user, and select the **dc=example,dc=com** entry :
 
-!Screen shot 2010-07-04 at 8.45.09 PM.png|border=1!
+![dc=example.com](images/ACI-example.png)
 
 
 We will now add the **directoryOperation** attribute **administrativeRole** to this entry :
 
 ![AdministrativeRole new attribute](images/ACI-new-attribute.png)
 
-and we select the *accessControlSpecificArea* value :
+and we select the **accessControlSpecificArea** value :
 
-!Screen shot 2010-07-04 at 10.18.49 PM.png|border=1!
+![AccessControlSpecificArea](images/ACI-access-control-specific-area.png)
 
 Here is the resulting entry :
 
-!Screen shot 2010-07-04 at 10.19.44 PM.png|border=1!
+![Result Entry](images/ACI-result-entry.png)
 
 ## Subentry addition
 
@@ -86,17 +86,14 @@ Here's the ACIItem we will add :
 There are several parameters to this simple ACIItem. Here's a breif
 exaplanation of each field and it's meaning or significance.
 
-<table>
-<tr><th> Fields </th><th> Description </th></tr>
-<tr><td> identificationTag </td><td> Identifies the ACIItem within an entry. </td></tr>
-<tr><td> precedence </td><td> Determine which ACI to apply with conflicting ACIItems. </td></tr>
-<tr><td> authenticationLevel </td><td> User's level of trust with values of none, simple,
-strong </td></tr>
-<tr><td> itemOrUserFirst </td><td> Determines order of item permissions or user
-permissions. </td></tr>
-<tr><td> userClasses </td><td> The set of users the permissions apply to. </td></tr>
-<tr><td> userPermissions </td><td> Permissions on protected items </td></tr>
-</table>
+| Fields | Description |
+|---|---|
+| identificationTag | Identifies the ACIItem within an entry. |
+| precedence | Determine which ACI to apply with conflicting ACIItems. |
+| authenticationLevel | User's level of trust with values of none, simple, strong |
+| itemOrUserFirst | Determines order of item permissions or user permissions. |
+| userClasses | The set of users the permissions apply to. |
+| userPermissions | Permissions on protected items |
 
 In our case, we want to grant all the users :
 
@@ -114,17 +111,17 @@ for the Entry and all the values :
  	  protectedItems {entry, allUserAttributeTypesAndValues}, 
 
 The granted permissions are used to allow the user to browse the tree
-(**grantBrowse**), read the entries (*grantRead*) and return the DN for
+(**grantBrowse**), read the entries (**grantRead**) and return the DN for
 aliases (**grantReturnDN**).
 
 <a name="2.5.7.1EnableAuthenticatedUserstoBrowseandReadEntries-PrescriptiveACIaddition"></a>
 
 ## PrescriptiveACI addition
 
-Now that we have defined the *ACIItem*, we have to add it into a *subentry*
-associated with the *administration point*. This is just an entry under the
-*administration Point*, here, we will call it *cn=enableSearchForAllUsers,
-dc=example,dc=com*.
+Now that we have defined the *A*CIItem**, we have to add it into a **subentry**
+associated with the **administration point**. This is just an entry under the
+**administration Point**, here, we will call it **cn=enableSearchForAllUsers,
+dc=example,dc=com**.
 
 The entry is described below in a LDIF format :
 
@@ -152,33 +149,33 @@ The entry is described below in a LDIF format :
     }
   }
 
-It's also easy to create such an entry with *Apache Directory Studio*.
+It's also easy to create such an entry with **Apache Directory Studio**.
 First, right click on the context entry, and select 'new Entry' :
 
-!Screen shot 2010-07-04 at 11.57.50 PM.png|border=1!
+![New entry](images/ACI-new-entry.png)
 
 Then create a new entry from scratch, and select the 'subentry' and
 'accessControlSubentry' ObjectClasses :
 
-!Screen shot 2010-07-04 at 11.59.28 PM.png|border=1!
+![ObjectClass selection](images/ACI-subentry-oc.png)
 
 Create the RDN for this new entry :
 
-!Screen shot 2010-07-05 at 12.01.43 AM.png|border=1!
+![Rdn creation](images/ACI-rdn-creation.png)
 
 Pass the subtree editor, we don't need to define anything here, and go to
 the Attributes definition :
 
-!Screen shot 2010-07-05 at 12.03.21 AM.png|border=1!
+![Attributes definition](images/ACI-attributes-definition.png)
 
-The next step is to add the *rescriptiveACI* value, using the dedicated
+The next step is to add the **prescriptiveACI** value, using the dedicated
 editor :
 
-!Screen shot 2010-07-05 at 12.12.16 AM.png|border=1!
+![PrescriptiveACI addition](images/ACI-prescriptive-aci.png)
 
 When the selection has been done, we have to add the permissions :
 
-!Screen shot 2010-07-05 at 12.13.47 AM.png|border=1!
+![Add permissions](images/ACI-add-permissions.png)
  
 
-Once done, all the entries under *dc=example,dc=com* are ruled by this ACI
+Once done, all the entries under **dc=example,dc=com** are ruled by this ACI
