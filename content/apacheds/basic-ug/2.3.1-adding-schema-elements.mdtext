@@ -96,7 +96,7 @@ The goal is to store ship entries in our directory, backing the "Seven Seas" exa
 
 Here is a sample entry for a ship in LDIF:
 
-    ::: text
+    :::text
     dn: cn=HMS Victory,ou=ships,o=sevenSeas
     objectClass: top
     objectClass: ship
@@ -111,7 +111,7 @@ A ship entry is comprised of a mandatory value for common name (cn) of the ship,
 
 Here is the definition of our custom attribute type numberOfGuns formatted according to RFC 4512.
 
-    ::: text
+    :::text
     ( 1.3.6.1.4.1.18060.0.4.3.2.1 
      NAME 'numberOfGuns'  DESC 'Number of guns of a ship'
      EQUALITY integerMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 
@@ -122,7 +122,7 @@ Here is the definition of our custom attribute type numberOfGuns formatted accor
 
 Custom object class ship is defined as follows
 
-    ::: text
+    :::text
     ( 1.3.6.1.4.1.18060.0.4.3.3.1 
      NAME 'ship' DESC 'An entry which represents a ship' 
      SUP top STRUCTURAL 
@@ -135,7 +135,7 @@ A very convenient way to add your own schema elements to Apache Directory Server
 
 Our file sevenSeas.schema looks like this:
 
-    ::: text
+    :::text
     attributetype ( 1.3.6.1.4.1.18060.0.4.3.2.1 
             NAME 'numberOfGuns' 
             DESC 'Number of guns of a ship'
@@ -143,6 +143,7 @@ Our file sevenSeas.schema looks like this:
             SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 
             SINGLE-VALUE 
      )
+     
     objectclass ( 1.3.6.1.4.1.18060.0.4.3.3.1 
             NAME 'ship'
             DESC 'An entry which represents a ship' 
