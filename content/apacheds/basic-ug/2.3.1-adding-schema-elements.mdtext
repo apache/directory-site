@@ -152,4 +152,53 @@ Our file sevenSeas.schema looks like this:
             MAY ( numberOfGuns $ description ) 
      )
 
+In Eclipse with the Apache Directory Studio plugins installed (or alternatively the standalone RCP application of Apache Directory Studio, if you prefer this), open the Schemas Editor :
 
+![Schema Editor](images/schema-editor.png)
+
+Now, create a new schema project. Here, you have a choice :
+ * either you create a offline schema project
+ * or you create a project that will pull the schema from an existing ApacheDS server (it must be running, and a connection must have been created in Studio)
+
+### Offline schema project
+
+You need to create a new schema project, and to select the targeted server (either ApacheDS or OpenLDAP) :
+
+![Select target server](images/select-target-server.png)
+
+Then select all the schema you want to use this is necessary if you are to extend an AttributeType or an ObjectClass in your own schema)
+
+### Connected schema project
+
+In this case, you will see all the existing schema in the ApacheDS server you are connected to :
+
+![Connected Schema Project](images/connected-schema-project.png)
+
+### Creating the new schema
+
+Create the new schema you want to add by clicking on the 'schema creation' icon, as shown in the following picture :
+
+![Create Schema](images/create-schema.png)
+
+Now, you can add the Attribute Type or ObjectClasses you need in this added schema (see how to create schema elements in Apache Directory Studio documentation).
+
+<DIV class="warning" markdown="1">
+Sadly, in this version, the modifications you have made on a schema won't be injected into the server. In fact, the existing schemas are loaded from the server, and every modification is applied locally, not on the remote server.
+
+In order to inject the modified schema, you need to export the modifications in LDIF format for ApacheDS, and to import this LDIF into the targeted ApacheDS server.
+</DIV>
+
+Once this is done, you hav to export the modifications in a format that will fit what is expected by ApacheDS. Right click on the schemas windows, select 'export-> Schemas for ApacheDS', and in the popup, select the schema you have added :
+
+![Export Schema](images/export-schema.png)
+
+### Importing the schema
+
+The last step is to import the newly created LDIF into your ApacheDS instance. Just import it as any other LDIF, it will create a new element in your server schema :
+![Import Schema](images/import-schema.png)
+
+You should see your schema into the list of supported schemas.
+
+<DIV class="warning" markdown="1">
+You must restart the server if you want to use the added AttributeTypes or ObjectClasses. The schema is currently not dynamic in ApacheDS
+</DIV>
