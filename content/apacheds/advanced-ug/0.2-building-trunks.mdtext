@@ -29,7 +29,7 @@ This page give some information about the layout of *Apache DS 2.0* trunks, and 
 
 ## Project Hierarchy
 
-The server is a composition of manuy projects, which should be built in a given order, assuming you want to build the trunk. This order is enforced by a top level pom, so you don't need to take care of this at all. 
+The server is a composition of many projects, which should be built in a given order, assuming you want to build the trunk. This order is enforced by a top level pom, so you don't need to take care of this at all. 
 
 We will expose the projects hierarchy, just for information.
 
@@ -59,7 +59,7 @@ It has one single module :
 
 _Dependencies_ : project
 
-### Shared project (AKA LDAP API)
+### Apache Directory LDAP API project (formerly known as "Shared")
 
 This project contains all the common LDAP structures that are used by ApacheDS, Apache Studio and the Apache LDAP API. In fact, this is the Apache LDAP API (even if we do have slightly more than necessary for an LDAP API).
 
@@ -67,37 +67,37 @@ This project depends on 'project'.
 
 Here is its hierarchy :
 
-* shared-parent
-	* shared-i18n
-    * shared-util
-	* shared-asn1-parent
-	* shared-asn1-api
-	* shared-asn1-ber
-	* shared-ldap-parent
-	* shared-ldap-model
-	* shared-ldap-codec-parent
-	* shared-ldap-codec-core
-	* shared-ldap-net-parent
-	* shared-ldap-net-mina
-	* shared-ldap-codec-standalone
-	* shared-dsml-parent
-	* shared-dsml-parser
-	* shared-ldap-extras-parent
-	* shared-ldap-extras-aci
-	* shared-ldap-schema-parent
-	* shared-ldap-schema-data
-	* shared-ldap-client-parent
-	* shared-ldap-client-api
-	* shared-dsml-engine
-	* shared-ldap-extras-codec-api
-	* shared-ldap-extras-codec
-	* shared-ldap-extras-util
-	* shared-ldap-extras-sp
-	* shared-ldap-extras-trigger
-	* shared-ldap-schema-converter
-	* shared-all
-	* shared-ldap-client-all
-	* shared-integ
+* api-parent
+	* api-i18n
+    * api-util
+	* api-asn1-parent
+	* api-asn1-api
+	* api-asn1-ber
+	* api-ldap-parent
+	* api-ldap-model
+	* api-ldap-codec-parent
+	* api-ldap-codec-core
+	* api-ldap-net-parent
+	* api-ldap-net-mina
+	* api-ldap-codec-standalone
+	* api-dsml-parent
+	* api-dsml-parser
+	* api-ldap-extras-parent
+	* api-ldap-extras-aci
+	* api-ldap-schema-parent
+	* api-ldap-schema-data
+	* api-ldap-client-parent
+	* api-ldap-client-api
+	* api-dsml-engine
+	* api-ldap-extras-codec-api
+	* api-ldap-extras-codec
+	* api-ldap-extras-util
+	* api-ldap-extras-sp
+	* api-ldap-extras-trigger
+	* api-ldap-schema-converter
+	* api-all
+	* api-ldap-client-all
+	* api-integ
 	* apache-ldap-api
 
 _Dependencies_ : project, junit-addons
