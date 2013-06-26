@@ -1,5 +1,65 @@
 # News
 
+## ApacheDS 2.0.0-M13 released _posted on June 25th, 2013_
+
+The Apache Directory team is pleased to announce the release of ApacheDS 2.0.0-M13, the thirteenth milestone towards a 2.0 version.
+
+ApacheDS is an extensible and embeddable directory server entirely written in Java, which has been certified LDAPv3 compatible by the Open Group. Besides LDAP it supports Kerberos 5 and the Change Password Protocol. It has been designed to introduce triggers, stored procedures, queues and views to the world of LDAP which has lacked these rich constructs.
+
+Here is the release note for Apache Directory ApacheDS 2.0.0-M13:
+
+<b>Bugs</b>
+
+  * [DIRSERVER-1325](https://issues.apache.org/jira/browse/DIRSERVER-1325) - Simple Authentication can not be disabled
+  * [DIRSERVER-1490](https://issues.apache.org/jira/browse/DIRSERVER-1490) - Not 100% sure, but the DN caches we have in the server might not be updated when doing a Move
+  * [DIRSERVER-1491](https://issues.apache.org/jira/browse/DIRSERVER-1491) - Improve schema extractor
+  * [DIRSERVER-1500](https://issues.apache.org/jira/browse/DIRSERVER-1500) - Error searching children of known element.
+  * [DIRSERVER-1521](https://issues.apache.org/jira/browse/DIRSERVER-1521) - dc=example,dc=com DIT no longer exists as a default partition (DIT) in 1.5.7?
+  * [DIRSERVER-1579](https://issues.apache.org/jira/browse/DIRSERVER-1579) - Various problems using moddn operation
+  * [DIRSERVER-1661](https://issues.apache.org/jira/browse/DIRSERVER-1661) - Kerberos tests not working with JDK 1.6.0_27 and JDK 1.7.0
+  * [DIRSERVER-1806](https://issues.apache.org/jira/browse/DIRSERVER-1806) - The DelegatedAuthIT test does not test a delegated authentication
+  * [DIRSERVER-1829](https://issues.apache.org/jira/browse/DIRSERVER-1829) - bug in initializing authenticators for AuthenticatorInterceptor
+  * [DIRSERVER-1836](https://issues.apache.org/jira/browse/DIRSERVER-1836) - When extedning an interceptor, the operation are executed twice
+  * [DIRSERVER-1840](https://issues.apache.org/jira/browse/DIRSERVER-1840) - Wrong default duration for ads-repllogmaxidle
+  * [DIRSERVER-1846](https://issues.apache.org/jira/browse/DIRSERVER-1846) - Configuring SSL/Start TLS keystore does not accept backward slash (\) in path
+  * [DIRSERVER-1849](https://issues.apache.org/jira/browse/DIRSERVER-1849) - Invalid prefixes format for password stored using SHA-2 hashing mechanisms (SHA-256, SHA-384, SHA-512)
+  * [DIRSERVER-1862](https://issues.apache.org/jira/browse/DIRSERVER-1862) - Concurrent searches and adds may break the backend
+
+
+<b>Improvement</b>
+
+  * [DIRSERVER-289](https://issues.apache.org/jira/browse/DIRSERVER-289) - Configure an optional password message digest algorithm which is applied on userPassword attribute values at add and modify operations.
+  * [DIRSERVER-1236](https://issues.apache.org/jira/browse/DIRSERVER-1236) - Store an AttributeEntry object in filter's node
+  * [DIRSERVER-1310](https://issues.apache.org/jira/browse/DIRSERVER-1310) - Improve the way we handle controls encoding/decoding
+  * [DIRSERVER-1346](https://issues.apache.org/jira/browse/DIRSERVER-1346) - Use ServiceLifecycleListener to avoid having System.out messages for service start/stop events.
+  * [DIRSERVER-1447](https://issues.apache.org/jira/browse/DIRSERVER-1447) - loadAllEnabled() method is taking way too long
+  * [DIRSERVER-1489](https://issues.apache.org/jira/browse/DIRSERVER-1489) - Provide access to remote connection info
+  * [DIRSERVER-1511](https://issues.apache.org/jira/browse/DIRSERVER-1511) - Some operations are present in the Partition interface when they should not
+  * [DIRSERVER-1617](https://issues.apache.org/jira/browse/DIRSERVER-1617) - Add a feature to support TLS in DelegatingAuthenticator
+  * [DIRSERVER-1801](https://issues.apache.org/jira/browse/DIRSERVER-1801) - The authenticator cache is invalidated too frequently
+
+
+<b>New Feature</b>
+
+  * [DIRSERVER-275](https://issues.apache.org/jira/browse/DIRSERVER-275) - Add Support for LDAP Password Modify Extended Operation
+  * [DIRSERVER-434](https://issues.apache.org/jira/browse/DIRSERVER-434) - Add Support for Paged Search Results Control
+  * [DIRSERVER-866](https://issues.apache.org/jira/browse/DIRSERVER-866) - Initialization with another backend than JDBM for the system partition
+  * [DIRSERVER-1203](https://issues.apache.org/jira/browse/DIRSERVER-1203) - RFC2307bis Support is missing
+  * [DIRSERVER-1837](https://issues.apache.org/jira/browse/DIRSERVER-1837) - The DelegatingAuthenticator does not support SSL/StartTLS/SASL
+
+
+<b>Task</b>
+
+  * [DIRSERVER-710](https://issues.apache.org/jira/browse/DIRSERVER-710) - Exception tree should be reviewed
+
+
+
+This is a critical version, and anyone using 2.0.0-M12 should replace it with this version.  
+
+Downloads are available [here](downloads.html)
+
+
+
 ## ApacheDS 2.0.0-M12 released _posted on May 2nd, 2013_
 
 The Apache Directory team is pleased to announce the release of ApacheDS 2.0.0-M12, the twelwth milestone towards a 2.0 version.
@@ -7,6 +67,8 @@ The Apache Directory team is pleased to announce the release of ApacheDS 2.0.0-M
 ApacheDS is an extensible and embeddable directory server entirely written in Java, which has been certified LDAPv3 compatible by the Open Group. Besides LDAP it supports Kerberos 5 and the Change Password Protocol. It has been designed to introduce triggers, stored procedures, queues and views to the world of LDAP which has lacked these rich constructs.
 
 Here is the release note for Apache Directory ApacheDS 2.0.0-M12:
+
+<b>Bugs</b>
 
   * [DIRSERVER-1798](https://issues.apache.org/jira/browse/DIRSERVER-1798) - The AdministrativePoint interceptor is always activated, even if it's not part of the config
   * [DIRAPI-80](https://issues.apache.org/jira/browse/DIRAPI-80) - Cannot issue a direct operation without having connected to the server
@@ -21,7 +83,6 @@ This is a critical version, and anyone using 2.0.0-M11 should replace it with th
 
 Downloads are available [here](downloads.html)
 
-
 ## ApacheDS 2.0.0-M11 released _posted on March 3rd, 2013_
 
 The Apache Directory team is pleased to announce the release of ApacheDS 2.0.0-M11, the eleventh milestone towards a 2.0 version.
@@ -29,6 +90,8 @@ The Apache Directory team is pleased to announce the release of ApacheDS 2.0.0-M
 ApacheDS is an extensible and embeddable directory server entirely written in Java, which has been certified LDAPv3 compatible by the Open Group. Besides LDAP it supports Kerberos 5 and the Change Password Protocol. It has been designed to introduce triggers, stored procedures, queues and views to the world of LDAP which has lacked these rich constructs.
 
 Here is the release note for Apache Directory ApacheDS 2.0.0-M11:
+
+<b>Bugs</b>
 
   * [DIRSERVER-1281](https://issues.apache.org/jira/browse/DIRSERVER-1281) - StreamCorruptedException after brutal shutdown
   * [DIRSERVER-1797](https://issues.apache.org/jira/browse/DIRSERVER-1797) - The AdministrativeRole AT is not indexed, leadings to huge delay when starting the server
@@ -56,6 +119,8 @@ ApacheDS is an extensible and embeddable directory server entirely written in Ja
 
 Here is the release note for Apache Directory ApacheDS 2.0.0-M10:
 
+<b>Bugs</b>
+
 * [DIRSERVER-1704](https://issues.apache.org/jira/browse/DIRSERVER-1704) - Inconistency in Master-Slave Replication
 * [DIRSERVER-1740](https://issues.apache.org/jira/browse/DIRSERVER-1740) - REPLICATION data loss
 * [DIRSERVER-1772](https://issues.apache.org/jira/browse/DIRSERVER-1772) - Improve the replication logs
@@ -77,6 +142,8 @@ The Apache Directory team is pleased to announce the release of ApacheDS 2.0.0-M
 ApacheDS is an extensible and embeddable directory server entirely written in Java, which has been certified LDAPv3 compatible by the Open Group. Besides LDAP it supports Kerberos 5 and the Change Password Protocol. It has been designed to introduce triggers, stored procedures, queues and views to the world of LDAP which has lacked these rich constructs.
 
 Here is the release note for Apache Directory ApacheDS 2.0.0-M8:
+
+<b>Bugs</b>
 
 * [DIRSERVER-1458](https://issues.apache.org/jira/browse/DIRSERVER-1458) - Cursor API generic usage is totally wrong
 * [DIRSERVER-1624](https://issues.apache.org/jira/browse/DIRSERVER-1624) - Index are not created when added after the server has been started
@@ -116,6 +183,8 @@ ApacheDS is an extensible and embeddable directory server entirely written in Ja
 
 Here is the release note for Apache Directory ApacheDS 2.0.0-M7:
 
+<b>Bugs</b>
+
 * [DIRSERVER-1093](https://issues.apache.org/jira/browse/DIRSERVER-1093) - the ResourceRecordEncoder and QuestionRecordEncoder have bug for empty domainName
 * [DIRSERVER-1697](https://issues.apache.org/jira/browse/DIRSERVER-1697) - Creation of new syntax fails due to ERR_277 Attribute m-obsolete not declared in objectClasses of entry
 * [DIRSERVER-1698](https://issues.apache.org/jira/browse/DIRSERVER-1698) - Search on entries with multiple AVA in RDN does not work correctly if the initial RDN order is not used
@@ -136,6 +205,8 @@ The Apache Directory team is pleased to announce the release of ApacheDS 2.0.0-M
 ApacheDS is an extensible and embeddable directory server entirely written in Java, which has been certified LDAPv3 compatible by the Open Group. Besides LDAP it supports Kerberos 5 and the Change Password Protocol. It has been designed to introduce triggers, stored procedures, queues and views to the world of LDAP which has lacked these rich constructs.
 
 Here is the release note for Apache Directory ApacheDS 2.0.0-M6:
+
+<b>Bugs</b>
 
 * [DIRSERVER-1644](https://issues.apache.org/jira/browse/DIRSERVER-1644) - User provided value is not retained during rename operation
 * [DIRSERVER-1681](https://issues.apache.org/jira/browse/DIRSERVER-1681) - adding entries with attribute userCertificate;binary fails with "No such attribute"

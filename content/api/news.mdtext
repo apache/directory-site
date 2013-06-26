@@ -1,4 +1,29 @@
 # News
+## Apache Directory LDAP API 1.0.0-M18 released _posted on June 25th, 2013_
+
+The Apache Directory Team is proud to announce the availability of version 1.0.0-M18 of the Apache Directory LDAP API.
+
+The Apache Directory LDAP API is an ongoing effort to provide an enhanced LDAP API, as a replacement for JNDI and the existing LDAP API (jLdap and Mozilla LDAP API).
+
+This is a schema aware API, with some convenient ways to access a LDAP server. This API is not only targeting the Apache Directory Server, but should work pristine with any LDAP server.
+
+It's also an extensible API : new Controls, schema elements and network layer could be added or used in the near future. It's also OSGi capable.
+
+Here are the release note for Apache Directory LDAP API 1.0.0-M18:
+
+  * [DIRAPI-112](https://issues.apache.org/jira/browse/DIRAPI-112) - Review Package Names
+  * [DIRAPI-130](https://issues.apache.org/jira/browse/DIRAPI-130) - The extended responses are not decoded into their respective type
+  * [DIRAPI-132](https://issues.apache.org/jira/browse/DIRAPI-132) - Add support for the StartTLS operation
+  * [DIRAPI-133](https://issues.apache.org/jira/browse/DIRAPI-133) - Correlate an extendedResponse with its associated request, when we don't have a responseName
+  * [DIRAPI-139](https://issues.apache.org/jira/browse/DIRAPI-139) - o.a.d.api.ldap.codec.api.LdapEncoder should log encoded PDU via DEBUG
+  * [DIRAPI-140](https://issues.apache.org/jira/browse/DIRAPI-140) - Test ClientSearchRequestTest.testSubDn() fails
+  * [DIRAPI-147](https://issues.apache.org/jira/browse/DIRAPI-147) - LdifEntry equals method does not compare entry attributes when changetype is None  
+
+
+Feel free to experiment, we highly appreciate your feedback !
+
+Downloads are available [here](downloads.html) and the User's Guide is [there](user-guide.html)
+
 ## Apache Directory LDAP API 1.0.0-M17 released _posted on May 2nd, 2013_
 
 The Apache Directory Team is proud to announce the availability of version 1.0.0-M17 of the Apache Directory LDAP API.
@@ -9,7 +34,7 @@ This is a schema aware API, with some convenient ways to access a LDAP server. T
 
 It's also an extensible API : new Controls, schema elements and network layer could be added or used in the near future. It's also OSGi capable.
 
-Here are the release note for Apache Directory LDAP API 1.0.0-M16:
+Here are the release note for Apache Directory LDAP API 1.0.0-M17:
 
   * [DIRAPI-135](https://issues.apache.org/jira/browse/DIRAPI-135) - The connectiosn may be invalid when we get it from the pool
   * [DIRAPI-103](https://issues.apache.org/jira/browse/DIRAPI-103) - the PLAIN SASL BindRequest is not supported
