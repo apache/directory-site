@@ -42,7 +42,7 @@ In order to create a connection, you first have to provide the name of the serve
 Here is an example :
 
     :::java
-    LdapConnection connection = new LdapConnection( "localhost", 389 );
+    LdapConnection connection = new LdapNetworkConnection( "localhost", 389 );
 
 It's important to note that the connection has nothing to do with being bound, and this is a major difference with JNDI, where you create some context and provide the principalDN. A Connection is just a channel opened with the server, here.
 
@@ -86,13 +86,13 @@ Many parameters can be used in a search. The most commonly used are :
 Here is a simple search, done using only those four parameters :
 
     :::java
-    Cursor<SearchResponse> cursor = connection.search( "ou=system", "(objectclass=*)", SearchScope.ONELEVEL, "*" );
+    EntryCursor cursor = connection.search( "ou=system", "(objectclass=*)", SearchScope.ONELEVEL, "*" );
 
     while ( cursor.next() )
     {
-        SearchResponse response = cursor.get();
+        Entry entry = cursor.get();
 
-        // Process the response
+        // Process the entry
         ...
     }
 
