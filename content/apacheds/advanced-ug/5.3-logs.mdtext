@@ -51,8 +51,8 @@ Here is the Log4J configuration that comes with ApacheDS:
 
     log4j.appender.F=org.apache.log4j.RollingFileAppender
     log4j.appender.F.File=${apacheds.log.dir}/apacheds.log
-    log4j.appender.F.MaxFileSize=1024KB
-    log4j.appender.F.MaxBackupIndex=5
+    log4j.appender.F.MaxFileSize=100MB
+    log4j.appender.F.MaxBackupIndex=3
     log4j.appender.F.layout=org.apache.log4j.PatternLayout
     log4j.appender.F.layout.ConversionPattern=[%d{HH:mm:ss}] %p [%c] - %m%n
 
