@@ -47,59 +47,84 @@ Here is the Log4J configuration that comes with ApacheDS:
     #    See the License for the specific language governing permissions and
     #    limitations under the License.
     #############################################################################
-    log4j.rootCategory=WARN, R, stdout
+    log4j.rootCategory=WARN, F
 
-    log4j.appender.stdout=org.apache.log4j.ConsoleAppender
-    log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
+    log4j.appender.F=org.apache.log4j.RollingFileAppender
+    log4j.appender.F.File=${apacheds.log.dir}/apacheds.log
+    log4j.appender.F.MaxFileSize=1024KB
+    log4j.appender.F.MaxBackupIndex=5
+    log4j.appender.F.layout=org.apache.log4j.PatternLayout
+    log4j.appender.F.layout.ConversionPattern=[%d{HH:mm:ss}] %p [%c] - %m%n
 
-    log4j.appender.R=org.apache.log4j.RollingFileAppender
-    log4j.appender.R.File=${apacheds.log.dir}/apacheds.log
-
-    log4j.appender.R.MaxFileSize=1024KB
-    # Keep some backup files
-    log4j.appender.R.MaxBackupIndex=5
-
-    log4j.appender.R.layout=org.apache.log4j.PatternLayout
-    log4j.appender.R.layout.ConversionPattern=[%d{HH:mm:ss}] %p [%c] - %m%n
-
-    log4j.appender.stdout.layout.ConversionPattern=[%d{HH:mm:ss}] %p [%c] - %m%n
-
-    # with these we'll not get innundated when switching to DEBUG
-    log4j.logger.jdbm.recman.BaseRecordManager=FATAL
-    log4j.logger.org.apache.directory.server.OPERATIONS_LOG=FATAL
-    log4j.logger.org.apache.directory.server.OPERATION_TIME=FATAL
-    log4j.logger.org.apache.directory.api.CODEC_LOG=FATAL
-    log4j.logger.org.apache.directory.server.ACI_LOG=FATAL
-    log4j.logger.org.apache.directory.server.PROVIDER_LOG=FATAL
-    log4j.logger.org.apache.directory.server.CONSUMER_LOG=FATAL
-    log4j.logger.org.apache.directory.CURSOR_LOG=FATAL
-    log4j.logger.org.apache.directory.api=FATAL
-    log4j.logger.org.apache.directory.server=FATAL
-    log4j.logger.net.sf.ehcache=FATAL
-    log4j.logger.org.apache.mina=FATAL
+    # Specific loggers (useful for debugging)
+    #log4j.logger.jdbm.recman.BaseRecordManager=DEBUG
+    #log4j.logger.org.apache.directory.server.OPERATION_LOG=DEBUG
+    #log4j.logger.org.apache.directory.server.OPERATION_TIME=DEBUG
+    #log4j.logger.org.apache.directory.api.CODEC_LOG=DEBUG
+    #log4j.logger.org.apache.directory.server.ACI_LOG=DEBUG
+    #log4j.logger.org.apache.directory.server.PROVIDER_LOG=DEBUG
+    #log4j.logger.org.apache.directory.server.CONSUMER_LOG=DEBUG
+    #log4j.logger.org.apache.directory.CURSOR_LOG=DEBUG
+    #log4j.logger.org.apache.directory.api=DEBUG
+    #log4j.logger.org.apache.directory.server=DEBUG
+    #log4j.logger.net.sf.ehcache=DEBUG
+    #log4j.logger.org.apache.mina=DEBUG
 
 ## 5.3.2 Default log level
 
 By default, ApacheDS ships with a default log level set to **WARN** as indicated in the first line of the _**log4j.properties**_ file:
 
     :::Text
-    log4j.rootCategory=WARN, R, stdout
+    log4j.rootCategory=WARN, F
 
 This value can be modified to any of the seven log levels supported by Log4J:
 
-| Level | Usage |
+| Level | Description |
 |:-:|---|
-| _**OFF**_ | The _OFF_ has the highest possible rank and is intended to turn off logging. |
-| _**FATAL**_ | The _FATAL_ level designates very severe error events that will presumably lead the application to abort. |
-| _**ERROR**_ | The _ERROR_ level designates error events that might still allow the application to continue running. |
-| _**WARN**_ | The _WARN_ level designates potentially harmful situations. |
-| _**INFO**_ | The _INFO_ level designates informational messages that highlight the progress of the application at coarse-grained level. |
-| _**DEBUG**_ | The _DEBUG_ Level designates fine-grained informational events that are most useful to debug an application. |
-| _**TRACE**_ | The _TRACE_ Level designates finer-grained informational events than the DEBUG. |
+| _**OFF**_   | Highest possible rank and is intended to turn off logging. |
+| _**FATAL**_ | Very severe error events that will presumably lead the application to abort. |
+| _**ERROR**_ | Error events that might still allow the application to continue running. |
+| _**WARN**_  | Potentially harmful situations. |
+| _**INFO**_  | Informational messages that highlight the progress of the application at coarse-grained level. |
+| _**DEBUG**_ | Fine-grained informational events that are most useful to debug an application. |
+| _**TRACE**_ | Finer-grained informational events than the DEBUG. |
 
 Please refer to the [**Log4J Manual**](http://logging.apache.org/log4j/1.2/manual.html) for more details.
 
 ## 5.3.2 ApacheDS specific loggers
 
+Bundled at the end of the _**log4j.properties**_ file, are a set of specific loggers dedicated to a particular kind of events:
 
+    :::Text
+    # Specific loggers (useful for debugging)
+    #log4j.logger.jdbm.recman.BaseRecordManager=DEBUG
+    #log4j.logger.org.apache.directory.server.OPERATION_LOG=DEBUG
+    #log4j.logger.org.apache.directory.server.OPERATION_TIME=DEBUG
+    #log4j.logger.org.apache.directory.api.CODEC_LOG=DEBUG
+    #log4j.logger.org.apache.directory.server.ACI_LOG=DEBUG
+    #log4j.logger.org.apache.directory.server.PROVIDER_LOG=DEBUG
+    #log4j.logger.org.apache.directory.server.CONSUMER_LOG=DEBUG
+    #log4j.logger.org.apache.directory.CURSOR_LOG=DEBUG
+    #log4j.logger.org.apache.directory.api=DEBUG
+    #log4j.logger.org.apache.directory.server=DEBUG
+    #log4j.logger.net.sf.ehcache=DEBUG
+    #log4j.logger.org.apache.mina=DEBUG
 
+The table below summarizes what each specific logger does:
+
+| Logger | Description |
+|---|---|
+| log4j.logger.**jdbm.recman.BaseRecordManager** | Logs all information related to the JDBM database used to store the entries. |
+| log4j.logger.**org.apache.directory.server.OPERATION_LOG** | Logs all executed operations (search, add, delete, etc.). |
+| log4j.logger.**org.apache.directory.server.OPERATION_TIME** | Logs the time each operation takes to execute. |
+| log4j.logger.**org.apache.directory.api.CODEC_LOG** | Logs all incoming and outgoing LDAP Protocol requests/responses. |
+| log4j.logger.**org.apache.directory.server.ACI_LOG** | Logs all information related to the ACI system. |
+| log4j.logger.**org.apache.directory.server.PROVIDER_LOG** | Logs all information related to the Replication Provider(s). |
+| log4j.logger.**org.apache.directory.server.CONSUMER_LOG** | Logs all information related to the Replication Consumer(s). |
+| log4j.logger.**org.apache.directory.CURSOR_LOG** | Logs all information related to the Cursors handling the search of entries in the database. |
+| log4j.logger.**org.apache.directory.api** | A general logger which logs all classes of the Apache Directory LDAP API. |
+| log4j.logger.**org.apache.directory.server** | A general logger which logs all classes of ApacheDS. |
+| log4j.logger.**net.sf.ehcache** | A general logger which logs all classes of the Ehcache API. |
+| log4j.logger.**org.apache.mina** | A general logger which logs all classes of the Apache Mina API. |
+
+These loggers are deactivated by default to prevent them interfering with the root log level. Make sure to uncomment those you would like to activate (by removing the '_#_' character in front of the line) and set the dedicated log level according to the kind of information you're looking for.
