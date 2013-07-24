@@ -20,11 +20,15 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
     specific language governing permissions and limitations
     under the License.
 
-# 5.1 - Logs
+# 5.3 - Logs
 
-We use SLF4J as a facade for logs, and Log4J in the standalone server. 
+## 5.3.1 Logs overview
 
-The logs can be configured by modifiying the log4j.properties file which can be found in the _conf_ directory (see the previous chapter 5.1). Here is the Log4J configuration that comes with ApacheDS:
+ApacheDS internally uses SLF4J as a facade for logs and Log4J is bundled in the standalone ApacheDS distributions. 
+
+Logs can be configured by modifiying the _**log4j.properties**_ file which can be found in the _**conf**_ directory of the server instance (see the previous chapter "[5.1 - Layout](5.1-layout.html)").
+
+Here is the Log4J configuration that comes with ApacheDS:
 
     :::Text
     #############################################################################
@@ -73,4 +77,28 @@ The logs can be configured by modifiying the log4j.properties file which can be 
     log4j.logger.org.apache.directory.server=FATAL
     log4j.logger.net.sf.ehcache=FATAL
     log4j.logger.org.apache.mina=FATAL
+
+## 5.3.2 Default log level
+
+By default, ApacheDS ships with a default log level set to **WARN** as indicated in the first line of the _**log4j.properties**_ file:
+
+    :::Text
+    log4j.rootCategory=WARN, R, stdout
+
+This value can be modified to any of the seven log levels supported by Log4J:
+
+|| Level || Usage ||
+| _**OFF**_ | The _OFF_ has the highest possible rank and is intended to turn off logging. |
+| _**FATAL**_ | The _FATAL_ level designates very severe error events that will presumably lead the application to abort. |
+| _**ERROR**_ | The _ERROR_ level designates error events that might still allow the application to continue running. |
+| _**WARN**_ | The _WARN_ level designates potentially harmful situations. |
+| _**INFO**_ | The _INFO_ level designates informational messages that highlight the progress of the application at coarse-grained level. |
+| _**DEBUG**_ | The _DEBUG_ Level designates fine-grained informational events that are most useful to debug an application. |
+| _**TRACE**_ | The _TRACE_ Level designates finer-grained informational events than the DEBUG. |
+
+Please refer to the [**Log4J Manual**](http://logging.apache.org/log4j/1.2/manual.html) for more details.
+
+## 5.3.2 ApacheDS specific loggers
+
+
 
