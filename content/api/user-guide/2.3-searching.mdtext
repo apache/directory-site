@@ -28,36 +28,78 @@ Searching is the most important operation in **LDAP**. It has to be fast, very f
 
 The idea is to define a search **API** which is easy to use in the simplest cases, but provides all the necessary bolts if you need to send complex search requests.
 
-<DIV class="worning" markdown="1">
-This part of the API is very likely to change in the next milestone, to provide an easier way to get the results in the simple cases.
-</DIV>
-
 ## Simple search
 
 Let's first look at a simple search. What we basically need to process a search is a starting point in the tree, a filter, a scope. Here is an example :
 
     :::java
-    @Test
-    public void testSimpleSearch() throws Exception
+    EntryCursor cursor = connection.search( "ou=system", "(objectclass=*)", SearchScope.ONELEVEL );
+    
+    while ( cursor.next() )
     {
-        SearchCursor cursor = connection.search( "ou=system", "(objectclass=*)", SearchScope.ONELEVEL );
-        
-        while ( cursor.next() )
-        {
-            Response response = cursor.get();
-            assertNotNull( response );
-            assertTrue( response instanceof SearchResultEntry );
-            System.out.println( ((SearchResultEntry)response).getEntry() );
-        }
-
-        SearchResultDone done = cursor.getSearchResultDone();
-
-        assertNotNull( done );
-        assertEquals( ResultCodeEnum.SUCCESS, done.getLdapResult().getResultCode() );
-
-        cursor.close();
+        Entry entry = cursor.getEntry();
+        assertNotNull( entry );
+        System.out.println( entry );
     }
+
+    cursor.close();
+
 
 In this example, the _connection_ has been previously created. We just search for all the entries starting at *ou=system* and their children, which have an _ObjectClass_ attribute (all the entries have such an attribute, so we should get back all the entries). The scope (_ONELEVEL_) says we just search one level under the starting base.
 
-We get back a cursor, which can be walked forward. Every call to the _get()_ method will return a response, which will be either a _SearchResultEntry_, a _SearchResultReference_ or an _IntermediateResponse_.
+We get back a cursor on entries, which can be walked forward. Every call to the _getEntry()_ method will return an entry.
+
+This is pretty much it !
+
+But this is not really enough , there are many possible options.
+
+>**Note** Don't forget to close the cursor, otherwise the associated data will remain in memory foreever !
+
+### Searching using a DN
+
+In the previous sample, we used a String to define the starting point of the search. Sometime, you will find it more convenient to start a search using a DN (for instance because you got back a DN from an other operation). In this case, no need to transform the DN into a String before doing your search : simply use the DN !
+
+    :::java
+    DN systemDn = new Dn( "ou=system" );
+    ...
+    EntryCursor cursor = connection.search( systemDn, "(objectclass=*)", SearchScope.ONELEVEL );
+    
+    while ( cursor.next() )
+    {
+        Entry entry = cursor.getEntry();
+        assertNotNull( entry );
+        System.out.println( entry );
+    }
+
+    cursor.close();
+
+This is it !
+
+### Scope 
+
+There are three different different scopes you can use to search for data :
+    * SearchScope.OBJECT : you will just get back the entry for the given DN, if it exists. Note that you could use a lookup if the filter is irrelevent.
+    * SearchScope.ONELEVEL : you will get back all the elements just under the current DN, but not the element associated with the DN.
+    * SearchScope.SUBLEVEL : you will get back all the elements starting from the given DN, including the element associated with the DN, whatever the depth of the tree.
+
+### Filter
+
+The filter is used to define the elements that will be selected. There are various possibilities to construct a filter, using one or more connectors,a nd one or more expression nodes.
+
+Connrectors are using a prefix notation, followed by as many expression node as necessary, like in (& (node1) (node2) ... (nodeN))
+
+Expression nodes are always contane din parenthesis, with a left part - the attributeType and a right part - the value -.
+
+Here is the list of possible connectors :
+
+    * & : n-ary AND connector, all the nodes must evaluate to TRUE
+    * | : n-ary OR connector, at least one of the node must evaluate to true
+    * ! : 1-ary NOT connector : the node must evaluate to false
+
+And here is the list of possible expression nodes, assuming that an expression node :
+
+    * = Equality expression node : the selected entry matches the right part
+    * *= Presence expression node : tehentry has the Attribute on the left side
+    * >= Superior : the entry should be superior to the right part
+    * <=
+    * ~=
