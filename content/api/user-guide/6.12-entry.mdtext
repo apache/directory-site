@@ -1,0 +1,584 @@
+Title: 6.12 - Entry
+NavPrev: 6.11-dit-structure-rule.html
+NavPrevText: 6.11 - DITStructureRule
+NavUp: 6-ldap-data-structures.html
+NavUpText: 6 - LDAP data structures
+NavNext: 6.13-expr-node.html
+NavNextText: 6.13 - ExprNode
+Notice: Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    .
+    http://www.apache.org/licenses/LICENSE-2.0
+    .
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+
+# 6.12 - Entry
+
+The *Entry* class is one of the most important one in the *API*. It describes the base element stored into a *LDAP* server, and it associates a _Dn_ and some _Attributes_.
+
+We have two kinds of *Entry* in the *API*, depending on the presence of a _SchemaManager_ in the *Entry*, or not.
+
+We also provide a few extended classes, like the *ImmutableEntry*, an immutable version of the *Entry*.
+
+## Creating an Entry
+
+We have many ways to create an *Entry*. Basically, an *Entry* has a _Dn_ and some _Attributes_. It can be schema aware, or not. We provide constructors to allow a user to create the kind of *Entry* he wants.
+
+The simplest way to create an *Entry* is to call the default constructor. The created entry will have no attributes, and no Dn. We can also make it schema aware by passing a _SchemaManager_. Here is an example:
+
+    :::Java
+    @Test
+    public void testCreateEmptyEntry()
+    {
+        Entry entry = new DefaultEntry();
+        
+        assertNotNull( entry.getDn() );
+        assertEquals( Dn.EMPTY_DN, entry.getDn() );
+        assertNotNull( entry.getAttributeTypes() );
+        assertEquals( 0, entry.size() );
+        assertFalse( entry.isSchemaAware() );
+
+        Entry entry2 = new DefaultEntry( schemaManager);
+        
+        assertNotNull( entry2.getDn() );
+        assertEquals( Dn.EMPTY_DN, entry2.getDn() );
+        assertNotNull( entry2.getAttributeTypes() );
+        assertEquals( 0, entry2.size() );
+        assertTrue( entry2.isSchemaAware() );
+    }
+
+You can also create an *Entry* passing a _Dn_, but no attribute. We can create schema aware entries this way too, passing a _SchemaManager_.
+
+    :::Java
+    @Test
+    public void testCreateEntryWithDn() throws LdapException
+    {
+        Dn dn = new Dn( schemaManager, "DomainComponent=example, dc=COM" );
+        Entry entry = new DefaultEntry( "dc=example, dc=com" );
+        
+        assertNotNull( entry.getDn() );
+        assertEquals( "dc=example, dc=com", entry.getDn().toString() );
+        assertNotNull( entry.getAttributeTypes() );
+        assertEquals( 0, entry.size() );
+        assertFalse( entry.isSchemaAware() );
+
+        Entry entry2 = new DefaultEntry( schemaManager, "dc=example, dc=com" );
+        
+        assertNotNull( entry2.getDn() );
+        assertEquals( dn, entry2.getDn() );
+        assertNotNull( entry2.getAttributeTypes() );
+        assertEquals( 0, entry2.size() );
+        assertTrue( entry2.isSchemaAware() );
+    }
+
+We can also create an entry by copying an existing entry. The created *Entry* must be schema aware. Here is an example:
+
+    :::Java
+    @Test
+    public void testCreateEntryCopy() throws LdapException
+    {
+        Entry entry = new DefaultEntry( schemaManager, "dc=example, dc=com" );
+        entry.add( atCn, "test" );
+        entry.add( atSn, "Test" );
+        entry.add( atObjectClass, "top", "person" );
+        
+        Entry entry2 = new DefaultEntry( schemaManager, entry );
+        
+        assertEquals( entry.getDn(), entry2.getDn() );
+        
+        entry.clear();
+        assertTrue( entry2.contains( atCn, "TEST" ) );
+        assertTrue( entry2.contains( atSn, "TEST" ) );
+        assertTrue( entry2.contains( atObjectClass, "top", "person" ) );
+    }
+
+Last, not least, it's possible to create an *Entry* using a list of LDIF formated attributes. An example worth ten lines of documentation, so let's see what it means.
+
+First, we will create a schema agnostic entry:
+
+    :::Java
+    @Test
+    public void testCreateEntryLdif() throws Exception
+    {
+        Entry entry = new DefaultEntry( 
+            "dc=example, dc=com",
+            "objectClass: top",
+            "objectClass: person",
+            "cn: test",
+            "sn: test"
+            );
+        
+        assertEquals( "dc=example, dc=com", entry.getDn().toString() );
+        assertTrue( entry.contains( "cn", "test" ) );
+        assertTrue( entry.contains( "sn", "test" ) );
+        assertTrue( entry.contains( "objectClass", "top", "person" ) );
+    }
+
+We can also provide a complete LDIF file (except that we can't add the _dn_):
+
+    :::Java
+    @Test
+    public void testCreateEntryLdifComplete() throws Exception
+    {
+        String ldif =
+            "objectClass: top\n" +           // The \n is mandatory.
+            "objectClass: person\n" +
+            "cn: test\n" +
+            "sn: test";
+
+        Entry entry = new DefaultEntry( "dc=example, dc=com", ldif );
+        
+        assertEquals( "dc=example, dc=com", entry.getDn().toString() );
+        assertTrue( entry.contains( "cn", "test" ) );
+        assertTrue( entry.contains( "sn", "test" ) );
+        assertTrue( entry.contains( "objectClass", "top", "person" ) );
+    }
+
+
+One can also combine LDIF and variables like in this example (note that if you use a variable, the attribute must not be followed by the *':'* char):
+
+    :::JAVA
+    @Test
+    public void testCreateEntryLdif2() throws Exception
+    {
+        String name = "test";
+        String surname = "test";
+        
+        Entry entry = new DefaultEntry( 
+            "dc=example, dc=com",
+            "objectClass: top",
+            "objectClass: person",
+            "cn", name,             // No ':'
+            "sn", surname
+            );
+        
+        assertEquals( "dc=example, dc=com", entry.getDn().toString() );
+        assertTrue( entry.contains( "cn", "test" ) );
+        assertTrue( entry.contains( "sn", "test" ) );
+        assertTrue( entry.contains( "objectClass", "top", "person" ) );
+    }
+
+## Modifying an Entry
+We have four methods available that modify the *Entry* content : _add_, _remove_, _put_ and _set_. We will review those four methods in the following paragraphs.
+
+### Adding Attributes
+Two methods can be used to add some attribute into an *Entry*, depending on the fact that we will add some value without replacing an existing attribute with the same name (and we use the _add_ method for that), or replace it with a new attribute (and we use the _put_ method for that).
+
+In any case, we can add either an empty attribute, or an attribute with some values. Those values can be _Strings_, _byte[]_ or _Values_. The added attributes can be schema aware, and we can also provide a user provided name for the attribute type.
+
+##### add() methods
+
+The first method makes it possible to add some existing _Attribute_ to an *Entry*. Let's see how it works:
+
+    :::Java
+    @Test
+    public void testEntryAddAttribute() throws LdapException
+    {
+        Attribute cn = new DefaultAttribute( "cn", "test" );
+        Attribute cn2 = new DefaultAttribute( "cn", "test2" );
+        
+        Entry entry = new DefaultEntry( 
+            "dc=example, dc=com",
+            "objectClass: top",
+            "objectClass: person",
+            "sn: test" );
+        
+        assertFalse( entry.containsAttribute( "cn" ) );
+        
+        // Add the new attribute
+        entry.add( cn );
+        
+        assertTrue( entry.contains( "cn", "test" ) );
+        
+        // Try to add a second value
+        entry.add( cn2 );
+
+        // Both values must be present
+        assertTrue( entry.contains( "cn", "test", "test2" ) );
+    }
+
+Otherwise, we can add a new attribute and values into the *Entry* by passing both parameters. We can also pass an _AttributeType_ to the _add()_ method, making the added attribute schema aware. Note that if the *Entry* itself is already schema aware, this is not necessary.
+
+Here are some examples, the first one with a schema aware *Entry*, the second one with a schema agnostic *Entry*:
+
+    :::Java
+    @Test
+    public void testEntryAddAtValue() throws LdapException
+    {
+        Entry entry = new DefaultEntry( 
+            schemaManager,
+            "dc=example, dc=com",
+            "objectClass: top",
+            "objectClass: person",
+            "sn: test" );
+        
+        assertFalse( entry.containsAttribute( "cn" ) );
+        
+        // Add the new attribute
+        entry.add( "cn", "test" );
+        
+        assertTrue( entry.contains( "CN", "test" ) );
+        
+        // Try to add a second value
+        entry.add( atCn, "A  second test   " );
+
+        // Both values must be present
+        assertTrue( entry.contains( "cn", "test", "a second test" ) );
+    }
+
+<DIV class="" 
+{note:title=Warning !}
+When manipulating a schema agnostic *Entry*, do not expect that the attribute type will be recognized if you inject schema aware attributes.
+</DIV>
+
+    :::Java
+    @Test
+    public void testEntryAddAtValue() throws LdapException
+    {
+        Entry entry = new DefaultEntry( 
+            "dc=example, dc=com",
+            "objectClass: top",
+            "objectClass: person",
+            "sn: test" );
+        
+        assertFalse( entry.containsAttribute( "cn" ) );
+        
+        // Add the new attribute
+        entry.add( "cn", "test" );
+        
+        assertTrue( entry.contains( "cn", "test" ) );
+        
+        // Try to add a second value
+        entry.add( atCn, "A  second  test" );
+
+        // Both values must be present
+        assertTrue( entry.contains( "cn", "test" ) );
+        assertTrue( entry.contains( "2.5.4.3", "a second test" ) );
+        assertFalse( entry.contains( "cn", "A  second  test" ) );
+    }
+
+##### put() methods
+
+The big difference with the _add_ method is that the attribute is not added, it will replace an existing one. let's see with an example :
+
+    :::Java
+    @Test
+    public void testEntryPutAttribute() throws LdapException
+    {
+        Entry entry = new DefaultEntry( 
+            schemaManager, 
+            "dc=example, dc=com",
+            "objectClass: top",
+            "objectClass: person",
+            "sn: test" );
+        
+        assertFalse( entry.containsAttribute( "cn" ) );
+        
+        // Add the new attribute
+        entry.put( "cn", "test" );
+        
+        assertTrue( entry.contains( "cn", "test" ) );
+        
+        // Try to add a second value
+        entry.put( "cn", "test2" );
+
+        // Both values must be present
+        assertFalse( entry.contains( "cn", "test", "test2" ) );
+        assertFalse( entry.contains( "cn", "test" ) );
+        assertTrue( entry.contains( "cn", "test2" ) );
+    }
+
+### Removing Attributes
+
+We can remove either an attribute having a specific value, or an entire attribute. In order to remove a complete attribute, you just have to provide the attribute's name, and use the _removeAttributes_ method.
+
+Here are some example for both usages :
+
+    :::Java
+    @Test
+    public void testRemoveAttribute() throws LdapException
+    {
+        Entry entry = new DefaultEntry( 
+            schemaManager,
+            "dc=example, dc=com",
+            "objectClass: top",
+            "objectClass: person",
+            "sn: test",
+            "cn: test1",
+            "cn: test2",
+            "cn: test3" );
+        
+        assertTrue( entry.contains( "cn", "test1", "test2", "test3" ) );
+        
+        // Remove the "test2" value
+        entry.remove( "cn", "test2" );
+        
+        assertTrue( entry.contains( "cn", "test1", "test3" ) );
+        assertFalse( entry.contains( "cn", "test2" ) );
+        
+        // Try to remove the full attribute
+        entry.removeAttributes( "cn" );
+
+        assertFalse( entry.containsAttribute( "cn" ) );
+    }
+
+#### Storing a Dn
+
+It's also possible to store a new _Dn_ into the Entry, using the _setDn() method. It will replace an existing _Dn_ This method takes either a _Dn_ instance, or a _String_.
+
+## Attribute data access methods
+
+The *API* provides convenient methods to access the *Entry* content, and to check if it contains some attributes or some values. We will shortly expose those methods in the following paragraphs.
+
+### Contains method
+The _contains_ and _containsAttributes_ methods check that the *Entry* contain a couple of <attributeType/values> for the first set of methods, and for the existence of a specific attribute for the second method.
+
+One can check for the existence of a specific value for a given attribute, or even for multiple values for a specific attribute. Let's see the _contains_ method in action:
+
+    :::Java
+    @Test
+    public void testContains() throws LdapException
+    {
+        Entry entry = new DefaultEntry( 
+            schemaManager,
+            "dc=example, dc=com",
+            "objectClass: top",
+            "objectClass: person",
+            "sn: test",
+            "cn: test1",
+            "cn: test2",
+            "cn: test3" );
+        
+        assertTrue( entry.containsAttribute( "cn", "sn" ) );
+        assertTrue( entry.contains( "cn", "test1", "test2", "test3" ) );
+        assertTrue( entry.contains( "cn", "test1" ) );
+
+        // The value does not exist for the "cn" attribute
+        assertFalse( entry.contains( "cn", "test4" ) );
+    }
+
+#### get(AttributeType) and get(String)
+
+Returns the _Attribute_ having the given name if it exists. The following test demonstrates its usage:
+
+    :::Java
+    @Test
+    public void testGet() throws LdapException
+    {
+        Entry entry = new DefaultEntry( 
+            schemaManager,
+            "dc=example, dc=com",
+            "objectClass: top",
+            "objectClass: person",
+            "sn: test",
+            "cn: test1",
+            "cn: test2",
+            "cn: test3" );
+        
+        // With an attribute's name
+        assertNotNull( entry.get( "cn" ) );
+        assertTrue( entry.get( "cn" ).contains( "test1", "test2", "test3" ) );
+
+        // With an AttributeType
+        assertNotNull( entry.get( atSn ) );
+        assertTrue( entry.get( atSn ).contains( "test" ) );
+    }
+
+#### getAttributeTypes()
+
+This method returns the list of _AttributeTypes_ stored into the *Entry*.
+
+{note:title=Be careful !}
+This method is only valuable if the *Entry* is schema aware !
+{note}
+
+Here is an example of usage:
+
+    :::Java
+    @Test
+    public void testGetAttributeTypes() throws LdapException
+    {
+        Entry entry = new DefaultEntry( 
+            schemaManager,
+            "cn=example, dc=com", 
+            "objectClass: top",
+            "objectClass: person",
+            "cn: example",
+            "sn: test"
+            );
+        
+        for ( AttributeType attr : entry.getAttributeTypes() )
+        {
+            System.out.println( attr.getName() );
+        }
+    }
+
+This code produces the following output:
+
+    :::Java
+    sn
+    objectClass
+    cn
+
+#### getDn()
+
+This method returns the *Entry*'s _Dn_.
+
+#### hasObjectClass methods
+
+The _hasObjectClass()_ methods are used to discover if an *Entry* has a specific _ObjectClass_. This is a convenient method, as it's possible to do the same thing with a _contains()_ call, but with one less parameter (you don't have to provide the _"ObjectClass"_ as a first parameter).
+
+Here is an example using the two existing methods:
+
+    :::Java
+    @Test
+    public void testHasObjectClass() throws LdapException
+    {
+        Entry entry = new DefaultEntry( 
+            schemaManager,
+            "cn=example, dc=com", 
+            "objectClass: top",
+            "objectClass: person",
+            "cn: example",
+            "sn: test"
+            );
+        
+        // Test the presence
+        assertTrue( entry.hasObjectClass( "person", " TOP " ) );
+        assertFalse( entry.hasObjectClass( "domain ", "TOP" ) );
+        assertTrue( entry.hasObjectClass( "Person " ) );
+        
+        // Same test, but with Attributes
+        Attribute oc1 = new DefaultAttribute( atObjectClass, "TOP ", "person" );
+        Attribute oc2 = new DefaultAttribute( atObjectClass, "person " );
+        Attribute oc3 = new DefaultAttribute( atObjectClass, "TOP", "domain" );
+        
+        assertTrue( entry.hasObjectClass( oc1, oc2 ) );
+        assertFalse( entry.hasObjectClass( oc1, oc3 ) );
+    }
+
+Obviously, dealing with a schema agnostic *Entry*, those methods are more strict. You have to use the exact ObjectClasses case sensitive trimmed names (in the previous example, we can use upper cased names, even with spaces around the names).
+
+Also note that the _hasObjectClass_ method used with _AttributeType_ does not work on a schema agnostic entry.
+
+## Miscellaneous methods
+We also have some other methods which can be used on an *Entry*. Here is a list of those methods.
+
+#### clear()
+This method removes all the added _Attributes_ from this *Entry*. The _Dn_ remains the same.
+
+#### clone()
+Creates a copy of the current *Entry*. All the _Attributes_ are also cloned.
+
+#### iterator()
+Allows an iteration over all the _Attributes_. The following examples shows how this can be used:
+
+    :::Java
+    @Test
+    public void testIterator() throws LdapException
+    {
+        Entry entry = new DefaultEntry( 
+            "cn=example, dc=com", 
+            "objectClass: top",
+            "objectClass: person",
+            "cn: example",
+            "sn: test"
+            );
+        
+        for ( Attribute attribute : entry )
+        {
+            System.out.println( "Attribute : \n" + attribute.toString() );
+        }
+    }
+
+This produces the following output:
+
+    :::Java
+    Attribute : 
+        sn: test
+
+    Attribute : 
+        cn: example
+
+    Attribute : 
+        objectclass: top
+        objectclass: person
+
+Note that the _Attribute_ order is not guaranteed.
+
+#### isSchemaAware()
+
+Tells if the ¨*Entry* has an associated _SchemaManager_.
+
+#### size()
+Returns the number of _Attribute_ stored in the *Entry*.
+
+#### equals(Object)
+Check if two *Entries* are equal or not. It's important to understand that depending on whether the entry is schema aware or not, the comparison will be processed differently. Typically, the attribute's name must be equals when they have been trimmed and lower cased if the entry is not schema aware, and we can't compare an attribute named 'cn' with another one named '2.5.4.3' in this case (the *Entry* must be schema aware to allow such comparison). More important, the values *must* be identical (same casing, same spaces) in this case.
+The attribute's values order is irrelevant.
+
+Here are one example with a schema agnostic *Entry*:
+
+    :::Java
+    @Test
+    public void testEntryEquals() throws LdapException
+    {
+        Entry entry = new DefaultEntry( 
+            "dc=example, dc=com",
+            "objectClass: top",
+            "objectClass: person",
+            "sn: test",
+            "cn: test1",
+            "cn: test2",
+            "cn: test3" );
+
+        Entry entry2 = new DefaultEntry( 
+            "dc=example, dc=com",
+            "objectClass: top",
+            "objectClass: person",
+            "sn: test",
+            "cn: test2",
+            "CN: test1",
+            "cn: test3" );
+
+        assertEquals( entry, entry2 );
+    }
+
+and another example with a schema aware *Entry*:
+
+    :::Java
+    @Test
+    public void testSchemaAwayeEntryEquals() throws LdapException
+    {
+        Entry entry = new DefaultEntry( 
+            schemaManager,
+            "dc=example, dc=com",
+            "objectClass: top",
+            "objectClass: person",
+            "sn: test",
+            "cn: test1",
+            "cn: test2",
+            "cn: test3" );
+
+        Entry entry2 = new DefaultEntry( 
+            schemaManager,
+            "dc=example,dc=com",
+            "objectClass: TOP",
+            "objectClass: person",
+            "sn: Test",
+            "cn: Test2",
+            "2.5.4.3: test1",
+            "CommonName: test3" );
+
+        assertEquals( entry, entry2 );
+    }
