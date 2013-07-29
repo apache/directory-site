@@ -24,7 +24,7 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 # 2.1 - Connection and disconnection
 
-**LDAP** is a protocol which requires the user to be connected - and eventually identified - in order to be able to send requests to the server. We maintain this connection potentially forever. What make the **LDAP** protocol different from, say, the **HTTP** protocol is that the connection must be issued explicitly. Let's see how we do that.
+**LDAP** is a protocol which requires the user to be connected - and likely identified - in order to be able to send requests to the server. We maintain this connection potentially forever. What make the **LDAP** protocol different from, say, the **HTTP** protocol is that the connection must be issued explicitly. Let's see how we do that.
 
 ## Opening a connection
 
@@ -50,7 +50,7 @@ Here is an example
     :::Java
     LdapConnection connection = new LdapNetworkConnection( "localhost", 636, true );
 
-h2. Maintaining the connection opened
+## Maintaining the connection opened
 
 We keep the connection opened for a limited period of time, defaulting to 30 seconds. This might be not long enough, so one can change this delay by calling the _setTimeOut()_ method :
 
@@ -70,3 +70,22 @@ Once you don't need to use the connection anymore (remember that hodling a conne
     LdapConnection connection = new LdapNetworkConnection( "localhost", 389 );
     ...
     connection.close();
+
+## Using a pool of connection
+
+Creating a connection is expensive. If you are to reuse a connection over and over, or if you are writing an application that will need many LDAP conenctions, you may want to use a pool of connections.
+
+This is slightly more complex than simply opening a new connection, as you have a lot of parametrs that can come into play when creating a pool.
+Here is an example of creation of a pool of connections :
+
+    :::Java
+    LdapConnectionConfig config = new LdapConnectionConfig();
+    config.setLdapHost( "localhost" );
+    config.setLdapPort( 389 );
+    config.setName( "uid=admin,ou=system" );
+    config.setCredentials( "secret" );
+    PoolableLdapConnectionFactory factory = new PoolableLdapConnectionFactory( config );
+    LdapConnectionPool pool = new LdapConnectionPool( factory );
+    pool.setTestOnBorrow( true );
+
+Here, we just have created a pool of connections which all are unthenticated using the administrator user. You can create anonymous connections, it's just a matter of not setting any name or credentials in the config.
