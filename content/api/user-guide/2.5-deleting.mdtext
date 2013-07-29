@@ -24,11 +24,11 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 # 2.5 - Deleting entries
 
-Deleting an entry is really easy. It's just a matter to know its **[Dn]()**. There is one important thing to understand though : if this entry has some children, it won't be deleted.
+Deleting an entry is really easy. It's just a matter to know its _DN_. There is one important thing to understand though : if this entry has some children, it won't be deleted.
 
 ## Simple entry deletion
 
-We can ask the deletion by providing the entry's **[Dn]()**, like what is done in the following example :
+We can ask the deletion by providing the entry's _DN_, like what is done in the following example :
 
     :::Java
     @Test
@@ -81,7 +81,7 @@ Usually, you can't delete an entry and all of its children. However, some server
 
 ## Sending a DeleteRequest with a control
 
-It's also possible to associate a **[Control]** with the delete request. In order to do that, you have to create a **[DelRequest]()** instance. In the following example, we will add the Delete Tree control (this make this call equivalent to the _deleteTree()_ method).
+It's also possible to associate a **[Control]** with the delete request. In order to do that, you have to create a _DelRequest_ instance. In the following example, we will add the Delete Tree control (this make this call equivalent to the _deleteTree()_ method).
 
     :::Java
     @Test

@@ -27,7 +27,7 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 Adding entries is one of the base operation a user can do on a **LDAP** server. Nevertheless, such an operation implies a lot of checks, and frequently the user gets some weird error messages. We will see how we can add an entry using the **LDAP API**, and then analyze the different error cases we can face.
 
 ## Adding an entry
-We will first see the easiest way to add an entry into the server, assuming that the entry is correct. In order to add an entry, you only have to provide the place where this entry will be stored (its **[Dn]()**) and the list of its **[Attributes]()**.
+We will first see the easiest way to add an entry into the server, assuming that the entry is correct. In order to add an entry, you only have to provide the place where this entry will be stored (its _Dn_) and the list of its _Attributes_.
 
 Here is two examples where we inject the entry using **LDIF** :
 
@@ -79,7 +79,7 @@ Down the line, what is important is that the _add()_ operation is taking a full 
 
 We can also create the **[Entry](6.12-entry.html)** in a different way, which will be exposed in the following paragraphs.
 
-## Sending an **[AddRequest]()**
+## Sending an _AddRequest_
 
 Sometimes, we want more control. We can ask the server to add an entry by sending an **[AddRequest]()**, which allows you to send a **[Control]()** at the same time.
 
@@ -145,17 +145,17 @@ Some may want to add an entry, but will not check the result immediately. It's j
 
 Successfully adding an entry assume that the entry is correct, ie that the attributes and the value are compatible with the schema. There are many things checked by the server. Here is a list of constraints that you should respect in order to get your entry injected:
 
-* The entry must have at least one **Structural** **[ObjectClass]()**
-* If the entry has more than one **Structural** **[ObjectClass]()**, then they must be hierarchically related
-* The *[DIRAPI:ObjectClass]es* define the list of allowed **Structural** **[AttributeTypes]()** that can be used (**MAY** and **MUST**)
+* The entry must have at least one **Structural** _ObjectClass_
+* If the entry has more than one **Structural** _ObjectClass_, then they must be hierarchically related
+* The _ObjectClasses_ define the list of allowed **Structural** _AttributeTypes_ that can be used (**MAY** and **MUST**)
 * All the **MUST** **[AttributeTypes]()** must be present
-* Each added value must follow the **[DIRAPI:AttributeType]** **[Syntax]()**
-* If the **[DIRAPI:AttributeType]** is single valued, then you can't add more than one value
-* The entry's **[Dn]()** must have a parent
+* Each added value must follow the _AttributeType_ _Syntax_
+* If the _AttributeType_ is single valued, then you can't add more than one value
+* The entry's _Dn_ must have a parent
 * You are not allowed as a user to inject operational attributes, unless they have the **USER-MODIFICATION** flag set to true.
 
 
-There are also some other constraints, depending on the server, if it implements **[NameForms]()**, **[DITStructureRules]()** or *[DITContentRules]()**.
+There are also some other constraints, depending on the server, if it implements _NameForms_, _DITStructureRules_ or _DITContentRules_.
 
 One other reason your entry can be rejected is that you don't have enough privilege to add it. You have to check that the server configuration allows you to add an entry where you want to add it.
 
@@ -169,4 +169,4 @@ In any other case, the server will simply return a **[LdapResult]()** instance c
 
 Usually, if you get an error while adding an entry, the message might be pretty tedious. Most of the cases it's because either your entry already exists, or because your entry has some schema violation.
 
-The **[LdapResult]()** in the response will give you a clue about what going on.
+The _LdapResult_ in the response will give you a clue about what going on.

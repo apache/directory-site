@@ -99,7 +99,60 @@ Here is the list of possible connectors :
 And here is the list of possible expression nodes, assuming that an expression node :
 
     * = Equality expression node : the selected entry matches the right part
-    * *= Presence expression node : tehentry has the Attribute on the left side
-    * >= Superior : the entry should be superior to the right part
-    * <=
-    * ~=
+    * =* Presence expression node : tehentry has the Attribute on the left side
+    * >= Superior expression node : the entry should be superior to the right part
+    * <= Inferior expression node : the entry should be superior to the right part
+    * = [start][*][middle][*][final] Substring expression nose : the entry should match a usbstring
+
+>**Note:**  As of Apache DS 2.0, we don't support approx matches not extensible matches.
+
+## More complex searches
+
+Sometime, you way want to have more control on the search opetation, either on the parameters you want to use, or on the results you get.
+
+A search can return something else than an entry. In fact, you can get three different kind of response
+    
+    * When it's done, you will receive a SearchResultDone
+    * When the response is a reference to another entry, you will get a SearchResultReference
+    * In some cases, you may also receive an IntermediateResponse.
+
+You may also add a Control to the searchRequest, or request some specific AttributeType to be returned. The parameter you can inject into a SearchRequest are the following :
+
+    * The base DN 
+    * The filter
+    * The Scope (one of OBJECT, ONELEVEL or SUBTREE)
+    * The size limit
+    * The time limit
+    * The list of attributes to return
+    * The alias dereferencing mode (one of DEREF_ALWAYS, DEREF_FINDING_BASE_OBJ, DEREF_IN_SEARCHING or NEVER_DEREF_ALIASES)
+    * The TypesOnly flag (to get the AttributeTypes but no values)
+    * The controls
+
+In both case, you should fill a _SearchRequest_ message and send it to the server :
+
+    :::Java
+    // Create the SearchRequest object
+    SearchRequest req = new SearchRequestImpl();
+    req.setScope( SearchScope.SUBTREE );
+    req.addAttributes( "*" );
+    req.setTimeLimit( 0 );
+    req.setBase( new Dn( "ou=system" ) );
+    req.setFilter( "(cn=user1)" );
+
+    // Process the request
+    SearchCursor searchCursor = connection.search( req );
+
+    while ( searchCursor.next() )
+    {
+        Response response = searchCursor.get();
+
+        // process the SearchResultEntry
+        if ( response instanceof SearchResultEntry )
+        {
+            Entry resultEntry = ( ( SearchResultEntry ) response ).getEntry();
+            ...
+        }
+    }
+
+As we can see, the response is different : we get back a _SearchCursor_ instance, and we have to check the response type before being able to process it.
+
