@@ -24,10 +24,6 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 # 6.4 - AttributeType
 
-<DIV class="note" markdown="1">
-Those classes are currently only used by the server. It will be available on the client side later on.
-</DIV>
-
 The _AttributeType_ is one of the most important schema element. It describes what can be stored into an _Entry_, its syntax, and the various rules that are to be followed when searching for an associated value.
 
 _AttributeType_ are immutable objects, created from the schema, and never changed. One can add a new _AttributeType_, or delete itfrom the schema, but once it's added to the schema, it can't be modified.
@@ -59,10 +55,10 @@ An _AttributeType_ has some default elements : it's not OBSOLETE, has no SUP, is
 
 You can check some of those elements using the following methods :
 
-    * isAncestorOf( AttrbuteType ) : tells if the current _AttributeType_ is the ancestor of another one
-    * isCollective() : tells if the current _AttributeType_ is a collective attribute
-    * isDescendantOf( AttributeType ) : tells if the current _AttributeType_ inherits from another one
-    * isOperational() : tells if the current _AttributeType_ is an Operational Attribute
-    * isSingleValued() : tells if the current _AttributeType_ does not allow more than one value
-    * isUser() : tells if the current _AttributeType_ is a User Application _AttributeType_
-    * isUserModifiable() : tells if the _Attributes_ usng this _AttributeType_ can be modified on the server
+    isAncestorOf( AttrbuteType ) : tells if the current _AttributeType_ is the ancestor of another one
+    isCollective() : tells if the current _AttributeType_ is a collective attribute
+    isDescendantOf( AttributeType ) : tells if the current _AttributeType_ inherits from another one
+    isOperational() : tells if the current _AttributeType_ is an Operational Attribute
+    isSingleValued() : tells if the current _AttributeType_ does not allow more than one value
+    isUser() : tells if the current _AttributeType_ is a User Application _AttributeType_
+    isUserModifiable() : tells if the _Attributes_ usng this _AttributeType_ can be modified on the server
