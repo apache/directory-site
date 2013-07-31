@@ -125,16 +125,16 @@ One can also combine LDIF and variables like in this example (note that if you u
 
 All in all, the following constructors are available :
 
-    * DefaultEntry() : Default constructor
-    * DefaultEntry(SchemaManager) : Default constructor for a schema aware entry
-    * DefaultEntry(String) : Creates an entry with a DN as a String
-    * DefaultEntry(SchemaManager, String) : Creates a schema aware entry with a DN as a String
-    * DefaultEntry(Dn) : Creates an entry with a DN
-    * DefaultEntry(SchemaManager, Dn) : Creates a schema aware entry with a DN as a String
-    * DefaultEntry(Dn, Object...) : Creates an entry with a DN and some attributes
-    * DefaultEntry(SchemaManager, String, Object...) : Creates a schema aware entry with a DN as a String, and some attributes
-    * DefaultEntry(SchemaManager, Dn, Object...) : Creates a schema aware entry with a DN and some attributes
-    * DefaultEntry(SchemaManager, Entry) : Creates an entry using a copy of another entry
+* DefaultEntry() : Default constructor
+* DefaultEntry(SchemaManager) : Default constructor for a schema aware entry
+* DefaultEntry(String) : Creates an entry with a DN as a String
+* DefaultEntry(SchemaManager, String) : Creates a schema aware entry with a DN as a String
+* DefaultEntry(Dn) : Creates an entry with a DN
+* DefaultEntry(SchemaManager, Dn) : Creates a schema aware entry with a DN as a String
+* DefaultEntry(Dn, Object...) : Creates an entry with a DN and some attributes
+* DefaultEntry(SchemaManager, String, Object...) : Creates a schema aware entry with a DN as a String, and some attributes
+* DefaultEntry(SchemaManager, Dn, Object...) : Creates a schema aware entry with a DN and some attributes
+* DefaultEntry(SchemaManager, Entry) : Creates an entry using a copy of another entry
 
 ## Modifying an Entry
 
@@ -151,20 +151,20 @@ In any case, we can add either an empty attribute, or an attribute with some val
 The first method makes it possible to add some existing _Attribute_ to an _Entry_. Let's see how it works:
 
     :::Java
-        Attribute cn = new DefaultAttribute( "cn", "test" );
-        Attribute cn2 = new DefaultAttribute( "cn", "test2" );
-        
-        Entry entry = new DefaultEntry( 
-            "dc=example, dc=com",
-            "objectClass: top",
-            "objectClass: person",
-            "sn: test" );
-        
-        // Add the new attribute
-        entry.add( cn );
-        
-        // Try to add a second value
-        entry.add( cn2 );
+    Attribute cn = new DefaultAttribute( "cn", "test" );
+    Attribute cn2 = new DefaultAttribute( "cn", "test2" );
+    
+    Entry entry = new DefaultEntry( 
+        "dc=example, dc=com",
+        "objectClass: top",
+        "objectClass: person",
+        "sn: test" );
+    
+    // Add the new attribute
+    entry.add( cn );
+    
+    // Try to add a second value
+    entry.add( cn2 );
 
 
 Otherwise, we can add a new attribute and values into the _Entry_ by passing both parameters. We can also pass an _AttributeType_ to the _add()_ method, making the added attribute schema aware. Note that if the _Entry_ itself is already schema aware, this is not necessary.
@@ -174,41 +174,41 @@ Here are some examples, the first one with a schema aware _Entry_, the second on
 For a schema aware entry :
 
     :::Java
-        Entry entry = new DefaultEntry( 
-            schemaManager,
-            "dc=example, dc=com",
-            "objectClass: top",
-            "objectClass: person",
-            "sn: test" );
-        
-        // Add the new attribute
-        entry.add( "cn", "test" );
-        
-        // Try to add a second value
-        entry.add( "cn", "A  second test   " );
+    Entry entry = new DefaultEntry( 
+        schemaManager,
+        "dc=example, dc=com",
+        "objectClass: top",
+        "objectClass: person",
+        "sn: test" );
+    
+    // Add the new attribute
+    entry.add( "cn", "test" );
+    
+    // Try to add a second value
+    entry.add( "cn", "A  second test   " );
 
-        // We can also add a value to an existing Attribute 
-        entry.add( "sn", "Another SN" );
+    // We can also add a value to an existing Attribute 
+    entry.add( "sn", "Another SN" );
 
-        // And even add many values in one shot
-        entry.add( "cn", "value1", "value2" );
+    // And even add many values in one shot
+    entry.add( "cn", "value1", "value2" );
 
 
 
 For a schema agnostic entry :
 
     :::Java
-        Entry entry = new DefaultEntry( 
-            "dc=example, dc=com",
-            "objectClass: top",
-            "objectClass: person",
-            "sn: test" );
-        
-        // Add the new attribute
-        entry.add( "cn", "test" );
-        
-        // Try to add a second value
-        entry.add( "cn", "A  second  test" );
+    Entry entry = new DefaultEntry( 
+        "dc=example, dc=com",
+        "objectClass: top",
+        "objectClass: person",
+        "sn: test" );
+    
+    // Add the new attribute
+    entry.add( "cn", "test" );
+    
+    // Try to add a second value
+    entry.add( "cn", "A  second  test" );
 
 
 As you can see, there is no real difference between those two methods, except that we pass the _schemaManager_ in the first one.
@@ -219,18 +219,18 @@ As you can see, there is no real difference between those two methods, except th
 The big difference with the _add_ method is that the attribute is not added, it will replace an existing one. let's see with an example :
 
     :::Java
-        Entry entry = new DefaultEntry( 
-            schemaManager, 
-            "dc=example, dc=com",
-            "objectClass: top",
-            "objectClass: person",
-            "sn: test" );
-        
-        // Add the new attribute
-        entry.put( "cn", "test" );
-        
-        // Try to add a second value : the 'cn' attribute will now contain only 'test2'
-        entry.put( "cn", "test2" );
+    Entry entry = new DefaultEntry( 
+        schemaManager, 
+        "dc=example, dc=com",
+        "objectClass: top",
+        "objectClass: person",
+        "sn: test" );
+    
+    // Add the new attribute
+    entry.put( "cn", "test" );
+    
+    // Try to add a second value : the 'cn' attribute will now contain only 'test2'
+    entry.put( "cn", "test2" );
 
 ### Removing Attributes
 
@@ -239,21 +239,21 @@ We can remove either an attribute having a specific value, or an entire attribut
 Here are some example for both usages :
 
     :::Java
-        Entry entry = new DefaultEntry( 
-            schemaManager,
-            "dc=example, dc=com",
-            "objectClass: top",
-            "objectClass: person",
-            "sn: test",
-            "cn: test1",
-            "cn: test2",
-            "cn: test3" );
-        
-        // Remove the "test2" value
-        entry.remove( "cn", "test2" );
-        
-        // Try to remove the full attribute
-        entry.removeAttributes( "cn" );
+    Entry entry = new DefaultEntry( 
+        schemaManager,
+        "dc=example, dc=com",
+        "objectClass: top",
+        "objectClass: person",
+        "sn: test",
+        "cn: test1",
+        "cn: test2",
+        "cn: test3" );
+    
+    // Remove the "test2" value
+    entry.remove( "cn", "test2" );
+    
+    // Try to remove the full attribute
+    entry.removeAttributes( "cn" );
 
 ### Storing a Dn
 
@@ -265,18 +265,18 @@ It's also possible to store a new _Dn_ into the Entry, using the _setDn() method
 You can remove all the _Attribute_ from the entry, using the _clear()_ method :
 
     :::Java
-        Entry entry = new DefaultEntry( 
-            schemaManager,
-            "dc=example, dc=com",
-            "objectClass: top",
-            "objectClass: person",
-            "sn: test",
-            "cn: test1",
-            "cn: test2",
-            "cn: test3" );
-        
-        // Remove all the attributes
-        entry.clear();
+    Entry entry = new DefaultEntry( 
+        schemaManager,
+        "dc=example, dc=com",
+        "objectClass: top",
+        "objectClass: person",
+        "sn: test",
+        "cn: test1",
+        "cn: test2",
+        "cn: test3" );
+    
+    // Remove all the attributes
+    entry.clear();
 
 The _Dn_ will still be around though.
 
@@ -314,22 +314,21 @@ Note that if one value does not exist, the _contains() method will return false.
 Returns the _Attribute_ having the given name if it exists. The following test demonstrates its usage:
 
     :::Java
-    @Test
-        Entry entry = new DefaultEntry( 
-            schemaManager,
-            "dc=example, dc=com",
-            "objectClass: top",
-            "objectClass: person",
-            "sn: test",
-            "cn: test1",
-            "cn: test2",
-            "cn: test3" );
-        
-        // Get the 'cn' Attribute
-        Attribute cn = entry.get( "cn" ) );
+    Entry entry = new DefaultEntry( 
+        schemaManager,
+        "dc=example, dc=com",
+        "objectClass: top",
+        "objectClass: person",
+        "sn: test",
+        "cn: test1",
+        "cn: test2",
+        "cn: test3" );
+    
+    // Get the 'cn' Attribute
+    Attribute cn = entry.get( "cn" ) );
 
-        // Get all the Attributes
-        Collection<Attribute> attributes = entry.getAttributes();
+    // Get all the Attributes
+    Collection<Attribute> attributes = entry.getAttributes();
 
 
 ### getDn()
