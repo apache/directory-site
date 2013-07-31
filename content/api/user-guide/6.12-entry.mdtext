@@ -305,7 +305,7 @@ One can check for the existence of a specific value for a given attribute, or ev
     boolean contains = entry.containsAttribute( "cn", "sn" );
 
     // Check that the entry contains 3 given values of the 'cn' Attribute
-    contains = entry.contains( "cn", "test1", "test2", "test3" ) );
+    contains = entry.contains( "cn", "test1", "test2", "test3" );
 
 Note that if one value does not exist, the _contains() method will return false.
 
@@ -325,7 +325,7 @@ Returns the _Attribute_ having the given name if it exists. The following test d
         "cn: test3" );
     
     // Get the 'cn' Attribute
-    Attribute cn = entry.get( "cn" ) );
+    Attribute cn = entry.get( "cn" );
 
     // Get all the Attributes
     Collection<Attribute> attributes = entry.getAttributes();
