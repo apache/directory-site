@@ -29,40 +29,41 @@ Those classes are currently only used by the server. It will be available on the
 </DIV>
 
 An _AdministrativePoint_ is an _entry_ in the _DIT_ which is associated with some _AdministrativeArea_. In **ApacheDS** we support 4 different kind of roles :
-    * ACI
-    * Collective Attributes
-    * SubSchema
-    * Triggers
+
+* ACI
+* Collective Attributes
+* SubSchema
+* Triggers
 
 We also have three different kind of _AdministrativePoint_ :
 
-    * Autonomous AdministrativePoint (AAP)
-    * Specific AdministrativePoint (SAP)
-    * Inner AdministrativePoint (IAP)
+* Autonomous AdministrativePoint (AAP)
+* Specific AdministrativePoint (SAP)
+* Inner AdministrativePoint (IAP)
 
 Each of the roles will come in one of the 3 'flavors' (except the SubSchema whch has only 2 flavors). So we have the following classes :
 
-    * AccessControl
-        * AccessControlAAP
-        * AccessControlSAP
-        * AccessControlIAP
-    * CollectiveAttribute
-        * CollectiveAttributeAAP
-        * CollectiveAttributeSAP
-        * CollectiveAttributeIAP
-    * Subschema
-        * SubschemaAAP
-        * SubschemaSAP
-    * Triggers
-        * TriggerExecutionAAP
-        * TriggerExecutionSAP
-        * TriggerExecutionIAP
+* AccessControl
+    * AccessControlAAP
+    * AccessControlSAP
+    * AccessControlIAP
+* CollectiveAttribute
+    * CollectiveAttributeAAP
+    * CollectiveAttributeSAP
+    * CollectiveAttributeIAP
+* Subschema
+    * SubschemaAAP
+    * SubschemaSAP
+* Triggers
+    * TriggerExecutionAAP
+    * TriggerExecutionSAP
+    * TriggerExecutionIAP
 
 Any of those classes stores the following informations :
 
-    * dn : The DN of the root entry for this administration point.
-    * uuid : The associated entryUUID
-    * role : The Administrative role
-    * parent : The parent (if any) AdministrativePoint
-    * children : All the descendant of this AdministrativePoint
+* dn : The DN of the root entry for this administration point.
+* uuid : The associated entryUUID
+* role : The Administrative role
+* parent : The parent (if any) AdministrativePoint
+* children : All the descendant of this AdministrativePoint
 
