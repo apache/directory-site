@@ -293,32 +293,37 @@ Here is an exemple of a mote mail :
 
 If the vote succeeds the Mavibot project can be released.
 
-Go to https://repository.apache.org/index.html#stagingRepositories and release the staging repository so all artifacts are published to Maven central.
+Go to [https://repository.apache.org/index.html#stagingRepositories](https://repository.apache.org/index.html#stagingRepositories) and release the staging repository so all artifacts are published to Maven central.
 
-Move the distribution packages (sources and binaries) to the dist SVN repository: https://dist.apache.org/repos/dist/release/directory/mavibot/dist/$(version)
+Move the distribution packages (sources and binaries) to the dist SVN repository: 
+
+    **https://dist.apache.org/repos/dist/release/directory/mavibot/dist/$(version)**
 
 The best solution would be to checkout the directory in people.apache.org, to copy the packages in the right place, and to check in the changes :
 
-$ ssh people.apache.org
-# svn co https://dist.apache.org/repos/dist/release/directory/mavibot/dist/ api-dist
-# cd api-dist
-# mkdir <version>
-# cp ../public_html/mavibot-<version>/* <version>
-# svn ci <version>
-...
-# exit
-$
+    :::text
+    $ ssh people.apache.org
+    # svn co https://dist.apache.org/repos/dist/release/directory/mavibot/dist/ api-dist
+    # cd api-dist
+    # mkdir <version>
+    # cp ../public_html/mavibot-<version>/* <version>
+    # svn ci <version>
+    ...
+    # exit
+    $
 
-The packages should now be available on http://www.us.apache.org/dist/directory/mavibot/dist/<version>
+The packages should now be available on **http://www.us.apache.org/dist/directory/mavibot/dist/<version>**
 
 ## Deploy the Javadocs and XRef
 
 We now can deploy the generated Javadoc and cross-reference pages. They are generated in the following directory :
 
-target/checkout/target/site
+    :::text
+    target/checkout/target/site
 
 We will copy two directories :
 
+    :::text
     apidocs
     xref
 
@@ -328,56 +333,65 @@ Those files will be stored on the production server only !!! And some extra caut
 
 First of all, you must checkout the two CMS store for the site : staging and revision.
 
-$ cd ~/apacheds
-$ svn co https://svn.apache.org/repos/infra/websites/production/directory/trunk staging
- ...
-$ svn co https://svn.apache.org/repos/infra/websites/production/directory production
- ...
+    :::text
+    $ cd ~/apacheds
+    $ svn co https://svn.apache.org/repos/infra/websites/production/directory/trunk staging
+     ...
+    $ svn co https://svn.apache.org/repos/infra/websites/production/directory production
+     ...
 
 Now, you will first add the directory for the newly generated version :
 
-$ cd ~/apacheds/production/content/mavibot/gen-docs
-$ mkdir <version>
-$ svn add <version>
+    :::text
+    $ cd ~/apacheds/production/content/mavibot/gen-docs
+    $ mkdir <version>
+    $ svn add <version>
 
 Then copy the generated docs :
 
-$ cp -r ~/apacheds/trunks/mavibot/target/checkout/target/site/apidocs ~/apacheds/production/content/mavibot/gen-docs/<version>
-$ cp -r ~/apacheds/trunks/mavibot/target/checkout/target/site/xref ~/apacheds/production/content/mavibot/gen-docs/<version>
-$ 
+    :::text
+    $ cp -r ~/apacheds/trunks/mavibot/target/checkout/target/site/apidocs ~/apacheds/production/content/mavibot/gen-docs/<version>
+    $ cp -r ~/apacheds/trunks/mavibot/target/checkout/target/site/xref ~/apacheds/production/content/mavibot/gen-docs/<version>
+    $ 
 
 You have to check in those directories :
 
-$ svn add <version>/*
-$ svn ci <version> -m "Injected <version> javadocs"
+    :::text
+    $ svn add <version>/*
+    $ svn ci <version> -m "Injected <version> javadocs"
 
 Now, you have to update the staging site :
-extpaths.txt
+
+    :::text
+    extpaths.txt
 
 This file list the file on the production site that will not be overriden by the publication of the staging site. It has to be updated
 
-$ cd ~/apacheds/staging/content/
-$ vi extpaths.txt
+    :::text
+    $ cd ~/apacheds/staging/content/
+    $ vi extpaths.txt
 
 Add the following line :
 
-...
-# Mavibot
-mavibot/gen-docs/<version>
-...
+    :::text
+    ...
+    # Mavibot
+    mavibot/gen-docs/<version>
+    ...
 
-then save and check in the file
-.htaccess
+then save and check in the file **.htaccess**
 
 We also have to update this file :
 
-$ cd ~/apacheds/staging/content/mavibot/gen-docs
-$ vi .htaccess
+    :::text
+    $ cd ~/apacheds/staging/content/mavibot/gen-docs
+    $ vi .htaccess
 
 And update the two last lines to refer to the version you've just released :
 
-RewriteRule ^latest$ <version>/
-RewriteRule ^latest/(.*)$ <version>/$1
+    :::text
+    RewriteRule ^latest$ <version>/
+    RewriteRule ^latest/(.*)$ <version>/$1
 
 Save and commit the file.
 
@@ -389,6 +403,6 @@ You can now update the site, add a news on the front page, and publish the site.
 
 After 24h, you can now inform the world about the release.
 
-Send a mail to the users and dev mailing list, and one to the announce@apacge.org.
+Send a mail to the users and dev mailing list, and one to the announce@apache.org list.
 
 You are done !
