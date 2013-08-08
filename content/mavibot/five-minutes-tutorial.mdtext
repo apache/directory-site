@@ -94,7 +94,7 @@ You will find a detailed description of all the associated methods in the Mavibo
 
 ## Values
 
-A _BTree_ can stor single value or mmultiple values, associated to a key. The _AllowDuplicates_ flags is set to true if you want to store multiple values associated with one key.
+A _BTree_ can stor single value or multiple values, associated to a key. The _AllowDuplicates_ flags is set to true if you want to store multiple values associated with one key.
 
 The default _BTree_ wll only accept single value.
 
@@ -102,10 +102,10 @@ The default _BTree_ wll only accept single value.
 
 Your _BTree_ can store a new revision for each new modification done on it. Those revisions are kept until no operation are holding them. The _BTree_ operations can all be done using a specific revision number.
 
-Once the revision is not anymore in use, the associated pages are likely to be reclaimed.
+Once the revision is not longer in use, the associated pages are likely to be reclaimed.
 
 ## Cache
 
-We don't implement a cache : we depends on Java for that. The _BTree_ is stored in memory, using class instances, and are eventually loaded from disk if they are not present in memory. We use _WeakReference_ to hold all the pages.
+We don't implement a cache : we depends on Java for that. The _BTree_ is stored in memory, using class instances, and are eventually loaded from disk if they are not present in memory. We use [_WeakReference_](http://docs.oracle.com/javase/7/docs/api/java/lang/ref/WeakReference.html) to hold all the pages.
 
-As the _Java_ garbage collector already keep in memory the most frequently used data, it's likely that the important pages - ie, the top of each _BTree_ - will be kept in memory.
+As the _Java_ garbage collector already keeps in memory the most frequently used data, it's likely that the important pages - ie, the top of each _BTree_ - will be kept in memory.
