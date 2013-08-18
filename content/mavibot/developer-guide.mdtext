@@ -193,7 +193,7 @@ Go to https://repository.apache.org/index.html#stagingRepositories and close the
     $ cd target/checkout
     $ mvn site
 
-This creates the site.
+This creates the javadocs and the cross-references.
 
 Now, you have to sign the binary packages which are in target/checkout/distribution/target.
 
@@ -307,7 +307,7 @@ The best solution would be to checkout the directory in people.apache.org, to co
 
     :::text
     $ ssh people.apache.org
-    # svn co https://dist.apache.org/repos/dist/release/directory/mavibot/dist/ api-dist
+    # svn co https://dist.apache.org/repos/dist/release/directory/mavibot/dist/ mavibot-dist
     # cd api-dist
     # mkdir <version>
     # cp ../public_html/mavibot-<version>/* <version>
