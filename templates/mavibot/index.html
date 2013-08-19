@@ -3,6 +3,6 @@
 {% block content %}
     {{content|markdown}}
     {% block news %}
-        <div class="news">{% filter markdown %}{% include "../content/mavibot/news.mdtext" %}{% endfilter %}</div>
+       {% filter markdown %}{% include "../content/mavibot/news.mdtext" %}{% endfilter %}
     {% endblock %}
 {% endblock %}
