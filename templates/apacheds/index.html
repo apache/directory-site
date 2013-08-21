@@ -1,7 +1,71 @@
 {% extends "apacheds/page.html" %}
 
 {% block content %}
-    {{content|markdown}}
+
+    {% block hero %}
+        <div class="hero clearfix">
+            <div class="left">
+                <h1>ApacheDS&trade;</h1>
+                <h2>LDAP and Kerberos server written in Java</h2>
+                <div class="description">ApacheDS&trade; is an extensible and embeddable directory server entirely written in Java, which has been certified LDAPv3 compatible by the Open Group. Besides LDAP it supports Kerberos 5 and the Change Password Protocol. It has been designed to introduce triggers, stored procedures, queues and views to the world of LDAP which has lacked these rich constructs.</div>
+                <div class="download-link">
+                    <a href="#" class="download_badge"><b>Download<br>ApacheDS {{version_apacheds}}</b></a>
+                </div>
+            </div>
+            <div class="right">
+                <img src="../images/hero-apacheds.jpg" width="377" height="287" border="0"/>
+            </div>
+        </div>
+    {% endblock %}
+
+    {% block features-highlights %}
+        <div class="features-highlights clearfix">
+            <div class="feature-highlight left">
+                <img class="icon" src="../images/feature_highlight_server_ldapv3_compliant.png">
+                <h3>LDAPv3 Compliant</h3>
+                <div class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras a sem sed velit aliquam pretium. Nam consequat nunc et libero pellentesque pharetra id et sapien. Integer in eros ut diam feugiat gravida. Quisque rutrum odio id pretium interdum. Nulla facilisi.</div>
+            </div>
+            <div class="feature-highlight right">
+                <img class="icon" src="../images/feature_highlight_server_x500_authorization.png">
+                <h3>Full X500 Authorization</h3>
+                <div class="text">Cras consequat massa vel dui feugiat, a tristique tellus condimentum. In ornare id enim vel ultricies. Vivamus in elementum ligula. Aliquam laoreet tristique magna eget pretium. Suspendisse potenti. Aenean a porta velit. Aliquam consequat lacus lacinia bibendum hendrerit.</div>
+            </div>
+            <div class="separator clearfix"></div>
+            <div class="feature-highlight left">
+                <img class="icon" src="../images/feature_highlight_server_kerberos_server.png">
+                <h3>Kerberos Server Built-in</h3>
+                <div class="text">Integer ultrices ut ante ut vestibulum. In non consequat mauris. Nunc facilisis leo risus, quis pellentesque arcu suscipit sit amet. Nunc iaculis sem sem, sed vehicula diam condimentum at. Cras et placerat justo. Proin ullamcorper dapibus semper.</div>
+            </div>
+            <div class="feature-highlight right">
+                <img class="icon" src="../images/feature_highlight_server_multi_master_replication.png">
+                <h3>Multi-Master Replication</h3>
+                <div class="text">Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Praesent sagittis euismod cursus. Integer dignissim turpis urna, at congue nibh eleifend at.</div>
+            </div>
+            <div class="separator clearfix"></div>
+            <div class="feature-highlight left">
+                <img class="icon" src="../images/feature_highlight_server_password_policy.png">
+                <h3>Password Policy Support</h3>
+                <div class="text">Nulla in lorem risus. Vivamus iaculis neque ipsum, id dapibus mauris dictum a. Proin eleifend non nisl quis fermentum. In faucibus dapibus nibh et ullamcorper. Praesent sed nisl egestas dolor fringilla venenatis.</div>
+            </div>
+            <div class="feature-highlight right">
+                <img class="icon" src="../images/feature_highlight_server_ldif_based_configuration.png">
+                <h3>LDIF-Based Configuration</h3>
+                <div class="text">Nam non ultrices ipsum. Vivamus quis rhoncus nisi, id molestie sem. Quisque cursus vitae nisi ut pellentesque. Maecenas diam enim, tempus eget consequat eget, dictum vel sem. Curabitur ultrices tristique mattis.</div>
+            </div>
+            <div class="separator clearfix"></div>
+            <div class="feature-highlight left">
+                <img class="icon" src="../images/feature_highlight_server_written_java_embeddable.png">
+                <h3>Written in Java and Embeddable</h3>
+                <div class="text">Aenean suscipit eget elit sed pretium. Integer eu justo quam. Aenean accumsan massa et commodo viverra. Aenean ultricies nibh non enim adipiscing, vitae dignissim neque varius. In vulputate augue in dui posuere, sit amet vulputate enim tincidunt.</div>
+            </div>
+            <div class="feature-highlight right">
+                <img class="icon" src="../images/feature_highlight_server_multi_platform.png">
+                <h3>Multi-Platform</h3>
+                <div class="text">Aenean iaculis eleifend ipsum, at rhoncus massa fermentum in. Vestibulum rhoncus nibh sit amet elit blandit, eu pretium velit sodales. Fusce id congue nulla. Pellentesque urna purus, tincidunt id feugiat a, convallis sit amet diam.</div>
+            </div>
+        </div>
+    {% endblock %}
+
     {% block news %}
         <div class="news">{% filter markdown %}{% include "../content/apacheds/news.mdtext" %}{% endfilter %}</div>
     {% endblock %}
