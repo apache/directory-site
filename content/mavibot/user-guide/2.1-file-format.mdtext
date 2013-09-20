@@ -1,0 +1,47 @@
+Title: 2.1 - File Format
+NavUp: ../user-guide.html
+NavUpText: User Guide
+NavNext: 2-.html
+NavNextText: 2 - 
+Notice: Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    .
+    http://www.apache.org/licenses/LICENSE-2.0
+    .
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+
+# 2.1 - File format
+
+When associated with a RecordManager, Mavibot stores all the Btrees in one single file, which is split in many physical pages, all having the same size. 
+
+>**Note** page size
+>Currently, the choice was to use one single size for all the pages, regardless the data we store into them. The rationnal is to
+>get close to the OS page size (frequently 512 bytes or 4096 bytes). This is not necessarily the best choice though, let's say 
+>it's something we might want to change later.
+
+
+## General file structure
+
+The file we use to store the data is a plain binary file, used to store all the BTrees. We can store many btrees in one single file.
+
+This file is considered as a fileSystem, with fixed size 'pages' (a page is an array of bytes). The page size is arbitrary fixed when teh RecordManager is created, and we will store every logical data n those physical pages, which will require to spread the logical data in many pages in most of the cases.
+
+## PageIO
+
+Let's first introduce the *PageIO*, which is used to store the data on disk.
+
+A *PageIO* contains some raw data. As we have to map some logical data that may be wider than a physical fixed size *PageIO*, we use potentially more than one *PageIO* to store the data, and we link the *PageIO*s alltogether.
+
+Each *PageIO* has a height bytes pointer at the beginning, pointing to the next PageIO (or to nothing, if there is no more *PageIO* in the chain), plus an extra 4 bytes on the first *PageIO* to define the number of bytes stored in the chain of PageIO. Here is the mapping between a logical page and some PageIOs :
+
+![PageIO mapping](images/PageIOLogical.png)
