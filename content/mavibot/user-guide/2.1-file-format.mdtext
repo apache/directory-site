@@ -24,7 +24,7 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 When associated with a RecordManager, Mavibot stores all the Btrees in one single file, which is split in many physical pages, all having the same size. 
 
->**Note** page size
+>**Note**
 >Currently, the choice was to use one single size for all the pages, regardless the data we store into them. The rationnal is to
 >get close to the OS page size (frequently 512 bytes or 4096 bytes). This is not necessarily the best choice though, let's say 
 >it's something we might want to change later.
@@ -36,7 +36,7 @@ The file we use to store the data is a plain binary file, used to store all the 
 
 This file is considered as a fileSystem, with fixed size 'pages' (a page is an array of bytes). The page size is arbitrary fixed when teh RecordManager is created, and we will store every logical data n those physical pages, which will require to spread the logical data in many pages in most of the cases.
 
-## PageIO
+### PageIO
 
 Let's first introduce the *PageIO*, which is used to store the data on disk.
 
@@ -45,3 +45,74 @@ A *PageIO* contains some raw data. As we have to map some logical data that may 
 Each *PageIO* has a height bytes pointer at the beginning, pointing to the next PageIO (or to nothing, if there is no more *PageIO* in the chain), plus an extra 4 bytes on the first *PageIO* to define the number of bytes stored in the chain of PageIO. Here is the mapping between a logical page and some PageIOs :
 
 ![PageIO mapping](images/PageIOLogical.png)
+
+Every *PageIO*s are contiguous on disk, but the *PageIO*s used to store a logical page may be located anywhere on the disk, they don't have to be continuous.
+
+Here is the structure of a *PageIO* on disk :
+
+* next page offset (8 bytes) : the offset of the next *PageIO*, or -1L if no more *PageIO* is needed
+* data size (4 bytes) : for the first *PageIO*, the size of the stored data across all the *PageIO*s used to store a page.
+* data (N bytes) : a block of data, which size will be min( PageSize - offset - data size, data size) for the first *PageIO* or min( PageSize - offset, data size) for any other *PageIO*s
+
+## Logical structure mapping on disk
+
+We will now describe how each logical structure is serialized on disk.
+
+### RecordManager header
+
+We keep a few bytes at the beginning of the file to store some critical information about the RecordManager. Here is the list of stored informations :
+
+* The *PageIO* size (in bytes)
+* The number of managed BTrees
+* The offset of the first free page
+* The offset of the last free page
+
+Here is a picture that shows the header content :
+
+![RecordManager header](images/RMHEader.png)
+
+We keep a track of the free pages (a free page is a PageIO that is not anymore used, for instance because the data have been deleted.) This is done by keeping a link between each PageIO and by pointing to the first feee PageIO and to the last free PageIO of this list.
+
+>**Note** We might get rid of the last free page offset.
+
+
+At startup, of course, we have no free pages, and those pointers contain the -1 offset.
+
+This header is stored in a *PageIO*, at the very beginning of the file.
+
+### The RecordManager structure
+
+The *RecordManager* manages *BTree*s, and we have to store them into *PageIO*s. How do we do that ?
+
+All the *BTree*s have a header that contains many informations about them, and point to a *rootPage* which is the current root (so the root for the latest revision). As a *RecordManager* can manage more than one *BTree*, we have to find a way to retreive all the *BTree*s at startup : we use an internal link, so that a *BTree* points to the next btree. At startup, we read the first *BTree* which is stored in the second *PageIO* in the file (so just after the RecordManager header), then we read the next *BTree* pointed by the first *BTree*, and so on.
+
+#### The BTree header
+
+Each *BTree* has to keep many informations so that it can be used. Those informations are :
+
+* revision (8 bytes) : the current revision for this *BTree*. This value is updated after each modification in the *BTree*.
+* nbElems (8 bytes) : the total number of elements we have in the *BTree*. This is updated after each modification either.
+* rootPage offset (8 bytes) : the position in the file where the *rootPage* is stored
+* nextBtree offset (8 bytes) : the position of the next *BTree* header in the file (or -1 if we don't have any other *BTree*)
+* pageSize (4 bytes) : the number of elements we cans store in a *Node* or a *Leaf*. It's not related in any possible way with the *PageIO* size.
+* nameSize (4 bytes) : The *BTree* name size
+* name (nameSize bytes) : the *BTree* name
+* keySerializerSize (4 bytes) : The size of the java *FQCN* for the key serializer
+* keySerializer (keySerializerSize bytes) : The java *FQCN* for the key serializer
+* valueSerializerSize (4 bytes) : The size of the java *FQCN* for the value serializer
+* valueSerializer (valueSerializerSize bytes): The java *FQCN* for the value serializer
+* dupsAllowed (1 byte): tells if the *BTree* can have duplicated values.
+
+As we can see, thi sheader can have various length, and if one one the names is long, we may need more than one PageIOs to store it.
+
+Here is a diagram which present this data structure on disk :
+
+![BTreeHeader header](images/btreeHeader.png)
+
+Note that a *BTree* header can be stored on one or many *IOPage*s, depending on its size.
+
+All in all, when we have more than one *BTree* stored in the file, the content of the file which stores the *BTree* headers will look like this one :
+
+![BTrees](images/BTree.png)
+
+
