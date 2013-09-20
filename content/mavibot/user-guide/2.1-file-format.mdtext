@@ -115,4 +115,17 @@ All in all, when we have more than one *BTree* stored in the file, the content o
 
 ![BTrees](images/BTree.png)
 
+Note that each *BTreeHeader* has at least one root page, even if it contains no data. In this schema, we show the root page just after the *BTree* it is associated to, but after a few updates, the root page may perfectly well be stored elswhere on the disk.
+
+#### The Nodes and Leaves
+
+Nodes and Leaves are logical *BTree* pages which are serialized on disk into one to many *PageIO*s. They have slightly different data structures, as *Node*s contains pointers to *Leaves*, and no data, while *Leaves* contains data. In any case, both contain the keys.
+
+On disk, each *Node* and *Leaf* are stored in *PageIO*s, as we said. A *Node* will have pointers to some other logical pages, and on disk, those pointers will be offset of the first *PageIO* used to store the logical page it points to.
+
+Here is the *Node* and *Leaf* data structures once serialized :
+
+![Node and Leaf](images/nodeLeaf.png)
+
+
 
