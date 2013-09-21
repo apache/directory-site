@@ -119,7 +119,7 @@ Note that each *BTreeHeader* has at least one root page, even if it contains no 
 
 #### The Nodes and Leaves
 
-Nodes and Leaves are logical *BTree* pages which are serialized on disk into one to many *PageIO*s. They have slightly different data structures, as *Node*s contains pointers to *Leaves*, and no data, while *Leaves* contains data. In any case, both contain the keys.
+Nodes and Leaves are logical *BTree* pages which are serialized on disk into one to many *PageIO*s. They have slightly different data structures, as *Node*s contains pointers to *Leaves*, and no data, while *Leaves* contains data. In any case, both contain the keys. The *Node* has one ore value than the *Leaf*, too.
 
 On disk, each *Node* and *Leaf* are stored in *PageIO*s, as we said. A *Node* will have pointers to some other logical pages, and on disk, those pointers will be offset of the first *PageIO* used to store the logical page it points to.
 
@@ -127,5 +127,21 @@ Here is the *Node* and *Leaf* data structures once serialized :
 
 ![Node and Leaf](images/nodeLeaf.png)
 
+
+Note that we store the size of the serialized data : this is necessary as we have to know how many *PageIO*s will be needed to store the logical page.
+
+The *rootPage* is just a *Node* or a *Leaf*.
+
+#### Potential improvement
+
+We can get better performance by serializing the data differently. Instead of storing keys and values as byte arrays prefixed by their length, we could store an array of keys and values' offsets before the associated byte[]. Here is the resulting data structure, once serialized :
+
+![Node and Leaf, improved](images/nodeLeaf2.png)
+
+(The *Node* is not described, as it's basically the same data structure, but with one extra value).
+
+It does not need more space to serialize the data this way, as the offsets are ints, and in the previous version, those ints are used to store the length of the keys and values anyway.
+
+The gain is that we can have access to a given key and value without having to read all the previous keys and values. Also we can now read a leaf or a node without having to deserialize all the keys and values they contain.
 
 
