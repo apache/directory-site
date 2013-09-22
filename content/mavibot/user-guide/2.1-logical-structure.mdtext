@@ -22,12 +22,71 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 # 2.1 - Logical Structure
 
-## Special BTrees
+**Mavibot** stores data into *BTree*s, and we may manage many *BTree*s, so we have to define the right data structure to handle those data.
+
+We can have three different ways to use **Mavibot** :
+* using in-memory *BTree*s (IN-MEMORY)
+* using in-memory *BTree*s stored on disk (PERSISTED)
+* storing the *BTree*s on disk (so called managed *BTree*s) (MANAGED)
+
+
+## In Memory BTrees
+
+They are *BTree*s stored in memory : as soon as you quit your program, all the stored data will bo lost. The biggest advantage is that it's fast.
+
+As *Mavibot* is handling **MVCC** *BTree*s, you have to keep in maind that for each modification, we copy pages and values, so the *BTree*s will quickly grow and eat the memory. On the other hand, copied data which are not anymore in use will be discarded automatically. The beauty of having a garbage collector is that we don't have to take care of those copied data : if they are not any more referenced by any objects using the *BTree*, they will be reclaimed by the GC.
+
+The following schema shows what is the logical data structure whe using a in memory *BTree* :
+
+![In-Memory BTree](images/InMemoryBTree.png)
+
+## Persistent BTrees
+
+A persistent *BTree* is a *BTree* which can be flushed on disk on demand. The *BTree* is a in-Memory *BTree*, but when you close it, all of its content latest revision is serialized on disk. You can re-read it when needed.
+
+Otherwise, there is no difference with an in-memory *BTree*
+
+## Managed BTrees
+
+Managed *BTree*s are very different : we will keep a updated version of the *BTree* on disk after each modifciation. even if the program crashes, you have the guarantee that the disk will contain everything needed to recover the *BTree* as it was just before the crash.
+
+This is important to understand that we don't keep all the *BTree* in memory when it's managed, but instead we try to limit the elements we load in memory. In other words, there is no guarantee whatsoever that you will have any pat of the *BTree* in memory, except the root page, so that means **Mavibot** may have to fetch some missing data from disk at any moment.
+
+Obviously this approach have big pros and cons :
+
+Pros :
+* there is no limit but the available disk you have to the number of elements you can store in your *BTree*
+* your *BTree* will always be consistent, even if you have a crash
+* you can stop your application and restart it, your data are still around
+
+Cons :
+* as your data may not be present in memory, it cost a lot to fetch them from disk
+* as we have to take care of missing data, accessing them requires an extra layer of accessor to deal wth the fact they may be on disk, costing some extra memory
+
+Here, this is just a question of tradeoff : depending on your memory size, and the level of robustness you want, you may decide to go for a in-memory *BTree*, a persistent *BTree* or a managed one. Most of the time, though, managed *BTree* is what you want to use.
+
+Also note that we use internal cache to speed up the data access. This cache and its size can be configured.
+
+We will see how we manage *BTree*s internally.
+
+### User's BTrees
+
+Managed user's *BTree*s are stored using *Nodes* and *Leaves*. A *Node* contains only keys are references to underlaying nodes or leaves. A *Leaf* contans keys and values. As we don't want to eat too much memory, the references to nodes, meaves, keys and values are stored as offset, read and translated to java objects on demand. For instance, we keep an offset to a key until someone needs to access the key, then we deserialize this key and store it in memory. This is the very same for references to nodes, leaves or values.
+
+Here is a schema describing this mechanism :
+
+![Managed references](images/managedReferences.png)
+
+In this schema, we have only loaded two pages in memory : the node and one leaf. In these pages, the keys aren't yet objects, we are pointing to the page's raw data, except for the **D** key which is already a Java Object (it has been deserialized). The very same for the references to the leaves : we have only loaded and deserialized one single leaf, the one containing the value **D**. In this leaf, the keys aren't deserialized except the **D** key, and the only value which is a Java instance is the deserialized **vD** value.
+
+So each elements is an instance of an encapsulating object which contains the offset of the serialized element in a byte[], and the deserialized value if the value has already been accessed.
+
+### Special BTrees
 
 We have two special *BTree*s we use to manage the revisions and the copied pages. We will explain what they are good for
 
 
-### Revision tree
+#### Revision tree
 
 We need to keep a track of each active revision, so that a search can work with a specific revision. The idea is that when a search starts, it uses the latest revision, but as some modification can occur while teh search is bieng processed, some new revisions will be added. In some case, we may want to keep a revision active for quite a long time.
 
@@ -40,14 +99,14 @@ When a revision is not anymore used, we can remove it from the revision *BTree*.
 This *BTree* is not a **MVCC** *BTree*, like the other ones. In other words, we only keep the latest revision of this *BTree* (ie, all the modified pages are immediately freed)
 
 
-### Copied pages BTree
+#### Copied pages BTree
 
 Once we create a new revision, the pages we copied are not anymore in use except if the revisions they are associated with are still in use. The problem is that we can't discard those pages and move them to the free list until the associated revision is free.
 
 We use a dedicated *BTree* to keep a track of the copied pages, which will be reclaimed and moved to the free pages list once the associated revision will be released.
 
 
-## Managing the free pages
+### Managing the free pages
 
 We have a mechanism to manage the *PageIO* that are not anymore in use. This is a linked list in which the free pages are added. If we need some page, we first look into this list, and get back as many *PageIO*s as we need - until we reach the end of this list. If we free some page, we add them at the end of the free list.
 
