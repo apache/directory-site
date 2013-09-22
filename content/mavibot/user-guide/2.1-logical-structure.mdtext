@@ -1,0 +1,54 @@
+Title: 2.1 - Logical Structure
+NavUp: ../user-guide.html
+NavUpText: User Guide
+NavNext: 2.2-physical-storage.html
+NavNextText: 2.2 - Physical storage
+Notice: Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    .
+    http://www.apache.org/licenses/LICENSE-2.0
+    .
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+
+# 2.1 - Logical Structure
+
+## Special BTrees
+
+We have two special *BTree*s we use to manage the revisions and the copied pages. We will explain what they are good for
+
+
+### Revision tree
+
+We need to keep a track of each active revision, so that a search can work with a specific revision. The idea is that when a search starts, it uses the latest revision, but as some modification can occur while teh search is bieng processed, some new revisions will be added. In some case, we may want to keep a revision active for quite a long time.
+
+So we store the active revisions in a dedicated *BTree*.
+
+As we may have many *BTree*s, we have to use a key which is a combinaison of the *BTree* name and its revision. So the revision *BTree* manage the revisions of all the managed *BTree*s.
+
+When a revision is not anymore used, we can remove it from the revision *BTree*.
+
+This *BTree* is not a **MVCC** *BTree*, like the other ones. In other words, we only keep the latest revision of this *BTree* (ie, all the modified pages are immediately freed)
+
+
+### Copied pages BTree
+
+Once we create a new revision, the pages we copied are not anymore in use except if the revisions they are associated with are still in use. The problem is that we can't discard those pages and move them to the free list until the associated revision is free.
+
+We use a dedicated *BTree* to keep a track of the copied pages, which will be reclaimed and moved to the free pages list once the associated revision will be released.
+
+
+## Managing the free pages
+
+We have a mechanism to manage the *PageIO* that are not anymore in use. This is a linked list in which the free pages are added. If we need some page, we first look into this list, and get back as many *PageIO*s as we need - until we reach the end of this list. If we free some page, we add them at the end of the free list.
+
+We always free a logical page, which may be stored into many *PageIO*s. The good thing is that those *PageIO*s are already linked, so we just need to make the last free *PageIO* to point on the first freed *PageIO*, and to move the pointer to the last free page to the last *PageIO* used to store the logical page.
