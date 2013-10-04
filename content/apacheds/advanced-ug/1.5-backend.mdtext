@@ -50,7 +50,7 @@ As we depend on a in-memory backend, which handles the indexes, we have to creat
 
 ### Future Backends
 
-We intend to add another in-memory backend, based on _Mavibot_, a **MVCC BTREE**. The biggest advantage over the other systems is that it's fast, it allows concurrent reads without locks when the other _Backend_ block the reads when some write operation is being processed. Also it saves on disk it contents peridodically, and has a Journal so that we can recover fro a crash.
+We intend to add another in-memory backend, based on _Mavibot_, a **MVCC BTREE**. The biggest advantage over the other systems is that it's fast, it allows concurrent reads without locks when the other _Backend_ block the reads when some write operation is being processed. Also it saves on disk it contents periodically, and has a Journal so that we can recover from a crash.
 
 The only drawback is that all the entries and indexes must hold in memory. On the other hand, we don't anymore need a cache.
 
@@ -67,7 +67,7 @@ The _MasterTable_ contains all the entries, serialized.
 This table is a <Key, Value> **BTree**, where the key is the entry's **UUID**, and the value the serialized entry.
 
 <DIV class="note" markdown="1">
-Theorically, we could be able to read it, and restore the whole database, indexes included, assuming that we know which index we have to create. Sadly, it's not enough, as the entries are stored without any information about their position in the **DIT**.
+Theoretically, we could be able to read it, and restore the whole database, indexes included, assuming that we know which index we have to create. Sadly, it's not enough, as the entries are stored without any information about their position in the **DIT**.
 </DIV>
 
 ### Indexes

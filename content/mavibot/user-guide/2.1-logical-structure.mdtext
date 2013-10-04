@@ -88,7 +88,7 @@ We have two special *BTree*s we use to manage the revisions and the copied pages
 
 #### Revision tree
 
-We need to keep a track of each active revision, so that a search can work with a specific revision. The idea is that when a search starts, it uses the latest revision, but as some modification can occur while teh search is bieng processed, some new revisions will be added. In some case, we may want to keep a revision active for quite a long time.
+We need to keep a track of each active revision, so that a search can work with a specific revision. The idea is that when a search starts, it uses the latest revision, but as some modification can occur while the search is bieng processed, some new revisions will be added. In some case, we may want to keep a revision active for quite a long time.
 
 So we store the active revisions in a dedicated *BTree*.
 

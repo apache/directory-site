@@ -32,11 +32,11 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 The **Administrative Model** is a really critical notion that needs to be understood, because it drives many of ApacheDS roles.
 
-It's directly inherited by the **X.500** Administrative model (in fact, we do implement the full **X.500** sepcification related to **AAs**).
+It's directly inherited by the **X.500** Administrative model (in fact, we do implement the full **X.500** specification related to **AAs**).
 
 ## What is the Administrative Model ?
 
-The idea is to define the **DIT** as some areas which are administrated.
+The idea is to define the **DIT** as some areas which are administered.
 Each area can be defined, and covers a set of entries, and each area can manage one ore more roles we want to manage.
 Those roles can be related to authorization, schema, etc... Each of these areas can overlap, but in any case, if two areas are overlapping,
 then one area totally includes the other one.
@@ -45,7 +45,7 @@ The Administrative Model is everything we need to implement in order to be able 
 
 ## Areas
 
-An Area describes a part of the **DIT** which will start from a specific entry, and span across a part of the subtree starting at the base entry. An area is administrated by an **AP** (Administrative Point) which holds all the needed information about the area and the roles.
+An Area describes a part of the **DIT** which will start from a specific entry, and span across a part of the subtree starting at the base entry. An area is administered by an **AP** (Administrative Point) which holds all the needed information about the area and the roles.
 
 We have three kind of areas :
 

@@ -61,7 +61,7 @@ The most common installation, shared by all ApacheDS installers, can be describe
 
 ### 5.1.1.2 Instance Layout
 
-ApacheDS is built to be able to run multiple instances of the server at the same time, which means that optionally an _**instances**_ folder can be found in the installation layout (or elswhere on disk depending on the platform).
+ApacheDS is built to be able to run multiple instances of the server at the same time, which means that optionally an _**instances**_ folder can be found in the installation layout (or elsewhere on disk depending on the platform).
 In that folder, can be found a single or multiple directories, all sharing the same layout, corresponding to all ApacheDS instance (one directory per instance, named by the id of the instance).
 
 Here's how this instance layout can be described:
@@ -88,7 +88,7 @@ Here's how this instance layout can be described:
 * The _**cache/**_ directory is empty upon installation and contains all the data required for the cache system after the first start of the server.
 * The _**conf/**_ directory contains:
     * an additional _**wrapper.conf**_ where general configuration defined in the installation layout can be overwritten for the given instance.
-    * a _**log4j.properties**_ file which is reponsible for logging configuration.
+    * a _**log4j.properties**_ file which is responsible for logging configuration.
     * a _**config.ldif**_ file corresponding to the inner configuration of ApacheDS.
 * The _**log/**_ directory is empty upon installation and contains two files after the first start of the server:
     * a _**apacheds.log**_ which is where all logs defined in the _**log4j.properties**_ go.

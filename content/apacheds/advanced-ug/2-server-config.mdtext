@@ -24,7 +24,7 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 # 2 - Server Configuraion
 
-We will now describe the server configuration. Usually, all the configuration is done using Apache Directory Studio, which offers a pretty GUI. One can also configure the server using LDAP request, as the configuration is stored in teh **DIT**. Otherwise, all the configuration modifications won't be applied on a started server : usually, you will have to restart the server in order to get those modifications applied.
+We will now describe the server configuration. Usually, all the configuration is done using Apache Directory Studio, which offers a pretty GUI. One can also configure the server using LDAP request, as the configuration is stored in the **DIT**. Otherwise, all the configuration modifications won't be applied on a started server : usually, you will have to restart the server in order to get those modifications applied.
 
 It's a good policy not to modify the LDIF files by hand, but instead to use the Studio Configuration plugin to modify your configuration. 
 
@@ -71,7 +71,7 @@ Note that bold attributes are mandatory in the following tables.
 
 # Directory Service
 
-This is the key of the whole server : the place where we store the data. Most of the servers are depending on this component. You maye have more than one server, but only one _DirectoryService_. This compoent itself refers to the servers that will be started, plus the backends it will depends on.
+This is the key of the whole server : the place where we store the data. Most of the servers are depending on this component. You may have more than one server, but only one _DirectoryService_. This component itself refers to the servers that will be started, plus the backends it will depends on.
 
 Here are the configuration parameters for this components :
 
@@ -125,9 +125,9 @@ The configuration elements for the _Journal_ are :
 
 The _Interceptors_ are generally not configurable. You don't want to change their order, nor remove or add some. The fact that they appear in the configuration is because we use this to initialize the server.
 
-However, at least one _Interceptor_ can be confiured : the _authenticationInterceptor_. 
+However, at least one _Interceptor_ can be configured : the _authenticationInterceptor_. 
 
-In the case where one would like to add an interceptor, it's enough to add the associated entry containing the interceptor identifier, under the _ou=interceptors_ entry. It must have an order. Here are the elements taht can be configured in such a case :
+In the case where one would like to add an interceptor, it's enough to add the associated entry containing the interceptor identifier, under the _ou=interceptors_ entry. It must have an order. Here are the elements that can be configured in such a case :
 
 | AttributeType | type | default value | Description |
 |---|---|---|---|
@@ -192,7 +192,7 @@ There are many possible configurable options for the _PasswordPolicy_ system. He
 
 ## Partitions
 
-The _Partition_ is the part of the server storing your data. There are many parts that need to be configured in order to obtain the best performances out of the server. It's also the part of the configuraton you are the more likely to modify, adding new _Partitions_ or adding new _Indexes_.
+The _Partition_ is the part of the server storing your data. There are many parts that need to be configured in order to obtain the best performances out of the server. It's also the part of the configuration you are the more likely to modify, adding new _Partitions_ or adding new _Indexes_.
 
 You may have more than one _Partition_ in your _DirectoryService_. We have at least three existing _Partition_, the _ou=system_ _Partition_, the _ou=config_ _Partition_ and the _ou=schema_ _Partition_. The former is a _JDBM_ _Partition_, when the two others are _LDIF_ _Partitions.
 
@@ -222,14 +222,14 @@ Each _Partition_ have indexes, some are mandatory, and others are user provided.
 | apacheOneAlias | Stores the aliases one level below the current entry |
 | apacheSubAlias | Stores the aliases below the current entry |
 | apacheAlias | Stores the aliases |
-| objectClass | Stores the relatio between an ObjectClass an the entry using it |
+| objectClass | Stores the relation between an ObjectClass an the entry using it |
 | entryCSN | Stores the CSN for each entry |
 | administrativeRole | Stores the entries that are AdminstrativePoints |
 
 
 ##### Indexed Attribute
 
-IndexedATtributes have a type, depending on the _Partition_ they are associetd with. Currently, we have only one type, _JdbmIndex_. They have specific configurable elements.
+IndexedATtributes have a type, depending on the _Partition_ they are associated with. Currently, we have only one type, _JdbmIndex_. They have specific configurable elements.
 
 Each index attribute have four basic elements that can be configured :
 
@@ -247,7 +247,7 @@ The _JdbmIndex_ type of index has some more configurable elements, all optional 
 | ads-indexFileName | _String_ | N/A | The index file name (default to the associated attributeType name) |
 | ads-indexWorkingDir | _String_ | N/A | The index working directory |
 | ads-indexNumDupLimit | _int_ | 512 | The maximum number of values for a single key before we use a sub-tree |
-| ads-indexCacheSize | _int_ | 100 | The numbr of cached pages for this index |
+| ads-indexCacheSize | _int_ | 100 | The number of cached pages for this index |
 
 
 # Servers
@@ -302,7 +302,7 @@ The list of attributes that can be modified is exposed in the following table.
 | description | _String_  | N/A | A short optional description |
 | **ads-confidentialityRequired** | _boolean_ | false | Whether or not confidentiality (TLS secured connection) is required |
 | **ads-maxSizeLimit** | _int_ | 1000 | The maximum number of entries the server will return |
-| **ads-maxTimeLimit** | _int_ | 1000 | The maimum number of seconds the server will use to process a search request |
+| **ads-maxTimeLimit** | _int_ | 1000 | The maximum number of seconds the server will use to process a search request |
 | **ads-maxPDUSize** | _int_ | 2048 | The maximal size for a PDU. This is currently not leveraged |
 | **ads-saslHost** | _int_ | N/A | The name of this host, validated during SASL negotiation |
 | **ads-saslPrincipal** | _String_ | N/A | The service principal, used by GSSAPI. |
@@ -318,7 +318,7 @@ The list of attributes that can be modified is exposed in the following table.
 
 This part of the configuration deals with the replication. It provides all the information for a server to become a consumer. A server can have many different consumers set. 
 
-All the consumers are stord under the _ou=replConsumers_ entry, under the respectiver server entry.
+All the consumers are stored under the _ou=replConsumers_ entry, under the respective server entry.
 
 Here are the configurable elements :
 
@@ -328,13 +328,13 @@ Here are the configurable elements :
 | **ads-searchBaseDN** | _String_ | N/A | The base DN for replication |
 | **ads-replProvHostName** | _String_ | N/A | The provider host name |
 | **ads-replProvPort** | _int_ | 389 | The port of the remote server |
-| **ads-replAliasDerefMode** | _String_ | NEVER_DEREF_ALIASES | The alias deeferencing mode to use |
+| **ads-replAliasDerefMode** | _String_ | NEVER_DEREF_ALIASES | The alias dereferencing mode to use |
 | **ads-replAttributes** | _String_ | * | The list of attributes to get back |
 | **ads-replRefreshInterval** | _int_ | 60000 | The delay between refreshes (60 seconds) |
 | **ads-replRefreshNPersist** | _boolean_ | true | Sets the replication mode |
 | **ads-replSearchScope** | _String_ | SUBTREE | The scope to use while searching for entries |
 | **ads-replSearchFilter** | _String_ | (objectClass=*) | The filter to use |
-| **ads-replSearchSizeLimit** | _int_ | 0 | The maximum numbr of entries to get back |
+| **ads-replSearchSizeLimit** | _int_ | 0 | The maximum number of entries to get back |
 | **ads-replSearchTimeOut** | _int_ | 0 | The maximum time to wait while fetching the entries |
 | **ads-replUserDn** | _String_ | N/A | The user DN used to bind on the provider |
 | **ads-replUserPassword** | _String_ | N/A | The password of the user |
@@ -375,7 +375,7 @@ We have various SASL mechanisms, which can be configured. the list of supported 
 * NTLM
 * SIMPLE
 
-This list is stored in the configuration. It's possible to add new mechnaism if needed, smply by adding an entry containg those elements, under the _ou=saslMechHandlers_
+This list is stored in the configuration. It's possible to add new mechanisms if needed, simply by adding an entry containing those elements, under the _ou=saslMechHandlers_
 
 | AttributeType | type | default value | Description |
 |---|---|---|---|
@@ -387,7 +387,7 @@ This list is stored in the configuration. It's possible to add new mechnaism if 
 
 ## Kerberos Server
 
-The _KerberosServer_ configuration is an important part of the configuration. It deoends on a _DirectoryService_ too, as most of the informations managed by a _KerberosServer_ are store there.
+The _KerberosServer_ configuration is an important part of the configuration. It depends on a _DirectoryService_ too, as most of the informations managed by a _KerberosServer_ are store there.
 
 The list of attributes that can be modified is exposed in the following table. 
 
@@ -424,7 +424,7 @@ There is one single element that can be configured :
 | description | _String_  | N/A | A short optional description |
 | ads-httpConfFile | _String_  | N/A | The configuration file for this server |
 
-An _HttpServer_ without webApps is pretty useless, we now have to configure the underlaying web applications
+An _HttpServer_ without webApps is pretty useless, we now have to configure the underlying web applications
 
 
 ### Http Web Apps
