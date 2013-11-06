@@ -1,5 +1,28 @@
 # News
 
+<h2 class="news">Apache Mavibot 1.0.0-M2 released <em>posted on November 6th, 2013</em></h2>
+
+The Apache Directory team is pleased to announce the release of Apache Mavibot 1.0.0-M2, the second milestone towards a 1.0 version.
+
+**Mavibot** is a Multi Version Concurrency Control (MVCC) BTree in Java. It is expected to be a replacement for JDBM (The current backend for the **Apache Directory Server**), but could be a good fit for any other project in need of a Java MVCC BTree implementation.
+This milestone contains two different BTrees : 
+* one for in-memory BTrees
+* one for managed BTrees
+
+The rational for this big modification is that we can't easily have one BTree to gather all the characteristics of both the in-memory and the managed BTrees with oe single class.
+
+We also have rewrote the way we handle added elements when we reach the end of the memory : we now use a cache instead of depending on wekReferences, which proved to be just way too slow.
+
+The next milestones will add the missing features :
+
+* bulk load support
+* multi-version support with free pages management
+* transaction support
+
+**ApacheDS** has already been tested with **Mavibot 1.0.-M2-SNAPSHOT**, and it offers performances twice better than JDBM.
+
+Downloads are available [here](downloads.html)
+
 <h2 class="news">Apache Mavibot 1.0.0-M1 released <em>posted on August 6th, 2013</em></h2>
 
 The Apache Directory team is pleased to announce the release of Apache Mavibot 1.0.0-M1, the first milestone towards a 1.0 version.
