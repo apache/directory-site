@@ -30,19 +30,18 @@ This section describes how ApacheDS can be installed and started on different pl
 
 ## Prerequisites
 
-* **Java 5.0** (at least). We recommend using [Sun's JDK](http://www.oracle.com/technetwork/java/javase/downloads/index.html) , but the server has also been successfully tested with JRockit 5.0 and with IBM Java 5.0. The server also works well with Java version 6 and 7. 
+* **Java 7.0**. We recommend using [Oracle's JDK](http://www.oracle.com/technetwork/java/javase/downloads/index.html). The server should also work with Java version 6.
 
 You can check your java installation with:
 
-	java -version
+    java -version
 
 this should response something like:
 
-	java version "1.5.0_06"
-	Java(TM) 2 Runtime Environment, Standard Edition (build 1.5.0_06-b05)
-	Java HotSpot(TM) Client VM (build 1.5.0_06-b05, mixed mode)
+    java version "1.7.0_45"
+    Java(TM) SE Runtime Environment (build 1.7.0_45-b18)
+    Java HotSpot(TM) 64-Bit Server VM (build 24.45-b08, mixed mode)
 
-* using Linux: you must have a X11 graphical interface
 * **384 MB RAM** for the JVM. That's the default setting, how to change that is described [here|1.4. Basic configuration tasks#MemoryAllocation]
 
 
@@ -52,16 +51,15 @@ We provide native installers for several platforms:
 
 * Windows (exe)
 * Mac OS X (dmg)
-* Solaris x86 and SPARC (pkg)
 * Debian package (deb)
 * RPM package (rpm)
 * Linux Binary (bin)
 
 Additional we provide an zip and tar.gz archive suitable for any platform.
 
-You can download them from [here](http://http://directory.apache.org/apacheds/2.0/downloads.html).
+You can download them from [here](http://directory.apache.org/apacheds/downloads.html).
 
-An option for people familiar with tools like Subversion and Maven is to built the server from the sources on their own. This is described  [here](http://directory.apache.org/community&resources/sources.html).
+An option for people familiar with tools like Subversion and Maven is to built the server from the sources on their own. This is described [here](../advanced-ug/0.2-building-trunks.html).
 
 
 # Installation on Windows
@@ -121,6 +119,6 @@ and stop it with :
   sudo launchctl stop org.apache.directory.server
 
 
-## Installation on Linux and Solaris
+## Installation on Linux
 
-The installation for different installers is described on the [Apache Directory Server 2.0 Downloads](http://directory.apache.org/apacheds/downloads.html) page.
+The installation for different installers is described on the [Apache Directory Server Downloads](http://directory.apache.org/apacheds/downloads.html) page.
