@@ -1,10 +1,8 @@
-Title: 2.2 - Physical storage
+Title: 7.2 - Physical storage
 NavUp: ../user-guide.html
 NavUpText: User Guide
-NavPrev: 2.1-logical-structure.html
-NavPrevText: 2.1 - Logical Structure
-NavNext: 2-.html
-NavNextText: 2 - 
+NavPrev: 7.1-logical-structure.html
+NavPrevText: 7.1 - Logical Structure
 Notice: Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
     distributed with this work for additional information
@@ -22,7 +20,7 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
     specific language governing permissions and limitations
     under the License.
 
-# 2.2 - Physical storage
+# 7.2 - Physical storage
 
 When associated with a RecordManager, Mavibot stores all the Btrees in one single file, which is split in many physical pages, all having the same size. 
 
@@ -146,4 +144,6 @@ It does not need more space to serialize the data this way, as the offsets are i
 
 The gain is that we can have access to a given key and value without having to read all the previous keys and values. Also we can now read a leaf or a node without having to deserialize all the keys and values they contain.
 
+## Page serialization
 
+We serialize *Node* and *Leaf* differently on disk, as seen in a previois paragraph.
