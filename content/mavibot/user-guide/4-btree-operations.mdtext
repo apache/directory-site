@@ -23,3 +23,39 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
     under the License.
 
 # 4 - BTree operations
+
+We will now list all the possible operations that can be applied on a **BTree**. But first, let's introduce the _Cursor_ interface, as it's used by all the _browse_ operation.
+
+## 4.1 The Cursor interface
+
+All the browse operations will return a _Cursor_ instance. A _Cursor_ allows one to move forward and backward on a **BTree**. It starts at a specific position, and can be moved to a specific position too. The default position for a _Cursor_ is before the very first element of the **BTree**
+
+<DIV class="note" markdown="1">
+It's important to understand that a <b>Cursor</b> returns tuples, not keys. A Key may be associated to many values, so a cursor may return many tuples with a given key (each one will have a different value though).
+</DIV>
+
+### 4.1.1 Cursor position management
+
+* afterLast() : move the current position after the last element (last key and last value)
+* beforeFirst() : move the current position before the first element (first key and first value)
+
+### 4.1.2 Cursor operations
+
+We have to sets of methods depending on the elements we are browsing : tuples or keys.
+
+#### 4.1.2.1 Browsing tuples
+
+* hasNext() : tells if there is a next available tuple
+* hasPrev() : tells if there is a previous available tuple
+* next() : move to the next value, or to the next key if all the values have been processed, and return the associated tuple
+* prev() : move to the previous value, or to the next key if all the values have been processed, and return the associated tuple
+
+#### 4.1.2.1 Browsing keys
+* hasNextKey() : tells if there is a next available key
+* hasPrevKey() : tells if there is a previous available key
+* nextKey() : move to the next key, even if we have more values to process
+* prevKey() : move to the previous key, even if we have more values to process
+
+## 4.1 Browse Operations
+
+Now that we know what the _Cursor_ is about, we can describe the various _browse_ operations.
