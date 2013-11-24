@@ -41,7 +41,7 @@ Here is the **BTree** sample we will use for the following examples :
 
 ### 4.1.1 Cursor position management
 
-#### 4.1.1.1 afterLast() 
+#### 4.1.1.1 afterLast
 
 Moves the current position after the last element (last key and last value). The following schema shows the new position of the pointer after having called the _afterLast()_ method :
 
@@ -50,7 +50,7 @@ Moves the current position after the last element (last key and last value). The
 As we can see, we are not pointing any tuple nor any key.
 
 
-#### 4.1.1.2 beforeFirst()
+#### 4.1.1.2 beforeFirst
 
 Moves the current position before the first element (first key and first value). The following schema shows the new position of the pointer after having called the _beforeFirst()_ method :
 
@@ -60,20 +60,42 @@ As we can see, we are not pointing any tuple nor any key.
 
 ### 4.1.2 Cursor operations
 
-We have to sets of methods depending on the elements we are browsing : tuples or keys.
+We have to sets of methods depending on the elements we are browsing : tuples or keys. Operations on tuples may return many tuples with the same key (actually, one per value), when operations on keys just return one tuple containing the key and the first value for this key.
 
-#### 4.1.2.1 Browsing tuples
+#### 4.1.2.1 hasNext
 
-* hasNext() : tells if there is a next available tuple
-* hasPrev() : tells if there is a previous available tuple
-* next() : move to the next value, or to the next key if all the values have been processed, and return the associated tuple
-* prev() : move to the previous value, or to the next key if all the values have been processed, and return the associated tuple
+Tells if there is a next available tuple. This will always be true if we are before the first tuple, and always be fore if we are on the last tuple or after the last tuple. The following picture shows the returned value for calls in various cases :
 
-#### 4.1.2.1 Browsing keys
-* hasNextKey() : tells if there is a next available key
-* hasPrevKey() : tells if there is a previous available key
-* nextKey() : move to the next key, even if we have more values to process
-* prevKey() : move to the previous key, even if we have more values to process
+![Has Next](images/ug-btree-has-next.png)
+
+
+#### 4.1.2.2 hasPrev
+
+Tells if there is a previous available tuple
+
+#### 4.1.2.3 next
+
+Moves to the next value, or to the next key if all the values have been processed, and return the associated tuple
+
+#### 4.1.2.4 prev
+
+Moves to the previous value, or to the next key if all the values have been processed, and return the associated tuple
+
+#### 4.1.2.5 hasNextKey
+
+Tells if there is a next available key
+
+#### 4.1.2.6 hasPrevKey
+
+Tells if there is a previous available key
+
+#### 4.1.2.7 nextKey
+
+Moves to the next key, even if we have more values to process
+
+#### 4.1.2.8 prevKey
+
+Moves to the previous key, even if we have more values to process
 
 ## 4.1 Browse Operations
 
