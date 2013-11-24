@@ -34,10 +34,20 @@ All the browse operations will return a _Cursor_ instance. A _Cursor_ allows one
 It's important to understand that a <b>Cursor</b> returns tuples, not keys. A Key may be associated to many values, so a cursor may return many tuples with a given key (each one will have a different value though).
 </DIV>
 
+Here is the **BTree** sample we will use for the following examples :
+
+![Sample BTree](images/ug-btree-sample.png)
+
+
 ### 4.1.1 Cursor position management
 
-* afterLast() : move the current position after the last element (last key and last value)
-* beforeFirst() : move the current position before the first element (first key and first value)
+#### 4.1.1.1 afterLast() 
+
+Moves the current position after the last element (last key and last value). The following schema shows 
+
+
+
+#### 4.1.1.2 beforeFirst() : move the current position before the first element (first key and first value)
 
 ### 4.1.2 Cursor operations
 
@@ -59,3 +69,8 @@ We have to sets of methods depending on the elements we are browsing : tuples or
 ## 4.1 Browse Operations
 
 Now that we know what the _Cursor_ is about, we can describe the various _browse_ operations.
+
+### 4.1.1 browse()
+
+This method returns a cursor wich position will be set before the first key in the **BTree**. 
+
