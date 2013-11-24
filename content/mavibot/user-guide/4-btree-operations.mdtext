@@ -24,14 +24,14 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 # 4 - BTree operations
 
-We will now list all the possible operations that can be applied on a **BTree**. But first, let's introduce the _Cursor_ interface, as it's used by all the _browse_ operation.
+We will now list all the possible operations that can be applied on a **BTree**. But first, let us understand the _Cursor_ interface, as it's used for navigating a **BTree** using various types of _browse_ operations.
 
 ## 4.1 The Cursor interface
 
-All the browse operations will return a _Cursor_ instance. A _Cursor_ allows one to move forward and backward on a **BTree**. It starts at a specific position, and can be moved to a specific position too. The default position for a _Cursor_ is before the very first element of the **BTree**
+All the _browse_ operations will return a _Cursor_ instance. A _Cursor_ allows navigating forward and backward on a **BTree**. It starts at a specific position, and can be moved to a specific position too. The default position for a _Cursor_ is before the very first element of the **BTree**
 
 <DIV class="note" markdown="1">
-It's important to understand that a <b>Cursor</b> returns tuples, not keys. A Key may be associated to many values, so a cursor may return many tuples with a given key (each one will have a different value though).
+It's important to understand that a <b>Cursor</b> returns tuples, not keys. A Key may be associated with many values, so a cursor may return many tuples with a given key (each one will have a different value though).
 </DIV>
 
 Here is the **BTree** sample we will use for the following examples :
@@ -47,7 +47,7 @@ Moves the current position after the last element (last key and last value). The
 
 ![After Last](images/ug-btree-after-last.png)
 
-As we can see, we are not pointing any tuple nor any key.
+As we can see, we are not pointing at any key.
 
 
 #### 4.1.1.2 beforeFirst
@@ -56,52 +56,54 @@ Moves the current position before the first element (first key and first value).
 
 ![Before First](images/ug-btree-before-first.png)
 
-As we can see, we are not pointing any tuple nor any key.
+In this case also cursor is not stationed at any key.
 
 ### 4.1.2 Cursor operations
 
-We have to sets of methods depending on the elements we are browsing : tuples or keys. Operations on tuples may return many tuples with the same key (actually, one per value), when operations on keys just return one tuple containing the key and the first value for this key.
+When a cursor is used to browse Tuples it may return many tuples with the same key but different value, when used to browse keys a 
+single tuple will be returned for each key with the value of the key (when multiple values are present only the first value will be
+returned).
 
 #### 4.1.2.1 hasNext
 
-Tells if there is a next available tuple. This will always be true if we are before the first tuple, and always be fore if we are on the last tuple or after the last tuple. The following picture shows the returned value for calls in various cases :
+Tells if there is a next available tuple. This will always be true if we are before the first tuple, and always false if we are on the last tuple or after the last tuple. The following picture shows the returned value for calls in various cases :
 
 ![Has Next](images/ug-btree-has-next.png)
 
 
 #### 4.1.2.2 hasPrev
 
-Tells if there is a previous available tuple
+Returns true if there is a tuple available before the current tuple.
 
 #### 4.1.2.3 next
 
-Moves to the next value, or to the next key if all the values have been processed, and return the associated tuple
+Moves to the next value of the current key or to the next key if all the values of the current key have been processed, and return the associated tuple.
 
 #### 4.1.2.4 prev
 
-Moves to the previous value, or to the next key if all the values have been processed, and return the associated tuple
+Moves to the previous value of the current key or to the previous key if all the values of the current key have been processed, and return the associated tuple.
 
 #### 4.1.2.5 hasNextKey
 
-Tells if there is a next available key
+Tells if there is a key after the current key.
 
 #### 4.1.2.6 hasPrevKey
 
-Tells if there is a previous available key
+Tells if there is a previous key before the current key.
 
 #### 4.1.2.7 nextKey
 
-Moves to the next key, even if we have more values to process
+Moves(jumps) to the next key, even if not all values of the current key are navigated.
 
 #### 4.1.2.8 prevKey
 
-Moves to the previous key, even if we have more values to process
+Moves(jumps) to the previous key, even if not all values of the current key are navigated.
 
 ## 4.1 Browse Operations
 
-Now that we know what the _Cursor_ is about, we can describe the various _browse_ operations.
+Now that we know what a _Cursor_ is about, we can describe the various _browse_ operations.
 
 ### 4.1.1 browse()
 
-This method returns a cursor wich position will be set before the first key in the **BTree**. 
+This method returns a cursor with the position set before the first key of the **BTree**. 
 
