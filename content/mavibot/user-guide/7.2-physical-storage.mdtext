@@ -1,8 +1,10 @@
 Title: 7.2 - Physical storage
-NavUp: ../user-guide.html
-NavUpText: User Guide
+NavUp: 7-btree-internals.html
+NavUpText: 7 - Mavibot Internals
 NavPrev: 7.1-logical-structure.html
 NavPrevText: 7.1 - Logical Structure
+NavNext: 7.3-serializations.html
+NavNextText: 7.3 - Serializations
 Notice: Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
     distributed with this work for additional information
@@ -144,6 +146,3 @@ It does not need more space to serialize the data this way, as the offsets are i
 
 The gain is that we can have access to a given key and value without having to read all the previous keys and values. Also we can now read a leaf or a node without having to deserialize all the keys and values they contain.
 
-## Page serialization
-
-We serialize *Node* and *Leaf* differently on disk, as seen in a previois paragraph.
