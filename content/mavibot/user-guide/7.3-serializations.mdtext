@@ -73,4 +73,86 @@ We use two data structures to store a key and a value :
 
 ### KeyHolder
 
+The _KeyHolder_ data structure holds the key in two ways :
+* serialized (raw)
+* deserialized (key)
+
+When we just read the data from disk, we don't deserialize the keys. We do that when needed.
+
+Here is a description of this class :
+
+<pre>
+public class KeyHolder<K>
+{
+    /** The deserialized key */
+    private K key;
+
+    /** The ByteBuffer storing the key */
+    private byte[] raw;
+
+    /** The Key serializer */
+    private ElementSerializer<K> keySerializer;
+}
+
+#### KeyHolder operations
+
+Here is a description of the available methods in the KeyHolder class.
+
+##### Constructors
+
+We have two constructors for this class, one which takes a deserialized key, the other which takes a byte[].
+
+* _KeyHolder( ElementSerializer<K> keySerializer, K key )_
+
+Here, we need to serailize the key immediately, as we may have to flush the key to the disk. We then serialize the Key immediately and store the resulting byte[] into the _raw_ field.
+
+
+* KeyHolder( ElementSerializer<K> keySerializer, byte[] raw )
+
+Here, we just get the serialized form. We don't need to deserialize it, as the key might not be used anytime soon. We thus just update the _raw_ field, and the _key_ field remains null.
+
+##### getKey()
+
+This method retuns the deserialized key. If it does not exist, then we deserialize it on the fly using the _raw_ field.
+
+##### setKey()
+
+This method set the key. We immediately serialize it, and store the results in the _raw_ field.
+
+##### getRaw()
+
+Returns the _raw_ field. This method is only visible from the classes in the same package.
+
+
 ### ValueHolder
+
+The _ValueHolder_ data structure will store the list of values associated with a key. As we may have more than one value, we use an internal structure for that purpose.
+
+In some case, the number of values to store is really big, this we need to use an internal data structure that allows a quick retrieval of a value, plus we need to be able to copy a page containing such a value in an efficient way. For these reasons, we use two different internal data structures :
+* an array up to a threshold
+* a sub-BTree above this threshold
+
+When we reach the threshold, the array is transformed into a BTree, and the way back if we get below this number. In order to avoid many array <-> btree transformations if we continusously add and delete a value, the array -> btree threshold is bigger than the btree -> array threshold.
+
+<pre>
+   0---1---2---...---TH-low--...--TH-high---...
+   >-------------Array----------->>---BTree---... When we add new values.
+                     |////////////|               These values will remain in an array or a BTree until
+                                                  we reach oe of the threshold values.
+   <-----Array-----<<--------BTree------------... When we delete values.
+</pre>
+
+It's important to know that the sub-BTree will hold only keys, and no values. The sub-btree Keys will be the values we have to store.
+
+#### ValueHolder operations
+The possible operations on a ValueHolder are the following :
+
+* add( value ) : Insert a new value into the ValueHolder. If we reach the upper threshold, then the array is converted into a BTree. In any case, we inject the new value into the array or the BTree so that we keep all the value ordered (the ValueSerializer must have a _Comparator_).
+
+As we need to compare values, they must be deserialised, so we need to do it if it's not already done (the values are not deserialiezed when the page is read from the disk). Note that it's not necessary for the sub BTree, as it's up to the sub-btree to deserialize the keys on the fly
+
+The _add_ algorithm will thus be :
+
+<pre>
+  if the values are not yet deserialized
+    then deserialize all the values
