@@ -54,9 +54,9 @@ On the **Overview** tab, check the **Enable Kerberos Server** box :
 
 There are a few parameters that are to be set in the **LDAP** configuration :
 
-    * The <em>SASL host</em> must be the local server name (here, example.net)
-    * The <em>SASL principal</em> is <strong>ldap/example.net@EXAMPLE.COM</strong>
-    * The <em>Search Base DN</em> should point to the place under which we store users and services (<em>dc=security,dc=example,dc=com</em>)
+    * The SASL host must be the local server name (here, example.net)
+    * The SASL principal is <strong>ldap/example.net@EXAMPLE.COM</strong>
+    * The Search Base DN should point to the place under which we store users and services (dc=security,dc=example,dc=com)
 
 <DIV class="warning" markdown="1">
 The <em>SASL principal</em> instance part (ie, <strong>example.net</strong>) is in lower case, as the hostname is not case sensitive. Sadly, the <em>KrbPrincipalName</em> attributeType is case sensitive, so if the left part is not lowercased, the server won't be able to retrieve the information from the LDAP server.
@@ -71,8 +71,8 @@ Here is a snapshot of this configuration :
 
 Now, you can switch to the Kerberos tab, where some more configuration must be set :
 
-    * The <em>Primary KDC Realm</em> is EXAMPLE.COM
-    * The <em>Search Base DN<_em> is the same as for the LDAP server : <em>dc=security,dc=example,dc=com</em>
+    * The Primary KDC Realm is EXAMPLE.COM
+    * The Search Base DN is the same as for the LDAP server : dc=security,dc=example,dc=com
 
 Here is a Ssnapshot of this configuration :
 
@@ -248,10 +248,10 @@ On the "Connections" tab, right click and select 'New Connection...'
 
 You will now have to set the network parameters, as in the following popup. Typically, set :
 
-    * The connection name (here, <strong>Kerberos User</strong>)
-    * The LDAP server host (<strong>example.net</strong>)
-    * The LDAP server port (<strong>10389</strong>)
-    * The Provider (pick <strong>Apache Directory LDAP Client API</strong>)
+    * The connection name (here, **Kerberos User**)
+    * The LDAP server host (**example.net**)
+    * The LDAP server port (**10389**)
+    * The Provider (pick **Apache Directory LDAP Client API**)
 
 You can check the connection on cliking the 'check network connection' button, you should get back a popup stating that the connection was established successfully.
 
@@ -263,20 +263,20 @@ Here is the screenshot :
 Then click on Next to setup the authentication part.
 Select the following parameters and values :
 
-    * Authentication method : **GSSAPI**
-    * Bind DN : the user name (here, <strong>hnelson</b>)
-    * Bind password : here, <b>secret</b>
+    * Authentication method : GSSAPI
+    * Bind DN : the user name (here, hnelson)
+    * Bind password : here, secret
     * Do not change anything in the SASL settings
     * Kerberos settings 
         * Obtain TGT from KDC
         * Use following configuration :
-            * Kerberos Realm : <b>EXAMPLE.COM</b>
-            * KDC Host : <b>example.net</b>
-            * KDC port : <b>60088</b>
+            * Kerberos Realm : EXAMPLE.COM
+            * KDC Host : example.net
+            * KDC port : 60088
 
 Here is the resulting screen :
 
 ![Kerberos authentification](images/kerberos-authent.png)
 
-Clinking in the 'Check Authentication' buton should be succesfull.
+Clinking in the 'Check Authentication' button should be succesfull.
 
