@@ -127,7 +127,7 @@ Returns the _raw_ field. This method is only visible from the classes in the sam
 
 ### ValueHolder
 
-The _ValueHolder_ data structure will store the list of values associated with a key. As we may have more than one value, we use an internal structure for that purpose.
+The _ValueHolder_ data structure will store the list of values associated with a key. As we may have more than one value, we use an internal structure for that purpose. This is a complex data structure, if we compare it with the _KeyHolder_ one.
 
 In some case, the number of values to store is really big, this we need to use an internal data structure that allows a quick retrieval of a value, plus we need to be able to copy a page containing such a value in an efficient way. For these reasons, we use two different internal data structures :
 * an array up to a threshold
@@ -145,6 +145,53 @@ When we reach the threshold, the array is transformed into a BTree, and the way 
 
 It's important to know that the sub-BTree will hold only keys, and no values. The sub-btree Keys will be the values we have to store.
 
+Here is the description of this class :
+
+<pre>
+public class ValueHolder<V> implements Cloneable
+{
+    /** The deserialized value */
+    private V[] valueArray;
+
+    /** The BTree storing multiple value, if we have moe than a threashold values */
+    private BTree<V, V> valueBtree;
+
+    /** The serialized value */
+    private byte[] raw;
+
+    /** A flag set to true if the values are stored in a BTree */
+    private boolean isSubBtree = false;
+
+    /** The RecordManager */
+    private BTree<?, V> btree;
+
+    /** The Value serializer */
+    private ElementSerializer<V> valueSerializer;
+
+    /** An internal flag used when the values are not yet deserialized */
+    private boolean isRaw = true;
+}
+</pre>
+
+As we can see, we use two different fields to store the data, either the _valueArray_ field or the _valueBtree_ field. The _raw_ field contains the serialized values when the values are stored in an array; It's null either if the values are stored in a BTree, or if we already have deserialized the values.
+
+#### Raw/deserialized values
+
+One key for obtaining good performances is to avoid any useless deserialization. This is easy to implement for the _KeyHolder_, as we only store one single key. For values, it's slightly more complex, as we may have more than one value. The following rules should be followed :
+
+* don't deserialized until necessary (ie, when one need to get one value)
+* don't serialize when unnedded (ie until the values must be written back to disk)
+
+In fact, we may be in three different states :
+
+* all the values are serialized (when we just read the page from disk)
+* non of the values are serialized (when we just created a ValueHolder with new values)
+* somewhere in the middle, when we are modifying a ValueHolder which has been read from the disk
+
+The third case is the complex one. We should consider two different cases though :
+* the values are stored in a sub BTree : we don't have to deal with this problem, it's up to the sub-btree to deal with it
+* the values are stored in an array : we don't want to store half of the values as byte[], and half of the values as java instances. We must pick either one form or the other. In this case, as soon as we have to manipulate values in Java, then we need to deserialize all the values.
+
 #### ValueHolder operations
 The possible operations on a ValueHolder are the following :
 
@@ -157,3 +204,4 @@ The _add_ algorithm will thus be :
 <pre>
   if the values are not yet deserialized
     then deserialize all the values
+</pre>
