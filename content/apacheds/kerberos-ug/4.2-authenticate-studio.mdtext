@@ -54,12 +54,12 @@ On the **Overview** tab, check the **Enable Kerberos Server** box :
 
 There are a few parameters that are to be set in the **LDAP** configuration :
 
-    * The _SASL host_ must be the local server name (here, example.net)
-    * The _SASL principal_ is **ldap/example.net@EXAMPLE.COM**
-    * The _Search Base DN_ should point to the place under which we store users and services (_dc=security,dc=example,dc=com_)
+    * The <em>SASL host</em> must be the local server name (here, example.net)
+    * The <em>SASL principal</em> is <strong>ldap/example.net@EXAMPLE.COM</strong>
+    * The <em>Search Base DN</em> should point to the place under which we store users and services (<em>dc=security,dc=example,dc=com</em>)
 
 <DIV class="warning" markdown="1">
-The _SASL principal_ instance part (ie, <strong>example.net</strong>) is in lower case, as the hostname is not case sensitive. Sadly, the <em>KrbPrincipalName</em> attributeType is case sensitive, so if the left part is not lowercased, the server won't be able to retrieve the information from the LDAP server.
+The <em>SASL principal</em> instance part (ie, <strong>example.net</strong>) is in lower case, as the hostname is not case sensitive. Sadly, the <em>KrbPrincipalName</em> attributeType is case sensitive, so if the left part is not lowercased, the server won't be able to retrieve the information from the LDAP server.
 </DIV>
 
 Here is a snapshot of this configuration :
@@ -71,8 +71,8 @@ Here is a snapshot of this configuration :
 
 Now, you can switch to the Kerberos tab, where some more configuration must be set :
 
-    * The _Primary KDC Realm_ is EXAMPLE.COM
-    * The _Search Base DN_ is the same as for the LDAP server : _dc=security,dc=example,dc=com_
+    * The <em>Primary KDC Realm</em> is EXAMPLE.COM
+    * The <em>Search Base DN<_em> is the same as for the LDAP server : <em>dc=security,dc=example,dc=com</em>
 
 Here is a Ssnapshot of this configuration :
 
@@ -226,11 +226,12 @@ Here is the associated LDIF file :
 
 <DIV class="info" markdown="1">
 Three important things :
-
-- the userPassword is 'randomkey'. The key will not be generated based on a know password, they will use a random key.
-- the <em>krb5PrincipalName</em> has one more information, after the / character : _EXAMPLE.COM_ for 
-    the <strong>krbtgt</strong> service, and _example.net_ for the <strong>ldap</strong> service. For the <strong>krbtgt</strong> principal, the instance is always the realm name. For the <strong>ldap</strong> principal, the instance is the hostname, in lowercase.
-- the krb5KeyVersionNumber is 0
+<ul>
+<li>- the userPassword is 'randomkey'. The key will not be generated based on a know password, they will use a random key.</li>
+<li>- the <em>krb5PrincipalName</em> has one more information, after the / character : <em>EXAMPLE.COM</em> for 
+    the <strong>krbtgt</strong> service, and <em>example.net</em> for the <strong>ldap</strong> service. For the <strong>krbtgt</strong> principal, the instance is always the realm name. For the <strong>ldap</strong> principal, the instance is the hostname, in lowercase.</li>
+<li>- the krb5KeyVersionNumber is 0</li>
+</ul>
 </DIV>
 
 Again, once those entries have been injected in the LDAP server, the _krb5Key_ attributeTypes will be created
@@ -247,10 +248,10 @@ On the "Connections" tab, right click and select 'New Connection...'
 
 You will now have to set the network parameters, as in the following popup. Typically, set :
 
-    * The connection name (here, **Kerberos User**)
-    * The LDAP server host (**example.net**)
-    * The LDAP server port (**10389**)
-    * The Provider (pick **Apache Directory LDAP Client API**)
+    * The connection name (here, <strong>Kerberos User</strong>)
+    * The LDAP server host (<strong>example.net</strong>)
+    * The LDAP server port (<strong>10389</strong>)
+    * The Provider (pick <strong>Apache Directory LDAP Client API</strong>)
 
 You can check the connection on cliking the 'check network connection' button, you should get back a popup stating that the connection was established successfully.
 
@@ -262,8 +263,8 @@ Here is the screenshot :
 Then click on Next to setup the authentication part.
 Select the following parameters and values :
 
-    * Authentication method : <b>GSSAPI</b>
-    * Bind DN : the user name (here, <b>hnelson</b>)
+    * Authentication method : **GSSAPI**
+    * Bind DN : the user name (here, <strong>hnelson</b>)
     * Bind password : here, <b>secret</b>
     * Do not change anything in the SASL settings
     * Kerberos settings 
