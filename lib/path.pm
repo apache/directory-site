@@ -281,6 +281,54 @@ our @patterns = (
         version_studio_name => $version_studio_name,
         version_mavibot => $version_mavibot,
         version_escimo => $version_escimo } ],
+
+    #
+    # Apache ESCIMO sub-project pages
+    #
+    
+    # Download Apache ESCIMO Archive page
+    [qr!escimo\/download\/download-archive\.mdtext$!, template_page => {
+        template => "escimo/download-archive.html",
+        isDirEscimo => true, 
+        version_api => $version_api,
+        version_apacheds => $version_apacheds,
+        version_studio => $version_studio,
+        version_studio_name => $version_studio_name,
+        version_mavibot => $version_mavibot,
+        version_escimo => $version_escimo } ],
+    
+    # Download Apache ESCIMO Sources page
+    [qr!escimo\/download\/download-sources\.mdtext$!, template_page => {
+        template => "escimo/download-sources.html",
+        isDirEscimo => true, 
+        version_api => $version_api,
+        version_apacheds => $version_apacheds,
+        version_studio => $version_studio,
+        version_studio_name => $version_studio_name,
+        version_mavibot => $version_mavibot,
+        version_escimo => $version_escimo } ],
+        
+    # Apache ESCIMO Index page
+    [qr!escimo\/index\.mdtext$!, template_page => {
+        template => "escimo/index.html",
+        isDirEscimo => true, 
+        version_api => $version_api,
+        version_apacheds => $version_apacheds,
+        version_studio => $version_studio,
+        version_studio_name => $version_studio_name,
+        version_mavibot => $version_mavibot,
+        version_escimo => $version_escimo } ],
+    
+    # Standard Apache ESCIMO page
+    [qr!escimo\/.*?\.mdtext$!, template_page => {
+        template => "escimo/page.html",
+        isDirEscimo => true, 
+        version_api => $version_api,
+        version_apacheds => $version_apacheds,
+        version_studio => $version_studio,
+        version_studio_name => $version_studio_name,
+        version_mavibot => $version_mavibot,
+        version_escimo => $version_escimo } ],
     
     #
     # Apache Directory Project pages
