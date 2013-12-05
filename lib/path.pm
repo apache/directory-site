@@ -6,6 +6,7 @@ our $version_apacheds = "2.0.0-M15";
 our $version_studio = "2.0.0.v20130628";
 our $version_studio_name = "2.0.0-M8";
 our $version_mavibot = "1.0.0-M2";
+our $version_escimo = "1.0.0-M1";
 
 # All our pages use the same view function
 our @patterns = (
@@ -24,7 +25,8 @@ our @patterns = (
         version_apacheds => $version_apacheds,
         version_studio => $version_studio,
         version_studio_name => $version_studio_name,
-        version_mavibot => $version_mavibot } ],
+        version_mavibot => $version_mavibot,
+        version_escimo => $version_escimo } ],
     
     # Download ApacheDS Linux BIN page
     [qr!apacheds\/download\/download-linux-bin\.mdtext$!, template_page => {
@@ -34,7 +36,8 @@ our @patterns = (
         version_apacheds => $version_apacheds,
         version_studio => $version_studio,
         version_studio_name => $version_studio_name,
-        version_mavibot => $version_mavibot } ],
+        version_mavibot => $version_mavibot,
+        version_escimo => $version_escimo } ],
     
     # Download ApacheDS Linux DEB page
     [qr!apacheds\/download\/download-linux-deb\.mdtext$!, template_page => {
@@ -44,7 +47,8 @@ our @patterns = (
         version_apacheds => $version_apacheds,
         version_studio => $version_studio,
         version_studio_name => $version_studio_name,
-        version_mavibot => $version_mavibot } ],
+        version_mavibot => $version_mavibot,
+        version_escimo => $version_escimo } ],
     
     # Download ApacheDS Linux RPM page
     [qr!apacheds\/download\/download-linux-rpm\.mdtext$!, template_page => {
@@ -54,7 +58,8 @@ our @patterns = (
         version_apacheds => $version_apacheds,
         version_studio => $version_studio,
         version_studio_name => $version_studio_name,
-        version_mavibot => $version_mavibot } ],
+        version_mavibot => $version_mavibot,
+        version_escimo => $version_escimo } ],
     
     # Download ApacheDS Mac OS X page
     [qr!apacheds\/download\/download-macosx\.mdtext$!, template_page => {
@@ -64,7 +69,8 @@ our @patterns = (
         version_apacheds => $version_apacheds,
         version_studio => $version_studio,
         version_studio_name => $version_studio_name,
-        version_mavibot => $version_mavibot } ],
+        version_mavibot => $version_mavibot,
+        version_escimo => $version_escimo } ],
     
     # Download ApacheDS Sources page
     [qr!apacheds\/download\/download-sources\.mdtext$!, template_page => {
@@ -74,7 +80,8 @@ our @patterns = (
         version_apacheds => $version_apacheds,
         version_studio => $version_studio,
         version_studio_name => $version_studio_name,
-        version_mavibot => $version_mavibot } ],
+        version_mavibot => $version_mavibot,
+        version_escimo => $version_escimo } ],
     
     # Download ApacheDS Windows page
     [qr!apacheds\/download\/download-windows\.mdtext$!, template_page => {
@@ -84,7 +91,8 @@ our @patterns = (
         version_apacheds => $version_apacheds,
         version_studio => $version_studio,
         version_studio_name => $version_studio_name,
-        version_mavibot => $version_mavibot } ],
+        version_mavibot => $version_mavibot,
+        version_escimo => $version_escimo } ],
         
     # ApacheDS Index page
     [qr!apacheds\/index\.mdtext$!, template_page => {
@@ -94,7 +102,8 @@ our @patterns = (
         version_apacheds => $version_apacheds,
         version_studio => $version_studio,
         version_studio_name => $version_studio_name,
-        version_mavibot => $version_mavibot } ],
+        version_mavibot => $version_mavibot,
+        version_escimo => $version_escimo } ],
     
     # Standard ApacheDS page
     [qr!apacheds\/.*?\.mdtext$!, template_page => {
@@ -104,7 +113,8 @@ our @patterns = (
         version_apacheds => $version_apacheds,
         version_studio => $version_studio,
         version_studio_name => $version_studio_name,
-        version_mavibot => $version_mavibot } ],
+        version_mavibot => $version_mavibot,
+        version_escimo => $version_escimo } ],
     
     #
     # Apache LDAP API sub-project pages
@@ -118,7 +128,8 @@ our @patterns = (
         version_apacheds => $version_apacheds,
         version_studio => $version_studio,
         version_studio_name => $version_studio_name,
-        version_mavibot => $version_mavibot } ],
+        version_mavibot => $version_mavibot,
+        version_escimo => $version_escimo } ],
     
     # Download Apache LDAP API Sources page
     [qr!api\/download\/download-sources\.mdtext$!, template_page => {
@@ -128,7 +139,8 @@ our @patterns = (
         version_apacheds => $version_apacheds,
         version_studio => $version_studio,
         version_studio_name => $version_studio_name,
-        version_mavibot => $version_mavibot } ],
+        version_mavibot => $version_mavibot,
+        version_escimo => $version_escimo } ],
         
     # Apache LDAP API Index page
     [qr!api\/index\.mdtext$!, template_page => {
@@ -138,7 +150,8 @@ our @patterns = (
         version_apacheds => $version_apacheds,
         version_studio => $version_studio,
         version_studio_name => $version_studio_name,
-        version_mavibot => $version_mavibot } ],
+        version_mavibot => $version_mavibot,
+        version_escimo => $version_escimo } ],
     
     # Standard Apache LDAP API page
     [qr!api\/.*?\.mdtext$!, template_page => {
@@ -148,7 +161,8 @@ our @patterns = (
         version_apacheds => $version_apacheds,
         version_studio => $version_studio,
         version_studio_name => $version_studio_name,
-        version_mavibot => $version_mavibot } ],
+        version_mavibot => $version_mavibot,
+        version_escimo => $version_escimo } ],
     
     #
     # Apache Mavibot sub-project pages
@@ -162,7 +176,8 @@ our @patterns = (
         version_apacheds => $version_apacheds,
         version_studio => $version_studio,
         version_studio_name => $version_studio_name,
-        version_mavibot => $version_mavibot } ],
+        version_mavibot => $version_mavibot,
+        version_escimo => $version_escimo } ],
     
     # Download Apache MAVIBOT Sources page
     [qr!mavibot\/download\/download-sources\.mdtext$!, template_page => {
@@ -172,7 +187,8 @@ our @patterns = (
         version_apacheds => $version_apacheds,
         version_studio => $version_studio,
         version_studio_name => $version_studio_name,
-        version_mavibot => $version_mavibot } ],
+        version_mavibot => $version_mavibot,
+        version_escimo => $version_escimo } ],
         
     # Apache MAVIBOT Index page
     [qr!mavibot\/index\.mdtext$!, template_page => {
@@ -182,7 +198,8 @@ our @patterns = (
         version_apacheds => $version_apacheds,
         version_studio => $version_studio,
         version_studio_name => $version_studio_name,
-        version_mavibot => $version_mavibot } ],
+        version_mavibot => $version_mavibot,
+        version_escimo => $version_escimo } ],
     
     # Standard Apache MAVIBOT page
     [qr!mavibot\/.*?\.mdtext$!, template_page => {
@@ -192,7 +209,8 @@ our @patterns = (
         version_apacheds => $version_apacheds,
         version_studio => $version_studio,
         version_studio_name => $version_studio_name,
-        version_mavibot => $version_mavibot } ],
+        version_mavibot => $version_mavibot,
+        version_escimo => $version_escimo } ],
     
     #
     # Apache Directory Studio sub-project pages
@@ -206,7 +224,8 @@ our @patterns = (
         version_apacheds => $version_apacheds,
         version_studio => $version_studio,
         version_studio_name => $version_studio_name,
-        version_mavibot => $version_mavibot } ],
+        version_mavibot => $version_mavibot,
+        version_escimo => $version_escimo } ],
     
     # Download Apache Directory Studio Mac OS X page
     [qr!studio\/download\/download-macosx\.mdtext$!, template_page => {
@@ -216,7 +235,8 @@ our @patterns = (
         version_apacheds => $version_apacheds,
         version_studio => $version_studio,
         version_studio_name => $version_studio_name,
-        version_mavibot => $version_mavibot } ],
+        version_mavibot => $version_mavibot,
+        version_escimo => $version_escimo } ],
     
     # Download Apache Directory Studio Sources page
     [qr!studio\/download\/download-sources\.mdtext$!, template_page => {
@@ -226,7 +246,8 @@ our @patterns = (
         version_apacheds => $version_apacheds,
         version_studio => $version_studio,
         version_studio_name => $version_studio_name,
-        version_mavibot => $version_mavibot } ],
+        version_mavibot => $version_mavibot,
+        version_escimo => $version_escimo } ],
     
     # Download Apache Directory Studio Windows page
     [qr!studio\/download\/download-windows\.mdtext$!, template_page => {
@@ -236,7 +257,8 @@ our @patterns = (
         version_apacheds => $version_apacheds,
         version_studio => $version_studio,
         version_studio_name => $version_studio_name,
-        version_mavibot => $version_mavibot } ],
+        version_mavibot => $version_mavibot,
+        version_escimo => $version_escimo } ],
         
     # Apache Directory Studio Index page
     [qr!studio\/index\.mdtext$!, template_page => {
@@ -246,7 +268,8 @@ our @patterns = (
         version_apacheds => $version_apacheds,
         version_studio => $version_studio,
         version_studio_name => $version_studio_name,
-        version_mavibot => $version_mavibot } ],
+        version_mavibot => $version_mavibot,
+        version_escimo => $version_escimo } ],
         
     # Standard Apache Directory Studio page
     [qr!studio\/.*?\.mdtext$!, template_page => {
@@ -256,7 +279,8 @@ our @patterns = (
         version_apacheds => $version_apacheds,
         version_studio => $version_studio,
         version_studio_name => $version_studio_name,
-        version_mavibot => $version_mavibot } ],
+        version_mavibot => $version_mavibot,
+        version_escimo => $version_escimo } ],
     
     #
     # Apache Directory Project pages
@@ -270,7 +294,8 @@ our @patterns = (
         version_apacheds => $version_apacheds,
         version_studio => $version_studio,
         version_studio_name => $version_studio_name,
-        version_mavibot => $version_mavibot} ],
+        version_mavibot => $version_mavibot,
+        version_escimo => $version_escimo} ],
     
     # Standard Apache Directory Project page
     [qr!^/.*\.mdtext$!, template_page => {
@@ -280,7 +305,8 @@ our @patterns = (
         version_apacheds => $version_apacheds,
         version_studio => $version_studio,
         version_studio_name => $version_studio_name,
-        version_mavibot => $version_mavibot } ]
+        version_mavibot => $version_mavibot,
+        version_escimo => $version_escimo } ]
 );
 
 # for specifying interdependencies between files
