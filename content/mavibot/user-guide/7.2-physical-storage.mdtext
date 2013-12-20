@@ -71,7 +71,7 @@ We keep a few bytes at the beginning of the file to store some critical informat
 
 Here is a picture that shows the header content :
 
-![RecordManager header](images/RMHEader.png)
+![RecordManager header](images/RMHeader.png)
 
 We keep a track of the free pages (a free page is a PageIO that is not anymore used, for instance because the data have been deleted.) This is done by keeping a link between each PageIO and by pointing to the first feee PageIO and to the last free PageIO of this list.
 
