@@ -1,10 +1,10 @@
-Title: 4 - BTree operations
+Title: 4 - Mavibot B-tree operations
 NavUp: ../user-guide.html
 NavUpText: User Guide
 NavNext: 5-btree-informations.html
-NavNextText: 5 - BTree information
+NavNextText: 5 - Mavibot B-tree information
 NavPrev: 3-btree-management.html
-NavPrevText: 3 - BTree management
+NavPrevText: 3 - Mavibot B-tree management
 Notice: Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
     distributed with this work for additional information
@@ -22,21 +22,21 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
     specific language governing permissions and limitations
     under the License.
 
-# 4 - BTree operations
+# 4 - Mavibot B-tree operations
 
-We will now list all the possible operations that can be applied on a **BTree**. But first, let us understand the _Cursor_ interface, as it is used for navigating a **BTree** using various types of _browse_ operations.
+We will now list all the possible operations that can be applied on a **B-tree**. But first, let us understand the _Cursor_ interface, as it is used for navigating a **B-tree** using various types of _browse_ operations.
 
 ## 4.1 The Cursor interface
 
-All the _browse_ operations will return a _Cursor_ instance. A _Cursor_ allows navigating forward and backward on a **BTree**. It starts at a specific position, and can be moved to a specific position too. The default position for a _Cursor_ is before the very first element of the **BTree**
+All the _browse_ operations will return a _Cursor_ instance. A _Cursor_ allows navigating forward and backward on a **B-tree**. It starts at a specific position, and can be moved to a specific position too. The default position for a _Cursor_ is before the very first element of the **B-tree**
 
 <DIV class="note" markdown="1">
 It is important to understand that a <b>Cursor</b> returns tuples, not keys. A Key may be associated with many values, so a cursor may return many tuples with a given key (each one will have a different value though).
 </DIV>
 
-Here is the **BTree** sample we will use for the following examples :
+Here is the **B-tree** sample we will use for the following examples :
 
-![Sample BTree](images/ug-btree-sample.png)
+![Sample B-tree](images/ug-btree-sample.png)
 
 
 ### 4.1.1 Cursor position management
@@ -105,5 +105,5 @@ Now that we know what a _Cursor_ is about, we can describe the various _browse_ 
 
 ### 4.1.1 browse()
 
-This method returns a cursor with the position set before the first key of the **BTree**. 
+This method returns a cursor with the position set before the first key of the **B-tree**. 
 

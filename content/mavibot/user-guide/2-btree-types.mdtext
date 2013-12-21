@@ -1,10 +1,10 @@
-Title: 2 - BTree Types
+Title: 2 - B-tree Flavors
 NavUp: ../user-guide.html
 NavUpText: User Guide
 NavNext: 3-btree-management.html
-NavNextText: 3 - BTree management
+NavNextText: 3 - Mavibot B-tree management
 NavPrev: 1.1-btree-basics.html
-NavPrevText: 1.1 - BTree Basics
+NavPrevText: 1.1 - B-tree Basics
 Notice: Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
     distributed with this work for additional information
@@ -22,6 +22,10 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
     specific language governing permissions and limitations
     under the License.
 
-# 2 - BTree Types
+# 2 - B-tree flavors
 
-TODO
+You have many different flavors of **B-trees** :
+
+* B+tree : we have a pointer to the next **Node** in each **Node**
+* B*-tree : the internal **Nodes** are compacted, to contain at least 2/3 of the number of possible slots
+* Counted B*-tree : the **B-tree**

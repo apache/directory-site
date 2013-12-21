@@ -1,8 +1,8 @@
-Title: 1.1 - BTree Basics
+Title: 1.1 - B-tree Basics
 NavUp: 1-introduction.html
 NavUpText: 1 - Introduction
 NavNext: 2-btree-types.html
-NavNextText: 2 - BTree Types
+NavNextText: 2 - B-tree Types
 Notice: Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
     distributed with this work for additional information
@@ -20,5 +20,23 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
     specific language governing permissions and limitations
     under the License.
 
-# 1.1 - BTree Basics
+# 1.1 - B-tree Basics
+
+A **B-tree** "tree data structure that keeps data sorted and allows searches, sequential access, insertions, and deletions in logarithmic time." (see [Wikipedia](http://en.wikipedia.org/wiki/B-tree))
+
+The important point here is the last one : it guarantees **O(logn)** operations, compared to any other data structures (a hashed data structure offers **O(n)** average operations, but can degenerate to **O(n2)**, and ordering is not kept. 
+
+**B-trees** are everywhere : databases, OS, etc. It's a critical data structure when you are to deal with a huge number of data.
+
+1.1.1 - Inside a B-tree
+
+A **B-Tree** contains **Nodes** and **Leaves**. A *Node* points to other **Nodes** or **Leaves**. **Leaves** contains **Values**. Both **Nodes** and **Leaves** have **Keys** that are associated with *Values*.
+
+Pretty simple !
+
+One last thing : **Keys** are ordered, and this is the condition for the easy and fast retrieval of **Values**.
+
+A few more rules are enforced :
+* A **Node** and a **Leaf** contains up to N values (N being generally a power of 2, so 2, 4, 8, 16...).
+* You can't have less than N/2 **Values** or **keys** in a **Leaf** or a **Node**, except for the root **Node**.
 
