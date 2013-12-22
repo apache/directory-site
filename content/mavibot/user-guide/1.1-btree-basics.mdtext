@@ -22,15 +22,17 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 # 1.1 - B-tree Basics
 
-A **B-tree** "tree data structure that keeps data sorted and allows searches, sequential access, insertions, and deletions in logarithmic time." (see [Wikipedia](http://en.wikipedia.org/wiki/B-tree))
+**B-tree** was invented back in 1971 by **Bayer** and **McCreight**  (the **B** does not main anything know, speculations are that it comes either form the **B** of **Bayer** or from **Boing** they were working for back then). It was an extension to binary search tree, which was just able to store 2 elements per page.
 
-The important point here is the last one : it guarantees **O(logn)** operations, compared to any other data structures (a hashed data structure offers **O(n)** average operations, but can degenerate to **O(n2)**, and ordering is not kept. 
+A **B-tree** is a "tree data structure that keeps data sorted and allows searches, sequential access, insertions, and deletions in logarithmic time." (see [Wikipedia](http://en.wikipedia.org/wiki/B-tree))
+
+The important point here is the last one : it guarantees **O(logn)** operations, compared to any other data structures (a hashed data structure offers **O(n)** average operations, but can degenerate to **O(n2)**, and ordering is not kept. But there is more : by gathering N elements in a page, which leads to  more comparisons than necessary, but still save a lot of disk accesses, as those comparison will be done in memory when a page is fully loaded. That's the reason for **B-trees** to have been invented. 
 
 **B-trees** are everywhere : databases, OS, etc. It's a critical data structure when you are to deal with a huge number of data.
 
 1.1.1 - Inside a B-tree
 
-A **B-Tree** contains **Nodes** and **Leaves**. A *Node* points to other **Nodes** or **Leaves**. **Leaves** contains **Values**. Both **Nodes** and **Leaves** have **Keys** that are associated with *Values*.
+A **B-Tree** contains **Nodes** and **Leaves**. A *Node* points to other **Nodes** or **Leaves**. **Leaves** contains **Values**. Both **Nodes** and **Leaves** have **Keys** that are associated with *Values*. **Keys** are not copied in many pages, they just appear once in the whole **B-tree**.
 
 Pretty simple !
 
@@ -39,4 +41,12 @@ One last thing : **Keys** are ordered, and this is the condition for the easy an
 A few more rules are enforced :
 * A **Node** and a **Leaf** contains up to N values (N being generally a power of 2, so 2, 4, 8, 16...).
 * You can't have less than N/2 **Values** or **keys** in a **Leaf** or a **Node**, except for the root **Node**.
+
+
+
+1.1.2 - Concurrent access
+
+The real problem with **B-trees** is that we need to use some locks to allow concurrent access to the data, especially when some updates occur. The rational is that when browsing a **B-tree**, changing it will just break the browse operation. There are some technics to avoid having such an issue, up to a point no read locks are needed, assuming some extra information is added to the pages : a pointer to the next page at the same level. Sadly, it comes with drawbacks, like it's difficult to remove empty pages from the **B-tree**.
+
+
 

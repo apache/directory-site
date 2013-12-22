@@ -26,6 +26,32 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 You have many different flavors of **B-trees** :
 
-* B+tree : we have a pointer to the next **Node** in each **Node**
-* B*-tree : the internal **Nodes** are compacted, to contain at least 2/3 of the number of possible slots
-* Counted B*-tree : the **B-tree**
+* B+tree
+* B*-tree
+* Counted B-tree
+* MVCC B-tree
+
+
+## 2.1 - B+tree
+
+This is a **B-tree** which does not store values in the **Nodes**, and a link between **leaves** is added, to fasten the browsing : no need to go up to the parent's node to get the next value when reaching the end of a leaf. Also the **nodes** don't contain value anymore.
+
+## 2.2 - B*tree
+
+A slightly different form of **B+tree**, where the number of element per page is enforced to be at leat 2/3rd of the maximum numbers of elements the page can hold. It fasten a bit the retrieval of elements, as we have a denser tree.
+
+## 2.3 - Counted B-tree
+
+Another slightly different implementation of a **B+tree**, where the number of elements stored in the descendants is stored withing each key. This allows an easy count of elements on the left and right to any element, at the price of a additional piece of information being added on each page.
+
+## 2.4 - MVCC B-tree
+
+This is a new 'style' of **B+tree**, where the structure is exactly the same than a simple **B+tree**, except that we keep old versions alive, until nobody use them. The idea is that a new revision of the **B+tree** is added only when the updates are fully done. This has the extremely intersting characteristic that there is no need of locks for read and writes, assuming that writes are not concurrent (they are serialized).
+
+In other words, you may have many reads at the same time, still being able to update the data.
+
+It comes to a price though : a lot of pages are copied for every updates, as we create a new copy of every modified pages, up to the root page. 
+
+We also have to manage old pages that can be removed as they belong to unused versions, which requires an extra work.
+
+**Mavibot** is a Java based implementation of a **MVCC B+tree**.
