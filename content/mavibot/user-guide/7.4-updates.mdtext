@@ -22,7 +22,7 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 # 7.4 - Updates
 
-The update operations on a **b-tree** will modify the internal structure in many ways. We will expsoe the evolution of the **mavibot** file when dealing with the addition of a new **b-tree** and the insertion of a new calue into it.
+The update operations on a **b-tree** will modify the internal structure in many ways. We will expsoe the evolution of the **mavibot** file when dealing with the addition of a new **b-tree** and the insertion of a new value into it.
 
 Note : we don't show what's happening to the **CopiedPages b-tree** here.
 
@@ -32,24 +32,24 @@ Here is the content of the *mavibot.db* file before we add any **b-tree** into i
 
 ![Initial state](images/initial-state.png)
 
-As we can see, we just have a *RMHeader* pointing to the management *Btree of Btrees*. nothing else.
+As we can see, we just have a *RMHeader* pointing to the *Btree of Btrees*. nothing else.
 
 ## Addition of a b-tree
 
-Now, here is the file content when we have added a new **b-tree** :
+Now, here is the file content after adding a new **b-tree** :
 
 ![B-tree test added](images/btree-test-added.png)
 
-Here, the *RMHeader* is pointing to a new revision of the management *Btree of Btrees*, which itself contains a reference to the *test* **b-tree** in its first revision. At this point, the old *Btree of Btrees* header and page can be freed and moved into the *free pages list*.
+Here, the *RMHeader* is pointing to a new revision of the *Btree of Btrees*, which itself contains a reference to the *test* **b-tree** in its first revision. At this point, the old *Btree of Btrees* header and page can be freed and moved into the *free pages list*.
 
-## Addition of an element in the test b-tree
+## Addition of an element to the test b-tree
 
-Let's go a step further : we now add an element in the *test* **b-tree**. This again will impact the *test* **b-tree*, but also the *Btree of Btrees* and the *RMHeader* as shown in teh following picture :
+Let's go a step further : we now add an element to the *test* **b-tree**. This again will impact the *test* **b-tree*, but also the *Btree of Btrees* and the *RMHeader* as shown in teh following picture :
 
 ![V1 added in test b-tree](images/v1-added-in-test.png)
 
-The *RMHeader* is pointing to the second revision of the **Btree of Btrees** header, and a new revision of the *test* **b-tree** is stored in the root page of the **Btree of Btrees**. The *test* **b-tree**, which header has been copied, is now containing the **V1** value, but we still have the first revision of the *test* **b-tree** present in the file and referenced by the *Btree of Btrees*, as some thread can use it. 
+The *RMHeader* is pointing to the second revision of the **Btree of Btrees** header, and a new revision of the *test* **b-tree** is stored in the root page of the **Btree of Btrees**. The *test* **b-tree**, whose header has been copied, now contains the **V1** value, but we still have the first revision of the *test* **b-tree** present in the file and referenced by the *Btree of Btrees*, as some thread might be using it at the time of update. 
 
-We will be able to free the pages associated with the revision 1 of the *test* **b-tree** when no more thread will use this revision. The old version of the *Btree of Btrees* can be freed too.
+We will be able to free the pages associated with the revision 1 of the *test* **b-tree** when no threads are using this revision. The old version of the *Btree of Btrees* can be freed too.
 
-(the picture shows the same file twice, one while the first revision is still in use on the left, and another on the right where the first revision has been released)
+(the picture shows the same file twice, the one on left represents the state when the first revision is still in use, and the one on right after the first revision was released)
