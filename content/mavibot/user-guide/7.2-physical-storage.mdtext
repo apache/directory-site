@@ -65,17 +65,18 @@ We will now describe how each logical structure is serialized on disk.
 We keep a few bytes at the beginning of the file to store some critical information about the RecordManager. Here is the list of stored informations :
 
 * The *PageIO* size (in bytes)
-* The number of managed BTrees
+* The number of managed B-Trees
 * The offset of the first free page
-* The offset of the last free page
+* The offset of the current B-tree of B-trees
+* The offset of the previous B-tree of B-trees, if we an update operation is being done
+* The offset of the current CopiedPages B-tree
+* The offset of the previous CopiedPages B-tree, if we an update operation is being done
 
-Here is a picture that shows the header content :
+Here is a picture that shows the header content in two different case (when an update operation is not completed, and when it's completed) :
 
 ![RecordManager header](images/RMHeader.png)
 
 We keep a track of the free pages (a free page is a PageIO that is not anymore used, for instance because the data have been deleted.) This is done by keeping a link between each PageIO and by pointing to the first feee PageIO and to the last free PageIO of this list.
-
->**Note** We might get rid of the last free page offset.
 
 
 At startup, of course, we have no free pages, and those pointers contain the -1 offset.
@@ -88,14 +89,10 @@ The *RecordManager* manages *BTree*s, and we have to store them into *PageIO*s. 
 
 All the *BTree*s have a header that contains many informations about them, and point to a *rootPage* which is the current root (so the root for the latest revision). As a *RecordManager* can manage more than one *BTree*, we have to find a way to retreive all the *BTree*s at startup : we use an internal link, so that a *BTree* points to the next btree. At startup, we read the first *BTree* which is stored in the second *PageIO* in the file (so just after the RecordManager header), then we read the next *BTree* pointed by the first *BTree*, and so on.
 
-#### The BTree header
+#### The B-tree info
 
-Each *BTree* has to keep many informations so that it can be used. Those informations are :
+Each *B-tree* has some informations that never change over the time. Here is the list of those informations :
 
-* revision (8 bytes) : the current revision for this *BTree*. This value is updated after each modification in the *BTree*.
-* nbElems (8 bytes) : the total number of elements we have in the *BTree*. This is updated after each modification either.
-* rootPage offset (8 bytes) : the position in the file where the *rootPage* is stored
-* nextBtree offset (8 bytes) : the position of the next *BTree* header in the file (or -1 if we don't have any other *BTree*)
 * pageSize (4 bytes) : the number of elements we cans store in a *Node* or a *Leaf*. It's not related in any possible way with the *PageIO* size.
 * nameSize (4 bytes) : The *BTree* name size
 * name (nameSize bytes) : the *BTree* name
@@ -105,19 +102,32 @@ Each *BTree* has to keep many informations so that it can be used. Those informa
 * valueSerializer (valueSerializerSize bytes): The java *FQCN* for the value serializer
 * dupsAllowed (1 byte): tells if the *BTree* can have duplicated values.
 
-As we can see, thi sheader can have various length, and if one one the names is long, we may need more than one PageIOs to store it.
+As we can see, this header can have various length, and if one one the names is long, we may need more than one PageIOs to store it.
 
-Here is a diagram which present this data structure on disk :
+Note that a *B-tree* info can be stored on one or many *IOPage*s, depending on its size.
 
-![BTreeHeader header](images/btreeHeader.png)
+#### The BTree header
 
-Note that a *BTree* header can be stored on one or many *IOPage*s, depending on its size.
+We may have many versions of the *B-tree* header, one per revision (unless we overwrite it when we don't need to keep many revisions on disk).
+
+Each *BTree* has to keep many informations, which are :
+
+* revision (8 bytes) : the current revision for this *BTree*. This value is updated after each modification in the *BTree*.
+* nbElems (8 bytes) : the total number of elements we have in the *BTree*. This is updated after each modification either.
+* rootPage offset (8 bytes) : the position in the file where the *rootPage* is stored
+* btreeInfo offset (8 bytes) : the position of the *B-tree* info page in the file
+
+Here is a diagram which present the *B-tree header* and the *B-tree info* data structures on disk :
+
+![BTreeHeader](images/btreeHeader.png)
+
+Note that they can be stored on one or many *IOPage*s, depending on its size.
 
 All in all, when we have more than one *BTree* stored in the file, the content of the file which stores the *BTree* headers will look like this one :
 
 ![BTrees](images/BTree.png)
 
-Note that each *BTreeHeader* has at least one root page, even if it contains no data. In this schema, we show the root page just after the *BTree* it is associated to, but after a few updates, the root page may perfectly well be stored elswhere on the disk.
+Note that each *B-tree Header* has one root page, even if it contains no data. In this schema, we show the root page just after the *BTree* it is associated to, but after a few updates, the root page may perfectly well be stored elsewhere on the disk.
 
 #### The Nodes and Leaves
 
@@ -128,7 +138,6 @@ On disk, each *Node* and *Leaf* are stored in *PageIO*s, as we said. A *Node* wi
 Here is the *Node* and *Leaf* data structures once serialized :
 
 ![Node and Leaf](images/nodeLeaf.png)
-
 
 Note that we store the size of the serialized data : this is necessary as we have to know how many *PageIO*s will be needed to store the logical page.
 
