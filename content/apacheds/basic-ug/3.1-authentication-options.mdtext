@@ -226,7 +226,7 @@ Anonymous access is enabled by default. Changing this is one of the basic config
 
 ### Example: Server behavior with anonymous binds disabled
 
-Assume anonymous binds are disabled and our sample partition _Seven Seaes_ present in the server. Here is an example with a search operation performed by a command line tool as a client. It tries to connect anonymously (no DN and password given, i.e. options -D and -w missing) to the server. Afterwards the entry _ou=people,o=sevenSeas_ should be displayed.
+Assume anonymous binds are disabled and our sample partition _Seven Seas_ present in the server. Here is an example with a search operation performed by a command line tool as a client. It tries to connect anonymously (no DN and password given, i.e. options -D and -w missing) to the server. Afterwards the entry _ou=people,o=sevenSeas_ should be displayed.
 
 See the command and the resulting error message provided by the server below 
 
@@ -250,7 +250,7 @@ Now the same command performed against ApacheDS 1.5 with anonymous access enable
 
 The examples above have used a command line tool. Of course graphical tools and programmatical access (JNDI etc.) allow anonymous binds as well. Below is a screen shot from the configuration dialog of [Apache Directory Studio](http://directory.apache.org/studio/) as an example. During configuration of the connection data ("New LDAP Connection", for instance), the option _Anonymous Authentication_ leads to anonymous binds. Other UI tools offer this feature as well.
 
-![Authentication options](authentication-options-ls.png)
+![Authentication options](images/authentication-options-ls.png)
 
 <DIV class="note" markdown="1">
 **Use this feature wisely**
@@ -262,7 +262,7 @@ With anonymous access enabled it is not only possible to search the directory wi
 
 If you want to use simple binds with user DN and password within a Java component, in order to authenticate users programatically, in practice one problem arises: Most users do not know their DN. Therefore they will not be able to enter it. And even if they know it, it would be frequently very laborious due to the length of the DN. It would be easier for a user if s/he only has to probvide a short, unique _ID_ and the password, like in this web form
 
-![Confluence Logon](confluence-logon.png)
+![Confluence Logon](images/confluence-logon.png)
 
 Usually the ID is an attribute within the user's entry. In our sample data (Seven Seas), each user entry contains the _uid_ attribute, for instance uid=hhornblo for Captain Hornblower:
 
@@ -286,7 +286,7 @@ But how to authenticate a user who provides "hhornblo"/"pass" instead of "cn=Hor
 In order to accomplish this task programmatically, one option is to perform the following steps
 
 #### Arguments
-* _uid_ of a user (e.g. "hhornblow")
+* _uid_ of a user (e.g. "hhornblo")
 * _password_ proclaimed to be correct for the user
 
 #### Steps
