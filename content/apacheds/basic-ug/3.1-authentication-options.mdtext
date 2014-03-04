@@ -136,7 +136,7 @@ In real life, you obviously want to separate most of the configuration data from
 If passwords are stored in the directory in clear like above, the administrator (_uid=admin,ou=system_) is able to read them. This holds true even if authorization is enabled. The passwords would also be visible in exported LDIF files. This is often unacceptable.
 
 <DIV class="warning" markdown="1">
-Not only the administrator will be able to read your password, or be visible in LDIF files, but if one does not use SSL, the the password is transmitted in clear text above the wire...
+Not only the administrator will be able to read your password, or be visible in LDIF files, but if one does not use SSL, the password is transmitted in clear text above the wire...
 </DIV>
 
 ### Passwords not stored in clear text
@@ -208,7 +208,7 @@ Providing the hashed value of the _userPassword_ attribute instead of the origin
 This is intended. If someone was able to catch this value (from an LDIF export for instance), s/he must still provide the password itself in order to get authenticated.
 
 <DIV class="note" markdown="1">
-**Be Warned: Limited security added**
+<b>Be Warned: Limited security added</b>
 
 Please note that storing user passwords one-way encrypted only adds limited security. During the bind operation, the credentials are still transmitted unencrypted, if no SSL/TLS communication is used (thus you should definitely consider to do so). 
 
