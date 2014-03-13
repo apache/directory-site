@@ -11,133 +11,132 @@ Here is the release note for Apache Directory ApacheDS 2.0.0-M16:
 
 <b>Bugs</b>
 
-    * DIRSERVER-1092 - org.apache.directory.server.dns.store.RecordStore not support ordered multiple resource record answers
-    * DIRSERVER-1252 - Server tools dump command broken due to use of old paths
-    * DIRSERVER-1412 - Modifying the schema with more than one mod may fail
-    * DIRSERVER-1471 - Providing a right fix for DIRSERVER-1459
-    * DIRSERVER-1761 - Unable to use external keystore for SSL
-    * DIRSERVER-1810 - Test case org.apache.directory.server.replication.ClientServerReplicationIT.testModDn() fails permanently
-    * DIRSERVER-1845 - Sporadic failure on CollectivAttributeServiceIT
-    * DIRSERVER-1855 - java.lang.IllegalStateException: Can't overwrite cause at org.apache.directory.server.core.authz.GroupCache.initialize(GroupCache.java:190)
-    * DIRSERVER-1860 - Invalid DN in returned entry
-    * DIRSERVER-1870 - Persistent control is not decoded properly
-    * DIRSERVER-1873 - Searching on member attribute (multivalued) for groups is not working as expected
-    * DIRSERVER-1884 - Incorrect length specified in PaswordUtil.splitCredentials
-    * DIRSERVER-1885 - The JDBM index cache configuration is not used at all
-    * DIRSERVER-1888 - Some pwdPolicy schema AT are incorrect
-    * DIRSERVER-1894 - Multi-Master replicated startup does not complete
-    * DIRSERVER-1900 - Password hashing interceptor is not encrypting the passwords
-    * DIRSERVER-1902 - Concurrent reads cause LDAP:Error 80, LDAP: Error 1 and LDAP: error code 49 errors
-    * DIRSERVER-1905 - KeytabDecoder should use '/' instead of '\' to separate principal name components
-    * DIRSERVER-1906 - We still store entryUUID associated with 'top' in the OC index
-    * DIRSERVER-1909 - Integer cannot be cast to java.lang.Long in JdbmTable prevents service start
-    * DIRSERVER-1911 - Incorrect installation presumption toward user naming convention
-    * DIRSERVER-1917 - Class Cast Exception when doing paged search
-    * DIRSERVER-1921 - Indexes dont work on distinguishedNameMatch attributeType
-    * DIRSERVER-1922 - Not Operator in Ldap Filter on Indexed Attributes
-    * DIRSERVER-1928 - PasswordPolicy should be ignored from Admin session
-    * DIRSERVER-1932 - Password policy pwdMinAge check should check for required reset
-    * DIRSERVER-1948 - NPE in AuthenticationInterceptor when password policy is in place and user does not have a pwdChangedTime
-    * DIRSERVER-1953 - "entryDn" attribute is not returned when requested along with wildcard attribute symbol *
-    * DIRSERVER-1954 - Second startup of an embedded server fails (after an ungraceful shutdown of the first startup)
-    * DIRSERVER-1955 - Directory Apacheds sends wrong empty response for password policy request
-    * DIRSERVER-1957 - chpass/passwd failure (Linux)
-    * DIRSERVER-1959 - Certificates corruption during replication
-    * DIRSERVER-1961 - Searches wth Object level scope and non-existing attribute assertion in filter are not working
-    * DIRSERVER-1962 - Replication Consumer "Enabled" checkbox not working
-    * DIRSERVER-1963 - Add contextCSN attribute to the list of ignored attributes in ReplicationConsumerImpl
+  * DIRSERVER-1092 - org.apache.directory.server.dns.store.RecordStore not support ordered multiple resource record answers
+  * DIRSERVER-1252 - Server tools dump command broken due to use of old paths
+  * DIRSERVER-1412 - Modifying the schema with more than one mod may fail
+  * DIRSERVER-1471 - Providing a right fix for DIRSERVER-1459
+  * DIRSERVER-1761 - Unable to use external keystore for SSL
+  * DIRSERVER-1810 - Test case org.apache.directory.server.replication.ClientServerReplicationIT.testModDn() fails permanently
+  * DIRSERVER-1845 - Sporadic failure on CollectivAttributeServiceIT
+  * DIRSERVER-1855 - java.lang.IllegalStateException: Can't overwrite cause at org.apache.directory.server.core.authz.GroupCache.initialize(GroupCache.java:190)
+  * DIRSERVER-1860 - Invalid DN in returned entry
+  * DIRSERVER-1870 - Persistent control is not decoded properly
+  * DIRSERVER-1873 - Searching on member attribute (multivalued) for groups is not working as expected
+  * DIRSERVER-1884 - Incorrect length specified in PaswordUtil.splitCredentials
+  * DIRSERVER-1885 - The JDBM index cache configuration is not used at all
+  * DIRSERVER-1888 - Some pwdPolicy schema AT are incorrect
+  * DIRSERVER-1894 - Multi-Master replicated startup does not complete
+  * DIRSERVER-1900 - Password hashing interceptor is not encrypting the passwords
+  * DIRSERVER-1902 - Concurrent reads cause LDAP:Error 80, LDAP: Error 1 and LDAP: error code 49 errors
+  * DIRSERVER-1905 - KeytabDecoder should use '/' instead of '\' to separate principal name components
+  * DIRSERVER-1906 - We still store entryUUID associated with 'top' in the OC index
+  * DIRSERVER-1909 - Integer cannot be cast to java.lang.Long in JdbmTable prevents service start
+  * DIRSERVER-1911 - Incorrect installation presumption toward user naming convention
+  * DIRSERVER-1917 - Class Cast Exception when doing paged search
+  * DIRSERVER-1921 - Indexes dont work on distinguishedNameMatch attributeType
+  * DIRSERVER-1922 - Not Operator in Ldap Filter on Indexed Attributes
+  * DIRSERVER-1928 - PasswordPolicy should be ignored from Admin session
+  * DIRSERVER-1932 - Password policy pwdMinAge check should check for required reset
+  * DIRSERVER-1948 - NPE in AuthenticationInterceptor when password policy is in place and user does not have a pwdChangedTime
+  * DIRSERVER-1953 - "entryDn" attribute is not returned when requested along with wildcard attribute symbol *
+  * DIRSERVER-1954 - Second startup of an embedded server fails (after an ungraceful shutdown of the first startup)
+  * DIRSERVER-1955 - Directory Apacheds sends wrong empty response for password policy request
+  * DIRSERVER-1957 - chpass/passwd failure (Linux)
+  * DIRSERVER-1959 - Certificates corruption during replication
+  * DIRSERVER-1961 - Searches wth Object level scope and non-existing attribute assertion in filter are not working
+  * DIRSERVER-1962 - Replication Consumer "Enabled" checkbox not working
+  * DIRSERVER-1963 - Add contextCSN attribute to the list of ignored attributes in ReplicationConsumerImpl
 
 <b>Improvements</b>
 
-    * DIRSERVER-1081 - Injecting more information in the opContext structure
-    * DIRSERVER-1294 - Add size() and hasNext() methods to cursors
-    * DIRSERVER-1338 - Allow non-Jdbm schema partition
-    * DIRSERVER-1460 - Add locale to configuration
-    * DIRSERVER-1534 - Improving implementation of loading LDIF files during startup
-    * DIRSERVER-1601 - New index to add : PrescriptiveACI, member, uniqueMember
-    * DIRSERVER-1634 - Add a DN cache for Stores
-    * DIRSERVER-1676 - Provide a set of error codes along with an AuthenticationException to indicate its root cause.
-    * DIRSERVER-1716 - Add a ParentIdAndRdn cache
-    * DIRSERVER-1920 - Refactor DefaultDirectoryServiceFactory/DefaultDirectoryService for extensability
-    * DIRSERVER-1926 - Supply Entry to PasswordValidator instead of username
-    * DIRSERVER-1935 - Include password policy control in the password modify extended operation response if requested
+  * DIRSERVER-1081 - Injecting more information in the opContext structure
+  * DIRSERVER-1294 - Add size() and hasNext() methods to cursors
+  * DIRSERVER-1338 - Allow non-Jdbm schema partition
+  * DIRSERVER-1460 - Add locale to configuration
+  * DIRSERVER-1534 - Improving implementation of loading LDIF files during startup
+  * DIRSERVER-1601 - New index to add : PrescriptiveACI, member, uniqueMember
+  * DIRSERVER-1634 - Add a DN cache for Stores
+  * DIRSERVER-1676 - Provide a set of error codes along with an AuthenticationException to indicate its root cause.
+  * DIRSERVER-1716 - Add a ParentIdAndRdn cache
+  * DIRSERVER-1920 - Refactor DefaultDirectoryServiceFactory/DefaultDirectoryService for extensability
+  * DIRSERVER-1926 - Supply Entry to PasswordValidator instead of username
+  * DIRSERVER-1935 - Include password policy control in the password modify extended operation response if requested
 
 <b>New Features</b>
 
-    * DIRSERVER-264 - Add Support for Sort Control
-    * DIRSERVER-265 - In-memory backend storage support
-    * DIRSERVER-442 - Synchronize suffix entries in configuration with entry on disk
-    * DIRSERVER-1030 - Add CascadeControl and add functionality to cascade modify and delete effects
-    * DIRSERVER-1246 - Add shell scripts and batch files for clients
-    * DIRSERVER-1263 - Add authz schema
-    * DIRSERVER-1852 - Sort the entry based on the DN before returning them
-    * DIRSERVER-1886 - Add configuration schema elements for Mavibot partition
-    * DIRSERVER-1889 - Credentials cache for Kerberos
-    * DIRSERVER-1898 - Authentication mechanism: PKCS5S2
+  * DIRSERVER-264 - Add Support for Sort Control
+  * DIRSERVER-265 - In-memory backend storage support
+  * DIRSERVER-442 - Synchronize suffix entries in configuration with entry on disk
+  * DIRSERVER-1030 - Add CascadeControl and add functionality to cascade modify and delete effects
+  * DIRSERVER-1246 - Add shell scripts and batch files for clients
+  * DIRSERVER-1263 - Add authz schema
+  * DIRSERVER-1852 - Sort the entry based on the DN before returning them
+  * DIRSERVER-1886 - Add configuration schema elements for Mavibot partition
+  * DIRSERVER-1889 - Credentials cache for Kerberos
+  * DIRSERVER-1898 - Authentication mechanism: PKCS5S2
 
 <b>Task</b>
 
-    * DIRSERVER-575 - Convert all non-forwarding (out of band) nextInterceptor calls to use the proxy with bypass instructions
+  * DIRSERVER-575 - Convert all non-forwarding (out of band) nextInterceptor calls to use the proxy with bypass instructions
 
 We have also fixed many Kerberos related issues :
 
 <b>Bugs</b>
 
-    * DIRKRB-28 - Allow setting searchBaseDN
-    * DIRKRB-30 - Decoding incoming request over TCP fails
-    * DIRKRB-96 - Unable to obtain ticket after changing the password
+  * DIRKRB-28 - Allow setting searchBaseDN
+  * DIRKRB-30 - Decoding incoming request over TCP fails
+  * DIRKRB-96 - Unable to obtain ticket after changing the password
 
 <b>Tasks</b>
 
-    * DIRKRB-31 - Create the Authenticator grammar
-    * DIRKRB-32 - Create the EncTicketPart grammar
-    * DIRKRB-33 - Create the AS-REQ grammar
-    * DIRKRB-34 - Create the AS-REP grammar
-    * DIRKRB-35 - Create the TGS-REQ grammar
-    * DIRKRB-36 - Create the TGS-REP grammar
-    * DIRKRB-37 - Create the AP-REQ grammar
-    * DIRKRB-38 - Create the AP-REP grammar
-    * DIRKRB-39 - Create the KRB-SAFE grammar
-    * DIRKRB-40 - Create the KRB-PRIV grammar
-    * DIRKRB-41 - Create the KRB-CRED grammar
-    * DIRKRB-42 - Create the EncASRepPart grammar
-    * DIRKRB-43 - Create the EncTGSRepPart grammar
-    * DIRKRB-44 - Create the EncAPRepPart grammar
-    * DIRKRB-45 - Create the EncKrbPrivPart grammar
-    * DIRKRB-46 - Create the EncKrbCredPart grammar
-    * DIRKRB-47 - Create the KRB-ERROR grammar
-    * DIRKRB-48 - Create the PA-DATA grammar
-    * DIRKRB-49 - Create the Checksum grammar
-    * DIRKRB-50 - Create the TransitedEncoding grammar
-    * DIRKRB-51 - Create the KDC-REQ-BODY grammar
-    * DIRKRB-52 - Create the KDC-REP grammar
-    * DIRKRB-53 - Create the EncKDCRepPart grammar
-    * DIRKRB-54 - Create the LastReq grammar
-    * DIRKRB-55 - Create the KRB-SAFE-BODY grammar
-    * DIRKRB-56 - Create the KrbCredInfo grammar
-    * DIRKRB-57 - Create the METHOD-DATA grammar
-    * DIRKRB-58 - Create the TYPED-DATA grammar
-    * DIRKRB-59 - Create the PA-ENC-TIMESTAMP grammar
-    * DIRKRB-60 - Create the PA-ENC-TS-ENC grammar
-    * DIRKRB-61 - Create the ETYPE-INFO-ENTRY grammar
-    * DIRKRB-62 - Create the ETYPE-INFO grammar
-    * DIRKRB-63 - Create the ETYPE-INFO2-ENTRY grammar
-    * DIRKRB-64 - Create the ETYPE-INFO2 grammar
-    * DIRKRB-65 - Create the AD-IF-RELEVANT grammar
-    * DIRKRB-66 - Create the AD-KDCIssued grammar
-    * DIRKRB-67 - Create the AD-AND-OR grammar
-    * DIRKRB-68 - Create the AD-MANDATORY-FOR-KDC grammar
-    * DIRKRB-69 - Create the Ticket grammar
-    * DIRKRB-70 - Create the EncryptedData grammar
-    * DIRKRB-71 - Create the PrincipalName grammar
-    * DIRKRB-72 - Create the HostAddresses grammar
-    * DIRKRB-73 - Create the HostAddress grammar
-    * DIRKRB-74 - Create the AuthorizationData grammar
-    * DIRKRB-75 - Create the EncryptionKey grammar
-    * DIRKRB-76 - Create the KDC-REQ grammar
-    * DIRKRB-77 - Adapt the error messages we use in grammars
-    * DIRKRB-78 - Add tests for all the grammars
-
+  * DIRKRB-31 - Create the Authenticator grammar
+  * DIRKRB-32 - Create the EncTicketPart grammar
+  * DIRKRB-33 - Create the AS-REQ grammar
+  * DIRKRB-34 - Create the AS-REP grammar
+  * DIRKRB-35 - Create the TGS-REQ grammar
+  * DIRKRB-36 - Create the TGS-REP grammar
+  * DIRKRB-37 - Create the AP-REQ grammar
+  * DIRKRB-38 - Create the AP-REP grammar
+  * DIRKRB-39 - Create the KRB-SAFE grammar
+  * DIRKRB-40 - Create the KRB-PRIV grammar
+  * DIRKRB-41 - Create the KRB-CRED grammar
+  * DIRKRB-42 - Create the EncASRepPart grammar
+  * DIRKRB-43 - Create the EncTGSRepPart grammar
+  * DIRKRB-44 - Create the EncAPRepPart grammar
+  * DIRKRB-45 - Create the EncKrbPrivPart grammar
+  * DIRKRB-46 - Create the EncKrbCredPart grammar
+  * DIRKRB-47 - Create the KRB-ERROR grammar
+  * DIRKRB-48 - Create the PA-DATA grammar
+  * DIRKRB-49 - Create the Checksum grammar
+  * DIRKRB-50 - Create the TransitedEncoding grammar
+  * DIRKRB-51 - Create the KDC-REQ-BODY grammar
+  * DIRKRB-52 - Create the KDC-REP grammar
+  * DIRKRB-53 - Create the EncKDCRepPart grammar
+  * DIRKRB-54 - Create the LastReq grammar
+  * DIRKRB-55 - Create the KRB-SAFE-BODY grammar
+  * DIRKRB-56 - Create the KrbCredInfo grammar
+  * DIRKRB-57 - Create the METHOD-DATA grammar
+  * DIRKRB-58 - Create the TYPED-DATA grammar
+  * DIRKRB-59 - Create the PA-ENC-TIMESTAMP grammar
+  * DIRKRB-60 - Create the PA-ENC-TS-ENC grammar
+  * DIRKRB-61 - Create the ETYPE-INFO-ENTRY grammar
+  * DIRKRB-62 - Create the ETYPE-INFO grammar
+  * DIRKRB-63 - Create the ETYPE-INFO2-ENTRY grammar
+  * DIRKRB-64 - Create the ETYPE-INFO2 grammar
+  * DIRKRB-65 - Create the AD-IF-RELEVANT grammar
+  * DIRKRB-66 - Create the AD-KDCIssued grammar
+  * DIRKRB-67 - Create the AD-AND-OR grammar
+  * DIRKRB-68 - Create the AD-MANDATORY-FOR-KDC grammar
+  * DIRKRB-69 - Create the Ticket grammar
+  * DIRKRB-70 - Create the EncryptedData grammar
+  * DIRKRB-71 - Create the PrincipalName grammar
+  * DIRKRB-72 - Create the HostAddresses grammar
+  * DIRKRB-73 - Create the HostAddress grammar
+  * DIRKRB-74 - Create the AuthorizationData grammar
+  * DIRKRB-75 - Create the EncryptionKey grammar
+  * DIRKRB-76 - Create the KDC-REQ grammar
+  * DIRKRB-77 - Adapt the error messages we use in grammars
+  * DIRKRB-78 - Add tests for all the grammars
 
 
 <h2 class="news">ApacheDS 2.0.0-M15 released <em>posted on August 18th, 2013</em></h2>
@@ -150,23 +149,22 @@ Here is the release note for Apache Directory ApacheDS 2.0.0-M15:
 
 <b>Bugs</b>
 
-  * [DIRSERVER-1325](https://issues.apache.org/jira/browse/DIRSERVER-1325) - Simple Authentication can not be disabled
-  * [DIRSERVER-1490](https://issues.apache.org/jira/browse/DIRSERVER-1490) - Not 100% sure, but the DN caches we have in the 
-Downloads are available [here](downloads.html)
-  * [DIRSERVER-1871](https://issues.apache.org/jira/browse/DIRSERVER-1871) - Logging Not Working in M14
-  * [DIRSERVER-1872](https://issues.apache.org/jira/browse/DIRSERVER-1872) - The JournalInterceptor is not present in the configuration
-  * [DIRSERVER-1874](https://issues.apache.org/jira/browse/DIRSERVER-1874) - Persistent search is not considering the scope of the search
-  * [DIRSERVER-1875](https://issues.apache.org/jira/browse/DIRSERVER-1875) - Persistent search is not filtering the attributes before returning entries
-  * [DIRSERVER-1879](https://issues.apache.org/jira/browse/DIRSERVER-1879) - Incorrect check on result code done in the PwdModifyResponseImpl constructor
-  * [DIRSERVER-1880](https://issues.apache.org/jira/browse/DIRSERVER-1880) - ApacheDS failed to start on boot
-  * [DIRSERVER-1882](https://issues.apache.org/jira/browse/DIRSERVER-1882) - KertabEncoder.write() method should take into account the size of the entries list to determine the buffer size
-  * [DIRSERVER-1883](https://issues.apache.org/jira/browse/DIRSERVER-1883) - Searching for entries starting at the rootDSE does not work
+  * DIRSERVER-1325 - Simple Authentication can not be disabled
+  * DIRSERVER-1490 - Not 100% sure, but the DN caches we have in the server might not be updated when doing a Move
+  * DIRSERVER-1871 - Logging Not Working in M14
+  * DIRSERVER-1872 - The JournalInterceptor is not present in the configuration
+  * DIRSERVER-1874 - Persistent search is not considering the scope of the search
+  * DIRSERVER-1875 - Persistent search is not filtering the attributes before returning entries
+  * DIRSERVER-1879 - Incorrect check on result code done in the PwdModifyResponseImpl constructor
+  * DIRSERVER-1880 - ApacheDS failed to start on boot
+  * DIRSERVER-1882 - KertabEncoder.write() method should take into account the size of the entries list to determine the buffer size
+  * DIRSERVER-1883 - Searching for entries starting at the rootDSE does not work
 
 
 <b>Improvement</b>
 
-  * [DIRSERVER-1049](https://issues.apache.org/jira/browse/DIRSERVER-1049) - [PERF] Speed improvement in Search operation
-  * [DIRSERVER-1519](https://issues.apache.org/jira/browse/DIRSERVER-1519) - [perf] The MoveAndRename operation is not optimal
+  * DIRSERVER-1049 - [PERF] Speed improvement in Search operation
+  * DIRSERVER-1519 - [perf] The MoveAndRename operation is not optimal
 
 Downloads are available [here](downloads.html)
 
@@ -195,47 +193,47 @@ Here is the release note for Apache Directory ApacheDS 2.0.0-M13:
 
 <b>Bugs</b>
 
-  * [DIRSERVER-1325](https://issues.apache.org/jira/browse/DIRSERVER-1325) - Simple Authentication can not be disabled
-  * [DIRSERVER-1490](https://issues.apache.org/jira/browse/DIRSERVER-1490) - Not 100% sure, but the DN caches we have in the server might not be updated when doing a Move
-  * [DIRSERVER-1491](https://issues.apache.org/jira/browse/DIRSERVER-1491) - Improve schema extractor
-  * [DIRSERVER-1500](https://issues.apache.org/jira/browse/DIRSERVER-1500) - Error searching children of known element.
-  * [DIRSERVER-1521](https://issues.apache.org/jira/browse/DIRSERVER-1521) - dc=example,dc=com DIT no longer exists as a default partition (DIT) in 1.5.7?
-  * [DIRSERVER-1579](https://issues.apache.org/jira/browse/DIRSERVER-1579) - Various problems using moddn operation
-  * [DIRSERVER-1661](https://issues.apache.org/jira/browse/DIRSERVER-1661) - Kerberos tests not working with JDK 1.6.0_27 and JDK 1.7.0
-  * [DIRSERVER-1806](https://issues.apache.org/jira/browse/DIRSERVER-1806) - The DelegatedAuthIT test does not test a delegated authentication
-  * [DIRSERVER-1829](https://issues.apache.org/jira/browse/DIRSERVER-1829) - bug in initializing authenticators for AuthenticatorInterceptor
-  * [DIRSERVER-1836](https://issues.apache.org/jira/browse/DIRSERVER-1836) - When extedning an interceptor, the operation are executed twice
-  * [DIRSERVER-1840](https://issues.apache.org/jira/browse/DIRSERVER-1840) - Wrong default duration for ads-repllogmaxidle
-  * [DIRSERVER-1846](https://issues.apache.org/jira/browse/DIRSERVER-1846) - Configuring SSL/Start TLS keystore does not accept backward slash (\) in path
-  * [DIRSERVER-1849](https://issues.apache.org/jira/browse/DIRSERVER-1849) - Invalid prefixes format for password stored using SHA-2 hashing mechanisms (SHA-256, SHA-384, SHA-512)
-  * [DIRSERVER-1862](https://issues.apache.org/jira/browse/DIRSERVER-1862) - Concurrent searches and adds may break the backend
+  * DIRSERVER-1325 - Simple Authentication can not be disabled
+  * DIRSERVER-1490 - Not 100% sure, but the DN caches we have in the server might not be updated when doing a Move
+  * DIRSERVER-1491 - Improve schema extractor
+  * DIRSERVER-1500 - Error searching children of known element.
+  * DIRSERVER-1521 - dc=example,dc=com DIT no longer exists as a default partition (DIT) in 1.5.7?
+  * DIRSERVER-1579 - Various problems using moddn operation
+  * DIRSERVER-1661 - Kerberos tests not working with JDK 1.6.0_27 and JDK 1.7.0
+  * DIRSERVER-1806 - The DelegatedAuthIT test does not test a delegated authentication
+  * DIRSERVER-1829 - bug in initializing authenticators for AuthenticatorInterceptor
+  * DIRSERVER-1836 - When extedning an interceptor, the operation are executed twice
+  * DIRSERVER-1840 - Wrong default duration for ads-repllogmaxidle
+  * DIRSERVER-1846 - Configuring SSL/Start TLS keystore does not accept backward slash (\) in path
+  * DIRSERVER-1849 - Invalid prefixes format for password stored using SHA-2 hashing mechanisms (SHA-256, SHA-384, SHA-512)
+  * DIRSERVER-1862 - Concurrent searches and adds may break the backend
 
 
 <b>Improvement</b>
 
-  * [DIRSERVER-289](https://issues.apache.org/jira/browse/DIRSERVER-289) - Configure an optional password message digest algorithm which is applied on userPassword attribute values at add and modify operations.
-  * [DIRSERVER-1236](https://issues.apache.org/jira/browse/DIRSERVER-1236) - Store an AttributeEntry object in filter's node
-  * [DIRSERVER-1310](https://issues.apache.org/jira/browse/DIRSERVER-1310) - Improve the way we handle controls encoding/decoding
-  * [DIRSERVER-1346](https://issues.apache.org/jira/browse/DIRSERVER-1346) - Use ServiceLifecycleListener to avoid having System.out messages for service start/stop events.
-  * [DIRSERVER-1447](https://issues.apache.org/jira/browse/DIRSERVER-1447) - loadAllEnabled() method is taking way too long
-  * [DIRSERVER-1489](https://issues.apache.org/jira/browse/DIRSERVER-1489) - Provide access to remote connection info
-  * [DIRSERVER-1511](https://issues.apache.org/jira/browse/DIRSERVER-1511) - Some operations are present in the Partition interface when they should not
-  * [DIRSERVER-1617](https://issues.apache.org/jira/browse/DIRSERVER-1617) - Add a feature to support TLS in DelegatingAuthenticator
-  * [DIRSERVER-1801](https://issues.apache.org/jira/browse/DIRSERVER-1801) - The authenticator cache is invalidated too frequently
+  * DIRSERVER-289 - Configure an optional password message digest algorithm which is applied on userPassword attribute values at add and modify operations.
+  * DIRSERVER-1236 - Store an AttributeEntry object in filter's node
+  * DIRSERVER-1310 - Improve the way we handle controls encoding/decoding
+  * DIRSERVER-1346 - Use ServiceLifecycleListener to avoid having System.out messages for service start/stop events.
+  * DIRSERVER-1447 - loadAllEnabled() method is taking way too long
+  * DIRSERVER-1489 - Provide access to remote connection info
+  * DIRSERVER-1511 - Some operations are present in the Partition interface when they should not
+  * DIRSERVER-1617 - Add a feature to support TLS in DelegatingAuthenticator
+  * DIRSERVER-1801 - The authenticator cache is invalidated too frequently
 
 
 <b>New Feature</b>
 
-  * [DIRSERVER-275](https://issues.apache.org/jira/browse/DIRSERVER-275) - Add Support for LDAP Password Modify Extended Operation
-  * [DIRSERVER-434](https://issues.apache.org/jira/browse/DIRSERVER-434) - Add Support for Paged Search Results Control
-  * [DIRSERVER-866](https://issues.apache.org/jira/browse/DIRSERVER-866) - Initialization with another backend than JDBM for the system partition
-  * [DIRSERVER-1203](https://issues.apache.org/jira/browse/DIRSERVER-1203) - RFC2307bis Support is missing
-  * [DIRSERVER-1837](https://issues.apache.org/jira/browse/DIRSERVER-1837) - The DelegatingAuthenticator does not support SSL/StartTLS/SASL
+  * DIRSERVER-275 - Add Support for LDAP Password Modify Extended Operation
+  * DIRSERVER-434 - Add Support for Paged Search Results Control
+  * DIRSERVER-866 - Initialization with another backend than JDBM for the system partition
+  * DIRSERVER-1203 - RFC2307bis Support is missing
+  * DIRSERVER-1837 - The DelegatingAuthenticator does not support SSL/StartTLS/SASL
 
 
 <b>Task</b>
 
-  * [DIRSERVER-710](https://issues.apache.org/jira/browse/DIRSERVER-710) - Exception tree should be reviewed
+  * DIRSERVER-710 - Exception tree should be reviewed
 
 
 
@@ -255,14 +253,14 @@ Here is the release note for Apache Directory ApacheDS 2.0.0-M12:
 
 <b>Bugs</b>
 
-  * [DIRSERVER-1798](https://issues.apache.org/jira/browse/DIRSERVER-1798) - The AdministrativePoint interceptor is always activated, even if it's not part of the config
-  * [DIRAPI-80](https://issues.apache.org/jira/browse/DIRAPI-80) - Cannot issue a direct operation without having connected to the server
-  * [DIRSERVER-1143](https://issues.apache.org/jira/browse/DIRSERVER-1143) - ldappasswd fails to bind
-  * [DIRSERVER-1584](https://issues.apache.org/jira/browse/DIRSERVER-1584) - document how to limit the available ciphers for ldaps (how to disable SSL3_RSA_RC4_40_MD5 : SSL_EXPORT SSL3_RSA_DES_40_CBC_SHA)
-  * [DIRSERVER-1812](https://issues.apache.org/jira/browse/DIRSERVER-1812) -  The default admin account should never get locked forever 
-  * [DIRSERVER-1814](https://issues.apache.org/jira/browse/DIRSERVER-1814) - Using anon connection results in UnbindRequestHandler reporting 'LdapNoSuchObjectException: ERR_268 Cannot find a partition for ' 
-  * [DIRSERVER-1826](https://issues.apache.org/jira/browse/DIRSERVER-1826) - The ads-pwdFailureCountInterval is not taken into account
-  * [DIRSERVER-1834](https://issues.apache.org/jira/browse/DIRSERVER-1834) - Broken backend when using AT with no EQUALITY MR
+  * DIRSERVER-1798 - The AdministrativePoint interceptor is always activated, even if it's not part of the config
+  * DIRAPI-80] - Cannot issue a direct operation without having connected to the server
+  * DIRSERVER-1143 - ldappasswd fails to bind
+  * DIRSERVER-1584 - document how to limit the available ciphers for ldaps (how to disable SSL3_RSA_RC4_40_MD5 : SSL_EXPORT SSL3_RSA_DES_40_CBC_SHA)
+  * DIRSERVER-1812 -  The default admin account should never get locked forever 
+  * DIRSERVER-1814 - Using anon connection results in UnbindRequestHandler reporting 'LdapNoSuchObjectException: ERR_268 Cannot find a partition for ' 
+  * DIRSERVER-1826 - The ads-pwdFailureCountInterval is not taken into account
+  * DIRSERVER-1834 - Broken backend when using AT with no EQUALITY MR
 
 This is a critical version, and anyone using 2.0.0-M11 should replace it with this version.  
 
@@ -278,19 +276,19 @@ Here is the release note for Apache Directory ApacheDS 2.0.0-M11:
 
 <b>Bugs</b>
 
-  * [DIRSERVER-1281](https://issues.apache.org/jira/browse/DIRSERVER-1281) - StreamCorruptedException after brutal shutdown
-  * [DIRSERVER-1797](https://issues.apache.org/jira/browse/DIRSERVER-1797) - The AdministrativeRole AT is not indexed, leadings to huge delay when starting the server
-  * [DIRSERVER-1798](https://issues.apache.org/jira/browse/DIRSERVER-1798) - The AdministrativePoint interceptor is always activated, even if it's not part of the config
-  * [DIRSERVER-1799](https://issues.apache.org/jira/browse/DIRSERVER-1799) - When deleting values from an existing entry, the presence index might get out of date
-  * [DIRSERVER-1802](https://issues.apache.org/jira/browse/DIRSERVER-1802) - Disabling an authenticator results in a NPE
-  * [DIRSERVER-1803](https://issues.apache.org/jira/browse/DIRSERVER-1803) - When the SimpleAuthenticator is disabled, and the auth level is set to SIMPLE, we can bind freely
-  * [DIRSERVER-1804](https://issues.apache.org/jira/browse/DIRSERVER-1804) - [patch] Fix ApacheDS code to allow control and reduce number of outputted logs
-  * [DIRSERVER-1805](https://issues.apache.org/jira/browse/DIRSERVER-1805) - The replication janitor thread is not stopped correctly when the server is stopped
-  * [DIRKRB-85](https://issues.apache.org/jira/browse/DIRKRB-85) - @CreateKdcServer should include searchBaseDn attribute
-  * [DIRSERVER-1321](https://issues.apache.org/jira/browse/DIRSERVER-1321) - Clarify relationship between partition.syncOnWrite and apacheDS.syncPeriodMillis configuration attributes
-  * [DIRSERVER-1322](https://issues.apache.org/jira/browse/DIRSERVER-1322) - Auto inferring context entry
-  * [DIRSERVER-1808](https://issues.apache.org/jira/browse/DIRSERVER-1808) - We should evaluate the Scope and any other index in a fliter only when the # of candidate is above a threshold
-  * [DIRKRB-86](https://issues.apache.org/jira/browse/DIRKRB-86) - The Kerberos server badly need some logging...
+  * DIRSERVER-1281 - StreamCorruptedException after brutal shutdown
+  * DIRSERVER-1797 - The AdministrativeRole AT is not indexed, leadings to huge delay when starting the server
+  * DIRSERVER-1798 - The AdministrativePoint interceptor is always activated, even if it's not part of the config
+  * DIRSERVER-1799 - When deleting values from an existing entry, the presence index might get out of date
+  * DIRSERVER-1802 - Disabling an authenticator results in a NPE
+  * DIRSERVER-1803 - When the SimpleAuthenticator is disabled, and the auth level is set to SIMPLE, we can bind freely
+  * DIRSERVER-1804 - [patch] Fix ApacheDS code to allow control and reduce number of outputted logs
+  * DIRSERVER-1805 - The replication janitor thread is not stopped correctly when the server is stopped
+  * DIRSERVER-1321 - Clarify relationship between partition.syncOnWrite and apacheDS.syncPeriodMillis configuration attributes
+  * DIRSERVER-1322 - Auto inferring context entry
+  * DIRSERVER-1808 - We should evaluate the Scope and any other index in a fliter only when the # of candidate is above a threshold
+  * DIRKRB-85 - @CreateKdcServer should include searchBaseDn attribute
+  * DIRKRB-86 - The Kerberos server badly need some logging...
 
 Note that this is a milestone, and some parts of the API or configuration can change before the 2.0 GA. We don't have any defined time frame for the 2.0-GA release, we do expect to release a few more milestones before reaching the 2.0-GA.
 
@@ -306,14 +304,14 @@ Here is the release note for Apache Directory ApacheDS 2.0.0-M10:
 
 <b>Bugs</b>
 
-* [DIRSERVER-1704](https://issues.apache.org/jira/browse/DIRSERVER-1704) - Inconistency in Master-Slave Replication
-* [DIRSERVER-1740](https://issues.apache.org/jira/browse/DIRSERVER-1740) - REPLICATION data loss
-* [DIRSERVER-1772](https://issues.apache.org/jira/browse/DIRSERVER-1772) - Improve the replication logs
-* [DIRSERVER-1788](https://issues.apache.org/jira/browse/DIRSERVER-1788) - ConfigurationReader fails to correctly read byte[] values
-* [DIRSERVER-1789](https://issues.apache.org/jira/browse/DIRSERVER-1789) - Changes to an existing replication consumer may not be taken into account
-* [DIRSERVER-1790](https://issues.apache.org/jira/browse/DIRSERVER-1790) - When we restart the server, some user index are lost
-* [DIRSERVER-1791](https://issues.apache.org/jira/browse/DIRSERVER-1791) - Interrupting a search on the client side cause the connection to be closed by the server
-* [DIRSERVER-1792](https://issues.apache.org/jira/browse/DIRSERVER-1792) - Replication and Modification of ACIs
+* DIRSERVER-1704 - Inconistency in Master-Slave Replication
+* DIRSERVER-1740 - REPLICATION data loss
+* DIRSERVER-1772 - Improve the replication logs
+* DIRSERVER-1788 - ConfigurationReader fails to correctly read byte[] values
+* DIRSERVER-1789 - Changes to an existing replication consumer may not be taken into account
+* DIRSERVER-1790 - When we restart the server, some user index are lost
+* DIRSERVER-1791 - Interrupting a search on the client side cause the connection to be closed by the server
+* DIRSERVER-1792 - Replication and Modification of ACIs
 
 Note that this is a milestone, and some parts of the API or configuration can change before the 2.0 GA. We don't have any defined time frame for the 2.0-GA release, we do expect to release a few more milestones before reaching the 2.0-GA.
 
@@ -330,30 +328,30 @@ Here is the release note for Apache Directory ApacheDS 2.0.0-M8:
 
 <b>Bugs</b>
 
-* [DIRSERVER-1458](https://issues.apache.org/jira/browse/DIRSERVER-1458) - Cursor API generic usage is totally wrong
-* [DIRSERVER-1624](https://issues.apache.org/jira/browse/DIRSERVER-1624) - Index are not created when added after the server has been started
-* [DIRSERVER-1655](https://issues.apache.org/jira/browse/DIRSERVER-1655) - Possible incorrect insertion of modifications in the consumer log
-* [DIRSERVER-1659](https://issues.apache.org/jira/browse/DIRSERVER-1659) - the apacheds.sh/bat files contains a hard coded revision. This is not good
-* [DIRSERVER-1663](https://issues.apache.org/jira/browse/DIRSERVER-1663) - NPE when doing add/delete and search at the same time on the same entries
-* [DIRSERVER-1677](https://issues.apache.org/jira/browse/DIRSERVER-1677) - Dependencies cleanup
-* [DIRSERVER-1689](https://issues.apache.org/jira/browse/DIRSERVER-1689) - testNoSearchByNonAdmin does not throw an LdapNoPermissionException, as expected
-* [DIRSERVER-1706](https://issues.apache.org/jira/browse/DIRSERVER-1706) - be sure we close the cursors when the session expires and if we have paged searches or persistent search going on
-* [DIRSERVER-1709](https://issues.apache.org/jira/browse/DIRSERVER-1709) - Adding an index does not create the index if the server is already started
-* [DIRSERVER-1710](https://issues.apache.org/jira/browse/DIRSERVER-1710) - The memory default (128M) is not enouh in most case
-* [DIRSERVER-1715](https://issues.apache.org/jira/browse/DIRSERVER-1715) - Implement backward browse for DescendantCursor and ChildrenCursor
-* [DIRSERVER-1718](https://issues.apache.org/jira/browse/DIRSERVER-1718) - Problems when adding a schema containing one or more uppercased letters
-* [DIRSERVER-1722](https://issues.apache.org/jira/browse/DIRSERVER-1722) - The PagedSearchIT.testPagedSearchWrongCookie() test blocks randomly the build
-* [DIRSERVER-1723](https://issues.apache.org/jira/browse/DIRSERVER-1723) - Potential LRUCache exhaustion with searches
-* [DIRSERVER-1726](https://issues.apache.org/jira/browse/DIRSERVER-1726) - DefaultPasswordValidator always throws PasswordPolicyException when consecutive non-letter chars are in RDN
-* [DIRSERVER-1727](https://issues.apache.org/jira/browse/DIRSERVER-1727) - LDAP Searches against boolean attributes with booleanMatch equality never return matches
-* [DIRSERVER-1732](https://issues.apache.org/jira/browse/DIRSERVER-1732) - ERR_04131 The value is expected to be a String
-* [DIRSERVER-1735](https://issues.apache.org/jira/browse/DIRSERVER-1735) - When ads-pwdmaxage attribute is set to more then 2147483, then all user passwords are expirer forever.
-* [DIRSERVER-1737](https://issues.apache.org/jira/browse/DIRSERVER-1737) - ApacheDS should be able to start even when one of its indexed attributes can't be found in the schema manager
-* [DIRSERVER-1738](https://issues.apache.org/jira/browse/DIRSERVER-1738) - Can't restart ApacheDS after setting a value superior to Integer.MAX_VALUE in an AT with Integer syntax
-* [DIRSERVER-1739](https://issues.apache.org/jira/browse/DIRSERVER-1739) - LDAP Searches Slow
-* [DIRSERVER-1744](https://issues.apache.org/jira/browse/DIRSERVER-1744) - Compex LDAP search filters returning unmatched objects
-* [DIRSERVER-1747](https://issues.apache.org/jira/browse/DIRSERVER-1747) - Presence index is not up to date when the server is started
-* [DIRSERVER-1748](https://issues.apache.org/jira/browse/DIRSERVER-1748) - EqualityEvaluator does not work correctly
+* DIRSERVER-1458 - Cursor API generic usage is totally wrong
+* DIRSERVER-1624 - Index are not created when added after the server has been started
+* DIRSERVER-1655 - Possible incorrect insertion of modifications in the consumer log
+* DIRSERVER-1659 - the apacheds.sh/bat files contains a hard coded revision. This is not good
+* DIRSERVER-1663 - NPE when doing add/delete and search at the same time on the same entries
+* DIRSERVER-1677 - Dependencies cleanup
+* DIRSERVER-1689 - testNoSearchByNonAdmin does not throw an LdapNoPermissionException, as expected
+* DIRSERVER-1706 - be sure we close the cursors when the session expires and if we have paged searches or persistent search going on
+* DIRSERVER-1709 - Adding an index does not create the index if the server is already started
+* DIRSERVER-1710 - The memory default (128M) is not enouh in most case
+* DIRSERVER-1715 - Implement backward browse for DescendantCursor and ChildrenCursor
+* DIRSERVER-1718 - Problems when adding a schema containing one or more uppercased letters
+* DIRSERVER-1722 - The PagedSearchIT.testPagedSearchWrongCookie() test blocks randomly the build
+* DIRSERVER-1723 - Potential LRUCache exhaustion with searches
+* DIRSERVER-1726 - DefaultPasswordValidator always throws PasswordPolicyException when consecutive non-letter chars are in RDN
+* DIRSERVER-1727 - LDAP Searches against boolean attributes with booleanMatch equality never return matches
+* DIRSERVER-1732 - ERR_04131 The value is expected to be a String
+* DIRSERVER-1735](https://issues.apache.org/jira/browse/DIRSERVER-1735) - When ads-pwdmaxage attribute is set to more then 2147483, then all user passwords are expirer forever.
+* DIRSERVER-1737 - ApacheDS should be able to start even when one of its indexed attributes can't be found in the schema manager
+* DIRSERVER-1738 - Can't restart ApacheDS after setting a value superior to Integer.MAX_VALUE in an AT with Integer syntax
+* DIRSERVER-1739 - LDAP Searches Slow
+* DIRSERVER-1744 - Compex LDAP search filters returning unmatched objects
+* DIRSERVER-1747 - Presence index is not up to date when the server is started
+* DIRSERVER-1748 - EqualityEvaluator does not work correctly
 
 Note that this is a milestone, and some parts of the API or configuration can change before the 2.0 GA. We don't have any defined time frame for the 2.0-GA release, we do expect to release a few more milestones before reaching the 2.0-GA.
 
@@ -370,13 +368,13 @@ Here is the release note for Apache Directory ApacheDS 2.0.0-M7:
 
 <b>Bugs</b>
 
-* [DIRSERVER-1093](https://issues.apache.org/jira/browse/DIRSERVER-1093) - the ResourceRecordEncoder and QuestionRecordEncoder have bug for empty domainName
-* [DIRSERVER-1697](https://issues.apache.org/jira/browse/DIRSERVER-1697) - Creation of new syntax fails due to ERR_277 Attribute m-obsolete not declared in objectClasses of entry
-* [DIRSERVER-1698](https://issues.apache.org/jira/browse/DIRSERVER-1698) - Search on entries with multiple AVA in RDN does not work correctly if the initial RDN order is not used
-* [DIRSERVER-1702](https://issues.apache.org/jira/browse/DIRSERVER-1702) - Adding an index through annotation does not work
-* [DIRSERVER-1712](https://issues.apache.org/jira/browse/DIRSERVER-1712) - If the index are created using their alias, they are deleted immediately
-* [DIRSERVER-1711](https://issues.apache.org/jira/browse/DIRSERVER-1711) - Index initialization is taking way too much time
-* [DIRSERVER-1713](https://issues.apache.org/jira/browse/DIRSERVER-1713) - Error on console with first start of clean system
+* DIRSERVER-1093 - the ResourceRecordEncoder and QuestionRecordEncoder have bug for empty domainName
+* DIRSERVER-1697 - Creation of new syntax fails due to ERR_277 Attribute m-obsolete not declared in objectClasses of entry
+* DIRSERVER-1698 - Search on entries with multiple AVA in RDN does not work correctly if the initial RDN order is not used
+* DIRSERVER-1702 - Adding an index through annotation does not work
+* DIRSERVER-1712 - If the index are created using their alias, they are deleted immediately
+* DIRSERVER-1711 - Index initialization is taking way too much time
+* DIRSERVER-1713 - Error on console with first start of clean system
 
 Note that this is a milestone, and some parts of the API or configuration can change before the 2.0 GA. We don't have any defined time frame for the 2.0-GA release, we do expect to release a few more milestones before reaching the 2.0-GA.
 
@@ -393,14 +391,14 @@ Here is the release note for Apache Directory ApacheDS 2.0.0-M6:
 
 <b>Bugs</b>
 
-* [DIRSERVER-1644](https://issues.apache.org/jira/browse/DIRSERVER-1644) - User provided value is not retained during rename operation
-* [DIRSERVER-1681](https://issues.apache.org/jira/browse/DIRSERVER-1681) - adding entries with attribute userCertificate;binary fails with "No such attribute"
-* [DIRSERVER-1692](https://issues.apache.org/jira/browse/DIRSERVER-1692) - Unable to add a JPEG image to an entry due to an 'Invalid Attribute Syntax' error
-* [DIRSERVER-1693](https://issues.apache.org/jira/browse/DIRSERVER-1693) - Renaming an entry when the RDN uses a case insensitive AT should be possible
-* [DIRSERVER-1694](https://issues.apache.org/jira/browse/DIRSERVER-1694) - Renaming an existing entry with a DN containing upper cased chars will not store the CN as provided
-* [DIRSERVER-1696](https://issues.apache.org/jira/browse/DIRSERVER-1696) - Creation of an entry like cn=test1+cn=test2, ou=system should not be allowed
-* [DIRSERVER-1699](https://issues.apache.org/jira/browse/DIRSERVER-1699) - DN/RDN handling is incorrect when there are some escaped values into them
-* [DIRSERVER-1700](https://issues.apache.org/jira/browse/DIRSERVER-1700) - Version in Root DSE is reported as '$pom.version'
+* DIRSERVER-1644 - User provided value is not retained during rename operation
+* DIRSERVER-1681 - adding entries with attribute userCertificate;binary fails with "No such attribute"
+* DIRSERVER-1692 - Unable to add a JPEG image to an entry due to an 'Invalid Attribute Syntax' error
+* DIRSERVER-1693 - Renaming an entry when the RDN uses a case insensitive AT should be possible
+* DIRSERVER-1694 - Renaming an existing entry with a DN containing upper cased chars will not store the CN as provided
+* DIRSERVER-1696 - Creation of an entry like cn=test1+cn=test2, ou=system should not be allowed
+* DIRSERVER-1699 - DN/RDN handling is incorrect when there are some escaped values into them
+* DIRSERVER-1700 - Version in Root DSE is reported as '$pom.version'
 
 Note that this is a milestone, and some parts of the API or configuration can change before the 2.0 GA. We don't have any defined time frame for the 2.0-GA release, we do expect to release a few more milestones before reaching the 2.0-GA.
 
