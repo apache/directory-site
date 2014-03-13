@@ -1,4 +1,144 @@
 # News
+<h2 class="news">ApacheDS 2.0.0-M16 released <em>posted on March 13th, 2014</em></h2>
+
+The Apache Directory team is pleased to announce the release of ApacheDS 2.0.0-M16, the sixteenth milestone towards a 2.0 version.
+
+ApacheDS is an extensible and embeddable directory server entirely written in Java, which has been certified LDAPv3 compatible by the Open Group. Besides LDAP it supports Kerberos 5 and the Change Password Protocol. It has been designed to introduce triggers, stored procedures, queues and views to the world of LDAP which has lacked these rich constructs.
+
+Downloads are available [here](downloads.html)
+
+Here is the release note for Apache Directory ApacheDS 2.0.0-M16:
+
+<b>Bugs</b>
+
+    * DIRSERVER-1092 - org.apache.directory.server.dns.store.RecordStore not support ordered multiple resource record answers
+    * DIRSERVER-1252 - Server tools dump command broken due to use of old paths
+    * DIRSERVER-1412 - Modifying the schema with more than one mod may fail
+    * DIRSERVER-1471 - Providing a right fix for DIRSERVER-1459
+    * DIRSERVER-1761 - Unable to use external keystore for SSL
+    * DIRSERVER-1810 - Test case org.apache.directory.server.replication.ClientServerReplicationIT.testModDn() fails permanently
+    * DIRSERVER-1845 - Sporadic failure on CollectivAttributeServiceIT
+    * DIRSERVER-1855 - java.lang.IllegalStateException: Can't overwrite cause at org.apache.directory.server.core.authz.GroupCache.initialize(GroupCache.java:190)
+    * DIRSERVER-1860 - Invalid DN in returned entry
+    * DIRSERVER-1870 - Persistent control is not decoded properly
+    * DIRSERVER-1873 - Searching on member attribute (multivalued) for groups is not working as expected
+    * DIRSERVER-1884 - Incorrect length specified in PaswordUtil.splitCredentials
+    * DIRSERVER-1885 - The JDBM index cache configuration is not used at all
+    * DIRSERVER-1888 - Some pwdPolicy schema AT are incorrect
+    * DIRSERVER-1894 - Multi-Master replicated startup does not complete
+    * DIRSERVER-1900 - Password hashing interceptor is not encrypting the passwords
+    * DIRSERVER-1902 - Concurrent reads cause LDAP:Error 80, LDAP: Error 1 and LDAP: error code 49 errors
+    * DIRSERVER-1905 - KeytabDecoder should use '/' instead of '\' to separate principal name components
+    * DIRSERVER-1906 - We still store entryUUID associated with 'top' in the OC index
+    * DIRSERVER-1909 - Integer cannot be cast to java.lang.Long in JdbmTable prevents service start
+    * DIRSERVER-1911 - Incorrect installation presumption toward user naming convention
+    * DIRSERVER-1917 - Class Cast Exception when doing paged search
+    * DIRSERVER-1921 - Indexes dont work on distinguishedNameMatch attributeType
+    * DIRSERVER-1922 - Not Operator in Ldap Filter on Indexed Attributes
+    * DIRSERVER-1928 - PasswordPolicy should be ignored from Admin session
+    * DIRSERVER-1932 - Password policy pwdMinAge check should check for required reset
+    * DIRSERVER-1948 - NPE in AuthenticationInterceptor when password policy is in place and user does not have a pwdChangedTime
+    * DIRSERVER-1953 - "entryDn" attribute is not returned when requested along with wildcard attribute symbol *
+    * DIRSERVER-1954 - Second startup of an embedded server fails (after an ungraceful shutdown of the first startup)
+    * DIRSERVER-1955 - Directory Apacheds sends wrong empty response for password policy request
+    * DIRSERVER-1957 - chpass/passwd failure (Linux)
+    * DIRSERVER-1959 - Certificates corruption during replication
+    * DIRSERVER-1961 - Searches wth Object level scope and non-existing attribute assertion in filter are not working
+    * DIRSERVER-1962 - Replication Consumer "Enabled" checkbox not working
+    * DIRSERVER-1963 - Add contextCSN attribute to the list of ignored attributes in ReplicationConsumerImpl
+
+<b>Improvements</b>
+
+    * DIRSERVER-1081 - Injecting more information in the opContext structure
+    * DIRSERVER-1294 - Add size() and hasNext() methods to cursors
+    * DIRSERVER-1338 - Allow non-Jdbm schema partition
+    * DIRSERVER-1460 - Add locale to configuration
+    * DIRSERVER-1534 - Improving implementation of loading LDIF files during startup
+    * DIRSERVER-1601 - New index to add : PrescriptiveACI, member, uniqueMember
+    * DIRSERVER-1634 - Add a DN cache for Stores
+    * DIRSERVER-1676 - Provide a set of error codes along with an AuthenticationException to indicate its root cause.
+    * DIRSERVER-1716 - Add a ParentIdAndRdn cache
+    * DIRSERVER-1920 - Refactor DefaultDirectoryServiceFactory/DefaultDirectoryService for extensability
+    * DIRSERVER-1926 - Supply Entry to PasswordValidator instead of username
+    * DIRSERVER-1935 - Include password policy control in the password modify extended operation response if requested
+
+<b>New Features</b>
+
+    * DIRSERVER-264 - Add Support for Sort Control
+    * DIRSERVER-265 - In-memory backend storage support
+    * DIRSERVER-442 - Synchronize suffix entries in configuration with entry on disk
+    * DIRSERVER-1030 - Add CascadeControl and add functionality to cascade modify and delete effects
+    * DIRSERVER-1246 - Add shell scripts and batch files for clients
+    * DIRSERVER-1263 - Add authz schema
+    * DIRSERVER-1852 - Sort the entry based on the DN before returning them
+    * DIRSERVER-1886 - Add configuration schema elements for Mavibot partition
+    * DIRSERVER-1889 - Credentials cache for Kerberos
+    * DIRSERVER-1898 - Authentication mechanism: PKCS5S2
+
+<b>Task</b>
+
+    * DIRSERVER-575 - Convert all non-forwarding (out of band) nextInterceptor calls to use the proxy with bypass instructions
+
+We have also fixed many Kerberos related issues :
+
+<b>Bugs</b>
+
+    * DIRKRB-28 - Allow setting searchBaseDN
+    * DIRKRB-30 - Decoding incoming request over TCP fails
+    * DIRKRB-96 - Unable to obtain ticket after changing the password
+
+<b>Tasks</b>
+
+    * DIRKRB-31 - Create the Authenticator grammar
+    * DIRKRB-32 - Create the EncTicketPart grammar
+    * DIRKRB-33 - Create the AS-REQ grammar
+    * DIRKRB-34 - Create the AS-REP grammar
+    * DIRKRB-35 - Create the TGS-REQ grammar
+    * DIRKRB-36 - Create the TGS-REP grammar
+    * DIRKRB-37 - Create the AP-REQ grammar
+    * DIRKRB-38 - Create the AP-REP grammar
+    * DIRKRB-39 - Create the KRB-SAFE grammar
+    * DIRKRB-40 - Create the KRB-PRIV grammar
+    * DIRKRB-41 - Create the KRB-CRED grammar
+    * DIRKRB-42 - Create the EncASRepPart grammar
+    * DIRKRB-43 - Create the EncTGSRepPart grammar
+    * DIRKRB-44 - Create the EncAPRepPart grammar
+    * DIRKRB-45 - Create the EncKrbPrivPart grammar
+    * DIRKRB-46 - Create the EncKrbCredPart grammar
+    * DIRKRB-47 - Create the KRB-ERROR grammar
+    * DIRKRB-48 - Create the PA-DATA grammar
+    * DIRKRB-49 - Create the Checksum grammar
+    * DIRKRB-50 - Create the TransitedEncoding grammar
+    * DIRKRB-51 - Create the KDC-REQ-BODY grammar
+    * DIRKRB-52 - Create the KDC-REP grammar
+    * DIRKRB-53 - Create the EncKDCRepPart grammar
+    * DIRKRB-54 - Create the LastReq grammar
+    * DIRKRB-55 - Create the KRB-SAFE-BODY grammar
+    * DIRKRB-56 - Create the KrbCredInfo grammar
+    * DIRKRB-57 - Create the METHOD-DATA grammar
+    * DIRKRB-58 - Create the TYPED-DATA grammar
+    * DIRKRB-59 - Create the PA-ENC-TIMESTAMP grammar
+    * DIRKRB-60 - Create the PA-ENC-TS-ENC grammar
+    * DIRKRB-61 - Create the ETYPE-INFO-ENTRY grammar
+    * DIRKRB-62 - Create the ETYPE-INFO grammar
+    * DIRKRB-63 - Create the ETYPE-INFO2-ENTRY grammar
+    * DIRKRB-64 - Create the ETYPE-INFO2 grammar
+    * DIRKRB-65 - Create the AD-IF-RELEVANT grammar
+    * DIRKRB-66 - Create the AD-KDCIssued grammar
+    * DIRKRB-67 - Create the AD-AND-OR grammar
+    * DIRKRB-68 - Create the AD-MANDATORY-FOR-KDC grammar
+    * DIRKRB-69 - Create the Ticket grammar
+    * DIRKRB-70 - Create the EncryptedData grammar
+    * DIRKRB-71 - Create the PrincipalName grammar
+    * DIRKRB-72 - Create the HostAddresses grammar
+    * DIRKRB-73 - Create the HostAddress grammar
+    * DIRKRB-74 - Create the AuthorizationData grammar
+    * DIRKRB-75 - Create the EncryptionKey grammar
+    * DIRKRB-76 - Create the KDC-REQ grammar
+    * DIRKRB-77 - Adapt the error messages we use in grammars
+    * DIRKRB-78 - Add tests for all the grammars
+
+
 
 <h2 class="news">ApacheDS 2.0.0-M15 released <em>posted on August 18th, 2013</em></h2>
 
@@ -6,7 +146,7 @@ The Apache Directory team is pleased to announce the release of ApacheDS 2.0.0-M
 
 ApacheDS is an extensible and embeddable directory server entirely written in Java, which has been certified LDAPv3 compatible by the Open Group. Besides LDAP it supports Kerberos 5 and the Change Password Protocol. It has been designed to introduce triggers, stored procedures, queues and views to the world of LDAP which has lacked these rich constructs.
 
-Here is the release note for Apache Directory ApacheDS 2.0.0-M13:
+Here is the release note for Apache Directory ApacheDS 2.0.0-M15:
 
 <b>Bugs</b>
 
