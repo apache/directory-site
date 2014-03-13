@@ -1,11 +1,11 @@
 package path;
 
 # Versions (for download links)
-our $version_api = "1.0.0-M20";
-our $version_apacheds = "2.0.0-M15";
+our $version_api = "1.0.0-M21";
+our $version_apacheds = "2.0.0-M16";
 our $version_studio = "2.0.0.v20130628";
 our $version_studio_name = "2.0.0-M8";
-our $version_mavibot = "1.0.0-M3";
+our $version_mavibot = "1.0.0-M4";
 our $version_escimo = "1.0.0-M1";
 
 # All our pages use the same view function
