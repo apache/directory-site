@@ -27,7 +27,7 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 One of the two server components of a **Kerberos** server is the Authentication Server, which authenticates clients, and issues tickets (**TGT**, or _Ticket Granting Ticket_) that the user can send to the **TGS** to get a service ticket.
 
 <DIV class="info" markdown="1">
-The **TGT**, or _Ticket Granting Ticket_, is a ticket that a client can use to get a service ticket. In fact, the authentication server considers the **TGS** as just another service, and generates a ticket for the user to access this service.
+The <B>TGT</B>, or <EM>Ticket Granting Ticket</EM>, is a ticket that a client can use to get a service ticket. In fact, the authentication server considers the **TGS** as just another service, and generates a ticket for the user to access this service.
 </DIV>
 
 The beauty of the **AS** is that it does not verify that the client issuing a request is a valid client : it just returns a tickat that an attacker won't be able to process if he does not have the client's password.
@@ -38,9 +38,7 @@ As we can see, for the client to get a **TGT**, it's just a matter of sending a 
 
 Here is the standard exchange :
 
-<DIV align="center">
 ![Kerberos Authentication with no pre-auth](images/kerberos-as-no-padata.png)
-</DIV>
 
 There is still a potential security breach in this scenario : as the server issues a **TGT** to the client, containing the secret key built using the user's password, it is possible to decrypt the ticket using a brute force attack (and this is more likely to happen if the password is weak...)
 
@@ -56,9 +54,7 @@ Now, let's see how does a client 'proves' that he is who he pretends to be. The 
 
 Here is the exchange, when  :
 
-<DIV align="center">
 ![Kerberos Authentication with pre-auth](images/kerberos-as-padata.png)
-</DIV>
 
 
 
