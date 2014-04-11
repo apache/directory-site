@@ -27,7 +27,7 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 One of the two server components of a **Kerberos** server is the Authentication Server, which authenticates clients, and issues tickets (**TGT**, or _Ticket Granting Ticket_) that the user can send to the **TGS** to get a service ticket.
 
 <DIV class="info" markdown="1">
-The <B>TGT</B>, or <EM>Ticket Granting Ticket</EM>, is a ticket that a client can use to get a service ticket. In fact, the authentication server considers the **TGS** as just another service, and generates a ticket for the user to access this service.
+The <B>TGT</B>, or <EM>Ticket Granting Ticket</EM>, is a ticket that a client can use to get a service ticket. In fact, the authentication server considers the <B>TGS</B> as just another service, and generates a ticket for the user to access this service.
 </DIV>
 
 The beauty of the **AS** is that it does not verify that the client issuing a request is a valid client : it just returns a tickat that an attacker won't be able to process if he does not have the client's password.
