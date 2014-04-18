@@ -42,7 +42,7 @@ and an optional label that indicates the maturity of a release:
 * No label implies __GA__ (General Availability), which means the release is stable enough and therefore ready for production environment.
 
 <DIV class="info" markdown="1">
-    A **stable** version is a version with a frozen set of features, and a frozen **API**. We don't release a version if all the integration tests are not passing, so any release should be considered stable enogh to be used.<BR/>
+    A <b>stable</b> version is a version with a frozen set of features, and a frozen <b>API</b>. We don't release a version if all the integration tests are not passing, so any release should be considered stable enogh to be used.<BR/>
     Although we may add new features between two milestones, and the data structure may change, which may imply that the data have to be extracted and reimported in order for the server to be operational.<BR/>
     The configuration might also evolve between two versions.
 </DIV>
@@ -58,3 +58,113 @@ There are some more rules, as we are using **Java 5** now :
 * Use **assert**. It's usefull, especially instead of a bunch of **if (<test is wrong>)** then throw Exception* when controlling incoming parameters
 * Use the new *Enum* type !
 
+## Releasing ApacheDS
+
+Here is a guide on how to cut a new release. This is a long process, expect it to last a few hours !
+
+First, you need to have a recent version of Maven (we are using 3.0.4) and a recent version of the JDK (1.7 is ok, it should also build with 1.6).
+
+### Maven Settings
+
+You'll need a settings section for the **Nexus** and **people.apache.org** servers with a password or a path to the SSH key used. Here's what my **settings.xml** file in **~/.m2** looks like:
+
+    <settings>
+
+      <servers>
+        <!-- To publish a snapshot of some part of Maven -->
+        <server>
+          <id>apache.snapshots.https</id>
+          <username>username</username>
+          <password>********</password>
+        </server>
+
+        <!-- To publish a website using Maven -->
+        <server>
+          <id>apache.directory</id>
+          <username>username</username>
+          <privateKey>/Users/username/.ssh/id_rsa</privateKey>
+          <filePermissions>664</filePermissions>
+          <directoryPermissions>775</directoryPermissions>
+        </server>
+
+        <!-- To stage a release of some part of Maven -->
+        <server>
+          <id>apache.releases.https</id>
+          <username>username</username>
+          <password>********</password>
+        </server>
+
+        <!-- To stage a website of some part of Maven -->
+        <server>
+          <id>stagingSite</id> <!-- must match hard-coded repository identifier in site:stage-deploy -->
+          <username>elecharny</username>
+          <filePermissions>664</filePermissions>
+          <directoryPermissions>775</directoryPermissions>
+        </server>
+
+      </servers>    
+
+      <profiles>
+        <profile>
+          <id>apache-public</id>
+          <pluginRepositories>
+            <pluginRepository>
+              <id>apache.public</id>
+              <url>https://repository.apache.org/content/groups/public/</url>
+            </pluginRepository>
+          </pluginRepositories>
+        </profile>
+
+        <profile>
+          <id>apache-release</id>
+          <!-- Configuration for artifacts signature -->
+          <properties>
+            <gpg.passphrase>********</gpg.passphrase>
+            <gpg.keyname>elecharny@apache.org</gpg.keyname>
+          </properties>
+        </profile>
+      </profiles>
+
+    </settings>
+
+Just replace your username, passwords and paths. Note that the username and password is your Apache LDAP account.
+
+
+<DIV class="info" markdown="1">
+You'll need to provide the passphrase in the <b>settings.xml</b> to access the gpg secret key installed on your host. This is due to a bug with the passphrase prompt in the <em>maven-gpg-plugin</em>. So unfortunately we must provide the passphrase in the <b>settings.xml</b> file in clear text. This should change in the future when this bug is fixed. Note that this passphrase is put into the release profile which we activate to properly sign and release the artifacts and poms via the release plugin.
+</DIV>
+
+### GPG Key
+
+All subprojects are configured to deploy signatures for the artifacts uploaded to the repository. The **gpg** plugin will check use the default gpg key for the user deploying the project with the release:perform directive of the release plugin. This will prompt you for the passphrase for the default key. If you do not have one setup the build will fail.
+
+You can generate and upload a PGP key to a PGP keyserver using the following commands:
+
+    gpg --gen-key
+    gpg --fingerprint
+    gpg --keyserver subkeys.pgp.net --send-keys <your key's id from last command>
+
+
+<DIV class="info" markdown="1">
+Make sure to have created the .pgpkey in your <em>p.a.o/~</em> directory and to have added your public key to the <b>KEYS</b> file.
+See also http://people.apache.org/~henkp/repo/faq.html#4
+</DIV>
+
+### Releasing ApacheDS
+
+Now that your environment has been setup, we will show you how to build and release the ApacheDS subproject. Keep an eye out for warnings and note sections that show version specific differences in this process. 
+
+#### Manual Steps
+Some things have not yet been automated with maven and require users to manually edit some files. Below are the steps to follow.
+
+##### Update the apacheds/pom.xml
+
+The current <em>apacheds/pom.xml</em> contains references to LDAP API SNAPSHOTs, which is not good. You have to bump up those references to the latest LDAP-API version.
+
+##### Update service/apacheds.sh and service/apacheds.bat
+
+Edit the <em>apacheds.sh/bat</em> files in the service project directory to update the revision numbers used in that file to reference non-SNAPSHOT releases. 
+
+#### Release process
+
+Since we are using Nexus for releases the release process is as follows (see also [http://www.apache.org/dev/publishing-maven-artifacts.html#staging-maven](Publishing maven artifacts).
