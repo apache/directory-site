@@ -167,4 +167,271 @@ Edit the <em>apacheds.sh/bat</em> files in the service project directory to upda
 
 #### Release process
 
-Since we are using Nexus for releases the release process is as follows (see also [http://www.apache.org/dev/publishing-maven-artifacts.html#staging-maven](Publishing maven artifacts).
+Since we are using Nexus for releases the release process is as follows (see also [Publishing maven artifacts](http://www.apache.org/dev/publishing-maven-artifacts.html#staging-maven).
+
+##### Test the Project
+
+    $ mvn release:prepare -DdryRun=true
+
+Replace the version by the new version. Be careful, and remove the 'apacheds-parent-' which is proposed for the new tag. We should just use the version number.
+
+##### Deploy a Snapshot
+
+    $ mvn deploy
+
+This is useful to verify your settings in ~/.m2/settings.xml (Nexus password and GPG key)
+
+##### Prepare the Release
+
+    $ mvn release:clean
+    $ mvn release:prepare
+
+This creates a tag [here](http://svn.apache.org/viewvc/directory/apacheds/tags/)
+
+##### Stage the Release
+
+    $ mvn release:perform
+
+This deploys the release to a staging repository. Go to [Staging Repositories](https://repository.apache.org/index.html#stagingRepositories) and close the staging repository.
+
+##### Build the Site
+
+In order to generate the site, you have to comment some modules in the apacheds <em>pom.xml</em> file :
+
+    <!--module>installers-maven-plugin</module-->
+    <!--module>installers</module-->
+
+Then you can start the maven command :
+
+    $ cd target/checkout
+    $ mvn site
+
+This creates the site and the Javadocs.
+
+<DIV
+Now, you have to sign the sources packages which are in <em>apacheds/target/checkout/target</em>.
+
+Use your PGP key ID (the pub key, 4096R/[XXXXXXX] where [XXXXXXX] is the key ID)
+
+You can get the keys by typing :
+
+    gpg --list-keys
+
+You can use this small script that does the job (copy-paste this code in a file named <em>sign.sh</em> in your path) :
+
+    #!/bin/sh
+
+    echo "PGP Key ID: "
+    read DEFAULT_KEY
+
+    echo "PGP Key Password: "
+    stty -echo
+    read PASSWORD
+    stty echo
+    echo ""
+
+    for FILE in $(find . -maxdepth 1 -not '(' -name "sign.sh" -or -name ".*" -or -name "*.md5" -or -name "*.sha1" -or -name "*.asc" ')' -and -type f) ; do
+    
+        if [ -f "$FILE.asc" ]; then
+            echo "Skipping: $FILE"
+            continue
+        fi
+
+        echo -n "Signing: $FILE ... "
+
+        # MD5
+        if [ ! -f "$FILE.md5" ];
+        then
+            openssl md5 < "$FILE" | cut "-d " -f2 > "$FILE.md5"
+            echo "  - Generated '$FILE.md5'"
+        else
+            echo "  - Skipped '$FILE.md5' (file already existing)"
+        fi
+
+        # SHA1
+        if [ ! -f "$FILE.sha1" ];
+        then
+            gpg -v --default-key "$DEFAULT_KEY" --print-md SHA1 "$FILE" > "$FILE".sha1
+            echo "  - Generated '$FILE.sha1'"
+        else
+            echo "  - Skipped '$FILE.sha1' (file already existing)"
+        fi
+ 
+        # ASC
+        if [ ! -f "$FILE.asc" ];
+        then
+            echo "$PASSWORD" | gpg --default-key "$DEFAULT_KEY" --detach-sign --armor --no-tty --yes --passphrase-fd 0 "$FILE"
+            echo "  - Generated '$FILE.asc'"
+        else
+            echo "  - Skipped '$FILE.asc' (file already existing)"
+        fi
+    done
+
+Then to sign the packages :
+
+    $ sign.sh
+    PGP Key ID: 
+    <your PGP key>
+    PGP Key Password: 
+    <Your password>
+
+    -n Signing: ./apacheds-parent-<version>-source-release.zip ... 
+    - Generated './apacheds-parent-<version>-source-release.zip.md5'
+    - Generated './apacheds-parent-<version>-source-release.zip.sha1'
+    - Generated './apacheds-parent-<version>-source-release.zip.asc'
+    $
+
+##### Publish Source Distribution Package
+
+    $ cd target/checkout/target
+    $ scp apacheds-parent-<version>-source-release.zip* people.apache.org:public_html/apacheds-<version>
+
+##### Test the new version
+
+The best way to do that is to download the sources, extract them, build the server and the installers, and check if the installers are correctly working. Then check that the server is correctly running.
+
+##### Create the installers
+
+We now have to create the installers. Go into the <em>target/checkout</em> directory and run :
+
+    $ cd apacheds/target/checkout/installers
+    $ mvn clean install -Pinstallers
+
+This will create the installers in the <em>target/checkout/installers/target/installers</em> directory
+
+Sign those installers using the <em>sign.sh</em> script, and copy them in <em>people.apache.org/public_html/apacheds-<version></em>
+
+    $ cd apacheds/target/checkout/target/installers/target/installers
+    $ scp apacheds-<version>* people.apache.org:public_html/apacheds-<version>
+
+Note : you will need a Debian, a Fedora and a Windows server to generate dedicated binaries for those platforms, or you can use rpmbuild, dpkg or nsis if you don't want to use many different servers.
+
+Update your index.html file on people.apache.org/public_html to make the packages visible. Here is an example of possible content :
+
+    <h2>Last Directory Server <version> sources tarballs</h2>
+        <img src="/icons/compressed.gif" alt="[   ]"><a href="apacheds-<version>/apacheds-parent-<version>-source-release.zip">apacheds-parent-<version>-source-release.zip</a><br/>
+        <img src="/icons/compressed.gif" alt="[   ]"><a href="apacheds-<version>/apacheds-parent-<version>-source-release.zip.asc">apacheds-parent-<version>-source-release.zip.asc</a><br/>
+        <img src="/icons/compressed.gif" alt="[   ]"><a href="apacheds-<version>/apacheds-parent-<version>-source-release.zip.md5">apacheds-parent-<version>-source-release.zip.md5</a><br/>
+        <img src="/icons/compressed.gif" alt="[   ]"><a href="apacheds-<version>/apacheds-parent-<version>-source-release.zip.sha1">apacheds-parent-<version>-source-release.zip.sha1</a><br>
+  
+    <h2>Last Directory Server <version> installers</h2>
+        <h3>Plain 32 bits binary installers</h3>
+        <img src="/icons/compressed.gif" alt="[   ]"><a href="apacheds-<version>/apacheds-<version>-32bit.bin">apacheds-<version>-32bit.bin</a><br/>
+        <img src="/icons/compressed.gif" alt="[   ]"><a href="apacheds-<version>/apacheds-<version>-32bit.bin.asc">apacheds-<version>-32bit.bin.asc</a><br/>
+        <img src="/icons/compressed.gif" alt="[   ]"><a href="apacheds-<version>/apacheds-<version>-32bit.bin.md5">apacheds-<version>-32bit.bin.md5</a><br/>
+        <img src="/icons/compressed.gif" alt="[   ]"><a href="apacheds-<version>/apacheds-<version>-32bit.bin.sha1">apacheds-<version>-32bit.bin.sha1</a><br/>
+        <br/>
+        <h3>Plain 64 bits installers</h3>
+        <img src="/icons/compressed.gif" alt="[   ]"><a href="apacheds-<version>/apacheds-<version>-64bit.bin">apacheds-<version>-64bit.bin</a><br/>
+        <img src="/icons/compressed.gif" alt="[   ]"><a href="apacheds-<version>/apacheds-<version>-64bit.bin.asc">apacheds-<version>-64bit.bin.asc</a><br/>
+        <img src="/icons/compressed.gif" alt="[   ]"><a href="apacheds-<version>/apacheds-<version>-64bit.bin.md5">apacheds-<version>-64bit.bin.md5</a><br/>
+        <img src="/icons/compressed.gif" alt="[   ]"><a href="apacheds-<version>/apacheds-<version>-64bit.bin.sha1">apacheds-<version>-64bit.bin.sha1</a><br/>
+        <br/>
+    ...
+
+##### Vote
+
+Start a 72h vote at the dev mailing list.
+
+##### Release
+
+If the vote succeeds Apacheds project can be released.
+
+Go to <em>https://repository.apache.org/index.html#stagingRepositories</em> and release the staging repository so all artifacts are published to Maven central.
+
+Move the distribution packages (sources and binaries) to the dist SVN repository: <em>https://dist.apache.org/repos/dist/release/directory/apacheds/dist/$(version)</em>
+
+The best solution would be to checkout the directory in <em>people.apache.org</em>, to copy the packages in the right place, and to check in the changes :
+
+    $ ssh people.apache.org
+    # svn co https://dist.apache.org/repos/dist/release/directory/apacheds/dist/ apacheds-dist
+    # cd apacheds-dist
+    # mkdir <version>
+    # cp ../public_html/apacheds-<version>/* <version>
+    # svn ci <version>
+    ...
+    # exit
+    $
+
+The packages should now be available on <em>http://www.us.apache.org/dist/directory/api/dist/<version></em>
+
+##### Deploy the Javadocs and XRef
+
+We now can deploy the generated Javadoc and cross-reference pages. They are generated in the following directory :
+
+    target/checkout/target/site
+
+We will copy two directories :
+
+    apidocs
+    xref
+
+*Staging or Production?*
+
+Those files will be stored on the production server only !!! And some extra caution ust be taken not to delete them when we will publish the staging site too...
+
+First of all, you must checkout the two CMS store for the site : staging and revision.
+
+    $ cd ~/apacheds
+    $ svn co https://svn.apache.org/repos/infra/websites/production/directory/trunk staging
+    ...
+    $ svn co https://svn.apache.org/repos/infra/websites/production/directory production
+    ...
+
+Now, you will first add the directory for the newly generated version :
+
+    $ cd ~/apacheds/production/content/apacheds/gen-docs
+    $ mkdir <version>
+
+Then copy the generated docs :
+
+    $ cp -r ~/apacheds/trunks/apacheds/target/checkout/target/site/apidocs ~/apacheds/production/content/apacheds/gen-docs/<version>
+    $ cp -r ~/apacheds/trunks/apacheds/target/checkout/target/site/xref ~/apacheds/production/content/apacheds/gen-docs/<version>
+    $ 
+
+You have to check in those directories :
+
+    $ svn add <version>
+    $ svn ci <version> -m "Injected <version> javadocs"
+
+Now, you have to update the staging site :
+
+    extpaths.txt
+
+This file list the file on the production site that will not be overriden by the publication of the staging site. It has to be updated
+
+    $ cd ~/apacheds/staging/content/
+    $ vi extpaths.txt
+
+Add the following line :
+
+    ...
+    # Apacheds
+    apacheds/gen-docs/<version>
+    ...
+
+then save and check in the file <em>.htaccess</em>
+
+We also have to update this file :
+
+    $ cd ~/apacheds/staging/content/apacheds/gen-docs
+    $ vi .htaccess
+
+And update the two last lines to refer to the version you've just released :
+
+    RewriteRule ^latest$ <version>/
+    RewriteRule ^latest/(.*)$ <version>/$1
+
+Save and commit the file.
+
+##### Update the web site
+
+You can now update the site, add a news on the front page, and publish the site.
+
+##### Inform the world !
+
+After 24h, you can now inform the world about the release.
+
+Send a mail to the users and dev mailing list, and one to the <em>announce@apacge.org</em>
+
+You are done !
