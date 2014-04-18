@@ -49,9 +49,9 @@ and an optional label that indicates the maturity of a release:
 
 ## Coding standards 
 
-The applicable coding standards for ADS 1.5 are described in [Coding Standards](coding-standards.html)
+The applicable coding standards for ADS 2.0 are described in [Coding Standards](coding-standards.html)
 
-There are some more rules, as we are using **Java 5** now :
+There are some more rules, as we are using **Java 6** now :
 
 * Use generics as much as you can. Generic are a good way to avoid casting, and it enforce the usage of the correct type.
 * If you can avoid *Iterators*, do so. There is this cool construction with a **for( Type t:<collection instance> )** : use it !
@@ -208,10 +208,11 @@ Then you can start the maven command :
 
 This creates the site and the Javadocs.
 
-<DIV
+<DIV class="info" markdown="1">
 Now, you have to sign the sources packages which are in <em>apacheds/target/checkout/target</em>.
 
 Use your PGP key ID (the pub key, 4096R/[XXXXXXX] where [XXXXXXX] is the key ID)
+</DIV>
 
 You can get the keys by typing :
 
@@ -432,6 +433,6 @@ You can now update the site, add a news on the front page, and publish the site.
 
 After 24h, you can now inform the world about the release.
 
-Send a mail to the users and dev mailing list, and one to the <em>announce@apacge.org</em>
+Send a mail to the users and dev mailing list, and one to the <em>announce@apache.org</em>
 
 You are done !
