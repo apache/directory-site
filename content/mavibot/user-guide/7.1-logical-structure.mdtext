@@ -46,11 +46,11 @@ The below diagram shows the logical representation of an in-memory *BTree* :
 
 A persistent *BTree* is a *BTree* which can be flushed to disk on demand. The *BTree* is a in-Memory *BTree*, but while closing it, then content of the latest revision is serialized on disk. The data can be loaded while opening a persistent BTree.
 
-Othe than that, there is no difference between an in-memory *BTree* and a persistent *BTree*.
+Other than that, there is no difference between an in-memory *BTree* and a persistent *BTree*.
 
 ## Managed BTrees
 
-Managed *BTree*s are very different : data is guaranteed to be preserved on disk after each modifciation, even when the program crashes, it is guaranteed that the disk will contain everything needed to recover the *BTree* to the state it was in just before the crash.
+Managed *BTree*s are very different : data is guaranteed to be preserved on disk after each modification, even when the program crashes, it is guaranteed that the disk will contain everything needed to recover the *BTree* to the state it was in just before the crash.
 
 This is important to understand that in managed mode, not all *BTree*s (of a mavibot database) are kept in memory. In other words, all nodes, except the *root* node, of a BTree may or may not be present at the time of accessing. **Mavibot** will fetch these nodes from disk when needed.
 
@@ -59,7 +59,7 @@ Obviously this approach has both pros and cons :
 Pros :
 * there is no limit on the number of elements one can store in a BTree, except on the available disk space 
 * A *BTree* will always be consistent, even if there was a crash
-* data durability is gauranteed
+* data durability is guaranteed
 
 Cons :
 * reads might be costly when the data is not present in memory, due to fetching data from disk 
@@ -71,7 +71,7 @@ Also note that we use internal cache to speed up the data access. This cache and
 
 Managed *BTree*s are stored using *Nodes* and *Leaves*. A *Node* contains only keys or references to underlaying nodes or leaves. A *Leaf* contains keys and values. As we don't want to eat too much memory, the references to nodes, leaves, keys and values are stored as offset, read and translated to java objects on demand. For instance, we keep an offset to a key until someone needs to access the key, then we deserialize this key and store it in memory. This is the very same for references to nodes, leaves or values.
 
-Here is a schematic describing this structure :
+Here is a picture describing this structure :
 
 ![Managed references](images/managedReferences.png)
 
