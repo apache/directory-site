@@ -71,7 +71,7 @@ Implementing the class PasswordHashInterceptor
 
 The following UML class diagram depicts the structure of the little example. Classes in white are given by Apache Directory Server as extension points. The two gray classes comprise the example interceptor.
 
-[](passwordHashInterceptor_UML.png)
+[Password Hash Interceptor UML diagram](images/passwordHashInterceptor_UML.png)
 
 The class HashTools contains two simple methods w.r.t. hashing. isAlreadyHashed detects whether a value has already been hashed with a known message digest algorithm. applyHashAlgorithm applies a hash algorithm to a sequence of bytes. See the source code and the unit tests of this class for details, it has not that much to do with the interceptor stuff.
 
@@ -258,15 +258,15 @@ First we create a new entry with the following data, using "New Entry ..." withi
 
 Then we add a new attribute userPassword in the entry editor. For the value, a special editor appears:
 
-[](passwordHashInterceptor_passwordEditor.png)
+[](images/passwordHashInterceptor_passwordEditor.png)
 
 Select "Plaintext" as the hash method and enter a new password. We selected "secret" (see screen shot above). After pressing OK, a modify operation is sent to the server, which will be intercepted by our example class.
 
-[](passwordHashInterceptor_modificationLog.png)
+[](images/passwordHashInterceptor_modificationLog.png)
 
 After that, the value for userPassword is not "secret", but the MD5 digested value of it.
 
-[](passwordHashInterceptor_entryEditor.png)
+[](images/passwordHashInterceptor_entryEditor.png)
 
 The user Kate Bush is still capable of authenticating with the password "secret", because Apache Directory Server supports authentication with passwords hashed with this algorithm. You can verify this by connecting with Studio and the using "cn=Kate Bush,ou=users,ou=system" as bind DN.
 
