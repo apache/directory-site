@@ -73,7 +73,9 @@ Tells if there is a next available tuple. This will always be true if we are bef
 
 #### 4.1.2.2 hasPrev
 
-Returns true if there is a tuple available before the current tuple.
+Returns true if there is a tuple available before the current tuple. The following picture shows the returned value for calls in various cases :
+
+![Has Next](images/ug-btree-has-next.png)
 
 #### 4.1.2.3 next
 
@@ -83,27 +85,127 @@ Moves to the next value of the current key or to the next key if all the values 
 
 Moves to the previous value of the current key or to the previous key if all the values of the current key have been processed, and return the associated tuple.
 
-#### 4.1.2.5 hasNextKey
-
-Tells if there is a key after the current key.
-
-#### 4.1.2.6 hasPrevKey
-
-Tells if there is a previous key before the current key.
-
-#### 4.1.2.7 nextKey
-
-Moves(jumps) to the next key, even if not all values of the current key are navigated.
-
-#### 4.1.2.8 prevKey
-
-Moves(jumps) to the previous key, even if not all values of the current key are navigated.
-
 ## 4.1 Browse Operations
 
-Now that we know what a _Cursor_ is about, we can describe the various _browse_ operations.
+Now that we know what a _Cursor_ is about, we can describe the various _browse_ operations that can be applied on a _BTree_.
 
-### 4.1.1 browse()
+### 4.1.1 BTree.browse()
 
-This method returns a cursor with the position set before the first key of the **B-tree**. 
+This method returns a cursor with the position set before the first element of the **B-tree**, for the current revision. It returns a _TupleCursor_ that contain the tuples <key,value> present in the _Btree_.
+
+Assuming you have an existing _BTree_, using this method is quite straigthforward. Here is an example with a persisted _BTree_  :
+
+        // Create a RecordManager that will contain the BTree
+        RecordManager recordManager = new RecordManager( "Test.db" );
+
+        // Create a BTree to play with
+        BTree<Long, String> btree = recordManager.addBTree( "test", LongSerializer.INSTANCE, StringSerializer.INSTANCE, true );
+
+        // Inject some data
+        btree.insert( 1L, "1" );
+        btree.insert( 4L, "4" );
+        btree.insert( 2L, "2" );
+        btree.insert( 3L, "3" );
+        btree.insert( 5L, "5" );
+
+        // Create the cursor
+        TupleCursor<Long, String> cursor = btree.browse();
+
+        // Set the cursor at the beginning of the BTree
+        cursor.beforeFirst();
+
+        // Get the tuples
+        // Create the cursor
+        TupleCursor<Long, String> cursor = btree.browse();
+
+        // Move forward
+        while ( cursor.hasNext() )
+        {
+            Tuple<Long, String> tuple = cursor.next();
+            System.out.println( tuple );
+        }
+
+        ...
+
+will produce this output :
+
+    <1,1>
+    <2,2>
+    <3,3>
+    <4,4>
+    <5,5>
+
+### 4.1.2 BTree.browse( long )
+
+This method returns a cursor with the position set before the first element of the **B-tree**, for the given revision. 
+
+Here, the big difference is that you can fetch some data from an older revision - assuming this revision is still present, of course -.
+
+It returns a _TupleCursor_ that contain the tuples <key,value> present in the _Btree_.
+
+You can use the exact same code than for the _browse()_ method, except that you have to pass the version you want to browse.
+
+### 4.1.3 BTree.browseFrom( K key )
+
+This method returns a cursor with the position set before the given key of the **B-tree**. If the key does not exist, the cursor will be set to the closest lower value (or upper value if it's lower than the lowest value)
+
+It returns a _TupleCursor_ that contain the tuples <key,value> present in the _Btree_.
+
+You can use the exact same code than for the _browse()_ method. Here is an example, where we start after the latest present key :
+
+        // Inject some data
+        for ( long i = 0; i <= 1000L; i += 2 )
+        {
+            btree.insert( i, Long.toString( i ) );
+        }
+
+        // Create the cursor
+        TupleCursor<Long, String> cursor = btree.browseFrom( 1500L );
+        
+        assertFalse( cursor.hasNext() );
+        assertTrue( cursor.hasPrev() );
+        assertEquals( 1000L, cursor.prev().getKey().longValue() );
+
+### 4.1.4 BTree.browseFrom( long revision, K key )
+TODO
+
+### 4.1.5 BTree.close()
+TODO
+
+### 4.1.6 BTree.contains( K key, V value )
+TODO
+
+### 4.1.7 BTree.contains( long revision, K key, V value )
+TODO
+
+### 4.1.8 BTree.delete( K key )
+TODO
+
+### 4.1.9 BTree.delete( K key, V value )
+TODO
+
+### 4.1.10 BTree.flush()
+TODO
+
+### 4.1.11 BTree.get( K key )
+TODO
+
+### 4.1.12 BTree.get( long revision, K key )
+TODO
+
+### 4.1.13 BTree.getRevision()
+TODO
+
+### 4.1.14 BTree.getValues( K key )
+TODO
+
+### 4.1.15 BTree.hasKey( K key )
+TODO
+
+### 4.1.16 BTree.hasKey( long revision, K key )
+TODO
+
+### 4.1.17 BTree.insert( K key, V value )
+TODO
+
 
