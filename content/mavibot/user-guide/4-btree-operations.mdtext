@@ -85,11 +85,11 @@ Moves to the next value of the current key or to the next key if all the values 
 
 Moves to the previous value of the current key or to the previous key if all the values of the current key have been processed, and return the associated tuple.
 
-## 4.1 Browse Operations
+## 4.2 Browse Operations
 
 Now that we know what a _Cursor_ is about, we can describe the various _browse_ operations that can be applied on a _BTree_.
 
-### 4.1.1 BTree.browse()
+### 4.2.1 BTree.browse()
 
 This method returns a cursor with the position set before the first element of the **B-tree**, for the current revision. It returns a _TupleCursor_ that contain the tuples <key,value> present in the _Btree_.
 
@@ -135,7 +135,7 @@ will produce this output :
     <4,4>
     <5,5>
 
-### 4.1.2 BTree.browse( long )
+### 4.2.2 BTree.browse( long )
 
 This method returns a cursor with the position set before the first element of the **B-tree**, for the given revision. 
 
@@ -145,7 +145,7 @@ It returns a _TupleCursor_ that contain the tuples <key,value> present in the _B
 
 You can use the exact same code than for the _browse()_ method, except that you have to pass the version you want to browse.
 
-### 4.1.3 BTree.browseFrom( K key )
+### 4.2.3 BTree.browseFrom( K key )
 
 This method returns a cursor with the position set before the given key of the **B-tree**. If the key does not exist, the cursor will be set to the closest lower value (or upper value if it's lower than the lowest value)
 
@@ -166,56 +166,55 @@ You can use the exact same code than for the _browse()_ method. Here is an examp
         assertTrue( cursor.hasPrev() );
         assertEquals( 1000L, cursor.prev().getKey().longValue() );
 
-### 4.1.4 BTree.browseFrom( long revision, K key )
+### 4.2.4 BTree.browseFrom( long revision, K key )
 TODO
 
-## 4.2 Contains Operations
+## 4.3 Contains Operations
 
-### 4.2.1 BTree.contains( K key, V value )
+### 4.3.1 BTree.contains( K key, V value )
 TODO
 
-### 4.2.2 BTree.contains( long revision, K key, V value )
+### 4.3.2 BTree.contains( long revision, K key, V value )
 TODO
 
-## 4.3 Has Operations
+## 4.4 Has Operations
 
-### 4.3.1 BTree.hasKey( K key )
+### 4.4.1 BTree.hasKey( K key )
 TODO
 
-### 4.3.2 BTree.hasKey( long revision, K key )
+### 4.4.2 BTree.hasKey( long revision, K key )
 TODO
 
-## 4.4 Get Operations
+## 4.5 Get Operations
 
-### 4.4.1 BTree.get( K key )
+### 4.5.1 BTree.get( K key )
 TODO
 
-### 4.4.2 BTree.get( long revision, K key )
+### 4.5.2 BTree.get( long revision, K key )
 TODO
 
-### 4.4.3 BTree.getValues( K key )
+### 4.5.3 BTree.getValues( K key )
 TODO
 
-## 4.5 Insert Operation
+## 4.6 Insert Operation
 
-## 4.6 Delete Operations
+## 4.7 Delete Operations
 
-### 4.6.1 BTree.delete( K key )
+### 4.8.1 BTree.delete( K key )
 TODO
 
-### 4.6.2 BTree.delete( K key, V value )
+### 4.7.2 BTree.delete( K key, V value )
 TODO
 
+## 4.8 Other BTree operations
 
-## 4.7 Other BTree operations
-
-### 4.7.1 BTree.close()
+### 4.8.1 BTree.close()
 TODO
 
-### 4.7.2 BTree.flush()
+### 4.8.2 BTree.flush()
 TODO
 
-### 4.7.3 BTree.getRevision()
+### 4.8.3 BTree.getRevision()
 TODO
 
 
