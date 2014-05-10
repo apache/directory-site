@@ -87,18 +87,18 @@ Moves to the previous value of the current key or to the previous key if all the
 
 ## 4.2 Browse Operations
 
-Now that we know what a _Cursor_ is about, we can describe the various _browse_ operations that can be applied on a _BTree_.
+Now that we know what a _Cursor_ is about, we can describe the various _browse_ operations that can be applied on a _B-tree_.
 
 ### 4.2.1 BTree.browse()
 
-This method returns a cursor with the position set before the first element of the **B-tree**, for the current revision. It returns a _TupleCursor_ that contain the tuples <key,value> present in the _Btree_.
+This method returns a cursor with the position set before the first element of the **B-tree**, for the current revision. It returns a _TupleCursor_ that contain the tuples <key,value> present in the _B-tree_.
 
-Assuming you have an existing _BTree_, using this method is quite straigthforward. Here is an example with a persisted _BTree_  :
+Assuming you have an existing _B-tree_, using this method is quite straigthforward. Here is an example with a persisted _B-tree_  :
 
-        // Create a RecordManager that will contain the BTree
+        // Create a RecordManager that will contain the B-tree
         RecordManager recordManager = new RecordManager( "Test.db" );
 
-        // Create a BTree to play with
+        // Create a B-tree to play with
         BTree<Long, String> btree = recordManager.addBTree( "test", LongSerializer.INSTANCE, StringSerializer.INSTANCE, true );
 
         // Inject some data
@@ -141,7 +141,7 @@ This method returns a cursor with the position set before the first element of t
 
 Here, the big difference is that you can fetch some data from an older revision - assuming this revision is still present, of course -.
 
-It returns a _TupleCursor_ that contain the tuples <key,value> present in the _Btree_.
+It returns a _TupleCursor_ that contain the tuples <key,value> present in the _B-tree_.
 
 You can use the exact same code than for the _browse()_ method, except that you have to pass the version you want to browse.
 
@@ -149,7 +149,7 @@ You can use the exact same code than for the _browse()_ method, except that you 
 
 This method returns a cursor with the position set before the given key of the **B-tree**. If the key does not exist, the cursor will be set to the closest lower value (or upper value if it's lower than the lowest value)
 
-It returns a _TupleCursor_ that contain the tuples <key,value> present in the _Btree_.
+It returns a _TupleCursor_ that contain the tuples <key,value> present in the _B-tree_.
 
 You can use the exact same code than for the _browse()_ method. Here is an example, where we start after the latest present key :
 
@@ -167,36 +167,134 @@ You can use the exact same code than for the _browse()_ method. Here is an examp
         assertEquals( 1000L, cursor.prev().getKey().longValue() );
 
 ### 4.2.4 BTree.browseFrom( long revision, K key )
-TODO
+This method can be used when one want to browse a _B-tree_ starting from a given key, for a specific revision of a _B-tree_. The only difference with the _BTree.browseFrom( K )_ method is the _B-tree_ revision which is provided.
 
 ## 4.3 Contains Operations
 
+We have a couple of methods that can be used to know if some tuple _<Key, Value>_ is present in a _B-tree_.
+
 ### 4.3.1 BTree.contains( K key, V value )
-TODO
+
+This method checks if a _B-tree_ contains a tuple _<key, value>_. As a key might have more than one value, we test the tuple. If one wants to check if a key is present, regardless of the value, the _hasKey()_ method should be used.
+
+Here is an example where the _contains()_ method is used :
+
+    ...
+    boolean result = btree.contains( 1L, "V1" );
+    ...
+
+If the _B-tree_ contains the <1L, "V1"> tuple, then the method will return true, false otherwise.
 
 ### 4.3.2 BTree.contains( long revision, K key, V value )
-TODO
 
-## 4.4 Has Operations
+This is the same method that the previous one, except that it's applied on a specific revision of a _B-tree_. The first parameter is the revision.
+
+## 4.4 HasKey Operations
+
+We have some specific methods that check the presence of a key in a _B-tree_. There are described below.
 
 ### 4.4.1 BTree.hasKey( K key )
-TODO
+
+The _hasKey(K key)_ method check the presence of the given _key_ in the current _B-tree_. If it's present, this method returns _true_, otherwise it returns _false_. Here is an example of usage :
+
+    ...
+    boolean result = btree.hasKey( 1L );
+    ...
+
 
 ### 4.4.2 BTree.hasKey( long revision, K key )
-TODO
+
+The exact same method, but applied to a given revision of the _B-tree_.
+
 
 ## 4.5 Get Operations
 
+Instead of browsing the _B-tree_, one can get the values associated with a key in a simple operation. The big difference is that it's not then possible to move forward or backward in the _B-tree_ from the retrieved value.
+
 ### 4.5.1 BTree.get( K key )
-TODO
+
+This method get the value associated to the given key, if it exists. If the key does not exist, then a _KeyNotFoundException_ is thrown by the method.
+
+<DIV class="note" markdown="1">
+It's important to understand that, as a <i>B-tree</i> can have multiple values, the <i>get(K)</i> method will <b>NOT</b> return all the values, but the very first one. If one wants to get all the values for a given key, the <i>BTree.getValues(K)</i> has te be used instead.
+</DIV>
+
+
+Here is an example :
+
+    ...
+    try
+    {
+        String value = btree.get( 1L ); // Will return "V1"
+        ...
+        // process teh found value
+    }
+    catch ( KeyNotFoundException knfe )
+    {
+        // deal with the exception
+    }
+    ...
+
 
 ### 4.5.2 BTree.get( long revision, K key )
-TODO
+
+Same method than previously, but with a provided _B-tree_ revision.
 
 ### 4.5.3 BTree.getValues( K key )
-TODO
+
+One should use this method to get all the values assocatied with a key. This method returns  a _ValueCursor_, which allows the user to browse the various values. The cursor is set before the first value.
+
+Here is an example that shows how to use this method :
+
+    ...
+    // The key 1L is associated with {"V1", "V2", "V3"}
+    ValueCursor<String> values = dupsTree.getValues( 1L);
+
+    while ( values.hasNext() )
+    {
+        System.out.println( value.next() );
+    }
+    ...
+
+This will produce the following output :
+
+    V1
+    V2
+    V3
 
 ## 4.6 Insert Operation
+
+Inserting elements into a _B-tree_ is as simple as to call the _insert(K, V)_ method. 
+
+<DIV class="note" markdown="1">
+It would be interesting to have an <i>insert</i> method that can take more than one value. This might be added in one future version.
+</DIV>
+
+If the key already exist, the value will be added, or replaced if the value already exist keep in mind that we use a comparator when it comes to check a value existence, and two different values may be seen as equal).
+
+Here is an exemple :
+
+    ...
+    // Insert a new key and value into a B-tree
+    // The old value will be returned if we already have a "V3" in the B-tree
+    String oldValue = btree.insert( 3L, "V3" );
+    ...
+
+<DIV class="note" markdown="1">
+One can only add one single value if the <i>B-tree</i> does not accept duplicate values. In this case, the <i>insert()</i> method will throw a <i>DuplicateValueNotAllowedException</i> exception.
+</DIV>
+
+If the _B-tree_ accepts multiple values for a key, one can write such code :
+
+
+    ...
+    // Insert a new key and value into a B-tree
+    btree.insert( 1L, "V1" );
+    btree.insert( 1L, "V2" );
+    btree.insert( 1L, "V3" );
+    // At this point, the key 1L will be associated with {V1, V2, V3}
+    ...
+
 
 ## 4.7 Delete Operations
 
@@ -206,7 +304,7 @@ TODO
 ### 4.7.2 BTree.delete( K key, V value )
 TODO
 
-## 4.8 Other BTree operations
+## 4.8 Other B-tree operations
 
 ### 4.8.1 BTree.close()
 TODO
