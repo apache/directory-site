@@ -298,21 +298,82 @@ If the _B-tree_ accepts multiple values for a key, one can write such code :
 
 ## 4.7 Delete Operations
 
+The _delete()_ method is used to delete keys and values from a _B-tree_. We have two methods to do that.
+
 ### 4.8.1 BTree.delete( K key )
-TODO
+
+This method removes a given key and all its values from a _B-tree_. If the key does not exist in the _B-tree_, a _KeyNotFoundException_ will be thrown.
+
+This method returns the first tuple with the given key.
+
+Here is an example :
+
+    ...
+    // Insert a new key and value into a B-tree
+    btree.insert( 1L, "V1" );
+    btree.insert( 1L, "V2" );
+    btree.insert( 1L, "V3" );
+    // At this point, the key 1L will be associated with {V1, V2, V3}
+    ...
+    // Now delete 1L
+    btree.delete( 1L );
+
+    // Check that the values have been removed
+    if ( btree.hasKey( 1L ) == true )
+    {
+        // This is an error !
+    }
+
 
 ### 4.7.2 BTree.delete( K key, V value )
-TODO
+
+This method can be used to delete one specific value for a given key. If the removed value is the last one, the key will also be removed.
+
+Here is an example :
+
+    ...
+    // Insert a new key and value into a B-tree
+    btree.insert( 1L, "V1" );
+    btree.insert( 1L, "V2" );
+    btree.insert( 1L, "V3" );
+    // At this point, the key 1L will be associated with {V1, V2, V3}
+    ...
+    // Now delete <1L, "V2">
+    btree.delete( 1L, "V2" );
+
+    // The key 1L is still associated with {"V1", "V3"}
+    ValueCursor<String> values = dupsTree.getValues( 1L);
+
+    while ( values.hasNext() )
+    {
+        System.out.println( value.next() );
+    }
+    ...
+
+This will produce the following output :
+
+    V1
+    V3
+
 
 ## 4.8 Other B-tree operations
 
-### 4.8.1 BTree.close()
-TODO
+Beside those important operations we just have described, we have a few other less critical operations you must kown about.
 
-### 4.8.2 BTree.flush()
-TODO
+### 4.8.1 BTree.close()
+
+This method will cleanly close the _B-tree_. Depending on the _B-tree_ type, it will proceed differently while closing the _B-tree_.
+
+* PersistedBTree : It will close the cache, and close all the pending read transactions. Any write transaction will be complected.
+* InMemoryBTree  : it will flush the memory content on disk, and close the journal, if the _B-tree_ is persistent.
+
+<DIV class="note" markdown="1">
+<b>ALWAYS</B> call the <i>close()</i> method when you are done with a <i>B-tree</i>.
+</DIV>
 
 ### 4.8.3 BTree.getRevision()
-TODO
+
+Returns the current _B-tree_ revision.
+
 
 
