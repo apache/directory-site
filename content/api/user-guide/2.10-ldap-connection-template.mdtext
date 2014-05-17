@@ -211,7 +211,7 @@ One of the most common uses of LDAP is as an identity provider.  As such, the mo
         ldapConnectionTemplate.newDn( "uid=" + uid + ", ou=people, dc=example, dc=com" ),
         password );
 
-    // or if you authenticate using an attrubute not in the dn
+    // or if you authenticate using an attribute not in the dn
     PasswordWarning warning = ldapConnectionTemplate.authenticate( 
         "ou=people,dc=example,dc=com",
         "(mail=kermitthefrog@muppets.com)",
