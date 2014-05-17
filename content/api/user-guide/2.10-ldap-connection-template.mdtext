@@ -84,6 +84,50 @@ The connection template implements an interface called ModelFactory.  Any implem
 Providing CRUD Methods
 ----------------------
 
+The standard CRUD methods are provided (*though in this case Add, Lookup, Modify, Delete*) with a couple useful overloads.  Add, Delete, and Modify all provide at least 2 approaches.  The first is creating your own XxxRequest objects and supplying that the the method.  This can be done by using the ModelFactory methods provided by LdapConnectionTemplate.  The second, more elegant solution, is to use the DN and RequestBuilder approach.  This approach will generate the request for you from the internal ModelFactory and provide it to a callback for you to fill in the details.  This has the added benefit of translating LdapException to LdapRuntimeException, to remove the *****need***** for try/catch blocks.  Now for some examples:
+
+Add provides the standard approaches of supplying your own AddRequest and using RequestBuilder, as well as a third shortcut approach where you supply all the attributes instead of a RequestBuilder:
+
+    :::Java
+    // using RequestBuilder
+    AddResponse response = ldapConnectionTemplate.add( dn,
+        new RequestBuilder<AddRequest>() {
+            @Override
+            public void buildRequest( AddRequest request ) throws LdapException {
+                request.getEntry()
+                    .add( "objectClass", "top", "person", "organizationalPerson", "inetOrgPerson" )
+                    .add( "cn", "Kermit The Frog" )
+                    .add( "givenName", "Kermit" )
+                    .add( "sn", "The Frog" )
+                    .add( "mail", "kermitthefrog@muppets.org" )
+                    .add( "uid", "kermitthefrog" );
+            }
+        } );
+    
+    // using Attributes list
+    AddResponse response = ldapConnectionTemplate.add( dn,
+        ldapConnectionTemplate.newAttribute( "objectClass", 
+            "top", "person", "organizationalPerson", "inetOrgPerson" ),
+        ldapConnectionTemplate.newAttribute( "cn", "Kermit The Frog" ),
+        ldapConnectionTemplate.newAttribute( "givenName", "Kermit" ),
+        ldapConnectionTemplate.newAttribute( "sn", "The Frog" ),
+        ldapConnectionTemplate.newAttribute( "mail", "kermitthefrog@muppets.org" ),
+        ldapConnectionTemplate.newAttribute( "uid", "kermitthefrog" ) );
+
+Modify:
+
+    :::Java
+    // using RequestBuilder
+    ModifyResponse response = ldapConnectionTemplate.modify( dn,
+        new RequestBuilder<ModifyRequest>() {
+            @Override
+            public void buildRequest( ModifyRequest request ) throws LdapException {
+                request.replace( "sn", "The Frog" );
+                request.replace( "cn", "Miss The Frog" );
+            }
+        } );
+
+
 Handling Search Result Iteration
 --------------------------------
 
