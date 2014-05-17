@@ -51,7 +51,7 @@ The connection template manages connections through a connection pool.  The conn
     DefaultLdapConnectionFactory factory = new DefaultLdapConnectionFactory( config );
     factory.setTimeOut( connectionTimeout );
 
-    // OPTIONAL, values below are defaults
+    // optional, values below are defaults
     GenericObjectPool.Config poolConfig = new GenericObjectPool.Config();
     poolConfig.lifo = true;
     poolConfig.maxActive = 8;
@@ -167,7 +167,7 @@ Handling Search Result Iteration
 Searching usually contains a lot of boiler plate code for build requests and iterating through responses.  This template does the work for you. It iterates over the entire result set, feeds each entry through an EntryMapper, and collects the results into the list returned to the caller.  All you have to do is provide the EntryMapper for mapping a single entry to a domain object.  EntryMapper itself is a very simple interface with one method.  As you saw before in the lookup documentation, they are typically defined as static members of your service classes:
 
     :::Java
-    // Typically mappers are reused, so define a static member
+    // typically mappers are reused, so define a static member
     private static final EntryMapper muppetEntryMapper =
         new EntryMapper<Muppet>() {
             @Override
