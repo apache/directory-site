@@ -203,6 +203,42 @@ Now that is just plain ***SIMPLE***.  The search method has many overloads to si
 Providing Simplified, Password Policy Aware, Authentication/Password Modification Methods
 -----------------------------------------------------------------------------------------
 
+One of the most common uses of LDAP is as an identity provider.  As such, the most common operation is authentication, and password management.  If your LDAP server supports the [password policy control](http://tools.ietf.org/html/draft-behera-ldap-password-policy-10) then the authenticate method is very handy:
+
+    :::Java
+    // throws PasswordException if authentication fails
+    PasswordWarning warning = ldapConnectionTemplate.authenticate( 
+        ldapConnectionTemplate.newDn( "uid=" + uid + ", ou=people, dc=example, dc=com" ),
+        password );
+
+    // or if you authenticate using an attrubute not in the dn
+    PasswordWarning warning = ldapConnectionTemplate.authenticate( 
+        "ou=people,dc=example,dc=com",
+        "(mail=kermitthefrog@muppets.com)",
+        SearchScope.ONELEVEL,
+        "set4now".toCharArray() );
+
+In this case, if authentication failed, a PasswordException is thrown.  If authentication was successful, any warnings will be returned in the PasswordWarning object, or null will be returned if there are no warnings.
+
+Modifying a password is just as simple:
+
+    :::Java
+    // using administrator account to modify a users password
+    ldapConnectionTemplate.modifyPassword( userDn, password );
+
+    // or user account modifying their own password
+    ldapConnectionTemplate.modifyPassword( userDn, oldPassword, password );
+
+    // or if you want want more control
+    ldapConnectionTemplate.modifyPassword( 
+        userDn, 
+        oldPassword, 
+        password,
+        asAdmin );
+
+If you modify the password as an administrator, then the oldPassword is not required, and if your password policy is set to, the password reset flag will be set causing a PasswordWarning to be returned the next time authenticate was called for that user.
+
+
 Other Useful Methods
 --------------------
 
