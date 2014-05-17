@@ -227,14 +227,10 @@ Modifying a password is just as simple:
     ldapConnectionTemplate.modifyPassword( userDn, password );
 
     // or user account modifying their own password
-    ldapConnectionTemplate.modifyPassword( userDn, oldPassword, password );
+    ldapConnectionTemplate.modifyPassword( userDn, oldPassword, newPassword );
 
     // or if you want want more control
-    ldapConnectionTemplate.modifyPassword( 
-        userDn, 
-        oldPassword, 
-        password,
-        asAdmin );
+    ldapConnectionTemplate.modifyPassword( userDn, oldPassword, newPassword, asAdmin );
 
 If you modify the password as an administrator, then the oldPassword is not required, and if your password policy is set to, the password reset flag will be set causing a PasswordWarning to be returned the next time authenticate was called for that user.
 
