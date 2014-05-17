@@ -1,0 +1,140 @@
+Title: 2.1 - The LdapConnectionTemplate
+NavPrev: 2.9-exception-management.mdtext
+NavPrevText: 2.9 - Exception management
+NavUp: 2-basic-ldap-api-usage.html
+NavUpText: 2 - Basic LDAP API usage
+NavNext: 3-advanced-ldap-api-usage.mdtext
+NavNextText: 3 - Advanced LDAP API Usage
+Notice: Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    .
+    http://www.apache.org/licenses/LICENSE-2.0
+    .
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+
+2.1 - Why use the LdapConnectionTemplate
+========================================
+
+The LdapConnectionTemplate provides simplified access to the API functions.  It does so by
+ 
+* [Managing Connections](#managing-connections)
+* Providing Factory Methods For Model Objects
+* Providing CRUD Methods
+* Handling Search Result Iteration
+* Providing Simplified, Password Policy Aware, Authentication/Password Modification Methods
+
+The concept is basically that of the Template Method design pattern in that it does all the boiler plate work for you and hands back control as necessary.
+
+Managing Connections
+--------------------
+
+The connection template manages connections through a connection pool.  The connection pool must be supplied to the constructor:
+
+    :::Java
+    LdapConnectionConfig config = new LdapConnectionConfig();
+    config.setLdapHost( hostname );
+    config.setLdapPort( port );
+    config.setName( adminDn );
+    config.setCredentials( adminPassword );
+
+    DefaultLdapConnectionFactory factory = new DefaultLdapConnectionFactory( config );
+    factory.setTimeOut( connectionTimeout );
+
+    // OPTIONAL, values below are defaults
+    GenericObjectPool.Config poolConfig = new GenericObjectPool.Config();
+    poolConfig.lifo = true;
+    poolConfig.maxActive = 8;
+    poolConfig.maxIdle = 8;
+    poolConfig.maxWait = -1L;
+    poolConfig.minEvictableIdleTimeMillis = 1000L * 60L * 30L;
+    poolConfig.minIdle = 0;
+    poolConfig.numTestsPerEvictionRun = 3;
+    poolConfig.softMinEvictableIdleTimeMillis = -1L;
+    poolConfig.testOnBorrow = false;
+    poolConfig.testOnReturn = false;
+    poolConfig.testWhileIdle = false;
+    poolConfig.timeBetweenEvictionRunsMillis = -1L;
+    poolConfig.whenExhaustedAction = GenericObjectPool.WHEN_EXHAUSTED_BLOCK;
+
+    LdapConnectionTemplate ldapConnectionTemplate = 
+        new LdapConnectionTemplate( new LdapConnectionPool(
+            new PoolableLdapConnectionFactory( factory ), poolConfig ) );
+
+This may look like a lot, but most of it is optional and it is the last you will have to think about connections.
+
+Providing Factory Methods For Model Objects
+-------------------------------------------
+
+The connection template implements an interface called ModelFactory.  Any implementation of this factory can be injected into the template once it is constructed.  By default, it uses ModelFactoryImpl which in turn constructs the standard Apache LDAP API model objects.  This abstractions frees you from having to be concerned with implementation details while still giving you the power to override the default behavior as you see fit.
+
+    :::Java
+    ModelFactory modelFactory = new MyCustomModelFactory();
+    ldapConnectionTemplate.setModelFactory( modelFactory );
+
+
+
+    :::Java
+    LdapConnection connection = new LdapNetworkConnection( "localhost", 389 );
+
+Here, we just created an unsafe connection locally, using the 389 port. Quite simple...
+
+### Secure connection
+
+Although the **LDAPS** (**LDAP** over **SSL**) is now considered as deprecated, many people continue to use it. The big advantage of not using **LDAPS** is that you don't need to setup two different listening ports (one for **LDAP** -389- and another one for **LDAPS** -636- ).
+
+The only difference with the previous example is that we have to tell the connection that it has to use **SSL**, by passing **_true_** as a third parameter (incidentally, passing **_false_** set a unsafe connection).
+
+Here is an example
+
+    :::Java
+    LdapConnection connection = new LdapNetworkConnection( "localhost", 636, true );
+
+## Maintaining the connection opened
+
+We keep the connection opened for a limited period of time, defaulting to 30 seconds. This might be not long enough, so one can change this delay by calling the _setTimeOut()_ method :
+
+    :::Java
+    LdapConnection connection = new LdapNetworkConnection( "localhost", 389 );
+    connection.setTimeOut( 0 );
+    ...
+    connection.close();
+
+>**Note:** Setting a value equal or below 0 will keep the connection opened for ever (or a soon as the connection is not explicitly closed).
+
+## Closing the connection
+
+Once you don't need to use the connection anymore (remember that hodling a connection keeps a session opened on the server, and a socket opened between the client and the server), then you have to close it. This is done by calling the _close()_ method :
+
+    :::Java
+    LdapConnection connection = new LdapNetworkConnection( "localhost", 389 );
+    ...
+    connection.close();
+
+## Using a pool of connections
+
+Creating a connection is expensive. If you are to reuse a connection over and over, or if you are writing an application that will need many LDAP conenctions, you may want to use a pool of connections.
+
+This is slightly more complex than simply opening a new connection, as you have a lot of parametrs that can come into play when creating a pool.
+Here is an example of creation of a pool of connections :
+
+    :::Java
+    LdapConnectionConfig config = new LdapConnectionConfig();
+    config.setLdapHost( "localhost" );
+    config.setLdapPort( 389 );
+    config.setName( "uid=admin,ou=system" );
+    config.setCredentials( "secret" );
+    PoolableLdapConnectionFactory factory = new PoolableLdapConnectionFactory( config );
+    LdapConnectionPool pool = new LdapConnectionPool( factory );
+    pool.setTestOnBorrow( true );
+
+Here, we just have created a pool of connections which all are unthenticated using the administrator user. You can create anonymous connections, it's just a matter of not setting any name or credentials in the config.
