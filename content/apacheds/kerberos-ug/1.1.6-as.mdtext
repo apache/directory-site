@@ -38,7 +38,9 @@ As we can see, for the client to get a **TGT**, it's just a matter of sending a 
 
 Here is the standard exchange :
 
-![Kerberos Authentication with no pre-auth](images/kerberos-as-no-padata.png)
+<DIV align="center">
+  <img alt="Kerberos Authentication with no pre-auth" src="images/kerberos-as-no-padata.png">
+</DIV>
 
 There is still a potential security breach in this scenario : as the server issues a **TGT** to the client, containing the secret key built using the user's password, it is possible to decrypt the ticket using a brute force attack (and this is more likely to happen if the password is weak...)
 
@@ -54,7 +56,9 @@ Now, let's see how does a client 'proves' that he is who he pretends to be. The 
 
 Here is the exchange, when  :
 
-![Kerberos Authentication with pre-auth](images/kerberos-as-padata.png)
+<DIV align="center">
+  <img alt="Kerberos Authentication with pre-auth" src="images/kerberos-as-padata.png">
+</DIV>
 
 
 

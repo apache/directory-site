@@ -36,19 +36,27 @@ We first have to configure the **LDAP** and **Kerberos** server, in order to be 
 
 If you have installed the **ApacheDS** package, the simplest way is to start the server, and to connect on it using Studio, using the _uid=admin,ou=system_ user with _secret_ as a password (this password will have to be changed later !).
 
-![Admin Connection](images/admin-connection.png)
+<DIV align="center">
+  <img alt="Admin Connection" src="images/admin-connection.png">
+</DIV>
 
 and :
 
-![Admin Authentication](images/admin-authentication.png)
+<DIV align="center">
+  <img alt="Admin Authentication" src="images/admin-authentication.png">
+</DIV>
 
 Once connected, right click on the connection :
 
-![Open Configuration](images/open-config.png)
+<DIV align="center">
+  <img alt="Open Configuration" src="images/open-config.png">
+</DIV>
 
 On the **Overview** tab, check the **Enable Kerberos Server** box :
 
-![Enable Kerberos Server](images/enable-kerberos.png)
+<DIV align="center">
+  <img alt="Enable Kerberos Server" src="images/enable-kerberos.png">
+</DIV>
 
 ### LDAP Server configuration
 
@@ -64,7 +72,9 @@ The <em>SASL principal</em> instance part (ie, <strong>example.net</strong>) is 
 
 Here is a snapshot of this configuration :
 
-![LDAP configuration](images/ldap-config.png)
+<DIV align="center">
+  <img alt="LDAP configuration" src="images/ldap-config.png">
+</DIV>
 
 
 ### Kerberos Server configuration
@@ -76,7 +86,9 @@ Now, you can switch to the Kerberos tab, where some more configuration must be s
 
 Here is a Ssnapshot of this configuration :
 
-![Kerberos configuration](images/kerberos-config.png)
+<DIV align="center">
+  <img alt="Kerberos configuration" src="images/kerberos-config.png">
+</DIV>
 
 
 Once those modifications have been done, you must restart the server.
@@ -108,7 +120,9 @@ Each user and each service will be declared using an _entry_ in the ldap server.
 
 We will store those entries in a part of the **DIT** where the kerberos server and the ldap server will be able to find them. Assuming we have created our own partition named **dc=example,dc=com**, we will define this hierarchy starting from there :
 
-![Authentification hierarchy](images/authent-hierarchy.png)
+<DIV align="center">
+  <img alt="Authentification hierarchy" src="images/authent-hierarchy.png">
+</DIV>
 
 This can be injected in the LDAP server using this LDIF :
 
@@ -244,7 +258,9 @@ Now that the server is set, and the services and users are stored into it, we ca
 
 On the "Connections" tab, right click and select 'New Connection...'
 
-![New Connection](images/new-connection.png)
+<DIV align="center">
+  <img alt="New Connection" src="images/new-connection.png">
+</DIV>
 
 You will now have to set the network parameters, as in the following popup. Typically, set :
 
@@ -258,7 +274,9 @@ You can check the connection on cliking the 'check network connection' button, y
 Here is the screenshot :
 
 
-![Network Parameters](images/network-parameters.png)
+<DIV align="center">
+  <img alt="Network Parameters" src="images/network-parameters.png">
+</DIV>
 
 Then click on Next to setup the authentication part.
 Select the following parameters and values :
@@ -276,7 +294,9 @@ Select the following parameters and values :
 
 Here is the resulting screen :
 
-![Kerberos authentification](images/kerberos-authent.png)
+<DIV align="center">
+  <img alt="Kerberos authentification" src="images/kerberos-authent.png">
+</DIV>
 
 Clinking in the 'Check Authentication' button should be succesfull.
 
