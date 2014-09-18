@@ -53,17 +53,15 @@ One can issue three kind of Simple bind :
 
 The first one is the easiest one, but depending on the server configuration, it will be accepted or rejected (all the servers don't allow anonymous binds)
 
+Most of the time, the _bind_ operation will not return anything. You will get bound, or you'll get an _LdapException_ if an error is met.
+
 Issuing an anonymous bind is very simple, you just provide no user name nor any password :
 
     :::Java
     @Test
     public void testAnonymousBindRequest() throws Exception
     {
-        BindResponse bindResponse = connection.bind();
-
-        assertNotNull( bindResponse );
-        assertEquals( ResultCodeEnum.SUCCESS, bindResponse.getLdapResult().getResultCode() );
-        assertTrue( connection.isAuthenticated() );
+        connection.bind();
     }
 
 Issuing a user/password bind is just slightly more complex, you just have to provide your user name and its password :
@@ -72,11 +70,7 @@ Issuing a user/password bind is just slightly more complex, you just have to pro
     @Test
     public void testSimpleBindRequest() throws Exception
     {
-        BindResponse bindResponse = connection.bind( "uid=admin,ou=system", "secret" );
-
-        assertNotNull( bindResponse );
-        assertEquals( ResultCodeEnum.SUCCESS, bindResponse.getLdapResult().getResultCode() );
-        assertTrue( connection.isAuthenticated() );
+        connection.bind( "uid=admin,ou=system", "secret" );
     }
 
 >**Note** It's important to note that the user's name is a *[Dn](6.9-dn.html)*, not a simple name like 'John doe"
@@ -90,11 +84,7 @@ Note that this kind of bind will be supported only if the server allows anonymou
     public void testSimpleBindRequest() throws Exception
     {
 
-        BindResponse bindResponse = connection.bind( "uid=admin,ou=system" );
-
-        assertNotNull( bindResponse );
-        assertEquals( ResultCodeEnum.SUCCESS, bindResponse.getLdapResult().getResultCode() );
-        assertFalse( connection.isAuthenticated() );
+        connection.bind( "uid=admin,ou=system" );
     }
 
 ### SASL Bind
@@ -111,10 +101,7 @@ It's important to know that when you issue an **Unbind**, the connection is drop
     @Test
     public void testDoubleSimpleBindValid() throws Exception
     {
-        BindResponse response = connection.bind( "uid=admin,ou=system", "secret" );
-        assertEquals( ResultCodeEnum.SUCCESS, response.getLdapResult().getResultCode() );
-        assertTrue( connection.isConnected() );
-        assertTrue( connection.isAuthenticated() );
+        connection.bind( "uid=admin,ou=system", "secret" );
 
         // Now, unbind
         connection.unBind();
@@ -122,11 +109,7 @@ It's important to know that when you issue an **Unbind**, the connection is drop
         assertFalse( connection.isAuthenticated() );
 
         // And Bind again.
-        response = connection.bind( "uid=admin,ou=system", "secret" );
-        LdapResult ldapResult3 = response3.getLdapResult();
-        assertEquals( ResultCodeEnum.SUCCESS, response.getLdapResult.getResultCode() );
-        assertTrue( connection.isConnected() );
-        assertTrue( connection.isAuthenticated() );
+        connection.bind( "uid=admin,ou=system", "secret" );
     }
 
 If you issue a _bind_ on the same connection with some different credentials, then the existing session will be terminated on the server, and a new one will be created. All the pending requests for the initial session will be lost.
