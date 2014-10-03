@@ -359,7 +359,7 @@ our @patterns = (
         version_fortress => $version_fortress } ],
 
     #
-    # Apache FORTRESS sub-project pages
+    # Apache FORTRESS project pages
     #
     
     # Download Apache FORTRESS Archive page
