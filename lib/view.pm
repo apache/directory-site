@@ -50,6 +50,7 @@ sub template_page
     return Dotiac::DTL::Template($template)->render(\%args), html => \%args;
 }
 
+
 # Gets the base of the path
 sub _base
 {
