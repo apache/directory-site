@@ -264,7 +264,7 @@ If the vote succeeds LDAP API project can be released.
 
 Go to https://repository.apache.org/index.html#stagingRepositories and release the staging repository so all artifacts are published to Maven central.
 
-Move the distribution packages (sources and bnaries) to the dist SVN repository: https://dist.apache.org/repos/dist/release/directory/api/dist/$(version)
+Move the distribution packages (sources and binaries) to the dist SVN repository: https://dist.apache.org/repos/dist/release/directory/api/dist/$(version)
 
 The best solution would be to checkout the directory in people.apache.org, to copy the packages in the right place, and to check in the changes :
 
@@ -298,10 +298,10 @@ Staging or Production?
 Those files will be stored on the production server only !!! And some extra caution ust be taken not to delete them when we will publish the staging site too...
 </DIV>
 
-First of all, you must checkout the two CMS store for the site : staging and revision.
+First of all, you must checkout the two CMS store for the site : staging and production.
 
     $ cd ~/apacheds
-    $ svn co https://svn.apache.org/repos/infra/websites/production/directory/trunk staging
+    $ svn co https://svn.apache.org/repos/infra/websites/staging/directory/trunk staging
     ...
     $ svn co https://svn.apache.org/repos/infra/websites/production/directory production
     ...
@@ -337,9 +337,9 @@ Add the following line :
     api/gen-docs/<version>
     ...
 
-then save and check in the file <em>.htaccess</em>
+then save and check in the file <em>extpaths.txt</em>
 
-We also have to update this file :
+We also have to update the <em>.htaccess</em> file :
 
     $ cd ~/apacheds/staging/content/api/gen-docs
     $ vi .htaccess
