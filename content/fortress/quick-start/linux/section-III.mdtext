@@ -28,7 +28,7 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 	Important: This target reinstalls and reloads the OpenLDAP server program, configuration and data. 
 </DIV>
 
-### A.
+### Step 1
 
 The fortress 'init-slapd' uses LDAPv3 to perform initial operations.
 
@@ -40,7 +40,8 @@ edit build.properties, ensure the following line has been commented out:
 
 Note: The default for this setting is 'false' or disabled.
 
-### B.
+### Step 2
+
 From FORTRESS_HOME root folder, enter the following command from a system prompt:
 if sudo:
 
@@ -60,7 +61,7 @@ before running the command to kick off the install
 
 	./b.sh init-slapd
 
-### C.
+### Step 3
 
 Verify it ran correctly according to Ant.
 
@@ -70,11 +71,11 @@ Verify it ran correctly according to Ant.
   <IMG src="../../images/Screenshot7-init-slapd-success.png" alt="Screenshot" width="766" height="101"/>
 </CENTER>
 
-### D.
+### Step 4
 
 After above step completes, Symas OpenLDAP will be installed, configured and loaded with fortress bootstrap config. This step also runs provisioning scripts which may be tailored according to requirements. Check out the xml load scripts in FORTRESS_HOME/ldap/setup folder.
 
-### E.
+### Step 5
 
 Point your preferred LDAP browser, ours is Apache Directory Studio, to the installed directory. The configuration parameters you'll need to browse can be found in the generated 'slapd.conf' file.
 
