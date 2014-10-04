@@ -1,10 +1,10 @@
-Title: Section I - Instructions to run the Fortress Ant Build
+Title: Section I - Instructions to download, extract and configure Fortress
 NavPrev: guidelines.html
 NavPrevText: Guidelines and Tips for first-time users
 NavUp: linux.html
 NavUpText: Quickstart Linux - Table of contents
 NavNext: section-II.html
-NavNextText: Section II - 
+NavNextText: Section II - Instructions to run the Fortress Ant Build
 Notice: Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
     distributed with this work for additional information
@@ -22,7 +22,7 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
     specific language governing permissions and limitations
     under the License.
 
-## Instructions to download, extract and configure Fortress Builder Package to Target System
+## Section I - Instructions to download, extract and configure Fortress Builder Package to Target System
 
 * Download one of the linux packages from here: iamfortress.org/download
 * Copy fortressBuilder-\[platform\]-\[version\].zip to hard drive on target server env.
@@ -47,36 +47,3 @@ Note: For Redhat deployments leave this param's value empty, like below, otherwi
   <IMG src="../../images/Screenshot2-edit-sudo.png" alt="Screenshot" width="766" height="111"/>
 </CENTER>
 
-## Instructions to run the Fortress Ant Build
-
-From FORTRESS_HOME root folder, edit the b.sh script to point to java home:
-
-    export JAVA_HOME=/opt/jdk1.7.0_10 
-
-<CENTER>
-  <IMG src="../../images/Screenshot3-edit-javahome.png" alt="Screenshot" width="766" height="111"/>
-</CENTER>
-
-Run the distribution target:
-
-    ./b.sh dist 
-
-<CENTER>
-  <IMG src="../../images/Screenshot4-ant-dist.png" alt="Screenshot" width="766" height="58"/>
-</CENTER>
-
-Note: The b.sh batch file referred to here uses Ant package that is local to Fortress quickstart package.
-
-Verify it ran correctly according to Ant:
-
-    BUILD SUCCESSFUL 
-
-<CENTER>
-  <IMG src="../../images/Screenshot4-ant-success-dist.png" alt="Screenshot" width="766" height="111"/>
-</CENTER>
-
-You may now view the project binaries and documentation located under FORTRESS_HOME/dist. 
-
-<CENTER>
-  <IMG src="../../images/Screenshot5-dist-listing.png" alt="Screenshot" width="766" height="87"/>
-</CENTER>
