@@ -1,0 +1,95 @@
+Title: Section III - Instructions to run the Builder to Install OpenLDAP
+NavPrev: section-II.html
+NavPrevText: Section II - Instructions to run the Fortress Ant Build
+NavUp: linux.html
+NavUpText: Quickstart Linux - Table of contents
+NavNext: section-IV.html
+NavNextText: Section IV - 
+Notice: Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    .
+    http://www.apache.org/licenses/LICENSE-2.0
+    .
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+
+## Section III - Instructions to run the Builder to Install OpenLDAP, configure and load with seed data
+
+<DIV class="note" markdown="1">
+	Important: This target reinstalls and reloads the OpenLDAP server program, configuration and data. 
+</DIV>
+
+The fortress 'init-slapd' uses LDAPv3 to perform initial operations.
+
+edit build.properties, ensure the following line has been commented out: 
+
+<CENTER>
+  <IMG src="../../images/Screenshot43-edit-disable-rest.png" alt="Screenshot"/>
+</CENTER>
+
+Note: The default for this setting is 'false' or disabled.
+
+From FORTRESS_HOME root folder, enter the following command from a system prompt:
+if sudo:
+
+	sudo ./b.sh init-slapd 
+
+<CENTER>
+  <IMG src="../../images/Screenshot6-init-slapd.png" alt="Screenshot" width="766" height="86"/>
+</CENTER>
+
+if not sudo you must run as user that has priv to modify folders in /var and /opt folders:
+
+	su
+
+	[enter your pw]
+
+before running the command to kick off the install
+
+	./b.sh init-slapd
+
+Verify it ran correctly according to Ant.
+
+	BUILD SUCCESSFUL
+
+<CENTER>
+  <IMG src="../../images/Screenshot7-init-slapd-success.png" alt="Screenshot" width="766" height="101"/>
+</CENTER>
+
+
+After above step completes, Symas OpenLDAP will be installed, configured and loaded with fortress bootstrap config. This step also runs provisioning scripts which may be tailored according to requirements. Check out the xml load scripts in FORTRESS_HOME/ldap/setup folder.
+
+Point your preferred LDAP browser, ours is Apache Directory Studio, to the installed directory. The configuration parameters you'll need to browse can be found in the generated 'slapd.conf' file.
+
+To view data stored in default database:
+
+	suffix "dc=openldap,dc=org" 
+	rootdn "cn=Manager,dc=openldap,dc=org" 
+	rootpw "secret"
+
+The root pw will be encrypted before stored in slapd.conf 
+
+<CENTER>
+  <IMG src="../../images/Screenshot8-ldap-browser.png" alt="Screenshot" width="766" height="439"/>
+</CENTER>
+
+To view data stored in audit log database:
+
+	suffix "cn=log"
+	rootdn "cn=Manager,cn=log"
+	rootpw "secret"
+
+The log root pw will be encrypted before stored in slapd.conf
+
+<CENTER>
+  <IMG src="../../images/Screenshot9-ldap-browser-log.png" alt="Screenshot" width="766" height="374"/>
+</CENTER>
