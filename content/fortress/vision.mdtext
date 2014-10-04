@@ -1,0 +1,47 @@
+Title: Vision
+Notice: Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    .
+    http://www.apache.org/licenses/LICENSE-2.0
+    .
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+
+# Architectural Vision
+
+Fortress provides a full ANSI RBAC compliant management and enforcement system that builds on existing open source applications like OpenLDAP and Apache Tomcat.  It is designed to be both simple to implement and cost effective to maintain.
+
+
+## Fortress Server Includes
+
+    Java Servlet container hosting Fortress IAM components
+    Core APIs are used by items following
+    UI for IdM and RBAC policy admin
+    UI for OpenLDAP mgmt & config
+    RESTful policy server
+    WS-Trust B2B SSO
+    SAML 2.0 B2C SSO
+    JavaEE Security plug-in (JACC)
+
+## OpenLDAP Server Includes
+
+    Slapd daemon provides LDAPv3 protocols
+    Memory Mapped DB (LMDB) and multi-tenant data model
+    Short term audit trail and history using slapo access log overlay
+    Password policies using pwpolicy overlay
+    Virtual Directory (BackSQL) integration with fine-grained entitlement DB's
+    Virtual Directory caching using slapo cache overlay
+    Integration with other LDAP servers (AD, ApacheDS, ..)
+
+## MySQL Server Includes
+
+    Long term audit storage and retrieval
