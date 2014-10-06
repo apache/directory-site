@@ -1,0 +1,65 @@
+Title: Section II - Instructions to run the Fortress Ant Build
+NavPrev: section-I.html
+NavPrevText: Section I - Instructions to extract and configure Fortress Builder Package
+NavUp: windows.html
+NavUpText: Quickstart Windows - Table of contents
+NavNext: section-III.html
+NavNextText: Section III - Instructions to run the Builder to Install OpenLDAP, configure and load with seed data
+Notice: Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    .
+    http://www.apache.org/licenses/LICENSE-2.0
+    .
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+
+## Section II - Instructions to run the Fortress Ant Build
+
+### Step 1
+
+From FORTRESS_HOME root folder, edit the b.bat script to point to java home:
+
+    set JAVA_HOME=\Progra~1\Java\jdk1.7.0  
+
+<CENTER>
+  <IMG src="../../images/Screenshot28-edit-javahome-win.png" alt="Screenshot" width="766" height="504"/>
+</CENTER>
+
+### Step 2
+
+Run the distribution target:
+
+    b.bat dist
+
+<CENTER>
+  <IMG src="../../images/Screenshot29-ant-dist-win.png" alt="Screenshot" width="766" height="47"/>
+</CENTER>
+
+Note: The b.bat file referred to here uses Ant package that is local to Fortress quickstart package.
+
+### Step 3
+
+Verify it ran correctly according to Ant:
+
+    BUILD SUCCESSFUL
+
+<CENTER>
+  <IMG src="../../images/Screenshot30-ant-dist-success-win.png" alt="Screenshot" width="766" height="98"/>
+</CENTER>
+
+You may now view the project binaries and documentation located under FORTRESS_HOME/dist.
+
+-----> Wrong snapshot !
+
+<CENTER>
+  <IMG src="../../images/Screenshot5-dist-listing.png" alt="Screenshot" width="766" height="87"/>
+</CENTER>
