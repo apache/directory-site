@@ -26,4 +26,46 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 ## 5.4.1 Replication overview
 
-TODO...
+ApacheDS supports both Master-Slave and Multi-Master replication based on the [syncrepl](http://tools.ietf.org/html/rfc4533) specification.
+
+## Initial steps
+
+The below initial conditions must be met before configuring the replication in any mode.
+
+* Make sure all the servers are up and running
+
+* Add the configuration of the partition whose data needs to be replicated.
+  For example if we like to replicate the partition dc=apache,dc=org then
+  make sure to configure this partition in all the servers that are configured to replicate.
+  See [Adding Partition](../basic-ug/1.4.3-adding-partition.mdtext)
+ 
+
+## Configuring Master-Slave replication
+
+Assuming that the master is running on localhost at port 10389 and slave on localhost at port 11997 and we want to
+replicate the data from partition dc=apache,dc=org
+
+The below configuration must be added in the slave server and restart slave.
+
+	dn: ads-replConsumerId=consumer1,ou=replConsumers,ads-serverId=ldapServer,ou=servers,ads-directoryServiceId=default,ou=config
+	ads-replconsumerid: consumer1
+	ads-replstrictcertvalidation: FALSE
+	ads-replusetls: FALSE
+	ads-replsearchtimeout: 0
+	ads-replsearchfilter: (objectClass=*)
+	ads-replsearchsizelimit: 0
+	ads-replattributes: *
+	ads-replrefreshinterval: 60000
+	ads-repluserpassword: secret
+	ads-repluserdn: uid=admin,ou=system
+	ads-replprovport: 10389
+	ads-replprovhostname: localhost
+	ads-replrefreshnpersist: TRUE
+	ads-replsearchscope: sub
+	ads-searchbasedn: dc=example,dc=com
+	ads-enabled: TRUE
+	objectclass: ads-replConsumer
+	objectclass: ads-base
+	objectclass: top
+	ads-replaliasderefmode: never
+ 
