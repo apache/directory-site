@@ -1,9 +1,11 @@
 {% block navigation %}
 <div id="navigation">
     {% block project-navigation %}
+    {% endblock %}
     <a href="http://bit.ly/1n9YlQT" target="_blank">
       <img src="http://bit.ly/1ttg6CE" width="125" height="125" alt="I'm Speaking at ApacheCon Europe 2014! Join me!" title="I'm Speaking at ApacheCon Europe 2014! Join me!" border="0">
     </a>
+    {% block project-navigation %}
     <h5>Latest News</h5>
     <ul>
         <li><a href="{{base}}apacheds/news.html">ApacheDS</a></li>
@@ -44,7 +46,6 @@
         <li><a href="{{base}}vision.html">Vision</a></li>
         <!--li><a href="{{base}}interopability.html">Interropability</a></li-->
     </ul>
-    {% endblock %}
     {% block common-navigation %}
     <h5>Support</h5>
     <ul>
@@ -68,7 +69,6 @@
         <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
         <li><a href="http://www.apache.org/security/">Security</a></li>
     </ul>
-    
     {% endblock %}
 </div><!-- navigation -->
 {% endblock %}
