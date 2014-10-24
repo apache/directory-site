@@ -26,14 +26,20 @@ Issues, bugs, and feature requests should be submitted to the following issue tr
 
 
 | Directory Sub-Project | JIRA key | Link to issue tracking system |
+|:-:|:-:|---|
 | Fortress | FC | [http://issues.apache.org/jira/browse/FC](http://issues.apache.org/jira/browse/FC) |
 
 ## Previous issues
 
-Before becoming an Apache (tm) project, Fortress had its own life for years. During this period, teh project was using another [JIRA instance](https://fortress.atlassian.net/browse/FC/). You can still check for issues there, otherwise, the following list contains all the fixed issues :
+Before becoming an Apache (tm) project, Fortress had its own life for years. During this period, the project was using another [JIRA instance](https://fortress.atlassian.net/browse/FC/). You can still check for issues there, otherwise, the following list contains all the fixed issues :
 
+| key | title | Created | Updated |
+|:-:|:-:|:-:|---|
+|[FC-1](#FC-1)|delPermObjs causes LDAP 80 error|23/Mar/13|29/Mar/13|
+|[FC-151](#FC-1)|delPermObjs causes LDAP 80 error|23/Mar/13|29/Mar/13|
 
-<TABLE border="0" width="100%" cellpadding="0" cellspacing="0">
+<h2 id="FC-1">[FC-1]()</h2>
+<TABLE id="FC-151" border="0" width="100%" cellpadding="0" cellspacing="0">
   <tbody>
     <tr>
       <td colspan="2" bgcolor="#f0f0f0" valign="top" width="100%">
@@ -7822,30 +7828,30 @@ In Java 8, the call to  Set&lt;String&gt; rls = rMgr.authorizedRoles(user); retu
         <tr id="comment-body-12009"><td bgcolor="#ffffff">
             <p>Test failures running the FortressJunitTest suite under Java 8</p>
 
-<p><a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a> Testcase: createSessionsDSD took 0.001 sec<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    FAILED<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a> us.jts.fortress.rbac.AccessMgrImplTest.createSessionsDSD role cardinality check failed user-role list size user <a href="https://fortress.atlassian.net/wiki/display/FC/jtsTU12User1">jtsTU12User1</a> dsd set <a href="https://fortress.atlassian.net/wiki/display/FC/oamDsdTest1">oamDsdTest1</a> card <a href="https://fortress.atlassian.net/wiki/display/FC/2">2</a> listsize <a href="https://fortress.atlassian.net/wiki/display/FC/0">0</a> expected:&lt;1&gt; but was:&lt;0&gt;<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a> junit.framework.AssertionFailedError: us.jts.fortress.rbac.AccessMgrImplTest.createSessionsDSD role cardinality check failed user-role list size user <a href="https://fortress.atlassian.net/wiki/display/FC/jtsTU12User1">jtsTU12User1</a> dsd set <a href="https://fortress.atlassian.net/wiki/display/FC/oamDsdTest1">oamDsdTest1</a> card <a href="https://fortress.atlassian.net/wiki/display/FC/2">2</a> listsize <a href="https://fortress.atlassian.net/wiki/display/FC/0">0</a> expected:&lt;1&gt; but was:&lt;0&gt;<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    at us.jts.fortress.rbac.AccessMgrImplTest.createSessionsDSD(AccessMgrImplTest.java:602)<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    at us.jts.fortress.rbac.AccessMgrImplTest.createSessionsDSD(AccessMgrImplTest.java:559)<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a> <br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a> Testcase: createSessionsDSD took 0.001 sec<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    FAILED<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a> us.jts.fortress.rbac.AccessMgrImplTest.createSessionsDSD role cardinality check failed user-role list size user <a href="https://fortress.atlassian.net/wiki/display/FC/jtsTU12User1">jtsTU12User1</a> dsd set <a href="https://fortress.atlassian.net/wiki/display/FC/oamDsdTest1">oamDsdTest1</a> card <a href="https://fortress.atlassian.net/wiki/display/FC/2">2</a> listsize <a href="https://fortress.atlassian.net/wiki/display/FC/0">0</a> expected:&lt;1&gt; but was:&lt;0&gt;<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a> junit.framework.AssertionFailedError: us.jts.fortress.rbac.AccessMgrImplTest.createSessionsDSD role cardinality check failed user-role list size user <a href="https://fortress.atlassian.net/wiki/display/FC/jtsTU12User1">jtsTU12User1</a> dsd set <a href="https://fortress.atlassian.net/wiki/display/FC/oamDsdTest1">oamDsdTest1</a> card <a href="https://fortress.atlassian.net/wiki/display/FC/2">2</a> listsize <a href="https://fortress.atlassian.net/wiki/display/FC/0">0</a> expected:&lt;1&gt; but was:&lt;0&gt;<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    at us.jts.fortress.rbac.AccessMgrImplTest.createSessionsDSD(AccessMgrImplTest.java:602)<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    at us.jts.fortress.rbac.AccessMgrImplTest.createSessionsDSD(AccessMgrImplTest.java:559)<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a> <br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a> Testcase: testSessionRole took 0.034 sec<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a> Testcase: testCheckAccess took 1.872 sec<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a> Testcase: testAddActiveRole took 0.217 sec<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    FAILED<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a> us.jts.fortress.rbac.AccessMgrImplTest.addActiveRolesDSD cardinality test failed user <a href="https://fortress.atlassian.net/wiki/display/FC/jtsTU8User1">jtsTU8User1</a> role <a href="https://fortress.atlassian.net/wiki/display/FC/oamDSDR1">oamDSDR1</a> ssd <a href="https://fortress.atlassian.net/wiki/display/FC/oamDsdTest1">oamDsdTest1</a> cardinality <a href="https://fortress.atlassian.net/wiki/display/FC/2">2</a> count <a href="https://fortress.atlassian.net/wiki/display/FC/1">1</a><br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a> junit.framework.AssertionFailedError: us.jts.fortress.rbac.AccessMgrImplTest.addActiveRolesDSD cardinality test failed user <a href="https://fortress.atlassian.net/wiki/display/FC/jtsTU8User1">jtsTU8User1</a> role <a href="https://fortress.atlassian.net/wiki/display/FC/oamDSDR1">oamDSDR1</a> ssd <a href="https://fortress.atlassian.net/wiki/display/FC/oamDsdTest1">oamDsdTest1</a> cardinality <a href="https://fortress.atlassian.net/wiki/display/FC/2">2</a> count <a href="https://fortress.atlassian.net/wiki/display/FC/1">1</a><br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    at us.jts.fortress.rbac.AccessMgrImplTest.addActiveRolesDSD(AccessMgrImplTest.java:1216)<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    at us.jts.fortress.rbac.AccessMgrImplTest.testAddActiveRole(AccessMgrImplTest.java:983)<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a> <br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a> Testcase: testDropActiveRole took 0.03 sec</p>
+<p>junit Testcase: createSessionsDSD took 0.001 sec<br>
+    junit    FAILED<br>
+    junit us.jts.fortress.rbac.AccessMgrImplTest.createSessionsDSD role cardinality check failed user-role list size user <a href="https://fortress.atlassian.net/wiki/display/FC/jtsTU12User1">jtsTU12User1</a> dsd set <a href="https://fortress.atlassian.net/wiki/display/FC/oamDsdTest1">oamDsdTest1</a> card <a href="https://fortress.atlassian.net/wiki/display/FC/2">2</a> listsize <a href="https://fortress.atlassian.net/wiki/display/FC/0">0</a> expected:&lt;1&gt; but was:&lt;0&gt;<br>
+    junit junit.framework.AssertionFailedError: us.jts.fortress.rbac.AccessMgrImplTest.createSessionsDSD role cardinality check failed user-role list size user <a href="https://fortress.atlassian.net/wiki/display/FC/jtsTU12User1">jtsTU12User1</a> dsd set <a href="https://fortress.atlassian.net/wiki/display/FC/oamDsdTest1">oamDsdTest1</a> card <a href="https://fortress.atlassian.net/wiki/display/FC/2">2</a> listsize <a href="https://fortress.atlassian.net/wiki/display/FC/0">0</a> expected:&lt;1&gt; but was:&lt;0&gt;<br>
+    junit    at us.jts.fortress.rbac.AccessMgrImplTest.createSessionsDSD(AccessMgrImplTest.java:602)<br>
+    junit    at us.jts.fortress.rbac.AccessMgrImplTest.createSessionsDSD(AccessMgrImplTest.java:559)<br>
+    junit <br>
+    junit Testcase: createSessionsDSD took 0.001 sec<br>
+    junit    FAILED<br>
+    junit us.jts.fortress.rbac.AccessMgrImplTest.createSessionsDSD role cardinality check failed user-role list size user <a href="https://fortress.atlassian.net/wiki/display/FC/jtsTU12User1">jtsTU12User1</a> dsd set <a href="https://fortress.atlassian.net/wiki/display/FC/oamDsdTest1">oamDsdTest1</a> card <a href="https://fortress.atlassian.net/wiki/display/FC/2">2</a> listsize <a href="https://fortress.atlassian.net/wiki/display/FC/0">0</a> expected:&lt;1&gt; but was:&lt;0&gt;<br>
+    junit junit.framework.AssertionFailedError: us.jts.fortress.rbac.AccessMgrImplTest.createSessionsDSD role cardinality check failed user-role list size user <a href="https://fortress.atlassian.net/wiki/display/FC/jtsTU12User1">jtsTU12User1</a> dsd set <a href="https://fortress.atlassian.net/wiki/display/FC/oamDsdTest1">oamDsdTest1</a> card <a href="https://fortress.atlassian.net/wiki/display/FC/2">2</a> listsize <a href="https://fortress.atlassian.net/wiki/display/FC/0">0</a> expected:&lt;1&gt; but was:&lt;0&gt;<br>
+    junit    at us.jts.fortress.rbac.AccessMgrImplTest.createSessionsDSD(AccessMgrImplTest.java:602)<br>
+    junit    at us.jts.fortress.rbac.AccessMgrImplTest.createSessionsDSD(AccessMgrImplTest.java:559)<br>
+    junit <br>
+    junit Testcase: testSessionRole took 0.034 sec<br>
+    junit Testcase: testCheckAccess took 1.872 sec<br>
+    junit Testcase: testAddActiveRole took 0.217 sec<br>
+    junit    FAILED<br>
+    junit us.jts.fortress.rbac.AccessMgrImplTest.addActiveRolesDSD cardinality test failed user <a href="https://fortress.atlassian.net/wiki/display/FC/jtsTU8User1">jtsTU8User1</a> role <a href="https://fortress.atlassian.net/wiki/display/FC/oamDSDR1">oamDSDR1</a> ssd <a href="https://fortress.atlassian.net/wiki/display/FC/oamDsdTest1">oamDsdTest1</a> cardinality <a href="https://fortress.atlassian.net/wiki/display/FC/2">2</a> count <a href="https://fortress.atlassian.net/wiki/display/FC/1">1</a><br>
+    junit junit.framework.AssertionFailedError: us.jts.fortress.rbac.AccessMgrImplTest.addActiveRolesDSD cardinality test failed user <a href="https://fortress.atlassian.net/wiki/display/FC/jtsTU8User1">jtsTU8User1</a> role <a href="https://fortress.atlassian.net/wiki/display/FC/oamDSDR1">oamDSDR1</a> ssd <a href="https://fortress.atlassian.net/wiki/display/FC/oamDsdTest1">oamDsdTest1</a> cardinality <a href="https://fortress.atlassian.net/wiki/display/FC/2">2</a> count <a href="https://fortress.atlassian.net/wiki/display/FC/1">1</a><br>
+    junit    at us.jts.fortress.rbac.AccessMgrImplTest.addActiveRolesDSD(AccessMgrImplTest.java:1216)<br>
+    junit    at us.jts.fortress.rbac.AccessMgrImplTest.testAddActiveRole(AccessMgrImplTest.java:983)<br>
+    junit <br>
+    junit Testcase: testDropActiveRole took 0.03 sec</p>
         </td></tr>
                 <tr id="comment-header-12010"><td bgcolor="#f0f0f0">
             Comment by  
@@ -22790,67 +22796,67 @@ LDAPModification(type=add, attr=ftRoles, values=</p>
         <td id="descriptionArea">
             
 
-<p>  <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a> 2013-05-29 17:51:18,449 (INFO ) DEL-RLS-TR6-DESC<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a> 2013-05-29 17:51:18,480 (ERROR) us.jts.fortress.rbac.AdminMgrImplTest.delRoleDescendant caught SecurityException rc=5004, msg=us.jts.fortress.rbac.RoleDAO.remove role name=oamT6C4B2A1 LDAPException=32 msg=no such object<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a> us.jts.fortress.RemoveException: us.jts.fortress.rbac.RoleDAO.remove role name=oamT6C4B2A1 LDAPException=32 msg=no such object<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    at us.jts.fortress.rbac.RoleDAO.remove(RoleDAO.java:316)<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    at us.jts.fortress.rbac.RoleP.delete(RoleP.java:246)<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    at us.jts.fortress.rbac.AdminMgrImpl.deleteRole(AdminMgrImpl.java:434)<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    at us.jts.fortress.rbac.AdminMgrImplTest.delRoleDescendant(AdminMgrImplTest.java:670)<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    at us.jts.fortress.rbac.AdminMgrImplTest.testDelRoleDescendant(AdminMgrImplTest.java:603)<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    at java.lang.reflect.Method.invoke(Method.java:601)<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    at junit.framework.TestCase.runTest(TestCase.java:168)<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    at junit.framework.TestCase.runBare(TestCase.java:134)<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    at junit.framework.TestResult$1.protect(TestResult.java:110)<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    at junit.framework.TestResult.runProtected(TestResult.java:128)<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    at junit.framework.TestResult.run(TestResult.java:113)<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    at junit.framework.TestCase.run(TestCase.java:124)<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    at junit.framework.TestSuite.runTest(TestSuite.java:243)<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    at junit.framework.TestSuite.run(TestSuite.java:238)<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.run(JUnitTestRunner.java:518)<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.launch(JUnitTestRunner.java:1052)<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.main(JUnitTestRunner.java:906)<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a> Caused by: LDAPException(resultCode=32 (no such object), errorMessage='no such object', matchedDN='ou=Roles,ou=RBAC,dc=jts,dc=us')<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    at com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPConnection.modify(LDAPConnection.java:1137)<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    at com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPConnection.modify(LDAPConnection.java:1154)<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    at us.jts.fortress.ldap.DataProvider.modify(DataProvider.java:188)<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    at us.jts.fortress.ldap.DataProvider.delete(DataProvider.java:235)<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    at us.jts.fortress.rbac.RoleDAO.remove(RoleDAO.java:311)<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    ... 19 more<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a> 2013-05-29 17:51:18,483 (INFO ) DEL-RLS-TR6-ASC<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a> 2013-05-29 17:51:18,487 (ERROR) us.jts.fortress.rbac.AdminMgrImplTest.delRoleAscendant caught SecurityException rc=5060, msg=us.jts.fortress.rbac.HierUtil.validateRelationship child <a href="https://fortress.atlassian.net/wiki/display/FC/oamT7D2C1B1A1">oamT7D2C1B1A1</a> does not have parent <a href="https://fortress.atlassian.net/wiki/display/FC/oamT7C2B1A1">oamT7C2B1A1</a><br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a> us.jts.fortress.ValidationException: us.jts.fortress.rbac.HierUtil.validateRelationship child <a href="https://fortress.atlassian.net/wiki/display/FC/oamT7D2C1B1A1">oamT7D2C1B1A1</a> does not have parent <a href="https://fortress.atlassian.net/wiki/display/FC/oamT7C2B1A1">oamT7C2B1A1</a><br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    at us.jts.fortress.rbac.HierUtil.validateRelationship(HierUtil.java:127)<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    at us.jts.fortress.rbac.RoleUtil.validateRelationship(RoleUtil.java:245)<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    at us.jts.fortress.rbac.AdminMgrImpl.deleteInheritance(AdminMgrImpl.java:1046)<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    at us.jts.fortress.rbac.AdminMgrImplTest.delRoleAscendant(AdminMgrImplTest.java:764)<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    at us.jts.fortress.rbac.AdminMgrImplTest.testDelRoleAscendant(AdminMgrImplTest.java:741)<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    at java.lang.reflect.Method.invoke(Method.java:601)<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    at junit.framework.TestCase.runTest(TestCase.java:168)<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    at junit.framework.TestCase.runBare(TestCase.java:134)<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    at junit.framework.TestResult$1.protect(TestResult.java:110)<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    at junit.framework.TestResult.runProtected(TestResult.java:128)<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    at junit.framework.TestResult.run(TestResult.java:113)<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    at junit.framework.TestCase.run(TestCase.java:124)<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    at junit.framework.TestSuite.runTest(TestSuite.java:243)<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    at junit.framework.TestSuite.run(TestSuite.java:238)<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.run(JUnitTestRunner.java:518)<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.launch(JUnitTestRunner.java:1052)<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.main(JUnitTestRunner.java:906)<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a> 2013-05-29 17:51:18,487 (INFO ) DEL-RLS TR1<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a> 2013-05-29 17:51:18,502 (INFO ) DEL-RLS TR2<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a> 2013-05-29 17:51:18,516 (INFO ) DEL-RLS TR3<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a> 2013-05-29 17:51:18,771 (INFO ) DEL-RLS TR4<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a> 2013-05-29 17:51:18,799 (INFO ) DEL-RLS ROLES_TR5_HIER<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a> 2013-05-29 17:51:18,818 (INFO ) DEL-RLS ROLES_TR5B<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a> 2013-05-29 17:51:18,852 (INFO ) DEL-RLS ROLES_TR8_SSD<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a> 2013-05-29 17:51:18,919 (INFO ) DEL-RLS ROLES_TR9_SSD<br>
+<p>  junit 2013-05-29 17:51:18,449 (INFO ) DEL-RLS-TR6-DESC<br>
+    junit 2013-05-29 17:51:18,480 (ERROR) us.jts.fortress.rbac.AdminMgrImplTest.delRoleDescendant caught SecurityException rc=5004, msg=us.jts.fortress.rbac.RoleDAO.remove role name=oamT6C4B2A1 LDAPException=32 msg=no such object<br>
+    junit us.jts.fortress.RemoveException: us.jts.fortress.rbac.RoleDAO.remove role name=oamT6C4B2A1 LDAPException=32 msg=no such object<br>
+    junit    at us.jts.fortress.rbac.RoleDAO.remove(RoleDAO.java:316)<br>
+    junit    at us.jts.fortress.rbac.RoleP.delete(RoleP.java:246)<br>
+    junit    at us.jts.fortress.rbac.AdminMgrImpl.deleteRole(AdminMgrImpl.java:434)<br>
+    junit    at us.jts.fortress.rbac.AdminMgrImplTest.delRoleDescendant(AdminMgrImplTest.java:670)<br>
+    junit    at us.jts.fortress.rbac.AdminMgrImplTest.testDelRoleDescendant(AdminMgrImplTest.java:603)<br>
+    junit    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)<br>
+    junit    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)<br>
+    junit    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)<br>
+    junit    at java.lang.reflect.Method.invoke(Method.java:601)<br>
+    junit    at junit.framework.TestCase.runTest(TestCase.java:168)<br>
+    junit    at junit.framework.TestCase.runBare(TestCase.java:134)<br>
+    junit    at junit.framework.TestResult$1.protect(TestResult.java:110)<br>
+    junit    at junit.framework.TestResult.runProtected(TestResult.java:128)<br>
+    junit    at junit.framework.TestResult.run(TestResult.java:113)<br>
+    junit    at junit.framework.TestCase.run(TestCase.java:124)<br>
+    junit    at junit.framework.TestSuite.runTest(TestSuite.java:243)<br>
+    junit    at junit.framework.TestSuite.run(TestSuite.java:238)<br>
+    junit    at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.run(JUnitTestRunner.java:518)<br>
+    junit    at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.launch(JUnitTestRunner.java:1052)<br>
+    junit    at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.main(JUnitTestRunner.java:906)<br>
+    junit Caused by: LDAPException(resultCode=32 (no such object), errorMessage='no such object', matchedDN='ou=Roles,ou=RBAC,dc=jts,dc=us')<br>
+    junit    at com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPConnection.modify(LDAPConnection.java:1137)<br>
+    junit    at com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPConnection.modify(LDAPConnection.java:1154)<br>
+    junit    at us.jts.fortress.ldap.DataProvider.modify(DataProvider.java:188)<br>
+    junit    at us.jts.fortress.ldap.DataProvider.delete(DataProvider.java:235)<br>
+    junit    at us.jts.fortress.rbac.RoleDAO.remove(RoleDAO.java:311)<br>
+    junit    ... 19 more<br>
+    junit 2013-05-29 17:51:18,483 (INFO ) DEL-RLS-TR6-ASC<br>
+    junit 2013-05-29 17:51:18,487 (ERROR) us.jts.fortress.rbac.AdminMgrImplTest.delRoleAscendant caught SecurityException rc=5060, msg=us.jts.fortress.rbac.HierUtil.validateRelationship child <a href="https://fortress.atlassian.net/wiki/display/FC/oamT7D2C1B1A1">oamT7D2C1B1A1</a> does not have parent <a href="https://fortress.atlassian.net/wiki/display/FC/oamT7C2B1A1">oamT7C2B1A1</a><br>
+    junit us.jts.fortress.ValidationException: us.jts.fortress.rbac.HierUtil.validateRelationship child <a href="https://fortress.atlassian.net/wiki/display/FC/oamT7D2C1B1A1">oamT7D2C1B1A1</a> does not have parent <a href="https://fortress.atlassian.net/wiki/display/FC/oamT7C2B1A1">oamT7C2B1A1</a><br>
+    junit    at us.jts.fortress.rbac.HierUtil.validateRelationship(HierUtil.java:127)<br>
+    junit    at us.jts.fortress.rbac.RoleUtil.validateRelationship(RoleUtil.java:245)<br>
+    junit    at us.jts.fortress.rbac.AdminMgrImpl.deleteInheritance(AdminMgrImpl.java:1046)<br>
+    junit    at us.jts.fortress.rbac.AdminMgrImplTest.delRoleAscendant(AdminMgrImplTest.java:764)<br>
+    junit    at us.jts.fortress.rbac.AdminMgrImplTest.testDelRoleAscendant(AdminMgrImplTest.java:741)<br>
+    junit    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)<br>
+    junit    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)<br>
+    junit    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)<br>
+    junit    at java.lang.reflect.Method.invoke(Method.java:601)<br>
+    junit    at junit.framework.TestCase.runTest(TestCase.java:168)<br>
+    junit    at junit.framework.TestCase.runBare(TestCase.java:134)<br>
+    junit    at junit.framework.TestResult$1.protect(TestResult.java:110)<br>
+    junit    at junit.framework.TestResult.runProtected(TestResult.java:128)<br>
+    junit    at junit.framework.TestResult.run(TestResult.java:113)<br>
+    junit    at junit.framework.TestCase.run(TestCase.java:124)<br>
+    junit    at junit.framework.TestSuite.runTest(TestSuite.java:243)<br>
+    junit    at junit.framework.TestSuite.run(TestSuite.java:238)<br>
+    junit    at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.run(JUnitTestRunner.java:518)<br>
+    junit    at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.launch(JUnitTestRunner.java:1052)<br>
+    junit    at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.main(JUnitTestRunner.java:906)<br>
+    junit 2013-05-29 17:51:18,487 (INFO ) DEL-RLS TR1<br>
+    junit 2013-05-29 17:51:18,502 (INFO ) DEL-RLS TR2<br>
+    junit 2013-05-29 17:51:18,516 (INFO ) DEL-RLS TR3<br>
+    junit 2013-05-29 17:51:18,771 (INFO ) DEL-RLS TR4<br>
+    junit 2013-05-29 17:51:18,799 (INFO ) DEL-RLS ROLES_TR5_HIER<br>
+    junit 2013-05-29 17:51:18,818 (INFO ) DEL-RLS ROLES_TR5B<br>
+    junit 2013-05-29 17:51:18,852 (INFO ) DEL-RLS ROLES_TR8_SSD<br>
+    junit 2013-05-29 17:51:18,919 (INFO ) DEL-RLS ROLES_TR9_SSD<br>
 ^Csmckinn@smckinnlt-lr02:~/GIT/fortressDev/openldap-fortress-core$ sudo ./build.sh init-slapd<br>
 Buildfile: /home/smckinn/GIT/fortressDev/openldap-fortress-core/build.xml</p>
             <br>
@@ -24613,13 +24619,13 @@ add flag here:<br>
             <p>During test-full target (with teardown) on apacheds receive this error:</p>
 
 
-<p> <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a> Testcase: testCreateSession took 0.019 sec<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    FAILED<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a> us.jts.fortress.rbac.UserDAO.checkPassword userId <a href="https://fortress.atlassian.net/wiki/display/FC/jtsUser2">jtsUser2</a> caught LDAPException=53 msg=ERR_732 Cannot process a Request while binding<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a> junit.framework.AssertionFailedError: us.jts.fortress.rbac.UserDAO.checkPassword userId <a href="https://fortress.atlassian.net/wiki/display/FC/jtsUser2">jtsUser2</a> caught LDAPException=53 msg=ERR_732 Cannot process a Request while binding<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    at us.jts.fortress.rbac.AccessMgrImplTest.createSessions(AccessMgrImplTest.java:331)<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    at us.jts.fortress.rbac.AccessMgrImplTest.testCreateSession(AccessMgrImplTest.java:281)<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a> </p>
+<p> junit Testcase: testCreateSession took 0.019 sec<br>
+    junit    FAILED<br>
+    junit us.jts.fortress.rbac.UserDAO.checkPassword userId <a href="https://fortress.atlassian.net/wiki/display/FC/jtsUser2">jtsUser2</a> caught LDAPException=53 msg=ERR_732 Cannot process a Request while binding<br>
+    junit junit.framework.AssertionFailedError: us.jts.fortress.rbac.UserDAO.checkPassword userId <a href="https://fortress.atlassian.net/wiki/display/FC/jtsUser2">jtsUser2</a> caught LDAPException=53 msg=ERR_732 Cannot process a Request while binding<br>
+    junit    at us.jts.fortress.rbac.AccessMgrImplTest.createSessions(AccessMgrImplTest.java:331)<br>
+    junit    at us.jts.fortress.rbac.AccessMgrImplTest.testCreateSession(AccessMgrImplTest.java:281)<br>
+    junit </p>
             <br>
         </td>
     </tr>
@@ -25641,226 +25647,163 @@ employee<br>
         </td></tr>
             </tbody></table>
 <hr class="fullcontent"><br><br style="page-break-before:always;"><br>
+-->
+
+<h2 id="FC-1">[FC-1](https://fortress.atlassian.net/browse/FC-1)</h2>
 <table class="tableBorder" border="0" width="100%" cellpadding="0" cellspacing="0">
-    <tbody><tr>
-        <td colspan="2" bgcolor="#f0f0f0" valign="top" width="100%">
-                            <h3 class="formtitle">
-                        [FC-1]&nbsp;<a href="https://fortress.atlassian.net/browse/FC-1">delPermObjs causes LDAP 80 error</a>
-            <span class="subText">
-               Created: 23/Mar/13                   &nbsp;Updated: 23/Mar/13
-
-                                    &nbsp;Due: 29/Mar/13
-                                            </span>
-            </h3>
-        </td>
+  <tbody>
+    <tr>
+      <td colspan="2" bgcolor="#f0f0f0" valign="top" width="100%">
+        <h3>[FC-1]delPermObjs causes LDAP 80 error
+          <span>Created: 23/Mar/13&nbsp;Updated: 23/Mar/13&nbsp;Due: 29/Mar/13</span>
+        </h3>
+      </td>
     </tr>
     <tr>
-        <td width="20%"><b>Status:</b></td>
-        <td width="80%">Open</td>
+      <td width="20%"><b>Status:</b></td>
+      <td width="80%">Open</td>
     </tr>
     <tr>
-        <td width="20%"><b>Project:</b></td>
-        <td width="80%"><a href="https://fortress.atlassian.net/secure/BrowseProject.jspa?id=10000">Fortress Core</a></td>
-    </tr>
-
-        <tr>
-            <td><b>Component/s:</b></td>
-            <td>
-                            None
-                </td>
-    </tr>
-    
-
-        <tr>
-            <td><b>Affects Version/s:</b></td>
-            <td>
-                            None
-                </td>
-    </tr>
-    
-
-        <tr>
-            <td><b>Fix Version/s:</b></td>
-            <td>
-                            None
-                </td>
-    </tr>
-    
-    </tbody></table>
-
-<br>
-<table class="grid" border="0" width="100%" cellpadding="0" cellspacing="0">
-    <tbody><tr>
-        <td bgcolor="#f0f0f0" valign="top" width="20%">
-            <b>Type:</b>
-        </td>
-        <td bgcolor="#ffffff" valign="top" width="30%">
-            Bug
-        </td>
-
-                    <td bgcolor="#f0f0f0">
-                <b>Priority:</b>
-            </td>
-            <td bgcolor="#ffffff" nowrap="" valign="top">
-                Major
-            </td>
-            </tr>
-    <tr>
-                        <td bgcolor="#f0f0f0" valign="top" width="20%">
-                <b>Reporter:</b>
-            </td>
-            <td bgcolor="#ffffff" valign="top" width="30%">
-                                            <a class="user-hover" rel="smckinney" id="word_reporter_smckinney" href="https://fortress.atlassian.net/secure/ViewProfile.jspa?name=smckinney">Shawn McKinney [Administrator]</a>
-                            </td>
-        
-                    <td bgcolor="#f0f0f0" width="20%">
-                <b>Assignee:</b>
-            </td>
-            <td bgcolor="#ffffff" nowrap="" valign="top" width="30%">
-                                            <a class="user-hover" rel="smckinney" id="word_assignee_smckinney" href="https://fortress.atlassian.net/secure/ViewProfile.jspa?name=smckinney">Shawn McKinney [Administrator]</a>
-                            </td>
-            </tr>
-        <tr>
-        <td bgcolor="#f0f0f0" width="20%">
-            <b>Resolution:</b>
-        </td>
-        <td bgcolor="#ffffff" nowrap="" valign="top" width="30%">
-                            Unresolved
-                    </td>
-                    <td bgcolor="#f0f0f0" width="20%">
-                <b>Votes:</b>
-            </td>
-            <td bgcolor="#ffffff" nowrap="" valign="top" width="30%">
-                0
-            </td>
-        
-    </tr>
-    
-        <tr>
-        <td bgcolor="#f0f0f0" width="20%">
-            <b>Labels:</b>
-        </td>
-        <td id="labels-10000-value" class="value" colspan="3" bgcolor="#ffffff" nowrap="" valign="top">
-                            None
-                    </td>
-    </tr>
-    
-        <tr>
-                <td bgcolor="#f0f0f0" width="20%"><b>Remaining Estimate:</b></td>
-        <td colspan="3" bgcolor="#ffffff" nowrap="" valign="top" width="80%">
-                            4 hours
-                    </td>
+      <td width="20%"><b>Project:</b></td>
+      <td width="80%"><a href="https://fortress.atlassian.net/secure/BrowseProject.jspa?id=10000">Fortress Core</a></td>
     </tr>
     <tr>
-                <td bgcolor="#f0f0f0" width="20%"><b>Time Spent:</b></td>
-        <td colspan="3" bgcolor="#ffffff" nowrap="" valign="top" width="80%">
-                            Not Specified
-                    </td>
+      <td><b>Component/s:</b></td>
+      <td>None</td>
     </tr>
     <tr>
-                <td bgcolor="#f0f0f0" width="20%"><b>Original Estimate:</b></td>
-        <td colspan="3" bgcolor="#ffffff" nowrap="" valign="top" width="80%">
-                            4 hours
-                    </td>
+      <td><b>Affects Version/s:</b></td>
+      <td>None</td>
     </tr>
-    
-        <tr>
-
-        <td bgcolor="#f0f0f0" valign="top" width="20%">
-            <b>Environment:</b>
-        </td>
-        <td colspan="3" bgcolor="#ffffff" valign="top">
-            <p>Ubuntu-12.04.1-server-amd64</p>
-        </td>
+    <tr>
+      <td><b>Fix Version/s:</b></td>
+      <td>None</td>
     </tr>
-    </tbody></table>
-
-
-
-    <br>
-
-        <table class="grid" border="0" width="100%" cellpadding="0" cellspacing="0">
-            
-
-        
-    
-
-
-
+  </tbody>
 </table>
-
-    <br>
-
-    <table align="center" border="0" width="100%" cellpadding="2" cellspacing="0">
-    <tbody><tr>
-        <td align="center" bgcolor="#bbbbbb" nowrap="" width="1%">
-            &nbsp;<font color="#ffffff"><b>Description</b></font>&nbsp;
-        </td>
-        <td>&nbsp;</td>
+<br>
+<table border="0" width="100%" cellpadding="0" cellspacing="0">
+  <tbody>
+    <tr>
+      <td bgcolor="#f0f0f0" valign="top" width="20%">
+        <b>Type:</b>
+      </td>
+      <td bgcolor="#ffffff" valign="top" width="30%">Bug</td>
+      <td bgcolor="#f0f0f0"><b>Priority:</b></td>
+      <td bgcolor="#ffffff" nowrap="" valign="top">Major</td>
     </tr>
-    </tbody></table>
-
-    <table border="0" width="100%" cellpadding="0" cellspacing="0">
-    <tbody><tr>
-        <td id="descriptionArea">
-            <p>The following error occurs during regression test with REST enabled:</p>
-
-<p><a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a> 2013-03-22 22:24:44,671 (INFO ) DEL-OBJS TOB4<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a> 2013-03-22 22:24:44,907 (ERROR) us.jts.fortress.rbac.AdminMgrImplTest.delPermObjs objectName <a href="https://fortress.atlassian.net/wiki/display/FC/TOB4_8">TOB4_8</a> caught SecurityException rc=3005, msg=us.jts.fortress.rbac.PermDAO.deleteObj objectName <a href="https://fortress.atlassian.net/wiki/display/FC/TOB4_8">TOB4_8</a> caught LDAPException=80 msg=entry delete failed<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a> us.jts.fortress.SecurityException: us.jts.fortress.rbac.PermDAO.deleteObj objectName <a href="https://fortress.atlassian.net/wiki/display/FC/TOB4_8">TOB4_8</a> caught LDAPException=80 msg=entry delete failed<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    at us.jts.fortress.rest.AdminMgrRestImpl.deletePermObj(AdminMgrRestImpl.java:913)<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    at us.jts.fortress.rbac.AdminMgrImplTest.delPermObjs(AdminMgrImplTest.java:1765)<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    at us.jts.fortress.rbac.AdminMgrImplTest.testDeletePermissionObj(AdminMgrImplTest.java:1740)<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    at java.lang.reflect.Method.invoke(Method.java:601)<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    at junit.framework.TestCase.runTest(TestCase.java:168)<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    at junit.framework.TestCase.runBare(TestCase.java:134)<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    at junit.framework.TestResult$1.protect(TestResult.java:110)<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    at junit.framework.TestResult.runProtected(TestResult.java:128)<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    at junit.framework.TestResult.run(TestResult.java:113)<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    at junit.framework.TestCase.run(TestCase.java:124)<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    at junit.framework.TestSuite.runTest(TestSuite.java:243)<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    at junit.framework.TestSuite.run(TestSuite.java:238)<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.run(JUnitTestRunner.java:518)<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.launch(JUnitTestRunner.java:1052)<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a>    at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.main(JUnitTestRunner.java:906)<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a> 2013-03-22 22:24:44,909 (INFO ) DEASGN-USRS TU1 TR1<br>
-    <a href="https://fortress.atlassian.net/wiki/display/FC/junit">junit</a> 2013-03-22 22:24:54,723 (INFO ) DEASGN-USRS TU4 TR2</p>
-
-            <br>
-        </td>
+    <tr>
+      <td bgcolor="#f0f0f0" valign="top" width="20%"><b>Reporter:</b></td>
+      <td bgcolor="#ffffff" valign="top" width="30%">
+        <a class="user-hover" rel="smckinney" id="word_reporter_smckinney" href="https://fortress.atlassian.net/secure/ViewProfile.jspa?name=smckinney">Shawn McKinney [Administrator]</a>
+      </td>
+      <td bgcolor="#f0f0f0" width="20%"><b>Assignee:</b></td>
+      <td bgcolor="#ffffff" nowrap="" valign="top" width="30%">
+        <a class="user-hover" rel="smckinney" id="word_assignee_smckinney" href="https://fortress.atlassian.net/secure/ViewProfile.jspa?name=smckinney">Shawn McKinney [Administrator]</a>
+      </td>
     </tr>
-    </tbody></table>
-
-    <br>
-
-    <table align="center" border="0" width="100%" cellpadding="2" cellspacing="0">
-    <tbody><tr>
-        <td align="center" bgcolor="#bbbbbb" nowrap="" width="1%">
-            &nbsp;<font color="#ffffff"><b>Comments</b></font>&nbsp;
-        </td>
-        <td>&nbsp;</td>
+    <tr>
+      <td bgcolor="#f0f0f0" width="20%">
+        <b>Resolution:</b>
+      </td>
+      <td bgcolor="#ffffff" nowrap="" valign="top" width="30%">Unresolved</td>
+      <td bgcolor="#f0f0f0" width="20%"><b>Votes:</b></td>
+      <td bgcolor="#ffffff" nowrap="" valign="top" width="30%">0</td>
     </tr>
-    </tbody></table>
-
-    <table class="grid" style="margin: 0;" border="0" width="100%" cellpadding="0" cellspacing="0">
-                <tbody><tr id="comment-header-10000"><td bgcolor="#f0f0f0">
-            Comment by  
-                                                        <a class="user-hover" rel="smckinney" id="word_commented_smckinney" href="https://fortress.atlassian.net/secure/ViewProfile.jspa?name=smckinney">Shawn McKinney [Administrator]</a>
-                                        <font size="-2">
-            [
-                <font color="#336699">23/Mar/13</font>
-
-                            ]
-            </font>
-
-        </td></tr>
-        <tr id="comment-body-10000"><td bgcolor="#ffffff">
-            <p>This exception occurs on Ubuntu 12.04 64 bit server and symas-openldap-silver.64_2.4.34-1_amd64.deb.</p>
-        </td></tr>
-    </tbody>
-  </table-->
+    <tr>
+      <td bgcolor="#f0f0f0" width="20%"><b>Labels:</b></td>
+      <td id="labels-10000-value" colspan="3" bgcolor="#ffffff" nowrap="" valign="top">None</td>
+    </tr>
+    <tr>
+      <td bgcolor="#f0f0f0" width="20%"><b>Remaining Estimate:</b></td>
+      <td colspan="3" bgcolor="#ffffff" nowrap="" valign="top" width="80%">4 hours</td>
+    </tr>
+    <tr>
+      <td bgcolor="#f0f0f0" width="20%"><b>Time Spent:</b></td>
+      <td colspan="3" bgcolor="#ffffff" nowrap="" valign="top" width="80%">Not Specified</td>
+    </tr>
+    <tr>
+      <td bgcolor="#f0f0f0" width="20%"><b>Original Estimate:</b></td>
+      <td colspan="3" bgcolor="#ffffff" nowrap="" valign="top" width="80%">4 hours</td>
+    </tr>
+    <tr>
+      <td bgcolor="#f0f0f0" valign="top" width="20%"><b>Environment:</b></td>
+    <td colspan="3" bgcolor="#ffffff" valign="top"><p>Ubuntu-12.04.1-server-amd64</p></td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<table border="0" width="100%" cellpadding="0" cellspacing="0"></table>
+<br>
+<table align="center" border="0" width="100%" cellpadding="2" cellspacing="0">
+  <tbody>
+    <tr>
+      <td align="center" bgcolor="#bbbbbb" nowrap="" width="1%">
+        &nbsp;<font color="#ffffff"><b>Description</b></font>&nbsp;
+      </td>
+      <td>&nbsp;</td>
+    </tr>
+  </tbody>
+</table>
+<table border="0" width="100%" cellpadding="0" cellspacing="0">
+  <tbody>
+    <tr>
+      <td id="descriptionArea">
+        <p>The following error occurs during regression test with REST enabled:</p>
+        <p>junit 2013-03-22 22:24:44,671 (INFO ) DEL-OBJS TOB4<br>
+        <p>junit 2013-03-22 22:24:44,907 (ERROR) us.jts.fortress.rbac.AdminMgrImplTest.delPermObjs objectName TOB4_8 caught SecurityException rc=3005, msg=us.jts.fortress.rbac.PermDAO.deleteObj objectName TOB4_8 caught LDAPException=80 msg=entry delete failed</p>
+        <p>junit us.jts.fortress.SecurityException: us.jts.fortress.rbac.PermDAO.deleteObj objectName TOB4_8 caught LDAPException=80 msg=entry delete failed</p>
+        <p>junit    at us.jts.fortress.rest.AdminMgrRestImpl.deletePermObj(AdminMgrRestImpl.java:913)</p>
+        <p>junit    at us.jts.fortress.rbac.AdminMgrImplTest.delPermObjs(AdminMgrImplTest.java:1765)</p>
+        <p>junit    at us.jts.fortress.rbac.AdminMgrImplTest.testDeletePermissionObj(AdminMgrImplTest.java:1740)</p>
+        <p>junit    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)</p>
+        <p>junit    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)</p>
+        <p>junit    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)</p>
+        <p>junit    at java.lang.reflect.Method.invoke(Method.java:601)</p>
+        <p>junit    at junit.framework.TestCase.runTest(TestCase.java:168)</p>
+        <p>junit    at junit.framework.TestCase.runBare(TestCase.java:134)</p>
+        <p>junit    at junit.framework.TestResult$1.protect(TestResult.java:110)</p>
+        <p>junit    at junit.framework.TestResult.runProtected(TestResult.java:128)</p>
+        <p>junit    at junit.framework.TestResult.run(TestResult.java:113)</p>
+        <p>junit    at junit.framework.TestCase.run(TestCase.java:124)</p>
+        <p>junit    at junit.framework.TestSuite.runTest(TestSuite.java:243)</p>
+        <p>junit    at junit.framework.TestSuite.run(TestSuite.java:238)</p>
+        <p>junit    at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.run(JUnitTestRunner.java:518)</p>
+        <p>junit    at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.launch(JUnitTestRunner.java:1052)</p>
+        <p>junit    at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.main(JUnitTestRunner.java:906)</p>
+        <p>junit 2013-03-22 22:24:44,909 (INFO ) DEASGN-USRS TU1 TR1</p>
+        <p>junit 2013-03-22 22:24:54,723 (INFO ) DEASGN-USRS TU4 TR2</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<table align="center" border="0" width="100%" cellpadding="2" cellspacing="0">
+  <tbody>
+    <tr>
+      <td align="center" bgcolor="#bbbbbb" nowrap="" width="1%">
+        &nbsp;<font color="#ffffff"><b>Comments</b></font>&nbsp;
+      </td>
+      <td>&nbsp;</td>
+    </tr>
+  </tbody>
+</table>
+<table style="margin: 0;" border="0" width="100%" cellpadding="0" cellspacing="0">
+  <tbody>
+    <tr>
+      <td bgcolor="#f0f0f0">
+        Comment by Shawn McKinney [Administrator]
+        <font size="-2">
+          [<font color="#336699">23/Mar/13</font>]
+        </font>
+      </td>
+    </tr>
+    <tr id="comment-body-10000">
+      <td bgcolor="#ffffff">
+        <p>This exception occurs on Ubuntu 12.04 64 bit server and symas-openldap-silver.64_2.4.34-1_amd64.deb.</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 
