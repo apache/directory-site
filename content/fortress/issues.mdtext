@@ -33,11 +33,11 @@ Issues, bugs, and feature requests should be submitted to the following issue tr
 
 Before becoming an Apache (tm) project, Fortress had its own life for years. During this period, the project was using another [JIRA instance](https://fortress.atlassian.net/browse/FC/). You can still check for issues there, otherwise, the following list contains all the fixed issues :
 
-| key | title | Created | Updated |
+| key | title | Created | Resolved |
 |:-:|:-:|:-:|---|
 |[FC-1](#FC-1)|delPermObjs causes LDAP 80 error|23/Mar/13|29/Mar/13|
-|[FC-2](#FC-2)||||
-|[FC-3](#FC-3)||||
+|[FC-2](#FC-2)|Error adding inheritance|21/Apr/13|30/Apr/13 |
+|[FC-3](#FC-3)|Enhance Role Assignment Func|30/Apr/13|10/may/2013|
 |[FC-4](#FC-4)||||
 |[FC-5](#FC-5)||||
 |[FC-6](#FC-6)||||
@@ -348,6 +348,278 @@ Before becoming an Apache (tm) project, Fortress had its own life for years. Dur
 <!-- =========================================================================================================== -->
 <!-- FC-2                                                                                                        -->
 <!-- =========================================================================================================== -->
+<table id="FC-2" border="0" width="100%" cellpadding="0" cellspacing="0">
+  <tbody>
+    <tr>
+      <td colspan="2" bgcolor="#f0f0f0" valign="top" width="100%">
+        <h3 class="formtitle">
+          [FC-2]&nbsp;<a href="https://fortress.atlassian.net/browse/FC-2">Error adding inheritance</a>
+          <span class="subText">
+            <font size="-2">
+              Created: 21/Apr/13&nbsp;Updated: 30/Apr/13&nbsp;Due: 28/Apr/13&nbsp;Resolved: 30/Apr/13
+            </font>
+          </span>
+        </h3>
+      </td>
+    </tr>
+    <tr>
+      <td width="20%"><b>Status:</b></td>
+      <td width="80%">Resolved</td>
+    </tr>
+    <tr>
+      <td width="20%"><b>Project:</b></td>
+      <td width="80%">Fortress Core</td>
+    </tr>
+    <tr>
+      <td><b>Component/s:</b></td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <td><b>Affects Version/s:</b></td>
+      <td>1.0-RC25</td>
+    </tr>
+    <tr>
+      <td><b>Fix Version/s:</b></td>
+      <td>1.0-RC25</td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="grid" border="0" width="100%" cellpadding="0" cellspacing="0">
+  <tbody>
+    <tr>
+      <td bgcolor="#f0f0f0" valign="top" width="20%"><b>Type:</b></td>
+      <td bgcolor="#ffffff" valign="top" width="30%">Bug</td>
+      <td bgcolor="#f0f0f0"><b>Priority:</b></td>
+      <td bgcolor="#ffffff" nowrap="" valign="top">Major</td>
+    </tr>
+    <tr>
+      <td bgcolor="#f0f0f0" valign="top" width="20%"><b>Reporter:</b></td>
+      <td bgcolor="#ffffff" valign="top" width="30%">Shawn McKinney [Administrator]</td>
+      <td bgcolor="#f0f0f0" width="20%"><b>Assignee:</b></td>
+      <td bgcolor="#ffffff" nowrap="" valign="top" width="30%">Shawn McKinney [Administrator]</td>
+    </tr>
+    <tr>
+      <td bgcolor="#f0f0f0" width="20%"><b>Resolution:</b></td>
+      <td bgcolor="#ffffff" nowrap="" valign="top" width="30%">Fixed</td>
+      <td bgcolor="#f0f0f0" width="20%"><b>Votes:</b></td>
+      <td bgcolor="#ffffff" nowrap="" valign="top" width="30%">0</td>
+    </tr>
+    <tr>
+      <td bgcolor="#f0f0f0" width="20%"><b>Labels:</b></td>
+      <td id="labels-10400-value" class="value" colspan="3" bgcolor="#ffffff" nowrap="" valign="top">None</td>
+    </tr>
+    <tr>
+      <td bgcolor="#f0f0f0" width="20%"><b>Remaining Estimate:</b></td>
+      <td colspan="3" bgcolor="#ffffff" nowrap="" valign="top" width="80%">0 minutes</td>
+    </tr>
+    <tr>
+      <td bgcolor="#f0f0f0" width="20%"><b>Time Spent:</b></td>
+      <td colspan="3" bgcolor="#ffffff" nowrap="" valign="top" width="80%">2 hours</td>
+    </tr>
+    <tr>
+      <td bgcolor="#f0f0f0" width="20%"><b>Original Estimate:</b></td>
+      <td colspan="3" bgcolor="#ffffff" nowrap="" valign="top" width="80%">Not Specified</td>
+    </tr>
+    <tr>
+      <td bgcolor="#f0f0f0" valign="top" width="20%"><b>Environment:</b></td>
+      <td colspan="3" bgcolor="#ffffff" valign="top"><p>ubuntu 32</p></td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="grid" border="0" width="100%" cellpadding="0" cellspacing="0">
+</table>
+
+<table align="center" border="0" width="100%" cellpadding="2" cellspacing="0">
+  <tbody>
+    <tr>
+      <td align="center" bgcolor="#bbbbbb" nowrap="" width="1%">&nbsp;<font color="#ffffff"><b>Description</b></font>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+  </tbody>
+</table>
+
+<table border="0" width="100%" cellpadding="0" cellspacing="0">
+  <tbody>
+    <tr>
+      <td id="descriptionArea">
+        <p>When adding inheritance relationships between roles, get this error.  It appears to happen when a role is assigned to a user beforehand:</p>
+        <p>     java <br>
+        java Enter child role name:<br>
+        csr<br>
+        java Enter parent role name:<br>
+        employee<br>
+        java 2013-04-21 17:28:59,889 (INFO ) us.jts.fortress.rbac.RoleUtil.loadGraph initializing ROLE context Client123<br>
+        java ConnectionPool (Sun Apr 21 17:28:59 CDT 2013) : adding a connection to pool...<br>
+        java 2013-04-21 17:28:59,980 (ERROR) us.jts.fortress.AdminMgrConsole.addRoleInheritance caught SecurityException rc=5003, msg=us.jts.fortress.rbac.RoleDAO.update name CSR caught LDAPException=20 msg=modify/add: roleOccupant: value #0 already exists<br>
+        java us.jts.fortress.UpdateException: us.jts.fortress.rbac.RoleDAO.update name CSR caught LDAPException=20 msg=modify/add: roleOccupant: value #0 already exists<br>
+        java     at us.jts.fortress.rbac.RoleDAO.update(RoleDAO.java:193)<br>
+        java     at us.jts.fortress.rbac.RoleP.update(RoleP.java:132)<br>
+        java     at us.jts.fortress.rbac.AdminMgrImpl.addInheritance(AdminMgrImpl.java:1002)<br>
+        java     at us.jts.fortress.AdminMgrConsole.addRoleInheritance(AdminMgrConsole.java:160)<br>
+        java     at us.jts.fortress.ProcessMenuCommand.processAdminFunction(ProcessMenuCommand.java:418)<br>
+        java     at us.jts.fortress.ProcessMenuCommand.processRbacControl(ProcessMenuCommand.java:73)<br>
+        java     at us.jts.fortress.FortressConsole.main(FortressConsole.java:28)<br>
+        java     at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)<br>
+        java     at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)<br>
+        java     at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)<br>
+        java     at java.lang.reflect.Method.invoke(Method.java:601)<br>
+        java     at org.apache.tools.ant.taskdefs.ExecuteJava.run(ExecuteJava.java:217)<br>
+        java     at java.lang.Thread.run(Thread.java:722)<br>
+        java Caused by: LDAPException(resultCode=20 (attribute or value exists), errorMessage='modify/add: roleOccupant: value #0 already exists')<br>
+        java     at com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPConnection.modify(LDAPConnection.java:1137)<br>
+        java     at com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPConnection.modify(LDAPConnection.java:1154)<br>
+        java     at us.jts.fortress.ldap.DataProvider.modify(DataProvider.java:204)<br>
+        java     at us.jts.fortress.rbac.RoleDAO.update(RoleDAO.java:187)<br>
+        java     ... 12 more</p><br>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table align="center" border="0" width="100%" cellpadding="2" cellspacing="0">
+  <tbody>
+    <tr>
+      <td align="center" bgcolor="#bbbbbb" nowrap="" width="1%">
+        &nbsp;<font color="#ffffff"><b>Comments</b></font>&nbsp;
+      </td>
+      <td>&nbsp;</td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="grid" style="margin: 0;" border="0" width="100%" cellpadding="0" cellspacing="0">
+  <tbody>
+    <tr>
+      <td bgcolor="#f0f0f0">
+        Comment by Shawn McKinney [Administrator]
+        <font size="-2">[<font color="#336699">30/Apr/13</font>]</font>
+      </td>
+    </tr>
+    <tr>
+      <td bgcolor="#ffffff">
+        <p>Error fixed by adding parent role attribute and name only to entity before calling update.</p>
+      </td>
+    </tr>
+    <tr>
+      <td bgcolor="#f0f0f0">
+        Comment by Shawn McKinney [Administrator]
+        <font size="-2">[<font color="#336699">30/Apr/13</font>]</font>
+      </td>
+    </tr>
+    <tr id="comment-body-10502">
+      <td bgcolor="#ffffff">
+      <p>method was calling update with all of the role attrs which caused failure due to adding role occupant that already existed.</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+
+<!-- =========================================================================================================== -->
+<!-- FC-3                                                                                                        -->
+<!-- =========================================================================================================== -->
+<table if="FC-3" border="0" width="100%" cellpadding="0" cellspacing="0">
+  <tbody>
+    <tr>
+      <td colspan="2" bgcolor="#f0f0f0" valign="top" width="100%">
+        <h3 class="formtitle">
+          [FC-3]&nbsp;<a href="https://fortress.atlassian.net/browse/FC-3">Enhance Role Assignment Func</a>
+          <span class="subText">
+            <font size="-2">
+              Created: 30/Apr/13&nbsp;Updated: 30/Apr/13&nbsp;Due: 10/May/13
+            </font>
+          </span>
+        </h3>
+      </td>
+    </tr>
+    <tr>
+      <td width="20%"><b>Status:</b></td>
+      <td width="80%">Open</td>
+    </tr>
+    <tr>
+      <td width="20%"><b>Project:</b></td>
+      <td width="80%"><a href="https://fortress.atlassian.net/secure/BrowseProject.jspa?id=10000">Fortress Core</a></td>
+    </tr>
+    <tr>
+      <td><b>Component/s:</b></td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <td><b>Affects Version/s:</b></td>
+      <td>1.0-RC27</td>
+    </tr>
+    <tr>
+      <td><b>Fix Version/s:</b></td>
+      <td>None</td>
+    </tr>
+  </tbody>
+</table>
+
+<table border="0" width="100%" cellpadding="0" cellspacing="0">
+  <tbody>
+    <tr>
+      <td bgcolor="#f0f0f0" valign="top" width="20%"><b>Type:</b></td>
+      <td bgcolor="#ffffff" valign="top" width="30%">Improvement</td>
+      <td bgcolor="#f0f0f0"><b>Priority:</b></td>
+      <td bgcolor="#ffffff" nowrap="" valign="top">Major</td>
+    </tr>
+    <tr>
+      <td bgcolor="#f0f0f0" valign="top" width="20%"><b>Reporter:</b></td>
+      <td bgcolor="#ffffff" valign="top" width="30%">Shawn McKinney [Administrator]</td>
+      <td bgcolor="#f0f0f0" width="20%"><b>Assignee:</b></td>
+      <td bgcolor="#ffffff" nowrap="" valign="top" width="30%">Shawn McKinney [Administrator]</td>
+    </tr>
+    <tr>
+      <td bgcolor="#f0f0f0" width="20%"><b>Resolution:</b></td>
+      <td bgcolor="#ffffff" nowrap="" valign="top" width="30%">Unresolved</td>
+      <td bgcolor="#f0f0f0" width="20%"><b>Votes:</b></td>
+      <td bgcolor="#ffffff" nowrap="" valign="top" width="30%">0</td>
+    </tr>
+    <tr>
+      <td bgcolor="#f0f0f0" width="20%"><b>Labels:</b></td>
+      <td id="labels-10600-value" class="value" colspan="3" bgcolor="#ffffff" nowrap="" valign="top">None</td>
+    </tr>
+    <tr>
+      <td bgcolor="#f0f0f0" width="20%"><b>Remaining Estimate:</b></td>
+      <td colspan="3" bgcolor="#ffffff" nowrap="" valign="top" width="80%">2 days</td>
+    </tr>
+    <tr>
+      <td bgcolor="#f0f0f0" width="20%"><b>Time Spent:</b></td>
+      <td colspan="3" bgcolor="#ffffff" nowrap="" valign="top" width="80%">Not Specified</td>
+    </tr>
+    <tr>
+      <td bgcolor="#f0f0f0" width="20%"><b>Original Estimate:</b></td>
+      <td colspan="3" bgcolor="#ffffff" nowrap="" valign="top" width="80%">2 days</td>
+    </tr>
+    <tr>
+      <td bgcolor="#f0f0f0" valign="top" width="20%"><b>Environment:</b></td>
+      <td colspan="3" bgcolor="#ffffff" valign="top"><p>Linux Dev</p></td>
+    </tr>
+  </tbody>
+</table>
+
+<table border="0" width="100%" cellpadding="0" cellspacing="0">
+</table>
+
+<table align="center" border="0" width="100%" cellpadding="2" cellspacing="0">
+  <tbody>
+    <tr>
+      <td align="center" bgcolor="#bbbbbb" nowrap="" width="1%">&nbsp;<font color="#ffffff"><b>Description</b></font>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+  </tbody>
+</table>
+
+<table border="0" width="100%" cellpadding="0" cellspacing="0">
+  <tbody>
+    <tr>
+      <td><p>Measure/repair role assignment funcs to optimize for role occupants.</p><br></td>
+    </tr>
+  </tbody>
+</table>
+<br>
 
 <!-- =========================================================================================================== -->
 <!-- FC-150                                                                                                      -->
@@ -25439,413 +25711,4 @@ b. when deleteInheritance is called, check for condition of empty parent roles i
             <p>Regression tests running successfully</p>
         </td></tr>
             </tbody></table>
-<hr class="fullcontent"><br><br style="page-break-before:always;"><br>
-<table class="tableBorder" border="0" width="100%" cellpadding="0" cellspacing="0">
-    <tbody><tr>
-        <td colspan="2" bgcolor="#f0f0f0" valign="top" width="100%">
-                            <h3 class="formtitle">
-                        [FC-3]&nbsp;<a href="https://fortress.atlassian.net/browse/FC-3">Enhance Role Assignment Func</a>
-            <span class="subText">
-               Created: 30/Apr/13                   &nbsp;Updated: 30/Apr/13
-
-                                    &nbsp;Due: 10/May/13
-                                            </span>
-            </h3>
-        </td>
-    </tr>
-    <tr>
-        <td width="20%"><b>Status:</b></td>
-        <td width="80%">Open</td>
-    </tr>
-    <tr>
-        <td width="20%"><b>Project:</b></td>
-        <td width="80%"><a href="https://fortress.atlassian.net/secure/BrowseProject.jspa?id=10000">Fortress Core</a></td>
-    </tr>
-
-        <tr>
-            <td><b>Component/s:</b></td>
-            <td>
-                            None
-                </td>
-    </tr>
-    
-
-        <tr>
-            <td><b>Affects Version/s:</b></td>
-            <td>
-                                        <a title="1.0-RC27 - Fortress 1.0 Release Candidate 27" href="https://fortress.atlassian.net/secure/IssueNavigator.jspa?reset=true&amp;mode=hide&amp;sorter/order=ASC&amp;sorter/field=priority&amp;pid=10000&amp;version=10005">1.0-RC27</a>                        </td>
-    </tr>
-    
-
-        <tr>
-            <td><b>Fix Version/s:</b></td>
-            <td>
-                            None
-                </td>
-    </tr>
-    
-    </tbody></table>
-
-<br>
-<table class="grid" border="0" width="100%" cellpadding="0" cellspacing="0">
-    <tbody><tr>
-        <td bgcolor="#f0f0f0" valign="top" width="20%">
-            <b>Type:</b>
-        </td>
-        <td bgcolor="#ffffff" valign="top" width="30%">
-            Improvement
-        </td>
-
-                    <td bgcolor="#f0f0f0">
-                <b>Priority:</b>
-            </td>
-            <td bgcolor="#ffffff" nowrap="" valign="top">
-                Major
-            </td>
-            </tr>
-    <tr>
-                        <td bgcolor="#f0f0f0" valign="top" width="20%">
-                <b>Reporter:</b>
-            </td>
-            <td bgcolor="#ffffff" valign="top" width="30%">
-                                            <a class="user-hover" rel="smckinney" id="word_reporter_smckinney" href="https://fortress.atlassian.net/secure/ViewProfile.jspa?name=smckinney">Shawn McKinney [Administrator]</a>
-                            </td>
-        
-                    <td bgcolor="#f0f0f0" width="20%">
-                <b>Assignee:</b>
-            </td>
-            <td bgcolor="#ffffff" nowrap="" valign="top" width="30%">
-                                            <a class="user-hover" rel="smckinney" id="word_assignee_smckinney" href="https://fortress.atlassian.net/secure/ViewProfile.jspa?name=smckinney">Shawn McKinney [Administrator]</a>
-                            </td>
-            </tr>
-        <tr>
-        <td bgcolor="#f0f0f0" width="20%">
-            <b>Resolution:</b>
-        </td>
-        <td bgcolor="#ffffff" nowrap="" valign="top" width="30%">
-                            Unresolved
-                    </td>
-                    <td bgcolor="#f0f0f0" width="20%">
-                <b>Votes:</b>
-            </td>
-            <td bgcolor="#ffffff" nowrap="" valign="top" width="30%">
-                0
-            </td>
-        
-    </tr>
-    
-        <tr>
-        <td bgcolor="#f0f0f0" width="20%">
-            <b>Labels:</b>
-        </td>
-        <td id="labels-10600-value" class="value" colspan="3" bgcolor="#ffffff" nowrap="" valign="top">
-                            None
-                    </td>
-    </tr>
-    
-        <tr>
-                <td bgcolor="#f0f0f0" width="20%"><b>Remaining Estimate:</b></td>
-        <td colspan="3" bgcolor="#ffffff" nowrap="" valign="top" width="80%">
-                            2 days
-                    </td>
-    </tr>
-    <tr>
-                <td bgcolor="#f0f0f0" width="20%"><b>Time Spent:</b></td>
-        <td colspan="3" bgcolor="#ffffff" nowrap="" valign="top" width="80%">
-                            Not Specified
-                    </td>
-    </tr>
-    <tr>
-                <td bgcolor="#f0f0f0" width="20%"><b>Original Estimate:</b></td>
-        <td colspan="3" bgcolor="#ffffff" nowrap="" valign="top" width="80%">
-                            2 days
-                    </td>
-    </tr>
-    
-        <tr>
-
-        <td bgcolor="#f0f0f0" valign="top" width="20%">
-            <b>Environment:</b>
-        </td>
-        <td colspan="3" bgcolor="#ffffff" valign="top">
-            <p>Linux Dev</p>
-        </td>
-    </tr>
-    </tbody></table>
-
-
-
-    <br>
-
-        <table class="grid" border="0" width="100%" cellpadding="0" cellspacing="0">
-            
-
-        
-    
-
-
-
-</table>
-
-    <br>
-
-    <table align="center" border="0" width="100%" cellpadding="2" cellspacing="0">
-    <tbody><tr>
-        <td align="center" bgcolor="#bbbbbb" nowrap="" width="1%">
-            &nbsp;<font color="#ffffff"><b>Description</b></font>&nbsp;
-        </td>
-        <td>&nbsp;</td>
-    </tr>
-    </tbody></table>
-
-    <table border="0" width="100%" cellpadding="0" cellspacing="0">
-    <tbody><tr>
-        <td id="descriptionArea">
-            <p>Measure/repair role assignment funcs to optimize for role occupants.</p>
-            <br>
-        </td>
-    </tr>
-    </tbody></table>
-
-<hr class="fullcontent"><br><br style="page-break-before:always;"><br>
-<table class="tableBorder" border="0" width="100%" cellpadding="0" cellspacing="0">
-    <tbody><tr>
-        <td colspan="2" bgcolor="#f0f0f0" valign="top" width="100%">
-                            <h3 class="formtitle">
-                        [FC-2]&nbsp;<a href="https://fortress.atlassian.net/browse/FC-2">Error adding inheritance</a>
-            <span class="subText">
-               Created: 21/Apr/13                   &nbsp;Updated: 30/Apr/13
-
-                                    &nbsp;Due: 28/Apr/13
-                                                    &nbsp;Resolved: 30/Apr/13
-                            </span>
-            </h3>
-        </td>
-    </tr>
-    <tr>
-        <td width="20%"><b>Status:</b></td>
-        <td width="80%">Resolved</td>
-    </tr>
-    <tr>
-        <td width="20%"><b>Project:</b></td>
-        <td width="80%"><a href="https://fortress.atlassian.net/secure/BrowseProject.jspa?id=10000">Fortress Core</a></td>
-    </tr>
-
-        <tr>
-            <td><b>Component/s:</b></td>
-            <td>
-                            None
-                </td>
-    </tr>
-    
-
-        <tr>
-            <td><b>Affects Version/s:</b></td>
-            <td>
-                                        <a title="1.0-RC25 - Fortress 1.0 Release Candidate 25" href="https://fortress.atlassian.net/secure/IssueNavigator.jspa?reset=true&amp;mode=hide&amp;sorter/order=ASC&amp;sorter/field=priority&amp;pid=10000&amp;version=10016">1.0-RC25</a>                        </td>
-    </tr>
-    
-
-        <tr>
-            <td><b>Fix Version/s:</b></td>
-            <td>
-                                        <a title="1.0-RC25 - Fortress 1.0 Release Candidate 25" href="https://fortress.atlassian.net/secure/IssueNavigator.jspa?reset=true&amp;mode=hide&amp;sorter/order=ASC&amp;sorter/field=priority&amp;pid=10000&amp;fixfor=10016">1.0-RC25</a>                        </td>
-    </tr>
-    
-    </tbody></table>
-
-<br>
-<table class="grid" border="0" width="100%" cellpadding="0" cellspacing="0">
-    <tbody><tr>
-        <td bgcolor="#f0f0f0" valign="top" width="20%">
-            <b>Type:</b>
-        </td>
-        <td bgcolor="#ffffff" valign="top" width="30%">
-            Bug
-        </td>
-
-                    <td bgcolor="#f0f0f0">
-                <b>Priority:</b>
-            </td>
-            <td bgcolor="#ffffff" nowrap="" valign="top">
-                Major
-            </td>
-            </tr>
-    <tr>
-                        <td bgcolor="#f0f0f0" valign="top" width="20%">
-                <b>Reporter:</b>
-            </td>
-            <td bgcolor="#ffffff" valign="top" width="30%">
-                                            <a class="user-hover" rel="smckinney" id="word_reporter_smckinney" href="https://fortress.atlassian.net/secure/ViewProfile.jspa?name=smckinney">Shawn McKinney [Administrator]</a>
-                            </td>
-        
-                    <td bgcolor="#f0f0f0" width="20%">
-                <b>Assignee:</b>
-            </td>
-            <td bgcolor="#ffffff" nowrap="" valign="top" width="30%">
-                                            <a class="user-hover" rel="smckinney" id="word_assignee_smckinney" href="https://fortress.atlassian.net/secure/ViewProfile.jspa?name=smckinney">Shawn McKinney [Administrator]</a>
-                            </td>
-            </tr>
-        <tr>
-        <td bgcolor="#f0f0f0" width="20%">
-            <b>Resolution:</b>
-        </td>
-        <td bgcolor="#ffffff" nowrap="" valign="top" width="30%">
-                            Fixed
-                    </td>
-                    <td bgcolor="#f0f0f0" width="20%">
-                <b>Votes:</b>
-            </td>
-            <td bgcolor="#ffffff" nowrap="" valign="top" width="30%">
-                0
-            </td>
-        
-    </tr>
-    
-        <tr>
-        <td bgcolor="#f0f0f0" width="20%">
-            <b>Labels:</b>
-        </td>
-        <td id="labels-10400-value" class="value" colspan="3" bgcolor="#ffffff" nowrap="" valign="top">
-                            None
-                    </td>
-    </tr>
-    
-        <tr>
-                <td bgcolor="#f0f0f0" width="20%"><b>Remaining Estimate:</b></td>
-        <td colspan="3" bgcolor="#ffffff" nowrap="" valign="top" width="80%">
-                            0 minutes
-                    </td>
-    </tr>
-    <tr>
-                <td bgcolor="#f0f0f0" width="20%"><b>Time Spent:</b></td>
-        <td colspan="3" bgcolor="#ffffff" nowrap="" valign="top" width="80%">
-                            2 hours
-                    </td>
-    </tr>
-    <tr>
-                <td bgcolor="#f0f0f0" width="20%"><b>Original Estimate:</b></td>
-        <td colspan="3" bgcolor="#ffffff" nowrap="" valign="top" width="80%">
-                            Not Specified
-                    </td>
-    </tr>
-    
-        <tr>
-
-        <td bgcolor="#f0f0f0" valign="top" width="20%">
-            <b>Environment:</b>
-        </td>
-        <td colspan="3" bgcolor="#ffffff" valign="top">
-            <p>ubuntu 32</p>
-        </td>
-    </tr>
-    </tbody></table>
-
-
-
-    <br>
-
-        <table class="grid" border="0" width="100%" cellpadding="0" cellspacing="0">
-            
-
-        
-    
-
-
-
-</table>
-
-    <br>
-
-    <table align="center" border="0" width="100%" cellpadding="2" cellspacing="0">
-    <tbody><tr>
-        <td align="center" bgcolor="#bbbbbb" nowrap="" width="1%">
-            &nbsp;<font color="#ffffff"><b>Description</b></font>&nbsp;
-        </td>
-        <td>&nbsp;</td>
-    </tr>
-    </tbody></table>
-
-    <table border="0" width="100%" cellpadding="0" cellspacing="0">
-    <tbody><tr>
-        <td id="descriptionArea">
-            <p>When adding inheritance relationships between roles, get this error.  It appears to happen when a role is assigned to a user beforehand:</p>
-
-
-
-<p>     <a href="https://fortress.atlassian.net/wiki/display/FC/java">java</a> <br>
-     <a href="https://fortress.atlassian.net/wiki/display/FC/java">java</a> Enter child role name:<br>
-csr<br>
-     <a href="https://fortress.atlassian.net/wiki/display/FC/java">java</a> Enter parent role name:<br>
-employee<br>
-     <a href="https://fortress.atlassian.net/wiki/display/FC/java">java</a> 2013-04-21 17:28:59,889 (INFO ) us.jts.fortress.rbac.RoleUtil.loadGraph initializing ROLE context <a href="https://fortress.atlassian.net/wiki/display/FC/Client123">Client123</a><br>
-     <a href="https://fortress.atlassian.net/wiki/display/FC/java">java</a> ConnectionPool (Sun Apr 21 17:28:59 CDT 2013) : adding a connection to pool...<br>
-     <a href="https://fortress.atlassian.net/wiki/display/FC/java">java</a> 2013-04-21 17:28:59,980 (ERROR) us.jts.fortress.AdminMgrConsole.addRoleInheritance caught SecurityException rc=5003, msg=us.jts.fortress.rbac.RoleDAO.update name <a href="https://fortress.atlassian.net/wiki/display/FC/CSR">CSR</a> caught LDAPException=20 msg=modify/add: roleOccupant: value #0 already exists<br>
-     <a href="https://fortress.atlassian.net/wiki/display/FC/java">java</a> us.jts.fortress.UpdateException: us.jts.fortress.rbac.RoleDAO.update name <a href="https://fortress.atlassian.net/wiki/display/FC/CSR">CSR</a> caught LDAPException=20 msg=modify/add: roleOccupant: value #0 already exists<br>
-     <a href="https://fortress.atlassian.net/wiki/display/FC/java">java</a>     at us.jts.fortress.rbac.RoleDAO.update(RoleDAO.java:193)<br>
-     <a href="https://fortress.atlassian.net/wiki/display/FC/java">java</a>     at us.jts.fortress.rbac.RoleP.update(RoleP.java:132)<br>
-     <a href="https://fortress.atlassian.net/wiki/display/FC/java">java</a>     at us.jts.fortress.rbac.AdminMgrImpl.addInheritance(AdminMgrImpl.java:1002)<br>
-     <a href="https://fortress.atlassian.net/wiki/display/FC/java">java</a>     at us.jts.fortress.AdminMgrConsole.addRoleInheritance(AdminMgrConsole.java:160)<br>
-     <a href="https://fortress.atlassian.net/wiki/display/FC/java">java</a>     at us.jts.fortress.ProcessMenuCommand.processAdminFunction(ProcessMenuCommand.java:418)<br>
-     <a href="https://fortress.atlassian.net/wiki/display/FC/java">java</a>     at us.jts.fortress.ProcessMenuCommand.processRbacControl(ProcessMenuCommand.java:73)<br>
-     <a href="https://fortress.atlassian.net/wiki/display/FC/java">java</a>     at us.jts.fortress.FortressConsole.main(FortressConsole.java:28)<br>
-     <a href="https://fortress.atlassian.net/wiki/display/FC/java">java</a>     at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)<br>
-     <a href="https://fortress.atlassian.net/wiki/display/FC/java">java</a>     at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)<br>
-     <a href="https://fortress.atlassian.net/wiki/display/FC/java">java</a>     at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)<br>
-     <a href="https://fortress.atlassian.net/wiki/display/FC/java">java</a>     at java.lang.reflect.Method.invoke(Method.java:601)<br>
-     <a href="https://fortress.atlassian.net/wiki/display/FC/java">java</a>     at org.apache.tools.ant.taskdefs.ExecuteJava.run(ExecuteJava.java:217)<br>
-     <a href="https://fortress.atlassian.net/wiki/display/FC/java">java</a>     at java.lang.Thread.run(Thread.java:722)<br>
-     <a href="https://fortress.atlassian.net/wiki/display/FC/java">java</a> Caused by: LDAPException(resultCode=20 (attribute or value exists), errorMessage='modify/add: roleOccupant: value #0 already exists')<br>
-     <a href="https://fortress.atlassian.net/wiki/display/FC/java">java</a>     at com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPConnection.modify(LDAPConnection.java:1137)<br>
-     <a href="https://fortress.atlassian.net/wiki/display/FC/java">java</a>     at com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPConnection.modify(LDAPConnection.java:1154)<br>
-     <a href="https://fortress.atlassian.net/wiki/display/FC/java">java</a>     at us.jts.fortress.ldap.DataProvider.modify(DataProvider.java:204)<br>
-     <a href="https://fortress.atlassian.net/wiki/display/FC/java">java</a>     at us.jts.fortress.rbac.RoleDAO.update(RoleDAO.java:187)<br>
-     <a href="https://fortress.atlassian.net/wiki/display/FC/java">java</a>     ... 12 more</p>
-            <br>
-        </td>
-    </tr>
-    </tbody></table>
-
-    <br>
-
-    <table align="center" border="0" width="100%" cellpadding="2" cellspacing="0">
-    <tbody><tr>
-        <td align="center" bgcolor="#bbbbbb" nowrap="" width="1%">
-            &nbsp;<font color="#ffffff"><b>Comments</b></font>&nbsp;
-        </td>
-        <td>&nbsp;</td>
-    </tr>
-    </tbody></table>
-
-    <table class="grid" style="margin: 0;" border="0" width="100%" cellpadding="0" cellspacing="0">
-                <tbody><tr id="comment-header-10501"><td bgcolor="#f0f0f0">
-            Comment by  
-                                                        <a class="user-hover" rel="smckinney" id="word_commented_smckinney" href="https://fortress.atlassian.net/secure/ViewProfile.jspa?name=smckinney">Shawn McKinney [Administrator]</a>
-                                        <font size="-2">
-            [
-                <font color="#336699">30/Apr/13</font>
-
-                            ]
-            </font>
-
-        </td></tr>
-        <tr id="comment-body-10501"><td bgcolor="#ffffff">
-            <p>Error fixed by adding parent role attribute and name only to entity before calling update.</p>
-        </td></tr>
-                <tr id="comment-header-10502"><td bgcolor="#f0f0f0">
-            Comment by  
-                                                        <a class="user-hover" rel="smckinney" id="word_commented_smckinney" href="https://fortress.atlassian.net/secure/ViewProfile.jspa?name=smckinney">Shawn McKinney [Administrator]</a>
-                                        <font size="-2">
-            [
-                <font color="#336699">30/Apr/13</font>
-
-                            ]
-            </font>
-
-        </td></tr>
-        <tr id="comment-body-10502"><td bgcolor="#ffffff">
-            <p>method was calling update with all of the role attrs which caused failure due to adding role occupant that already existed.</p>
-        </td></tr>
-            </tbody></table>
-<hr class="fullcontent"><br><br style="page-break-before:always;"><br>
 -->
