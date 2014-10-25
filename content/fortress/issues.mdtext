@@ -34,7 +34,7 @@ Issues, bugs, and feature requests should be submitted to the following issue tr
 Before becoming an Apache (tm) project, Fortress had its own life for years. During this period, the project was using another [JIRA instance](https://fortress.atlassian.net/browse/FC/). You can still check for issues there, otherwise, the following list contains all the fixed issues :
 
 | key | title | Created | Resolved |
-|:-:|:-:|:-:|---|
+|:-:|---|:-:|:-:|
 |[FC-1](#FC-1)|delPermObjs causes LDAP 80 error|23/Mar/13|29/Mar/13|
 |[FC-2](#FC-2)|Error adding inheritance|21/Apr/13|30/Apr/13 |
 |[FC-3](#FC-3)|Enhance Role Assignment Func|30/Apr/13|10/may/2013|
@@ -175,9 +175,9 @@ Before becoming an Apache (tm) project, Fortress had its own life for years. Dur
 |[FC-138](#FC-138)||||
 |[FC-139](#FC-139)||||
 |[FC-140](#FC-140)|RBAC Overlay DB dir not setup|30/Jun/14|30/Jun/14|
-|[FC-141](#FC-141)||||
-|[FC-142](#FC-142)||||
-|[FC-143](#FC-143)||||
+|[FC-141](#FC-141)|RC38 Release|05/Jul/14|05/Jul/14|
+|[FC-142](#FC-142)|RC38 Cleanup|06/Jul/14|06/Jul/14|
+|[FC-143](#FC-143)|Add SSL to Unbound connection pool|02/Aug/14|09/Aug/14|
 |[FC-144](#FC-144)|Add Tomcat SSL to demo Created|09/Aug/14|09/Aug/14|
 |[FC-145](#FC-145)|Add SSL to REST client Created|09/Aug/14|09/Aug/14|
 |[FC-146](#FC-146)|RC39 Release|09/Aug/14|09/Aug/14|
@@ -700,6 +700,283 @@ Before becoming an Apache (tm) project, Fortress had its own life for years. Dur
   <tbody> 
     <tr>
       <td id="descriptionArea"><p>correct RBAC accelerator setup to create RBAC db.</p><br></td>
+    </tr>
+  </tbody>
+</table>
+<br>
+
+<!-- =========================================================================================================== -->
+<!-- FC-141                                                                                                      -->
+<!-- =========================================================================================================== -->
+<table id="FC-141" border="0" width="100%" cellpadding="0" cellspacing="0">
+  <tbody>
+    <tr>
+      <td colspan="2" bgcolor="#f0f0f0" valign="top" width="100%">
+        <h3 class="formtitle">
+          [FC-141]&nbsp;<a href="https://fortress.atlassian.net/browse/FC-141">RC38 Release</a>
+          <span class="subText">
+            <font size="-2">
+              Created: 05/Jul/14&nbsp;Updated: 05/Jul/14&nbsp;Resolved: 05/Jul/14
+            </font>
+          </span>
+        </h3>
+      </td>
+    </tr>
+    <tr>
+      <td width="20%"><b>Status:</b></td>
+      <td width="80%">Resolved</td>
+    </tr>
+    <tr>
+      <td width="20%"><b>Project:</b></td>
+      <td width="80%">Fortress Core</td>
+    </tr>
+    <tr>
+      <td><b>Component/s:</b></td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <td><b>Affects Version/s:</b></td>
+      <td>1.0-RC37</td>
+    </tr>
+    <tr>
+      <td><b>Fix Version/s:</b></td>
+      <td>1.0-RC38</td>
+    </tr>
+  </tbody>
+</table>
+<table border="0" width="100%" cellpadding="0" cellspacing="0">
+  <tbody>
+    <tr>
+      <td bgcolor="#f0f0f0" valign="top" width="20%"><b>Type:</b></td>
+      <td bgcolor="#ffffff" valign="top" width="30%">Task</td>
+      <td bgcolor="#f0f0f0"><b>Priority:</b></td>
+      <td bgcolor="#ffffff" nowrap="" valign="top">Major</td>
+    </tr>
+    <tr>
+      <td bgcolor="#f0f0f0" valign="top" width="20%"><b>Reporter:</b></td>
+      <td bgcolor="#ffffff" valign="top" width="30%">Shawn McKinney [Administrator]</td>
+      <td bgcolor="#f0f0f0" width="20%"><b>Assignee:</b></td>
+      <td bgcolor="#ffffff" nowrap="" valign="top" width="30%">Shawn McKinney [Administrator]</td>
+    </tr>
+    <tr>
+      <td bgcolor="#f0f0f0" width="20%"><b>Resolution:</b></td>
+      <td bgcolor="#ffffff" nowrap="" valign="top" width="30%">Fixed</td>
+      <td bgcolor="#f0f0f0" width="20%"><b>Votes:</b></td>
+      <td bgcolor="#ffffff" nowrap="" valign="top" width="30%">0</td>
+    </tr>
+    <tr>
+      <td bgcolor="#f0f0f0" width="20%"><b>Labels:</b></td>
+      <td id="labels-14503-value" colspan="3" bgcolor="#ffffff" nowrap="" valign="top">None</td>
+    </tr>
+    <tr>
+      <td bgcolor="#f0f0f0" width="20%"><b>Remaining Estimate:</b></td>
+      <td colspan="3" bgcolor="#ffffff" nowrap="" valign="top" width="80%">Not Specified</td>
+    </tr>
+    <tr>
+      <td bgcolor="#f0f0f0" width="20%"><b>Time Spent:</b></td>
+      <td colspan="3" bgcolor="#ffffff" nowrap="" valign="top" width="80%">Not Specified</td>
+    </tr>
+    <tr>
+      <td bgcolor="#f0f0f0" width="20%"><b>Original Estimate:</b></td>
+      <td colspan="3" bgcolor="#ffffff" nowrap="" valign="top" width="80%">Not Specified</td>
+    </tr>
+  </tbody>
+</table>
+<table border="0" width="100%" cellpadding="0" cellspacing="0">
+</table>
+<br>
+
+<!-- =========================================================================================================== -->
+<!-- FC-142                                                                                                      -->
+<!-- =========================================================================================================== -->
+<table id="FC-142" border="0" width="100%" cellpadding="0" cellspacing="0">
+  <tbody>
+    <tr>
+      <td colspan="2" bgcolor="#f0f0f0" valign="top" width="100%">
+        <h3 class="formtitle">
+          [FC-142]&nbsp;<a href="https://fortress.atlassian.net/browse/FC-142">RC38 Cleanup</a>
+          <span class="subText">
+            <font size="-2">
+              Created: 06/Jul/14&nbsp;Updated: 06/Jul/14&nbsp;Resolved: 06/Jul/14
+            </font>
+          </span>
+        </h3>
+      </td>
+    </tr>
+    <tr>
+      <td width="20%"><b>Status:</b></td>
+      <td width="80%">Resolved</td>
+    </tr>
+    <tr>
+      <td width="20%"><b>Project:</b></td>
+      <td width="80%">Fortress Core</td>
+    </tr>
+    <tr>
+      <td><b>Component/s:</b></td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <td><b>Affects Version/s:</b></td>
+      <td>1.0-RC38</td></tr>
+    <tr>
+      <td><b>Fix Version/s:</b></td>
+      <td>None</td>
+    </tr>
+  </tbody>
+</table>
+<table border="0" width="100%" cellpadding="0" cellspacing="0">
+<tbody>
+    <tr>
+      <td bgcolor="#f0f0f0" valign="top" width="20%"><b>Type:</b></td>
+      <td bgcolor="#ffffff" valign="top" width="30%">Task</td>
+      <td bgcolor="#f0f0f0"><b>Priority:</b></td>
+      <td bgcolor="#ffffff" nowrap="" valign="top">Major</td>
+    </tr>
+    <tr>
+      <td bgcolor="#f0f0f0" valign="top" width="20%"><b>Reporter:</b></td>
+      <td bgcolor="#ffffff" valign="top" width="30%">Shawn McKinney [Administrator]</td>
+      <td bgcolor="#f0f0f0" width="20%"><b>Assignee:</b></td>
+      <td bgcolor="#ffffff" nowrap="" valign="top" width="30%">Shawn McKinney [Administrator]</td>
+    </tr>
+    <tr>
+      <td bgcolor="#f0f0f0" width="20%"><b>Resolution:</b></td>
+      <td bgcolor="#ffffff" nowrap="" valign="top" width="30%">Fixed</td>
+      <td bgcolor="#f0f0f0" width="20%"><b>Votes:</b></td>
+      <td bgcolor="#ffffff" nowrap="" valign="top" width="30%">0</td>
+    </tr>
+    <tr>
+      <td bgcolor="#f0f0f0" width="20%"><b>Labels:</b></td>
+      <td id="labels-14507-value" colspan="3" bgcolor="#ffffff" nowrap="" valign="top">None</td>
+    </tr>
+    <tr>
+      <td bgcolor="#f0f0f0" width="20%"><b>Remaining Estimate:</b></td>
+      <td colspan="3" bgcolor="#ffffff" nowrap="" valign="top" width="80%">Not Specified</td>
+    </tr>
+    <tr>
+      <td bgcolor="#f0f0f0" width="20%"><b>Time Spent:</b></td>
+      <td colspan="3" bgcolor="#ffffff" nowrap="" valign="top" width="80%">Not Specified</td>
+    </tr>
+    <tr>
+      <td bgcolor="#f0f0f0" width="20%"><b>Original Estimate:</b></td>
+      <td colspan="3" bgcolor="#ffffff" nowrap="" valign="top" width="80%">Not Specified</td>
+    </tr>
+  </tbody>
+</table>
+<table border="0" width="100%" cellpadding="0" cellspacing="0">
+</table>
+<br>
+
+<!-- =========================================================================================================== -->
+<!-- FC-143                                                                                                      -->
+<!-- =========================================================================================================== -->
+<table id="FC-143" border="0" width="100%" cellpadding="0" cellspacing="0">
+  <tbody>
+    <tr>
+      <td colspan="2" bgcolor="#f0f0f0" valign="top" width="100%">
+        <h3 class="formtitle">
+          [FC-143]&nbsp;<a href="https://fortress.atlassian.net/browse/FC-143">Add SSL to Unbound connection pool</a>
+          <span class="subText">
+            <font size="-2">
+              Created: 02/Aug/14&nbsp;Updated: 09/Aug/14&nbsp;Resolved: 09/Aug/14
+            </font>
+          </span>
+        </h3>
+      </td>
+    </tr>
+    <tr>
+      <td width="20%"><b>Status:</b></td>
+      <td width="80%">Resolved</td>
+    </tr>
+    <tr>
+      <td width="20%"><b>Project:</b></td>
+      <td width="80%">Fortress Core</td>
+    </tr>
+    <tr>
+      <td><b>Component/s:</b></td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <td><b>Affects Version/s:</b></td>
+      <td>1.0-RC38</td></tr>
+    <tr>
+      <td><b>Fix Version/s:</b></td>
+      <td>1.0-RC39</td>
+    </tr>
+  </tbody>
+</table>
+<table border="0" width="100%" cellpadding="0" cellspacing="0">
+  <tbody>
+    <tr>
+      <td bgcolor="#f0f0f0" valign="top" width="20%"><b>Type:</b></td>
+      <td bgcolor="#ffffff" valign="top" width="30%">New Feature</td>
+      <td bgcolor="#f0f0f0"><b>Priority:</b></td>
+      <td bgcolor="#ffffff" nowrap="" valign="top">Major</td>
+    </tr>
+    <tr>
+      <td bgcolor="#f0f0f0" valign="top" width="20%"><b>Reporter:</b></td>
+      <td bgcolor="#ffffff" valign="top" width="30%">Shawn McKinney [Administrator]</td>
+      <td bgcolor="#f0f0f0" width="20%"><b>Assignee:</b></td>
+      <td bgcolor="#ffffff" nowrap="" valign="top" width="30%">Shawn McKinney [Administrator]</td>
+    </tr>
+    <tr>
+      <td bgcolor="#f0f0f0" width="20%"><b>Resolution:</b></td>
+      <td bgcolor="#ffffff" nowrap="" valign="top" width="30%">Fixed</td>
+      <td bgcolor="#f0f0f0" width="20%"><b>Votes:</b></td>
+      <td bgcolor="#ffffff" nowrap="" valign="top" width="30%">0</td>
+    </tr>
+    <tr>
+      <td bgcolor="#f0f0f0" width="20%"><b>Labels:</b></td>
+      <td id="labels-14700-value" colspan="3" bgcolor="#ffffff" nowrap="" valign="top">None
+    </td>
+    </tr>
+    <tr>
+      <td bgcolor="#f0f0f0" width="20%"><b>Remaining Estimate:</b></td>
+      <td colspan="3" bgcolor="#ffffff" nowrap="" valign="top" width="80%">Not Specified</td>
+    </tr>
+    <tr>
+      <td bgcolor="#f0f0f0" width="20%"><b>Time Spent:</b></td>
+      <td colspan="3" bgcolor="#ffffff" nowrap="" valign="top" width="80%">Not Specified</td>
+    </tr>
+    <tr>
+      <td bgcolor="#f0f0f0" width="20%"><b>Original Estimate:</b></td>
+      <td colspan="3" bgcolor="#ffffff" nowrap="" valign="top" width="80%">Not Specified</td>
+    </tr>
+  </tbody>
+</table>
+<table border="0" width="100%" cellpadding="0" cellspacing="0">
+  <tbody>
+    <tr>
+      <td bgcolor="#f0f0f0" valign="top" width="20%"><b>Issue Links:</b></td>
+      <td class="noPadding" bgcolor="#ffffff" valign="top">
+        <table  border="0" width="100%" cellpadding="0" cellspacing="0">
+          <tbody>
+            <tr>
+              <td colspan="4" bgcolor="#f0f0f0"><b>Relates</b><br></td>
+            </tr>
+            <tr>
+              <td>relates to</td>
+              <td><a href="https://fortress.atlassian.net/browse/SEN-24"><strike>SEN-24</strike></a></td>
+              <td>Add SSL to Unbound connection pool</td>
+              <td>Resolved</td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<table align="center" border="0" width="100%" cellpadding="2" cellspacing="0">
+  <tbody>
+    <tr>
+      <td align="center" bgcolor="#bbbbbb" nowrap="" width="1%">&nbsp;<font color="#ffffff"><b>Description</b></font>&nbsp;</td>
+      <td>&nbsp;</td>
+    </tr>
+  </tbody>
+</table>
+<table border="0" width="100%" cellpadding="0" cellspacing="0">
+  <tbody>
+    <tr>
+    <td id="descriptionArea"><p>Update unbound connection pool to support SSL</p><br></td>
     </tr>
   </tbody>
 </table>
