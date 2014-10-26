@@ -165,15 +165,15 @@ Before becoming an Apache (tm) project, Fortress had its own life for years. Dur
 |[FC-128](#FC-128)||||
 |[FC-129](#FC-129)||||
 |[FC-130](#FC-130)||||
-|[FC-131](#FC-131)||||
-|[FC-132](#FC-132)||||
-|[FC-133](#FC-133)||||
-|[FC-134](#FC-134)||||
-|[FC-135](#FC-135)||||
-|[FC-136](#FC-136)||||
-|[FC-137](#FC-137)||||
-|[FC-138](#FC-138)||||
-|[FC-139](#FC-139)||||
+|[FC-131](#FC-131)|RC37 Release|28/May/14|28/May/14|
+|[FC-132](#FC-132)|RC37 Cleanup|28/May/14|09/Aug/14|
+|[FC-133](#FC-133)|Fix Accelerator CreateSession negative test case|03/Jun/14|03/Jun/14|
+|[FC-134](#FC-134)|replace bootstrap props with group vals|14/Jun/14|05/Jul/14 |
+|[FC-135](#FC-135)|add objectId to accel checkAccess|26/Jun/14|26/Jun/14|
+|[FC-136](#FC-136)|Add sessionRoles to AccelMgr|29/Jun/14|05/Jul/14|
+|[FC-137](#FC-137)|Add description to Permission entity|29/Jun/14|30/Jun/14|
+|[FC-138](#FC-138)|Remove public default constructors from DAOs|29/Jun/14|29/Jun/14|
+|[FC-139](#FC-139)|AcceleratorDAO CheckAccess sending empty objectId in request|30/Jun/14|30/Jun/14|
 |[FC-140](#FC-140)|RBAC Overlay DB dir not setup|30/Jun/14|30/Jun/14|
 |[FC-141](#FC-141)|RC38 Release|05/Jul/14|05/Jul/14|
 |[FC-142](#FC-142)|RC38 Cleanup|06/Jul/14|06/Jul/14|
@@ -668,9 +668,136 @@ hr.fullcontent
 <br>
 
 <!-- =========================================================================================================== -->
+<!-- FC-137                                                                                                      -->
+<!-- =========================================================================================================== -->
+<table id="FC-137" class="tableBorder" cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td bgcolor="#f0f0f0" width="100%" colspan="2" valign="top">
+      <h3 class="formtitle">
+        [FC-137]&nbsp;<a href="https://fortress.atlassian.net/browse/FC-137">Add description to Permission entity</a>
+        <span class="subText">Created: 29/Jun/14&nbsp;Updated: 30/Jun/14&nbsp;Resolved: 30/Jun/14</span>
+      </h3>
+    </td>
+  </tr>
+    <tr>
+    <td width="20%"><b>Status:</b></td>
+    <td width="80%">Resolved</td>
+  </tr>
+    <tr>
+    <td width="20%"><b>Project:</b></td>
+    <td width="80%"><a href="https://fortress.atlassian.net/secure/BrowseProject.jspa?id=10000">Fortress Core</a></td>
+  </tr>
+  <tr>
+    <td><b>Component/s:</b></td>
+    <td>None</td>
+  </tr>
+  <tr>
+    <td><b>Affects Version/s:</b></td>
+    <td>1.0-RC37</td>
+  </tr>
+  <tr>
+    <td><b>Fix Version/s:</b></td>
+    <td>1.0-RC38</td>
+  </tr>
+</table>
+<br />
+<table class="grid" cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td bgcolor="#f0f0f0" valign="top" width="20%"><b>Type:</b></td>
+    <td bgcolor="#ffffff" valign="top"  width="30%" >Improvement</td>>Fixed</td>
+    <td bgcolor="#f0f0f0"><b>Priority:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap>Major</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" valign="top" width="20%"><b>Reporter:</b></td>
+    <td bgcolor="#ffffff" valign="top"  width="30%" >Shawn McKinney [Administrator]</td>
+    <td bgcolor="#f0f0f0" width="20%"><b>Assignee:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap  width="30%" >Shawn McKinney [Administrator]</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Resolution:</b></td>
+    <td bgcolor="#ffffff" valign="top" width="30%" nowrap>Fixed</td>
+    <td bgcolor="#f0f0f0" width="20%"><b>Votes:</b></td>
+    <td bgcolor="#ffffff" valign="top" width="30%" nowrap>0</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Labels:</b></td>
+    <td id="labels-14409-value" class="value" bgcolor="#ffffff" valign="top" colspan="3" nowrap>None</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Remaining Estimate:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">Not Specified</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Time Spent:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">Not Specified</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Original Estimate:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">Not Specified</td>
+  </tr>
+</table>
+<table class="grid" cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%" valign="top"><b>Issue Links:</b></td>
+    <td bgcolor="#ffffff" valign="top" class="noPadding">
+      <table cellpadding="0" cellspacing="0" border="0" width="100%" class="blank">
+        <tr>
+          <td colspan="4" bgcolor="#f0f0f0"><b>Relates</b><br/></td>
+        </tr>
+        <tr>
+          <td>relates to</td>
+          <td>
+            <a href="https://fortress.atlassian.net/browse/RA-25">RA-25</a></td><td>create sessionPermissions operation</td><t>To Do
+          <td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<table cellpadding="2" cellspacing="0" border="0" width="100%" align="center">
+  <tr>
+    <td bgcolor="#bbbbbb" width="1%" nowrap align="center">&nbsp;<font color="#ffffff"><b>Description</b></font>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td id="descriptionArea">
+      <p>Permission names can be terse thus hard to understand what they mean during setup.</p>
+      <p>The description field will allow users of the system to place human readable permission names onto these entities.   This label can then be shown on administrative interfaces to help the user understand what they granting.</p>
+      <p>For example permission:</p>
+      <p>objNm : customer<br/>
+      opNm : read<br/>
+      description : allow user to inquire the customer record</p>
+      <br/>
+    </td>
+  </tr>
+</table>
+<table cellpadding="2" cellspacing="0" border="0" width="100%" align="center">
+  <tr>
+    <td bgcolor="#bbbbbb" width="1%" nowrap align="center">&nbsp;<font color="#ffffff"><b>Comments</b></font>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+<table cellpadding="0" cellspacing="0" border="0" width="100%" class="grid" style="margin: 0;">
+  <tr id="comment-header-12502">
+    <td bgcolor="#f0f0f0">
+      Comment by Shawn McKinney [Administrator]<font size="-2">[<font color="#336699">29/Jun/14</font>]</font>
+    </td>
+  </tr>
+  <tr id="comment-body-12502">
+    <td bgcolor="#ffffff">
+      <p>The description must be added before the sessionPermissions extended operation can be completed.</p>
+    </td>
+  </tr>
+</table>
+<br>
+
+<!-- =========================================================================================================== -->
 <!-- FC-138                                                                                                      -->
 <!-- =========================================================================================================== -->
-<table class="tableBorder" cellpadding="0" cellspacing="0" border="0" width="100%">
+<table id="FC-138" class="tableBorder" cellpadding="0" cellspacing="0" border="0" width="100%">
   <tr>
     <td bgcolor="#f0f0f0" width="100%" colspan="2" valign="top">
       <h3 class="formtitle">
@@ -758,7 +885,7 @@ hr.fullcontent
 <!-- =========================================================================================================== -->
 <!-- FC-139                                                                                                      -->
 <!-- =========================================================================================================== -->
-<table  border="0" width="100%" cellpadding="0" cellspacing="0">
+<table id="FC-139" border="0" width="100%" cellpadding="0" cellspacing="0">
   <tbody>
     <tr>
       <td colspan="2" bgcolor="#f0f0f0" valign="top" width="100%">
