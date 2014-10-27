@@ -668,6 +668,960 @@ hr.fullcontent
 <br>
 
 <!-- =========================================================================================================== -->
+<!-- FC-110                                                                                                      -->
+<!-- =========================================================================================================== -->
+<table id="FC-110" class="tableBorder" cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td bgcolor="#f0f0f0" width="100%" colspan="2" valign="top">
+      <h3 class="formtitle">
+        [FC-110]&nbsp;<a href="https://fortress.atlassian.net/browse/FC-110">ObjectClass description in Javadoc could use different tags</a>
+        <span class="subText">Created: 26/Apr/14&nbsp;Updated: 28/Apr/14&nbsp;Resolved: 28/Apr/14</span>
+      </h3>
+    </td>
+  </tr>
+  <tr>
+    <td width="20%"><b>Status:</b></td>
+    <td width="80%">Resolved</td>
+  </tr>
+  <tr>
+    <td width="20%"><b>Project:</b></td>
+    <td width="80%"><a href="https://fortress.atlassian.net/secure/BrowseProject.jspa?id=10000">Fortress Core</a></td>
+  </tr>
+  <tr>
+    <td><b>Component/s:</b></td>
+    <td>None</td>
+  </tr>
+  <tr>
+    <td><b>Affects Version/s:</b></td>
+    <td>1.0-RC35</td>
+  </tr>
+  <tr>
+    <td><b>Fix Version/s:</b></td>
+    <td>1.0-RC36</td>
+  </tr>
+</table>
+<table class="grid" cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td bgcolor="#f0f0f0" valign="top" width="20%"><b>Type:</b></td>
+    <td bgcolor="#ffffff" valign="top"  width="30%" >Improvement</td>>Fixed</td>
+    <td bgcolor="#f0f0f0"><b>Priority:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap>Trivial</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" valign="top" width="20%"><b>Reporter:</b></td>
+    <td bgcolor="#ffffff" valign="top"  width="30%" >Emmanuel Lecharny</td>
+    <td bgcolor="#f0f0f0" width="20%"><b>Assignee:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap  width="30%" >Shawn McKinney [Administrator]</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Resolution:</b></td>
+    <td bgcolor="#ffffff" valign="top" width="30%" nowrap>Fixed</td>
+    <td bgcolor="#f0f0f0" width="20%"><b>Votes:</b></td>
+    <td bgcolor="#ffffff" valign="top" width="30%" nowrap>0</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Labels:</b></td>
+    <td id="labels-13703-value" class="value" bgcolor="#ffffff" valign="top" colspan="3" nowrap>None</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Remaining Estimate:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">Not Specified</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Time Spent:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">Not Specified</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Original Estimate:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">Not Specified</td>
+  </tr>
+</table>
+<table class="grid" cellpadding="0" cellspacing="0" border="0" width="100%">
+</table>
+<table cellpadding="2" cellspacing="0" border="0" width="100%" align="center">
+  <tr>
+    <td bgcolor="#bbbbbb" width="1%" nowrap align="center">&nbsp;<font color="#ffffff"><b>Description</b></font>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td id="descriptionArea">
+      <p>Many of the ObjectClass in Javadoc are using this formatting :</p>
+      <ul>
+        <li>&lt;ul&gt;</li>
+        <li>&lt;li&gt;  ------------------------------------------</li>
+        <li>&lt;li&gt; &lt;code&gt;objectclass ( 1.3.6.1.4.1.38088.3.2&lt;/code&gt;</li>
+        <li>&lt;li&gt; &lt;code&gt;NAME 'ftProperties'&lt;/code&gt;</li>
+        <li>&lt;li&gt; &lt;code&gt;DESC 'Fortress Properties AUX Object Class'&lt;/code&gt;</li>
+        <li>&lt;li&gt; &lt;code&gt;AUXILIARY&lt;/code&gt;</li>
+        <li>&lt;li&gt; &lt;code&gt;MAY ( ftProps ) ) &lt;/code&gt;</li>
+        <li>&lt;li&gt;  ------------------------------------------</li>
+        <li>&lt;/ul&gt;</li>
+      </ul>
+      <p>It results in a presentation which is not really what one would expect.</p>
+      <p>It would be better to use &lt;pre&gt;...&lt;/pre&gt; like this :</p>
+      <ul>
+        <li>&lt;pre&gt;</li>
+        <li>------------------------------------------</li>
+        <li>objectclass ( 1.3.6.1.4.1.38088.3.2</li>
+        <li>NAME 'ftProperties'</li>
+        <li>DESC 'Fortress Properties AUX Object Class'</li>
+        <li>AUXILIARY</li>
+        <li>MAY ( ftProps )</li>
+        <li>)</li>
+        <li>------------------------------------------</li>
+        <li>&lt;/pre&gt;</li>
+      </ul>
+      <br/>
+    </td>
+  </tr>
+</table>
+<br/>
+
+<!-- =========================================================================================================== -->
+<!-- FC-111                                                                                                      -->
+<!-- =========================================================================================================== -->
+<table id="FC-111" class="tableBorder" cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td bgcolor="#f0f0f0" width="100%" colspan="2" valign="top">
+      <h3 class="formtitle">
+        [FC-111]&nbsp;<a href="https://fortress.atlassian.net/browse/FC-111">The safeText method is probably not useful, and can be faster</a>
+        <span class="subText">Created: 26/Apr/14&nbsp;Updated: 29/Apr/14</span>
+      </h3>
+    </td>
+  </tr>
+  <tr>
+    <td width="20%"><b>Status:</b></td>
+    <td width="80%">Open</td>
+  </tr>
+  <tr>
+    <td width="20%"><b>Project:</b></td>
+    <td width="80%"><a href="https://fortress.atlassian.net/secure/BrowseProject.jspa?id=10000">Fortress Core</a></td>
+  </tr>
+  <tr>
+    <td><b>Component/s:</b></td>
+    <td>None</td>
+  </tr>
+  <tr>
+    <td><b>Affects Version/s:</b></td>
+    <td>1.0-RC35</td>
+  </tr>
+  <tr>
+    <td><b>Fix Version/s:</b></td>
+    <td>None</td>
+  </tr>
+</table>
+<table class="grid" cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td bgcolor="#f0f0f0" valign="top" width="20%"><b>Type:</b></td>
+    <td bgcolor="#ffffff" valign="top"  width="30%" >Improvement</td>>Fixed</td>
+    <td bgcolor="#f0f0f0"><b>Priority:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap>Major</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" valign="top" width="20%"><b>Reporter:</b></td>
+    <td bgcolor="#ffffff" valign="top"  width="30%" >Emmanuel Lecharny</td>
+    <td bgcolor="#f0f0f0" width="20%"><b>Assignee:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap  width="30%" >Shawn McKinney [Administrator]</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Resolution:</b></td>
+    <td bgcolor="#ffffff" valign="top" width="30%" nowrap>Unresolved</td>
+    <td bgcolor="#f0f0f0" width="20%"><b>Votes:</b></td>
+    <td bgcolor="#ffffff" valign="top" width="30%" nowrap>0</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Labels:</b></td>
+    <td id="labels-13704-value" class="value" bgcolor="#ffffff" valign="top" colspan="3" nowrap>None</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Remaining Estimate:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">Not Specified</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Time Spent:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">Not Specified</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Original Estimate:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">Not Specified</td>
+  </tr>
+</table>
+<table class="grid" cellpadding="0" cellspacing="0" border="0" width="100%">
+</table>
+<table cellpadding="2" cellspacing="0" border="0" width="100%" align="center">
+  <tr>
+    <td bgcolor="#bbbbbb" width="1%" nowrap align="center">&nbsp;<font color="#ffffff"><b>Description</b></font>&nbsp;
+    </td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td id="descriptionArea">
+      <p>When we want to validate an entity before injecting it in the server, we call the RegExUtil.safeText() method.</p>
+      <p>It's checking something the server will already check (each value injected in the server will be controlled). Of course, we can set limits like the max length, but this can be done when defining the AttributeType (using the </p>
+      {NNN}
+      <p> notation).</p>
+      <p>Otherwise, the way the regexp is evaluated is costly : we compile the gexep every time, when it could be done only once.</p>
+      <p>         Pattern safeTextPattern = Pattern.compile(safeTextPatternStr);</p>
+      <p>can be done globally.</p>
+      <br/>
+    </td>
+  </tr>
+</table>
+<table cellpadding="2" cellspacing="0" border="0" width="100%" align="center">
+  <tr>
+    <td bgcolor="#bbbbbb" width="1%" nowrap align="center">&nbsp;<font color="#ffffff"><b>Comments</b></font>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+<table cellpadding="0" cellspacing="0" border="0" width="100%" class="grid" style="margin: 0;">
+    <tr id="comment-header-12013">
+    <td bgcolor="#f0f0f0">Comment by Shawn McKinney [Administrator]<font size="-2">[<font color="#336699">27/Apr/14</font>]</font></td>
+  </tr>
+    <tr id="comment-body-12013">
+    <td bgcolor="#ffffff">
+      <p>When I move to static</p>
+      <p>         Pattern safeTextPattern = Pattern.compile(safeTextPatternStr);</p>
+      <p>Get this exception at runtime.  Not opposed to moving away from regx to attribute type notation.  How would that work here?</p>
+      <p>nt] <br/>
+      startAnt BUILD FAILED<br/>
+      startAnt /home/smckinn/GIT/fortressDev/openldap-fortress-core/ldap/setup/refreshLDAPData.xml:11: java.lang.ExceptionInInitiFortressAdmin 2014-04-27 09:55:47,507 (INFO ) DEBUG MODE 1<br/>
+      startAnt FortressAdmin 2014-04-27 09:55:47,507 (INFO ) addSuffixes name=jts description=JoshuaTree Software<br/>
+      startAnt alizerError<br/>
+      startAnt     at org.openldap.fortress.util.attr.VUtil.safeText(VUtil.java:173)<br/>
+      startAnt     at org.openldap.fortress.ldap.suffix.SuffixP.validate(SuffixP.java:135)<br/>
+      startAnt     at org.openldap.fortress.ldap.suffix.SuffixP.add(SuffixP.java:70)<br/>
+      startAnt     at org.openldap.fortress.ant.FortressAntTask.addSuffixes(FortressAntTask.java:1602)<br/>
+      startAnt     at org.openldap.fortress.ant.FortressAntTask.execute(FortressAntTask.java:802)<br/>
+      startAnt     at org.apache.tools.ant.UnknownElement.execute(UnknownElement.java:291)<br/>
+      startAnt     at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)<br/>
+      startAnt     at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)<br/>
+      startAnt     at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)<br/>
+      startAnt     at java.lang.reflect.Method.invoke(Method.java:601)<br/>
+      startAnt     at org.apache.tools.ant.dispatch.DispatchUtils.execute(DispatchUtils.java:106)<br/>
+      startAnt     at org.apache.tools.ant.Task.perform(Task.java:348)<br/>
+      startAnt     at org.apache.tools.ant.Target.execute(Target.java:390)<br/>
+      startAnt     at org.apache.tools.ant.Target.performTasks(Target.java:411)<br/>
+      startAnt     at org.apache.tools.ant.Project.executeSortedTargets(Project.java:1399)<br/>
+      startAnt     at org.apache.tools.ant.Project.executeTarget(Project.java:1368)<br/>
+      startAnt     at org.apache.tools.ant.helper.DefaultExecutor.executeTargets(DefaultExecutor.java:41)<br/>
+      startAnt     at org.apache.tools.ant.Project.executeTargets(Project.java:1251)<br/>
+      startAnt     at org.apache.tools.ant.Main.runBuild(Main.java:809)<br/>
+      startAnt     at org.apache.tools.ant.Main.startAnt(Main.java:217)<br/>
+      startAnt     at org.apache.tools.ant.launch.Launcher.run(Launcher.java:280)<br/>
+      startAnt     at org.apache.tools.ant.launch.Launcher.main(Launcher.java:109)<br/>
+      startAnt Caused by: java.lang.NullPointerException<br/>
+      startAnt     at java.util.regex.Pattern.&lt;init&gt;(Pattern.java:1336)<br/>
+      startAnt     at java.util.regex.Pattern.compile(Pattern.java:1022)<br/>
+      startAnt     at org.openldap.fortress.util.attr.RegExUtil.&lt;clinit&gt;(RegExUtil.java:37)<br/>
+      startAnt     ... 22 more<br/>
+      startAnt </p>
+    </td>
+  </tr>
+    <tr id="comment-header-12014">
+    <td bgcolor="#f0f0f0">Comment by Emmanuel Lecharny <font size="-2">[<font color="#336699">27/Apr/14</font>]</font></td>
+  </tr>
+    <tr id="comment-body-12014">
+    <td bgcolor="#ffffff"><p>What is the content of safeTextPatternStr ?</p></td>
+  </tr>
+    <tr id="comment-header-12015">
+    <td bgcolor="#f0f0f0">Comment by Shawn McKinney [Administrator]<font size="-2">[<font color="#336699">27/Apr/14</font>]</font></td>
+  </tr>
+    <tr id="comment-body-12015"><td bgcolor="#ffffff"><p>regXSafetext=^A-Za-z0-9-</p></td>
+  </tr>
+    <tr id="comment-header-12100">
+    <td bgcolor="#f0f0f0">Comment by Emmanuel Lecharny<font size="-2">[<font color="#336699">29/Apr/14</font>]</font></td>
+  </tr>
+    <tr id="comment-body-12100"><td bgcolor="#ffffff"><p>It should be ^[A-Za-z0-9-]*, no ?</p></td>
+  </tr>
+</table>
+<br/>
+
+<!-- =========================================================================================================== -->
+<!-- FC-112                                                                                                      -->
+<!-- =========================================================================================================== -->
+<table id="FC-112" class="tableBorder" cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td bgcolor="#f0f0f0" width="100%" colspan="2" valign="top">
+      <h3 class="formtitle">
+         [FC-112]&nbsp;<a href="https://fortress.atlassian.net/browse/FC-112">Convert all package names, maven group and licenses to org.openldap</a>
+        <span class="subText">Created: 26/Apr/14&nbsp;Updated: 28/Apr/14&nbsp;Resolved: 28/Apr/14</span>
+      </h3>
+    </td>
+  </tr>
+  <tr>
+    <td width="20%"><b>Status:</b></td>
+    <td width="80%">Resolved</td>
+  </tr>
+  <tr>
+    <td width="20%"><b>Project:</b></td>
+    <td width="80%"><a href="https://fortress.atlassian.net/secure/BrowseProject.jspa?id=10000">Fortress Core</a></td>
+  </tr>
+  <tr>
+    <td><b>Component/s:</b></td>
+    <td>None</td>
+  </tr>
+  <tr>
+    <td><b>Affects Version/s:</b></td>
+    <td>1.0-RC35</td>
+  </tr>
+  <tr>
+    <td><b>Fix Version/s:</b></td>
+    <td>1.0-RC36</td>
+  </tr>
+</table>
+<table class="grid" cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td bgcolor="#f0f0f0" valign="top" width="20%"><b>Type:</b></td>
+    <td bgcolor="#ffffff" valign="top"  width="30%" >Task</td>
+    <td bgcolor="#f0f0f0"><b>Priority:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap>Major</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" valign="top" width="20%"><b>Reporter:</b></td>
+    <td bgcolor="#ffffff" valign="top"  width="30%" >Shawn McKinney [Administrator]</td>
+    <td bgcolor="#f0f0f0" width="20%"><b>Assignee:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap  width="30%" >Shawn McKinney [Administrator]</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Resolution:</b></td>
+    <td bgcolor="#ffffff" valign="top" width="30%" nowrap>Fixed</td>
+    <td bgcolor="#f0f0f0" width="20%"><b>Votes:</b></td>
+    <td bgcolor="#ffffff" valign="top" width="30%" nowrap>0</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Labels:</b></td>
+    <td id="labels-13705-value" class="value" bgcolor="#ffffff" valign="top" colspan="3" nowrap>None</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Remaining Estimate:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">Not Specified</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Time Spent:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">Not Specified</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Original Estimate:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">Not Specified</td>
+  </tr>
+</table>
+<table class="grid" cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%" valign="top"><b>Issue Links:</b></td>
+    <td bgcolor="#ffffff" valign="top" class="noPadding">
+      <table cellpadding="0" cellspacing="0" border="0" width="100%" class="blank">
+        <tr>
+          <td colspan="4" bgcolor="#f0f0f0"><b>Relates</b><br/></td>
+        </tr>
+        <tr>
+          <td>relates to</td>
+          <td><a href="https://fortress.atlassian.net/browse/COM-98"><strike>COM-98</strike></a></td>
+          <td>Convert all package names, maven grou...</td>
+          <td>Resolved</td>
+        </tr>
+        <tr>
+          <td>relates to</td>
+          <td><a href="https://fortress.atlassian.net/browse/EN-15"><strike>EN-15</strike></a></td>
+          <td>Convert all package names, maven grou...</td>
+          <td>Resolved</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<br/>
+
+<!-- =========================================================================================================== -->
+<!-- FC-113                                                                                                      -->
+<!-- =========================================================================================================== -->
+<table id="FC-113" class="tableBorder" cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td bgcolor="#f0f0f0" width="100%" colspan="2" valign="top">
+    <h3 class="formtitle">
+        [FC-113]&nbsp;<a href="https://fortress.atlassian.net/browse/FC-113">RC36 Release</a>
+        <span class="subText">Created: 27/Apr/14&nbsp;Updated: 28/Apr/14&nbsp;Resolved: 28/Apr/14</span>
+    </h3>
+    </td>
+  </tr>
+  <tr>
+    <td width="20%"><b>Status:</b></td>
+    <td width="80%">Resolved</td>
+  </tr>
+  <tr>
+    <td width="20%"><b>Project:</b></td>
+    <td width="80%"><a href="https://fortress.atlassian.net/secure/BrowseProject.jspa?id=10000">Fortress Core</a></td>
+  </tr>
+  <tr>
+    <td><b>Component/s:</b></td>
+    <td>None</td>
+  </tr>
+  <tr>
+    <td><b>Affects Version/s:</b></td>
+    <td>1.0-RC35</td>
+  </tr>
+  <tr>
+    <td><b>Fix Version/s:</b></td>
+    <td>1.0-RC36</td>
+  </tr>
+</table>
+<table class="grid" cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td bgcolor="#f0f0f0" valign="top" width="20%"><b>Type:</b></td>
+    <td bgcolor="#ffffff" valign="top"  width="30%" >Task</td>
+    <td bgcolor="#f0f0f0"><b>Priority:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap>Major</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" valign="top" width="20%"><b>Reporter:</b></td>
+    <td bgcolor="#ffffff" valign="top"  width="30%" >Shawn McKinney [Administrator]</td>
+    <td bgcolor="#f0f0f0" width="20%"><b>Assignee:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap  width="30%" >Shawn McKinney [Administrator]</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Resolution:</b></td>
+    <td bgcolor="#ffffff" valign="top" width="30%" nowrap>Fixed</td>
+    <td bgcolor="#f0f0f0" width="20%"><b>Votes:</b></td>
+    <td bgcolor="#ffffff" valign="top" width="30%" nowrap>0</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Labels:</b></td>
+    <td id="labels-13711-value" class="value" bgcolor="#ffffff" valign="top" colspan="3" nowrap>None</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Remaining Estimate:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">Not Specified</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Time Spent:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">Not Specified</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Original Estimate:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">Not Specified</td>
+  </tr>
+</table>
+<table class="grid" cellpadding="0" cellspacing="0" border="0" width="100%">
+</table>
+<br/>
+
+<!-- =========================================================================================================== -->
+<!-- FC-114                                                                                                      -->
+<!-- =========================================================================================================== -->
+<table id="FC-114" class="tableBorder" cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td bgcolor="#f0f0f0" width="100%" colspan="2" valign="top">
+      <h3 class="formtitle">
+        [FC-114]&nbsp;<a href="https://fortress.atlassian.net/browse/FC-114">Fix javadoc in Session Class</a>
+        <span class="subText">Created: 29/Apr/14&nbsp;Updated: 28/May/14&nbsp;Resolved: 28/May/14</span>
+      </h3>
+    </td>
+  </tr>
+  <tr>
+    <td width="20%"><b>Status:</b></td>
+    <td width="80%">Resolved</td>
+  </tr>
+  <tr>
+    <td width="20%"><b>Project:</b></td>
+    <td width="80%"><a href="https://fortress.atlassian.net/secure/BrowseProject.jspa?id=10000">Fortress Core</a></td>
+  </tr>
+  <tr>
+    <td><b>Component/s:</b></td>
+    <td>None</td>
+  </tr>
+  <tr>
+    <td><b>Affects Version/s:</b></td>
+    <td>1.0-RC36</td>
+  </tr>
+  <tr>
+    <td><b>Fix Version/s:</b></td>
+    <td>1.0-RC37</td>
+  </tr>
+</table>
+<table class="grid" cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td bgcolor="#f0f0f0" valign="top" width="20%"><b>Type:</b></td>
+    <td bgcolor="#ffffff" valign="top"  width="30%" >Improvement</td>>Fixed</td>
+    <td bgcolor="#f0f0f0"><b>Priority:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap>Major</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" valign="top" width="20%"><b>Reporter:</b></td>
+    <td bgcolor="#ffffff" valign="top"  width="30%" >Shawn McKinney [Administrator]</td>
+    <td bgcolor="#f0f0f0" width="20%"><b>Assignee:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap  width="30%" >Shawn McKinney [Administrator]</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Resolution:</b></td>
+    <td bgcolor="#ffffff" valign="top" width="30%" nowrap>Fixed</td>
+    <td bgcolor="#f0f0f0" width="20%"><b>Votes:</b></td>
+    <td bgcolor="#ffffff" valign="top" width="30%" nowrap>0</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Labels:</b></td>
+    <td id="labels-13800-value" class="value" bgcolor="#ffffff" valign="top" colspan="3" nowrap>None</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Remaining Estimate:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">Not Specified</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Time Spent:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">Not Specified</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Original Estimate:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">Not Specified</td>
+  </tr>
+</table>
+<table class="grid" cellpadding="0" cellspacing="0" border="0" width="100%">
+</table>
+<table cellpadding="2" cellspacing="0" border="0" width="100%" align="center">
+  <tr>
+    <td bgcolor="#bbbbbb" width="1%" nowrap align="center">&nbsp;<font color="#ffffff"><b>Description</b></font>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td id="descriptionArea">
+    <p>This class has public methods that need to be documented.</p>
+    <br/>
+    </td>
+  </tr>
+</table>
+<br/>
+
+<!-- =========================================================================================================== -->
+<!-- FC-115                                                                                                      -->
+<!-- =========================================================================================================== -->
+<table id="FC-115" class="tableBorder" cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td bgcolor="#f0f0f0" width="100%" colspan="2" valign="top">
+      <h3 class="formtitle">
+        [FC-115]&nbsp;<a href="https://fortress.atlassian.net/browse/FC-115">createSession with roles has problem related to DSD policies.</a>
+        <span class="subText">Created: 18/May/14&nbsp;Updated: 18/May/14&nbsp;Resolved: 18/May/14</span>
+      </h3>
+    </td>
+  </tr>
+  <tr>
+    <td width="20%"><b>Status:</b></td>
+    <td width="80%">Resolved</td>
+  </tr>
+  <tr>
+    <td width="20%"><b>Project:</b></td>
+    <td width="80%"><a href="https://fortress.atlassian.net/secure/BrowseProject.jspa?id=10000">Fortress Core</a></td>
+  </tr>
+  <tr>
+    <td><b>Component/s:</b></td>
+    <td>None</td>
+  </tr>
+  <tr>
+    <td><b>Affects Version/s:</b></td>
+    <td>1.0-RC36</td>
+  </tr>
+  <tr>
+    <td><b>Fix Version/s:</b></td>
+    <td>1.0-RC37</td>
+  </tr>
+</table>
+<table class="grid" cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td bgcolor="#f0f0f0" valign="top" width="20%"><b>Type:</b></td>
+    <td bgcolor="#ffffff" valign="top"  width="30%" >Bug</td>
+    <td bgcolor="#f0f0f0"><b>Priority:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap>Major</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" valign="top" width="20%"><b>Reporter:</b></td>
+    <td bgcolor="#ffffff" valign="top"  width="30%" >Shawn McKinney [Administrator]</td>
+    <td bgcolor="#f0f0f0" width="20%"><b>Assignee:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap  width="30%" >Shawn McKinney [Administrator]</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Resolution:</b></td>
+    <td bgcolor="#ffffff" valign="top" width="30%" nowrap>Fixed</td>
+    <td bgcolor="#f0f0f0" width="20%"><b>Votes:</b></td>
+    <td bgcolor="#ffffff" valign="top" width="30%" nowrap>0</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Labels:</b></td>
+    <td id="labels-14000-value" class="value" bgcolor="#ffffff" valign="top" colspan="3" nowrap>None</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Remaining Estimate:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">Not Specified</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Time Spent:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">Not Specified</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Original Estimate:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">Not Specified</td>
+  </tr>
+</table>
+<table class="grid" cellpadding="0" cellspacing="0" border="0" width="100%">
+</table>
+<table cellpadding="2" cellspacing="0" border="0" width="100%" align="center">
+  <tr>
+    <td bgcolor="#bbbbbb" width="1%" nowrap align="center">&nbsp;<font color="#ffffff"><b>Description</b></font>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td id="descriptionArea">
+      <p>Create session with roles changed to validate constraints after the requested role list has been built. </p>
+      <p>The reason is if user has been assigned two roles that conflict with a single DSD policy, on who's behalf createSession is being called with just one of those roles requested being passed in, failure occurs because the requested role 'may' have been forced deactive from user's actual list during validate constraint check.  </p>
+      <p>Currently (and because) Fortress has no way of adjudicating which conflicting role 'wins' during constraint validation checking, it will simply deactivate the first role it finds that violates a particular DSD policy.</p>
+      <br/>
+    </td>
+  </tr>
+</table>
+<br/>
+
+<!-- =========================================================================================================== -->
+<!-- FC-116                                                                                                      -->
+<!-- =========================================================================================================== -->
+<table id="FC-116" class="tableBorder" cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td bgcolor="#f0f0f0" width="100%" colspan="2" valign="top">
+      <h3 class="formtitle">
+        [FC-116]&nbsp;<a href="https://fortress.atlassian.net/browse/FC-116">CreateSession with default roles</a>
+        <span class="subText">Created: 18/May/14&nbsp;Updated: 28/May/14&nbsp;Resolved: 28/May/14</span>
+      </h3>
+    </td>
+  </tr>
+  <tr>
+    <td width="20%"><b>Status:</b></td>
+    <td width="80%">Resolved</td>
+  </tr>
+  <tr>
+    <td width="20%"><b>Project:</b></td>
+    <td width="80%"><a href="https://fortress.atlassian.net/secure/BrowseProject.jspa?id=10000">Fortress Core</a></td>
+  </tr>
+  <tr>
+    <td><b>Component/s:</b></td>
+    <td>None</td>
+  </tr>
+  <tr>
+    <td><b>Affects Version/s:</b></td>
+    <td>1.0-RC36</td>
+  </tr>
+  <tr>
+    <td><b>Fix Version/s:</b></td>
+    <td>1.0-RC37</td>
+  </tr>
+</table>
+<table class="grid" cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td bgcolor="#f0f0f0" valign="top" width="20%"><b>Type:</b></td>
+    <td bgcolor="#ffffff" valign="top"  width="30%" >New Feature</td>
+    <td bgcolor="#f0f0f0"><b>Priority:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap>Major</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" valign="top" width="20%"><b>Reporter:</b></td>
+    <td bgcolor="#ffffff" valign="top"  width="30%" >Shawn McKinney [Administrator]</td>
+    <td bgcolor="#f0f0f0" width="20%"><b>Assignee:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap  width="30%" >Shawn McKinney [Administrator]</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Resolution:</b></td>
+    <td bgcolor="#ffffff" valign="top" width="30%" nowrap>Fixed</td>
+    <td bgcolor="#f0f0f0" width="20%"><b>Votes:</b></td>
+    <td bgcolor="#ffffff" valign="top" width="30%" nowrap>0</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Labels:</b></td>
+    <td id="labels-14001-value" class="value" bgcolor="#ffffff" valign="top" colspan="3" nowrap>None</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Remaining Estimate:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">Not Specified</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Time Spent:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">Not Specified</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Original Estimate:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">Not Specified</td>
+  </tr>
+</table>
+<table class="grid" cellpadding="0" cellspacing="0" border="0" width="100%">
+</table>
+<br/>
+
+<!-- =========================================================================================================== -->
+<!-- FC-117                                                                                                      -->
+<!-- =========================================================================================================== -->
+<table id="FC-117" class="tableBorder" cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td bgcolor="#f0f0f0" width="100%" colspan="2" valign="top">
+      <h3 class="formtitle">
+        [FC-117]&nbsp;<a href="https://fortress.atlassian.net/browse/FC-117">CacheMgr classloader issues</a>
+        <span class="subText">Created: 20/May/14&nbsp;Updated: 28/May/14&nbsp;Resolved: 28/May/14</span>
+      </h3>
+    </td>
+  </tr>
+  <tr>
+    <td width="20%"><b>Status:</b></td>
+    <td width="80%">Resolved</td>
+  </tr>
+  <tr>
+    <td width="20%"><b>Project:</b></td>
+    <td width="80%"><a href="https://fortress.atlassian.net/secure/BrowseProject.jspa?id=10000">Fortress Core</a></td>
+  </tr>
+  <tr>
+    <td><b>Component/s:</b></td>
+    <td>None</td>
+  </tr>
+  <tr>
+    <td><b>Affects Version/s:</b></td>
+    <td>1.0-RC36</td>
+  </tr>
+  <tr>
+    <td><b>Fix Version/s:</b></td>
+    <td>1.0-RC37</td>
+  </tr>
+</table>
+<table class="grid" cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td bgcolor="#f0f0f0" valign="top" width="20%"><b>Type:</b></td>
+    <td bgcolor="#ffffff" valign="top"  width="30%" >Bug</td>
+    <td bgcolor="#f0f0f0"><b>Priority:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap>Major</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" valign="top" width="20%"><b>Reporter:</b></td>
+    <td bgcolor="#ffffff" valign="top"  width="30%" >Shawn McKinney [Administrator]</td>
+    <td bgcolor="#f0f0f0" width="20%"><b>Assignee:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap  width="30%" >Shawn McKinney [Administrator]</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Resolution:</b></td>
+    <td bgcolor="#ffffff" valign="top" width="30%" nowrap>Fixed</td>
+    <td bgcolor="#f0f0f0" width="20%"><b>Votes:</b></td>
+    <td bgcolor="#ffffff" valign="top" width="30%" nowrap>0</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Labels:</b></td>
+    <td id="labels-14100-value" class="value" bgcolor="#ffffff" valign="top" colspan="3" nowrap>None</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Remaining Estimate:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">Not Specified</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Time Spent:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">Not Specified</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Original Estimate:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">Not Specified</td>
+  </tr>
+</table>
+<table class="grid" cellpadding="0" cellspacing="0" border="0" width="100%">
+</table>
+<table cellpadding="2" cellspacing="0" border="0" width="100%" align="center">
+  <tr>
+    <td bgcolor="#bbbbbb" width="1%" nowrap align="center">&nbsp;<font color="#ffffff"><b>Description</b></font>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td id="descriptionArea">
+      <p>Change to following for Tomcat context realm support:<br/>
+      // This call will create a new CacheManager, or throw exception if the it already exists, or if the configuration file is not found on classloader.</p>
+      <p>m_ftCacheImpl = new CacheMgr( new CacheManager( ClassUtil.resourceAsStream( cacheConfig ) ) );</p>
+      <br/>
+    </td>
+  </tr>
+</table>
+<br/>
+
+<!-- =========================================================================================================== -->
+<!-- FC-118                                                                                                      -->
+<!-- =========================================================================================================== -->
+<table id="FC-118" class="tableBorder" cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td bgcolor="#f0f0f0" width="100%" colspan="2" valign="top">
+      <h3 class="formtitle">
+        [FC-118]&nbsp;<a href="https://fortress.atlassian.net/browse/FC-118">Add support for LDAP Groups</a>
+        <span class="subText">Created: 23/May/14&nbsp;Updated: 28/May/14&nbsp;Resolved: 28/May/14</span>
+      </h3>
+    </td>
+  </tr>
+  <tr>
+    <td width="20%"><b>Status:</b></td>
+    <td width="80%">Resolved</td>
+  </tr>
+  <tr>
+    <td width="20%"><b>Project:</b></td>
+    <td width="80%"><a href="https://fortress.atlassian.net/secure/BrowseProject.jspa?id=10000">Fortress Core</a></td>
+  </tr>
+  <tr>
+    <td><b>Component/s:</b></td>
+    <td>None</td>
+  </tr>
+  <tr>
+    <td><b>Affects Version/s:</b></td>
+    <td>1.0-RC36</td>
+  </tr>
+  <tr>
+    <td><b>Fix Version/s:</b></td>
+    <td>1.0-RC37</td>
+  </tr>
+</table>
+
+<table class="grid" cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td bgcolor="#f0f0f0" valign="top" width="20%"><b>Type:</b></td>
+    <td bgcolor="#ffffff" valign="top"  width="30%" >New Feature</td>
+    <td bgcolor="#f0f0f0"><b>Priority:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap>Major</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" valign="top" width="20%"><b>Reporter:</b></td>
+    <td bgcolor="#ffffff" valign="top"  width="30%" >Shawn McKinney [Administrator]</td>
+    <td bgcolor="#f0f0f0" width="20%"><b>Assignee:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap  width="30%" >Shawn McKinney [Administrator]</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Resolution:</b></td>
+    <td bgcolor="#ffffff" valign="top" width="30%" nowrap>Fixed</td>
+    <td bgcolor="#f0f0f0" width="20%"><b>Votes:</b></td>
+    <td bgcolor="#ffffff" valign="top" width="30%" nowrap>0</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Labels:</b></td>
+    <td id="labels-14103-value" class="value" bgcolor="#ffffff" valign="top" colspan="3" nowrap>None</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Remaining Estimate:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">Not Specified</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Time Spent:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">Not Specified</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Original Estimate:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">Not Specified</td>
+  </tr>
+</table>
+<table class="grid" cellpadding="0" cellspacing="0" border="0" width="100%">
+</table>
+<table cellpadding="2" cellspacing="0" border="0" width="100%" align="center">
+  <tr>
+    <td bgcolor="#bbbbbb" width="1%" nowrap align="center">&nbsp;<font color="#ffffff"><b>Description</b></font>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td id="descriptionArea">
+      <p>Add support for LDAP groups (CRUD) and assignments to users.</p>
+      <br/>
+    </td>
+  </tr>
+</table>
+<br/>
+
+<!-- =========================================================================================================== -->
+<!-- FC-119                                                                                                      -->
+<!-- =========================================================================================================== -->
+<table id="FC-119" class="tableBorder" cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td bgcolor="#f0f0f0" width="100%" colspan="2" valign="top">
+      <h3 class="formtitle">
+        [FC-119]&nbsp;<a href="https://fortress.atlassian.net/browse/FC-119">admin console add/update user work</a>
+        <span class="subText">Created: 24/May/14&nbsp;Updated: 25/May/14&nbsp;Resolved: 25/May/14</span>
+      </h3>
+    </td>
+  </tr>
+  <tr>
+    <td width="20%"><b>Status:</b></td>
+    <td width="80%">Resolved</td>
+  </tr>
+  <tr>
+    <td width="20%"><b>Project:</b></td>
+    <td width="80%"><a href="https://fortress.atlassian.net/secure/BrowseProject.jspa?id=10000">Fortress Core</a></td>
+  </tr>
+  <tr>
+    <td><b>Component/s:</b></td>
+    <td>None</td>
+  </tr>
+  <tr>
+    <td><b>Affects Version/s:</b></td>
+    <td>1.0-RC36</td>
+  </tr>
+  <tr>
+    <td><b>Fix Version/s:</b></td>
+    <td>1.0-RC37</td>
+  </tr>
+</table>
+<table class="grid" cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td bgcolor="#f0f0f0" valign="top" width="20%"><b>Type:</b></td>
+    <td bgcolor="#ffffff" valign="top"  width="30%" >Improvement</td>>Fixed</td>
+    <td bgcolor="#f0f0f0"><b>Priority:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap>Major</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" valign="top" width="20%"><b>Reporter:</b></td>
+    <td bgcolor="#ffffff" valign="top"  width="30%" >Shawn McKinney [Administrator]</td>
+    <td bgcolor="#f0f0f0" width="20%"><b>Assignee:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap  width="30%" >Shawn McKinney [Administrator]</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Resolution:</b></td>
+    <td bgcolor="#ffffff" valign="top" width="30%" nowrap>Fixed</td>
+    <td bgcolor="#f0f0f0" width="20%"><b>Votes:</b></td>
+    <td bgcolor="#ffffff" valign="top" width="30%" nowrap>0</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Labels:</b></td>
+    <td id="labels-14104-value" class="value" bgcolor="#ffffff" valign="top" colspan="3" nowrap>None</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Remaining Estimate:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">Not Specified</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Time Spent:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">Not Specified</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Original Estimate:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">Not Specified</td>
+  </tr>
+</table>
+<table class="grid" cellpadding="0" cellspacing="0" border="0" width="100%">
+</table>
+<table cellpadding="2" cellspacing="0" border="0" width="100%" align="center">
+  <tr>
+    <td bgcolor="#bbbbbb" width="1%" nowrap align="center">&nbsp;<font color="#ffffff"><b>Description</b></font>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td id="descriptionArea">
+      <p>The add and update user functions in adminConsole are test functions but they still should be usable for general purpose admin.  This ticket clears up a couple of minor bugs.</p>
+      <br/>
+    </td>
+  </tr>
+</table>
+<br/>
+
+<!-- =========================================================================================================== -->
 <!-- FC-120                                                                                                      -->
 <!-- =========================================================================================================== -->
 <table id="FC-120" class="tableBorder" cellpadding="0" cellspacing="0" border="0" width="100%">
