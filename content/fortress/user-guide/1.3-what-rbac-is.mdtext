@@ -28,23 +28,33 @@ There is more to RBAC than using a Role object during policy enforcement.
 
 * ANSI INCITS 359-2001, [http://profsandhu.com/journals/tissec/ANSI+INCITS+359-2004.pdf](http://profsandhu.com/journals/tissec/ANSI+INCITS+359-2004.pdf) - The ANSI specification describes RBAC and provides functional specifications in Z-notation.  
 
-![ANSI RBAC Specification](images/ANSIRBAC-Spe.png)
+<CENTER>
+![ANSI RBAC](images/ANSIRBAC-Spe.png)
+</CENTER>
     
 * RBAC0 - Users, Roles, Permissions (Objects-Operations), Sessions - Form the Core of ANSI RBAC.  Role activation and Permissions mapped to Object->Operation pairing are key facets of the basic ANSI RBAC model.
 
-![](images/RbacCore.png) 
+<CENTER>
+![The Core](images/RbacCore.png) 
+</CENTER>
 
 * RBAC1 - Hierarchical Roles - Encourages proper role engineering.  Parent roles are Business Roles while child roles map to IT Roles.  Role hierarchies should be many-to-many or multi-inheritance.
 
-![](images/RbacHier.png) 
+<CENTER>
+![Hierarchical RBAC](images/RbacHier.png) 
+</CENTER>
 
 * RBAC2 - Static Separation of Duties - Used to limit the privilege of users to within normal boundaries.  SSD constraints are applied at role assignment time.
 
-![](images/RbacSSD.png) 
+<CENTER>
+![Static Separation of Duties](images/RbacSSD.png) 
+</CENTER>
 
 * RBAC3 - Dynamic Separation of Duties - Enforces constraints on what functions may used together at any point in time.  DSD constraints may be used to enforce strict controls during multi-step approval processes.  DSD constraints are applied at role activation time.
 
-![](images/RbacDSD.png) 
+<CENTER>
+![Dynamic Separation of Duties](images/RbacDSD.png) 
+</CENTER>
 
 * Well defined APIs that can be shared across projects and application development teams.
     
