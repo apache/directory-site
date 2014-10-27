@@ -114,16 +114,16 @@ Before becoming an Apache (tm) project, Fortress had its own life for years. Dur
 |[FC-77](#FC-77)||||
 |[FC-78](#FC-78)||||
 |[FC-79](#FC-79)||||
-|[FC-80](#FC-80)||||
-|[FC-81](#FC-81)||||
-|[FC-82](#FC-82)||||
-|[FC-83](#FC-83)||||
-|[FC-84](#FC-84)||||
-|[FC-85](#FC-85)||||
-|[FC-86](#FC-86)||||
-|[FC-87](#FC-87)||||
-|[FC-88](#FC-88)||||
-|[FC-89](#FC-89)||||
+|[FC-80](#FC-80)|Add tenant and thread IDs to log statement|10/Nov/13|11/Nov/13|
+|[FC-81](#FC-81)|addActiveRole not validating temporal constraints|10/Nov/13|11/Nov/13|
+|[FC-82](#FC-82)|User-Role Temporal constraints improperly parsing raw data|10/Nov/13|11/Nov/13|
+|[FC-83](#FC-83)|Add Multitenant Demo|10/Nov/13|11/Nov/13|
+|[FC-84](#FC-84)|Remove extraneous admin bind during user authN|11/Nov/13|11/Nov/13|
+|[FC-85](#FC-85)|Add jpegphoto to ant ldap load util|11/Nov/13|11/Nov/13|
+|[FC-86](#FC-86)|RC33 Release|11/Nov/13|11/Nov/13|
+|[FC-87](#FC-87)|Change user dao bind error mapping|18/Dec/13|28/Dec/13|
+|[FC-88](#FC-88)|ARBAC Role Assign/Deassign raw data mapping error|20/Dec/13|28/Dec/13|
+|[FC-89](#FC-89)|PoolMgr use of uninitialized variables|20/Dec/13|28/Dec/13|
 |[FC-90](#FC-90)|Administrative Permissions and Objects in search result set admin flag not set on return|28/Dec/13|29/Dec/13|
 |[FC-91](#FC-91)|Update copyright to 2014|28/Dec/13|28/Dec/13|
 |[FC-92](#FC-92)|Simplify fortress openldap acls|29/Dec/13|29/Dec/13|
@@ -664,6 +664,901 @@ hr.fullcontent
       <td><p>Measure/repair role assignment funcs to optimize for role occupants.</p><br></td>
     </tr>
   </tbody>
+</table>
+<br/>
+
+<!-- =========================================================================================================== -->
+<!-- FC-81                                                                                                       -->
+<!-- =========================================================================================================== -->
+<table id="FC-81" class="tableBorder" cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td bgcolor="#f0f0f0" width="100%" colspan="2" valign="top">
+      <h3 class="formtitle">
+        [FC-81]&nbsp;<a href="https://fortress.atlassian.net/browse/FC-81">addActiveRole not validating temporal constraints</a>
+        <span class="subText">Created: 10/Nov/13&nbsp;Updated: 11/Nov/13&nbsp;Resolved: 11/Nov/13</span>
+      </h3>
+    </td>
+  </tr>
+  <tr>
+    <td width="20%"><b>Status:</b></td>
+    <td width="80%">Resolved</td>
+  </tr>
+  <tr>
+    <td width="20%"><b>Project:</b></td>
+    <td width="80%">Fortress Core</td>
+  </tr>
+  <tr>
+    <td><b>Component/s:</b></td>
+    <td>None</td>
+  </tr>
+  <tr>
+    <td><b>Affects Version/s:</b></td>
+    <td>1.0-RC32</td>
+  </tr>
+  <tr>
+    <td><b>Fix Version/s:</b></td>
+    <td>1.0-RC33</td>
+  </tr>
+</table>
+<table class="grid" cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td bgcolor="#f0f0f0" valign="top" width="20%"><b>Type:</b></td>
+    <td bgcolor="#ffffff" valign="top"  width="30%" >Bug</td>
+    <td bgcolor="#f0f0f0"><b>Priority:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap>Major</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" valign="top" width="20%"><b>Reporter:</b></td>
+    <td bgcolor="#ffffff" valign="top"  width="30%" >Shawn McKinney [Administrator]</td>
+    <td bgcolor="#f0f0f0" width="20%"><b>Assignee:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap  width="30%" >Shawn McKinney [Administrator]</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Resolution:</b></td>
+    <td bgcolor="#ffffff" valign="top" width="30%" nowrap>Fixed</td>
+    <td bgcolor="#f0f0f0" width="20%"><b>Votes:</b></td>
+    <td bgcolor="#ffffff" valign="top" width="30%" nowrap>0</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Labels:</b></td>
+    <td id="labels-12602-value" class="value" bgcolor="#ffffff" valign="top" colspan="3" nowrap>None</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Remaining Estimate:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">Not Specified</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Time Spent:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">Not Specified</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Original Estimate:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">Not Specified</td>
+  </tr>
+</table>
+<table class="grid" cellpadding="0" cellspacing="0" border="0" width="100%">
+</table>
+    <br/>
+<table cellpadding="2" cellspacing="0" border="0" width="100%" align="center">
+  <tr>
+    <td bgcolor="#bbbbbb" width="1%" nowrap align="center">&nbsp;<font color="#ffffff"><b>Description</b></font>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td id="descriptionArea">
+      <p>The addActiveRole method is not checking time/date constraints on roles being activated into session.</p>
+      <br/>
+    </td>
+  </tr>
+</table>
+<br/>
+
+<!-- =========================================================================================================== -->
+<!-- FC-80                                                                                                       -->
+<!-- =========================================================================================================== -->
+<table id="FC-80" class="tableBorder" cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td bgcolor="#f0f0f0" width="100%" colspan="2" valign="top">
+      <h3 class="formtitle">
+        [FC-80]&nbsp;<a href="https://fortress.atlassian.net/browse/FC-80">Add tenant and thread IDs to log statement</a>
+        <span class="subText">Created: 10/Nov/13&nbsp;Updated: 11/Nov/13&nbsp;Resolved: 11/Nov/13</span>
+        </h3>
+    </td>
+  </tr>
+  <tr>
+    <td width="20%"><b>Status:</b></td>
+    <td width="80%">Resolved</td>
+  </tr>
+  <tr>
+    <td width="20%"><b>Project:</b></td>
+    <td width="80%">Fortress Core</td>
+  </tr>
+  <tr>
+    <td><b>Component/s:</b></td>
+    <td>None</td>
+  </tr>
+  <tr>
+    <td><b>Affects Version/s:</b></td>
+    <td>1.0-RC32</td>
+  </tr>
+  <tr>
+    <td><b>Fix Version/s:</b></td>
+    <td>1.0-RC33</td>
+  </tr>
+</table>
+<table class="grid" cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td bgcolor="#f0f0f0" valign="top" width="20%"><b>Type:</b></td>
+    <td bgcolor="#ffffff" valign="top"  width="30%" >Improvement</td>>Fixed</td>
+    <td bgcolor="#f0f0f0"><b>Priority:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap>Minor</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" valign="top" width="20%"><b>Reporter:</b></td>
+    <td bgcolor="#ffffff" valign="top"  width="30%" >Shawn McKinney [Administrator]</td>
+    <td bgcolor="#f0f0f0" width="20%"><b>Assignee:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap  width="30%" >Shawn McKinney [Administrator]</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Resolution:</b></td>
+    <td bgcolor="#ffffff" valign="top" width="30%" nowrap>Fixed</td>
+    <td bgcolor="#f0f0f0" width="20%"><b>Votes:</b></td>
+    <td bgcolor="#ffffff" valign="top" width="30%" nowrap>0</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Labels:</b></td>
+    <td id="labels-12601-value" class="value" bgcolor="#ffffff" valign="top" colspan="3" nowrap>None</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Remaining Estimate:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">Not Specified</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Time Spent:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">Not Specified</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Original Estimate:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">Not Specified</td>
+  </tr>
+</table>
+<table class="grid" cellpadding="0" cellspacing="0" border="0" width="100%">
+</table>
+<table cellpadding="2" cellspacing="0" border="0" width="100%" align="center">
+  <tr>
+    <td bgcolor="#bbbbbb" width="1%" nowrap align="center">&nbsp;<font color="#ffffff"><b>Description</b></font>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td id="descriptionArea">
+      <p>Add the thread id to log4j messages.  Add the tenant id to log statements in junit output.</p>
+      <br/>
+    </td>
+  </tr>
+</table>
+<br/>
+
+<!-- =========================================================================================================== -->
+<!-- FC-82                                                                                                       -->
+<!-- =========================================================================================================== -->
+<table id="FC-82" class="tableBorder" cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td bgcolor="#f0f0f0" width="100%" colspan="2" valign="top">
+      <h3 class="formtitle">
+        [FC-82]&nbsp;<a href="https://fortress.atlassian.net/browse/FC-82">User-Role Temporal constraints improperly parsing raw data</a>
+        <span class="subText">Created: 10/Nov/13&nbsp;Updated: 11/Nov/13&nbsp;Resolved: 11/Nov/13</span>
+      </h3>
+    </td>
+  </tr>
+  <tr>
+    <td width="20%"><b>Status:</b></td>
+    <td width="80%">Resolved</td>
+  </tr>
+  <tr>
+    <td width="20%"><b>Project:</b></td>
+    <td width="80%">Fortress Core</td>
+  </tr>
+  <tr>
+    <td><b>Component/s:</b></td>
+    <td>None</td>
+  </tr>
+  <tr>
+    <td><b>Affects Version/s:</b></td>
+    <td>1.0-RC32</td>
+  </tr>
+  <tr>
+    <td><b>Fix Version/s:</b></td>
+    <td>1.0-RC33</td>
+  </tr>
+</table>
+<table class="grid" cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td bgcolor="#f0f0f0" valign="top" width="20%"><b>Type:</b></td>
+    <td bgcolor="#ffffff" valign="top"  width="30%" >Bug</td>
+    <td bgcolor="#f0f0f0"><b>Priority:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap>Major</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" valign="top" width="20%"><b>Reporter:</b></td>
+    <td bgcolor="#ffffff" valign="top"  width="30%" >Shawn McKinney [Administrator]</td>
+    <td bgcolor="#f0f0f0" width="20%"><b>Assignee:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap  width="30%" >Shawn McKinney [Administrator]</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Resolution:</b></td>
+    <td bgcolor="#ffffff" valign="top" width="30%" nowrap>Fixed</td>
+    <td bgcolor="#f0f0f0" width="20%"><b>Votes:</b></td>
+    <td bgcolor="#ffffff" valign="top" width="30%" nowrap>0</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Labels:</b></td>
+    <td id="labels-12603-value" class="value" bgcolor="#ffffff" valign="top" colspan="3" nowrap>None</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Remaining Estimate:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">Not Specified</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Time Spent:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">Not Specified</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Original Estimate:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">Not Specified</td>
+  </tr>
+</table>
+<table class="grid" cellpadding="0" cellspacing="0" border="0" width="100%">
+</table>
+<table cellpadding="2" cellspacing="0" border="0" width="100%" align="center">
+  <tr>
+    <td bgcolor="#bbbbbb" width="1%" nowrap align="center">&nbsp;<font color="#ffffff"><b>Description</b></font>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td id="descriptionArea">
+      <p>When user-role constraint data is being converted from raw (as stored in ldap) to entity format it is not handling empty params correctly.  Change the way the string is being parsed in order to handle empty values.</p>
+      <br/>
+    </td>
+  </tr>
+</table>
+<br/>
+
+<!-- =========================================================================================================== -->
+<!-- FC-83                                                                                                       -->
+<!-- =========================================================================================================== -->
+<table id="FC-83" class="tableBorder" cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td bgcolor="#f0f0f0" width="100%" colspan="2" valign="top">
+      <h3 class="formtitle">
+        [FC-83]&nbsp;<a href="https://fortress.atlassian.net/browse/FC-83">Add Multitenant Demo</a>
+        <span class="subText">Created: 10/Nov/13&nbsp;Updated: 11/Nov/13&nbsp;Resolved: 11/Nov/13</span>
+      </h3>
+    </td>
+  </tr>
+  <tr>
+    <td width="20%"><b>Status:</b></td>
+    <td width="80%">Resolved</td>
+  </tr>
+  <tr>
+    <td width="20%"><b>Project:</b></td>
+    <td width="80%">Fortress Core</td>
+  </tr>
+  <tr>
+    <td><b>Component/s:</b></td>
+    <td>None</td>
+  </tr>
+  <tr>
+    <td><b>Affects Version/s:</b></td>
+    <td>1.0-RC32</td>
+  </tr>
+  <tr>
+    <td><b>Fix Version/s:</b></td>
+    <td>1.0-RC33</td>
+  </tr>
+</table>
+<table class="grid" cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td bgcolor="#f0f0f0" valign="top" width="20%"><b>Type:</b></td>
+    <td bgcolor="#ffffff" valign="top"  width="30%" >New Feature</td>
+    <td bgcolor="#f0f0f0"><b>Priority:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap>Major</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" valign="top" width="20%"><b>Reporter:</b></td>
+    <td bgcolor="#ffffff" valign="top"  width="30%" >Shawn McKinney [Administrator]</td>
+    <td bgcolor="#f0f0f0" width="20%"><b>Assignee:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap  width="30%" >Shawn McKinney [Administrator]</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Resolution:</b></td>
+    <td bgcolor="#ffffff" valign="top" width="30%" nowrap>Fixed</td>
+    <td bgcolor="#f0f0f0" width="20%"><b>Votes:</b></td>
+    <td bgcolor="#ffffff" valign="top" width="30%" nowrap>0</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Labels:</b></td>
+    <td id="labels-12604-value" class="value" bgcolor="#ffffff" valign="top" colspan="3" nowrap>None</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Remaining Estimate:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">Not Specified</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Time Spent:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">Not Specified</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Original Estimate:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">Not Specified</td>
+  </tr>
+</table>
+<table class="grid" cellpadding="0" cellspacing="0" border="0" width="100%">
+</table>
+<table cellpadding="2" cellspacing="0" border="0" width="100%" align="center">
+  <tr>
+    <td bgcolor="#bbbbbb" width="1%" nowrap align="center">&nbsp;<font color="#ffffff"><b>Description</b></font>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td id="descriptionArea">
+      <p>Add new ant &amp; bash scripts to kick off multi-tenant batch test/demo.</p>
+      <br/>
+    </td>
+  </tr>
+</table>
+<br/>
+
+<!-- =========================================================================================================== -->
+<!-- FC-84                                                                                                       -->
+<!-- =========================================================================================================== -->
+<table id="FC-84" class="tableBorder" cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td bgcolor="#f0f0f0" width="100%" colspan="2" valign="top">
+      <h3 class="formtitle">
+        [FC-84]&nbsp;<a href="https://fortress.atlassian.net/browse/FC-84">Remove extraneous admin bind during user authN</a>
+        <span class="subText">Created: 11/Nov/13&nbsp;Updated: 11/Nov/13&nbsp;Resolved: 11/Nov/13</span>
+      </h3>
+    </td>
+  </tr>
+  <tr>
+    <td width="20%"><b>Status:</b></td>
+    <td width="80%">Resolved</td>
+  </tr>
+  <tr>
+    <td width="20%"><b>Project:</b></td>
+    <td width="80%">Fortress Core</td>
+  </tr>
+  <tr>
+    <td><b>Component/s:</b></td>
+    <td>None</td>
+  </tr>
+  <tr>
+    <td><b>Affects Version/s:</b></td>
+    <td>1.0-RC32</td>
+  </tr>
+  <tr>
+    <td><b>Fix Version/s:</b></td>
+    <td>1.0-RC33</td>
+  </tr>
+</table>
+<table class="grid" cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td bgcolor="#f0f0f0" valign="top" width="20%"><b>Type:</b></td>
+    <td bgcolor="#ffffff" valign="top"  width="30%" >Bug</td>
+    <td bgcolor="#f0f0f0"><b>Priority:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap>Major</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" valign="top" width="20%"><b>Reporter:</b></td>
+    <td bgcolor="#ffffff" valign="top"  width="30%" >Shawn McKinney [Administrator]</td>
+    <td bgcolor="#f0f0f0" width="20%"><b>Assignee:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap  width="30%" >Shawn McKinney [Administrator]</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Resolution:</b></td>
+    <td bgcolor="#ffffff" valign="top" width="30%" nowrap>Fixed</td>
+    <td bgcolor="#f0f0f0" width="20%"><b>Votes:</b></td>
+    <td bgcolor="#ffffff" valign="top" width="30%" nowrap>0</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Labels:</b></td>
+    <td id="labels-12605-value" class="value" bgcolor="#ffffff" valign="top" colspan="3" nowrap>None</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Remaining Estimate:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">Not Specified</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Time Spent:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">Not Specified</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Original Estimate:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">Not Specified</td>
+  </tr>
+</table>
+<table class="grid" cellpadding="0" cellspacing="0" border="0" width="100%">
+</table>
+<table cellpadding="2" cellspacing="0" border="0" width="100%" align="center">
+  <tr>
+    <td bgcolor="#bbbbbb" width="1%" nowrap align="center">&nbsp;<font color="#ffffff"><b>Description</b></font>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td id="descriptionArea">
+      <p>The connection pool fortress uses ConnectionPool class from Mozilla java ldap sdk.  The code performs a bind on connections that are being put back in the pool (ostensibly to clear the previous credentials).  This creates unnecessary extra bind during user authentication flow.  </p>
+      <p>Change the ConnectionPool class to not bind before returning to pool</p>
+      <br/>
+    </td>
+  </tr>
+</table>
+<br/>
+
+<!-- =========================================================================================================== -->
+<!-- FC-85                                                                                                       -->
+<!-- =========================================================================================================== -->
+<table id="FC-85" class="tableBorder" cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td bgcolor="#f0f0f0" width="100%" colspan="2" valign="top">
+      <h3 class="formtitle">
+        [FC-85]&nbsp;<a href="https://fortress.atlassian.net/browse/FC-85">Add jpegphoto to ant ldap load util</a>
+        <span class="subText">Created: 11/Nov/13&nbsp;Updated: 11/Nov/13&nbsp;Resolved: 11/Nov/13</span>
+      </h3>
+    </td>
+  </tr>
+  <tr>
+    <td width="20%"><b>Status:</b></td>
+    <td width="80%">Resolved</td>
+  </tr>
+  <tr>
+    <td width="20%"><b>Project:</b></td>
+    <td width="80%">Fortress Core</td>
+  </tr>
+  <tr>
+    <td><b>Component/s:</b></td>
+    <td>None</td>
+  </tr>
+  <tr>
+    <td><b>Affects Version/s:</b></td>
+    <td>1.0-RC32</td>
+  </tr>
+  <tr>
+    <td><b>Fix Version/s:</b></td>
+    <td>1.0-RC33</td>
+  </tr>
+</table>
+<table class="grid" cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td bgcolor="#f0f0f0" valign="top" width="20%"><b>Type:</b></td>
+    <td bgcolor="#ffffff" valign="top"  width="30%" >Improvement</td>>Fixed</td>
+    <td bgcolor="#f0f0f0"><b>Priority:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap>Major</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" valign="top" width="20%"><b>Reporter:</b></td>
+    <td bgcolor="#ffffff" valign="top"  width="30%" >Shawn McKinney [Administrator]</td>
+    <td bgcolor="#f0f0f0" width="20%"><b>Assignee:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap  width="30%" >Shawn McKinney [Administrator]</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Resolution:</b></td>
+    <td bgcolor="#ffffff" valign="top" width="30%" nowrap>Fixed</td>
+    <td bgcolor="#f0f0f0" width="20%"><b>Votes:</b></td>
+    <td bgcolor="#ffffff" valign="top" width="30%" nowrap>0</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Labels:</b></td>
+    <td id="labels-12606-value" class="value" bgcolor="#ffffff" valign="top" colspan="3" nowrap>None</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Remaining Estimate:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">Not Specified</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Time Spent:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">Not Specified</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Original Estimate:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">Not Specified</td>
+  </tr>
+</table>
+<table class="grid" cellpadding="0" cellspacing="0" border="0" width="100%">
+</table>
+<table cellpadding="2" cellspacing="0" border="0" width="100%" align="center">
+  <tr>
+    <td bgcolor="#bbbbbb" width="1%" nowrap align="center">&nbsp;<font color="#ffffff"><b>Description</b></font>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td id="descriptionArea">
+      <p>Add jpeg photo to ant load utility.</p>
+      <br/>
+    </td>
+  </tr>
+</table>
+<br/>
+
+<!-- =========================================================================================================== -->
+<!-- FC-86                                                                                                       -->
+<!-- =========================================================================================================== -->
+<table id="FC-86" class="tableBorder" cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td bgcolor="#f0f0f0" width="100%" colspan="2" valign="top">
+      <h3 class="formtitle">
+        [FC-86]&nbsp;<a href="https://fortress.atlassian.net/browse/FC-86">RC33 Release</a>
+        <span class="subText">Created: 11/Nov/13&nbsp;Updated: 11/Nov/13&nbsp;Resolved: 11/Nov/13</span>
+      </h3>
+    </td>
+  </tr>
+  <tr>
+    <td width="20%"><b>Status:</b></td>
+    <td width="80%">Resolved</td>
+  </tr>
+  <tr>
+    <td width="20%"><b>Project:</b></td>
+    <td width="80%">Fortress Core</td>
+  </tr>
+  <tr>
+    <td><b>Component/s:</b></td>
+    <td>None</td>
+  </tr>
+  <tr>
+    <td><b>Affects Version/s:</b></td>
+    <td>1.0-RC32</td>
+  </tr>
+  <tr>
+    <td><b>Fix Version/s:</b></td>
+    <td>1.0-RC33</td>
+  </tr>
+</table>
+<table class="grid" cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td bgcolor="#f0f0f0" valign="top" width="20%"><b>Type:</b></td>
+    <td bgcolor="#ffffff" valign="top"  width="30%" >Task</td>
+    <td bgcolor="#f0f0f0"><b>Priority:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap>Major</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" valign="top" width="20%"><b>Reporter:</b></td>
+    <td bgcolor="#ffffff" valign="top"  width="30%" >Shawn McKinney [Administrator]</td>
+    <td bgcolor="#f0f0f0" width="20%"><b>Assignee:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap  width="30%" >Shawn McKinney [Administrator]</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Resolution:</b></td>
+    <td bgcolor="#ffffff" valign="top" width="30%" nowrap>Fixed</td>
+    <td bgcolor="#f0f0f0" width="20%"><b>Votes:</b></td>
+    <td bgcolor="#ffffff" valign="top" width="30%" nowrap>0</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Labels:</b></td>
+    <td id="labels-12608-value" class="value" bgcolor="#ffffff" valign="top" colspan="3" nowrap>None</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Remaining Estimate:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">Not Specified</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Time Spent:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">Not Specified</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Original Estimate:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">Not Specified</td>
+  </tr>
+</table>
+<table class="grid" cellpadding="0" cellspacing="0" border="0" width="100%">
+</table>
+<br/>
+
+<!-- =========================================================================================================== -->
+<!-- FC-87                                                                                                       -->
+<!-- =========================================================================================================== -->
+<table id="FC-87" class="tableBorder" cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td bgcolor="#f0f0f0" width="100%" colspan="2" valign="top">
+      <h3 class="formtitle">
+        [FC-87]&nbsp;<a href="https://fortress.atlassian.net/browse/FC-87">Change user dao bind error mapping</a>
+        <span class="subText">Created: 18/Dec/13&nbsp;Updated: 28/Dec/13&nbsp;Resolved: 28/Dec/13</span>
+      </h3>
+    </td>
+  </tr>
+  <tr>
+    <td width="20%"><b>Status:</b></td>
+    <td width="80%">Resolved</td>
+  </tr>
+  <tr>
+    <td width="20%"><b>Project:</b></td>
+    <td width="80%">Fortress Core</td>
+  </tr>
+  <tr>
+    <td><b>Component/s:</b></td>
+    <td>None</td>
+  </tr>
+  <tr>
+    <td><b>Affects Version/s:</b></td>
+    <td>1.0-RC33</td></tr>
+  <tr>
+    <td><b>Fix Version/s:</b></td>
+    <td>1.0-RC34</td>
+  </tr>
+</table>
+<table class="grid" cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td bgcolor="#f0f0f0" valign="top" width="20%"><b>Type:</b></td>
+    <td bgcolor="#ffffff" valign="top"  width="30%" >Improvement</td>>Fixed</td>
+    <td bgcolor="#f0f0f0"><b>Priority:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap>Trivial</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" valign="top" width="20%"><b>Reporter:</b></td>
+    <td bgcolor="#ffffff" valign="top"  width="30%" >Shawn McKinney [Administrator]</td>
+    <td bgcolor="#f0f0f0" width="20%"><b>Assignee:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap  width="30%" >Shawn McKinney [Administrator]</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Resolution:</b></td>
+    <td bgcolor="#ffffff" valign="top" width="30%" nowrap>Fixed</td>
+    <td bgcolor="#f0f0f0" width="20%"><b>Votes:</b></td>
+    <td bgcolor="#ffffff" valign="top" width="30%" nowrap>0</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Labels:</b></td>
+    <td id="labels-12700-value" class="value" bgcolor="#ffffff" valign="top" colspan="3" nowrap>None</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Remaining Estimate:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">Not Specified</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Time Spent:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">Not Specified</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Original Estimate:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">Not Specified</td>
+  </tr>
+</table>
+<table class="grid" cellpadding="0" cellspacing="0" border="0" width="100%">
+</table>
+<table cellpadding="2" cellspacing="0" border="0" width="100%" align="center">
+  <tr>
+    <td bgcolor="#bbbbbb" width="1%" nowrap align="center">&nbsp;<font color="#ffffff"><b>Description</b></font>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td id="descriptionArea">
+      <p>change error mapping on bind to use </p>
+      <p>    /**</p>
+      <ul>
+        <li>The User bind operation failed on server.<br/>
+        */<br/>
+        public final static int USER_BIND_FAILED = 1037;</li>
+      </ul>
+      <br/>
+    </td>
+  </tr>
+</table>
+<br/>
+
+<!-- =========================================================================================================== -->
+<!-- FC-88                                                                                                       -->
+<!-- =========================================================================================================== -->
+<table id="FC-88" class="tableBorder" cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td bgcolor="#f0f0f0" width="100%" colspan="2" valign="top">
+      <h3 class="formtitle">
+        [FC-88]&nbsp;<a href="https://fortress.atlassian.net/browse/FC-88">ARBAC Role Assign/Deassign raw data mapping error</a>
+        <span class="subText">Created: 20/Dec/13&nbsp;Updated: 28/Dec/13&nbsp;Resolved: 28/Dec/13</span>
+      </h3>
+    </td>
+  </tr>
+  <tr>
+    <td width="20%"><b>Status:</b></td>
+    <td width="80%">Resolved</td>
+  </tr>
+  <tr>
+    <td width="20%"><b>Project:</b></td>
+    <td width="80%">Fortress Core</td>
+  </tr>
+  <tr>
+    <td><b>Component/s:</b></td>
+    <td>None</td>
+  </tr>
+  <tr>
+    <td><b>Affects Version/s:</b></td>
+    <td>1.0-RC33</td></tr>
+  <tr>
+    <td><b>Fix Version/s:</b></td>
+    <td>1.0-RC34</td>
+  </tr>
+</table>
+<table class="grid" cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td bgcolor="#f0f0f0" valign="top" width="20%"><b>Type:</b></td>
+    <td bgcolor="#ffffff" valign="top"  width="30%" >Bug</td>
+    <td bgcolor="#f0f0f0"><b>Priority:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap>Major</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" valign="top" width="20%"><b>Reporter:</b></td>
+    <td bgcolor="#ffffff" valign="top"  width="30%" >Shawn McKinney [Administrator]</td>
+    <td bgcolor="#f0f0f0" width="20%"><b>Assignee:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap  width="30%" >Shawn McKinney [Administrator]</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Resolution:</b></td>
+    <td bgcolor="#ffffff" valign="top" width="30%" nowrap>Fixed</td>
+    <td bgcolor="#f0f0f0" width="20%"><b>Votes:</b></td>
+    <td bgcolor="#ffffff" valign="top" width="30%" nowrap>0</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Labels:</b></td>
+    <td id="labels-12702-value" class="value" bgcolor="#ffffff" valign="top" colspan="3" nowrap>None</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Remaining Estimate:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">Not Specified</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Time Spent:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">Not Specified</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Original Estimate:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">Not Specified</td>
+  </tr>
+</table>
+<table class="grid" cellpadding="0" cellspacing="0" border="0" width="100%">
+</table>
+<table cellpadding="2" cellspacing="0" border="0" width="100%" align="center">
+  <tr>
+    <td bgcolor="#bbbbbb" width="1%" nowrap align="center">&nbsp;<font color="#ffffff"><b>Description</b></font>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td id="descriptionArea">
+      <p>Problem description submitted via the fortress mailing list.  Issue resolved by fixing UserAdminRole.getRawData()</p>
+      <p>Assign A user to a role-- Works fine<br/>
+      Call Deassign User from a role - Leads to exception the trace is mentioned as follows</p>
+      <p>LDAPException(resultCode=16 (no such attribute), errorMessage='modify/delete: ftARC: no such value')<br/>
+      at com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPConnection.modify(LDAPConnection.java:1137)<br/>
+      at com.unboundid.ldap.sdk.migrate.ldapjdk.LDAPConnection.modify(LDAPConnection.java:1154)<br/>
+      at us.jts.fortress.ldap.UnboundIdDataProvider.modify(UnboundIdDataProvider.java:241)<br/>
+      at us.jts.fortress.rbac.dao.unboundid.UserDAO.deassign(UserDAO.java:1683)<br/>
+      at us.jts.fortress.rbac.UserP.deassign(UserP.java:728)<br/>
+      at us.jts.fortress.rbac.DelAdminMgrImpl.deassignUser(DelAdminMgrImpl.java:296)</p>
+      <p>Things i have verified <br/>
+      1. User Exists <br/>
+      2. Role Exists<br/>
+      3. User is a role occupant of the mentioned role.</p>
+      <p>Any clues as to why this is happening. </p>
+      <p>Relevant piece of code.<br/>
+      //assign user<br/>
+      delAdminMgr = createAndGetDelAdminMgr();<br/>
+      UserAdminRole role = new UserAdminRole(userName, roleName);<br/>
+      try </p>
+      {
+      delAdminMgr.assignUser(role);
+      }
+      <p> catch (SecurityException e) {</p>
+      <p>}<br/>
+      //remove user </p>
+      <p>            delAdminMgr = createAndGetDelAdminMgr();<br/>
+      UserAdminRole role = new UserAdminRole(userName, roleName);<br/>
+      try </p>
+      {
+      delAdminMgr.deassignUser(role);
+      }
+      <p> catch (SecurityException e) {</p>
+      <br/>
+    </td>
+  </tr>
+</table>
+<br/>
+
+<!-- =========================================================================================================== -->
+<!-- FC-89                                                                                                       -->
+<!-- =========================================================================================================== -->
+<table id="FC-89" class="tableBorder" cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td bgcolor="#f0f0f0" width="100%" colspan="2" valign="top">
+      <h3 class="formtitle">
+        [FC-89]&nbsp;<a href="https://fortress.atlassian.net/browse/FC-89">PoolMgr use of uninitialized variables</a>
+        <span class="subText">Created: 20/Dec/13&nbsp;Updated: 28/Dec/13&nbsp;Resolved: 28/Dec/13</span>
+      </h3>
+    </td>
+  </tr>
+  <tr>
+    <td width="20%"><b>Status:</b></td>
+    <td width="80%">Resolved</td>
+  </tr>
+  <tr>
+    <td width="20%"><b>Project:</b></td>
+    <td width="80%">Fortress Core</td>
+  </tr>
+  <tr>
+    <td><b>Component/s:</b></td>
+    <td>None</td>
+  </tr>
+  <tr>
+    <td><b>Affects Version/s:</b></td>
+    <td>1.0-RC33</td></tr>
+  <tr>
+    <td><b>Fix Version/s:</b></td>
+    <td>1.0-RC34</td>
+  </tr>
+</table>
+<table class="grid" cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td bgcolor="#f0f0f0" valign="top" width="20%"><b>Type:</b></td>
+    <td bgcolor="#ffffff" valign="top"  width="30%" >Bug</td>
+    <td bgcolor="#f0f0f0"><b>Priority:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap>Major</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" valign="top" width="20%"><b>Reporter:</b></td>
+    <td bgcolor="#ffffff" valign="top"  width="30%" >Shawn McKinney [Administrator]</td>
+    <td bgcolor="#f0f0f0" width="20%"><b>Assignee:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap  width="30%" >Shawn McKinney [Administrator]</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Resolution:</b></td>
+    <td bgcolor="#ffffff" valign="top" width="30%" nowrap>Fixed</td>
+    <td bgcolor="#f0f0f0" width="20%"><b>Votes:</b></td>
+    <td bgcolor="#ffffff" valign="top" width="30%" nowrap>0</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Labels:</b></td>
+    <td id="labels-12703-value" class="value" bgcolor="#ffffff" valign="top" colspan="3" nowrap>None</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Remaining Estimate:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">Not Specified</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Time Spent:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">Not Specified</td>
+  </tr>
+  <tr>
+    <td bgcolor="#f0f0f0" width="20%"><b>Original Estimate:</b></td>
+    <td bgcolor="#ffffff" valign="top" nowrap width="80%" colspan="3">Not Specified</td>
+  </tr>
+</table>
+<table class="grid" cellpadding="0" cellspacing="0" border="0" width="100%">
+</table>
+<table cellpadding="2" cellspacing="0" border="0" width="100%" align="center">
+  <tr>
+    <td bgcolor="#bbbbbb" width="1%" nowrap align="center">&nbsp;<font color="#ffffff"><b>Description</b></font>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+<table cellpadding="0" cellspacing="0" border="0" width="100%">
+  <tr>
+    <td id="descriptionArea">
+      <p>Correct PoolMgr usage of uninitialized variables:</p>
+      <p>    private static String hostName;<br/>
+      private static int portId;</p>
+      <br/>
+    </td>
+  </tr>
 </table>
 <br/>
 
