@@ -79,7 +79,7 @@ OpenLDAP has supported this draft since 2005.  Fortress adds by integrating with
 
 ### Auditing
 
-Fortress audits use OpenLDAP's slapd access log overlay.  This extended capability stores history of slapd events which are needed for replication.  The events are persisted in OpenLDAP's back-end database, called the [Lightning Memory-Mapped DB](http://www.openldap.org/pub/hyc/mdm-paper.pdf, or in ApacheDS.
+Fortress audits use OpenLDAP's slapd access log overlay.  This extended capability stores history of slapd events which are needed for replication.  The events are persisted in OpenLDAP's back-end database, called the [Lightning Memory-Mapped DB](http://www.openldap.org/pub/hyc/mdm-paper.pdf), or in ApacheDS.
 
 The Fortress audits rely on slapd events to track its data exchanges performed within its own APIs.  Change event tracking includes adds, updates, and deletes of Fortress entities.  Read and search events tracked include user authentication, authorization, and policy interrogations.  Full historical data change tracking is maintained and may be searched later with APIs to be used for monitoring, reporting, and undo. The log may be retrieved later to synch with outside database for long-term regulatory and compliance concerns.  
 
@@ -103,7 +103,7 @@ Not yet.
 
 ## What security services are available?
 
-Over one hundred services divided across the Manager components.  Some of them (Access, Admin and Review) map back to [ANSI RBAC functional specifications](http://csrc.nist.gov/groups/SNS/rbac/documents/draft-rbac-implementation-std-v01.pdf.  Others (DelAccess, DelAdmin, DelReview) are for the [ARBAC02](http://profsandhu.com/journals/tissec/p113-oh.pdf) model which help manage admnistrative burden for large enterprises.  
+Over one hundred services divided across the Manager components.  Some of them (Access, Admin and Review) map back to [ANSI RBAC functional specifications](http://csrc.nist.gov/groups/SNS/rbac/documents/draft-rbac-implementation-std-v01.pdf).  Others (DelAccess, DelAdmin, DelReview) are for the [ARBAC02](http://profsandhu.com/journals/tissec/p113-oh.pdf) model which help manage admnistrative burden for large enterprises.  
 
 Each manager component defined below has a specific purpose and contains a collection of related functions to control the Fortress Entities as they pass through its particular area of the identity lifecycle.  Of late the APIs have been wrapped with REST by En Masse Policy Server.  This allows Fortress functionality to be accessed over HTTP protocol using an XML message format.
 
@@ -130,7 +130,7 @@ Source is managed by Apache's GIT repo:
 
 ## What are the conditions?
 
-This software development toolkit is open source, thus free to use and distribute under terms of the [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0.  It was developed and tested on open systems like [Ubuntu](http://www.ubuntu.com/) and [Centos](http://www.centos.org/) and was helped along by the following open source products:
+This software development toolkit is open source, thus free to use and distribute under terms of the [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0).  It was developed and tested on open systems like [Ubuntu](http://www.ubuntu.com/) and [Centos](http://www.centos.org/) and was helped along by the following open source products:
 
 * [The OpenLDAP Project](http://www.openldap.org/project/)
 * [The Apache Software Foundation](http://www.apache.org/)
