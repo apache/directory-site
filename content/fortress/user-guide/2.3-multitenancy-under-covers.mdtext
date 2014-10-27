@@ -1,10 +1,10 @@
-Title: 1.6 - Where to go for more info
-NavPrev: 1.5-how-to-impl-rbac.html
-NavPrevText: 1.5 - How to implement ANSI RBAC
-NavUp: 1-intro-rbac.html
-NavUpText: 1 - An Introduction to Role-Based Access Control ANSI INCITS 359-2004
-NavNext: 2-multitenancy.html
-NavNextText: 2 - Multitenancy
+Title: 2.3 - Multitenancy under the covers
+Navprev: 2.2-tradi-multi-instances.html
+NavPrevText: 2.2 - Traditional Multi-Instances architecture
+NavUp: 2-multitenancy.html
+NavUpText: 2 - Multitenancy
+NavNext: 
+NavNextText: 
 Notice: Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
     distributed with this work for additional information
@@ -22,9 +22,12 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
     specific language governing permissions and limitations
     under the License.
 
-# 1.6 - Where to go for more info
+# 2.3 - Multitenancy under the covers
 
-* Download the ANSI RBAC specification: [http://profsandhu.com/journals/tissec/ANSI+INCITS+359-2004.pdf](http://profsandhu.com/journals/tissec/ANSI+INCITS+359-2004.pdf)
+## Under the covers
 
-* Download working ANSI RBAC reference implementation, like Fortress ! 
+The Fortress data design allows clients to share a single server instance because each has its own storage area set aside in the back end database.  This increases operational efficiency of the hosting service provider’s data center without sacrificing data isolation on behalf of the clients who use it.
 
+<CENTER>
+![](images/fortressmultitenantldapschema600.png)
+</center>
