@@ -190,7 +190,7 @@ This creates a tag [here](http://svn.apache.org/viewvc/directory/shared/tags/)
 
 This deploys the release to a staging repository.
 
-Go to https://repository.apache.org/index.html#stagingRepositories and close the staging repository.
+Go to [the nexus server](https://repository.apache.org/index.html#stagingRepositories) and close the staging repository.
 
 ### Build the Site
 
@@ -199,15 +199,86 @@ Go to https://repository.apache.org/index.html#stagingRepositories and close the
 
 This creates the site.
 
-<DIV class="info" markdown="1">
+### Sign the packages
+
 Now, you have to sign the binary packages which are in target/checkout/distribution/target.
 
 Use your PGP key ID (the pub key, 4096R/[XXXXXXX] where [XXXXXXX] is the key ID)
-</DIV>
 
 You can get the keys by typing :
 
     gpg --list-keys
+
+The produced packages already have .asc signature that you will need to remove :
+
+    $ cd target/checkout/distribution/target
+    $ rm *.asc
+    $ ~/sign.sh
+    PGP Key ID: 
+    <You public key>
+    PGP Key Password: 
+    <Your password>
+    -n Signing: ./apache-ldap-api-1.0.0-M25-bin.tar.gz ... 
+      - Generated './apache-ldap-api-1.0.0-M25-bin.tar.gz.md5'
+      - Generated './apache-ldap-api-1.0.0-M25-bin.tar.gz.sha1'
+      - Generated './apache-ldap-api-1.0.0-M25-bin.tar.gz.asc'
+    -n Signing: ./apache-ldap-api-1.0.0-M25-bin.zip ... 
+      - Generated './apache-ldap-api-1.0.0-M25-bin.zip.md5'
+      - Generated './apache-ldap-api-1.0.0-M25-bin.zip.sha1'
+      - Generated './apache-ldap-api-1.0.0-M25-bin.zip.asc'
+    ...
+
+You are done with the signature.
+
+For the record, here is the script shell you can use to sign the packages. Name it sign.sh, and put it into your home directory (on a unix based computer) :
+
+    #!/bin/sh
+
+    echo "PGP Key ID: "
+    read DEFAULT_KEY
+
+    echo "PGP Key Password: "
+    stty -echo
+    read PASSWORD
+    stty echo
+    echo ""
+
+    for FILE in $(find . -maxdepth 1 -not '(' -name "sign.sh" -or -name ".*" -or -name "*.md5" -or -name "*.sha1" -or -name "*.asc" ')' -and -type f) ; do
+        if [ -f "$FILE.asc" ]; then
+            echo "Skipping: $FILE"
+            continue
+        fi
+
+        echo -n "Signing: $FILE ... "
+
+        # MD5
+        if [ ! -f "$FILE.md5" ];
+        then
+            openssl md5 < "$FILE" | cut "-d " -f2 > "$FILE.md5"
+            echo "  - Generated '$FILE.md5'"
+        else
+            echo "  - Skipped '$FILE.md5' (file already existing)"
+        fi
+
+        # SHA1
+        if [ ! -f "$FILE.sha1" ];
+        then
+            gpg -v --default-key "$DEFAULT_KEY" --print-md SHA1 "$FILE" > "$FILE".sha1
+            echo "  - Generated '$FILE.sha1'"
+        else
+            echo "  - Skipped '$FILE.sha1' (file already existing)"
+        fi
+
+        # ASC
+        if [ ! -f "$FILE.asc" ];
+        then
+            echo "$PASSWORD" | gpg --default-key "$DEFAULT_KEY" --detach-sign --armor --no-tty --yes --passphrase-fd 0 "$FILE"
+            echo "  - Generated '$FILE.asc'"
+        else
+            echo "  - Skipped '$FILE.asc' (file already existing)"
+        fi
+    done
+
 
 ### Publish Source and Binary Distribution Packages
 
