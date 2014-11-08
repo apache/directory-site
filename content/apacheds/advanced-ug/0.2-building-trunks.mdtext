@@ -226,11 +226,11 @@ To download the sources from trunk, you must have installed a **Subversion** cli
 
 With readonly access :
 
-	svn co http://svn.apache.org/repos/asf/directory/trunks apacheds-trunk
+	svn co http://svn.apache.org/repos/asf/directory/apacheds/trunk-with-dependencies apacheds-trunk
 
 With read/write access (for committers only) :
 
-	svn co https://svn.apache.org/repos/asf/directory/trunks apacheds-trunk
+	svn co https://svn.apache.org/repos/asf/directory/apacheds/trunk-with-dependencies apacheds-trunk
 
 ## Building the trunks
 
@@ -267,6 +267,17 @@ If you want to do really safe build, run the following commands in trunks:
 	resources/superclean.sh
 	mvn install -Dintegration
 </DIV>
+
+## Running the server without building installers
+
+The server can be run without building any installers. This is helpful during development
+(and also can be run for regular purpose as well)  
+
+    cd apacheds-trunk/apacheds/service
+    ./apacheds.sh
+
+To start the server in remote debug mode pass -debug flag. The JDWP socket will be listening 
+on port 8008.
 
 ## Building the installers
 
