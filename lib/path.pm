@@ -1,7 +1,7 @@
 package path;
  
 # Versions (for download links)
-our $version_api = "1.0.0-M24";
+our $version_api = "1.0.0-M25";
 our $version_apacheds = "2.0.0-M17";
 our $version_studio = "2.0.0.v20130628";
 our $version_studio_name = "2.0.0-M8";
