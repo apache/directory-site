@@ -26,7 +26,9 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 ### Step 1
 
-Copy fortressBuilder-\[platform\]-\[version\].zip to hard drive on target server env.
+Obtain copy of directory-fortress-core and copy to hard drive on target server env.
+
+https://git-wip-us.apache.org/repos/asf?p=directory-fortress-core.git;a=summary
 
 ### Step 2
 
@@ -34,17 +36,7 @@ Extract the zip. The location for archive can vary according to requirements. Th
 
 ### Step 3
 
-Enable permission for the binaries to execute. From FORTRESS_HOME root folder, enter the following command from a system prompt:
-
-    chmod a+x -Rf * 
-
-<CENTER>
-  <IMG src="../../images/Screenshot1-chmod.png" alt="Screenshot" width="766" height="58"/>
-</CENTER>
-
-### Step 4
-
-Edit file named 'build.properties' and insert LDAP configuration parameters: 
+Edit file named 'build.properties' and insert or change the following LDAP configuration parameters:
 
     ldap.server.type=apacheds
 
@@ -59,14 +51,5 @@ Edit file named 'build.properties' and insert LDAP configuration parameters:
     # These are the connection parameters used for LDAP service account:
     root.dn=uid=admin,ou=system
 
-    # Used to load OpenLDAP admin root password in slapd.conf and was encrypted using 'slappasswd' command:
-    # This ApacheDS admin root password's value is 'secret', is bound for fortress.properties and was encrypted 
-    #   using 'encrypt' target in build.xml:
-    cfg.root.pw=W7T0G9hylKZQ4K+DF8gfgA==
-
-    # If encryption of LDAP &/or HTTP service account passwords (e.g. cfg.root.pw, 
-    #   cfg.log.root.pw and http.pw params) is required, this field must be set.
-    # If encryption of service accounts not needed, leave this value blank, and set the password values for 
-    #   cfg.root.pw, cfg.log.root.pw and http.pw to be their clear text value.
-    # Use any arbitrary value here but must be same as key used to encrypt.
-    crypto.prop=abcd12345
+    # This ApacheDS root password value is bound for fortress.properties.
+    cfg.root.pw=secret
