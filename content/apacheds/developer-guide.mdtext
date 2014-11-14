@@ -284,6 +284,13 @@ Then to sign the packages :
 
 ##### Publish Source Distribution Package
 
+First of all, create a new directory on people.apache.org/public_html to store the pacckages :
+
+    :::text
+    $ ssh people.apache.org
+    $ mkdir public_html/apacheds-<version>
+    $ exit
+
     $ cd target/checkout/target
     $ scp apacheds-parent-<version>-source-release.zip* people.apache.org:public_html/apacheds-<version>
 
