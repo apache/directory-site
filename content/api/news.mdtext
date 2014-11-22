@@ -1,4 +1,24 @@
 # News
+<h2 class="news">Apache Directory LDAP API 1.0.0-M26 released <em>posted on November 22th, 2014</em></h2>
+
+The Apache Directory Team is proud to announce the availability of version 1.0.0-M26 of the Apache Directory LDAP API.
+
+The Apache Directory LDAP API is an ongoing effort to provide an enhanced LDAP API, as a replacement for JNDI and the existing LDAP API (jLdap and Mozilla LDAP API).
+
+This is a schema aware API, with some convenient ways to access a LDAP server. This API is not only targeting the Apache Directory Server, but should work pristine with any LDAP server.
+
+It's also an extensible API : new Controls, schema elements and network layer could be added or used in the near future. It's also OSGi capable.
+
+This release is a security fix release : SSLv3 has been disabled. Another bug has also been fixed in the POM files, for those using the API in an OSGi environment
+
+<b>Bugs : </b>
+
+
+Feel free to experiment, we highly appreciate your feedback !
+
+Downloads are available [here](downloads.html) and the User's Guide is [there](user-guide.html)
+
+# News
 <h2 class="news">Apache Directory LDAP API 1.0.0-M25 released <em>posted on November 11th, 2014</em></h2>
 
 The Apache Directory Team is proud to announce the availability of version 1.0.0-M25 of the Apache Directory LDAP API.
@@ -13,15 +33,13 @@ Here are the release note for Apache Directory LDAP API 1.0.0-M25:
 
 <b>Bugs : </b>
 
-<ul>
-  <li>[DIRAPI-137](https://issues.apache.org/jira/browse/DIRAPI-137) Add Control support for  RFC 2891 - LDAP Control Extension for Server Side Sorting of Search Results http://www.faqs.org/rfcs/rfc2891.html</li>
-  <li>[DIRAPI-174](https://issues.apache.org/jira/browse/DIRAPI-174) LdifReader should provide errors wih line number</li>
-  <li>[DIRAPI-184](https://issues.apache.org/jira/browse/DIRAPI-184) Supply one method in SearchCursor to judge it has element or not.</li>
-  <li>[DIRAPI-201](https://issues.apache.org/jira/browse/DIRAPI-201) Inconsistent Import-Package in org.apache.directory.api ldap.model</li>
-  <li>[DIRAPI-205](https://issues.apache.org/jira/browse/DIRAPI-205) AliasDerefMode can't work for API when alias entries can be search out and Server is Sun Directory Server </li>
-  <li>[DIRAPI-206](https://issues.apache.org/jira/browse/DIRAPI-206) BindRequest logs exception on valid call to setter</li>
-  <li>[DIRAPI-208](https://issues.apache.org/jira/browse/DIRAPI-208) The Connection Pool is a bit too aggressive when it comes to validate connections</li>
-</ul>  
+  * [DIRAPI-137](https://issues.apache.org/jira/browse/DIRAPI-137) Add Control support for  RFC 2891 - LDAP Control Extension for Server Side Sorting of Search Results http://www.faqs.org/rfcs/rfc2891.html
+  * [DIRAPI-174](https://issues.apache.org/jira/browse/DIRAPI-174) LdifReader should provide errors wih line number
+  * [DIRAPI-184](https://issues.apache.org/jira/browse/DIRAPI-184) Supply one method in SearchCursor to judge it has element or not.
+  * [DIRAPI-201](https://issues.apache.org/jira/browse/DIRAPI-201) Inconsistent Import-Package in org.apache.directory.api ldap.model
+  * [DIRAPI-205](https://issues.apache.org/jira/browse/DIRAPI-205) AliasDerefMode can't work for API when alias entries can be search out and Server is Sun Directory Server
+  * [DIRAPI-206](https://issues.apache.org/jira/browse/DIRAPI-206) BindRequest logs exception on valid call to setter
+  * [DIRAPI-208](https://issues.apache.org/jira/browse/DIRAPI-208) The Connection Pool is a bit too aggressive when it comes to validate connections
 
 Feel free to experiment, we highly appreciate your feedback !
 
@@ -172,16 +190,16 @@ Here are the release note for Apache Directory LDAP API 1.0.0-M20:
 
 <b>Bugs</b>
 
-  * DIRAPI-14 - We can't inject entries with attributes containing a null value
-  * DIRAPI-98 - Add generic support for Extended operations
-  * DIRAPI-120 - Deleted an attribute leads to an error
-  * DIRAPI-148 - We can't inject entries with attributes containing a null value
-  * DIRAPI-151 - Result codes from extended operations are lost
+  * [DIRAPI-14](https://issues.apache.org/jira/browse/DIRAPI-14) - We can't inject entries with attributes containing a null value
+  * [DIRAPI-98](https://issues.apache.org/jira/browse/DIRAPI-98) - Add generic support for Extended operations
+  * [DIRAPI-120](https://issues.apache.org/jira/browse/DIRAPI-120) - Deleted an attribute leads to an error
+  * [DIRAPI-148](https://issues.apache.org/jira/browse/DIRAPI-148) - We can't inject entries with attributes containing a null value
+  * [DIRAPI-151](https://issues.apache.org/jira/browse/DIRAPI-151) - Result codes from extended operations are lost
 
 
 <b>New Feature</b>
 
-  * DIRAPI-129 - Add support for PwdModify extended operation
+  * [DIRAPI-129](https://issues.apache.org/jira/browse/DIRAPI-129) - Add support for PwdModify extended operation
 
 Feel free to experiment, we highly appreciate your feedback !
 
@@ -200,7 +218,7 @@ It's also an extensible API : new Controls, schema elements and network layer co
 
 Here are the release note for Apache Directory LDAP API 1.0.0-M19:
 
-  * DIRAPI-148 We can't inject entries with attributes containing a null value
+  * [DIRAPI-148](https://issues.apache.org/jira/browse/DIRAPI-148) We can't inject entries with attributes containing a null value
   
 Feel free to experiment, we highly appreciate your feedback !
 
@@ -218,13 +236,13 @@ It's also an extensible API : new Controls, schema elements and network layer co
 
 Here are the release note for Apache Directory LDAP API 1.0.0-M18:
 
-  * DIRAPI-112 - Review Package Names
-  * DIRAPI-130 - The extended responses are not decoded into their respective type
-  * DIRAPI-132 - Add support for the StartTLS operation
-  * DIRAPI-133 - Correlate an extendedResponse with its associated request, when we don't have a responseName
-  * DIRAPI-139 - o.a.d.api.ldap.codec.api.LdapEncoder should log encoded PDU via DEBUG
-  * DIRAPI-140 - Test ClientSearchRequestTest.testSubDn() fails
-  * DIRAPI-147 - LdifEntry equals method does not compare entry attributes when changetype is None  
+  * [DIRAPI-112](https://issues.apache.org/jira/browse/DIRAPI-112) - Review Package Names
+  * [DIRAPI-130](https://issues.apache.org/jira/browse/DIRAPI-130) - The extended responses are not decoded into their respective type
+  * [DIRAPI-132](https://issues.apache.org/jira/browse/DIRAPI-132) - Add support for the StartTLS operation
+  * [DIRAPI-133](https://issues.apache.org/jira/browse/DIRAPI-133) - Correlate an extendedResponse with its associated request, when we don't have a responseName
+  * [DIRAPI-139](https://issues.apache.org/jira/browse/DIRAPI-139) - o.a.d.api.ldap.codec.api.LdapEncoder should log encoded PDU via DEBUG
+  * [DIRAPI-140](https://issues.apache.org/jira/browse/DIRAPI-140) - Test ClientSearchRequestTest.testSubDn() fails
+  * [DIRAPI-147](https://issues.apache.org/jira/browse/DIRAPI-147) - LdifEntry equals method does not compare entry attributes when changetype is None  
 
 
 Feel free to experiment, we highly appreciate your feedback !
@@ -243,8 +261,8 @@ It's also an extensible API : new Controls, schema elements and network layer co
 
 Here are the release note for Apache Directory LDAP API 1.0.0-M17:
 
-  * DIRAPI-135 - The connectiosn may be invalid when we get it from the pool
-  * DIRAPI-103 - the PLAIN SASL BindRequest is not supported
+  * [DIRAPI-135](https://issues.apache.org/jira/browse/DIRAPI-135) - The connectiosn may be invalid when we get it from the pool
+  * [DIRAPI-103](https://issues.apache.org/jira/browse/DIRAPI-103) - the PLAIN SASL BindRequest is not supported
   
 
 Feel free to experiment, we highly appreciate your feedback !
@@ -263,7 +281,7 @@ It's also an extensible API : new Controls, schema elements and network layer co
 
 Here are the release note for Apache Directory LDAP API 1.0.0-M16:
 
-* DIRAPI-119 - Some NPE when sending some request with lacking data
+* [DIRAPI-119](https://issues.apache.org/jira/browse/DIRAPI-119) - Some NPE when sending some request with lacking data
 
 
 Feel free to experiment, we highly appreciate your feedback !
@@ -282,7 +300,7 @@ It's also an extensible API : new Controls, schema elements and network layer co
 
 Here are the release note for Apache Directory LDAP API 1.0.0-M15:
 
-* DIRAPI-112 - Review Package Names
+* [DIRAPI-112](https://issues.apache.org/jira/browse/DIRAPI-112) - Review Package Names
 
 Feel free to experiment, we highly appreciate your feedback !
 
@@ -301,9 +319,9 @@ It's also an extensible API : new Controls, schema elements and network layer co
 
 Here are the release note for Apache Directory LDAP API 1.0.0-M14:
 
-* DIRAPI-89 - EntryCursorImpl loops forever in next() when using AD Server with referrals
-* DIRAPI-92 - LdapConnectionPool should extend GenericObjectPool<LdapConnection>
-* DIRAPI-94 - Random failure of ClientAbandonRequestTest
+* [DIRAPI-89](https://issues.apache.org/jira/browse/DIRAPI-89) - EntryCursorImpl loops forever in next() when using AD Server with referrals
+* [DIRAPI-92](https://issues.apache.org/jira/browse/DIRAPI-92) - LdapConnectionPool should extend GenericObjectPool<LdapConnection>
+* [DIRAPI-94](https://issues.apache.org/jira/browse/DIRAPI-94) - Random failure of ClientAbandonRequestTest
 
 **WARNING:** An important **package renaming** took place in this milestone. The previously named "**_org.apache.directory.shared_**" package has been renamed "**_org.apache.directory.api_**". If you were using the Apache Directory LDAP API before, please **make sure to update your own code** to match this important change.
 
@@ -324,12 +342,12 @@ It's also an extensible API : new Controls, schema elements and network layer co
 
 Here are the release note for Apache Directory LDAP API 1.0.0-M13:
 
-* DIRAPI-87 - The search() method does not return the same result if it's done with a SearchRequest or with parameters
-* DIRAPI-88 - RDN parsing fails with values containing a # character followed by other characters
-* DIRSHARED-135 - LdapNetworkConnection should be thread-safe
-* DIRSHARED-136 - NPE in AntlrSubtreeSpecificationParser when initialized with an empty schema manager
-* DIRSHARED-137 - Logically incorrect filter construction while parsing DSML search request
-* DIRSHARED-138 - Cannot transform SearchRequestDsml object to DSML format
+* [DIRAPI-87](https://issues.apache.org/jira/browse/DIRAPI-87) - The search() method does not return the same result if it's done with a SearchRequest or with parameters
+* [DIRAPI-88](https://issues.apache.org/jira/browse/DIRAPI-88) - RDN parsing fails with values containing a # character followed by other characters
+* [DIRAPI-135](https://issues.apache.org/jira/browse/DIRAPI-135) - LdapNetworkConnection should be thread-safe
+* [DIRAPI-136](https://issues.apache.org/jira/browse/DIRAPI-136) - NPE in AntlrSubtreeSpecificationParser when initialized with an empty schema manager
+* [DIRAPI-137](https://issues.apache.org/jira/browse/DIRAPI-137) - Logically incorrect filter construction while parsing DSML search request
+* [DIRAPI-138](https://issues.apache.org/jira/browse/DIRAPI-138) - Cannot transform SearchRequestDsml object to DSML format
 
 Feel free to experiment, we highly appreciate your feedback !
 
