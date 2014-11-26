@@ -28,6 +28,14 @@ We will now describe the server configuration. Usually, all the configuration is
 
 It's a good policy not to modify the LDIF files by hand, but instead to use the Studio Configuration plugin to modify your configuration. 
 
+# Bean graph
+
+The following picture represent the structure of the container used to store the configuration inside the server. The yellow beans are abstract beans, extended by specific beans.
+
+The bold links mean we can have more than one instance of a bean.
+
+![ApacheDS configuration beans](images/configBeans.png)
+
 # Overall structure
 
 The configuration is stored in a hierarchical order, where sub-elements are related to their parent. For instance, the _Transports_ are associated to the _Server_ they are child of. If we have many kind of servers, we will have as many transports as we have servers.
