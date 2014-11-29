@@ -1,0 +1,98 @@
+Title: 2.2 - Installation Layout
+NavPrev: 2.1-config-description.html
+NavPrevText: 2.1 - Configuration Description
+NavUp: 2-server-config.html
+NavUpText: 2 - Server Configuration
+NavNext: 2.2-instance-layout.html
+NavNextText: 2.3 - Instance Layout
+Notice: Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    .
+    http://www.apache.org/licenses/LICENSE-2.0
+    .
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+
+# 2.2 - Installation Layout
+
+When you installed ApacheDS on your machine, it created various directories on your disk. Typically, we need to store :
+
+* the binaries
+* the server configuration files
+* the license files
+* the dependencies
+
+
+
+We will describe in this chapter the global layout and the various files and their meaning and use.
+
+## Standard layout
+
+This is the directories the installer creates :
+
+installation directory/
+    |
+    +-- bin/
+    |    |
+    |    +-- apacheds
+    |    |
+    |    +-- wrapper
+    |
+    +-- lib/
+    |
+    +-- conf/
+    |    |
+    |    +-- config.ldif
+    |    |
+    |    +-- wrapper.conf
+    |    |
+    |    +-- log4j.properties
+    |
+    +-- partitions/
+    |    |
+    |    +-- system/
+    |    |    |
+    |    |    +-- master.db
+    |    |    |
+    |    |    +-- objectclass.db
+    |    |    |
+    |    |    +-- objectclass.lg
+    |    |    |
+    |    |    +-- <index XXX lg and db files>
+    |    |
+    |    +-- schema/
+    |    |    |
+    |    |    :
+    |    |
+    |    +-- <partition XXX>
+    |    |    |
+    |    :    :
+    |
+    +-- log/
+    |    |
+    |   [+-- journal.ldif]
+    |    |
+    |    +-- <log file>
+    |
+    +-- run/
+    |
+    +-- cache/
+    |
+    +-- syncrepl-data/
+    |
+    +-- NOTICE
+    |
+    +-- LICENSE
+
+
+
+

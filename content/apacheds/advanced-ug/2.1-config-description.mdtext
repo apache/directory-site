@@ -1,0 +1,465 @@
+Title: 2.1 - Configuration Description
+NavPrev: 2-server-config.html
+NavPrevText: 2 - Server Configuration
+NavUp: 2-server-config.html
+NavUpText: 2 - Server Configuration
+NavNext: 2.2-installation-layout.html
+NavNextText: 2.2 - Installation Layout
+Notice: Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    .
+    http://www.apache.org/licenses/LICENSE-2.0
+    .
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+
+# 2.1 - Configuration Description
+
+We will now describe the server configuration. Usually, all the configuration is done using Apache Directory Studio, which offers a pretty GUI. One can also configure the server using LDAP request, as the configuration is stored in the **DIT**. Otherwise, all the configuration modifications won't be applied on a started server : usually, you will have to restart the server in order to get those modifications applied.
+
+It's a good policy not to modify the LDIF files by hand, but instead to use the Studio Configuration plugin to modify your configuration. 
+
+# Overall structure
+
+The configuration is stored in a hierarchical order, where sub-elements are related to their parent. For instance, the _Transports_ are associated to the _Server_ they are child of. If we have many kind of servers, we will have as many transports as we have servers.
+
+The following hierarchy describe the different kind of elements that one can configure, and their relationship :
+
+* ou=config
+	* [ads-directoryServiceId=XXXXX (Directory Service)](#directory-service) 
+		* [ads-changeLogId=XXXXX (ChangeLog)](#change-log)
+		* [ads-journalId=XXXXX (Journal)](#journal)
+		* [ou=interceptors (Interceptors)](#interceptors)
+			* [ads-interceptorId=authenticationInterceptor (Authentication Interceptor)](#authentication-Interceptor)
+				* [ou=authenticators (Authenticators)](#authenticators)
+				* [ou=passwordPolicies (Password Policies)](#password-policies)
+		* [ou=partitions (Partitions)](#partitions)
+			* [ads-partitionId=system (JDBM Partition)](#jdbm-partition)
+				* [ou=indexes (Indexes)](#indexes)
+					* [ads-indexAttributeId=XXXXX (Indexed Attribute)](#indexed-attribute)
+		* [ou=servers (Servers)](#servers)
+			* [ads-serverId=ldapServer (Ldap Server)](#ldap-server)
+    			* [ou=transports (Transports)](#transports)
+    			* [ou=replConsumers (ReplConsumers)](#repl-consumers)
+    			* [ou=extendedOpHandlers (Extended Operation Handlers)](#extended-op-handlers)
+    			* [ou=saslMechHandlers (SASL Mechanisms)](#sasl-mechanisms)
+			* [ads-serverId=kerberosServer (Kerberos Server)](#kerberos-server)
+    			* [ou=transports (Transports)](#transports)
+			* [ads-serverId=httpServer (Http Server)](#http-server)
+    			* [ou=transports (Transports)](#transports)
+    			* [ou=httpWebApps (HttpWebApps)](#http-web-apps)
+			* [ads-serverId=changePasswordServer (ChangePassword Server)](#change-password-server)
+    			* [ou=transports (Transports)](#transports)
+
+Note that in order to modify one element, you have to go down the tree up to the entry containing the elements you want to modify. For instance, to modify the TCP port for LDAP, you have to modify the following entry :
+**ads-transportid=ldap, ou=transports, ads-serverId=ldapServer, ou=servers, ads-directoryServiceId=XXXXX, ou=config**
+
+We will now explain each one of those elements.
+
+<DIV class="note" markdown="1">
+Note that bold attributes are mandatory in the following tables.
+</DIV>
+
+# Directory Service
+
+This is the key of the whole server : the place where we store the data. Most of the servers are depending on this component. You may have more than one server, but only one _DirectoryService_. This component itself refers to the servers that will be started, plus the backends it will depends on.
+
+Here are the configuration parameters for this components :
+
+| AttributeType | type | default value | Description |
+|---|---|---|---|
+| **ads-directoryServiceId** | _String_ |  | The unique identifier for the service |
+| ads-enabled | _boolean_  | true | Tells if the DirectoryService is enabled |
+| description | _String_  | N/A | A short optional description |
+| **ads-dsReplicaId** | _int_ | 1 | The replication identifier |
+| **ads-dsAccessControlEnabled** | _boolean_  | true | Tells if the Access Control interceptor is active |
+| **ads-dsAllowAnonymousAccess** | _boolean_  | false | Tells if the service allow anonymous access |
+| **ads-dsDenormalizeOpAttrsEnabled** | _boolean_  | true | Tells if the service should denormalize operational attributes |
+| **ads-dsPasswordHidden** | _boolean_  | true | Tells if the passwords should be encrypted (not used) |
+| **ads-dsSyncPeriodMillis** | _long_  | 15000 | The delay in milliseconds before we flush data on disk |
+| ads-dsTestEntries | _String_  | N/A | Not used |
+
+
+## Change Log
+
+The _ChangeLog_ is an optional system that logs every changes made on the server, and also records the revert operation, allowing the system to rollback the changes if needed. This is extremely useful when running tests.
+
+Note that at the moment, the system works in memory.
+
+It's disabled by default.
+
+Here are the configuration element for the _ChangeLog_ elements :
+
+| AttributeType | type | default value | Description |
+|---|---|---|---|
+| **ads-changeLogId** | _String_ |  | The unique identifier for the system |
+| ads-enabled | _boolean_  | false | Tells if the ChangeLog system is enabled |
+| description | _String_  | N/A | A short optional description |
+| **ads-changeLogExposed** | _boolean_  | false | Tells if the ChangeLog is exposed to the users |
+
+## Journal
+
+The _Journal_ system logs every modification on the file system. It's intended to be used if the _DirectoryService_ crashes, as we can reapply the journal starting from a date in the past where we know that the underlying database is correct.
+
+The configuration elements for the _Journal_ are :
+
+| AttributeType | type | default value | Description |
+|---|---|---|---|
+| **ads-journalId** | _String_ | N/A | The unique identifier for the Journal |
+| ads-enabled | _boolean_  | false | Tells if the Journal system is enabled |
+| description | _String_  | N/A | A short optional description |
+| **ads-journalWorkingDir** | _String_ | N/A | The working directory the Journal will be stored in |
+| **ads-journalRotation** | _String_ | N/A | The number of operation stored befoe the journal is rotated |
+| **ads-journalFileName** | _String_ | journal.txt | The file contaning the Journal |
+
+## Interceptors
+
+The _Interceptors_ are generally not configurable. You don't want to change their order, nor remove or add some. The fact that they appear in the configuration is because we use this to initialize the server.
+
+However, at least one _Interceptor_ can be configured : the _authenticationInterceptor_. 
+
+In the case where one would like to add an interceptor, it's enough to add the associated entry containing the interceptor identifier, under the _ou=interceptors_ entry. It must have an order. Here are the elements that can be configured in such a case :
+
+| AttributeType | type | default value | Description |
+|---|---|---|---|
+| **ads-interceptorid** | _String_ | N/A | The unique identifier for this Interceptor |
+| ads-enabled | _boolean_  | false | Tells if the Interceptor is enabled |
+| description | _String_  | N/A | A short optional description |
+| ads-interceptororder | _int_ | N/A | The position in the chain for this interceptor |
+| ads-interceptorclassname | _String_ | N/A | The class implementing this interceptor |
+
+
+### Authentication Interceptor
+
+This _Interceptor_ is in charge of managing the users authentication. It is associated with _[Authenticators](#authenticators)_, and with _[Password Policies](#password-policies)_.
+
+#### Authenticators
+
+We may have various _Authenticator_ declared for a given server. The default server has three different _Authenticators_, which are :
+
+* anonymousAuthenticator : used for anonymous requests
+* simpleAuthenticator : handle simple authentication, based on a password
+* strongAuthenticator : handle SASL authentication.
+
+One can add a new _Authenticator_, if needed. It's just a matter of creating a new entry under the _ou=authenticators,ads-interceptorId=authenticationInterceptor,ou=interceptors_ entry, containing the two following elements :
+
+| AttributeType | type | default value | Description |
+|---|---|---|---|
+| **ads-authenticatorId** | _String_ | N/A | The unique identifier for this Authenticator |
+| ads-enabled | _boolean_  | false | Tells if the Partition is enabled |
+| description | _String_  | N/A | A short optional description |
+| **ads-authenticatorClass** | _String_ | N/A | The FQCN for the class implementing the AUthenticator |
+
+
+### Password Policies
+
+There are many possible configurable options for the _PasswordPolicy_ system. Here is a list of all the possible elements :
+
+| AttributeType | type | default value | Description |
+|---|---|---|---|
+| **ads-pwdId** | _String_ | N/A | The unique ID of the _PasswordPolicy_ system |
+| **ads-pwdAttribute** | _String_ | userPassword | The name of the attribute to which the password policy is applied |
+| ads-pwdMinAge | _int_ | 0 | Holds the number of seconds that must elapse between modifications to the password |
+| ads-pwdMaxAge | _int_ | 0 | Holds the number of seconds after which a modified password will expire. If 0, never expires |
+| ads-pwdInHistory | _boolean_ | 0 | Specifies the maximum number of used passwords stored in the pwdHistory attribute (0 means no storage) |
+| ads-pwdCheckQuality | _boolean_ | 0 | Indicates how the password quality will be verified while being modified or added (0 means no check) |
+| ads-pwdMinLength | _int_ | 0 | The minimum number of characters that must be used in a password (0 means no limit) |
+| ads-pwdMaxLength | _int_ | 0 | The maximum number of characters that may be used in a password (0 means no limit)  |
+| ads-pwdExpireWarning | _boolean_ | 0 | The maximum number of seconds before a password is due to expire, and that expiration warning messages will be returned to an authenticating user (0 means no message wil be sent to user) |
+| ads-pwdGraceAuthNLimit | _int_ | 0 | The number of times an expired password can be used to authenticate (0 means do not allow a expired password for authentication) |
+| ads-pwdGraceExpire | _boolean_ | 0 | Specifies the number of seconds the grace authentications are valid  (0 means no limit) |
+| ads-pwdLockout | _boolean_ | false | Flag to indicate if the account needs to be locked after a specified number of
+ consecutive failed bind attempts. The maximum number of consecutive failed bind attempts is specified in ads-pwdMaxFailure |
+| ads-pwdLockoutDuration | _int_ | 300 | The number of seconds that the password cannot be used to authenticate due to too many failed bind attempts |
+| ads-pwdMaxFailure | _int_ | 0 | The number of consecutive failed bind attempts after which the password may not be used to authenticate (0 means no limit) |
+| ads-pwdFailureCountInterval | _int_ | 0 | The number of seconds after which the password failures are purged from the failure counter (0 means reset all the pwdFailureTimes after a successful authentication) |
+| ads-pwdMustChange | _boolean_ | false | Flag to indicate if the password must be changed by the user after they bind to the directory after a password is set or reset by a password administrator |
+| ads-pwdAllowUserChange | _boolean_ | true | Indicates whether users can change their own passwords |
+| ads-pwdSafeModify | _boolean_ | false | Flag to specify whether or not the existing password must be sent along with the new password when being changed |
+| ads-pwdMinDelay | _int_ | 0 | The number of seconds to delay responding to the first failed authentication attempt (0 means no delay) |
+| ads-pwdMaxDelay | _int_ | 0 | The maximum number of seconds to delay when responding to a failed authentication attempt (no delay) 0 means|
+| ads-pwdMaxIdle | _int_ | 0 | The number of seconds an account may remain unused before it becomes locked (0 means infinite) |
+
+
+## Partitions
+
+The _Partition_ is the part of the server storing your data. There are many parts that need to be configured in order to obtain the best performances out of the server. It's also the part of the configuration you are the more likely to modify, adding new _Partitions_ or adding new _Indexes_.
+
+You may have more than one _Partition_ in your _DirectoryService_. We have at least three existing _Partition_, the _ou=system_ _Partition_, the _ou=config_ _Partition_ and the _ou=schema_ _Partition_. The former is a _JDBM_ _Partition_, when the two others are _LDIF_ _Partitions.
+
+### JDBM Partition
+
+A _JDBM Partition_ have the following configurable elements :
+
+| AttributeType | type | default value | Description |
+|---|---|---|---|
+| **ads-partitionid** | _String_ | N/A | The unique identifier for this Partition |
+| ads-enabled | _boolean_  | false | Tells if the Partition is enabled |
+| description | _String_  | N/A | A short optional description |
+| **ads-partitionsuffix** | _String_ | N/A | The partition DN |
+| ads-contextEntry | _String_ | N/A | The entry associated with the suffix (in LDIF format) |
+| ads-partitionSyncOnWrite | _boolean_ | true | Tells the server to flush on disk on each write |
+
+Once those elements have been configured, the _Partition_ is available. You still have to create some mandatory indexes though.
+
+#### Indexes
+
+Each _Partition_ have indexes, some are mandatory, and others are user provided. Here are the mandatory indexes :
+
+| Index | role |
+|---|---|
+| apacheRdn | Stores the RDN for the entry, and the relation to its parent's RDN |
+| apachePresence | Used to index the attributeTypes used in the entry |
+| apacheOneAlias | Stores the aliases one level below the current entry |
+| apacheSubAlias | Stores the aliases below the current entry |
+| apacheAlias | Stores the aliases |
+| objectClass | Stores the relation between an ObjectClass an the entry using it |
+| entryCSN | Stores the CSN for each entry |
+| administrativeRole | Stores the entries that are AdminstrativePoints |
+
+
+##### Indexed Attribute
+
+IndexedATtributes have a type, depending on the _Partition_ they are associated with. Currently, we have only one type, _JdbmIndex_. They have specific configurable elements.
+
+Each index attribute have four basic elements that can be configured :
+
+| AttributeType | type | default value | Description |
+|---|---|---|---|
+| **ads-indexAttributeId** | _String_ | N/A | The unique identifier for this indexedAttribute |
+| ads-enabled | _boolean_  | false | Tells if the IntexedAttribute is enabled |
+| description | _String_  | N/A | A short optional description |
+| **ads-indexHasReverse** | _boolean_ | false | Tells if the IndexedAttribute has a reverse index |
+
+The _JdbmIndex_ type of index has some more configurable elements, all optional :
+
+| AttributeType | type | default value | Description |
+|---|---|---|---|
+| ads-indexFileName | _String_ | N/A | The index file name (default to the associated attributeType name) |
+| ads-indexWorkingDir | _String_ | N/A | The index working directory |
+| ads-indexNumDupLimit | _int_ | 512 | The maximum number of values for a single key before we use a sub-tree |
+| ads-indexCacheSize | _int_ | 100 | The number of cached pages for this index |
+
+
+# Servers
+
+As we can see, we can start more than one server. We have :
+
+* a LDAP server
+* a Kerberos server
+* a changePassword server
+* an HTTP Server
+* a NTP Server
+* a DHCP server
+* a DNS server
+
+There is a distinction though between the servers backed by a _DirectoryService_, and those that aren't (like the HTTP and NTP servers). 
+
+All the _DirectoryService_ backed servers share some common parameters, which are exposed in the following table :
+
+| AttributeType | type | default value | Description |
+|---|---|---|---|
+| ads-searchBaseDN | _Dn_ | N/A | The place were to start looking for authentication informations |
+| ads-serverId | _String_ | N/A | The server unique name |
+| ads-enabled | _boolean_  | N/A | Tells if the Server is enabled |
+| description | _String_  | N/A | A short optional description |
+
+A server can define more than one transports : for instance, the Kerberos server uses UDP and TCP transports.
+
+## Transports
+
+Here are the parameters for the Transport structure :
+
+| AttributeType | type | default value | Description |
+|---|---|---|---|
+| **ads-transportId** | _String_ | N/A | The identification |
+| **ads-transportAddress** | _String_ | localhost | The IP Address |
+| **ads-systemPort** | _int_ | -1 | The port |
+| ads-enabled | _boolean_  | N/A | Tells if the Transport system is enabled |
+| description | _String_  | N/A | A short optional description |
+| ads-transportEnableSsl | _boolean_ | false | Tells if SSL is activated (not used for UDP) |
+| ads-transportNbThreads | _int_ | 3 | he number of dedicated threads to process the messages |
+| ads-transportBackLog | _int_ | 50 | The number of messages on hold if the server is overloaded (not used for UDP) |
+
+## Ldap Server
+
+Let's start with the main server : the LDAP server. 
+
+The list of attributes that can be modified is exposed in the following table. 
+
+| AttributeType | type | default value | Description |
+|---|---|---|---|
+| ads-enabled | _boolean_  | true | Tells if the LdapServer system is enabled |
+| description | _String_  | N/A | A short optional description |
+| **ads-confidentialityRequired** | _boolean_ | false | Whether or not confidentiality (TLS secured connection) is required |
+| **ads-maxSizeLimit** | _int_ | 1000 | The maximum number of entries the server will return |
+| **ads-maxTimeLimit** | _int_ | 1000 | The maximum number of seconds the server will use to process a search request |
+| **ads-maxPDUSize** | _int_ | 2048 | The maximal size for a PDU. This is currently not leveraged |
+| **ads-saslHost** | _int_ | N/A | The name of this host, validated during SASL negotiation |
+| **ads-saslPrincipal** | _String_ | N/A | The service principal, used by GSSAPI. |
+| **sads-saslRealms** | _List<String>_ | N/A | The list of realms serviced by this host. |
+| ads-keystoreFile | _String_ | N/A | The place on the filesystem where the Keystore is stored |
+| ads-certificatePassword | _String_ | N/A | The certificate's password |
+| ads-replReqHandler | _String_ | (*) | The replication request handler FQCN |
+| ads-replEnabled | _boolean_ | FALSE | Tells if the replication system is enabled |
+
+(*) org.apache.directory.server.ldap.replication.provider.SyncReplRequestHandler
+	
+### Repl Consumers
+
+This part of the configuration deals with the replication. It provides all the information for a server to become a consumer. A server can have many different consumers set. 
+
+All the consumers are stored under the _ou=replConsumers_ entry, under the respective server entry.
+
+Here are the configurable elements :
+
+| AttributeType | type | default value | Description |
+|---|---|---|---|
+| **ads-replConsumerId** | _String_ | N/A | The replica unique identifier |
+| **ads-searchBaseDN** | _String_ | N/A | The base DN for replication |
+| **ads-replProvHostName** | _String_ | N/A | The provider host name |
+| **ads-replProvPort** | _int_ | 389 | The port of the remote server |
+| **ads-replAliasDerefMode** | _String_ | NEVER_DEREF_ALIASES | The alias dereferencing mode to use |
+| **ads-replAttributes** | _String_ | * | The list of attributes to get back |
+| **ads-replRefreshInterval** | _int_ | 60000 | The delay between refreshes (60 seconds) |
+| **ads-replRefreshNPersist** | _boolean_ | true | Sets the replication mode |
+| **ads-replSearchScope** | _String_ | SUBTREE | The scope to use while searching for entries |
+| **ads-replSearchFilter** | _String_ | (objectClass=*) | The filter to use |
+| **ads-replSearchSizeLimit** | _int_ | 0 | The maximum number of entries to get back |
+| **ads-replSearchTimeOut** | _int_ | 0 | The maximum time to wait while fetching the entries |
+| **ads-replUserDn** | _String_ | N/A | The user DN used to bind on the provider |
+| **ads-replUserPassword** | _String_ | N/A | The password of the user |
+| ads-replUseTls | _boolean_ | true | Tells the server to use startTLS during replication |
+| ads-replStrictCertValidation | _boolean_ | true | Tells the provider to check the certificate if provided |
+| ads-replPeerCertificate | _byte[]_ | N/A | The certificate to use for replication |
+| ads-replConsumerImpl | _String_ | ReplicationConsumerImpl | The implementation |
+| ads-replCookie | _byte[]_ | N/A | The last received cookie |
+
+
+### Extended Op Handlers
+
+An LDAP server can handle _ExtendedOperations_, assuming it has the code to do so. In **ApacheDS**, we do that by associating a _Java_ class with each _ExtendedOperation_. We may provide more _ExtendedOperations_ in the future. The list of supported _ExtendedOperations_ is given below :
+
+* CertGenerationRequest : Generate a certificate on demand
+* GracefulShutdownRequest : Requires the server to shutdown gracefully
+* StartTLSExtendedOperation : Process the StartTLS request
+* StoredProcedureExtendedOperation : Execute a Stored procedure
+
+Adding a new _ExntedeOperatonHandler_ is just a matter of adding a new entry under the _ou=extendedOpHandlers_ entry, with the given elements :
+
+| AttributeType | type | default value | Description |
+|---|---|---|---|
+| ads-enabled | _boolean_  | true | Tells if the ExtendedOpHandler system is enabled |
+| description | _String_  | N/A | A short optional description |
+| **ads-extendedOpId** | _String_ | N/A | The ExtendedOpHandler unique identifier |
+| **ads-extendedOpHandlerClass** | _String_ | N/A | The class FQCN that implements the handler |
+
+
+### SASL Mechanisms
+
+We have various SASL mechanisms, which can be configured. the list of supported SASL mechanisms is :
+
+* CRAM-MD5
+* DIGEST-MD5
+* GSS-SPNEGO
+* GSSAPI
+* NTLM
+* SIMPLE
+
+This list is stored in the configuration. It's possible to add new mechanisms if needed, simply by adding an entry containing those elements, under the _ou=saslMechHandlers_
+
+| AttributeType | type | default value | Description |
+|---|---|---|---|
+| ads-enabled | _boolean_  | true | Tells if the Transport system is enabled |
+| description | _String_  | N/A | A short optional description |
+| **ads-saslMechName** | _String_ | <one the above list> | The mechanism name|
+| **ads-saslMechClassName** | _String_ | N/A | The mechanism class name|
+| ads-ntlmMechProvider | _String_ | N/A | The NTLM provider |
+
+## Kerberos Server
+
+The _KerberosServer_ configuration is an important part of the configuration. It depends on a _DirectoryService_ too, as most of the informations managed by a _KerberosServer_ are store there.
+
+The list of attributes that can be modified is exposed in the following table. 
+
+| AttributeType | type | default value | Description |
+|---|---|---|---|
+| ads-enabled | _boolean_  | true | Tells if the KerberosServer is enabled |
+| description | _String_  | N/A | A short optional description |
+| ads-krbAllowableClockSkew | _int_ | 300000 | The allowable clock skew in milliseconds (5 minutes) |
+| ads-krbEncryptionTypes | _List<String>_ |  | The encryption types |
+| ads-krbEmptyAddressesAllowed | _boolean_ | true | Whether empty addresses are allowed |
+| ads-krbForwardableAllowed | _boolean_ | true | Whether forwardable addresses are allowed |
+| ads-krbPaEncTimestampRequired | _boolean_ | true | Whether pre-authentication by encrypted timestamp is required |
+| ads-krbPostdatedAllowed | _boolean_ | true | Whether postdated tickets are allowed |
+| ads-krbProxiableAllowed | _boolean_ | true | Whether proxiable addresses are allowed |
+| ads-krbRenewableAllowed | _boolean_ | true | Whether renewable tickets are allowed |
+| ads-krbKdcPrincipal | _String_ | krbtgt/EXAMPLE.COM@EXAMPLE.COM | The service principal name |
+| ads-krbMaximumRenewableLifetime | _long_ | 1000 * 60 * 60 * 24 * 7 | The maximum renewable lifetime in millisconds (7 days) |
+| ads-krbMaximumTicketLifetime | _long_ | 1000 * 60 * 60 * 24 | he maximum ticket lifetime in milliseconds (24 h) |
+| ads-krbPrimaryRealm | _String_ | EXAMPLE.COM | The primary realm  |
+| ads-krbBodyChecksumVerified | _boolean_ | true | Whether to verify the body checksum |
+
+
+Of course, a _Transport_ has to be defined under the _KerberosServer_ entry (see [Transports](#transports)).
+
+## Http Server
+
+We have a Http Server embedded, which is used to manage some parts of the server. One can inject a web application, which has direct access to the embedded LdapServer, for instance. It can be useful for sending LDAP requests using DSML, for instance.
+
+There is one single element that can be configured :
+
+| AttributeType | type | default value | Description |
+|---|---|---|---|
+| ads-enabled | _boolean_  | true | Tells if the HttpServer is enabled |
+| description | _String_  | N/A | A short optional description |
+| ads-httpConfFile | _String_  | N/A | The configuration file for this server |
+
+An _HttpServer_ without webApps is pretty useless, we now have to configure the underlying web applications
+
+
+### Http Web Apps
+
+Each _WebApp_ configuration must be added under the _ou=webapps_ entry. Here are the configurable elements :
+
+| AttributeType | type | default value | Description |
+|---|---|---|---|
+| ads-enabled | _boolean_  | true | Tells if the HttpServer is enabled |
+| description | _String_  | N/A | A short optional description |
+| **ads-httpWarFile** | _String_  | N/A | The WAR file to use |
+| **ads-id** | _String_  | N/A | The unique ID for this WebApp |
+| **ads-httpAppCtxPath** | _String_  | N/A | The context |
+
+Here is an example of configuration :
+
+	:::Text
+	dn: ads-id=webApp1,ou=httpWebApps,ads-serverId=httpServer,ou=servers,ads-directoryServiceId=default,ou=config
+	objectclass: top
+	objectclass: ads-base
+	objectclass: ads-httpWebApp
+	ads-Id: webApp1
+	ads-httpWarFile: war file 1
+	ads-httpAppCtxPath: /home/app1
+
+
+## Change Password Server
+To be added...
+
+# Bean graph
+
+The following picture represent the structure of the container used to store the configuration inside the server. The yellow beans are abstract beans, extended by specific beans.
+
+The bold links mean we can have more than one instance of a bean.
+
+![ApacheDS configuration beans](images/configBeans.png)
+
+
