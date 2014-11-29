@@ -24,3 +24,61 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 # 2.3 - Instance Layout
 
+When we start a server, after having installed it, it creates some other directories where the data will be stored. Here is a list of those data :
+
+* the partitions data
+* the logs
+* the cache files
+* the replication data (if setup)
+* the run files
+
+
+## Created directories
+
+The following directories are created on your disk :
+
+installation directory/
+    |
+    +-- conf/
+    |    |
+    |    +-- config.ldif
+    |    |
+    |    +-- wrapper.conf
+    |    |
+    |    +-- log4j.properties
+    |
+    +-- log/
+    |    |
+    |   [+-- journal.ldif]
+    |    |
+    |    +-- <log file>
+    |
+    +-- partitions/
+    |    |
+    |    +-- system/
+    |    |    |
+    |    |    +-- master.db
+    |    |    |
+    |    |    +-- objectclass.db
+    |    |    |
+    |    |    +-- objectclass.lg
+    |    |    |
+    |    |    +-- <index XXX lg and db files>
+    |    |
+    |    +-- schema/
+    |    |    |
+    |    |    :
+    |    |
+    |    +-- <partition XXX>
+    |    |    |
+    |    :    :
+    |
+    +-- run/
+    |
+    +-- cache/
+    |
+    +-- syncrepl-data/
+    |
+    +-- NOTICE
+    |
+    +-- LICENSE

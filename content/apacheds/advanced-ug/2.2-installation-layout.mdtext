@@ -31,9 +31,14 @@ When you installed ApacheDS on your machine, it created various directories on y
 * the license files
 * the dependencies
 
+We will describe in this chapter the global layout and the various files and their meaning and use. Note that the installation will differ with the target OS. We currently support :
 
+* debian ![debian](images/debian.png)
+* RPM based linux
+* windows
+* Mac OSX
 
-We will describe in this chapter the global layout and the various files and their meaning and use.
+We also provide two packages, one which is a binary package that should run as is on any linux box, but will not be started as a daemon, and another which contains all the files.
 
 ## Standard layout
 
@@ -47,52 +52,58 @@ installation directory/
     |    |
     |    +-- wrapper
     |
-    +-- lib/
-    |
     +-- conf/
     |    |
-    |    +-- config.ldif
-    |    |
     |    +-- wrapper.conf
-    |    |
-    |    +-- log4j.properties
     |
-    +-- partitions/
+    +-- lib/
     |    |
-    |    +-- system/
-    |    |    |
-    |    |    +-- master.db
-    |    |    |
-    |    |    +-- objectclass.db
-    |    |    |
-    |    |    +-- objectclass.lg
-    |    |    |
-    |    |    +-- <index XXX lg and db files>
+    |    +-- apacheds-service-<version>.jar
     |    |
-    |    +-- schema/
-    |    |    |
-    |    |    :
+    |    +-- apacheds-wrapper-<version>.jar
     |    |
-    |    +-- <partition XXX>
-    |    |    |
-    |    :    :
+    |    +-- libwrapper.jnilib
+    |    |
+    |    +-- wrapper-3.2.3.jar
     |
-    +-- log/
+    +-- instances/
     |    |
-    |   [+-- journal.ldif]
-    |    |
-    |    +-- <log file>
-    |
-    +-- run/
-    |
-    +-- cache/
-    |
-    +-- syncrepl-data/
+    |    +-- default
+    |         |
+    |         +--...
     |
     +-- NOTICE
     |
     +-- LICENSE
 
+/opt/apacheds-<version>/bin/apacheds $1 <instance>
 
+/opt/apacheds-2.0.0-M19
+/var/lib/apacheds-2.0.0-M19
+
+## bin directory
+
+The *bin* directory contains the binary used to launch the server. The wrapper starts the *apacheds* server, using the configuratio file *wrapper.conf*.
+
+## conf directory
+
+This directory contain the wrapper configuration file.
+
+### wrapper.conf file
+
+This configuration file defines the default configuration for the *ApacheDS* server. Here are the parameters description
+
+| parameter | Description | Default value |
+|---|---|---|
+||||
+||||
+||||
+||||
+||||
+||||
+||||
+||||
+||||
+||||
 
 
