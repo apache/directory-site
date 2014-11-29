@@ -45,15 +45,16 @@ In the next paragraph, we will describe the installation layout for each OS.
 
 ## ![debian](images/debian.png) Debian Standard layout
 
-This is the directories the installer creates :
+On debian, the installation will be done in _/opt_, and the daemon script will be in _/etc/init.d_. Here are the created directories :
 
-installation directory/
+<PRE>
+  /opt
     |
     +-- bin/
     |    |
-    |    +-- apacheds
+    |    +-- apacheds*
     |    |
-    |    +-- wrapper
+    |    +-- wrapper*
     |
     +-- conf/
     |    |
@@ -65,42 +66,64 @@ installation directory/
     |    |
     |    +-- apacheds-wrapper-<version>.jar
     |    |
-    |    +-- libwrapper.jnilib
+    |    +-- libwrapper.so
     |    |
     |    +-- wrapper-3.2.3.jar
-    |
-    +-- instances/
-    |    |
-    |    +-- default
-    |         |
-    |         +--...
     |
     +-- NOTICE
     |
     +-- LICENSE
+</PRE>
 
-/opt/apacheds-<version>/bin/apacheds $1 <instance>
+## Starting ther server
 
-/opt/apacheds-2.0.0-M19
-/var/lib/apacheds-2.0.0-M19
+THere are three ways to start the server :
+
+* as a daemon : in this case, the server is automatically started when the machine is started.
+* starting the daemon from /etc/init.d manually
+* starting the server from /opt/apacheds-<version>/bin
+
+The most convenient is obviously to let the server starts _apacheDS_ automatically when the server is started. It's enough to launch this command once the installation has been done :
+
+    $ sudo su
+    $ cd /etc/init.d
+    $ update-rc.d apacheds-2.0.0-M20-default defaults
+    Adding system startup for /etc/init.d/apacheds-2.0.0-M20-default ...
+    /etc/rc0.d/K20apacheds-2.0.0-M20-default -> ../init.d/apacheds-2.0.0-M20-default
+    /etc/rc1.d/K20apacheds-2.0.0-M20-default -> ../init.d/apacheds-2.0.0-M20-default
+    /etc/rc6.d/K20apacheds-2.0.0-M20-default -> ../init.d/apacheds-2.0.0-M20-default
+    /etc/rc2.d/S20apacheds-2.0.0-M20-default -> ../init.d/apacheds-2.0.0-M20-default
+    /etc/rc3.d/S20apacheds-2.0.0-M20-default -> ../init.d/apacheds-2.0.0-M20-default
+    /etc/rc4.d/S20apacheds-2.0.0-M20-default -> ../init.d/apacheds-2.0.0-M20-default
+    /etc/rc5.d/S20apacheds-2.0.0-M20-default -> ../init.d/apacheds-2.0.0-M20-default
+
+
+Otherwise, starting the server using option 2 is all about typing this command line :
+
+    $ sudo /etc/init.d/apacheds-2.0.0-M20-default start
+
+This will start the default instance. Would you like to have more than one instance of the server installed, then you'll have to modify this script.
+
+
+Starting the server using the _apacheds_ script requires that you provide a third parameter : the instance to run.
+
+    $ sudo /opt/apacheds-2.0.0-M20/bin/apacheds start default
+
 
 ## bin directory
 
-The *bin* directory contains the binary used to launch the server. The wrapper starts the *apacheds* server, using the configuratio file *wrapper.conf*.
+The _bin_ directory contains the binary used to launch the server. The _apacheds_ script starts the _wrapper_ executable, using the configuration file _wrapper.conf_.
 
 ## conf directory
 
-This directory contain the wrapper configuration file.
+This directory contain the wrapper configuration file. This is a description of its content.
 
-### wrapper.conf file
-
-This configuration file defines the default configuration for the *ApacheDS* server. Here are the parameters description
 
 | parameter | Description | Default value |
 |---|---|---|
-||||
-||||
-||||
+|wrapper.java.maxmemory|The -Xmx JVM parameter|2048m|
+|wrapper.ping.timeout|The delay after which we will consider the server as stalled|240s (4 mins)|
+|wrapper.startup.timeout|The maximum delay allowed for the server to start|120 secs|
 ||||
 ||||
 ||||
