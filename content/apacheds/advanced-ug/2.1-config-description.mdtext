@@ -24,13 +24,11 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 # 2.1 - Configuration Description
 
-We will now describe the server configuration. Usually, all the configuration is done using Apache Directory Studio, which offers a pretty GUI. One can also configure the server using LDAP request, as the configuration is stored in the **DIT**. Otherwise, all the configuration modifications won't be applied on a started server : usually, you will have to restart the server in order to get those modifications applied.
-
-It's a good policy not to modify the LDIF files by hand, but instead to use the Studio Configuration plugin to modify your configuration. 
+It's a good practice to not modify the configuration LDIF file by hand, instead use the Studio Configuration plugin to modify the server configuration.
 
 # Overall structure
 
-The configuration is stored in a hierarchical order, where sub-elements are related to their parent. For instance, the _Transports_ are associated to the _Server_ they are child of. If we have many kind of servers, we will have as many transports as we have servers.
+The configuration is stored in a hierarchical order, where sub-elements are related to their parent. For instance, the _Transports_ are associated to the corresponding _Server_ that uses them. Each server may contain one or more transports.
 
 The following hierarchy describe the different kind of elements that one can configure, and their relationship :
 
@@ -60,7 +58,7 @@ The following hierarchy describe the different kind of elements that one can con
 			* [ads-serverId=changePasswordServer (ChangePassword Server)](#change-password-server)
     			* [ou=transports (Transports)](#transports)
 
-Note that in order to modify one element, you have to go down the tree up to the entry containing the elements you want to modify. For instance, to modify the TCP port for LDAP, you have to modify the following entry :
+Note that in order to modify one element, you have to go down the tree up to the entry containing the elements you want to modify. For instance, to modify the TCP port for LDAP server, you have to modify the following entry :
 **ads-transportid=ldap, ou=transports, ads-serverId=ldapServer, ou=servers, ads-directoryServiceId=XXXXX, ou=config**
 
 We will now explain each one of those elements.
@@ -71,9 +69,9 @@ Note that bold attributes are mandatory in the following tables.
 
 # Directory Service
 
-This is the key of the whole server : the place where we store the data. Most of the servers are depending on this component. You may have more than one server, but only one _DirectoryService_. This component itself refers to the servers that will be started, plus the backends it will depends on.
+This is the heart of the entire system : the place where we store the data. Most of the servers are depending on this component. You may have more than one server(e.g LDAP, Kerberos, ChangePassword etc), but only one _DirectoryService_. 
 
-Here are the configuration parameters for this components :
+Configuration options:
 
 | AttributeType | type | default value | Description |
 |---|---|---|---|
@@ -91,13 +89,13 @@ Here are the configuration parameters for this components :
 
 ## Change Log
 
-The _ChangeLog_ is an optional system that logs every changes made on the server, and also records the revert operation, allowing the system to rollback the changes if needed. This is extremely useful when running tests.
+The _ChangeLog_ is an optional system that logs every change made on the server, and also records the revert operation, allowing the system to rollback the changes if needed. This is extremely useful when running tests.
 
-Note that at the moment, the system works in memory.
+Note that at the moment, changelog has in-memory support only.
 
 It's disabled by default.
 
-Here are the configuration element for the _ChangeLog_ elements :
+Configuration options:
 
 | AttributeType | type | default value | Description |
 |---|---|---|---|
@@ -108,9 +106,9 @@ Here are the configuration element for the _ChangeLog_ elements :
 
 ## Journal
 
-The _Journal_ system logs every modification on the file system. It's intended to be used if the _DirectoryService_ crashes, as we can reapply the journal starting from a date in the past where we know that the underlying database is correct.
+The _Journal_ logs every modification on the file system. It's intended to be used if the _DirectoryService_ crashes, as we can re-apply the journal starting from a date in the past where we know that the underlying database is correct.
 
-The configuration elements for the _Journal_ are :
+Configuration options:
 
 | AttributeType | type | default value | Description |
 |---|---|---|---|
@@ -123,9 +121,10 @@ The configuration elements for the _Journal_ are :
 
 ## Interceptors
 
-The _Interceptors_ are generally not configurable. You don't want to change their order, nor remove or add some. The fact that they appear in the configuration is because we use this to initialize the server.
+The default _Interceptors_ are generally not configurable. You don't want to change their order, or remove anyone from the default interceptors unless you are very familiar with the
+internals of ApacheDS and/or including a custom interceptor.
 
-However, at least one _Interceptor_ can be configured : the _authenticationInterceptor_. 
+However, at least one default _Interceptor_ can be configured : the _authenticationInterceptor_. 
 
 In the case where one would like to add an interceptor, it's enough to add the associated entry containing the interceptor identifier, under the _ou=interceptors_ entry. It must have an order. Here are the elements that can be configured in such a case :
 
