@@ -161,7 +161,7 @@ One can add a new _Authenticator_, if needed. It's just a matter of creating a n
 
 ### Password Policies
 
-There are many possible configurable options for the _PasswordPolicy_ system. Here is a list of all the possible elements :
+There are many possible configurable options for the _PasswordPolicy_ system. Here is a list of all the options. See the [password policy draft](http://tools.ietf.org/id/draft-behera-ldap-password-policy-10.txt) for an indept explanation of the respective attributes :
 
 | AttributeType | type | default value | Description |
 |---|---|---|---|
@@ -191,13 +191,13 @@ There are many possible configurable options for the _PasswordPolicy_ system. He
 
 ## Partitions
 
-The _Partition_ is the part of the server storing your data. There are many parts that need to be configured in order to obtain the best performances out of the server. It's also the part of the configuration you are the more likely to modify, adding new _Partitions_ or adding new _Indexes_.
+The _Partition_ is where the server stores your data. There are many parts that need to be configured in order to obtain the best performances out of the server. It's also the part of the configuration you are more likely to modify, adding new _Partitions_ or adding new _Indexes_.
 
-You may have more than one _Partition_ in your _DirectoryService_. We have at least three existing _Partition_, the _ou=system_ _Partition_, the _ou=config_ _Partition_ and the _ou=schema_ _Partition_. The former is a _JDBM_ _Partition_, when the two others are _LDIF_ _Partitions.
+You may have more than one _Partition_ in your _DirectoryService_. There are at least three default _Partition_s, _ou=system_, _ou=config_ and _ou=schema_ _Partition_. ou=system is a _JDBM_ _Partition_ and the two others are _LDIF_ partitions.
 
 ### JDBM Partition
 
-A _JDBM Partition_ have the following configurable elements :
+A _JDBM Partition_ has the following configurable options :
 
 | AttributeType | type | default value | Description |
 |---|---|---|---|
@@ -208,7 +208,7 @@ A _JDBM Partition_ have the following configurable elements :
 | ads-contextEntry | _String_ | N/A | The entry associated with the suffix (in LDIF format) |
 | ads-partitionSyncOnWrite | _boolean_ | true | Tells the server to flush on disk on each write |
 
-Once those elements have been configured, the _Partition_ is available. You still have to create some mandatory indexes though.
+Once the above elements have been added, the _Partition_ is available. You still have to create some mandatory indexes though.
 
 #### Indexes
 
@@ -228,9 +228,9 @@ Each _Partition_ have indexes, some are mandatory, and others are user provided.
 
 ##### Indexed Attribute
 
-IndexedATtributes have a type, depending on the _Partition_ they are associated with. Currently, we have only one type, _JdbmIndex_. They have specific configurable elements.
+Indexed attributes have a type, depending on the _Partition_ type they are associated with. Currently, we have only one type, _JdbmIndex_. They have specific configurable elements.
 
-Each index attribute have four basic elements that can be configured :
+Each index attribute has four basic elements that can be configured :
 
 | AttributeType | type | default value | Description |
 |---|---|---|---|
@@ -251,7 +251,7 @@ The _JdbmIndex_ type of index has some more configurable elements, all optional 
 
 # Servers
 
-As we can see, we can start more than one server. We have :
+As we can see, we can start more than one server (a.k.a service). We have :
 
 * a LDAP server
 * a Kerberos server
