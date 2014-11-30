@@ -1,10 +1,10 @@
-Title: 2.2.1 - Debian Installation Layout
+Title: 2.2.1 - ![debian](images/debian.png)Debian Installation Layout
 NavPrev: 2.2-installation-layout.html
 NavPrevText: 2.2 - Installation Layout
 NavUp: 2.2-server-config.html
 NavUpText: 2.2 - Server Configuration
-NavNext: 2.2.2-.html
-NavNextText: 2.2.2 - 
+NavNext: 2.2.2-rpm-installation-layout.html
+NavNextText: 2.2.2 - ![RPM](images/rpm.png)RPM Installation Layout
 Notice: Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
     distributed with this work for additional information
@@ -22,9 +22,9 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
     specific language governing permissions and limitations
     under the License.
 
-# 2.2.1 - Debian Installation Layout
+# 2.2.1 - ![debian](images/debian.png)Debian Installation Layout
 
-When you installed ApacheDS on your machine, it created various directories on your disk. Typically, we need to store :
+When you installed ApacheDS on your debian machine, it created various directories on your disk. Typically, we need to store :
 
 * the binaries
 * the server configuration files
@@ -32,10 +32,6 @@ When you installed ApacheDS on your machine, it created various directories on y
 * the dependencies
 
 We will describe in this chapter the global layout and the various files and their meaning and use. 
-
-We also provide two packages, one which is a binary package that should run as is on any linux box, but will not be started as a daemon, and another which contains all the files.
-
-In the next paragraph, we will describe the installation layout for each OS.
 
 
 ## ![debian](images/debian.png) Debian Standard layout
@@ -112,12 +108,12 @@ The _bin_ directory contains the binary used to launch the server. The _apacheds
 
 ### ![debian](images/debian.png) conf directory
 
-This directory contain the wrapper configuration file. This is a description of its content. The _%INSTANCE_DIRECTORY%_ parameter is taken from the _apacheds_ script, it refers to the isnance location.
+This directory contain the wrapper configuration file. This is a description of its content. The _%INSTANCE_DIRECTORY%_ parameter is taken from the _apacheds_ script, it refers to the isnance location. Out of all those parameters, it's likely that the one you may want to change is the _wrapper.java.maxmemory_ one, if needed.
 
 
 | parameter | Description | Default value |
 |---|---|---|
-|wrapper.java.additional.1|The first parameter passed to th eJVM|-Dlog4j.configuration=file:///%INSTANCE_DIRECTORY%/conf/log4j.properties|
+|wrapper.java.additional.1|The first parameter passed to the JVM|-Dlog4j.configuration=file:///%INSTANCE_DIRECTORY%/conf/log4j.properties|
 |wrapper.java.additional.2|The _var_ directory|-Dapacheds.var.dir=%INSTANCE_DIRECTORY%|
 |wrapper.java.additional.3|The _log_ directory|-Dapacheds.log.dir=%INSTANCE_DIRECTORY%/log|
 |wrapper.java.additional.4|The _run_ directory|-Dapacheds.run.dir=%INSTANCE_DIRECTORY%/run|
