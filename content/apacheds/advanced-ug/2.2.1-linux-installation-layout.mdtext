@@ -1,10 +1,10 @@
-Title: 2.2.1 - Debian Installation Layout
+Title: 2.2.1 - Linux Installation Layout
 NavPrev: 2.2-installation-layout.html
 NavPrevText: 2.2 - Installation Layout
 NavUp: 2.2-installation-layout.html
 NavUpText: 2.2 - Installation Layout
-NavNext: 2.2.2-rpm-installation-layout.html
-NavNextText: 2.2.2 - RPM Installation Layout
+NavNext: 2.2.2-macosx-installation-layout.html
+NavNextText: 2.2.2 - MacOSX Installation Layout
 Notice: Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
     distributed with this work for additional information
@@ -22,9 +22,9 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
     specific language governing permissions and limitations
     under the License.
 
-# 2.2.1 - ![debian](images/debian.png)Debian Installation Layout
+# 2.2.1 - ![Linux](images/linux.png)Linux Installation Layout
 
-When you installed ApacheDS on your debian machine, it created various directories on your disk. Typically, we need to store :
+When you installed ApacheDS on your Linux machine, it created various directories on your disk. Typically, we need to store :
 
 * the binaries
 * the server configuration files
@@ -33,13 +33,15 @@ When you installed ApacheDS on your debian machine, it created various directori
 
 We will describe in this chapter the global layout and the various files and their meaning and use. 
 
+The Linux installer comes into two flavors : a ![debian](images/debian.png)Debian installer or a ![RPM](images/rpm.png)RPM installer.
 
-## ![debian](images/debian.png) Debian Standard layout
 
-On debian, the installation will be done in _/opt_, and the daemon script will be in _/etc/init.d_. Here are the created directories :
+## ![Linux](images/linux.png) Linux Standard layout
+
+On Linux, the installation will be done in _/opt_, and the daemon script will be in _/etc/init.d_. Here are the created directories :
 
 <PRE>
-  /opt
+  /opt/apacheds-<version>/
     |
     +-- bin/
     |    |
@@ -66,7 +68,7 @@ On debian, the installation will be done in _/opt_, and the daemon script will b
     +-- LICENSE
 </PRE>
 
-## ![debian](images/debian.png) Starting ther server
+## ![Linux](images/linux.png)! Starting ther server
 
 THere are three ways to start the server :
 
@@ -102,11 +104,11 @@ Starting the server using the _apacheds_ script requires that you provide a thir
 
 In any case, we start the _apacheds_ script, which strats the _wrapper_ executable, which itself starts the serveur.
 
-### ![debian](images/debian.png) bin directory
+### ![Linux](images/linux.png) bin directory
 
 The _bin_ directory contains the binary used to launch the server. The _apacheds_ script starts the _wrapper_ executable, using the configuration file _wrapper.conf_.
 
-### ![debian](images/debian.png) conf directory
+### ![Linux](images/linux.png)conf directory
 
 This directory contain the wrapper configuration file. This is a description of its content. The _%INSTANCE_DIRECTORY%_ parameter is taken from the _apacheds_ script, it refers to the isnance location. Out of all those parameters, it's likely that the one you may want to change is the _wrapper.java.maxmemory_ one, if needed.
 
@@ -129,6 +131,6 @@ This directory contain the wrapper configuration file. This is a description of 
 |wrapper.startup.timeout|The maximum delay allowed for the server to start|120 secs|
 
 
-### ![debian](images/debian.png) lib directory
+### ![Linux](images/linux.png) lib directory
 
 This directory contains the third party library the server needs. You should not have to change anything there.
