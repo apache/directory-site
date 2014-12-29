@@ -323,7 +323,7 @@ In <em>studio/pom.xml</em> change the <org.apache.directory.shared.version> and 
 
 ### Stage the release
 
-Go to https://repository.apache.org/index.html#stagingRepositories and close the staging repository.
+Go to [https://repository.apache.org/index.html#stagingRepositories](https://repository.apache.org/index.html#stagingRepositories) and close the staging repository.
 
 ### Vote
 
@@ -333,7 +333,7 @@ Start a 72h vote at the dev mailing list.
 
 If the vote succeeds LDAP API project can be released.
 
-Go to https://repository.apache.org/index.html#stagingRepositories and release the staging repository so all artifacts are published to Maven central.
+Go to [https://repository.apache.org/index.html#stagingRepositories](https://repository.apache.org/index.html#stagingRepositories) and release the staging repository so all artifacts are published to Maven central.
 
 Move the distribution packages (sources and binaries) to the dist SVN repository: https://dist.apache.org/repos/dist/release/directory/api/dist/$(version)
 
@@ -344,6 +344,7 @@ The best solution would be to checkout the directory in people.apache.org, to co
     # cd api-dist
     # mkdir <version>
     # cp ../public_html/ldap-api-<version>/* <version>
+    # svn add <version>
     # svn ci <version>
     ...
     # exit
