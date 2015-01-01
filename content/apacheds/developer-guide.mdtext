@@ -300,12 +300,27 @@ The best way to do that is to download the sources, extract them, build the serv
 
 ##### Create the installers
 
+
 We now have to create the installers. Go into the <em>target/checkout</em> directory and run :
 
     $ cd apacheds/target/checkout/installers
     $ mvn clean install -Pinstallers
 
 This will create the installers in the <em>target/checkout/installers/target/installers</em> directory
+
+<DIV class="info" markdown="1">
+    We are meant to create all the installers. It's possible to create installers for a specific platform by using a different profile :
+    
+    o Debian   : mvn clean install -Pdebian
+    o Rpm      : mvn clean install -Prpm
+    o Windows  : mvn clean install -Pwindows  
+    o Mac OS X : mvn clean install -Pmac
+    o Binary   : mvn clean install -Pbin 
+    o Archive  : mvn clean install -Parchive
+
+    This will build only one single target.
+</DIV>
+
 
 Sign those installers using the <em>sign.sh</em> script, and copy them in <em>people.apache.org/public_html/apacheds-<version></em>
 
