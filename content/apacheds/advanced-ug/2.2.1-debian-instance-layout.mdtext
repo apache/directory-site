@@ -24,7 +24,7 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 # 2.2.1 - ![debian](images/debian.png) Debian Instance Layout
 
-When you run the installer ( <em>sudo dpkg -i apacheds-&lt;version&gt;-&lit;arch&gt;.deb</em> ) on your debian system, it will install the server on your disk, using this layout :
+When you run the installer ( <em>sudo dpkg -i apacheds-&lt;version&gt;-&lt;arch&gt;.deb</em> ) on your debian system, it will install the server on your disk, using this layout :
 
      /
      |
@@ -105,7 +105,7 @@ When you run the installer ( <em>sudo dpkg -i apacheds-&lt;version&gt;-&lit;arch
 
 ## Defining an instance
 
-The default installation comes with a default instance (aka <em>default</em>). It's possible to define more instances, it's just enough to copy the directory <em>/var/lib/apacheds-&lt;version&gt;/&lt;instances;gt;/default</em> and give it the name of the new instance. Then, be sure to remove everything under the <em>run/</em>, <em>partitions/</em>, <em>log/</em> and <em>cache/</em> directory to create a blank new instance. Here, we have created a blank <em>test</em> instance :
+The default installation comes with a default instance (aka <em>'default'</em>). It's possible to define more instances, it's just enough to copy the directory <em>/var/lib/apacheds-&lt;version&gt;/&lt;instances&gt;/default</em> and give it the name of the new instance. Then, be sure to remove everything under the <em>run/</em>, <em>partitions/</em>, <em>log/</em> and <em>cache/</em> directories to create a blank new instance. Here, we have created a blank <em>test</em> instance :
 
      /
      |
@@ -139,13 +139,13 @@ When the newly created instance will be created, the partitions will be created.
 
 ## Starting the server
 
-As we can have more than one instance, we have more than one directory in <em>/var/lib/apacheds&lt;version&gt;</em> that can be installed. Each one of these instance can be started using the <em>/etc/init.d/apacheds</em> daemon, passing the instance as a parameter :
+As we can have more than one instance, we have more than one instance in <em>/var/lib/apacheds&lt;version&gt;/&lt;instances&gt;</em> that can be installed. Each one of these instance can be started using the <em>/etc/init.d/apacheds</em> daemon, passing the instance as a parameter :
 
     $ sudo /etc/init.d/apacheds-<version> start [<instance>]
 
 The default instance name is 'default'.
 
-All the data for a given instance are stored into this <em>/var/lib/apacheds-&lt;version&gt;/instances/&lt;instance-name&gt;<em> directory.
+All the data for a given instance are stored into this <em>/var/lib/apacheds-&lt;version&gt;/instances/&lt;instance-name&gt;</em> directory.
 
 ## Stopping the server
 
@@ -225,7 +225,7 @@ The default configuration is given below :
 
 ### JVM setting 
 
-Were you to change the memory you want to use for a given instance, you will have to modify the <em>/var/lib/apacheds-&lt;version&gt;/&lt;instance&gt;/&lt;conf&gt;/wrapper-instance.conf</em> file. Here are the parameter you can configure in this file :
+Were you to change the memory you want to use for a given instance, you will have to modify the <em>/var/lib/apacheds-&lt;version&gt;/&lt;instances&gt;/&lt;conf&gt;/wrapper-instance.conf</em> file. Here are the parameter you can configure in this file :
 
     ##
     ## In this file you can override parameters specified in the default
