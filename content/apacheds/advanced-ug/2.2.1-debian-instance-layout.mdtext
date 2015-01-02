@@ -26,124 +26,162 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 When you run the installer ( <em>sudo dpkg -i apacheds-&lt;version&gt;-&lit;arch&gt;.deb</em> ) on your debian system, it will install the server on your disk, using this layout :
 
-<PRE>
- /
- |
- +-- etc/
- |    |
- |    +-- init.d/
- |         |
- |         +-- apacheds-<version>-<instance>    The daemon used to start the server
- +-- opt/
- |    |
- |    +-- conf/
- |    |    |
- |    |    +-- wrapper.conf  The wrapper default configuration
- |    |
- |    +-- bin/
- |    |    |
- |    |    +-- apacheds*  The script that starts the server
- |    |    |
- |    |    +-- wrapper*  The binary that starts the server
- |    |
- |    +-- lib
- |    |    |
- |    |    +-- wrapper-3.2.3.jar
- |    |    |
- |    |    +-- libwrapper.so
- |    |    |
- |    |    +-- apacheds-wrapper-2.0.0-M20-SNAPSHOT.jar
- |    |    |
- |    |    +-- apacheds-service-2.0.0-M20-SNAPSHOT.jar
- |    |
- |    +-- NOTICE
- |    |
- |    +-- LICENSE
- |
- +-- var/
-      |
-      +--lib/
+     /
+     |
+     +-- etc/
+     |    |
+     |    +-- init.d/
+     |         |
+     |         +-- apacheds-<version>-<instance>    The daemon used to start the server
+     +-- opt/
+     |    |
+     |    +-- conf/
+     |    |    |
+     |    |    +-- wrapper.conf  The wrapper default configuration
+     |    |
+     |    +-- bin/
+     |    |    |
+     |    |    +-- apacheds*  The script that starts the server
+     |    |    |
+     |    |    +-- wrapper*  The binary that starts the server
+     |    |
+     |    +-- lib
+     |    |    |
+     |    |    +-- wrapper-3.2.3.jar
+     |    |    |
+     |    |    +-- libwrapper.so
+     |    |    |
+     |    |    +-- apacheds-wrapper-2.0.0-M20-SNAPSHOT.jar
+     |    |    |
+     |    |    +-- apacheds-service-2.0.0-M20-SNAPSHOT.jar
+     |    |
+     |    +-- NOTICE
+     |    |
+     |    +-- LICENSE
+     |
+     +-- var/
           |
-          +-- apacheds-<version>/
-            |
-            +-- <instance>/   
-                 |
-                 +-- run/
-                 |    |
-                 |    +-- apacheds-default.pid  The PID of the running process
-                 |
-                 +-- partitions/  This is were your data will be stored
-                 |    |
-                 |    +-- schema/
-                 |    |
-                 |    +-- system/
-                 |    |
-                 |    +-- example/
-                 |
-                 +-- log/  This is were the logs are stored
-                 |    |
-                 |    +-- apacheds.log
-                 |    |
-                 |    +-- wrapper.log
-                 |
-                 +-- cache/  This is where the various caches are stored
-                 |    |
-                 |    +-- changePwdReplayCache.data
-                 |    |
-                 |    +-- ou=system.data
-                 |    |
-                 |    +-- groupCache.data
-                 |    |
-                 |    +-- kdcReplayCache.data
-                 |
-                 +-- conf/
-                      |
-                      +-- wrapper-instance.conf  The specific instance wrapper configuration
-                      |
-                      +-- log4j.properties  The log configuration file
-                      |
-                      +-- config.ldif  The server configuration. Don't manipulate this file with a text editr !
-</PRE>
+          +--lib/
+              |
+              +-- apacheds-<version>/
+                |
+                +-- <instance>/   
+                     |
+                     +-- run/
+                     |    |
+                     |    +-- apacheds-default.pid  The PID of the running process
+                     |
+                     +-- partitions/  This is were your data will be stored
+                     |    |
+                     |    +-- schema/
+                     |    |
+                     |    +-- system/
+                     |    |
+                     |    +-- example/
+                     |
+                     +-- log/  This is were the logs are stored
+                     |    |
+                     |    +-- apacheds.log
+                     |    |
+                     |    +-- wrapper.log
+                     |
+                     +-- cache/  This is where the various caches are stored
+                     |    |
+                     |    +-- changePwdReplayCache.data
+                     |    |
+                     |    +-- ou=system.data
+                     |    |
+                     |    +-- groupCache.data
+                     |    |
+                     |    +-- kdcReplayCache.data
+                     |
+                     +-- conf/
+                          |
+                          +-- wrapper-instance.conf  The specific instance wrapper configuration
+                          |
+                          +-- log4j.properties  The log configuration file
+                          |
+                          +-- config.ldif  The server configuration. Don't manipulate this file with a text editor !
 
-As we can have more than one instance, we have more than one directory in <em>/var/lib/apacheds</em> that can be installed. Each one of these instance can be started using the <em>/etc/init.d/apacheds</em> daemon, passing the instancz as a parameter :
+## Defining an instance
 
-    $ sudo /etc/init.d/apacheds-<version> start <instance>
+The default installation comes with a default instance (aka <em>default</em>). It's possible to define more instances, it's just enough to copy the directory <em>/var/lib/apacheds-&lt;version&gt;/&lt;instances;gt;/default</em> and give it the name of the new instance. Then, be sure to remove everything under the <em>run/</em>, <em>partitions/</em>, <em>log/</em> and <em>cache/</em> directory to create a blank new instance. Here, we have created a blank <em>test</em> instance :
+
+     /
+     |
+     +-- var/
+          |
+          +--lib/
+              |
+              +-- apacheds-<version>/
+                |
+                +-- test/   
+                     |
+                     +-- run/
+                     |
+                     +-- partitions/
+                     |
+                     +-- log/
+                     |
+                     +-- cache/
+                     |
+                     +-- conf/
+                          |
+                          +-- wrapper-instance.conf
+                          |
+                          +-- log4j.properties
+                          |
+                          +-- config.ldif
+
+The next step is to be sure that the config.ldif file is modified to not conflict with any other instance of the server : it's just a mater to change the port used by the server.
+
+When the newly created instance will be created, the partitions will be created.
+
+## Starting the server
+
+As we can have more than one instance, we have more than one directory in <em>/var/lib/apacheds&lt;version&gt;</em> that can be installed. Each one of these instance can be started using the <em>/etc/init.d/apacheds</em> daemon, passing the instance as a parameter :
+
+    $ sudo /etc/init.d/apacheds-<version> start [<instance>]
 
 The default instance name is 'default'.
 
-All the data for a given instance are stored into this <em>/var/lib/apacheds-<version><em> directory.
+All the data for a given instance are stored into this <em>/var/lib/apacheds-&lt;version&gt;/instances/&lt;instance-name&gt;<em> directory.
 
-## Configuring each instance
+## Stopping the server
 
-You can configure a specific settings. This is done by modifying the configuration files in <em>/var/lib/apacheds-<version>/<instance></em>.
+Stopping the server is done using the same command, with a different parameter :
 
-### JVM setting 
-Were you to change the memory you want to use for a given instance, you will have to modify the <em>/var/lib/apacheds-<version>/<instance>/<conf>/wrapper-instance.conf</em> file. Here are the parameter you can configure in this file :
+    $ sudo /etc/init.d/apacheds-<version> stop [<instance>]
 
-    ##
-    ## In this file you can override parameters specified in the default
-    ## Apache Directory Server config file which is usually at
-    ## /opt/apacheds-2.0.0-M20-SNAPSHOT/conf/wrapper.conf
-    ##
-    ## See also http://wrapper.tanukisoftware.org/doc/english/properties.html
-    ## For a list of properties that can be set.
-    ##
-    
-    ## Override the JRE used
-    # wrapper.java.command=<path-to-java-executable>
+Again, you must provide the instance name if it's not the default one
 
-    ## Override the JVM memory settings
-    ## Initial Java Heap Size (in MB)
-    # wrapper.java.initmemory=1024
+## Logs
 
-    ## Maximum Java Heap Size (in MB)
-    # wrapper.java.maxmemory=2048
+You can check what's going on in the <em>apacheds-&lt;version&gt;instances/&lt;instance-name&gt;/log/apacheds.log</em> file, which is created using the configuration set in <em>apacheds-&lt;version&gt;instances/&lt;instance-name&gt;/conf/log4j.properties</em>.
 
-You mainly want to change the memory used by the JVM.
+Typically, when you start the server, you will get such log :
+
+    $ more apacheds.log
+    [10:53:05] WARN [org.apache.directory.server.core.DefaultDirectoryService] - You didn't change the admin password of 
+    directory service instance 'default'.  Please update the admin password as soon as possible to prevent a possible 
+    security breach.
+
+and from the <em>apacheds-&lt;version&gt;/instances/&lt;instance-name&gt;/log/apacheds.out</em> file, which contains everything the server writes on the console, you will read :
+
+    $ more apacheds.out 
+    [10:53:05] WARN [org.apache.directory.server.core.DefaultDirectoryService] - You didn't change the admin password of 
+    directory service instance 'default'.  Please update the admin password as soon as possible to prevent a possible 
+    security breach.
+               _                     _          ____  ____   
+              / \   _ __    ___  ___| |__   ___|  _ \/ ___|  
+             / _ \ | '_ \ / _` |/ __| '_ \ / _ \ | | \___ \  
+            / ___ \| |_) | (_| | (__| | | |  __/ |_| |___) | 
+           /_/   \_\ .__/ \__,_|\___|_| |_|\___|____/|____/  
+                   |_|                                       
 
 ### Log configuration
 
-You can configure the log level and content by changing the content of the <em>/var/lib/apacheds-<version>/<instance>/<conf>/log4j.properties</em> file.
+You can configure the log level and content by changing the content of the <em>/var/lib/apacheds-&lt;version&gt;/&lt;instance&gt;/&lt;conf&gt;/log4j.properties</em> file.
 
 The default configuration is given below :
 
@@ -184,4 +222,29 @@ The default configuration is given below :
     log4j.logger.net.sf.ehcache=FATAL
     log4j.logger.org.apache.mina=FATAL
 
+
+### JVM setting 
+
+Were you to change the memory you want to use for a given instance, you will have to modify the <em>/var/lib/apacheds-&lt;version&gt;/&lt;instance&gt;/&lt;conf&gt;/wrapper-instance.conf</em> file. Here are the parameter you can configure in this file :
+
+    ##
+    ## In this file you can override parameters specified in the default
+    ## Apache Directory Server config file which is usually at
+    ## /opt/apacheds-2.0.0-M20-SNAPSHOT/conf/wrapper.conf
+    ##
+    ## See also http://wrapper.tanukisoftware.org/doc/english/properties.html
+    ## For a list of properties that can be set.
+    ##
+    
+    ## Override the JRE used
+    # wrapper.java.command=<path-to-java-executable>
+
+    ## Override the JVM memory settings
+    ## Initial Java Heap Size (in MB)
+    # wrapper.java.initmemory=1024
+
+    ## Maximum Java Heap Size (in MB)
+    # wrapper.java.maxmemory=2048
+
+You mainly want to change the memory used by the JVM.
 

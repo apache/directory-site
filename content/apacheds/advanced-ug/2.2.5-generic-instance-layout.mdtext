@@ -126,5 +126,47 @@ and from the <em>apacheds-<version>/instances/<instance-name>/log/apacheds.out</
            /_/   \_\ .__/ \__,_|\___|_| |_|\___|____/|____/  
                    |_|                                       
 
+### Log configuration
+
+You can configure the log level and content by changing the content of the <em>/var/lib/apacheds-&lt;version&gt;/&lt;instance&gt;/&lt;conf&gt;/log4j.properties</em> file.
+
+The default configuration is given below :
+
+    log4j.rootCategory=WARN, R, stdout
+
+    log4j.appender.stdout=org.apache.log4j.ConsoleAppender
+    log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
+
+    log4j.appender.R=org.apache.log4j.RollingFileAppender
+    log4j.appender.R.File=${apacheds.log.dir}/apacheds.log
+
+    log4j.appender.R.MaxFileSize=1024KB
+    # Keep some backup files
+    log4j.appender.R.MaxBackupIndex=5
+
+    log4j.appender.R.layout=org.apache.log4j.PatternLayout
+    log4j.appender.R.layout.ConversionPattern=[%d{HH:mm:ss}] %p [%c] - %m%n
+
+    log4j.appender.stdout.layout.ConversionPattern=[%d{HH:mm:ss}] %p [%c] - %m%n
+
+    # with these we'll not get innundated when switching to DEBUG
+    log4j.logger.jdbm.recman.BaseRecordManager=FATAL
+    log4j.logger.org.apache.directory.server.OPERATION_LOG=FATAL
+    log4j.logger.org.apache.directory.server.OPERATION_TIME=FATAL
+    log4j.logger.org.apache.directory.api.CODEC_LOG=FATAL
+    log4j.logger.org.apache.directory.server.ACI_LOG=FATAL
+
+    # Replication logs
+    log4j.logger.org.apache.directory.server.PROVIDER_LOG=FATAL
+    log4j.logger.org.apache.directory.server.CONSUMER_LOG=FATAL
+
+    # Search log
+    log4j.logger.org.apache.directory.CURSOR_LOG=FATAL
+
+    # Other logs
+    log4j.logger.org.apache.directory.api=FATAL
+    log4j.logger.org.apache.directory.server=FATAL
+    log4j.logger.net.sf.ehcache=FATAL
+    log4j.logger.org.apache.mina=FATAL
 
 
