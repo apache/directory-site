@@ -26,84 +26,83 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 When you run the installer on your RPM based system, it will install the server on your disk, using this layout :
 
-<PRE>
- /
- |
- +-- etc/
- |    |
- |    +-- init.d/
- |         |
- |         +-- apacheds-<version>-<instance>    The daemon used to start the server
- +-- opt/
- |    |
- |    +-- conf/
- |    |    |
- |    |    +-- wrapper.conf  The wrapper default configuration
- |    |
- |    +-- bin/
- |    |    |
- |    |    +-- apacheds*  The script that starts the server
- |    |    |
- |    |    +-- wrapper*  The binary that starts the server
- |    |
- |    +-- lib
- |    |    |
- |    |    +-- wrapper-3.2.3.jar
- |    |    |
- |    |    +-- libwrapper.so
- |    |    |
- |    |    +-- apacheds-wrapper-2.0.0-M20-SNAPSHOT.jar
- |    |    |
- |    |    +-- apacheds-service-2.0.0-M20-SNAPSHOT.jar
- |    |
- |    +-- NOTICE
- |    |
- |    +-- LICENSE
- |
- +-- var/
-      |
-      +--lib/
+     /
+     |
+     +-- etc/
+     |    |
+     |    +-- init.d/
+     |         |
+     |         +-- apacheds-<version>-<instance>    The daemon used to start the server
+     +-- opt/
+     |    |
+     |    +-- conf/
+     |    |    |
+     |    |    +-- wrapper.conf  The wrapper default configuration
+     |    |
+     |    +-- bin/
+     |    |    |
+     |    |    +-- apacheds*  The script that starts the server
+     |    |    |
+     |    |    +-- wrapper*  The binary that starts the server
+     |    |
+     |    +-- lib
+     |    |    |
+     |    |    +-- wrapper-3.2.3.jar
+     |    |    |
+     |    |    +-- libwrapper.so
+     |    |    |
+     |    |    +-- apacheds-wrapper-2.0.0-M20-SNAPSHOT.jar
+     |    |    |
+     |    |    +-- apacheds-service-2.0.0-M20-SNAPSHOT.jar
+     |    |
+     |    +-- NOTICE
+     |    |
+     |    +-- LICENSE
+     |
+     +-- var/
           |
-          +-- apacheds-<version>/
-            |
-            +-- <instance>/   
-                 |
-                 +-- run/
-                 |    |
-                 |    +-- apacheds-default.pid  The PID of the running process
-                 |
-                 +-- partitions/  This is were your data will be stored
-                 |    |
-                 |    +-- schema/
-                 |    |
-                 |    +-- system/
-                 |    |
-                 |    +-- example/
-                 |
-                 +-- log/  This is were the logs are stored
-                 |    |
-                 |    +-- apacheds.log
-                 |    |
-                 |    +-- wrapper.log
-                 |
-                 +-- cache/  This is where the various caches are stored
-                 |    |
-                 |    +-- changePwdReplayCache.data
-                 |    |
-                 |    +-- ou=system.data
-                 |    |
-                 |    +-- groupCache.data
-                 |    |
-                 |    +-- kdcReplayCache.data
-                 |
-                 +-- conf/
-                      |
-                      +-- wrapper-instance.conf  The specific instance wrapper configuration
-                      |
-                      +-- log4j.properties  The log configuration file
-                      |
-                      +-- config.ldif  The server configuration. Don't manipulate this file with a text editr !
-</PRE>
+          +--lib/
+              |
+              +-- apacheds-<version>/
+                |
+                +-- <instance>/   
+                     |
+                     +-- run/
+                     |    |
+                     |    +-- apacheds-default.pid  The PID of the running process
+                     |
+                     +-- partitions/  This is were your data will be stored
+                     |    |
+                     |    +-- schema/
+                     |    |
+                     |    +-- system/
+                     |    |
+                     |    +-- example/
+                     |
+                     +-- log/  This is were the logs are stored
+                     |    |
+                     |    +-- apacheds.log
+                     |    |
+                     |    +-- wrapper.log
+                     |
+                     +-- cache/  This is where the various caches are stored
+                     |    |
+                     |    +-- changePwdReplayCache.data
+                     |    |
+                     |    +-- ou=system.data
+                     |    |
+                     |    +-- groupCache.data
+                     |    |
+                     |    +-- kdcReplayCache.data
+                     |
+                     +-- conf/
+                          |
+                          +-- wrapper-instance.conf  The specific instance wrapper configuration
+                          |
+                          +-- log4j.properties  The log configuration file
+                          |
+                          +-- config.ldif  The server configuration. Don't manipulate this file with a text editr !
+
 
 As we can have more than one instance, we have more than one directory in <em>/var/lib/apacheds</em> that can be installed. Each one of these instance can be started using the <em>/etc/init.d/apacheds</em> daemon, passing the instancz as a parameter :
 

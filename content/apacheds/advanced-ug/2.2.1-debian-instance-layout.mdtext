@@ -96,16 +96,18 @@ When you run the installer ( <em>sudo dpkg -i apacheds-&lt;version&gt;-&lt;arch&
                      |    +-- kdcReplayCache.data
                      |
                      +-- conf/
-                          |
-                          +-- wrapper-instance.conf  The specific instance wrapper configuration
-                          |
-                          +-- log4j.properties  The log configuration file
-                          |
-                          +-- config.ldif  The server configuration. Don't manipulate this file with a text editor !
+                     |    |
+                     |    +-- wrapper-instance.conf  The specific instance wrapper configuration
+                     |    |
+                     |    +-- log4j.properties  The log configuration file
+                     |    |
+                     |    +-- config.ldif  The server configuration. Don't manipulate this file with a text editor !
+                     |
+                     +-- syncrepl-data/
 
 ## Defining an instance
 
-The default installation comes with a default instance (aka <em>'default'</em>). It's possible to define more instances, it's just enough to copy the directory <em>/var/lib/apacheds-&lt;version&gt;/&lt;instances&gt;/default</em> and give it the name of the new instance. Then, be sure to remove everything under the <em>run/</em>, <em>partitions/</em>, <em>log/</em> and <em>cache/</em> directories to create a blank new instance. Here, we have created a blank <em>test</em> instance :
+The default installation comes with a default instance (aka <em>'default'</em>). It's possible to define more instances, it's just enough to copy the directory <em>/var/lib/apacheds-&lt;version&gt;/&lt;instances&gt;/default</em> and give it the name of the new instance. Then, be sure to remove everything under the <em>run/</em>, <em>partitions/</em>, <em>log/</em>, <em>syncrepl-data</em> and <em>cache/</em> directories to create a blank new instance. Here, we have created a blank <em>test</em> instance :
 
      /
      |
