@@ -1,4 +1,28 @@
 # News
+<h2 class="news">Apache Directory LDAP API 1.0.0-M28 released <em>posted on January 15th, 2015</em></h2>
+
+The Apache Directory Team is proud to announce the availability of version 1.0.0-M28 of the Apache Directory LDAP API.
+
+The Apache Directory LDAP API is an ongoing effort to provide an enhanced LDAP API, as a replacement for JNDI and the existing LDAP API (jLdap and Mozilla LDAP API).
+
+This is a schema aware API, with some convenient ways to access a LDAP server. This API is not only targeting the Apache Directory Server, but should work pristine with any LDAP server.
+
+It's also an extensible API : new Controls, schema elements and network layer could be added or used in the near future. It's also OSGi capable.
+
+This release fixes some critical issues in the LDAP Pool under heavy load, and improved a few other areas.
+
+
+<b>Bugs : </b>
+
+  * [DIRAPI-217](https://issues.apache.org/jira/browse/DIRAPI-217) Under heavy load, the Connection Pool will not provide valid connections 
+  * [DIRAPI-174](https://issues.apache.org/jira/browse/DIRAPI-193) There is no future associated with operation message ID 333, perhaps the operation would have been completed 
+  * [DIRAPI-184](https://issues.apache.org/jira/browse/DIRAPI-155) Chain ANTLR exceptions to ParserException 
+
+Feel free to experiment, we highly appreciate your feedback !
+
+Downloads are available [here](downloads.html) and the User's Guide is [there](user-guide.html)
+
+# News
 <h2 class="news">Apache Directory LDAP API 1.0.0-M27 released <em>posted on December 29th, 2014</em></h2>
 
 The Apache Directory Team is proud to announce the availability of version 1.0.0-M27 of the Apache Directory LDAP API.
