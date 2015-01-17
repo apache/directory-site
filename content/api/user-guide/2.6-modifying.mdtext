@@ -22,4 +22,100 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
     specific language governing permissions and limitations
     under the License.
 
-# 2.6 - Modifying entries (e)
+# 2.6 - Modifying entries
+
+There are several ways an entry can be modified. Mainly, it's about adding or deleting an attribute, or it's about modifying the values associated with an existing attribute. We will expose the methods that can be used for those two main cases.
+
+It's important to understand that you can apply many modifications to a single entry, too. All those modifications will be effective as if the entry was modified as a whole, ie the modifications will be fully applied, or none of the modifications will be applied (for instance, if teh server crashes while applying the modifications, it's guaranteed that the entry will remain consistent, and if one of the modifications is invalid, then no modification will be applied)
+
+## How it works ?
+
+As we may have more than one modification, we use an intermediate class to carry the elements to be changed : a _Modification_ instance. You create such an instance this way :
+
+    :::Java
+    Modification addedGivenName = new DefaultModification( ModificationOperation.ADD_ATTRIBUTE, "givenName", "John", "Peter" );
+
+Here, we just have created an instance that will add the _giveName_ attribute, with the "John" and "Peter" values (the _givenName_ attribute can have more than one value).
+
+There are three different kind of modification :
+
+* ModificationOperation.ADD_ATTRIBUTE : add an attribute and values to an entry
+* ModificationOperation.REMOVE_ATTRIBUTE : remove an attribute and values from an entry
+* ModificationOperation.REPLACE_ATTRIBUTE : replace some existing values from an entry
+
+## Adding or removing full attributes
+
+The two following operations are dealing with complete addition or removal of attributes.
+
+### Adding new attributes
+
+First of all, let's see haw we proceed when it comes to add an attribute. You need to know the entry you want to modify, which means you have its Dn. Then, you have to create the _Modification_ instance that will be applied on the entry. Here is the code that is used to add a _givenName_ attribute to an existing entry :
+
+    :::Java
+    ...
+    Modification addedGivenName = new DefaultModification( ModificationOperation.ADD_ATTRIBUTE, "givenName",
+        "John", "Peter" );
+
+    connection.modify( "uid=Doe,dc=acme,dc=com", addedGivenName );
+    ...
+
+#### Adding more than one attribute
+
+What if you want to apply more than one modification to the entry ?
+
+Easy : create more than one _Modification_ instances, and add them when calling the _modify_ method :
+
+    :::Java
+    ...
+    Modification addedGivenName = new DefaultModification( ModificationOperation.ADD_ATTRIBUTE, "givenName",
+        "John", "Peter" );
+    Modification addedInitials = new DefaultModification( ModificationOperation.ADD_ATTRIBUTE, "initials",
+        "JD" );
+
+    connection.modify( "uid=Doe,dc=acme,dc=com", addedGivenName, addedInitials );
+    ...
+
+You can add as many _Modification_ instances as needed.
+
+#### Errors
+
+If you try to add an attribute that already exists, you will get an error, like this one :
+
+    :::Java
+    ...
+    Modification addedGivenName = new DefaultModification( ModificationOperation.ADD_ATTRIBUTE, "givenName",
+        "John", "Peter" );
+    Modification addedUid = new DefaultModification( ModificationOperation.ADD_ATTRIBUTE, "uid",
+        "Ted" );
+
+    connection.modify( "uid=Doe,dc=acme,dc=com", addedGivenName, addedUid );
+    ...
+
+results in : 
+    org.apache.directory.api.ldap.model.exception.LdapAttributeInUseException: ATTRIBUTE_OR_VALUE_EXISTS: failed for MessageType : MODIFY_REQUEST
+    Message ID : 3
+        Modify Request
+            Object : 'uid=Doe,dc=acme,dc=com'
+                Modification[0]
+                    Operation :  add
+                    Modification
+                        givenName: John
+                        givenName: Peter            
+                Modification[1]
+                    Operation :  add
+                    Modification
+                        uid: Ted
+    org.apache.directory.api.ldap.model.message.ModifyRequestImpl@13532916: ERR_54 Cannot add a value which is already present : admin
+    at org.apache.directory.api.ldap.model.message.ResultCodeEnum.processResponse(ResultCodeEnum.java:2064)
+    at org.apache.directory.ldap.client.api.LdapNetworkConnection.modify(LdapNetworkConnection.java:2300)
+    at org.apache.directory.ldap.client.api.LdapNetworkConnection.modify(LdapNetworkConnection.java:2309)
+    ...
+
+Here, we have tried to add the _uid_ attribute which already exists, and the error trace says so.
+
+Anothe potential error you can get is when you try to add an attribute that is not allowed in an entry. This can be because the Entry ObjectClass does not allow such an attribute to be added, or because the server forbid you to modify the entry, due to the ACL that rules this entry.
+
+Last, not least, but this is quite obvious, the entry *must* exist !
+
+### Removing an attribute
+
