@@ -92,6 +92,8 @@ If you try to add an attribute that already exists, you will get an error, like 
     ...
 
 results in : 
+
+    :::Java
     org.apache.directory.api.ldap.model.exception.LdapAttributeInUseException: ATTRIBUTE_OR_VALUE_EXISTS: failed for MessageType : MODIFY_REQUEST
     Message ID : 3
         Modify Request
@@ -119,3 +121,56 @@ Last, not least, but this is quite obvious, the entry *must* exist !
 
 ### Removing an attribute
 
+Removing an attribute is actually a bit simpler than adding an attribute, as you don't have to specify the values of the attribute to remove. Here is an exemple where we will remove the _giveName_ attrinute from an entry :
+
+
+    :::Java
+    ...
+    Modification deletedGivenName = new DefaultModification( ModificationOperation.REMOVE_ATTRIBUTE, "givenName" );
+
+    connection.modify( "uid=Doe,dc=acme,dc=com", adeletedivenName );
+    ...
+
+Here, we have created a modification, specifying that the _givenName_ attribute has to be removed, and we applied the modification on the entry.
+
+Again, you can delete more than one attribute from an entry, it's just a matter of creating more than one _Modification_ instances and applying them to the entry.
+
+#### Errors
+
+If you try to delete an attribute that does not exist in the entry, you will get this error :
+
+    :::Java
+    org.apache.directory.api.ldap.model.exception.LdapNoSuchAttributeException: NO_SUCH_ATTRIBUTE: failed for MessageType : MODIFY_REQUEST
+    Message ID : 3
+        Modify Request
+            Object : 'uid=admin,ou=system'
+                Modification[0]
+                    Operation :  delete
+                    Modification
+                        givenName: (null)
+    org.apache.directory.api.ldap.model.message.ModifyRequestImpl@fbe6f598: ERR_55 Trying to remove an non-existant attribute: 
+    attributetype ( 2.5.4.42 NAME ( 'givenName' 'gn' )
+        DESC 'RFC2256: first name(s) for which the entity is known by'
+        SUP name
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+        USAGE userApplications
+    )
+        at org.apache.directory.api.ldap.model.message.ResultCodeEnum.processResponse(ResultCodeEnum.java:2057)
+        at org.apache.directory.ldap.client.api.LdapNetworkConnection.modify(LdapNetworkConnection.java:2300)
+        at org.apache.directory.ldap.client.api.LdapNetworkConnection.modify(LdapNetworkConnection.java:2309)
+        at org.apache.directory.shared.client.api.operations.ClientModifyRequestTest.testModifyRemoveAttribute(ClientModifyRequestTest.java:302)
+
+
+Here, the entry does not contain the _givenName_ attribute.
+
+Anothe potential error you can get is when you try to remove an attribute which is a mandatory attribute, per the entry's ObjectClass constraints.
+
+Otherwise, the server might forbid you to modify the entry, due to the ACL that rules this entry.
+
+Last, not least, but this is quite obvious, the entry *must* exist !
+
+## Adding, removing or replacing attributes' values
+
+TODO
