@@ -24,20 +24,20 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 # 2.6 - Modifying entries
 
-There are several ways an entry can be modified. Mainly, it's about adding or deleting an attribute, or it's about modifying the values associated with an existing attribute. We will expose the methods that can be used for those two main cases.
+There are several ways an entry can be modified. Mainly, it's about adding or deleting an attribute, or it's about modifying the values associated with an existing attribute.
 
-It's important to understand that you can apply many modifications to a single entry, too. All those modifications will be effective as if the entry was modified as a whole, ie the modifications will be fully applied, or none of the modifications will be applied (for instance, if teh server crashes while applying the modifications, it's guaranteed that the entry will remain consistent, and if one of the modifications is invalid, then no modification will be applied)
+It's important to understand that many modifications can be applied on a single entry. All those modifications will be applied in a all or none fashion. For instance, if any one of the modifications is invalid, then none of the modifications will be applied. Also if the server crashes while applying the modifications, it's guaranteed that the entry will remain consistent.
 
 ## How it works ?
 
-As we may have more than one modification, we use an intermediate class to carry the elements to be changed : a _Modification_ instance. You create such an instance this way :
+Each modification to be applied on an entry is encapsulated in an intermediate class : a _Modification_ instance, which can be created as :
 
     :::Java
     Modification addedGivenName = new DefaultModification( ModificationOperation.ADD_ATTRIBUTE, "givenName", "John", "Peter" );
 
-Here, we just have created an instance that will add the _giveName_ attribute, with the "John" and "Peter" values (the _givenName_ attribute can have more than one value).
+Here, the modification instance represents addition of values "John" and "Peter" to the _giveName_ attribute (the _givenName_ attribute can have more than one value).
 
-There are three different kind of modification :
+There are three different kind of modifications :
 
 * ModificationOperation.ADD_ATTRIBUTE : add an attribute and values to an entry
 * ModificationOperation.REMOVE_ATTRIBUTE : remove an attribute and values from an entry
@@ -49,7 +49,7 @@ The two following operations are dealing with complete addition or removal of at
 
 ### Adding new attributes
 
-First of all, let's see haw we proceed when it comes to add an attribute. You need to know the entry you want to modify, which means you have its Dn. Then, you have to create the _Modification_ instance that will be applied on the entry. Here is the code that is used to add a _givenName_ attribute to an existing entry :
+First of all, let's see how we proceed when it comes to adding an attribute. You need to know the entry you want to modify, which means you have to know its Dn. Then, you have to create the _Modification_ instance that will be applied on the entry. Here is the code that is used to add a _givenName_ attribute to an existing entry :
 
     :::Java
     ...
@@ -63,7 +63,7 @@ First of all, let's see haw we proceed when it comes to add an attribute. You ne
 
 What if you want to apply more than one modification to the entry ?
 
-Easy : create more than one _Modification_ instances, and add them when calling the _modify_ method :
+Easy : create more than one _Modification_ instance, and add them before calling the _modify_ method :
 
     :::Java
     ...
@@ -113,15 +113,16 @@ results in :
     at org.apache.directory.ldap.client.api.LdapNetworkConnection.modify(LdapNetworkConnection.java:2309)
     ...
 
-Here, we have tried to add the _uid_ attribute which already exists, and the error trace says so.
+Here, we have tried to add the _uid_ attribute which already exists, and the error trace says so
+as expected.
 
-Anothe potential error you can get is when you try to add an attribute that is not allowed in an entry. This can be because the Entry ObjectClass does not allow such an attribute to be added, or because the server forbid you to modify the entry, due to the ACL that rules this entry.
+Anothe potential error you can get is when you try to add an attribute that is not allowed in an entry. This can be because the Entry's ObjectClass does not allow such an attribute, or because the server forbid you to modify the entry, due to the ACIs applied on this entry.
 
 Last, not least, but this is quite obvious, the entry *must* exist !
 
 ### Removing an attribute
 
-Removing an attribute is actually a bit simpler than adding an attribute, as you don't have to specify the values of the attribute to remove. Here is an exemple where we will remove the _giveName_ attrinute from an entry :
+Removing an attribute is actually a bit simpler than adding an attribute, as you don't have to specify the values of the attribute to remove. Here is an example where we will remove the _giveName_ attrinute from an entry :
 
 
     :::Java
@@ -167,17 +168,17 @@ Here, the entry does not contain the _givenName_ attribute.
 
 Anothe potential error you can get is when you try to remove an attribute which is a mandatory attribute, per the entry's ObjectClass constraints.
 
-Otherwise, the server might forbid you to modify the entry, due to the ACL that rules this entry.
+Otherwise, the server might forbid you to modify the entry, due to the ACIs that are applicable to this entry.
 
-Last, not least, but this is quite obvious, the entry *must* exist !
+Again the entry *must* exist before performing a modification!
 
-## Adding, removing or replacing attributes' values
+## Adding, removing or replacing attribute values
 
-You can now update the attribute's values themselve, atomically, instead of brutally removing a full attribute, and add it back but with updated values. We use the exact same _Modification_ instance, with the same three _ModificationOperation_, except that the semantic will slightly change.
+You can now update an attribute's values themselves, atomically, instead of removing a full attribute, and add it back but with updated values. We use the exact same _Modification_ instance, with the same three _ModificationOperation_, except that the semantics slightly differ.
 
 Typically, here is what happens when you use one of the three _ModificationOperation_ on an attribute :
 
-* ModificationOperation.ADD_ATTRIBUTE : add values in an attribute. If the ATtribute does not exist, it will be added
+* ModificationOperation.ADD_ATTRIBUTE : add values to an attribute. If the Attribute does not exist, it will be added
 * ModificationOperation.REMOVE_ATTRIBUTE : remove values from an attribute.
 * ModificationOperation.REPLACE_ATTRIBUTE : replace all the values from an attribute by the provided new values
 
@@ -239,7 +240,7 @@ First, the attribute's value already exists. You will get such an error :
         at org.apache.directory.ldap.client.api.LdapNetworkConnection.modify(LdapNetworkConnection.java:2309)
         at org.apache.directory.shared.client.api.operations.ClientModifyRequestTest.testModifyRemoveAttribute(ClientModifyRequestTest.java:303)
 
-Note that depending on the attribute's syntax, you may get such an error because you tried to enter a value with different casing when the syntax is case insensitive. Typically, if the attribute contains the value 'John' and you try to add the value 'JOHN', you will get this very same error message. Be sure you know wht the attribute syntax allows you to do...
+Note that depending on the attribute's syntax, you may get such an error because you tried to enter a value with different casing when the syntax is case-insensitive. Typically, if the attribute contains the value 'John' and you try to add the value 'JOHN', you will get this very same error message. Be sure you know wht the attribute syntax allows you to do...
 
 Second, the attribute is single valued : it's not possible to add a second value in the Attribute. You'll get the following error message :
 
@@ -257,9 +258,7 @@ Second, the attribute is single valued : it's not possible to add a second value
         at org.apache.directory.ldap.client.api.LdapNetworkConnection.modify(LdapNetworkConnection.java:2309)
         at org.apache.directory.shared.client.api.operations.ClientModifyRequestTest.testModifyRemoveAttribute(ClientModifyRequestTest.java:297)
 
-Third, the ACLs you have set on the server may not allow you to update an entry or an attribute.
-
-Last, not least, the entry must exist...
+Third, the ACIs you have set on the server may not allow you to update an entry or an attribute.
 
 ### Remove values
 
