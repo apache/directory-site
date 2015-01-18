@@ -173,4 +173,94 @@ Last, not least, but this is quite obvious, the entry *must* exist !
 
 ## Adding, removing or replacing attributes' values
 
-TODO
+You can now update the attribute's values themselve, atomically, instead of brutally removing a full attribute, and add it back but with updated values. We use the exact same _Modification_ instance, with the same three _ModificationOperation_, except that the semantic will slightly change.
+
+Typically, here is what happens when you use one of the three _ModificationOperation_ on an attribute :
+
+* ModificationOperation.ADD_ATTRIBUTE : add values in an attribute. If the ATtribute does not exist, it will be added
+* ModificationOperation.REMOVE_ATTRIBUTE : remove values from an attribute.
+* ModificationOperation.REPLACE_ATTRIBUTE : replace all the values from an attribute by the provided new values
+
+### Add values
+
+Let's see with the addition of values. Here, we will assume we have an entry like :
+
+    dn: uid=jDoe,dc=acme,dc=com
+    objectClass: person
+    objectClass: organizationalPerson
+    objectClass: inetOrgPerson
+    uid: jDoe
+    userPassword: secret
+    sn: John Tom Doe
+    cn: Doe
+    givenName: John
+
+We will add the 'Tom' given name to the _givenName_ attribute in this entry :
+
+    :::Java
+    ...
+    Modification addedGivenNameValue = new DefaultModification( ModificationOperation.ADD_ATTRIBUTE, "givenName", "Tom" );
+
+    connection.modify( "uid=Doe,dc=acme,dc=com", addedGivenNameValue );
+    ...
+
+The entry now has two values for th _giveName_ attribute :
+
+    dn: uid=jDoe,dc=acme,dc=com
+    objectClass: person
+    objectClass: organizationalPerson
+    objectClass: inetOrgPerson
+    uid: jDoe
+    userPassword: secret
+    sn: John Tom Doe
+    cn: Doe
+    givenName: John
+    givenName: Tom
+
+
+#### Errors
+
+Again, such an operation might fail for many reasons. Let's see what are the possible errors :
+
+First, the attribute's value already exists. You will get such an error :
+
+    org.apache.directory.api.ldap.model.exception.LdapAttributeInUseException: ATTRIBUTE_OR_VALUE_EXISTS: failed for MessageType : 
+    MODIFY_REQUEST
+    Message ID : 5
+        Modify Request
+            Object : 'uid=admin,ou=system'
+                Modification[0]
+                    Operation :  add
+                    Modification
+                        givenName: John
+    org.apache.directory.api.ldap.model.message.ModifyRequestImpl@867e79fe: ERR_54 Cannot add a value which is already present : John
+        at org.apache.directory.api.ldap.model.message.ResultCodeEnum.processResponse(ResultCodeEnum.java:2064)
+        at org.apache.directory.ldap.client.api.LdapNetworkConnection.modify(LdapNetworkConnection.java:2300)
+        at org.apache.directory.ldap.client.api.LdapNetworkConnection.modify(LdapNetworkConnection.java:2309)
+        at org.apache.directory.shared.client.api.operations.ClientModifyRequestTest.testModifyRemoveAttribute(ClientModifyRequestTest.java:303)
+
+Note that depending on the attribute's syntax, you may get such an error because you tried to enter a value with different casing when the syntax is case insensitive. Typically, if the attribute contains the value 'John' and you try to add the value 'JOHN', you will get this very same error message. Be sure you know wht the attribute syntax allows you to do...
+
+Second, the attribute is single valued : it's not possible to add a second value in the Attribute. You'll get the following error message :
+
+    org.apache.directory.api.ldap.model.exception.LdapInvalidAttributeValueException: CONSTRAINT_VIOLATION: failed for MessageType : MODIFY_REQUEST
+    Message ID : 3
+        Modify Request
+            Object : 'c=FR,ou=users,ou=system'
+                Modification[0]
+                    Operation :  add
+                    Modification
+                        c: US
+    org.apache.directory.api.ldap.model.message.ModifyRequestImpl@cdf2ed2f: ERR_278 More than one value has been provided for the single-valued attribute: c
+        at org.apache.directory.api.ldap.model.message.ResultCodeEnum.processResponse(ResultCodeEnum.java:2127)
+        at org.apache.directory.ldap.client.api.LdapNetworkConnection.modify(LdapNetworkConnection.java:2300)
+        at org.apache.directory.ldap.client.api.LdapNetworkConnection.modify(LdapNetworkConnection.java:2309)
+        at org.apache.directory.shared.client.api.operations.ClientModifyRequestTest.testModifyRemoveAttribute(ClientModifyRequestTest.java:297)
+
+Third, the ACLs you have set on the server may not allow you to update an entry or an attribute.
+
+Last, not least, the entry must exist...
+
+### Remove values
+
+TODO...
