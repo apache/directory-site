@@ -205,7 +205,7 @@ We will add the 'Tom' given name to the _givenName_ attribute in this entry :
     connection.modify( "uid=Doe,dc=acme,dc=com", addedGivenNameValue );
     ...
 
-The entry now has two values for th _giveName_ attribute :
+The entry now has two values for the _giveName_ attribute :
 
     dn: uid=jDoe,dc=acme,dc=com
     objectClass: person
@@ -262,4 +262,123 @@ Third, the ACIs you have set on the server may not allow you to update an entry 
 
 ### Remove values
 
-TODO...
+Removing values follow the same scheme : select the entry, chose the attribute, and list the values you want to be removed from this attribute. Here is an exemple :
+
+    :::Java
+    ...
+    Modification removedGivenNameValue = new DefaultModification( ModificationOperation.REMOVE_ATTRIBUTE, "givenName", "Tom" );
+
+    connection.modify( "uid=Doe,dc=acme,dc=com", removedGivenNameValue );
+    ...
+
+The value 'Tom' we just have added should now be removed from the _givenName_ attribute, but the value 'John' should still be present.
+
+Whet if you remove the last value of an attribute ? That quite simple : the attribute itself will be removed from the entry, if this is allowed (see below).
+
+#### Errors
+
+There are more potential erros with this operation. let's list all of them.
+
+First, the value you want to remove does not exist. You will get such an error :
+
+    org.apache.directory.api.ldap.model.exception.LdapNoSuchAttributeException: NO_SUCH_ATTRIBUTE: failed for MessageType : 
+    MODIFY_REQUEST
+    Message ID : 5
+        Modify Request
+            Object : 'uid=admin,ou=system'
+                Modification[0]
+                    Operation :  delete
+                    Modification
+                        givenName: Pete
+    org.apache.directory.api.ldap.model.message.ModifyRequestImpl@39800276: ERR_56 Cannot remove an absent value from attribute : attributetype ( 2.5.4.42 NAME ( 'givenName' 'gn' )
+        DESC 'RFC2256: first name(s) for which the entity is known by'
+        SUP name
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+        USAGE userApplications
+    )
+        at org.apache.directory.api.ldap.model.message.ResultCodeEnum.processResponse(ResultCodeEnum.java:2057)
+        at org.apache.directory.ldap.client.api.LdapNetworkConnection.modify(LdapNetworkConnection.java:2300)
+        at org.apache.directory.ldap.client.api.LdapNetworkConnection.modify(LdapNetworkConnection.java:2309)
+        at org.apache.directory.shared.client.api.operations.ClientModifyRequestTest.testModifyRemoveAttributeValue(ClientModifyRequestTest.java:327)
+
+Second, you try to remove the last value of an attribute which is mandatory You will get such an error :
+
+    org.apache.directory.api.ldap.model.exception.LdapSchemaViolationException: OBJECT_CLASS_VIOLATION: failed for MessageType : 
+    MODIFY_REQUEST
+    Message ID : 3
+        Modify Request
+            Object : 'uid=billyd,ou=users,ou=system'
+                Modification[0]
+                    Operation :  delete
+                    Modification
+                        sn: billyd
+    org.apache.directory.api.ldap.model.message.ModifyRequestImpl@5e80ddb2: ERR_279 Required attributes [sn(2.5.4.4)] not found within entry uid=billyd,ou=users,ou=system
+        at org.apache.directory.api.ldap.model.message.ResultCodeEnum.processResponse(ResultCodeEnum.java:2081)
+        at org.apache.directory.ldap.client.api.LdapNetworkConnection.modify(LdapNetworkConnection.java:2300)
+        at org.apache.directory.ldap.client.api.LdapNetworkConnection.modify(LdapNetworkConnection.java:2309)
+        at org.apache.directory.shared.client.api.operations.ClientModifyRequestTest.testModifyRemoveAttributeValue(ClientModifyRequestTest.java:314)
+
+Here, we tried to remove the _sn_ attribute's last value from an entry where it's a required attribute.
+
+Third, you try to remove a value which is used as the entry's _RDN_ : this is not allowed. Typically, for the 'uid=billyd,ou=users,ou=system' entry, you can't remove the 'billyd' value from the 'uid' attribute. Here is the error you get when you try to apply such a modifcation :
+
+    org.apache.directory.api.ldap.model.exception.LdapSchemaViolationException: NOT_ALLOWED_ON_RDN: failed for MessageType : 
+    MODIFY_REQUEST
+    Message ID : 3
+        Modify Request
+            Object : 'uid=billyd,ou=users,ou=system'
+                Modification[0]
+                    Operation :  delete
+                    Modification
+                        uid: billyd
+    org.apache.directory.api.ldap.model.message.ModifyRequestImpl@4d149d78: ERR_62 Entry uid=billyd,ou=users,ou=system does not have the uid attributeType, which is part of the RDN";
+        at org.apache.directory.api.ldap.model.message.ResultCodeEnum.processResponse(ResultCodeEnum.java:2081)
+        at org.apache.directory.ldap.client.api.LdapNetworkConnection.modify(LdapNetworkConnection.java:2300)
+        at org.apache.directory.ldap.client.api.LdapNetworkConnection.modify(LdapNetworkConnection.java:2309)
+        at org.apache.directory.shared.client.api.operations.ClientModifyRequestTest.testModifyRemoveAttributeValue(ClientModifyRequestTest.java:314)
+
+Then you have the classical errors : the ACLs forbids you to remove a velue, or the entry simply does not exist.
+
+### Replace values
+
+Here, what we want to do is to replaces all the values from an attribute with some new values. All in all, this is equivalent to first remove the values, then inject the new values, using modifications, except that in some cases, doing so will not work.
+
+An exemple where such an operation is mandatory is when you want to replace the value of a mandatory attribute with something different : with two successive operation, that would fail. A replace will work.
+
+What is important here is that the operation simply replace *all the existing values* by new ones, removing the previous ones.
+
+Let's see how it works with a simple example, with an entry containing :
+
+    dn: uid=jDoe,dc=acme,dc=com
+    objectClass: person
+    objectClass: organizationalPerson
+    objectClass: inetOrgPerson
+    uid: jDoe
+    userPassword: secret
+    sn: John Tom Doe
+    cn: Doe
+    givenName: John
+    givenName: Peter
+
+We will try to replace the _givenName_ :
+
+    Modification replaceGn = new DefaultModification( ModificationOperation.REPLACE_ATTRIBUTE, "givenName",
+        "Jack" );
+
+    connection.modify( "uid=jDoe,dc=acme,dc=com", replaceGn );
+
+The modified entry will have its _givenName_ value replaced by 'Jack', the two previous values will have been removed.
+
+There is one corner case with this operation : if you create a _Modification_ instances where you specify an Attribute with no value, then the attribute will be removed from the entry.
+
+#### errors
+
+You will get the same errors seen in the two previous operation (ADD and REMOVE) for the very same use cases. Be sure you don't :
+
+* inject more than one value in a SINGLE_VALUE attribute
+* remove a value which is used by the RDN
+* delete all the values of a mandatory attribute
+* have the right to modify the entry
+* try to update a non existent entry
