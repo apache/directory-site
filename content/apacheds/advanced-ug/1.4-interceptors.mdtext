@@ -26,6 +26,8 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 _Interceptors_ are functional layers inside the _DirectoryService_. Each one of them are responsible for a specific task. They are ordered, and this order is not to be changed.
 
+Each operation rceived by the _DirectoryService_ will be processed by various interceptors, one after the other, down to the backend, and again when the result comes back to the caller. An _interceptor_ can call the next _interceptor_, whcih will be determinated by the position it has in the chain of _interceptors_, or simply return. Note that calling the next _interceptor_ does not require that you know which one will be called.
+
 Some _Interceptors_ can be disabled, some other can be enabled. It's also possible to add some new one.
 
 All in all, they will handle operations from a specific functional aspect.
@@ -36,19 +38,19 @@ Each _Interceptor_ handles a subset of the possible operations, among those list
 
 | Operation | Description |
 |---|---|
-| Add | Adds an entry in the backend |
-| Bind | Binds on the DirectoryService |
-| Compare | Compares the elements with the associated entry in the backend |
-| Delete | Deletes the entry |
+| add | Adds an entry in the backend |
+| bind | Binds on the DirectoryService |
+| compare | Compares the elements with the associated entry in the backend |
+| delete | Deletes the entry |
 | getRooDSE | Gets back the RootDSE entry |
 | hasEntry | Tells if an entry exists |
-| Lookup | Fetches an entry |
-| Modify | Modifies an entry |
-| Move | Moves an entry |
-| MoveAndRename | Moves and renames an entry |
-| Rename | Renames an entry |
-| Search | Searches for entries |
-| Unbind | Unbinds from the DirectoryService |
+| lookup | Fetches an entry |
+| modify | Modifies an entry |
+| move | Moves an entry |
+| moveAndRename | Moves and renames an entry |
+| rename | Renames an entry |
+| search | Searches for entries |
+| unbind | Unbinds from the DirectoryService |
 
 It is important to understand that each operation will go through each _Interceptor_ declared to handle the operation, down to the backend.
 
@@ -65,19 +67,34 @@ In this table, we list all the operations each interceptor is handling, and if t
 | ChangeLogInterceptor | yes || X | - | - | X | - | - | - | X | X | X | X | - | - |
 | CollectiveAttributeInterceptor | yes | X | - | - | - | - | - | X | X | - | - | - | X | - |
 | DefaultAuthorizationInterceptor | yes | - | - | - | X | - | - | X | X | X | X | X | X | - |
+| DelayInducingInterceptor | no | - | - | - | - | - | - | - | - | - | - | - | X | - |
 | EventInterceptor | yes | X | - | - | X | - | - | - | X | X | X | X | - | - |
 | ExceptionInterceptor | yes | X | - | - | X | - | - | - | X | X | X | X | - | - |
 | JournalInterceptor | yes | X | - | - | X | - | - | - | X | X | X | X | - | - |
 | KeyDerivationInterceptor | no | X | - | - | - | - | - | - | X | - | - | - | - | - |
 | NormalizationInterceptor | yes | X | X | X | X | - | X | X | X | X | X | X | X | - |
+| NumberIncrementInterceptor | yes | X | - | - | - | - | - | - | - | - | - | - | - | - |
 | OperationalAttributeInterceptor | yes | X | - | - | X | - | - | X | X | X | X | X | X | - |
 | PasswordHashingInterceptor | no | X | - | - | - | - | - | - | X | - | - | - | - | - |
+|   CryptPasswordHashingInterceptor | no | X | - | - | - | - | - | - | X | - | - | - | - | - |
+|   Md5PasswordHashingInterceptor | no | X | - | - | - | - | - | - | X | - | - | - | - | - |
+|   Pkcs5s2PasswordHashingInterceptor | no | X | - | - | - | - | - | - | X | - | - | - | - | - |
+|   Sha256PasswordHashingInterceptor | no | X | - | - | - | - | - | - | X | - | - | - | - | - |
+|   Sha384PasswordHashingInterceptor | no | X | - | - | - | - | - | - | X | - | - | - | - | - |
+|   Sha512PasswordHashingInterceptor | no | X | - | - | - | - | - | - | X | - | - | - | - | - |
+|   ShaPasswordHashingInterceptor | no | X | - | - | - | - | - | - | X | - | - | - | - | - |
+|   Smd5PasswordHashingInterceptor | no | X | - | - | - | - | - | - | X | - | - | - | - | - |
+|   Ssha256PasswordHashingInterceptor | no | X | - | - | - | - | - | - | X | - | - | - | - | - |
+|   Ssha384PasswordHashingInterceptor | no | X | - | - | - | - | - | - | X | - | - | - | - | - |
+|   Ssha512PasswordHashingInterceptor | no | X | - | - | - | - | - | - | X | - | - | - | - | - |
+|   SshaPasswordHashingInterceptor | no | X | - | - | - | - | - | - | X | - | - | - | - | - |
 | ReferralInterceptor | yes | X | - | - | X | - | - | - | X | X | X | X | - | - |
 | SchemaInterceptor | yes | X | - | X | - | - | - | X | X | - | ? | X | X | - |
 | SubentryInterceptor | yes | X | - | - | X | - | - | ? | X | X | X | X | X | - |
 | TimerInterceptor | no | X | X | X | X | X | X | X | X | X | X | X | X | X |
 | TriggerInterceptor | yes | X | - | - | X | - | - | - | X | X | X | X | - | - |
 
+The operations that are available are the operations for which we have some implementation in the interceptor class. For instance, the _JournalInterceptor_ class implement the _add_, _delete_, _modify_, _move_, _moveAndRename_ and _rename_ methods.
 
 ## Interceptors order
 
