@@ -49,7 +49,7 @@ This class is a builder for constructing well formed search filters according to
 
 Returns a new FilterBuilder that will & together all of the supplied filters. For example:
 
- and( equal( "givenName", "kermit" ), equal( "sn", "the frog" ) ).toString()
+    and( equal( "givenName", "kermit" ), equal( "sn", "the frog" ) ).toString()
  
 would result in the string: _(&(givenName=kermit)(sn=the frog))_
  
@@ -101,6 +101,7 @@ Which would match entries with the common name Kermit The Frog.
 To be completed...
 
 ## Less Or Equal Filter
+
 Returns a new FilterBuilder for testing lexicographical less than. For example:
 
     lessThanOrEqual( "sn", "mzzzzzz" ).toString();
@@ -121,7 +122,23 @@ which would match results whose surname starts with the second half of the alpha
 
 ## Approximate Filter
 
+Returns a new FilterBuilder for testing the approximate equality of an attribute. For example:
+
+    approximatelyEqual( "l", "san fransico" ).toString();
+ 
+would result in the string: _(l~=san fransico)_
+ 
+Which MIGHT match results whose locality is San Francisco. The matching rule used to apply this filter is dependent on the server implementation.
+
 ## StartsWith Filter
+
+Returns a new FilterBuilder that will construct a SubString filter, with an initialany part, but no final part. For instance:
+
+    startswith( "sn", "Th", "Soft", "Foun" )).toString()
+ 
+would result in the string: *(sn=Th*Soft*Foun*)*
+ 
+Which would match any entry with the sn starting with 'Th', and having a Soft and Foun strings in the middle, like 'The Apache Software Foundation'.
 
 ## EndsWith Filter
 
@@ -158,13 +175,3 @@ Note that if we have only two strings in the parts, they will be the initial and
     substring( "sn", "The", "ion" )).toString()
  
 would result in the string: _(sn=The*ion)_
-
-## Approximate Filter
-
-Returns a new FilterBuilder for testing the approximate equality of an attribute. For example:
-
-    approximatelyEqual( "l", "san fransico" ).toString();
- 
-would result in the string: _(l~=san fransico)_
- 
-Which MIGHT match results whose locality is San Francisco. The matching rule used to apply this filter is dependent on the server implementation.
