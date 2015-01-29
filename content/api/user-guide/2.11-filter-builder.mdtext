@@ -1,0 +1,170 @@
+Title: 2.11 - The FilterBuilder
+NavPrev: 2.10-ldap-connection-template.html
+NavPrevText: 2.10 - The LdapConnectionTemplate
+NavUp: 2-basic-ldap-api-usage.html
+NavUpText: 2 - Basic LDAP API usage
+NavNext: 3-advanced-ldap-api-usage.html
+NavNextText: 3 - Advanced LDAP API Usage
+Notice: Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    .
+    http://www.apache.org/licenses/LICENSE-2.0
+    .
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+
+2.11 - The FilterBuilder(e)
+===========================
+
+This class is a builder for constructing well formed search filters according to RFC 1960. This builder is most convenient when you use static imports. For example:
+
+     import static org.apache.directory.ldap.client.api.search.FilterBuilder.and;
+     import static org.apache.directory.ldap.client.api.search.FilterBuilder.equal;
+     import static org.apache.directory.ldap.client.api.search.FilterBuilder.or;
+     
+     ...
+     
+             String filter = 
+                     or(
+                         and( 
+                             equal( "givenName", "kermit" ), 
+                             equal( "sn", "the frog" ) ),
+                         and( 
+                             equal( "givenName", "miss" ), 
+                             equal( "sn", "piggy" ) ) )
+                     .toString()
+     
+
+## And filter 
+
+
+Returns a new FilterBuilder that will & together all of the supplied filters. For example:
+
+ and( equal( "givenName", "kermit" ), equal( "sn", "the frog" ) ).toString()
+ 
+would result in the string: _(&(givenName=kermit)(sn=the frog))_
+ 
+Which would match all entries with a given name of kermit and a surname the frog.
+
+
+## Or filter
+
+Returns a new FilterBuilder that will | together all of the supplied filters. For example:
+
+    or( equal( "givenName", "kermit" ), equal( "givenName", "walter" ) ).toString()
+ 
+would result in the string: _(|(givenName=kermit)(givenName=walter))_
+ 
+Which would match any entry with the givenName of either kermit or walter.
+
+
+## Not filter
+
+Returns a new FilterBuilder for negating another filter. For example:
+
+    not( present( "givenName" ) ).toString();
+ 
+would result in the string: _(!(givenName=*))_
+
+
+## Present Filter
+
+Returns a new FilterBuilder for testing the presence of an attributes. For example:
+
+    present( "givenName" ).toString();
+ 
+would result in the string: _(givenName=*)_
+ 
+Which would match any entry that has a givenName attribute.
+
+
+## Equal Filter
+
+Returns a new FilterBuilder for testing equality of an attribute. For example:
+
+    equal( "cn", "Kermit The Frog" ).toString();
+ 
+would result in the string: _(cn>=Kermit The Frog)_
+ 
+Which would match entries with the common name Kermit The Frog.
+
+## Extended Filter
+To be completed...
+
+## Less Or Equal Filter
+Returns a new FilterBuilder for testing lexicographical less than. For example:
+
+    lessThanOrEqual( "sn", "mzzzzzz" ).toString();
+ 
+would result in the string: _(sn<=mzzzzzz)_
+ 
+which would match results whose surname starts with the first half of the alphabet. Note, this is not perfect, but if you know anybody with a last name that starts with an _m_ followed by six _z's__...
+
+## Greater Or Equal Filter
+
+Returns a new FilterBuilder for testing lexicographical greater than. For example:
+
+    greaterThanOrEqual( "sn", "n" ).toString();
+ 
+would result in the string: _(sn>=n)_
+ 
+which would match results whose surname starts with the second half of the alphabet.
+
+## Approximate Filter
+
+## StartsWith Filter
+
+## EndsWith Filter
+
+Returns a new FilterBuilder that will construct a SubString filter, with an initialany parts, but no final part. For instance:
+
+    startswith( "sn", "Th", "Soft", "Foun" )).toString()
+ 
+would result in the string: _(sn=Th*Soft*Foun*)_
+ 
+Which would match any entry with the sn starting with 'Th', and having a Soft and Foun strings in the middle, like 'The Apache Software Foundation'.
+
+## Contains Filter
+
+Returns a new FilterBuilder that will construct a SubString filter, with zero to N any parts, but no initial or final parts. For instance:
+
+    contains( "sn", "Soft", "Foun" )).toString()
+ 
+would result in the string: _(sn=*Soft*Foun*)_
+ 
+Which would match any entry with the sn having a Soft and Foun strings in the middle, like 'The Apache Software Foundation'.
+
+## Substring Filter
+
+Returns a new FilterBuilder that will construct a SubString filter, with a initial part, zero to N any parts, and a final part. For instance:
+
+    substring( "sn", "The", "Soft", "Foun", "ion" )).toString()
+ 
+would result in the string: _(sn=The*Soft*Foun*ion)_
+ 
+Which would match any entry with the sn having a Soft and Foun strings in the middle, starts with The and ends with ion like 'The Apache Software Foundation'.
+
+Note that if we have only two strings in the parts, they will be the initial and final ones :
+
+    substring( "sn", "The", "ion" )).toString()
+ 
+would result in the string: _(sn=The*ion)_
+
+## Approximate Filter
+
+Returns a new FilterBuilder for testing the approximate equality of an attribute. For example:
+
+    approximatelyEqual( "l", "san fransico" ).toString();
+ 
+would result in the string: _(l~=san fransico)_
+ 
+Which MIGHT match results whose locality is San Francisco. The matching rule used to apply this filter is dependent on the server implementation.
