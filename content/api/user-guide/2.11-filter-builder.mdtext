@@ -97,8 +97,53 @@ would result in the string: _(cn>=Kermit The Frog)_
  
 Which would match entries with the common name Kermit The Frog.
 
-## Extended Filter
-To be completed...
+## Extensible Filter
+
+Returns a new FilterBuilder for testing equality using specified matching rules. 
+For example:
+
+    extensible( "cn", "Kermit The Frog" ).toString();
+ 
+would result in the string: _(cn:=Kermit The Frog)_
+ 
+Which would match entries with the common name Kermit The Frog.
+
+    extensible( "cn", "Kermit The Frog" )
+        .useDnAttributes()
+        .toString();
+ 
+would result in the string: _(cn:dn:=Kermit The Frog)_
+ 
+Which would match entries with the common name Kermit The Frog even if the
+common name was only specified as part of the dn.
+
+    extensible( "cn", "Kermit The Frog" )
+        .setMatchingRule( "caseExactMatch" )
+        .toString();
+ 
+would result in the string: _(cn:caseExactMatch:=Kermit The Frog)_
+ 
+Which would match entries with the common name Kermit The Frog, using a case
+sensitive matcher.
+
+    extensible( "cn", "Kermit The Frog" )
+        .useDnAttributes()
+        .setMatchingRule( "caseExactMatch" )
+        .toString();
+ 
+would result in the string: _(cn:dn:caseExactMatch:=Kermit The Frog)_
+ 
+Which would match entries with the common name Kermit The Frog, using a case
+sensitive matcher even if the name was only specified as part of the dn.
+
+    extensible( "Kermit The Frog" )
+        .setMatchingRule( "1.2.3.4.5.6.7" )
+        .toString();
+ 
+would result in the string: _(:1.2.3.4.5.6.7:=Kermit The Frog)_
+ 
+Which would match entries with any attribute whose value is Kermit The Frog, 
+using the _hypothetical_ matching rule indicated by the oid 1.2.3.4.5.6.7.
 
 ## Less Or Equal Filter
 
@@ -175,3 +220,52 @@ Note that if we have only two strings in the parts, they will be the initial and
     substring( "sn", "The", "ion" )).toString()
  
 would result in the string: _(sn=The*ion)_
+
+## Custom Filter
+
+Returns a new FilterBuilder from the supplied Filter.  This can be used to create your own composite filters.  First you must create a class which implements Filter:
+
+    public class MuppetFilter implements Filter
+    {
+        private static final String filter = and(
+                equal( "objectClass", "inetOrgPerson" ),
+                equal( "departmentNumber", "muppets" ) ).toString();
+
+        private MuppetFilter()
+        {
+        }
+
+
+        public static Filter muppet()
+        {
+            return new MuppetFilter();
+        }
+
+
+        public StringBuilder build()
+        {
+            return build( new StringBuilder() );
+        }
+
+
+        public StringBuilder build( StringBuilder builder )
+        {
+            return builder.append( filter );
+        }
+    }
+
+Then you can make use of it:
+
+    custom( muppet() ).toString()
+ 
+would result in the string: _(&(objectClass=inetOrgPerson)(departmentNumber=muppets))_
+ 
+Which would match any inetOrgPerson with a departmentNumber of muppets.
+    
+    and( custom( muppet() ), equal( "cn", "Kermit The Frog" ) );
+ 
+would result in the string: _(&(&(objectClass=inetOrgPerson)(departmentNumber=muppets)(cn=Kermit The Frog))_
+ 
+Which would match any inetOrgPerson with a departmentNumber of muppets whose common name is Kermit The Frog.
+
+
