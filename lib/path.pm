@@ -8,6 +8,8 @@ our $version_studio_name = "2.0.0-M8";
 our $version_mavibot = "1.0.0-M6";
 our $version_escimo = "1.0.0-M1";
 our $version_fortress = "1.0.0-RC39";
+our $version_kerby = "1.0.0-M1";
+
 
 # All our pages use the same view function
 our @patterns = (
@@ -28,6 +30,7 @@ our @patterns = (
         version_studio_name => $version_studio_name,
         version_mavibot => $version_mavibot,
         version_escimo => $version_escimo,
+        version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
     
     # Download ApacheDS Linux BIN page
@@ -40,6 +43,7 @@ our @patterns = (
         version_studio_name => $version_studio_name,
         version_mavibot => $version_mavibot,
         version_escimo => $version_escimo,
+        version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
     
     # Download ApacheDS Linux DEB page
@@ -52,6 +56,7 @@ our @patterns = (
         version_studio_name => $version_studio_name,
         version_mavibot => $version_mavibot,
         version_escimo => $version_escimo,
+        version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
     
     # Download ApacheDS Linux RPM page
@@ -64,6 +69,7 @@ our @patterns = (
         version_studio_name => $version_studio_name,
         version_mavibot => $version_mavibot,
         version_escimo => $version_escimo,
+        version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
     
     # Download ApacheDS Mac OS X page
@@ -76,6 +82,7 @@ our @patterns = (
         version_studio_name => $version_studio_name,
         version_mavibot => $version_mavibot,
         version_escimo => $version_escimo,
+        version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
     
     # Download ApacheDS Sources page
@@ -88,6 +95,7 @@ our @patterns = (
         version_studio_name => $version_studio_name,
         version_mavibot => $version_mavibot,
         version_escimo => $version_escimo,
+        version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
     
     # Download ApacheDS Windows page
@@ -100,6 +108,7 @@ our @patterns = (
         version_studio_name => $version_studio_name,
         version_mavibot => $version_mavibot,
         version_escimo => $version_escimo,
+        version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
         
     # ApacheDS Index page
@@ -112,6 +121,7 @@ our @patterns = (
         version_studio_name => $version_studio_name,
         version_mavibot => $version_mavibot,
         version_escimo => $version_escimo,
+        version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
     
     # Standard ApacheDS page
@@ -124,6 +134,7 @@ our @patterns = (
         version_studio_name => $version_studio_name,
         version_mavibot => $version_mavibot,
         version_escimo => $version_escimo,
+        version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
     
     #
@@ -140,6 +151,7 @@ our @patterns = (
         version_studio_name => $version_studio_name,
         version_mavibot => $version_mavibot,
         version_escimo => $version_escimo,
+        version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
     
     # Download Apache LDAP API Sources page
@@ -152,6 +164,7 @@ our @patterns = (
         version_studio_name => $version_studio_name,
         version_mavibot => $version_mavibot,
         version_escimo => $version_escimo,
+        version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
         
     # Apache LDAP API Index page
@@ -164,6 +177,7 @@ our @patterns = (
         version_studio_name => $version_studio_name,
         version_mavibot => $version_mavibot,
         version_escimo => $version_escimo,
+        version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
     
     # Standard Apache LDAP API page
@@ -176,6 +190,7 @@ our @patterns = (
         version_studio_name => $version_studio_name,
         version_mavibot => $version_mavibot,
         version_escimo => $version_escimo,
+        version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
     
     #
@@ -192,6 +207,7 @@ our @patterns = (
         version_studio_name => $version_studio_name,
         version_mavibot => $version_mavibot,
         version_escimo => $version_escimo,
+        version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
     
     # Download Apache MAVIBOT Sources page
@@ -204,6 +220,7 @@ our @patterns = (
         version_studio_name => $version_studio_name,
         version_mavibot => $version_mavibot,
         version_escimo => $version_escimo,
+        version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
         
     # Apache MAVIBOT Index page
@@ -216,6 +233,7 @@ our @patterns = (
         version_studio_name => $version_studio_name,
         version_mavibot => $version_mavibot,
         version_escimo => $version_escimo,
+        version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
     
     # Standard Apache MAVIBOT page
@@ -228,6 +246,7 @@ our @patterns = (
         version_studio_name => $version_studio_name,
         version_mavibot => $version_mavibot,
         version_escimo => $version_escimo,
+        version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
     
     #
@@ -244,6 +263,7 @@ our @patterns = (
         version_studio_name => $version_studio_name,
         version_mavibot => $version_mavibot,
         version_escimo => $version_escimo,
+        version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
     
     # Download Apache Directory Studio Mac OS X page
@@ -256,6 +276,7 @@ our @patterns = (
         version_studio_name => $version_studio_name,
         version_mavibot => $version_mavibot,
         version_escimo => $version_escimo,
+        version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
     
     # Download Apache Directory Studio Sources page
@@ -268,6 +289,7 @@ our @patterns = (
         version_studio_name => $version_studio_name,
         version_mavibot => $version_mavibot,
         version_escimo => $version_escimo,
+        version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
     
     # Download Apache Directory Studio Windows page
@@ -280,6 +302,7 @@ our @patterns = (
         version_studio_name => $version_studio_name,
         version_mavibot => $version_mavibot,
         version_escimo => $version_escimo,
+        version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
         
     # Apache Directory Studio Index page
@@ -292,6 +315,7 @@ our @patterns = (
         version_studio_name => $version_studio_name,
         version_mavibot => $version_mavibot,
         version_escimo => $version_escimo,
+        version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
         
     # Standard Apache Directory Studio page
@@ -304,6 +328,7 @@ our @patterns = (
         version_studio_name => $version_studio_name,
         version_mavibot => $version_mavibot,
         version_escimo => $version_escimo,
+        version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
 
     #
@@ -320,6 +345,7 @@ our @patterns = (
         version_studio_name => $version_studio_name,
         version_mavibot => $version_mavibot,
         version_escimo => $version_escimo,
+        version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
     
     # Download Apache ESCIMO Sources page
@@ -332,6 +358,7 @@ our @patterns = (
         version_studio_name => $version_studio_name,
         version_mavibot => $version_mavibot,
         version_escimo => $version_escimo,
+        version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
         
     # Apache ESCIMO Index page
@@ -344,6 +371,7 @@ our @patterns = (
         version_studio_name => $version_studio_name,
         version_mavibot => $version_mavibot,
         version_escimo => $version_escimo,
+        version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
     
     # Standard Apache ESCIMO page
@@ -356,6 +384,7 @@ our @patterns = (
         version_studio_name => $version_studio_name,
         version_mavibot => $version_mavibot,
         version_escimo => $version_escimo,
+        version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
 
     #
@@ -372,6 +401,7 @@ our @patterns = (
         version_studio_name => $version_studio_name,
         version_mavibot => $version_mavibot,
         version_escimo => $version_escimo,
+        version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
     
     # Download Apache FORTRESS Sources page
@@ -384,6 +414,7 @@ our @patterns = (
         version_studio_name => $version_studio_name,
         version_mavibot => $version_mavibot,
         version_escimo => $version_escimo,
+        version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
         
     # Apache FORTRESS Index page
@@ -396,6 +427,7 @@ our @patterns = (
         version_studio_name => $version_studio_name,
         version_mavibot => $version_mavibot,
         version_escimo => $version_escimo,
+        version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
     
     # Standard FORTRESS page
@@ -408,8 +440,66 @@ our @patterns = (
         version_studio_name => $version_studio_name,
         version_mavibot => $version_mavibot,
         version_escimo => $version_escimo,
+        version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
     
+
+    #
+    # Apache KERBY project pages
+    #
+    
+    # Download Apache KERBY Archive page
+    [qr!kerby\/download\/download-archive\.mdtext$!, template_page => {
+        template => "kerby/download-archive.html",
+        isDirKerby => true, 
+        version_api => $version_api,
+        version_apacheds => $version_apacheds,
+        version_studio => $version_studio,
+        version_studio_name => $version_studio_name,
+        version_mavibot => $version_mavibot,
+        version_escimo => $version_escimo,
+        version_kerby => $version_kerby,
+        version_fortress => $version_fortress } ],
+    
+    # Download Apache KROBY Sources page
+    [qr!kerby\/download\/download-sources\.mdtext$!, template_page => {
+        template => "kerby/download-sources.html",
+        isDirKerby => true, 
+        version_api => $version_api,
+        version_apacheds => $version_apacheds,
+        version_studio => $version_studio,
+        version_studio_name => $version_studio_name,
+        version_mavibot => $version_mavibot,
+        version_escimo => $version_escimo,
+        version_kerby => $version_kerby,
+        version_fortress => $version_fortress } ],
+        
+    # Apache KERBYIndex page
+    [qr!kerby\/index\.mdtext$!, template_page => {
+        template => "kerby/index.html",
+        isDirKerby => true, 
+        version_api => $version_api,
+        version_apacheds => $version_apacheds,
+        version_studio => $version_studio,
+        version_studio_name => $version_studio_name,
+        version_mavibot => $version_mavibot,
+        version_escimo => $version_escimo,
+        version_kerby => $version_kerby,
+        version_fortress => $version_fortress } ],
+    
+    # Standard KERBY page
+    [qr!kerby\/.*?\.mdtext$!, template_page => {
+        template => "kerby/page.html",
+        isDirKerby => true, 
+        version_api => $version_api,
+        version_apacheds => $version_apacheds,
+        version_studio => $version_studio,
+        version_studio_name => $version_studio_name,
+        version_mavibot => $version_mavibot,
+        version_escimo => $version_escimo,
+        version_kerby => $version_kerby,
+        version_fortress => $version_fortress } ],
+
     #
     # Apache Directory Project pages
     #
@@ -424,6 +514,7 @@ our @patterns = (
         version_studio_name => $version_studio_name,
         version_mavibot => $version_mavibot,
         version_escimo => $version_escimo,
+        version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
     
     # Standard Apache Directory Project page
@@ -436,6 +527,7 @@ our @patterns = (
         version_studio_name => $version_studio_name,
         version_mavibot => $version_mavibot,
         version_escimo => $version_escimo,
+        version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
 );
 

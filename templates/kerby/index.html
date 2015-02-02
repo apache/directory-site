@@ -1,0 +1,22 @@
+{% extends "kerby/page.html" %}
+
+{% block content %}
+  {% block hero %}
+    <div class="hero clearfix">
+      <div class="left">
+        <h1>Apache Kerby&trade;</h1>
+        <h2>Apache Kerberos Server</h2>
+        <div class="description">
+          Apache Kerbys&trade;, or simply <em>Kerby</em>, is a Kerbeors server implementation, in Java, plus a set of associated tools.
+        </div>
+      </div>
+        <!--div class="download-link">
+          <a href="{{base}}kerby/downloads.html" class="download_badge"><b>Download Apache<br>Kerby {{version_kerby}}</b></a>
+        </div-->
+    </div>
+  {% endblock %}
+
+  {% block news %}
+    <div class="news">{% filter markdown %}{% include "../content/kerby/news.mdtext" %}{% endfilter %}</div>
+  {% endblock %}
+{% endblock %}
