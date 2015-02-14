@@ -208,12 +208,12 @@ It is also natural to pair the search function with the FilterBuilder:
     ...
 
         Muppet kermit = ldapConnectionTemplate.search( 
-	    "ou=muppets,dc=muppets,dc=org", 
+           "ou=muppets,dc=muppets,dc=org", 
             or(
-	        equal( "mail", "kermitthefrog@muppets.org" ), 
-	        equal( "mail", "misspiggy@muppets.org" ) ), 
-	    SearchScope.ONELEVEL,
-	    muppetEntryMapper );
+                equal( "mail", "kermitthefrog@muppets.org" ), 
+                equal( "mail", "misspiggy@muppets.org" ) ), 
+            SearchScope.ONELEVEL,
+            muppetEntryMapper );
 
 This has the added benefit of ensuring that your search filter has been property encoded per [RFC4515 section 3](https://tools.ietf.org/html/rfc4515.html#section-3).
 
