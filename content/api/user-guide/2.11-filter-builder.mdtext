@@ -177,46 +177,46 @@ Which MIGHT match results whose locality is San Francisco. The matching rule use
 
 ## StartsWith Filter
 
-Returns a new FilterBuilder that will construct a SubString filter, with an initialany part, but no final part. For instance:
+Returns a new FilterBuilder that will construct a SubString filter with an initial part, zero or more any parts, but no final part. For instance:
 
-    startswith( "sn", "Th", "Soft", "Foun" )).toString()
+    startsWith( "sn", "Th", "Soft", "Foun" )).toString()
  
-would result in the string: *(sn=Th*Soft*Foun*)*
+would result in the string: _(sn=Th\*Soft\*Foun\*)_
  
-Which would match any entry with the sn starting with 'Th', and having a Soft and Foun strings in the middle, like 'The Apache Software Foundation'.
+Which would match any entry with an sn starting with the string 'Th', followed by 'Soft', then 'Foun', like 'The Apache Software Foundation'.
 
 ## EndsWith Filter
 
-Returns a new FilterBuilder that will construct a SubString filter, with an initialany parts, but no final part. For instance:
+Returns a new FilterBuilder that will construct a SubString filter with no initial part, zero or more any parts, and a final part. For instance:
 
-    startswith( "sn", "Th", "Soft", "Foun" )).toString()
+    endsWith( "sn", "Soft", "Foun", "ion" )).toString()
  
-would result in the string: _(sn=Th*Soft*Foun*)_
+would result in the string: _(sn=\*Soft\*Foun\*ion)_
  
-Which would match any entry with the sn starting with 'Th', and having a Soft and Foun strings in the middle, like 'The Apache Software Foundation'.
+Which would match any entry with an sn containing the string 'Soft' followed by 'Foun' ending in 'ion', like 'The Apache Software Foundation'.
 
 ## Contains Filter
 
-Returns a new FilterBuilder that will construct a SubString filter, with zero to N any parts, but no initial or final parts. For instance:
+Returns a new FilterBuilder that will construct a SubString filter with no initial part, zero or more any parts, and no final part. For instance:
 
     contains( "sn", "Soft", "Foun" )).toString()
  
-would result in the string: _(sn=*Soft*Foun*)_
+would result in the string: _(sn=\*Soft\*Foun\*)_
  
-Which would match any entry with the sn having a Soft and Foun strings in the middle, like 'The Apache Software Foundation'.
+Which would match any entry with an sn containing the string 'Soft' followed by 'Foun', like 'The Apache Software Foundation'.
 
 ## Substring Filter
 
-Returns a new FilterBuilder that will construct a SubString filter, with a initial part, zero to N any parts, and a final part. For instance:
+Returns a new FilterBuilder that will construct a SubString filter with an initial part, zero or more any parts, and a final part. For instance:
 
     substring( "sn", "The", "Soft", "Foun", "ion" )).toString()
  
-would result in the string: _(sn=The*Soft*Foun*ion)_
+would result in the string: _(sn=The\*Soft\*Foun\*ion)_
  
-Which would match any entry with the sn having a Soft and Foun strings in the middle, starts with The and ends with ion like 'The Apache Software Foundation'.
+Which would match any entry with an sn starting with 'The', followed by 'Soft', then 'Foun', and ending with 'ion', like 'The Apache Software Foundation'.
 
-Note that if we have only two strings in the parts, they will be the initial and final ones :
+Note that if only two strings are supplied for parts, they will be the initial and the final:
 
     substring( "sn", "The", "ion" )).toString()
  
-would result in the string: _(sn=The*ion)_
+would result in the string: _(sn=The\*ion)_
