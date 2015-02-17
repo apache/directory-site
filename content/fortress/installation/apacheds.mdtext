@@ -1,0 +1,69 @@
+Title: ApacheDS Installation guide
+Notice: Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    .
+    http://www.apache.org/licenses/LICENSE-2.0
+    .
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+
+# ApacheDS Installation guide
+
+We will explain how to install and setup *Fortress* with an *ApacheDS* instance. In this configuration, we will have the *ApacheDS* server running on a server (*ApacheDS Host*) and *Fortress* which will be installed on a client machine (*Fortress Host*). Note that those two hosts can be shared - and this is such a configuration that we are going to use in this document.
+
+## Prerequisites
+
+There a few mandatory elements that need to be installed on the *ApacheDS Host* :
+
+    * Java 7 or greated sdk
+
+On the *Fortress Host*, you will need those components :
+
+    * Java 7 or greated sdk
+    * Apache Maven 3+
+    * A web browser
+    * Git
+    * Apache Directory Studio
+
+## Installing ApacheDS
+
+On the *ApacheDS Host* :
+
+This is pretty straightforward : follow the installation guide on [the ApacheDS download pages](http://directory.staging.apache.org/apacheds/downloads.html) (each page has an installation description).
+
+The base installation will install a server running on port *10389*, with a default user *uid=admin,ou=system* and the password *secret*. Please change those values !!!
+
+Note that the server requires a Java 7 sdk to run.
+
+## Installing Apache Directory Studio
+
+On the *Fortress Host* :
+
+We will install *Apache Directory Studio* which is a convenient tool when it comes to access a *LDAP* server. You need to instal it using [the following documentation](http://directory.apache.org/studio/downloads.html). Again, each of the link contains some directio on how to install the component.
+
+Once installed, you can check you can connect to the *ApacheDS* server you have installed in the previous step. Create a _connection_, set the _hostName_ and _port_ to be those where you installed the *ApacheDS* server, then check the Network Parameter, it should work fine.
+
+Also check that you can connect using the credentials you have set (defaulting to _uid=admin,ou=system_ and _secret_)  using *Simple Authentication*, and clicking on *Check Authentication* : it should work.
+
+The complete description of the steps to follow can be found [on this page](http://directory.apache.org/studio/users-guide/ldap_browser/gettingstarted_create_connection.html)
+
+## Installing Fortress Core
+
+Assuming that *Git*, *Java 7* and *Apache Maven* are installed on the *Fortress Host*, and that *ApacheDS* is running on the *ApacheDS Host*, we can now configure and install *Fortress Core* on the *Fortress Host*
+
+The setup will use your specificc configuration to create everything needed on the LDAP server to operate *Fortress*. It will so inject some specific schema in the server, and some entries that are required for *Fortress* to work. Once done, the *Fortress* API is ready to use.
+
+<DIV class="info" markdown="1">
+  This setup phase needs to be done only once per LDAP server. Although, on any computer you want to use <b>Fortress</b>, you sill need to configure it. We will expalin how to do that later on.
+</DIV>
+
+
