@@ -18,7 +18,7 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 # ApacheDS Installation guide
 
-We will explain how to install and setup **Fortress** with an **ApacheDS** instance. In this configuration, we will have the **ApacheDS** server running on a server (**ApacheDS Host**) and **Fortress** which will be installed on a client machine (**Fortress Host**). Note that those two hosts can be shared - and this is such a configuration that we are going to use in this document.
+Provide instructions to install an **ApacheDS** instance and setup for use with **Fortress**. In this configuration, there is an **ApacheDS** server running on a machine (**ApacheDS Host**) and **Fortress** agent which will be installed on a client machine (**Fortress Host**). Note that those two hosts can be shared - and this is such a configuration that we are going to use in this document.
 
 ## Prerequisites
 
@@ -38,7 +38,7 @@ On the **Fortress Host**, you will need those components :
 
 On the **ApacheDS Host** :
 
-This is pretty straightforward : follow the installation guide on [the ApacheDS download pages](http://directory.staging.apache.org/apacheds/downloads.html) (each page has an installation description).
+Follow the installation guide on [the ApacheDS download pages](http://directory.staging.apache.org/apacheds/downloads.html) (each page has an installation description).
 
 The base installation will install a server running on port *10389*, with a default user *uid=admin,ou=system* and the password *secret*. Please change those values !!!
 
@@ -48,22 +48,22 @@ Note that the server requires a Java 7 sdk to run.
 
 On the **Fortress Host** :
 
-We will install **Apache Directory Studio** which is a convenient tool when it comes to access a **LDAP** server. You need to instal it using [the following documentation](http://directory.apache.org/studio/downloads.html). Again, each of the link contains some direction on how to install this component.
+We will install **Apache Directory Studio** which is a convenient tool when it comes to managing an **LDAP** server. Install using [the following documentation](http://directory.apache.org/studio/downloads.html). Again, each link contains directions on how to install this component.
 
-Once installed, you can check you can connect to the **ApacheDS** server you have installed in the previous step. Create a _connection_, set the _hostName_ and _port_ to be those where you installed the **ApacheDS** server, then check the Network Parameter, it should work fine.
+Once installed, check the connection to the **ApacheDS** server installed during the previous step. Create a _connection_, set the _hostName_ and _port_ to be those where you installed the **ApacheDS** server, then check the Network Parameter, ensure no errors.
 
-Also check that you can connect using the credentials you have set (defaulting to _uid=admin,ou=system_ and _secret_)  using _Simple Authentication_, and clicking on _Check Authentication_ : it should work.
+Check that the credentials you have set (defaulting to _uid=admin,ou=system_ and _secret_)  using _Simple Authentication_, and clicking on _Check Authentication_ : work also.
 
-The complete description of the steps to follow can be found [on this page](http://directory.apache.org/studio/users-guide/ldap_browser/gettingstarted_create_connection.html)
+The complete description of the steps are found [on this page](http://directory.apache.org/studio/users-guide/ldap_browser/gettingstarted_create_connection.html)
 
 ## Installing Fortress Core
 
 Assuming that **Git**, **Java 7** and **Apache Maven** are installed on the **Fortress Host**, and that **ApacheDS** is running on the **ApacheDS Host**, we can now configure and install **Fortress Core** on the **Fortress Host**
 
-The setup will use your specificc configuration to create everything needed on the LDAP server to operate **Fortress**. It will so inject some specific schema in the server, and some entries that are required for *Fortress* to work. Once done, the **Fortress** API is ready to use.
+The setup will use your specific configuration to create everything needed on the LDAP server to operate **Fortress**. It will also inject specific schema elements into the ldap server; entries that are required for *Fortress* to work. Once done, the **Fortress** APIs are ready to use.
 
 <DIV class="info" markdown="1">
-  This setup phase needs to be done only once per LDAP server. Although, on any computer you want to use <b>Fortress</b>, you sill need to configure it. We will expalin how to do that later on.
+  The setup phase must be performed once per LDAP server instance.  But every machine that uses Fortress, must be configured to point to the same LDAP server (as you would expect) that was initially setup.  This will be explained later on.
 </DIV>
 
 
