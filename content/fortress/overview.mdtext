@@ -32,8 +32,8 @@ Included in Fortress packages:
 
 * RBAC Core APIs
 * RBAC Web Management UI
-* RBAC Web Policy Server
-* RBAC Policy Enforcement
+* RBAC Rest Server
+* RBAC Policy Enforcement Plug-in for Tomcat
 * Directory Services with [OpenLDAP](http://www.openldap.org) (powered w/Memory-Mapped DB) or [ApacheDS](http://directory.apache.org)
 
 It is released under terms of the Apache License 2.0. 
@@ -44,7 +44,7 @@ A demo outlining this capability using embedded Apache Tomcat Server and Realm R
 
 Features include...
 
-* RBAC Management via APIs, services and Web pages
+* RBAC Management via APIs, Restful services and Web pages
 * Password Management via APIs, services and self-service Web pages
 * Interrogation of centralized audit for management and enforcement activites via APIs, services and Web pages
 * Policy enforcement plug-ins to enforce policies in Java, Spring, Linux and Windows platforms
@@ -89,13 +89,6 @@ Fortress audits use OpenLDAP's slapd access log overlay.  This extended capabili
 
 The Fortress audits rely on slapd events to track its data exchanges performed within its own APIs.  Change event tracking includes adds, updates, and deletes of Fortress entities.  Read and search events tracked include user authentication, authorization, and policy interrogations.  Full historical data change tracking is maintained and may be searched later with APIs to be used for monitoring, reporting, and undo. The log may be retrieved later to synch with outside database for long-term regulatory and compliance concerns.  
 
-Fortress will soon use its audit trail for *adaptive authorization* to stop bad things before they happen.  For example...
-
-* If there have been more than 1,000 authentication failures during the last 60 seconds, notify members of the support center.  Give them a chance to sort it all out. 
-* If a particular user has failed more than three *authorizations* during the last 5 minutes, bar access for 20 minutes.  Send email to supervisor and business manager over the web resources.
-* If customer withdrawls more than 5,000 pounds in 24 hours, deny further withdrawl for duration of one day. Send notification to customer's email address.
-* If more than 1,000,000 Euros are traded within the portfolio of any one trader or group of traders, during any 4 hour period, prevent further trading until manual unlock performed by risk management group.
-* etc...
 
 ### Temporal Constraints 
 
@@ -104,7 +97,7 @@ The Fortress Temporal model allows Users and Roles to carry time and date Constr
 
 ### ANSI RBAC Policy-Enhanced (INCITS-494-2012)
 
-Not yet.
+One day.
 
 
 ## What security services are available?
@@ -131,7 +124,7 @@ Source is managed by Apache's GIT repo:
 * [Fortress Core](https://git-wip-us.apache.org/repos/asf/directory-fortress-core.git) - RBAC SDK
 * [Fortress Web](https://git-wip-us.apache.org/repos/asf/directory-fortress-commander.git) - RBAC Web Management UI
 * [Fortress Rest](https://git-wip-us.apache.org/repos/asf/directory-fortress-enmasse.git) - RBAC REST Server
-* [Fortress Realm](https://git-wip-us.apache.org/repos/asf/directory-fortress-realm.git) - RBAC Policy Enforcement Plugin for Tomcat
+* [Fortress Realm](https://git-wip-us.apache.org/repos/asf/directory-fortress-realm.git) - RBAC Policy Enforcement Plug-in for Tomcat
 
 ## What are the conditions?
 
