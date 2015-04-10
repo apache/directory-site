@@ -245,28 +245,28 @@ Three mails will be generated, and sent to commits@directory.apache.org :
     git commit: [maven-release-plugin] prepare release 2.0.9
     Git Push Summary
     git commit: [maven-release-plugin] prepare for next development iteration
-
-  Repository: directory-fortress-core
-  Updated Branches:
-    refs/heads/master 7f1f90d2b -> bb9137136
-
-
-  [maven-release-plugin] prepare release 1.0-RC40
-
-
-  Project: http://git-wip-us.apache.org/repos/asf/directory-fortress-core/repo
-  Commit: http://git-wip-us.apache.org/repos/asf/directory-fortress-core/commit/bb913713
-  Tree: http://git-wip-us.apache.org/repos/asf/directory-fortress-core/tree/bb913713
-  Diff: http://git-wip-us.apache.org/repos/asf/directory-fortress-core/diff/bb913713
-
-  Branch: refs/heads/master
-  Commit: bb9137136d58f334415825b15f58c3173c923de2
-  Parents: 7f1f90d
-  Author: Emmanuel Lecharny <elecharny@symas.com>
-  Authored: Fri Apr 3 15:35:20 2015 +0200
-  Committer: Emmanuel Lecharny <elecharny@symas.com>
-  Committed: Fri Apr 3 15:35:20 2015 +0200
-  ...
+    
+    Repository: directory-fortress-core
+    Updated Branches:
+      refs/heads/master 7f1f90d2b -> bb9137136
+    
+    
+    [maven-release-plugin] prepare release 1.0-RC40
+    
+    
+    Project: http://git-wip-us.apache.org/repos/asf/directory-fortress-core/repo
+    Commit: http://git-wip-us.apache.org/repos/asf/directory-fortress-core/commit/bb913713
+    Tree: http://git-wip-us.apache.org/repos/asf/directory-fortress-core/tree/bb913713
+    Diff: http://git-wip-us.apache.org/repos/asf/directory-fortress-core/diff/bb913713
+      
+    Branch: refs/heads/master
+    Commit: bb9137136d58f334415825b15f58c3173c923de2
+    Parents: 7f1f90d
+    Author: Emmanuel Lecharny <elecharny@symas.com>
+    Authored: Fri Apr 3 15:35:20 2015 +0200
+    Committer: Emmanuel Lecharny <elecharny@symas.com>
+    Committed: Fri Apr 3 15:35:20 2015 +0200
+    ...
 
 The first mail tells you that the SNAPSHOT has been moved to the release version in trunk, the second mails tells you that this version has been tagged, and the last mail tells you that trunk has moved to the next version.
 
@@ -345,7 +345,7 @@ Use a shell script to sign the packages which are stored in target/checkout/targ
   <your PGP key>
   PGP Key Password: 
   <Your PGP passphrase>
-
+  
   -n Signing: ./fortress-core-1.0-RC40-javadoc.jar ... 
     - Generated './fortress-core-1.0-RC40-javadoc.jar.md5'
     - Generated './fortress-core-1.0-RC40-javadoc.jar.sha1'
@@ -368,7 +368,7 @@ Use a shell script to sign the packages which are stored in target/checkout/targ
 Here is the sign.sh script you can use :
 
     #!/bin/sh
-
+  
     echo "PGP Key ID: "
     read DEFAULT_KEY
 
