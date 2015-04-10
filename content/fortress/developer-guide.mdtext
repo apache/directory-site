@@ -322,47 +322,47 @@ You can get the keys by typing :
 
 You'll get something like :
 
-  $ gpg --list-keys
-  /Users/elecharny/.gnupg/pubring.gpg
-  -----------------------------------
-  pub   2048D/xxxxxxxx 2009-12-03
-  uid                  Emmanuel Lecharny <elecharny@nextury.com>
-  sub   2048g/yyyyyyyy 2009-12-03
+    $ gpg --list-keys
+    /Users/elecharny/.gnupg/pubring.gpg
+    -----------------------------------
+    pub   2048D/xxxxxxxx 2009-12-03
+    uid                  Emmanuel Lecharny <elecharny@nextury.com>
+    sub   2048g/yyyyyyyy 2009-12-03
 
-  pub   4096R/zzzzzzzz 2010-09-13
-  uid                  Emmanuel Lecharny (CODE SIGNING KEY) <elecharny@apache.org>
-  sub   4096R/tttttttt 2010-09-13
-  ...
+    pub   4096R/zzzzzzzz 2010-09-13
+    uid                  Emmanuel Lecharny (CODE SIGNING KEY) <elecharny@apache.org>
+    sub   4096R/tttttttt 2010-09-13
+    ...
 
 Take the <zzzzzzzz> part of your 4096 bit key.
 
 Use a shell script to sign the packages which are stored in target/checkout/target. You will first have to delete the created .asc files :
 
-  $ cd target/checkout/target
-  $ rm *.asc
-  $ ~/sign.sh 
-  PGP Key ID: 
-  <your PGP key>
-  PGP Key Password: 
-  <Your PGP passphrase>
-  
-  -n Signing: ./fortress-core-1.0-RC40-javadoc.jar ... 
-    - Generated './fortress-core-1.0-RC40-javadoc.jar.md5'
-    - Generated './fortress-core-1.0-RC40-javadoc.jar.sha1'
-    - Generated './fortress-core-1.0-RC40-javadoc.jar.asc'
-  -n Signing: ./fortress-core-1.0-RC40-source-release.zip ... 
-    - Generated './fortress-core-1.0-RC40-source-release.zip.md5'
-    - Generated './fortress-core-1.0-RC40-source-release.zip.sha1'
-    - Generated './fortress-core-1.0-RC40-source-release.zip.asc'
-  -n Signing: ./fortress-core-1.0-RC40-sources.jar ... 
-    - Generated './fortress-core-1.0-RC40-sources.jar.md5'
-    - Generated './fortress-core-1.0-RC40-sources.jar.sha1'
-    - Generated './fortress-core-1.0-RC40-sources.jar.asc'
-  -n Signing: ./fortress-core-1.0-RC40.jar ... 
-    - Generated './fortress-core-1.0-RC40.jar.md5'
-    - Generated './fortress-core-1.0-RC40.jar.sha1'
-    - Generated './fortress-core-1.0-RC40.jar.asc'
-  ...
+    $ cd target/checkout/target
+    $ rm *.asc
+    $ ~/sign.sh 
+    PGP Key ID: 
+    <your PGP key>
+    PGP Key Password: 
+    <Your PGP passphrase>
+    
+    -n Signing: ./fortress-core-1.0-RC40-javadoc.jar ... 
+      - Generated './fortress-core-1.0-RC40-javadoc.jar.md5'
+      - Generated './fortress-core-1.0-RC40-javadoc.jar.sha1'
+      - Generated './fortress-core-1.0-RC40-javadoc.jar.asc'
+    -n Signing: ./fortress-core-1.0-RC40-source-release.zip ... 
+      - Generated './fortress-core-1.0-RC40-source-release.zip.md5'
+      - Generated './fortress-core-1.0-RC40-source-release.zip.sha1'
+      - Generated './fortress-core-1.0-RC40-source-release.zip.asc'
+   -n Signing: ./fortress-core-1.0-RC40-sources.jar ... 
+      - Generated './fortress-core-1.0-RC40-sources.jar.md5'
+      - Generated './fortress-core-1.0-RC40-sources.jar.sha1'
+      - Generated './fortress-core-1.0-RC40-sources.jar.asc'
+    -n Signing: ./fortress-core-1.0-RC40.jar ... 
+      - Generated './fortress-core-1.0-RC40.jar.md5'
+      - Generated './fortress-core-1.0-RC40.jar.sha1'
+      - Generated './fortress-core-1.0-RC40.jar.asc'
+    ...
 
 
 Here is the sign.sh script you can use :
@@ -429,13 +429,13 @@ Then copy the packages :
 
 Update your index.html file on people.apach.org/public_html to make the packages visible. Here is an example of possible content :
 
-  <h2>Last Fortress core 1.0.0-RC40 arballs</h2>
-    <h3>Sources</h3>
+    <h2>Last Fortress core 1.0.0-RC40 arballs</h2>
+      <h3>Sources</h3>
 
-      <img src="/icons/compressed.gif" alt="[   ]"><a href="fortress-core-1.0-RC40/fortress-core-1.0-RC40-source-release.zip">fortress-core-1.0-RC40-source-release.zip</a><br/>
-      <img src="/icons/compressed.gif" alt="[   ]"><a href="fortress-core-1.0-RC40/fortress-core-1.0-RC40-source-release.zip.asc">fortress-core-1.0-RC40-source-release.zip.asc</a><br/>
-      <img src="/icons/compressed.gif" alt="[   ]"><a href="fortress-core-1.0-RC40/fortress-core-1.0-RC40-source-release.zip.md5">fortress-core-1.0-RC40-source-release.zip.md5</a><br/>
-      <img src="/icons/compressed.gif" alt="[   ]"><a href="fortress-core-1.0-RC40/fortress-core-1.0-RC40-source-release.zip.sha1">fortress-core-1.0-RC40-source-release.zip.sha1</a><br/>
+        <img src="/icons/compressed.gif" alt="[   ]"><a href="fortress-core-1.0-RC40/fortress-core-1.0-RC40-source-release.zip">fortress-core-1.0-RC40-source-release.zip</a><br/>
+        <img src="/icons/compressed.gif" alt="[   ]"><a href="fortress-core-1.0-RC40/fortress-core-1.0-RC40-source-release.zip.asc">fortress-core-1.0-RC40-source-release.zip.asc</a><br/>
+        <img src="/icons/compressed.gif" alt="[   ]"><a href="fortress-core-1.0-RC40/fortress-core-1.0-RC40-source-release.zip.md5">fortress-core-1.0-RC40-source-release.zip.md5</a><br/>
+        <img src="/icons/compressed.gif" alt="[   ]"><a href="fortress-core-1.0-RC40/fortress-core-1.0-RC40-source-release.zip.sha1">fortress-core-1.0-RC40-source-release.zip.sha1</a><br/>
 
 ## Step 9 : Voting a release
 
