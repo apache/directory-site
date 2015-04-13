@@ -1,0 +1,49 @@
+{% extends "fortress/page.html" %}
+    {% block content %}
+<h1>Downloads for Archive</h1>
+
+<p>
+    [if-any logo]
+    <a href="[link]"><img align="right" src="[logo]" border="0" /></a>
+    [end]
+    We suggest the following mirror site for your download:
+</p>
+
+<h2>ZIP Archive</h2>
+
+<p>
+    <div class="download">
+        <table width="100%" class="noBorder">
+            <tr>
+                <td>
+                    <a href="[preferred]/directory/fortress/dist/{{version_fortress}}/fortress-core-{{version_fortress}}-source-release.zip">
+                        <img src="{{base}}images/download.png" width="32" height="32" border="0"/>
+                    </a>
+                </td>
+                <td>&nbsp;</td>
+                <td>
+                    <a href="[preferred]/directory/fortress/dist/{{version_fortress}}/fortress-core-{{version_fortress}}-source-release.zip">
+                        <strong>
+                            [preferred]/&#91;...&#93;/fortress-core-{{version_fortress}}-source-release.zip
+                        </strong>
+                    </a>
+                </td>
+                <td align="right">
+                    [<a href="http://archive.apache.org/dist/directory/fortress/dist/{{version_fortress}}/fortress-core-{{version_fortress}}-source-release.zip.asc">ASC</a>-<a href="http://archive.apache.org/dist/directory/fortress/dist/{{version_fortress}}/fortress-core-{{version_fortress}}-source-release.zip.md5">MD5</a>]
+                </td>
+            </tr>
+        </table>
+    </div>
+</p>
+
+<p>&nbsp;</p>
+
+{% include "download-change-mirror.html" %}
+
+<p>&nbsp;</p>
+
+    {% extends "download-verify-file-integrity.html" %}
+        {% block filename %}fortress-core-{{version_api}}-source-release.zip{% endblock %}
+    {% endextends %}
+    {% endblock %}
+{% endextends %}
