@@ -1,5 +1,84 @@
 # News
 
+<h2 class="news">Apache Fortress Core 1.0-RC40 released !<em>posted on April 15th, 2015</em></h2>
+
+The Apache Directory Project is proud to announce th very first release of Fortress-core, the core library of the Fortress project.
+
+The Apache Fortress project provides a full ANSI RBAC compliant management and enforcement system that builds on existing open source applications like ApacheDS, OpenLDAP and Apache Tomcat.
+
+It is a standards-based and open source IAM system that provides ANSI RBAC (INCITS 359) management and enforcement capabilities to networked applications and systems. 
+
+It's still a release-candidate, and will be follow soon by a GA.
+
+We are working on releasing Fortress-realm, Fortress-enMasse and Fortress-Commander in the next few weeks.
+
+Here is the list of fixed issues since the code has been injected into the ASF repository:
+
+
+Bugs :
+------
+    * [FC-6](https://issues.apache.org/jira/browse/FC-6) - delPermObjs causes LDAP 80 error
+    * [FC-8](https://issues.apache.org/jira/browse/FC-8) - Add SSD Constraint check to updateRole
+    * [FC-9](https://issues.apache.org/jira/browse/FC-9) - CreateSession error on ApacheDS and Ubuntu 32
+    * [FC-11](https://issues.apache.org/jira/browse/FC-11) - MDB Error during deletion
+    * [FC-12](https://issues.apache.org/jira/browse/FC-12) - Delete descendant role error
+    * [FC-37](https://issues.apache.org/jira/browse/FC-37) - Accelerator jar is refering to a SNAPSHOT version of the released LDAP API
+    * [FC-39](https://issues.apache.org/jira/browse/FC-39) - Cleanup NPE during ldap pool init
+    * [FC-47](https://issues.apache.org/jira/browse/FC-47) - OrganizationalUnitDao create attribute syntax violation
+    * [FC-49](https://issues.apache.org/jira/browse/FC-49) - The J2eePolicyMgrImpl.createSession() class stores the wront type into the context
+    * [FC-54](https://issues.apache.org/jira/browse/FC-54) - Benchmark activities
+    * [FC-57](https://issues.apache.org/jira/browse/FC-57) - Fortress testCreateSession fails negative test
+    * [FC-58](https://issues.apache.org/jira/browse/FC-58) - Selenium Firefox Driver hangs on Ubuntu 14.04
+    * [FC-60](https://issues.apache.org/jira/browse/FC-60) - Add RFC2307bis attributes to User @XmlType
+    * [FC-63](https://issues.apache.org/jira/browse/FC-63) - Search only returns 100
+    * [FC-64](https://issues.apache.org/jira/browse/FC-64) - AdminRoleDAO.unload has NPE
+    * [FC-65](https://issues.apache.org/jira/browse/FC-65) - Turn off Fortress audit and pw policy test cases
+    * [FC-67](https://issues.apache.org/jira/browse/FC-67) - Fix config switch for slapd attributes
+    * [FC-70](https://issues.apache.org/jira/browse/FC-70) - remove dummy object from web lists
+    * [FC-74](https://issues.apache.org/jira/browse/FC-74) - DSD checking on hierarchical relationships incorrect
+    * [FC-80](https://issues.apache.org/jira/browse/FC-80) - Fix logout for unauthorized users
+
+Improvements :
+--------------
+    * [FC-7](https://issues.apache.org/jira/browse/FC-7) - Enhance Role Assignment Func
+    * [FC-22](https://issues.apache.org/jira/browse/FC-22) - Switch to junit 4.11
+    * [FC-23](https://issues.apache.org/jira/browse/FC-23) - Make the PasswordPolicy code to work with ApacheDS
+    * [FC-24](https://issues.apache.org/jira/browse/FC-24) - Add the missing serialVersionUID for Serializable classes
+    * [FC-25](https://issues.apache.org/jira/browse/FC-25) - Improve the way Factories create instances
+    * [FC-31](https://issues.apache.org/jira/browse/FC-31) - Add sortvals to slapd.conf
+    * [FC-44](https://issues.apache.org/jira/browse/FC-44) - Define a LdapPool configuration taht does not validate connections
+    * [FC-45](https://issues.apache.org/jira/browse/FC-45) - Normalize fortress test policies
+    * [FC-48](https://issues.apache.org/jira/browse/FC-48) - remove log4j from realm impl
+    * [FC-55](https://issues.apache.org/jira/browse/FC-55) - Backup Accelerator Session DB on recreate
+    * [FC-56](https://issues.apache.org/jira/browse/FC-56) - Fix Documentation
+    * [FC-59](https://issues.apache.org/jira/browse/FC-59) - Modify sample Fortress Rest Server policy
+    * [FC-62](https://issues.apache.org/jira/browse/FC-62) - Update ant dependencies
+    * [FC-66](https://issues.apache.org/jira/browse/FC-66) - add panel headers
+    * [FC-68](https://issues.apache.org/jira/browse/FC-68) - Rename config artifacts
+    * [FC-69](https://issues.apache.org/jira/browse/FC-69) - Sort lists in fortress web
+    * [FC-71](https://issues.apache.org/jira/browse/FC-71) - add description field to permission page
+    * [FC-72](https://issues.apache.org/jira/browse/FC-72) - display select to info panel
+    * [FC-82](https://issues.apache.org/jira/browse/FC-82) - upgrade CXF in rest component
+    * [FC-83](https://issues.apache.org/jira/browse/FC-83) - Cleanup core test processing
+    * [FC-84](https://issues.apache.org/jira/browse/FC-84) - Add console and cli to mvn
+    * [FC-87](https://issues.apache.org/jira/browse/FC-87) - mavenize jmeter tests
+    * [FC-88](https://issues.apache.org/jira/browse/FC-88) - Upgrade to JGraphT 0.9.1
+
+
+New Features :
+--------------
+    * [FC-50](https://issues.apache.org/jira/browse/FC-50) - Add password policy support
+    * [FC-78](https://issues.apache.org/jira/browse/FC-78) - add deserializer to realm policymgr
+
+
+Tasks :
+-------
+    * [FC-2](https://issues.apache.org/jira/browse/FC-2) - Fulfill the IP Clearance form
+    * [FC-30](https://issues.apache.org/jira/browse/FC-30) - UnboundID SDK removal preparations
+    * [FC-40](https://issues.apache.org/jira/browse/FC-40) - Use the LDAP API constants instead of GlobalIDs constants when possible
+
+ You can download the source and jars [here](downloads.html)
+
 <h2 class="news">Apache Fortress Added as a sub-project of Apache Directory <em>posted on October 25th, 2014</em></h2>
 
 The Apache Directory Team is proud to announce the addition of the Apache Fortress project as a sub-project.
