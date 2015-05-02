@@ -1,4 +1,42 @@
 # News
+<h2 class="news">Apache Directory LDAP API 1.0.0-M30 released <em>posted on May 2nd, 2015</em></h2>
+
+The Apache Directory Team is proud to announce the availability of version 1.0.0-M30 of the Apache Directory LDAP API.
+
+The Apache Directory LDAP API is an ongoing effort to provide an enhanced LDAP API, as a replacement for JNDI and the existing LDAP API (jLdap and Mozilla LDAP API).
+
+This is a schema aware API, with some convenient ways to access a LDAP server. This API is not only targeting the Apache Directory Server, but should work pristine with any LDAP server.
+
+It's also an extensible API : new Controls, schema elements and network layer could be added or used in the near future. It's also OSGi capable.
+
+Another bug fix release, with some critical fixes in the connection handling, and some schema modifications.
+
+Here is the list of fixed issues :
+
+ <b>Bugs :</b>
+
+  * [DIRAPI-236](https://issues.apache.org/jira/browse/DIRAPI-236) - Unbind during search hangs
+  * [DIRAPI-234](https://issues.apache.org/jira/browse/DIRAPI-234) - ClassLoading issues with two classes in different packages
+  * [DIRAPI-231](https://issues.apache.org/jira/browse/DIRAPI-231) - Wrong namespace in generated response
+  * [DIRAPI-230](https://issues.apache.org/jira/browse/DIRAPI-230) - Connection to invalid host blocks for 30 seconds
+  * [DIRAPI-229](https://issues.apache.org/jira/browse/DIRAPI-229) - The LdifParser lowrcase attributeType
+  * [DIRAPI-196](https://issues.apache.org/jira/browse/DIRAPI-196) - Always throw error  ERR_04486_VALUE_ALREADY_EXISTS from org.apache.directory.api.ldap.model.entry.DefaultAttribute against AD's attribute dSCorePropagationData when do search operation.
+
+
+<b>Improvements :</b>
+
+  * [DIRAPI-233](https://issues.apache.org/jira/browse/DIRAPI-233) - OSGi: Import package range for slf4j
+
+
+<b>Tasks :</b>
+
+  * [DIRAPI-235](https://issues.apache.org/jira/browse/DIRAPI-235) - Wrong attributeType names
+
+Feel free to experiment, we highly appreciate your feedback !
+
+Downloads are available [here](downloads.html) and the User's Guide is [there](user-guide.html)
+
+# News
 <h2 class="news">Apache Directory LDAP API 1.0.0-M29 released <em>posted on April 2nd, 2015</em></h2>
 
 The Apache Directory Team is proud to announce the availability of version 1.0.0-M29 of the Apache Directory LDAP API.
@@ -18,23 +56,23 @@ Here is the list of fixed issues :
 
  <b>Bugs :</b>
 
-  * [DIRAPI-100](https://issues.apache.org/jira/browse/DIRAPI-100]  Implement the GSSAPI SASL Bind mechanism 
-  * [DIRAPI-107](https://issues.apache.org/jira/browse/DIRAPI-107]  LdifReader missing attributes 
-  * [DIRAPI-219](https://issues.apache.org/jira/browse/DIRAPI-219]  DateUtils.toGeneralizedTime does not work with some Locales 
-  * [DIRAPI-220](https://issues.apache.org/jira/browse/DIRAPI-220]  The FilterEncoder.encodeFilterValue() does not accept escaped hex values like \2A 
-  * [DIRAPI-223](https://issues.apache.org/jira/browse/DIRAPI-223]  The SchemaObject extension key should be case-insensitive 
-  * [DIRAPI-226](https://issues.apache.org/jira/browse/DIRAPI-226]  Injecting non pure ASCII values into a HR attribute read from a LDIF does not work 
+  * [DIRAPI-100](https://issues.apache.org/jira/browse/DIRAPI-100)  Implement the GSSAPI SASL Bind mechanism 
+  * [DIRAPI-107](https://issues.apache.org/jira/browse/DIRAPI-107)  LdifReader missing attributes 
+  * [DIRAPI-219](https://issues.apache.org/jira/browse/DIRAPI-219)  DateUtils.toGeneralizedTime does not work with some Locales 
+  * [DIRAPI-220](https://issues.apache.org/jira/browse/DIRAPI-220)  The FilterEncoder.encodeFilterValue() does not accept escaped hex values like \2A 
+  * [DIRAPI-223](https://issues.apache.org/jira/browse/DIRAPI-223)  The SchemaObject extension key should be case-insensitive 
+  * [DIRAPI-226](https://issues.apache.org/jira/browse/DIRAPI-226)  Injecting non pure ASCII values into a HR attribute read from a LDIF does not work 
 
 <b>Improvements :</b>
 
-  * [DIRAPI46](https://issues.apache.org/jira/browse/DIRAPI-46]   Add a generic schema loader which looks for schema elements under the value of the 'subschemaSubentry' of the RootDSE 
-  * [DIRAPI-225](https://issues.apache.org/jira/browse/DIRAPI-225]  Add a LDIF anonymizer that takes a LDIF file and replace the value with random text 
+  * [DIRAPI46](https://issues.apache.org/jira/browse/DIRAPI-46)   Add a generic schema loader which looks for schema elements under the value of the 'subschemaSubentry' of the RootDSE 
+  * [DIRAPI-225](https://issues.apache.org/jira/browse/DIRAPI-225)  Add a LDIF anonymizer that takes a LDIF file and replace the value with random text 
 
 
 <b>New features :</b>
 
-  * [DIRAPI-165](https://issues.apache.org/jira/browse/DIRAPI-165]  Add a FilterBuillder 
-  * [DIRAPI-224](https://issues.apache.org/jira/browse/DIRAPI-224]  Add support for the VLV control 
+  * [DIRAPI-165](https://issues.apache.org/jira/browse/DIRAPI-165)  Add a FilterBuillder 
+  * [DIRAPI-224](https://issues.apache.org/jira/browse/DIRAPI-224)  Add support for the VLV control 
 
 
 Feel free to experiment, we highly appreciate your feedback !
@@ -232,28 +270,28 @@ Here are the release note for Apache Directory LDAP API 1.0.0-M21:
 
 <b>Bugs : </b>
 
-  * DIRAPI-126 - Timeout Exception on bind while pwdExpireWarning period
-  * DIRAPI-128 - FilterEncoder.format() should accept String varargs
-  * DIRAPI-152 - Attribute.toString() method appends newline
-  * DIRAPI-157 - Calling the add() method with a multi-value attribute and a null value throws an NPE
-  * DIRAPI-160 - DSML engine is not setting the 'requestID' value in BatchResponse when output stream instance is provided
-  * DIRAPI-161 - Timeout does not apply to connect method
-  * DIRAPI-173 - When using TLS and multiple binds, LdapNetworkConnection attempts to start TLS multiple times
-  * DIRAPI-176 - LDIFReader does not accept empty DN (rootDSE)
+  * [DIRAPI-126](https://issues.apache.org/jira/browse/DIRAPI-126) - Timeout Exception on bind while pwdExpireWarning period
+  * [DIRAPI-128](https://issues.apache.org/jira/browse/DIRAPI-128) - FilterEncoder.format() should accept String varargs
+  * [DIRAPI-152](https://issues.apache.org/jira/browse/DIRAPI-152) - Attribute.toString() method appends newline
+  * [DIRAPI-157](https://issues.apache.org/jira/browse/DIRAPI-157) - Calling the add() method with a multi-value attribute and a null value throws an NPE
+  * [DIRAPI-160](https://issues.apache.org/jira/browse/DIRAPI-160) - DSML engine is not setting the 'requestID' value in BatchResponse when output stream instance is provided
+  * [DIRAPI-161](https://issues.apache.org/jira/browse/DIRAPI-161) - Timeout does not apply to connect method
+  * [DIRAPI-173](https://issues.apache.org/jira/browse/DIRAPI-173) - When using TLS and multiple binds, LdapNetworkConnection attempts to start TLS multiple times
+  * [DIRAPI-176](https://issues.apache.org/jira/browse/DIRAPI-176) - LDIFReader does not accept empty DN (rootDSE)
 
 
 <b>Improvements :</b>
 
-  * DIRAPI-137 - Add Control support for RFC 2891 - LDAP Control Extension for Server Side Sorting of Search Results http://www.faqs.org/rfcs/rfc2891.html
-  * DIRAPI-153 - Implement efficient reuse of schema loading
-  * DIRAPI-159 - Add a method to set a SchemaManager in LdapConnection
-  * DIRAPI-169 - Formalize the contract of PasswordPolicyResponse by stating that -1 is returned if no value is set.
-  * DIRAPI-170 - Allow StandaloneLdapApiServices to be configured without system properties
-  * DIRAPI-175 - LdifReader should handle empty
+  * [DIRAPI-137](https://issues.apache.org/jira/browse/DIRAPI-137) - Add Control support for RFC 2891 - LDAP Control Extension for Server Side Sorting of Search Results http://www.faqs.org/rfcs/rfc2891.html
+  * [DIRAPI-153](https://issues.apache.org/jira/browse/DIRAPI-153) - Implement efficient reuse of schema loading
+  * [DIRAPI-159](https://issues.apache.org/jira/browse/DIRAPI-159) - Add a method to set a SchemaManager in LdapConnection
+  * [DIRAPI-169](https://issues.apache.org/jira/browse/DIRAPI-169) - Formalize the contract of PasswordPolicyResponse by stating that -1 is returned if no value is set.
+  * [DIRAPI-170](https://issues.apache.org/jira/browse/DIRAPI-170) - Allow StandaloneLdapApiServices to be configured without system properties
+  * [DIRAPI-175](https://issues.apache.org/jira/browse/DIRAPI-175) - LdifReader should handle empty
 
 <b>New Feature</b>
 
-  * DIRAPI-143 - Add Controls to support server-side sorting
+  * [DIRAPI-143](https://issues.apache.org/jira/browse/DIRAPI-143) - Add Controls to support server-side sorting
   
 Feel free to experiment, we highly appreciate your feedback !
 
