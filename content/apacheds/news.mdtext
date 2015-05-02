@@ -1,7 +1,60 @@
 # News
+<h2 class="news">ApacheDS 2.0.0-M20 released <em>posted on May 2nd, 2015</em></h2>
+
+The Apache Directory team is pleased to announce the release of ApacheDS 2.0.0-M20, the twentieth milestone towards a 2.0 version.
+
+ApacheDS is an extensible and embeddable directory server entirely written in Java, which has been certified LDAPv3 compatible by the Open Group. Besides LDAP it supports Kerberos 5 and the Change Password Protocol. It has been designed to introduce triggers, stored procedures, queues and views to the world of LDAP which has lacked these rich constructs.
+
+Downloads are available [here](downloads.html)
+
+This release is a bug fix release. We fixed some random failures on startup, and some fixes in the start scripts, beside many other smaller issues.
+
+Here is the release note for Apache Directory ApacheDS 2.0.0-M19:
+
+
+<b>Bugs :</b>
+
+  * [DIRSERVER-2025](https://issues.apache.org/jira/browse/DIRSERVER-2025) - ApacheDS fails to return sortedResults when searched against a certain number of entries
+  * [DIRSERVER-2026](https://issues.apache.org/jira/browse/DIRSERVER-2026) - Version M19 does not allow eszet (ß) in any tested field of inetOrgPerson
+  * [DIRSERVER-2034](https://issues.apache.org/jira/browse/DIRSERVER-2034) - ReplayCache entries can't be written to disk
+  * [DIRSERVER-2035](https://issues.apache.org/jira/browse/DIRSERVER-2035) - Sporadic test failure due to fix for DIRSERVER-2034
+  * [DIRSERVER-2047](https://issues.apache.org/jira/browse/DIRSERVER-2047) - Some data can be lost when using ldapadd command to insert data into apacheds
+  * [DIRSERVER-2048](https://issues.apache.org/jira/browse/DIRSERVER-2048) - Searching for entries with numerous MV attributes can be long
+  * [DIRSERVER-2055](https://issues.apache.org/jira/browse/DIRSERVER-2055) - Apacheds M19 not starting
+  * [DIRSERVER-2057](https://issues.apache.org/jira/browse/DIRSERVER-2057) - Server returns search continuation only if 'ref' or '+' attributes are requested
+  * [DIRSERVER-2060](https://issues.apache.org/jira/browse/DIRSERVER-2060) - Bind not working after server startup
+  * [DIRSERVER-2065](https://issues.apache.org/jira/browse/DIRSERVER-2065) - apacheds.sh in tar.gz archive is not executable
+
+
+<b>Improvements :</b>
+
+  * [DIRSERVER-1809](https://issues.apache.org/jira/browse/DIRSERVER-1809) - Allow password policy changes to take effect without server restart.
+  * [DIRSERVER-2030](https://issues.apache.org/jira/browse/DIRSERVER-2030) - Remove the casting in generateResponse() method of SearchRequestHandler
+  * [DIRSERVER-2031](https://issues.apache.org/jira/browse/DIRSERVER-2031) - Use a properly random port when creating a KDCServer via annotation
+  * [DIRSERVER-2033](https://issues.apache.org/jira/browse/DIRSERVER-2033) - Upgrade BouncyCastle dependency
+  * [DIRSERVER-2036](https://issues.apache.org/jira/browse/DIRSERVER-2036) - Upgrade EhCache dependency
+  * [DIRSERVER-2050](https://issues.apache.org/jira/browse/DIRSERVER-2050) - Move configuration from single LDIF to multiple LDIF structure
+  * [DIRSERVER-2061](https://issues.apache.org/jira/browse/DIRSERVER-2061) - Logging config bundled with installers is too strict
+
+
+<b>Tasks :</b>
+
+  * [DIRSERVER-2024](https://issues.apache.org/jira/browse/DIRSERVER-2024) - Add some configuration for the list of supported TLS protocol
+  * [DIRSERVER-2039](https://issues.apache.org/jira/browse/DIRSERVER-2039) - Replace non-OSGi dependencies
+  * [DIRSERVER-2041](https://issues.apache.org/jira/browse/DIRSERVER-2041) - Add OSGi tests
+  * [DIRSERVER-2064](https://issues.apache.org/jira/browse/DIRSERVER-2064) - Uninstallof deb package incomplete
+
+
+<b>Test :</b>
+
+  * [DIRSERVER-2037](https://issues.apache.org/jira/browse/DIRSERVER-2037) - ClientInitialRefreshIT test failures
+
+
+  
+# News
 <h2 class="news">ApacheDS 2.0.0-M19 released <em>posted on November 22th, 2014</em></h2>
 
-The Apache Directory team is pleased to announce the release of ApacheDS 2.0.0-M17, the eighteenth milestone towards a 2.0 version.
+The Apache Directory team is pleased to announce the release of ApacheDS 2.0.0-M19, the nineteenth milestone towards a 2.0 version.
 
 ApacheDS is an extensible and embeddable directory server entirely written in Java, which has been certified LDAPv3 compatible by the Open Group. Besides LDAP it supports Kerberos 5 and the Change Password Protocol. It has been designed to introduce triggers, stored procedures, queues and views to the world of LDAP which has lacked these rich constructs.
 
@@ -18,7 +71,7 @@ Here is the release note for Apache Directory ApacheDS 2.0.0-M19:
 # News
 <h2 class="news">ApacheDS 2.0.0-M18 released <em>posted on November 13th, 2014</em></h2>
 
-The Apache Directory team is pleased to announce the release of ApacheDS 2.0.0-M18, the seventeenth milestone towards a 2.0 version.
+The Apache Directory team is pleased to announce the release of ApacheDS 2.0.0-M18, the eighteenth milestone towards a 2.0 version.
 
 ApacheDS is an extensible and embeddable directory server entirely written in Java, which has been certified LDAPv3 compatible by the Open Group. Besides LDAP it supports Kerberos 5 and the Change Password Protocol. It has been designed to introduce triggers, stored procedures, queues and views to the world of LDAP which has lacked these rich constructs.
 
