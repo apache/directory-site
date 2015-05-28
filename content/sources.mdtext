@@ -109,3 +109,57 @@ There are also read only git repositories, which are mirroring the subversion re
 | Apache Directory Skins | git://git.apache.org/directory-skins.git | [http://git.apache.org/directory-skins.git](http://git.apache.org/directory-skins.git) |
 | Apache Directory Studio Plugin | git://git.apache.org/directory-studio-plugin.git | [http://git.apache.org/directory-studio-plugin.git](http://git.apache.org/directory-studio-plugin.git) |
 | Apache Directory Studio | git://git.apache.org/directory-studio.git | [http://git.apache.org/directory-studio.git](http://git.apache.org/directory-studio.git) |
+
+## Web Site
+
+The Web site itslef is stored in a repository and can be updated easily. Let's see how it works.
+
+What is important here is that the pages are written using Markdown. Once a page has been modified, it can be committed, which will generate the static pages on a staging web site. When everything is checked and sounds correct, the staging site can be published on the production site, which will be pushed to the mirrors every hour. Here is the process :
+
+* Modified the markdown pages
+* Commit them
+* Check on the staging site to see if it's correct (see [http://directory.staging.apache.org/](http://directory.staging.apache.org/))
+* Publish the site using the [Apache CMS](http://www.apache.org/dev/cmsref.html)
+
+### Repository
+
+All the web site can be fetched at [https://svn.apache.org/repos/asf/directory/site/trunk/](http://svn.apache.org/repos/asf/directory/site/trunk/). be sure to use *https* in order to be able to commit your changes...
+
+### Structure
+The following structure is used :
+
+    cgi-bin
+
+    content
+      |
+      +-- apacheds
+      |
+      +-- api
+      .
+      .
+      +-- (common pages)
+
+    lib
+      |
+      +-- path.pm
+      |
+      +-- view.pm
+
+    templates
+      |
+      +-- apacheds
+      |
+      +-- api
+      .
+      .
+      +-- studio
+      |
+      +-- (index.html, etc)
+
+Usually, you won't have to change the templates and lib section (except when cutting a release). Most of ypur updates will impact the content/<project> pages.
+
+### Publiching the web site
+
+You have to install the [CMS bookmarklet](http://www.apache.org/dev/cms.html#usage) for that. Then simply open the directory web site and click on the bookmarklet, enter your apache credentials (you have to be a committer) and click on the 'Publish' button.
+
+The best way to undertand how to use the CMS system is to follow [this video](https://www.youtube.com/watch?v=xcDZN3Lu6HA).
