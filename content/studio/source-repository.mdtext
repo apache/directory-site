@@ -33,58 +33,37 @@ You can view and explore online SVN at this address:
 
 > <http://svn.apache.org/viewvc/directory/studio/trunk/>
 
+
+## Git Mirrors
+
+There is a read-only Git mirror available: 
+
+* Git protocol: `git://git.apache.org/directory-studio.git`
+* HTTP protocol: `http://git.apache.org/directory-studio.git`
+
+The git repository is also mirrored to Github: <https://github.com/apache/directory-studio/>.
+
+
 ## Source Repository Organization
 
 The repository is organized as follows :
 
+    |-- pom-first.xml                                 pom.xml to generate the Eclipse Target Platform and the MANIFEST.MF files
     |-- pom.xml                                       The main pom
-    |-- application                                   The packaged applications/installers for all supported platforms
-    |   |-- application-eclipse-plugins
-    |   |-- application-features
-    |   |-- application-linux-x86
-    |   |-- application-linux-x86_64
-    |   |-- application-macosx
-    |   |-- application-macosx-dmg
-    |   |-- application-plugins
-    |   |-- application-release
-    |   |-- application-updatesite
-    |   |-- application-win32
-    |   |-- application-win32-exe
-    |   |-- docs
-    |   |-- settings-hudson.xml
+    |-- eclipse-trgt-platform                         The target platform, defines Eclipse, ApacheDS, and 3rd party dependencies
     |-- features                                      The features
-    |   |-- apacheds.configuration.feature
     |   |-- apacheds.feature
     |   |-- ldapbrowser.feature
     |   |-- ldifeditor.feature
+    |   |-- openldap.feature
     |   |-- rcp.feature
     |   |-- schemaeditor.feature
     |-- helps                                         The help plugins in Docbook format 
-    |   |-- apacheds.configuration.help
     |   |-- apacheds.help
-    |   |-- help-plugin-pom.xml
     |   |-- ldapbrowser.help
     |   |-- ldifeditor.help
     |   |-- rcp.help
     |   |-- schemaeditor.help
-    |-- libraries                                     3rd party libraries, packaged as Eclipse plugins
-    |   |-- org.antlr.antlr
-    |   |-- org.apache.commons.codec
-    |   |-- org.apache.commons.collections
-    |   |-- org.apache.commons.io
-    |   |-- org.apache.commons.lang
-    |   |-- org.apache.commons.logging
-    |   |-- org.apache.directory.shared.dsmlparser
-    |   |-- org.apache.directory.shared.i18n
-    |   |-- org.apache.directory.shared.ldap
-    |   |-- org.apache.httpcomponents.httpclient
-    |   |-- org.apache.httpcomponents.httpcore
-    |   |-- org.apache.logging.log4j
-    |   |-- org.apache.mina.core
-    |   |-- org.bouncycastle.bcprovjdk15
-    |   |-- org.slf4j.api
-    |   |-- org.slf4j.log4j12
-    |   |-- org.xpp3.xpp3
     |-- plugins                                       The real plugins, here is the code
     |   |-- aciitemeditor
     |   |-- apacheds
@@ -108,8 +87,9 @@ The repository is organized as follows :
     |   |-- rcp
     |   |-- schemaeditor
     |   |-- valueeditors
-    |-- repository                                    A local maven repository, contains the eclipse dependencies
     |-- tests                                         Integration Tests
     |   |-- test.integration.core
     |   |-- test.integration.ui
-    |-- tools
+    |-- product                                       The packaged products for all supported platforms
+    |-- p2repositories                                The update sites
+    
