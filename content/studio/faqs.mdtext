@@ -20,14 +20,6 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 [TOC]
 
-### Buttons are not working (Linux only).
-
-In version 2.28, Gnome has been changed to use client-side windows. This could cause that some GUI widgets (buttons, trees) in Apache Directory Studio won't work as expected. If you encounter any problems set the environment variable GDK_NATIVE_WINDOWS to true before starting Studio:
-
-    GDK_NATIVE_WINDOWS=1 ./ApacheDirectoryStudio
-
-More information could be found [here](https://bugs.eclipse.org/bugs/show_bug.cgi?id=291257)
-
 ### How to set the language of Studio?
 
 Studio currentlly is translated in three languages: English (en), French (fr) and German (de). When starting Studio, the language setting of your operation system is used to determine the language of Studio (On linux, the LC_CTYPE environment variable is used to determinate the default language). 
@@ -52,14 +44,11 @@ However it is possible to force another language:
 Please notice the line break between -nl and the language.
 
 
-### When creating a new connection I get the part of the wizard which allows me to "You can specify additional connection parameters". Buttons back, next and finish are disabled. Basically now way to add a new connection.
-
-This is an issue of release 1.0.0 and 1.0.1. It will be fixed in the next release 1.1.0. There is a workaround: Uncheck the "Get base DNs from Root DSE" check box, the 'Next' button will be activated.
-
 ### When browsing and expanding an entry, Studio only shows 1000 child entries.
 
 Studio uses a client-side count limit when browsing the DIT. This limit is defined in the connection properties. See
 [Connection Properties](./users-guide/ldap_browser/tools_connection_properties.html#tools_connection_properties_browser_options) how to change it. 
+
 
 ### How to set the Java VM to use?
 
