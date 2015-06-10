@@ -18,7 +18,148 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 # ChangeLog
 
-## Apache Directory Studio 2.0.0-M6 (February 12th 2013)
+## Apache Directory Studio Version 2.0.0-M9 (June 6th 2013)
+
+**Bug**
+
+* [DIRSTUDIO-815](https://issues.apache.org/jira/browse/DIRSTUDIO-815) - Tiny translation error [DE]
+* [DIRSTUDIO-819](https://issues.apache.org/jira/browse/DIRSTUDIO-819) - Cannot open entries with DNs with UTF8 characters (Active Directory)
+* [DIRSTUDIO-836](https://issues.apache.org/jira/browse/DIRSTUDIO-836) - Search for attributes with underscore "_" in attribute name eg. attr_name is not possible
+* [DIRSTUDIO-855](https://issues.apache.org/jira/browse/DIRSTUDIO-855) - Some logical site artifact paths do not exist in site.xml / Apache Directory Studio 2.X Update Site / Nexus P2 Update Site Proxy
+* [DIRSTUDIO-860](https://issues.apache.org/jira/browse/DIRSTUDIO-860) - Apache Directory Studio Update Site ZIP Archive not installable in Eclipse Indigo
+* [DIRSTUDIO-903](https://issues.apache.org/jira/browse/DIRSTUDIO-903) - Clicking "Accept" when no changes have been made on the password edit dialog changes the password
+* [DIRSTUDIO-922](https://issues.apache.org/jira/browse/DIRSTUDIO-922) - Eclipse plugin for version 2.0.0-M7 not installing correctly
+* [DIRSTUDIO-932](https://issues.apache.org/jira/browse/DIRSTUDIO-932) - NPE while importing an ApacheDS 2.0 configuration from within the editor
+* [DIRSTUDIO-934](https://issues.apache.org/jira/browse/DIRSTUDIO-934) - Exporting the configuration from the ApacheDS 2.0 Configuration Editor should not change the input
+* [DIRSTUDIO-938](https://issues.apache.org/jira/browse/DIRSTUDIO-938) - LDAP Browser shows non ascii symbols as escaped
+* [DIRSTUDIO-948](https://issues.apache.org/jira/browse/DIRSTUDIO-948) - Sorting search results does not work with over 1000 results
+* [DIRSTUDIO-950](https://issues.apache.org/jira/browse/DIRSTUDIO-950) - Add support for PKCS5S2 hashing mechanism in Password Dialog
+* [DIRSTUDIO-955](https://issues.apache.org/jira/browse/DIRSTUDIO-955) - Quick search one/subtree scope button is not sticky/always defaults to "one" when starting DS
+* [DIRSTUDIO-958](https://issues.apache.org/jira/browse/DIRSTUDIO-958) - Exporting schemas as OpenLDAP files outputs entries in random order
+* [DIRSTUDIO-959](https://issues.apache.org/jira/browse/DIRSTUDIO-959) - Exporting schemas as OpenLDAP files does not use proper escaping
+* [DIRSTUDIO-961](https://issues.apache.org/jira/browse/DIRSTUDIO-961) - Crash during loading after recent uplate of libraries on Ubuntu
+* [DIRSTUDIO-962](https://issues.apache.org/jira/browse/DIRSTUDIO-962) - Crash at startup : gtk_widget_get_tooltip_text
+* [DIRSTUDIO-963](https://issues.apache.org/jira/browse/DIRSTUDIO-963) - Why UTF-8 is escaped in DN strings since 2.0.0?
+* [DIRSTUDIO-964](https://issues.apache.org/jira/browse/DIRSTUDIO-964) - Fonts look ugly on Mac with Retina Display
+* [DIRSTUDIO-965](https://issues.apache.org/jira/browse/DIRSTUDIO-965) - SIGSEGV on Startup
+* [DIRSTUDIO-966](https://issues.apache.org/jira/browse/DIRSTUDIO-966) - NullPointerException after expanding LDAP tree and "Error notifying a preference change listener" in "attr/val quick filter"
+* [DIRSTUDIO-967](https://issues.apache.org/jira/browse/DIRSTUDIO-967) - Timeout occurs during LDAP search
+* [DIRSTUDIO-970](https://issues.apache.org/jira/browse/DIRSTUDIO-970) - gui quit whithout any prompt
+* [DIRSTUDIO-979](https://issues.apache.org/jira/browse/DIRSTUDIO-979) - Crash with port already in use issues
+* [DIRSTUDIO-983](https://issues.apache.org/jira/browse/DIRSTUDIO-983) - Package org.eclipse.update has been removed in Eclipse 4.2
+* [DIRSTUDIO-988](https://issues.apache.org/jira/browse/DIRSTUDIO-988) - Studio plugins don't work in Eclipse Luna
+* [DIRSTUDIO-993](https://issues.apache.org/jira/browse/DIRSTUDIO-993) - Directory studio stops after a few commands issued
+* [DIRSTUDIO-999](https://issues.apache.org/jira/browse/DIRSTUDIO-999) - Fails to start after upgrade to CentOS 6.6/cairo 1.8.8-3.1
+* [DIRSTUDIO-1000](https://issues.apache.org/jira/browse/DIRSTUDIO-1000) - LDAP perspective not opening on STS 3.6.2
+* [DIRSTUDIO-1001](https://issues.apache.org/jira/browse/DIRSTUDIO-1001) - Unable to install in Luna
+* [DIRSTUDIO-1012](https://issues.apache.org/jira/browse/DIRSTUDIO-1012) - Wrong USAGE for 9 passwordPolicy attributes
+* [DIRSTUDIO-1014](https://issues.apache.org/jira/browse/DIRSTUDIO-1014) - Cannot remove the 'finished operations' in the progress pane
+* [DIRSTUDIO-1018](https://issues.apache.org/jira/browse/DIRSTUDIO-1018) - Adding a new LDIF file directly fails with an error "can't find IDfind.ext"
+* [DIRSTUDIO-1020](https://issues.apache.org/jira/browse/DIRSTUDIO-1020) - Fail to launch
+* [DIRSTUDIO-1038](https://issues.apache.org/jira/browse/DIRSTUDIO-1038) - Dispose the various org.eclipse.swt.graphics.* objects we use
+* [DIRSTUDIO-1039](https://issues.apache.org/jira/browse/DIRSTUDIO-1039) - SWTBot test suite hangs on opening connection
+* [DIRSTUDIO-1040](https://issues.apache.org/jira/browse/DIRSTUDIO-1040) - Job found still running after platform shutdown
+* [DIRSTUDIO-1042](https://issues.apache.org/jira/browse/DIRSTUDIO-1042) - Fix logging system
+* [DIRSTUDIO-1043](https://issues.apache.org/jira/browse/DIRSTUDIO-1043) - First open of LDIF editor fails
+* [DIRSTUDIO-1045](https://issues.apache.org/jira/browse/DIRSTUDIO-1045) - New Connection problem - ERR_04269 ATTRIBUTE_TYPE for OID ads-basedn does not exist
+* [DIRSTUDIO-1047](https://issues.apache.org/jira/browse/DIRSTUDIO-1047) - No BrowserViewUniversalListener.connectionOpened null checks
+
+**Improvement**
+
+* [DIRSTUDIO-425](https://issues.apache.org/jira/browse/DIRSTUDIO-425) - Please provide the eclipse update site as zipfile
+* [DIRSTUDIO-937](https://issues.apache.org/jira/browse/DIRSTUDIO-937) - No password confirmation while changing it
+* [DIRSTUDIO-940](https://issues.apache.org/jira/browse/DIRSTUDIO-940) - Have schema editor populate creatorsName attribute for new objects (needed by ApacheDS)
+* [DIRSTUDIO-941](https://issues.apache.org/jira/browse/DIRSTUDIO-941) - Friendly name for attribute syntax not shown when creating new attribute
+* [DIRSTUDIO-942](https://issues.apache.org/jira/browse/DIRSTUDIO-942) - Description for OID 1.3.18.0.2.32.99 missing
+* [DIRSTUDIO-980](https://issues.apache.org/jira/browse/DIRSTUDIO-980) - Make the new schema element visible withoit needing to click refresh in an obscure popup...
+* [DIRSTUDIO-985](https://issues.apache.org/jira/browse/DIRSTUDIO-985) - member;Range
+* [DIRSTUDIO-1003](https://issues.apache.org/jira/browse/DIRSTUDIO-1003) - The "Open Configuration" function is broken and doesn't work
+* [DIRSTUDIO-1041](https://issues.apache.org/jira/browse/DIRSTUDIO-1041) - Headless run of SWTBot tests
+
+**New Feature**
+
+* [DIRSTUDIO-756](https://issues.apache.org/jira/browse/DIRSTUDIO-756) - Provide a P2 repository
+* [DIRSTUDIO-949](https://issues.apache.org/jira/browse/DIRSTUDIO-949) - Add the ability to configure a Mavibot partition
+
+**Task**
+
+* [DIRSTUDIO-646](https://issues.apache.org/jira/browse/DIRSTUDIO-646) - Exclude ".gitignore" from source distribution
+* [DIRSTUDIO-995](https://issues.apache.org/jira/browse/DIRSTUDIO-995) - Migrate build system to use Tycho
+* [DIRSTUDIO-1005](https://issues.apache.org/jira/browse/DIRSTUDIO-1005) - Cleanup ApacheDS plugins
+* [DIRSTUDIO-1006](https://issues.apache.org/jira/browse/DIRSTUDIO-1006) - Fix ODF export
+* [DIRSTUDIO-1007](https://issues.apache.org/jira/browse/DIRSTUDIO-1007) - Replace org.eclipse.update.*
+* [DIRSTUDIO-1009](https://issues.apache.org/jira/browse/DIRSTUDIO-1009) - Check legal files
+* [DIRSTUDIO-1010](https://issues.apache.org/jira/browse/DIRSTUDIO-1010) - Hide unwanted UI items contributed by org.eclipse.* plugins
+* [DIRSTUDIO-1016](https://issues.apache.org/jira/browse/DIRSTUDIO-1016) - Adapt ApacheDS plugins to new configuration scheme
+* [DIRSTUDIO-1051](https://issues.apache.org/jira/browse/DIRSTUDIO-1051) - Update developer documentation
+* [DIRSTUDIO-1021](https://issues.apache.org/jira/browse/DIRSTUDIO-1021) - Enable tests
+* [DIRSTUDIO-1023](https://issues.apache.org/jira/browse/DIRSTUDIO-1023) - Generate P2 repository / update site
+* [DIRSTUDIO-1024](https://issues.apache.org/jira/browse/DIRSTUDIO-1024) - Define release process
+* [DIRSTUDIO-1025](https://issues.apache.org/jira/browse/DIRSTUDIO-1025) - Cleanup after Tycho Migration
+
+***
+
+## Apache Directory Studio Version 2.0.0-M8 (July 4th 2013)
+
+**Bug**
+
+* [DIRSTUDIO-788](https://issues.apache.org/jira/browse/DIRSTUDIO-788) - Date and Time editor incorrect time format for eDirectory
+* [DIRSTUDIO-792](https://issues.apache.org/jira/browse/DIRSTUDIO-792) - Batch operation Next button inactive
+* [DIRSTUDIO-868](https://issues.apache.org/jira/browse/DIRSTUDIO-868) - Do not send an unbind request if the authentication fails
+* [DIRSTUDIO-911](https://issues.apache.org/jira/browse/DIRSTUDIO-911) - Object classes not visible within Schema View of OS X
+* [DIRSTUDIO-912](https://issues.apache.org/jira/browse/DIRSTUDIO-912) - No connection pre-selected when DIT, Searches or Bookmarks is selected in the LDAP Brower view and the wizard is accessed via 'File' > 'Import' menu
+* [DIRSTUDIO-917](https://issues.apache.org/jira/browse/DIRSTUDIO-917) - Exporting for ApacheDS an AT with a not-set syntax length results in 'm-length: 0' output in the resulting LDIF file
+* [DIRSTUDIO-918](https://issues.apache.org/jira/browse/DIRSTUDIO-918) - Wrong error message in Import LDIF wizard when no connection is selected
+* [DIRSTUDIO-919](https://issues.apache.org/jira/browse/DIRSTUDIO-919) - Invalid thread access when saving an new ApacheDS 2.0 configuration file
+* [DIRSTUDIO-921](https://issues.apache.org/jira/browse/DIRSTUDIO-921) - Schema Pane does not refresh when creating a new object class
+* [DIRSTUDIO-927](https://issues.apache.org/jira/browse/DIRSTUDIO-927) - The "options... Advanced Options Configuration" link on the "Overview" age does not work
+* [DIRSTUDIO-930](https://issues.apache.org/jira/browse/DIRSTUDIO-930) - ERR_04269 ads_pwdvalidator does not exist
+* [DIRSTUDIO-931](https://issues.apache.org/jira/browse/DIRSTUDIO-931) - ERR_04269 ATTRIBUTE_TYPE for OID ads-pwdvalidator does not exist!
+* [DIRSTUDIO-972](https://issues.apache.org/jira/browse/DIRSTUDIO-972) - Whenever I try opening a new ldap connection on Apache Directory Studio, I am getting error: The connection failed - Failed to create a new instance of org.apache.mina.transport.socket.nio.NioProcessor:null
+* [DIRSTUDIO-989](https://issues.apache.org/jira/browse/DIRSTUDIO-989) - Eclipse Luna Integration
+
+**Improvement**
+
+* [DIRSTUDIO-890](https://issues.apache.org/jira/browse/DIRSTUDIO-890) - Add support for SSHA2 in Password Editor
+* [DIRSTUDIO-929](https://issues.apache.org/jira/browse/DIRSTUDIO-929) - Improve Hex Value Editor to allow text edition
+
+**Task**
+
+* [DIRSTUDIO-925](https://issues.apache.org/jira/browse/DIRSTUDIO-925) - Add new mandatory and optional attributes introduced for the 'ads-delegatingAuthenticator' object class
+
+***
+
+## Apache Directory Studio Version 2.0.0-M7 (May 17th 2013)
+
+**Bug**
+
+* [DIRSTUDIO-865](https://issues.apache.org/jira/browse/DIRSTUDIO-865) - NullPointerException thrown when connecting to Domino 8.5.2FP3 LDAP
+* [DIRSTUDIO-888](https://issues.apache.org/jira/browse/DIRSTUDIO-888) - Improve editing of boolean values to allow lowercased values and shortcuts
+* [DIRSTUDIO-891](https://issues.apache.org/jira/browse/DIRSTUDIO-891) - A schema project containing a reference to a deleted connection makes the perspective completely unusable
+* [DIRSTUDIO-892](https://issues.apache.org/jira/browse/DIRSTUDIO-892) - Unable to import ApacheDS core schemas
+* [DIRSTUDIO-893](https://issues.apache.org/jira/browse/DIRSTUDIO-893) - ConcurrentModificationException thrown while deleting multiple schema elements
+* [DIRSTUDIO-899](https://issues.apache.org/jira/browse/DIRSTUDIO-899) - Unable to install Studio using the update site: "Missing requirement: ApacheDS Core 2.0.0.M11"
+* [DIRSTUDIO-902](https://issues.apache.org/jira/browse/DIRSTUDIO-902) - Unusable configuration of the HashingPasswordInterceptor with recent milestone of ApacheDS 2.0
+* [DIRSTUDIO-904](https://issues.apache.org/jira/browse/DIRSTUDIO-904) - Directory Studio create files with french "accents"
+* [DIRSTUDIO-905](https://issues.apache.org/jira/browse/DIRSTUDIO-905) - IOException (Document is closed) thrown when quitting Apache Directory Studio with an LDAP Server running
+* [DIRSTUDIO-907](https://issues.apache.org/jira/browse/DIRSTUDIO-907) - ERR_04269 ATTRIBUTE_TYPE for OID ads-replpingersleep does not exist!
+* [DIRSTUDIO-916](https://issues.apache.org/jira/browse/DIRSTUDIO-916) - Can not open configuration for fresh installed ApacheDS and Studio
+
+**Improvement**
+
+* [DIRSTUDIO-857](https://issues.apache.org/jira/browse/DIRSTUDIO-857) - Add support for PasswordPolicy configuration
+* [DIRSTUDIO-884](https://issues.apache.org/jira/browse/DIRSTUDIO-884) - Add new MessageDigest algorithm for passwords
+* [DIRSTUDIO-895](https://issues.apache.org/jira/browse/DIRSTUDIO-895) - Add a 'Show password' checkbox to the CredentialsDialog used to ask the connection's password when it's not saved
+* [DIRSTUDIO-897](https://issues.apache.org/jira/browse/DIRSTUDIO-897) - Active Directory attribute type 'lockoutTime' should be linked with the 'MS AD Date and Time Editor'
+* [DIRSTUDIO-898](https://issues.apache.org/jira/browse/DIRSTUDIO-898) - Add case-insensitive support for the attribute types aliases in the 'Value Editors' preferences page
+
+**New Feature**
+
+* [DIRSTUDIO-901](https://issues.apache.org/jira/browse/DIRSTUDIO-901) - Add the ability to store connection passwords in a password-protected keystore
+
+***
+
+## Apache Directory Studio 2.0.0-M6 (March 8th 2013)
 
 **Bug**
 
@@ -41,7 +182,7 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 ***
 
-## Apache Directory Studio 2.0.0-M5 (February 12th 2013)
+## Apache Directory Studio 2.0.0-M5 (January 31th 2013)
 
 **Bug**
 
@@ -49,7 +190,7 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 ***
 
-## Apache Directory Studio 2.0.0-M4 (January 30th 2013)
+## Apache Directory Studio 2.0.0-M4 (January 25th 2013)
 
 **Bug**
 
@@ -102,7 +243,7 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 ***
 
-## Apache Directory Studio 2.0.0-M3 (February 29th 2012)
+## Apache Directory Studio 2.0.0-M3 (February 24th 2012)
 
 **Bug**
 
@@ -135,7 +276,7 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 ***
 
-## Apache Directory Studio 2.0.0-M2 (February 7th 2012)
+## Apache Directory Studio 2.0.0-M2 (January 27th 2012)
 
 **Bug**
 
@@ -148,7 +289,7 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 ***
 
-## Apache Directory Studio 2.0.0-M1 (January 18th 2012)
+## Apache Directory Studio 2.0.0-M1 (January 11th 2012)
 
 **Bug**
 
