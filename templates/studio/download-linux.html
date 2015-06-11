@@ -9,23 +9,6 @@
     We suggest the following mirror site for your download:
 </p>
 
-<p>
-    <div class="note" markdown="1">
-        <p>
-            On the latest Ubuntu distributions, you may experiment some crash when starting Studio.
-        </p>
-        <p>
-            This is bug with the OXYGEN theme. You can get it fixed by using another theme :
-        </p>
-        <pre>
-            $ GTK2_RC_FILES=/usr/share/themes/Raleigh/gtk-2.0/gtkrc ./ApacheDirectoryStudio
-        </pre>
-        <p>
-            Also see <a href="https://issues.apache.org/jira/browse/DIRSTUDIO-962">DIRSTUDIO-962</a> for more information.
-        </p>
-    </div>
-</p>
-
 <h2>Linux 64 bit</h2>
 
 <p>
@@ -33,20 +16,21 @@
         <table width="100%" class="noBorder">
             <tr>
                 <td>
-                    <a href="[preferred]/directory/studio/dist/{{version_studio}}/ApacheDirectoryStudio-linux-x86_64-{{version_studio}}.tar.gz">
+                    <a href="[preferred]directory/studio/{{version_studio}}/ApacheDirectoryStudio-{{version_studio}}-linux.gtk.x86_64.tar.gz ">
                         <img src="{{base}}images/download.png" width="32" height="32" border="0"/>
                     </a>
                 </td>
                 <td>&nbsp;</td>
                 <td>
-                    <a href="[preferred]/directory/studio/dist/{{version_studio}}/ApacheDirectoryStudio-linux-x86_64-{{version_studio}}.tar.gz">
+                    <a href="[preferred]directory/studio/{{version_studio}}/ApacheDirectoryStudio-{{version_studio}}-linux.gtk.x86_64.tar.gz">
                         <strong>
-                            [preferred]/&#91;...&#93;/ApacheDirectoryStudio-linux-x86_64-{{version_studio}}.tar.gz
+                            [preferred]&#91;...&#93;/ApacheDirectoryStudio-{{version_studio}}-linux.gtk.x86_64.tar.gz
                         </strong>
                     </a>
                 </td>
                 <td align="right">
-                    [<a href="http://archive.apache.org/dist/directory/studio/dist/{{version_studio}}/ApacheDirectoryStudio-linux-x86_64-{{version_studio}}.tar.gz.asc">ASC</a>-<a href="http://archive.apache.org/dist/directory/studio/dist/{{version_studio}}/ApacheDirectoryStudio-linux-x86_64-{{version_studio}}.tar.gz.md5">MD5</a>]
+                    [<a href="https://archive.apache.org/dist/directory/studio/{{version_studio}}/ApacheDirectoryStudio-{{version_studio}}-linux.gtk.x86_64.tar.gz.asc">ASC</a>] 
+                    [<a href="https://archive.apache.org/dist/directory/studio/{{version_studio}}/ApacheDirectoryStudio-{{version_studio}}-linux.gtk.x86_64.tar.gz.md5">MD5</a>]
                 </td>
             </tr>
         </table>
@@ -60,20 +44,21 @@
         <table width="100%" class="noBorder">
             <tr>
                 <td>
-                    <a href="[preferred]/directory/studio/dist/{{version_studio}}/ApacheDirectoryStudio-linux-x86-{{version_studio}}.tar.gz">
+                    <a href="[preferred]directory/studio/{{version_studio}}/ApacheDirectoryStudio-{{version_studio}}-linux.gtk.x86.tar.gz">
                         <img src="{{base}}images/download.png" width="32" height="32" border="0"/>
                     </a>
                 </td>
                 <td>&nbsp;</td>
                 <td>
-                    <a href="[preferred]/directory/studio/dist/{{version_studio}}/ApacheDirectoryStudio-linux-x86-{{version_studio}}.tar.gz">
+                    <a href="[preferred]directory/studio/{{version_studio}}/ApacheDirectoryStudio-{{version_studio}}-linux.gtk.x86.tar.gz">
                         <strong>
-                            [preferred]/&#91;...&#93;/ApacheDirectoryStudio-linux-x86-{{version_studio}}.tar.gz
+                            [preferred]&#91;...&#93;/ApacheDirectoryStudio-{{version_studio}}-linux.gtk.x86.tar.gz
                         </strong>
                     </a>
                 </td>
                 <td align="right">
-                    [<a href="http://archive.apache.org/dist/directory/studio/dist/{{version_studio}}/ApacheDirectoryStudio-linux-x86-{{version_studio}}.tar.gz.asc">ASC</a>-<a href="http://archive.apache.org/dist/directory/studio/dist/{{version_studio}}/ApacheDirectoryStudio-linux-x86-{{version_studio}}.tar.gz.md5">MD5</a>]
+                    [<a href="https://archive.apache.org/dist/directory/studio/{{version_studio}}/ApacheDirectoryStudio-{{version_studio}}-linux.gtk.x86.tar.gz.asc">ASC</a>]
+                    [<a href="https://archive.apache.org/dist/directory/studio/{{version_studio}}/ApacheDirectoryStudio-{{version_studio}}-linux.gtk.x86.tar.gz.md5">MD5</a>]
                 </td>
             </tr>
         </table>
@@ -112,7 +97,7 @@
 <p>
     Apache Directory Studio requires at least:
     <ul>
-        <li>a recent Linux distribution. It has been tested successfully on Ubuntu.</li>
+        <li>a recent Linux distribution. It has been tested successfully on Ubuntu and Arch Linux.</li>
         <li><a href="http://www.java.com/">Java Runtime Environment</a> 7 or later.</li>
     </ul>
 </p>
@@ -120,7 +105,7 @@
 <p>&nbsp;</p>
 
     {% extends "download-verify-file-integrity.html" %}
-        {% block filename %}ApacheDirectoryStudio-linux-x86_64-{{version_studio}}.tar.gz{% endblock %}
+        {% block filename %}ApacheDirectoryStudio-{{version_studio}}-linux.gtk.x86_64.tar.gz{% endblock %}
     {% endextends %}
     {% endblock %}
 {% endextends %}

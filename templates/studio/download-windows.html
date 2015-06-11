@@ -16,20 +16,21 @@
         <table width="100%" class="noBorder">
             <tr>
                 <td>
-                    <a href="[preferred]/directory/studio/dist/{{version_studio}}/ApacheDirectoryStudio-win32-x86_64-{{version_studio}}.exe">
+                    <a href="[preferred]directory/studio/{{version_studio}}/ApacheDirectoryStudio-{{version_studio}}-win32.win32.x86_64.zip">
                         <img src="{{base}}images/download.png" width="32" height="32" border="0"/>
                     </a>
                 </td>
                 <td>&nbsp;</td>
                 <td>
-                    <a href="[preferred]/directory/studio/dist/{{version_studio}}/ApacheDirectoryStudio-win32-x86_64-{{version_studio}}.exe">
+                    <a href="[preferred]directory/studio/{{version_studio}}/ApacheDirectoryStudio-{{version_studio}}-win32.win32.x86_64.zip">
                         <strong>
-                            [preferred]/&#91;...&#93;/ApacheDirectoryStudio-win32-x86_64-{{version_studio}}.exe
+                            [preferred]&#91;...&#93;/ApacheDirectoryStudio-{{version_studio}}-win32.win32.x86_64.zip
                         </strong>
                     </a>
                 </td>
                 <td align="right">
-                    [<a href="http://archive.apache.org/dist/directory/studio/dist/{{version_studio}}/ApacheDirectoryStudio-win32-x86_64-{{version_studio}}.exe.asc">ASC</a>-<a href="http://archive.apache.org/dist/directory/studio/dist/{{version_studio}}/ApacheDirectoryStudio-win32-x86_64-{{version_studio}}.exe.md5">MD5</a>]
+                    [<a href="https://archive.apache.org/dist/directory/studio/{{version_studio}}/ApacheDirectoryStudio-{{version_studio}}-win32.win32.x86_64.zip.asc">ASC</a>]
+                    [<a href="https://archive.apache.org/dist/directory/studio/{{version_studio}}/ApacheDirectoryStudio-{{version_studio}}-win32.win32.x86_64.zip.md5">MD5</a>]
                 </td>
             </tr>
         </table>
@@ -43,20 +44,21 @@
         <table width="100%" class="noBorder">
             <tr>
                 <td>
-                    <a href="[preferred]/directory/studio/dist/{{version_studio}}/ApacheDirectoryStudio-win32-x86-{{version_studio}}.exe">
+                    <a href="[preferred]directory/studio/{version_studio}}/ApacheDirectoryStudio-{{version_studio}}-win32.win32.x86.zip">
                         <img src="{{base}}images/download.png" width="32" height="32" border="0"/>
                     </a>
                 </td>
                 <td>&nbsp;</td>
                 <td>
-                    <a href="[preferred]/directory/studio/dist/{{version_studio}}/ApacheDirectoryStudio-win32-x86-{{version_studio}}.exe">
+                    <a href="[preferred]directory/studio/{version_studio}}/ApacheDirectoryStudio-{{version_studio}}-win32.win32.x86.zip">
                         <strong>
-                            [preferred]/&#91;...&#93;/ApacheDirectoryStudio-win32-x86-{{version_studio}}.exe
+                            [preferred]&#91;...&#93;/ApacheDirectoryStudio-{{version_studio}}-win32.win32.x86.zip
                         </strong>
                     </a>
                 </td>
                 <td align="right">
-                    [<a href="http://archive.apache.org/dist/directory/studio/dist/{{version_studio}}/ApacheDirectoryStudio-win32-x86-{{version_studio}}.exe.asc">ASC</a>-<a href="http://archive.apache.org/dist/directory/studio/dist/{{version_studio}}/ApacheDirectoryStudio-win32-x86-{{version_studio}}.exe.md5">MD5</a>]
+                    [<a href="https://archive.apache.org/dist/directory/studio/{{version_studio}}/ApacheDirectoryStudio-{{version_studio}}-win32.win32.x86.zip.asc">ASC</a>]
+                    [<a href="https://archive.apache.org/dist/directory/studio/{{version_studio}}/ApacheDirectoryStudio-win32-x86-{{version_studio}}.exe.md5">MD5</a>]
                 </td>
             </tr>
         </table>
@@ -81,6 +83,13 @@
         </tr>
         <tr>
             <td width="64" height="64"><img src="{{base}}images/figure_2.gif" width="64" height="64"/></td>
+            <td></td>
+            <td>&nbsp;&nbsp;</td>
+            <td>Extract the downladed archive and place the extracted folder where you want Apache Directory Studio to be installed.</td>
+        </tr>
+        <!--
+        <tr>
+            <td width="64" height="64"><img src="{{base}}images/figure_2.gif" width="64" height="64"/></td>
             <td><img src="images/installation_windows_2.jpg" width="225" height="150"/></td>
             <td>&nbsp;&nbsp;</td>
             <td>Double-click on the installer to open it.<br/>It may have already been opened by your web browser.</td>
@@ -97,6 +106,7 @@
             <td>&nbsp;&nbsp;</td>
             <td>Follow the instructions of the installer to complete the installation.</td>
         </tr>
+        -->
     </table>
 </p>
 
@@ -115,7 +125,7 @@
 <p>&nbsp;</p>
 
     {% extends "download-verify-file-integrity.html" %}
-        {% block filename %}ApacheDirectoryStudio-win32-x86_64-{{version_studio}}.exe{% endblock %}
+        {% block filename %}ApacheDirectoryStudio-{{version_studio}}-win32.win32.x86_64.zip{% endblock %}
     {% endextends %}
     {% endblock %}
 {% endextends %}

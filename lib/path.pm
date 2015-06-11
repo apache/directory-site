@@ -3,8 +3,8 @@ package path;
 # Versions (for download links)
 our $version_api = "1.0.0-M30";
 our $version_apacheds = "2.0.0-M20";
-our $version_studio = "2.0.0.v20130628";
-our $version_studio_name = "2.0.0-M8";
+our $version_studio = "2.0.0.v20150606-M9";
+our $version_studio_name = "2.0.0-M9";
 our $version_mavibot = "1.0.0-M7";
 our $version_escimo = "1.0.0-M1";
 our $version_fortress = "1.0-RC40";
