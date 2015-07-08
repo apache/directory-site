@@ -1,4 +1,10 @@
-Title: Kerby User's Guide
+Title: 3.2 - kinit
+NavPrev: 3.1-kadmin.html
+NavPrevText: 3.1 - kadmin
+NavUp: 3-tools.html
+NavUpText: 3.1 - tools
+NavNext: 3.3-klist.html
+NavNextText: 3.3 - klist
 Notice: Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
     distributed with this work for additional information
@@ -15,23 +21,13 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
+	
+## 3.2 - kinit
 
-# Kerby User's Guide
+### SYNOPSIS
 
-This guide is primarily for people new to Kerby. It will guide through the concepts and how to use Kerby.
+kinit [-V] [-l lifetime] [-s start_time] [-r renewable_life] [-p | -P] [-f | -F] [-a] [-A] [-C] [-E] [-v] [-R] [-k [-t keytab_file]] [-c cache_name] [-n] [-S service_name] [-I input_ccache] [-T armor_ccache] [-X attribute[=value]] [principal]
 
-## About this guide
+### DESCRIPTION
 
-
-## Table of contents
-
-* [1 - How to begin](user-guide/1-how-to-begin.html)
-* [2 - APIs](user-guide/2-apis.html)
-    * [2.1 - KrbClient APIs](user-guide/2.1-krbclient-apis.html)
-    * [2.2 - Kadmin](user-guide/2.2-kadmin.html)
-    * [2.3 - KdcServer](user-guide/2.3-kdcserver.html)
-    * [2.4 - SimpleKdcServer](user-guide/2.4-simplekdcserver.html)
-* [3 - Tools](user-guide/3-tools.html)
-    * [3.1 - kadmin](user-guide/3.1-kadmin.html)
-    * [3.2 - kinit](user-guide/3.2-kinit.html)
-    * [3.3 - klist](user-guide/3.3-klist.html)
+kinit obtains and caches an initial ticket-granting ticket for principal.

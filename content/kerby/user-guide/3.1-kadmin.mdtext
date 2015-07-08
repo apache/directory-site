@@ -1,4 +1,10 @@
-Title: Kerby User's Guide
+Title: 3.1 - kadmin
+NavPrev: 3-tools.html
+NavPrevText: 3 - tools
+NavUp: 3-tools.html
+NavUpText: 3 - tools
+NavNext: 3.2-kinit.html
+NavNextText: 3.2 - kinit
 Notice: Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
     distributed with this work for additional information
@@ -15,23 +21,31 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
+	
+## 3.1 - kadmin
 
-# Kerby User's Guide
+### SYNOPSIS
 
-This guide is primarily for people new to Kerby. It will guide through the concepts and how to use Kerby.
+kadmin [-O|-N] [-r realm] [-p principal] [-q query] [[-c cache_name]|[-k [-t keytab]]|-n] [-w password] [-s admin_server[:port]]
 
-## About this guide
+### DESCRIPTION
 
+kadmin is command-line interfaces to the Kerberos V5 administration system. kadmin provides for the maintenance of Kerberos principals, password policies, and service key tables (keytabs).
 
-## Table of contents
+### Commands
 
-* [1 - How to begin](user-guide/1-how-to-begin.html)
-* [2 - APIs](user-guide/2-apis.html)
-    * [2.1 - KrbClient APIs](user-guide/2.1-krbclient-apis.html)
-    * [2.2 - Kadmin](user-guide/2.2-kadmin.html)
-    * [2.3 - KdcServer](user-guide/2.3-kdcserver.html)
-    * [2.4 - SimpleKdcServer](user-guide/2.4-simplekdcserver.html)
-* [3 - Tools](user-guide/3-tools.html)
-    * [3.1 - kadmin](user-guide/3.1-kadmin.html)
-    * [3.2 - kinit](user-guide/3.2-kinit.html)
-    * [3.3 - klist](user-guide/3.3-klist.html)
+* add_principal
+
+* modify_principal
+
+* rename_principal
+
+* delete_principal
+
+* change_password
+
+* get_principal
+
+* ktadd
+
+* ktremove
