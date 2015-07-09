@@ -1,10 +1,8 @@
-Title: 3.3 - klist
-NavPrev: 3.2-kinit.html
-NavPrevText: 3.2 - kinit
-NavUp: 3-tools.html
-NavUpText: 3.1 - tools
-NavNext: 4-identity-backend.html
-NavNextText: 4 - Identity Backend
+Title: 6 - Network Support
+NavPrev: 5-crypto-and-encryption-types.html
+NavPrevtext: 5 - Kerberos Crypto and Encryption Types
+NavUp: ../user-guide.html
+NavUpText: User Guide
 Notice: Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
     distributed with this work for additional information
@@ -22,12 +20,11 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
     specific language governing permissions and limitations
     under the License.
 
-# 3.3 - klist
+# 6 - Network Support
 
-### SYNOPSIS
-
-klist [-e] [[-c] [-l] [-A] [-f] [-s] [-a [-n]]] [-C] [-k [-t] [-K]] [-V] [cache_name|keytab_name]
-
-### DESCRIPTION
-
-klist lists the Kerberos principal and Kerberos tickets held in a credentials cache, or the keys held in a keytab file.
+* Include UDP and TCP transport.
+* Default KDC server implementation.
+    * The Networking Classes in the JDK is used.
+* Netty based KDC server implementation.
+    * Netty is an asynchronous event-driven network application framework for rapid development of maintainable high performance protocol servers & clients.
+    * With better throughput, lower latency.
