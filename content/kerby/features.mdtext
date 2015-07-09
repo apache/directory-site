@@ -1,0 +1,64 @@
+Title: Features
+Notice: Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    .
+    http://www.apache.org/licenses/LICENSE-2.0
+    .
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+
+# ApacheDS Features
+
+Apache Kerby is a Java Kerberos binding. It provides a rich, intuitive and interoperable implementation, library, KDC and various facilities that integrates PKI, OTP and token (OAuth2) as desired in modern environments such as cloud, Hadoop and mobile.
+The features are already supported as follows:
+
+* 1.	Kerberos library:
+a)	KrbClient API
+b)	KDC server API
+c)	Kadmin API
+d)	Credential cache and keytab utilities
+
+* 2.	Provides a standalone KDC server .
+
+* 3.	Supports various identity backends including:
+a)	MemoryIdentityBackend
+b)	JsonIdentityBackend
+c)	LdapIdentityBackend
+d)	ZookeeperIdentityBackend
+e)	MavibotBackend.
+
+* 4.	Provides an embedded KDC server named SimpleKdcServer that applications can easily integrate into products, unit tests or integration tests.
+
+* 5.	Supports FAST/Preauthentication framework to allow popular and useful authentication mechanisms.
+
+* 6.	Supports Token Preauth mechanism to allow clients to request tickets using JWT tokens.
+
+* 7.	Client can request a TGT with:
+a)	User plain password credential
+b)	User keyTab
+c)	User token credential
+
+* 8.	Client can request a service ticket with:
+a)	user TGT credential for a server 
+b)	user AccessToken credential for a server 
+
+* 9.	Network support including UDP and TCP transport with two implementations: 
+a)	Default implementation based on the JRE without depending on other libraries.
+b)	Netty based implementation for better throughput, lower latency.
+
+* 10.	Tools:
+a)	kadmin: Command-line interfaces to the Kerby administration system.
+b)	kinit: Obtains and caches an initial ticket-granting ticket for principal.
+c)	klist: Lists the Kerby principal and tickets held in a credentials cache, or the keys held in a keytab file.
+
+* 11.	Provides support for JAAS, GSSAPI and SASL frameworks that applications can leverage the authentication mechanisms provided by Kerby.
+
