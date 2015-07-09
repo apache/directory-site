@@ -1,10 +1,4 @@
-Title: 3.2 - kinit
-NavPrev: 3.1-kadmin.html
-NavPrevText: 3.1 - kadmin
-NavUp: 3-tools.html
-NavUpText: 3.1 - tools
-NavNext: 3.3-klist.html
-NavNextText: 3.3 - klist
+Title: Developer's Guide
 Notice: Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
     distributed with this work for additional information
@@ -21,13 +15,34 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
+
+# Developer's Guide
+
+This is a simple guide to help developers get going.
+
+## Source Repository
+
+To get the source, you will need to have git installed. Just type the following command to get the latest development version:
+
+	git clone https://git-wip-us.apache.org/repos/asf/directory-kerby.git
 	
-# 3.2 - kinit
+## Git Mirror
 
-### SYNOPSIS
+The git repository is mirrored to Github: <https://github.com/apache/directory-kerby/>.
 
-kinit [-V] [-l lifetime] [-s start_time] [-r renewable_life] [-p | -P] [-f | -F] [-a] [-A] [-C] [-E] [-v] [-R] [-k [-t keytab_file]] [-c cache_name] [-n] [-S service_name] [-I input_ccache] [-T armor_ccache] [-X attribute[=value]] [principal]
+## Build
 
-### DESCRIPTION
+    mvn clean package
 
-kinit obtains and caches an initial ticket-granting ticket for principal.
+## Setup Intellij
+
+1. File -> Import Project...
+2. Choose 'directory-kerby' as root directory
+3. Import project from external model -> Maven
+4. Finish
+
+## Issue Tracker
+
+[Jira](https://issues.apache.org/jira/browse/DIRKRB).
+
+
