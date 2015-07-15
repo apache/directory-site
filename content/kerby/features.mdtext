@@ -19,28 +19,28 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 # Kerby Features
 
 Apache Kerby is a Java Kerberos binding. It provides a rich, intuitive and interoperable implementation, library, KDC and various facilities that integrates PKI, OTP and token (OAuth2) as desired in modern environments such as cloud, Hadoop and mobile.
-The features are already supported as follows:
+Following features are (already) supported:
 
-* Kerberos library:
+* Kerberos libraries:
     * KrbClient API
     * KDC server API
     * Kadmin API
     * Credential cache and keytab utilities
 
-* Provides a standalone KDC server.
+* Standalone KDC server
 
-* Supports various identity backends including:
+* Supports for various back-ends:
     * MemoryIdentityBackend
     * JsonIdentityBackend
     * LdapIdentityBackend
     * ZookeeperIdentityBackend
     * MavibotBackend.
 
-* Provides an embedded KDC server named SimpleKdcServer that applications can easily integrate into products, unit tests or integration tests.
+* Embedable KDC server, that can be integrated in applications for production, unit and integration tests.
 
-* Supports FAST/Preauthentication framework to allow popular and useful authentication mechanisms.
+* FAST/Preauthentication framework, to allow popular and useful authentication mechanisms.
 
-* Supports Token Preauth mechanism to allow clients to request tickets using JWT tokens.
+* Token Preauth mechanism, to allow clients to request tickets using JWT tokens.
 
 * Client can request a TGT with:
     * User plain password credential
@@ -60,5 +60,5 @@ The features are already supported as follows:
     * kinit: Obtains and caches an initial ticket-granting ticket for principal.
     * klist: Lists the Kerby principal and tickets held in a credentials cache, or the keys held in a keytab file.
 
-* Provides support for JAAS, GSSAPI and SASL frameworks that applications can leverage the authentication mechanisms provided by Kerby.
+* Support for JAAS, GSSAPI and SASL frameworks, allowing applications to leverage the authentication mechanisms provided by Kerby.
 
