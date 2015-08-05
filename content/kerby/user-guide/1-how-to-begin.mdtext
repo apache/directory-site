@@ -43,19 +43,19 @@ The distribution of Kerby.
 * Run kadmin to add principals:
 
     $ cd kerby-dist/kdc-dist
-    $ sh bin/kadmin.sh [server-conf-dir]
+    $ sh bin/kadmin.sh [server-conf-dir] [-k keytab]
 
   In kadmin, you can type "?" for help.
 
 * Start kerby-kdc-server:
 
     $ cd kerby-dist/kdc-dist
-    $ sh bin/start-kdc.sh start [server-conf-dir] [work-dir]
+    $ sh bin/start-kdc.sh [server-conf-dir] [work-dir]
 
 * Run kinit:
 
     $ cd kerby-dist/tool-dist
-    $ sh bin/kinit.sh [principal-name]
+    $ sh bin/kinit.sh [-conf client-conf-dir] [principal-name]
 	
 * Run klist:
 
@@ -70,7 +70,7 @@ An example of kdc.conf:
     [kdcdefaults]
         kdc_host = localhost
         kdc_tcp_port = 8015
-        kdc_realm = TEST.COM
+        kdc_realm = EXAMPLE.COM
 
 An example of json backend backend.conf:
 
@@ -86,5 +86,6 @@ An example of zookeeper backend backend.conf:
 An example of krb5.conf:
 
     [libdefaults]
-        kdc_realm=TEST.COM
+        kdc_realm = EXAMPLE.COM
+        kdc_tcp_port = 8015
 
