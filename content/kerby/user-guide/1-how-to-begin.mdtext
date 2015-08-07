@@ -40,18 +40,19 @@ The distribution of Kerby.
 
     The admin principal will be exported into [keytab], it will be used by kadmin tool for the authentication. 
 
-* Run kadmin to add principals:
-
-    $ cd kerby-dist/kdc-dist
-    $ sh bin/kadmin.sh [server-conf-dir] [-k keytab]
-
-  In kadmin, you can type "?" for help.
-
 * Start kerby-kdc-server:
 
     $ cd kerby-dist/kdc-dist
     $ sh bin/start-kdc.sh [server-conf-dir] [work-dir]
 
+* Run kadmin to add principals:
+
+    $ cd kerby-dist/kdc-dist
+    $ sh bin/kadmin.sh [server-conf-dir] [-k keytab]
+
+  The keytab file is created by the kdcinit.
+  In kadmin, you can type "?" for help.
+	
 * Run kinit:
 
     $ cd kerby-dist/tool-dist
@@ -75,7 +76,7 @@ An example of kdc.conf:
 An example of json backend backend.conf:
 
     kdc_identity_backend = org.apache.kerby.kerberos.kdc.identitybackend.JsonIdentityBackend
-    backend.json.file = /tmp/kerby/jsonbackend
+    backend.json.dir = /tmp/kerby/jsonbackend
 
 An example of zookeeper backend backend.conf:
 
