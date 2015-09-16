@@ -3,8 +3,8 @@ NavPrev: 4-schema-management.html
 NavPrevText: 4 - Schema Management
 NavUp: 4-schema-management.html
 NavUpText: 4 - Schema Management
-NavNext: 4.2-attrbute-types.html
-NavNextText: 4.2 - AttributeTypes
+NavNext: 4.1.1-schema-manager-introduction..html
+NavNextText: 4.1.1 - Introduction
 Notice: Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
     distributed with this work for additional information
@@ -22,45 +22,41 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
     specific language governing permissions and limitations
     under the License.
 
-# 4.1 - Schema Manager (...)
+# 4.1 - Schema Manager
 
-Apache DS has to keep the schema elements available from all the parts of the server. This is done through what we call the **SchemaManager**. It hides all the internal structure from the users.
+The API and the ApacheDS server have to keep the schema elements available. This is done through what we call the **SchemaManager**. It hides all the internal structure from the users.
 
-## Description
-
-The **SchemaManager** stores all the Schema elements (**[AttributeTypes (e)]()**, **[ObjectClasses (e)]()**, ... Internally, we store those elements into the **Registries**, which are hives where each Schema Objects are stored.
-
-From the user point of view, the **SchemaManager** is seen as a representation of the available schemas. It can of course be extended, or modified, by adding or removing some schema elements.
-
-The server has one instance of a **SchemaManager**, which is used internally, and a user won't control it, in any case. On the client side, we can load a **SchemaManager** either from the server (and then we have a duplicated instance), or from existing schema files. We can even create a brand new **SchemaManager** and fill it with all what we need.
 
 ## Contents
 
-The **SchemaManager** stores all the 11 kind of schema elements :
+* [Introduction](4.1.1-schema-manager-introduction.html)
+* [SchemaObject](4.1.2-schema-object.html)
+  * [AttributeTypes](4.1.2.1-attribute-types.html)
+  * [ObjectClasses](4.1.2.2-object-classes.html)
+  * [Syntaxes](4.1.2.3-syntaxes.html)
+  * [MatchingRules](4.1.2.4-matching-rules.html)
+  * [DITContentRules](4.1.2.5-dit-content-rules.html)
+  * [DITStructureRules](4.1.2.6-dit-structure-rules.html)
+  * [MatchingRuleUses](4.1.2.7-matching-rule-uses.html)
+  * [NameForms](4.1.2.8-name-forms.html)
+  * [ApacheDS Schema Elements](4.1.2.9-apacheds-schema-elements.html)
+* [Registries](4.1.3-registries.html)
+* [SchemaLoader](4.1.4-schema-loader.html)
 
-| Name |
-|---|
-| **[ObjectClasses (e)](4.8-object-classes.html)** |
-| **[AttributeTypes (...)](4.2-attribute-types.html)** |
-| **[Syntaxes (e)](4.9-syntaxes.html)** |
-| **[MatchingRules (e)](4.5-matching-rules.html)** |
-| **[DITContentRules (e)](4.3-dit-content-rules.html)** |
-| **[DITStructureRules (e)](4.4-dit-structure-rules.html)** |
-| **[NameForms (e)](4.7-name-forms.html)** |
-| **[MatchingRuleUses (e)](4.6-matching-rule-uses.html)** |
-| _**[SyntaxChecker (e)]()**_ |
-| _**[Normalizer (e)]()**_ |
-| _**[LdapComparator (e)]()**_ |
+## Getting a SchemaManager
 
-The last three elements are ApacheDS specific.
+The very first thing when you want to have access to the schema elements is to access to the **SchemaManager**. This can be done in many ways :
 
-All those elements have some tight relationships. The following schema expose all the relations between all those elements :
+* you can create one from scratch, and load it with the elements you want
+* you can use a default **SchemaManager**, with some default schema elements
+* you can create a **SchemaManager**, and load the schema elements from a destination
+* last, not least - and probably the most interesting possibility -, you can connect to a LDAP server and load the schema from it.
 
-![](../../images/SchemaObjects.png)
+We will show how to proceed in those four use cases.
 
 
 ## Using a SchemaManager
 
-...
+Let's first assume you have an instance of a **SchemaManager** (we will see later how to get such an instance). 
 
 

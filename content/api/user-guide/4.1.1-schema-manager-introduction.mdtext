@@ -1,0 +1,44 @@
+Title: 4.1.1 - Introduction
+NavPrev: 4.1-schema-manager.html
+NavPrevText: 4.1 - Schema Manager
+NavUp: 4.1-schema-manager.html
+NavUpText: 4.1 - Schema Manager
+NavNext: 4.1.2-registries.html
+NavNextText: 4.1.2 - Registries
+Notice: Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    .
+    http://www.apache.org/licenses/LICENSE-2.0
+    .
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+
+# 4.1.1 - Introduction
+
+The **SchemaManager** stores all the Schema elements (**[AttributeTypes (e)]()**, **[ObjectClasses (e)]()**, ... Internally, we store those elements into what we call the **Registries**, which are hives where each Schema Objects are stored. Each schema element has a dedicated **Registry**. Think of it as a Map which returns a reference to a specific Schema Element when you know it's name or its OID.
+
+    Note : each Schema Element is properly defined by one of its names or its OID. The OID is unique across all the schema elements,
+    when the name can be used in different schema element (for instance, the **audio** AttributeType or ObjectClass)
+
+From the user point of view, the **SchemaManager** is seen as a representation of the available LDAP schema elements. It can of course be extended, or modified, by adding or removing some schema elements. For historic reasons, the schema elements are gathered into what we call a **schema**. Usually, this is what you load into a **schemaManager**
+
+The server has one instance of a **SchemaManager**, which is used internally, and a user won't control it, in any case. On the client side, we can load a **SchemaManager** either from the server (and then we have a duplicated instance), or from existing schema files. We can even create a brand new **SchemaManager** and fill it with all what we need.
+
+## The various pieces of the puzzle...
+
+Creating a **SchemaManager** results in a complex structure to be created, and involves a lot of other helper class to be used. We will separate the description in two groups :
+
+* The elements stored in the **SchemaManager**
+* The classes used to initialize the **SchemaManager**, called the **SchemaLoader** (whch comes in various flavors)
+
+
+
