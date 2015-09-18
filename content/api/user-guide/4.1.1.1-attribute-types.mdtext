@@ -1,10 +1,10 @@
-Title: 4.1.2.1 - AttributeType
-NavPrev: 4.1.2-schema-object.html
-NavPrevText: 4.1.2 - Schema Objects
-NavUp: 4.1.2-schema-object.html
-NavUpText: 4.1.2 - Schema Objects
-NavNext: 4.1.2.2-object-classes.html
-NavNextText: 4.1.2.2 - ObjectClass
+Title: 4.1.1.1 - AttributeTypes
+NavPrev: 4.1.1-schema-objects.html
+NavPrevText: 4.1.1 - Schema Objects
+NavUp: 4.1.1-schema-object.html
+NavUpText: 4.1.1 - Schema Objects
+NavNext: 4.1.1.2-object-classes.html
+NavNextText: 4.1.1.2 - ObjectClasses
 Notice: Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
     distributed with this work for additional information
@@ -22,7 +22,7 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
     specific language governing permissions and limitations
     under the License.
 
-# 4.1.2.1 - AttributeType
+# 4.1.1.1 - AttributeTypes
 
 The **AttributeType** **SchemaObject** expose some extra parameters. Here is the description as found in RFC 4512 :
 
@@ -62,19 +62,18 @@ The follwing methods have been added to cover the ones that are not already pres
 * getSubstring() : returns the **MatchingRule** instance used to match a substring from the **AttributeType**
 * getSubstringName() : returns the name of the SUBSTR **MatchingRule**.
 * getSubstringOid() : returns the OID of the SUBSTR **MatchingRule**.
-* getSuperior()
-* getSuperiorName()
-* getSuperiorOid()
-* getSyntax()
-* getSyntaxLength()
-* getSyntaxName()
-* getSyntaxOid()
-* getUsage()
-* isAncestorOf(AttributeType)
-* isAncestorOrEqual(AttributeType, AttributeType)
-* isCollective()
+* getSuperior() : returns the **AttributeType** instance that this instance inherits from
+* getSuperiorName() : returns the superior **AttributeType**'s name
+* getSuperiorOid() : returns the superior **AttributeType**'s OID
+* getSyntax() : returns the associated **LdapSyntax** instance (or the parent's **AttributeType**'s one)
+* getSyntaxLength() : returns the maximum length for the **AttributeType** value
+* getSyntaxName() : returns the associated **LdapSyntax** instance's name
+* getSyntaxOid() :  returns the associated **LdapSyntax** instance's OID
+* getUsage() : returns the usage (one of (USER_APPLICATIONS, DIRECTORY_OPERATION, DISTRIBUTED_OPERATION and DSA_OPERATION)
+* isAncestorOf(AttributeType) : tells if the **AttributeType** is the superior of another one
+* isCollective() : tells if the **AttributeType** is a collective attribute
 * isDescendantOf(AttributeType)
-* isOperational()
-* isSingleValued()
-* isUser()
-* isUserModifiable()
+* isOperational() : tells if the **AttributeType** is an operational attribute (one of DIRECTORY_OPERATION, DISTRIBUTED_OPERATION and DSA_OPERATION)
+* isSingleValued() : tells if the **AttributeType** only accept single values
+* isUser() : tells if the **AttributeType** is a USER_APPLICATIONS attribute
+* isUserModifiable() : tells if the **AttributeType** is modifiable or not

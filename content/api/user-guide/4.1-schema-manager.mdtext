@@ -3,8 +3,8 @@ NavPrev: 4-schema-management.html
 NavPrevText: 4 - Schema Management
 NavUp: 4-schema-management.html
 NavUpText: 4 - Schema Management
-NavNext: 4.1.1-schema-manager-introduction..html
-NavNextText: 4.1.1 - Introduction
+NavNext: 5-ldap-security.html
+NavNextText: 5 - LDAP Security
 Notice: Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
     distributed with this work for additional information
@@ -29,19 +29,37 @@ The API and the ApacheDS server have to keep the schema elements available. This
 
 ## Contents
 
-* [Introduction](4.1.1-schema-manager-introduction.html)
-* [SchemaObject](4.1.2-schema-object.html)
-  * [AttributeTypes](4.1.2.1-attribute-types.html)
-  * [ObjectClasses](4.1.2.2-object-classes.html)
-  * [Syntaxes](4.1.2.3-syntaxes.html)
-  * [MatchingRules](4.1.2.4-matching-rules.html)
-  * [DITContentRules](4.1.2.5-dit-content-rules.html)
-  * [DITStructureRules](4.1.2.6-dit-structure-rules.html)
-  * [MatchingRuleUses](4.1.2.7-matching-rule-uses.html)
-  * [NameForms](4.1.2.8-name-forms.html)
-  * [ApacheDS Schema Elements](4.1.2.9-apacheds-schema-elements.html)
-* [Registries](4.1.3-registries.html)
-* [SchemaLoader](4.1.4-schema-loader.html)
+* [SchemaObjects](4.1.1-schema-objects.html)
+    * [AttributeTypes](4.1.1.1-attribute-types.html)
+    * [ObjectClasses](4.1.1.2-object-classes.html)
+    * [Syntaxes](4.1.1.3-syntaxes.html)
+    * [MatchingRules](4.1.1.4-matching-rules.html)
+    * [DITContentRules](4.1.1.5-dit-content-rules.html)
+    * [DITStructureRules](4.1.1.6-dit-structure-rules.html)
+    * [MatchingRuleUses](4.1.1.7-matching-rule-uses.html)
+    * [NameForms](4.1.1.8-name-forms.html)
+    * [ApacheDS Schema Elements](4.1.1.9-apacheds-schema-elements.html)
+* [Registries](4.1.2-registries.html)
+* [SchemaLoader](4.1.43-schema-loader.html)
+
+## Introduction
+
+The **SchemaManager** stores all the Schema elements (**[AttributeTypes (e)]()**, **[ObjectClasses (e)]()**, ... Internally, we store those elements into what we call the **Registries**, which are hives where each Schema Objects are stored. Each schema element has a dedicated **Registry**. Think of it as a Map which returns a reference to a specific Schema Element when you know it's name or its OID.
+
+    Note : each Schema Element is properly defined by one of its names or its OID. The OID is unique across all the schema elements,
+    when the name can be used in different schema element (for instance, the **audio** AttributeType or ObjectClass)
+
+From the user point of view, the **SchemaManager** is seen as a representation of the available LDAP schema elements. It can of course be extended, or modified, by adding or removing some schema elements. For historic reasons, the schema elements are gathered into what we call a **schema**. Usually, this is what you load into a **schemaManager**
+
+The server has one instance of a **SchemaManager**, which is used internally, and a user won't control it, in any case. On the client side, we can load a **SchemaManager** either from the server (and then we have a duplicated instance), or from existing schema files. We can even create a brand new **SchemaManager** and fill it with all what we need.
+
+## The various pieces of the puzzle...
+
+Creating a **SchemaManager** results in a complex structure to be created, and involves a lot of other helper class to be used. We will separate the description in three groups :
+
+* The elements stored in the **SchemaManager**
+* The containers in which those **SchemaObject** instances are stored, called **Registries**
+* The classes used to initialize the **SchemaManager**, called the **SchemaLoader** (whch comes in various flavors)
 
 ## Getting a SchemaManager
 
