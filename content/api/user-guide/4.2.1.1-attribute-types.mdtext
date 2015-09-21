@@ -1,10 +1,10 @@
-Title: 4.1.1.1 - AttributeTypes
-NavPrev: 4.1.1-schema-objects.html
-NavPrevText: 4.1.1 - Schema Objects
-NavUp: 4.1.1-schema-object.html
-NavUpText: 4.1.1 - Schema Objects
-NavNext: 4.1.1.2-object-classes.html
-NavNextText: 4.1.1.2 - ObjectClasses
+Title: 4.2.1.1 - AttributeTypes
+NavPrev: 4.2.1-schema-objects.html
+NavPrevText: 4.2.1 - Schema Objects
+NavUp: 4.2.1-schema-object.html
+NavUpText: 4.2.1 - Schema Objects
+NavNext: 4.2.1.2-object-classes.html
+NavNextText: 4.2.1.2 - ObjectClasses
 Notice: Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
     distributed with this work for additional information
@@ -22,7 +22,7 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
     specific language governing permissions and limitations
     under the License.
 
-# 4.1.1.1 - AttributeTypes
+# 4.2.1.1 - AttributeTypes
 
 The **AttributeType** **SchemaObject** expose some extra parameters. Here is the description as found in RFC 4512 :
 
@@ -77,3 +77,5 @@ The follwing methods have been added to cover the ones that are not already pres
 * isSingleValued() : tells if the **AttributeType** only accept single values
 * isUser() : tells if the **AttributeType** is a USER_APPLICATIONS attribute
 * isUserModifiable() : tells if the **AttributeType** is modifiable or not
+
+What is important to know is that an **AttributeType** may inherit some characteristics from a **SUP** **AttributeType**. For instance, the **Syntax**, **MatchingRules**, etc. In any case, if you don't define the specific characteristics for a give **AttributeType**, they will be inherited from its parent, if there is one.

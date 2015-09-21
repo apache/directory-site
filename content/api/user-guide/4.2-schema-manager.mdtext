@@ -1,10 +1,10 @@
-Title: 4.1.1 - Introduction
-NavPrev: 4.1-schema-manager.html
-NavPrevText: 4.1 - Schema Manager
-NavUp: 4.1-schema-manager.html
-NavUpText: 4.1 - Schema Manager
-NavNext: 4.1.2-registries.html
-NavNextText: 4.1.2 - Registries
+Title: 4.2 - Schema Manager
+NavPrev: 4.1-schema.html
+NavPrevText: 4.1 - Schema
+NavUp: 4-schema-management.html
+NavUpText: 4 - Schema Management
+NavNext: 5-ldap-security.html
+NavNextText: 5 - LDAP Security
 Notice: Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
     distributed with this work for additional information
@@ -22,7 +22,27 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
     specific language governing permissions and limitations
     under the License.
 
-# 4.1.1 - Introduction
+# 4.2 - Schema Manager
+
+The API and the ApacheDS server have to keep the schema elements available. This is done through what we call the **SchemaManager**. It hides all the internal structure from the users.
+
+
+## Contents
+
+* [SchemaObjects](4.2.1-schema-objects.html)
+    * [AttributeTypes](4.2.1.1-attribute-types.html)
+    * [ObjectClasses](4.2.1.2-object-classes.html)
+    * [Syntaxes](4.2.1.3-syntaxes.html)
+    * [MatchingRules](4.2.1.4-matching-rules.html)
+    * [DITContentRules](4.2.1.5-dit-content-rules.html)
+    * [DITStructureRules](4.2.1.6-dit-structure-rules.html)
+    * [MatchingRuleUses](4.2.1.7-matching-rule-uses.html)
+    * [NameForms](4.2.1.8-name-forms.html)
+    * [ApacheDS Schema Elements](4.2.1.9-apacheds-schema-elements.html)
+* [Registries](4.2.2-registries.html)
+* [SchemaLoader](4.2.43-schema-loader.html)
+
+## Introduction
 
 The **SchemaManager** stores all the Schema elements (**[AttributeTypes (e)]()**, **[ObjectClasses (e)]()**, ... Internally, we store those elements into what we call the **Registries**, which are hives where each Schema Objects are stored. Each schema element has a dedicated **Registry**. Think of it as a Map which returns a reference to a specific Schema Element when you know it's name or its OID.
 
@@ -35,10 +55,26 @@ The server has one instance of a **SchemaManager**, which is used internally, an
 
 ## The various pieces of the puzzle...
 
-Creating a **SchemaManager** results in a complex structure to be created, and involves a lot of other helper class to be used. We will separate the description in two groups :
+Creating a **SchemaManager** results in a complex structure to be created, and involves a lot of other helper class to be used. We will separate the description in three groups :
 
 * The elements stored in the **SchemaManager**
+* The containers in which those **SchemaObject** instances are stored, called **Registries**
 * The classes used to initialize the **SchemaManager**, called the **SchemaLoader** (whch comes in various flavors)
 
+## Getting a SchemaManager
+
+The very first thing when you want to have access to the schema elements is to access to the **SchemaManager**. This can be done in many ways :
+
+* you can create one from scratch, and load it with the elements you want
+* you can use a default **SchemaManager**, with some default schema elements
+* you can create a **SchemaManager**, and load the schema elements from a destination
+* last, not least - and probably the most interesting possibility -, you can connect to a LDAP server and load the schema from it.
+
+We will show how to proceed in those four use cases.
+
+
+## Using a SchemaManager
+
+Let's first assume you have an instance of a **SchemaManager** (we will see later how to get such an instance). 
 
 
