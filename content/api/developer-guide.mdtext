@@ -18,7 +18,7 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 # Developer Guide
 
-This guide is intened tio be read by those who participate into the development of the LDAP API. Users of the API are expected to read the [User guide](user-guide.html).
+This guide is intened to be read by those who participate into the development of the LDAP API. Users of the API are expected to read the [User guide](user-guide.html).
 
 ## Getting the source, Building the trunks
 To get the source, build the *trunks/shared* and get along with Maven.
@@ -337,13 +337,14 @@ Go to [https://repository.apache.org/index.html#stagingRepositories](https://rep
 
 Move the distribution packages (sources and binaries) to the dist SVN repository: https://dist.apache.org/repos/dist/release/directory/api/dist/$(version)
 
-The best solution would be to checkout the directory in people.apache.org, to copy the packages in the right place, and to check in the changes :
+The best solution would be to checkout the directory in people.apache.org, to copy the packages in the right place, and to check in the changes (we assume you have a dist-all/api directory in your home directory. if not, create it) :
 
     $ ssh people.apache.org
-    # svn co https://dist.apache.org/repos/dist/release/directory/api/dist/ api-dist
-    # cd api-dist
+    # cd dist-all/api
+    # svn co https://dist.apache.org/repos/dist/release/directory/api/dist/ dist
+    # cd dist
     # mkdir <version>
-    # cp ../public_html/ldap-api-<version>/* <version>
+    # cp ~/public_html/ldap-api-<version>/* <version>
     # svn add <version>
     # svn ci <version>
     ...
@@ -431,7 +432,7 @@ There are a few places to modify :
 
 * /lib/path.pm : update the $version_api variable with the new version.
 * /content/index.mdtext : same here, update the <!-- LDAP API project --> section, which contains the version.
-* /content/api/news.mdtext : add the news on top of thise page
+* /content/api/news.mdtext : add the news on top of this page
 * /content/api/download-old-versions.mdtext : add a new line on top of the array, which refers to the latest version before the new one
 
 Commit the changes, and publish the web site, you are done !
