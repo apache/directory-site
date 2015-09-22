@@ -1,7 +1,6 @@
 {% extends "kerby/page.html" %}
-{% extends "kerby/page.html" %}
     {% block content %}
-<h1>Downloads of Archive packages</h1>
+<h1>Downloads for Archive</h1>
 
 <p>
     [if-any logo]
@@ -17,20 +16,20 @@
         <table width="100%" class="noBorder">
             <tr>
                 <td>
-                    <a href="[preferred]/directory/kerby/dist/{{version_kerby}}/apache-kerby-{{version_kerby}}-bin.zip">
+                    <a href="[preferred]/directory/kerby/dist/{{version_kerby}}/apache-kerby-{{version_kerby}}-src.zip">
                         <img src="{{base}}images/download.png" width="32" height="32" border="0"/>
                     </a>
                 </td>
                 <td>&nbsp;</td>
                 <td>
-                    <a href="[preferred]/directory/kerby/dist/{{version_kerby}}/apache-kerby-{{version_kerby}}-bin.zip">
+                    <a href="[preferred]/directory/kerby/dist/{{version_kerby}}/apache-kerby-{{version_kerby}}-src.zip">
                         <strong>
-                            [preferred]/&#91;...&#93;/apache-kerby-{{version_kerby}}-bin.zip
+                            [preferred]/&#91;...&#93;/apache-kerby-{{version_kerby}}-src.zip
                         </strong>
                     </a>
                 </td>
                 <td align="right">
-                    [<a href="http://archive.apache.org/dist/directory/kerby/dist/{{version_kerby}}/apache-kerby-{{version_kerby}}-bin.zip.asc">ASC</a>-<a href="http://archive.apache.org/dist/directory/kerby/dist/{{version_kerby}}/apache-kerby-{{version_kerby}}-bin.zip.md5">MD5</a>]
+                    [<a href="http://archive.apache.org/dist/directory/kerby/dist/{{version_kerby}}/apache-kerby-{{version_kerby}}-src.zip.asc">ASC</a>-<a href="http://archive.apache.org/dist/directory/kerby/dist/{{version_kerby}}/apache-kerby-{{version_kerby}}-src.zip.md5">MD5</a>]
                 </td>
             </tr>
         </table>
@@ -44,20 +43,20 @@
         <table width="100%" class="noBorder">
             <tr>
                 <td>
-                    <a href="[preferred]/directory/kerby/dist/{{version_kerby}}/apache-kerby-{{version_kerby}}-bin.tar.gz">
+                    <a href="[preferred]/directory/kerby/dist/{{version_kerby}}/apache-kerby-{{version_kerby}}-src.tar.gz">
                         <img src="{{base}}images/download.png" width="32" height="32" border="0"/>
                     </a>
                 </td>
                 <td>&nbsp;</td>
                 <td>
-                    <a href="[preferred]/directory/kerby/dist/{{version_kerby}}/apache-kerby-{{version_kerby}}-bin.tar.gz">
+                    <a href="[preferred]/directory/kerby/dist/{{version_kerby}}/apache-kerby-{{version_kerby}}-src.tar.gz">
                         <strong>
-                            [preferred]/&#91;...&#93;/apache-kerby-{{version_kerby}}-bin.tar.gz
+                            [preferred]/&#91;...&#93;/apache-kerby-{{version_kerby}}-src.tar.gz
                         </strong>
                     </a>
                 </td>
                 <td align="right">
-                    [<a href="http://archive.apache.org/dist/directory/kerby/dist/{{version_kerby}}/apache-kerby-{{version_kerby}}-bin.tar.gz.asc">ASC</a>-<a href="http://archive.apache.org/dist/directory/kerby/dist/{{version_kerby}}/apache-kerby-{{version_kerby}}-bin.tar.gz.md5">MD5</a>]
+                    [<a href="http://archive.apache.org/dist/directory/kerby/dist/{{version_kerby}}/apache-kerby-{{version_kerby}}-src.tar.gz.asc">ASC</a>-<a href="http://archive.apache.org/dist/directory/kerby/dist/{{version_kerby}}/apache-kerby-{{version_kerby}}-src.tar.gz.md5">MD5</a>]
                 </td>
             </tr>
         </table>
@@ -71,7 +70,7 @@
 <p>&nbsp;</p>
 
     {% extends "download-verify-file-integrity.html" %}
-        {% block filename %}apache-kerby-{{version_kerby}}-bin.zip{% endblock %}
+        {% block filename %}apache-kerby-{{version_kerby}}-src.zip{% endblock %}
     {% endextends %}
     {% endblock %}
 {% endextends %}
