@@ -1,4 +1,51 @@
 # News
+<h2 class="news">Apache Directory LDAP API 1.0.0-M32 released <em>posted on October 19th, 2015</em></h2>
+
+The Apache Directory Team is proud to announce the availability of version 1.0.0-M32 of the Apache Directory LDAP API.
+
+The Apache Directory LDAP API is an ongoing effort to provide an enhanced LDAP API, as a replacement for JNDI and the existing LDAP API (jLdap and Mozilla LDAP API).
+
+This is a schema aware API, with some convenient ways to access a LDAP server. This API is not only targeting the Apache Directory Server, but should work pristine with any LDAP server.
+
+It's also an extensible API : new Controls, schema elements and network layer could be added or used in the near future. It's also OSGi capable.
+
+Another bug fix release, with some huge modifications in the way we handle Values. The SchemaManager is now propagated down to the Ava and Value classes, which causes many tests to have been fixed.
+
+We have added a LdifAnonymizer that can swallow a Ldif File and replace the values with a random text.
+
+We also have spent some time fixing many checkstyle violations.
+
+Here is the list of fixed issues and added features :
+
+<b>Bugs :</b>
+
+  * [DIRAPI-90](https://issues.apache.org/jira/browse/DIRAPI-90) - IllegalArgumentException: factory thrown when creating LdapNetworkConnection inside OSGi
+  * [DIRAPI-114](https://issues.apache.org/jira/browse/DIRAPI-114) - Reconsider interfaces and base classes for Registries
+  * [DIRAPI-118](https://issues.apache.org/jira/browse/DIRAPI-118) - Use JUnit TemporaryFolder Rule
+  * [DIRAPI-219](https://issues.apache.org/jira/browse/DIRAPI-219) - DateUtils.toGeneralizedTime does not work with some Locales
+  * [DIRAPI-241](https://issues.apache.org/jira/browse/DIRAPI-241) - new GeneralizedTime(String) fails for fraction close to one
+  * [DIRAPI-246](https://issues.apache.org/jira/browse/DIRAPI-246) - Error in parsing LDIF file
+  * [DIRAPI-252](https://issues.apache.org/jira/browse/DIRAPI-252) - Compiling warnings while api-all is in dependencies
+  * [DIRAPI-253](https://issues.apache.org/jira/browse/DIRAPI-253) - The AVA class is not handling correctly the values wrt the SchemaManager
+  * [DIRAPI-254](https://issues.apache.org/jira/browse/DIRAPI-254) - Value<?> don't have a apply(AttributeType) method
+  * [DIRAPI-255](https://issues.apache.org/jira/browse/DIRAPI-255) - An escaped space at the end of a RDN will not be kept due to a bug in the ComplexDNParser
+
+<b>Task :</b>
+
+  * [DIRAPI-251](https://issues.apache.org/jira/browse/DIRAPI-251) - Fix violations of coding standards and enable checkstyle check
+
+<b>New Feature :</b>
+
+  * [DIRAPI-250](https://issues.apache.org/jira/browse/DIRAPI-250) - Add a way to Anonymize a LDIF file
+
+<b>Question :</b>
+
+  * [DIRAPI-191](https://issues.apache.org/jira/browse/DIRAPI-191) - How to get attributes list according to objectClass
+
+
+Downloads are available [here](downloads.html) and the User's Guide is [there](user-guide.html)
+
+# News
 <h2 class="news">Apache Directory LDAP API 1.0.0-M31 released <em>posted on July 5th, 2015</em></h2>
 
 The Apache Directory Team is proud to announce the availability of version 1.0.0-M31 of the Apache Directory LDAP API.
