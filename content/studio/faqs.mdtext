@@ -24,22 +24,10 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 Studio currentlly is translated in three languages: English (en), French (fr) and German (de). When starting Studio, the language setting of your operation system is used to determine the language of Studio (On linux, the LC_CTYPE environment variable is used to determinate the default language). 
 
-However it is possible to force another language:
+However it is possible to force another language. Add the following content to the _ApacheDirectoryStudio.ini_ file:
 
-* The first option is to start Apache Directory Studio with the following command line parameters:
-
-    * On Linux:
-
-            ./ApacheDirectoryStudio -nl en
-
-    * On Windows:
-
-            "Apache Directory Studio.exe" -nl en
-
-* The second option is to create a file _Apache Directory Studio.ini_ (for Windows) or _ApacheDirectoryStudio.ini_ (for Mac OS X and Linux) in Studio's installation directory (for Mac OS X the correct location is _Apache Directory Studio/Contents/MacOS_) with the following content:
-
-        -nl
-        en
+    -nl
+    en
 
 Please notice the line break between -nl and the language.
 
@@ -52,47 +40,34 @@ Studio uses a client-side count limit when browsing the DIT. This limit is defin
 
 ### How to set the Java VM to use?
 
-* The first option is to start Apache Directory Studio with the following command line parameters:
+Add the following content to _ApacheDirectoryStudio.ini_ file:
 
-    * On Linux:
-
-            ./ApacheDirectoryStudio -vm <path to java executable>
-
-    * On Windows:
-    
-            "Apache Directory Studio.exe" -vm <path to java executable>
-
-* The second option is to create a file _Apache Directory Studio.ini_ (for Windows) or _ApacheDirectoryStudio.ini_ (for Mac OS X and Linux) in Studio's installation directory (for Mac OS X the correct location is _Apache Directory Studio/Contents/MacOS_) with the following content:
-    
-        -vm
-        <path to java executable>
+    -vm
+    <path to java executable>
 
 Please notice the line break between -vm and the path.
+
+Mac OS X notes:
+* You need to install the JDK (Java Development Kit), the JRE is not enough!
+* You can find out the Java home directories with `/usr/libexec/java_home -V`, append `/bin/java` to the path
 
 
 ### How to increase the heap memory?
 
-* The first option is to start Apache Directory Studio with the following command line parameters:
-
-    * On Linux:
-            
-            ./ApacheDirectoryStudio -vmargs -Xms128m -Xmx512m -XX:PermSize=128m
-            -XX:MaxPermSize=128m
-            
-    * On Windows:
-            
-            "Apache Directory Studio.exe" -vmargs -Xms128m -Xmx512m -XX:PermSize=128m
-            -XX:MaxPermSize=128m
-
-* The second option is to create a file _Apache Directory Studio.ini_ (for Windows) or _ApacheDirectoryStudio.ini_ (for Mac OS X and Linux) in Studio's installation directory (for Mac OS X the correct location is _Apache Directory Studio/Contents/MacOS_) with the following content:
+Add the following content to _ApacheDirectoryStudio.ini_ file:
 
         -vmargs
-        -Xms128m/
+        -Xms128m
         -Xmx512m
-        -XX:PermSize=128m
-        -XX:MaxPermSize=128m
-        
+
 Please notice the line breaks.
+
+
+### Location of `ApacheDirectoryStudio.ini` file
+
+* On Linux: in the installation folder
+* On Mac OS X: `/Applications/ApacheDirectoryStudio.app/Contents/ApacheDirectoryStudio.ini`
+* On Windows: in the installation folder
 
 
 ### Location of Apache Directory Studio settings
@@ -118,5 +93,4 @@ The file containing the history of search settings (recently used DNs, filters, 
 There are some more _dialog_settings.xml_ files in the other plugins directories.
 
 Note: the location of the settings directory could be configured by changing the parameter "osgi.instance.area.default" in configuration/config.ini.
-
 
