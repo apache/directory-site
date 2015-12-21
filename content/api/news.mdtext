@@ -1,4 +1,33 @@
 # News
+<h2 class="news">Apache Directory LDAP API 1.0.0-M33 released <em>posted on December 21th, 2015</em></h2>
+
+The Apache Directory Team is proud to announce the availability of version 1.0.0-M33 of the Apache Directory LDAP API.
+
+The Apache Directory LDAP API is an ongoing effort to provide an enhanced LDAP API, as a replacement for JNDI and the existing LDAP API (jLdap and Mozilla LDAP API).
+
+This is a schema aware API, with some convenient ways to access a LDAP server. This API is not only targeting the Apache Directory Server, but should work pristine with any LDAP server.
+
+It's also an extensible API : new Controls, schema elements and network layer could be added or used in the near future. It's also OSGi capable.
+
+A bug fix releases. We have an improved version of the Ldif anonymizer that handles Change records, and a few other fixes (OID handling...)
+
+
+Here is the list of fixed issues and added features :
+
+<b>Bugs :</b>
+
+  * [DIRAPI-245](https://issues.apache.org/jira/browse/DIRAPI-245) - LdifUtils.convertToLdif(LdifEntry, int) does not honor the 'length' parameter fully
+  * [DIRAPI-258](https://issues.apache.org/jira/browse/DIRAPI-258) - Add support for the Microsoft LDAP server show deleted objects control
+  * [DIRAPI-260](https://issues.apache.org/jira/browse/DIRAPI-260) - OID can't process nodes which are bigger than a long
+  * [DIRAPI-261](https://issues.apache.org/jira/browse/DIRAPI-261) - OID don't encode correctly joint-iso-itu-t arcs
+  * [DIRAPI-262](https://issues.apache.org/jira/browse/DIRAPI-262) - misleading message "The matched Dn should not be set when the result code is one of..."
+
+<b>Task :</b>
+
+  * [DIRAPI-257](https://issues.apache.org/jira/browse/DIRAPI-257) - Fix usage of default charset|locale|timezone and enable forbiddenapis check
+
+Downloads are available [here](downloads.html) and the User's Guide is [there](user-guide.html)
+
 <h2 class="news">Apache Directory LDAP API 1.0.0-M32 released <em>posted on October 19th, 2015</em></h2>
 
 The Apache Directory Team is proud to announce the availability of version 1.0.0-M32 of the Apache Directory LDAP API.
