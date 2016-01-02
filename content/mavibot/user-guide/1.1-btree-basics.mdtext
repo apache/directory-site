@@ -26,13 +26,15 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 A **B-tree** is a "tree data structure that keeps data sorted and allows searches, sequential access, insertions, and deletions in logarithmic time." (see [Wikipedia](http://en.wikipedia.org/wiki/B-tree))
 
-The important point here is the last one : it guarantees **O(logn)** operations, compared to any other data structures (a hashed data structure offers **O(n)** average operations, but can degenerate to **O(n2)**, and ordering is not kept. But there is more : by gathering N elements in a page, which leads to  more comparisons than necessary, but still save a lot of disk accesses, as those comparison will be done in memory when a page is fully loaded. That's the reason for **B-trees** to have been invented. 
+The important point here is the last one : it guarantees **O(logn)** operations, compared to any other data structures (a hashed data structure offers **O(n)** average operations, but can degenerate to **O(n2)**, and ordering is not kept). Although it would be optimal to keep only 2 elements in each node, it's way better from a performance point of view to keep more than 2 elements in each node, even if it leads to more comparison than strictly necessary. The reason is that reading a fixed size from disk is better than reading only what we need (considering that a disk access is 3 to 4 orders of magnitude slower than RAM access, it's always a good idea to cache pages in memory, rather than read data from the disk over and over. And these 3 to 4 orders of magnitude is for SSD... For spinning disks, we are more in the 4 to 5 orders of magnitude !)
+
+Add to that the fact that when *B-tree* were invented, data were stored on magnetic tapes, with a pure sequential access. Reading data sequentially made sense, and reading a block of data was the way to go - thus the page was meant to store more than 2 elements -.
 
 **B-trees** are everywhere : databases, OS, etc. It's a critical data structure when you are to deal with a large set of data.
 
 1.1.1 - Inside a B-tree
 
-A **B-Tree** contains **Nodes** and **Leaves**. A *Node* points to other **Nodes** or **Leaves**. Both **Nodes** and **Leaves** have **Keys** that are associated with *Values*. **Keys** are not copied in many pages, they just appear once in the whole **B-tree**.
+A **B-Tree** contains **Nodes** and **Leaves**. A *Node* points to other **Nodes** or **Leaves**. **Nodes** contain only **keys** and references to child **nNodes**, when **Leaves** have **Keys** that are associated with **Values**. The **Nodes**' **Keys* are used to find the right child that will ultimately contain the **Value** we are looking for (if it's present)
 
 Pretty simple !
 
@@ -42,11 +44,13 @@ A few more rules are enforced :
 * A **Node** and a **Leaf** contains up to N values (N being generally a power of 2, so 2, 4, 8, 16...).
 * You can't have less than N/2 **Values** or **keys** in a **Leaf** or a **Node**, except for the root **Node**.
 
-
+The second rule allows the **B-tree** to have only one **Leaf**, when up to **N** elements are to be stored. If we want to store one mor element, then the root **Leaf** will be split and the elements will be spread equally in two **Leaves**, with a root **Node$* containing references on those two **Leaves**.
 
 1.1.2 - Concurrent access
 
 The real problem with **B-tree**s is that we need to use some locks to allow concurrent access to the data, especially when some updates occur. The rationale is that when browsing a **B-tree**, changing it will just break the browse operation. There are some technics to avoid having such an issue, up to a point no read locks are needed, assuming some extra information is added to the pages : a pointer to the next page at the same level. Sadly, it comes with drawbacks, like it's difficult to remove empty pages from the **B-tree**.
+
+What we want is a way to guarantee that many users can read data from the **B-tree**, even while the **B-tree** is being updated. Of course, that will heavily favor reads over writes, as writes will have to be serialized, but in many cases, this is a comfortable trade we are ready to make.
 
 
 

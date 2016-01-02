@@ -32,21 +32,21 @@ You have many different flavors of **B-trees** :
 * MVCC B-tree
 
 
-## 2.1 - B+tree
+## B+tree
 
 This is a **B-tree** which does not store values in the **Nodes**, and a link between **Leaves** is added, to speed up the browsing : no need to go up to the parent's node to get the next value when reaching the end of a leaf. Also the **nodes** don't contain values.
 
-## 2.2 - B*tree
+## B*tree
 
 A slightly different form of **B+tree**, where the number of elements per page is enforced to be at leat 2/3rd of the maximum numbers of elements the page can hold. It speeds up the retrieval of elements a bit, as we have a denser tree.
 
-## 2.3 - Counted B-tree
+## Counted B-tree
 
 Another slightly different implementation of a **B+tree**, where the number of elements stored in the descendants is stored within each key. This allows an easy count of elements on the left and right to any element, at the price of additional piece of information being added on each page.
 
-## 2.4 - MVCC B-tree
+## MVCC B-tree
 
-This is a new 'style' of **B+tree**, where the structure is exactly the same than a simple **B+tree**, except that we keep old versions alive, until nobody use them. The idea is that a new revision of the **B+tree** is added only when the updates are fully done. This has the extremely intersting characteristic that there is no need of locks for read and writes, assuming that writes are not concurrent (they are serialized).
+This is a new 'style' of **B+tree**, where the structure is exactly the same than a simple **B+tree**, except that we keep old versions alive, until nobody use them. The idea is that a new revision of the **B+tree** is added only when an update is fully done. This has the extremely intersting characteristic that there is no need of locks for read and writes, assuming that writes are not concurrent (they are serialized).
 
 In other words, you may have many reads at the same time, still being able to update the data.
 
