@@ -1,5 +1,26 @@
 # News
 
+<h2 class="news">Apache Directory Studio 2.0-0-M10 released <em>posted on January 2nd, 2016</em></h2>
+
+The Apache Directory Team is pleased to announce the release of Apache Directory Studio 2.0.0-M10, the next milestone release of the version 2.0 of its Eclipse based LDAP Browser and Directory client.
+
+You can download Apache Directory Studio 2.0.0-M10 as a standalone RCP application for Mac OS X, Linux and Windows here: <http://directory.apache.org/studio/downloads.html>
+
+You can also install it directly in Eclipse using this update site: <http://directory.apache.org/studio/update/>
+
+Note: This version fixes a security issue (CVE-2015-5349) discovered by Muhammad Shahmeer Amir. The CSV export didn’t escape the fields properly. Malicious users can put specially crafted values into the LDAP server. When a user exports that data into CSV formatted file, and subsequently opens it with a spreadsheet application, the data is interpreted as a formula and executed. Users should upgrade to Apache Directory Studio 2.0.0-M10.
+
+Here are the release notes for Apache Directory Studio 2.0.0-M10:
+
+* CVE-2015-5349 - Command Injection through LDAP CSV export
+* [DIRSTUDIO-1060](https://issues.apache.org/jira/browse/DIRSTUDIO-1060) - Exported OpenLDAP schema has syntax errors
+* [DIRSTUDIO-1061](https://issues.apache.org/jira/browse/DIRSTUDIO-1061) - RawSchemaDefinition always shows single hyphen/dash (empty) for attributes or classes
+* [DIRSTUDIO-1068](https://issues.apache.org/jira/browse/DIRSTUDIO-1068) - Bundles are not resolved on Eclipse Mars
+* [DIRSTUDIO-1077](https://issues.apache.org/jira/browse/DIRSTUDIO-1077) - Logging for embedded ApacheDS servers broken (log4j.properties is deleted)
+* [DIRSTUDIO-1079](https://issues.apache.org/jira/browse/DIRSTUDIO-1079) - Creating a new entry using an existing one fails because teh entryCSN at is being copied
+* [DIRSTUDIO-1065](https://issues.apache.org/jira/browse/DIRSTUDIO-1065) - Have a better error message when the java version is wrong
+
+
 <h2 class="news">Apache Directory Studio 2.0-0-M9 released <em>posted on June 11th, 2015</em></h2>
 
 The Apache Directory Team is pleased to announce the release of Apache Directory Studio 2.0.0-M9, the ninth milestone release of the version 2.0 of its Eclipse based LDAP Browser and Directory client.
