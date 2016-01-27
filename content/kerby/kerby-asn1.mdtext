@@ -24,31 +24,30 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 ### A ASN1 parser with easy and simple API
 
-```
-// encoding
-Asn1Integer aValue = new Asn1Integer(8899);
-byte[] encoded = aValue.encode();
+    // encoding
+    Asn1Integer aValue = new Asn1Integer(8899);
+    byte[] encoded = aValue.encode();
 
-// decoding
-byte[] contentToDecode = ...
-Asn1Integer decodedValue = new Asn1Integer();
-decodedValue.decode(contentToDecode);
-Integer value = decodedValue.getValue();
-```
+    // decoding
+    byte[] contentToDecode = ...
+    Asn1Integer decodedValue = new Asn1Integer();
+    decodedValue.decode(contentToDecode);
+    Integer value = decodedValue.getValue();
+
 
 ### Data-driven ASN1 encoding/decoding framework and parser
 
 With the following definition from Kerberos protocol
-```
- AuthorizationData ::= SEQUENCE OF SEQUENCE {
-     ad-type         [0] Int32,
-     ad-data         [1] OCTET STRING
- }
- ```
+
+    AuthorizationData ::= SEQUENCE OF SEQUENCE {
+         ad-type         [0] Int32,
+         ad-data         [1] OCTET STRING
+     }
+
 
 You can model AuthzDataEntry as follows
-```java
-public class AuthorizationDataEntry extends KrbSequenceType {
+
+    public class AuthorizationDataEntry extends KrbSequenceType {
     /**
      * The possible fields
      */
@@ -116,51 +115,50 @@ public class AuthorizationDataEntry extends KrbSequenceType {
     public void setAuthzData(byte[] authzData) {
         setFieldAsOctets(AuthorizationDataEntryField.AD_DATA, authzData);
     }
-}
-```
+    }
 
 And then define AuthorizationData simply
-```java
-public class AuthorizationData extends KrbSequenceOfType<AuthorizationDataEntry> {
 
-}
-```
+    public class AuthorizationData extends KrbSequenceOfType<AuthorizationDataEntry> {
+
+    }
+
 
 Then you can process with above definitions, encode and decode, without caring about the details.
 
 Think about how to implement the following more complex and pratical sample from [ITU-T Rec. X.680 ISO/IEC 8824-1](http://www.itu.int/ITU-T/studygroups/com17/languages/X.690-0207.pdf):
-```
-A.1 ASN.1 description of the record structure
-The structure of the hypothetical personnel record is formally described below using ASN.1 specified in
-ITU-T Rec. X.680 | ISO/IEC 8824-1 for defining types.
 
-PersonnelRecord ::= [APPLICATION 0] IMPLICIT SET {
-    Name Name,
-    title [0] VisibleString,
-    number EmployeeNumber,
-    dateOfHire [1] Date,
-    nameOfSpouse [2] Name,
-    children [3] IMPLICIT
-    SEQUENCE OF ChildInformation DEFAULT {}
-}
+    A.1 ASN.1 description of the record structure
+    The structure of the hypothetical personnel record is formally described below using ASN.1 specified in
+    ITU-T Rec. X.680 | ISO/IEC 8824-1 for defining types.
 
-ChildInformation ::= SET {
-    name Name,
-    dateOfBirth [0] Date
-}
+    PersonnelRecord ::= [APPLICATION 0] IMPLICIT SET {
+        Name Name,
+        title [0] VisibleString,
+        number EmployeeNumber,
+        dateOfHire [1] Date,
+        nameOfSpouse [2] Name,
+        children [3] IMPLICIT
+        SEQUENCE OF ChildInformation DEFAULT {}
+    }
 
-Name ::= [APPLICATION 1] IMPLICIT SEQUENCE {
-    givenName VisibleString,
-    initial VisibleString,
-    familyName VisibleString
-}
+    ChildInformation ::= SET {
+        name Name,
+        dateOfBirth [0] Date
+    }
+
+    Name ::= [APPLICATION 1] IMPLICIT SEQUENCE {
+        givenName VisibleString,
+        initial VisibleString,
+        familyName VisibleString
+    }
 
 EmployeeNumber ::= [APPLICATION 2] IMPLICIT INTEGER
 Date ::= [APPLICATION 3] IMPLICIT VisibleString -- YYYYMMDD
 ```
 Similarly as above, we can have (from the unit test codes):
-```java
-public class PersonnelRecord extends Asn1TaggingSet {
+
+    public class PersonnelRecord extends Asn1TaggingSet {
     protected enum PersonnelRecordField implements EnumType {
         NAME,
         TITLE,
@@ -374,8 +372,8 @@ public class PersonnelRecord extends Asn1TaggingSet {
             this(null);
         }
     }
-}
-```
+    }
+
 ### Asn1 API and parsing/dumping facilities
 * ASN1 dumping tool to help analyze ASN1 encoding stream or packet. It can be used to exercise the framework with all kinds of testing binary inputs.
 * The shortcut API for ASN1 parser, encoding, decoding.
