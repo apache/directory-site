@@ -25,14 +25,21 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 # 2.2 - Kadmin
 Server side admin facilities.
 
-### Initiate a Kadmin
-* Initiate a Kadmin with confDir.
+
+
+## Local mode
+### Initiate a LocalKadminImpl
+* Initiate a LocalKadminImpl with prepared KdcConfig and BackendConfig.
 <pre>
-Kadmin kadmin = new Kadmin(confDir);
+LocalKadmin kadmin = new LocalKadminImpl(kdcConfig, backendConfig);
 </pre>
-* Initiate a Kadmin with kdcSetting and backend.
+* Initiate a LocalKadmin with confDir.
 <pre>
-Kadmin kadmin = new Kadmin(kdcSetting, backend);
+LocalKadmin kadmin = new LocalKadminImpl(confDir);
+</pre>
+* Initiate a LocalKadmin with kdcSetting and backend.
+<pre>
+LocalKadmin kadmin = new LocalKadminImpl(kdcSetting, backend);
 </pre>
 
 ### Principal operating
@@ -80,4 +87,5 @@ updatePassword(principal, newPassword);
 <pre>
 exportKeyTab(keyTabFile);
 </pre>
+
 
