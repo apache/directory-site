@@ -40,7 +40,8 @@ ApacheDS support a list of standard LDAP operational attributes, plus a few that
 
 Those operational attributes are stored in the **RootDSE**, and global to the server. They can't be modified by a user.
 
-|| Attribute name || Type || Category || Description ||
+| Attribute name | Type | Category | Description |
+|---|---|---|---|
 | vendorName | DSA OPERATION | Standard  | RFC3045: name of implementation vendor |
 | vendorVersion | DSA OPERATION | Standard  | RFC3045: version of implementation |
 | entryTtl | DSA OPERATION | Standard  | RFC2589: entry time-to-live |
@@ -58,7 +59,8 @@ Those operational attributes are stored in the **RootDSE**, and global to the se
 
 Those are attributes related to an entry, carrying some additional information about it
 
-|| Attribute name || Type || Category || Description ||
+| Attribute name | Type | Category | Description |
+|---|---|---|---|
 | createTimestamp | DIRECTORY OPERATION | Standard |  RFC2252: time which object was created |
 | modifyTimestamp | DIRECTORY OPERATION | Standard  | RFC2252: time which object was last modified |
 | creatorsName | DIRECTORY OPERATION | Standard  | RFC2252: name of creator |
@@ -78,7 +80,8 @@ Those are attributes related to an entry, carrying some additional information a
 
 Those operational attributes are containing the schema elements handled by the server. They are stored in the **RootDSE**
 
-|| Attribute name || Type || Category || Description ||
+| Attribute name | Type | Category | Description |
+|---|---|---|---|
 | ldapSyntaxes | DIRECTORY OPERATION | Standard | RFC2252: LDAP syntaxes | 
 | subschemaSubentry | DIRECTORY OPERATION | Standard | RFC2252: name of controlling subschema entry | 
 | dITStructureRules | DIRECTORY OPERATION | Standard | RFC2252: DIT structure rules | 
@@ -100,7 +103,8 @@ Those operational attributes are containing the schema elements handled by the s
 
 Those are attributes related to collective attributes.
 
-|| Attribute name || Type || Category || Description ||
+| Attribute name | Type | Category | Description |
+|---|---|---|---|
 | collectiveAttributeSubentries | DIRECTORY OPERATION | Standard | RFC3671: identifies all collective attribute subentries that affect the entry |
 | collectiveExclusions | DIRECTORY OPERATION | Standard | RFC3671: RFC3671: allows particular collective attributes to be excluded from an entry |
 
@@ -109,7 +113,8 @@ Those are attributes related to collective attributes.
 
 Those are attributes related to the Administrative Model management
 
-|| Attribute name || Type || Category || Description ||
+| Attribute name | Type | Category | Description |
+|---|---|---|---|
 | administrativeRole | DIRECTORY OPERATION | Standard  | RFC3672: indicate that the associated administrative area is concerned withone or more administrative roles |
 | subtreeSpecification | DIRECTORY OPERATION | Standard  | RFC3672: defines a collection of entries within an administrative area |
 | prescriptiveACI | DIRECTORY OPERATION | ApacheDS  | Access control information that applies to a set of entries |
@@ -123,7 +128,8 @@ Those are attributes related to the Administrative Model management
 
 Those attributes are used in a replication context.
 
-|| Attribute name || Type || Category || Description ||
+| Attribute name | Type | Category | Description |
+|---|---|---|---|
 | contextCSN | DIRECTORY OPERATION | ApacheDS  | The largest committed CSN of a context |
 | entryDeleted | DIRECTORY OPERATION | ApacheDS  | Whether or not an entry has been deleted. (Not anymore used) |
 
@@ -132,7 +138,8 @@ Those attributes are used in a replication context.
 
 Those operational attributes are used to define the various system predefined indexes
 
-|| Attribute name || Type || Category || Description ||
+| Attribute name | Type | Category | Description |
+|---|---|---|---|
 | apachePresence | DSA OPERATION | ApacheDS  | Index attribute used to track the existence of attributes |
 | apacheOneLevel | DSA OPERATION | ApacheDS  | Index attribute used to track one level searches |
 | apacheOneAlias | DSA OPERATION | ApacheDS  | Index attribute used to track single level aliases |
@@ -146,6 +153,8 @@ Those operational attributes are used to define the various system predefined in
 
 Those are attributes used in the Trigger Interceptor
 
+| Attribute name | Type | Category | Description |
+|---|---|---|---|
 | prescriptiveTriggerSpecification | DIRECTORY OPERATION | ApacheDS  | Trigger specification that applies to a set of entries |
 | entryTriggerSpecification | DIRECTORY OPERATION | ApacheDS  | Trigger specification that applies to a single entry |
 | triggerExecutionSubentries | DIRECTORY OPERATION | ApacheDS  | Used to track subentries associated with a trigger area which an entry falls under |
@@ -155,7 +164,8 @@ Those are attributes used in the Trigger Interceptor
 
 Those operational attributes are meant to be used by teh **ChangeLog** interceptor. They are not supposed to be distributed, and they can't be modified by a user.
 
-|| Attribute name || Type || Category || Description ||
+| Attribute name | Type | Category | Description |
+|---|---|---|---|
 | revisions | DSA OPERATION | ApacheDS  | Revision numbers used in change log |
 | changeTime | DSA OPERATION | ApacheDS  | Represents the time when the change event occurred |
 | changeType | DSA OPERATION | ApacheDS  | Type of change operation |
