@@ -22,37 +22,8 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 # 3.1 - Fortress Configuration
 
-In order to use the API, you must configure it. As it will connect to a remote LDAP server
+In order to use the API, you must configure it. As it will connect to a remote LDAP server.
 
-host=@LDAP_HOST@
-port=@LDAP_PORT@
-enable.ldap.ssl=@ENABLE_LDAP_SSL@
-enable.ldap.ssl.debug=@ENABLE_LDAP_SSL_DEBUG@
-trust.store=@TRUST_STORE@
-trust.store.password=@TRUST_STORE_PW@
-trust.store.set.prop=@TRUST_STORE_SET_PROPW@
-key.store=@KEY_STORE@
-key.store.password=@KEY_STORE_PW@
-admin.user=@ROOT_DN@
-admin.pw=@CFG_ROOT_PW@
-min.admin.conn=@ADM_MIN_CONN@
-max.admin.conn=@ADM_MAX_CONN@
-min.admin.conn=@ADM_MIN_CONN@
-max.admin.conn=@ADM_MAX_CONN@
-log.admin.user=@LOG_ROOT_DN@
-log.admin.pw=@CFG_LOG_ROOT_PW@
-min.log.conn=@LOG_MIN_CONN@
-max.log.conn=@LOG_MAX_CONN@
-config.realm=DEFAULT
-config.root=ou=Config,@SUFFIX@
-debug.ldap.pool=true
-enable.pool.reconnect=true
-crypto.prop=@CFG_CRYPTO_PROP@
-disable.dsd.cache=false
-enable.mgr.impl.rest=@ENABLE_REST@
-http.user=@REST_HTTP_USER@
-http.pw=@REST_HTTP_PW@
-http.host=@REST_HTTP_HOST@
-http.port=@REST_HTTP_PORT@
-dao.connector=@LDAP_CLIENT_TYPE@
-GroupTest=org.apache.directory.fortress.core.group.GroupAntTest
+More info here on how it works:
+* [README for Apache Fortress Configuration Subsystem](https://github.com/apache/directory-fortress-core/blob/master/README-CONFIG.md)
+
