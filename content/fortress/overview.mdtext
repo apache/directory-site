@@ -26,7 +26,7 @@ This security system was designed to be deployed into a wide variety of system e
 
 ## What is it?  
 
-Fortress is a standards-based and open source IAM system that provides ANSI RBAC (INCITS 359) management and enforcement capabilities to networked applications and systems. 
+Fortress is a standards-based and open source access management system that provides ANSI RBAC (INCITS 359) management and enforcement capabilities. 
 
 Included in Fortress packages:
 
@@ -89,16 +89,13 @@ Fortress audits use OpenLDAP's slapd access log overlay.  This extended capabili
 
 The Fortress audits rely on slapd events to track its data exchanges performed within its own APIs.  Change event tracking includes adds, updates, and deletes of Fortress entities.  Read and search events tracked include user authentication, authorization, and policy interrogations.  Full historical data change tracking is maintained and may be searched later with APIs to be used for monitoring, reporting, and undo. The log may be retrieved later to synch with outside database for long-term regulatory and compliance concerns.  
 
-
 ### Temporal Constraints 
 
 The Fortress Temporal model allows Users and Roles to carry time and date Constraints which govern when activations may occur. Role constraints are checked on every call into Fortress.  The user constraint applied only at session creation.
 
-
 ### ANSI RBAC Policy-Enhanced (INCITS-494-2012)
 
 One day.
-
 
 ## What security services are available?
 
@@ -125,7 +122,3 @@ Source is managed by Apache's GIT repo:
 * [Fortress Web](https://git-wip-us.apache.org/repos/asf/directory-fortress-commander.git) - RBAC Web Management UI
 * [Fortress Rest](https://git-wip-us.apache.org/repos/asf/directory-fortress-enmasse.git) - RBAC REST Server
 * [Fortress Realm](https://git-wip-us.apache.org/repos/asf/directory-fortress-realm.git) - RBAC Policy Enforcement Plug-in for Tomcat
-
-## What are the conditions?
-
-This software development toolkit is open source, thus free to use and distribute under terms of the [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0).  It was developed and tested on open systems like [Ubuntu](http://www.ubuntu.com/) and [Centos](http://www.centos.org/).
