@@ -282,38 +282,33 @@ For the record, here is the script shell you can use to sign the packages. Name 
 
 ### Publish Source and Binary Distribution Packages
 
-First of all, create a new directory on people.apache.org/public_html to store the pacckages :
+The sources, binaries and their signatures, have to be pushed in a place where they can be downloaded by the other committers, in order to be chekced while validating the release. As the ~/people.apache.org server is not anymore available for that purpose, we use the [distribution](https://dist.apache.org/repos/dist/dev/directory) space for that purpose.
 
-    $ ssh people.apache.org
-    $ mkdir public_html/ldap-api-<version>
-    $ exit
+If you haven't chekced out this space, do it now :
 
-Then copy the packages :
+    $ mkdir -p ~/apacheds/dist/dev/directory
+    $ svn co https://dist.apache.org/repos/dist/dev/directory ~/apacheds/dist/dev/directory
+
+That will checkout the full project distributions. 
+
+You may want to checkout only the part that you are going to generate, to avoid getting Gb of data :
+
+    $ mkdir -p ~/apacheds/dist/dev/directory/api
+    $ svn co https://dist.apache.org/repos/dist/dev/directory/api ~/apacheds/dist/dev/directory/api
+
+Now, create a sub-directory for the version you have generated (here, for version 1.0.0-RC1) :
+
+    $ mkdir ~/apacheds/dist/dev/directory/api/1.0.0-RC1
+
+and copy the packages and signature to this area :
 
     $ cd distributions/target
-    $ scp apache-ldap-api-<version>-* people.apache.org:public_html/ldap-api-<version>/
+    $ cp apache-ldap-api-<version>-* ~/apacheds/dist/dev/directory/api/1.0.0-RC1
 
-Update your index.html file on people.apach.org/public_html to make the packages visible. Here is an example of possible content :
+Last, not least, commit your changes
 
-    <h2>Last Directory LDAP API 1.0.0-M16 tarballs</h2>
-        <a href="ldap-api-1.0.0-M16/apache-ldap-api-1.0.0-M16-bin.tar.gz">apache-ldap-api-1.0.0-M16-bin.tar.gz</a><br/>
-        <a href="ldap-api-1.0.0-M16/apache-ldap-api-1.0.0-M16-bin.tar.gz.asc">apache-ldap-api-1.0.0-M16-bin.tar.gz.asc</a><br/>
-        <a href="ldap-api-1.0.0-M16/apache-ldap-api-1.0.0-M16-bin.tar.gz.md5">apache-ldap-api-1.0.0-M16-bin.tar.gz.md5</a><br/>
-        <a href="ldap-api-1.0.0-M16/apache-ldap-api-1.0.0-M16-bin.tar.gz.sha1">apache-ldap-api-1.0.0-M16-bin.tar.gz.sha1</a><br/>
-        <a href="ldap-api-1.0.0-M16/apache-ldap-api-1.0.0-M16-bin.zip">apache-ldap-api-1.0.0-M16-bin.zip</a><br/>
-        <a href="ldap-api-1.0.0-M16/apache-ldap-api-1.0.0-M16-bin.zip.asc">apache-ldap-api-1.0.0-M16-bin.zip.asc</a><br/>
-        <a href="ldap-api-1.0.0-M16/apache-ldap-api-1.0.0-M16-bin.zip.md5">apache-ldap-api-1.0.0-M16-bin.zip.md5</a><br/>
-        <a href="ldap-api-1.0.0-M16/apache-ldap-api-1.0.0-M16-bin.zip.sha1">apache-ldap-api-1.0.0-M16-bin.zip.sha1</a><br/>
-        <a href="ldap-api-1.0.0-M16/apache-ldap-api-1.0.0-M16-src.tar.gz">apache-ldap-api-1.0.0-M16-src.tar.gz</a><br/>
-        <a href="ldap-api-1.0.0-M16/apache-ldap-api-1.0.0-M16-src.tar.gz.asc">apache-ldap-api-1.0.0-M16-src.tar.gz.asc</a><br/>
-        <a href="ldap-api-1.0.0-M16/apache-ldap-api-1.0.0-M16-src.tar.gz.md5">apache-ldap-api-1.0.0-M16-src.tar.gz.md5</a><br/>
-        <a href="ldap-api-1.0.0-M16/apache-ldap-api-1.0.0-M16-src.tar.gz.sha1">apache-ldap-api-1.0.0-M16-src.tar.gz.sha1</a><br/>
-        <a href="ldap-api-1.0.0-M16/apache-ldap-api-1.0.0-M16-src.zip">apache-ldap-api-1.0.0-M16-src.zip</a><br/>
-        <a href="ldap-api-1.0.0-M16/apache-ldap-api-1.0.0-M16-src.zip.asc">apache-ldap-api-1.0.0-M16-src.zip.asc</a><br/>
-        <a href="ldap-api-1.0.0-M16/apache-ldap-api-1.0.0-M16-src.zip.md5">apache-ldap-api-1.0.0-M16-src.zip.md5</a><br/>
-        <a href="ldap-api-1.0.0-M16/apache-ldap-api-1.0.0-M16-src.zip.sha1">apache-ldap-api-1.0.0-M16-src.zip.sha1</a><br/>
-        <a href="ldap-api-1.0.0-M16/apache-ldap-api-1.0.0-M16.pom">apache-ldap-api-1.0.0-M16.pom</a><br/>
-        <a href="ldap-api-1.0.0-M16/apache-ldap-api-1.0.0-M16.pom.asc">apache-ldap-api-1.0.0-M16.pom.asc</a><br/>
+    $ scn add ~/apacheds/dist/dev/directory/api/1.0.0-RC1
+    $ scn ci ~/apacheds/dist/dev/directory/api/1.0.0-RC1 -m "Apache LDAP API 1.0.0-RC1 packages"
 
 ### Test the New Version in ApacheDS and Studio
 
