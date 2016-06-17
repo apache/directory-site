@@ -24,4 +24,60 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 # 6.35 - Value
 
->**Note:** Contents for this page will be added soon...
+The _Value_ class is used to store an attribute's value. Such a value can be either a String or a byte[], depending on the nature of the AttributeType (the default is that the _Value_ is a String). Each value is associated to an AttributeType, and is used in an Antry or a DN.
+
+We can create schema aware _Value_, or just plain _Value_. Having a schema aware _Value_ allows further controls to be made on the value we inject : its syntax will be checked against the _AttributeType_ syntax.
+
+_Value_ is also a _Externalizable_ class.
+
+_Value_ instances are immutable.
+
+## Creating a value
+
+There are two ways to create a value :
+- using a constructor
+- using a static factory (useful for deserialization)
+
+You can create the value passing it an *AttributeType*, or without it. Here are the possible constructors :
+
+<CENTER>
+| With an AttributeType | Without an attributeType | Description |
+|:-:|:-:|:-:|
+| Value( AttributeType, byte[] upValue ) | Value( byte[] upValue ) | Creates a Value with a binary content |
+| Value( AttributeType, String upValue ) | Value( String upValue ) | Creates a Value with a String content |
+| Value( AttributeType, Value ) | - | Create a new Value from an existing one, applying the SchemaManager on it |
+</CENTER>
+
+The third constructor is quite specific : as _Value_ is immutable, it allows you to associate a SchemaManager to a _Value_ instance (creating a new _Value_ in the process). The new _Value_ instance will be schema aware.
+
+## Operations on a Value
+
+You mostly can consult the content of the _Value_, and its status. Here is the list of common operations :
+
+<CENTER>
+| Operation | Description |
+|:-:|:-:|
+| clone() | Clone the current Value, creating a new instance |
+| compareTo( byte[] ) | Compare the content of the current value to the given byte[] |
+| compareTo( String ) | Compare the content of the current value to the given String | 
+| compareTo( Value ) | Compare the content of the current value to the given Value |
+| deserialize( byte[], int ) | Create a Value deserializing it from the byte[], starting at a given position | 
+| equals( Object ) | Tells if the current Value is equal to the provided object |
+| getAttributeType() | Get back the AttributeType associated with this value, if any |
+| getBytes() | Get the byte[] representation of this Value |
+| getValue() | Get the Value as a String, if the Value is Human Readable |
+| hashCode() | Compute the Value hashcode |
+| isHumanReadable() | Tells if the Value is Humane Readable (ie, a String) |
+| isInstanceOf( AttributeType ) | Tells if the Value is an instance of a given AttributeType, or of one of its parent |
+| isNull() | Tells if the contained value is null |
+| isSchemaAware() | Tells if teh Value is schema aware |
+| isValid( SyntaxChecker ) | Check the contained value |
+| length() | Returns the contained value's length (number of chars for a String, number of bytes for a byte[]) |
+| readExternal( ObjectInput ) | Read a new Value from a stream of bytes |
+| serialize( byte[], int ) | Write the Value into a stream of bytes |
+| toString() | Returns a String representation of the Value instance  |
+| writeExternal( ObjectOutput ) | Write the Value into a stream |
+| 
+</CENTER>
+
+

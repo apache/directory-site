@@ -1,4 +1,49 @@
 # News
+<h2 class="news">Apache Directory LDAP API 1.0.0-RC1 released <em>posted on June 17th, 2016</em></h2>
+
+The Apache Directory Team is proud to announce the availability of version 1.0.0-RC1 of the Apache Directory LDAP API, the first release candidate before the GA.
+
+The Apache Directory LDAP API is an ongoing effort to provide an enhanced LDAP API, as a replacement for JNDI and the existing LDAP API (jLdap and Mozilla LDAP API).
+
+This is a schema aware API, with some convenient ways to access a LDAP server. This API is not only targeting the Apache Directory Server, but should work pristine with any LDAP server.
+
+It's also an extensible API : new Controls, schema elements and network layer could be added or used in the near future. It's also OSGi capable.
+
+Here is the list of fixed issues and added features :
+
+<b>Bugs :</b>
+
+  * [DIRAPI-243](https://issues.apache.org/jira/browse/DIRAPI-243) - Cannot get AttributeType from Attribute
+  * [DIRAPI-244](https://issues.apache.org/jira/browse/DIRAPI-244) - Error in loading schema
+  * [DIRAPI-249](https://issues.apache.org/jira/browse/DIRAPI-249) - Performance issue LDAP API 1.0.0-M31
+  * [DIRAPI-265](https://issues.apache.org/jira/browse/DIRAPI-265) - Deserialized Dn loses bytes field resulting in null dn, treated as Root DSE when encoded in ModifyRequests
+  * [DIRAPI-266](https://issues.apache.org/jira/browse/DIRAPI-266) - ResultCodeEnum 'NO_SUCH_OBJECT' should have message 'noSuchObject'
+  * [DIRAPI-273](https://issues.apache.org/jira/browse/DIRAPI-273) - api-ldap-net-mina bundle remains in STARTING mode
+  * [DIRAPI-274](https://issues.apache.org/jira/browse/DIRAPI-274) - The AttributeTypeHolder.toLdif method does not convert the m-usage Attribute correctly
+  * [DIRAPI-275](https://issues.apache.org/jira/browse/DIRAPI-275) - Many AttributeType are defined with the wrong m-usage
+  * [DIRAPI-280](https://issues.apache.org/jira/browse/DIRAPI-280) - The LdapNetworkConnection.getTimeout() method is wrong
+  * [DIRAPI-245](https://issues.apache.org/jira/browse/DIRAPI-245) - LdifUtils.convertToLdif(LdifEntry, int) does not honor the 'length' parameter fully
+  * [DIRAPI-258](https://issues.apache.org/jira/browse/DIRAPI-258) - Add support for the Microsoft LDAP server show deleted objects control
+  * [DIRAPI-260](https://issues.apache.org/jira/browse/DIRAPI-260) - OID can't process nodes which are bigger than a long
+  * [DIRAPI-261](https://issues.apache.org/jira/browse/DIRAPI-261) - OID don't encode correctly joint-iso-itu-t arcs
+  * [DIRAPI-262](https://issues.apache.org/jira/browse/DIRAPI-262) - misleading message "The matched Dn should not be set when the result code is one of..."
+
+<b>Improvements :</b>
+
+  * [DIRAPI-282](https://issues.apache.org/jira/browse/DIRAPI-282) - Detection of timeout in cursor.next()
+
+
+<b>New Features :</b>
+
+  * [DIRAPI-269](https://issues.apache.org/jira/browse/DIRAPI-269) - Add support for modular crypt format password
+
+
+<b>Tasks :</b>
+
+  * [DIRAPI-270](https://issues.apache.org/jira/browse/DIRAPI-270) - Remove the dependency on commons.io
+
+Downloads are available [here](downloads.html) and the User's Guide is [there](user-guide.html)
+
 <h2 class="news">Apache Directory LDAP API 1.0.0-M33 released <em>posted on December 21th, 2015</em></h2>
 
 The Apache Directory Team is proud to announce the availability of version 1.0.0-M33 of the Apache Directory LDAP API.

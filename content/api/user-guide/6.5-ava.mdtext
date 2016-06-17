@@ -35,36 +35,36 @@ where 'dc' is the _AttributeType_ and 'example' the associated value.
 
 The value can be a binary or a String value, depending on the _AttributeType_.
 
-Again, we can create schema aware _Ava_, or just plain _Ava_. Having a schema aware _Ava_ allows further controls to be made o the value we inject : its syntax will be checked against the _AttributeType_ syntax.
+We can create schema aware _Ava_, or just plain _Ava_. Having a schema aware _Ava_ allows further controls to be made on the value we inject : its syntax will be checked against the _AttributeType_ syntax.
 
 Most of the time, one will not have to create or manipulate an _Ava_, as it's an internal element of a _Rdn_.
 
-_AVA_ is a final class, it can be schema aware. It's also a _Externalizable_ class.
+_Ava_ is also a _Externalizable_ class.
+
+_Ava_ instances are immutable.
 
 
 ## Usage
 
-As for the *_Dn_ and _Rdn_ classes, we have to hold two representation for the interned _AttributeType_ and _Value_ : the User Provided form, and the normalized form. If the _AVA_ is schema aware, we will use the AttributeType's _Oid_ as the normalized form for the _AttributeType_, and the value will be normalized accordingly to the equality matching rule the _AttributeType_ defines, if any. Let's see some examples.
+As for the _Dn_ and _Rdn_ classes, we have to hold two representation for the interned _AttributeType_ and _Value_ : the User Provided form, and the escaped form (which is used in filters). If the _AVA_ is schema aware, the escaped form will be computed, otherwise we store the user provided form instead. Let's see some examples.
 
 
 ### Schema Aware Ava
 
-Here we will create an _AVA_ and check that the user provided values are preserved. The _getUpName()_ and _getString()_ methods will give back this user provided form.
+Here we will create an _AVA_ and check that the user provided values are preserved. The _getName()_ and _getString()_ methods will give back this user provided form, in a form that allows it to be used in a Filter.
 
     :::Java
     Ava atav = new Ava( schemaManager, " CommonName ", " This is    a TEST " );
     System.out.println( "toString     : '" + atav.toString() + "'" );
-    System.out.println( "Normalized   : '" + atav.getNormName() + "'" );
-    System.out.println( "UserProvided : '" + atav.getUpName() + "'" );
+    System.out.println( "Escaped      : '" + atav.getEscaped() + "'" );
+    System.out.println( "UserProvided : '" + atav.getName() + "'" );
 
 will produce :
 
     :::Java
-    ToString     : ' CommonName = This is    a TEST '
-    Normalized   : '2.5.4.3=this is a test'
-    UserProvided : ' CommonName = This is    a TEST '
-
-Note that the normalized value has transformed the _AttributeType_ and now uses its _Oid_, and the value has been lower cased and the superfluous spaces have been removed, as dictated by the _CaseIgnoreMatch_ _MatchingRule (e)_
+    toString     : ' CommonName =\ This is    a TEST\ '
+    Escaped      : ' CommonName =\ This is    a TEST\ '
+    UserProvided : ' CommonName =\ This is    a TEST\ '
 
 
 *{+}Not Schema Aware{+}*
