@@ -70,6 +70,7 @@ First, you need to have a recent version of Maven (we are using 3.0.4) and a rec
 
 You'll need a settings section for the **Nexus** and **people.apache.org** servers with a password or a path to the SSH key used. Here's what my **settings.xml** file in **~/.m2** looks like:
 
+    :::text
     <settings>
 
       <servers>
@@ -142,6 +143,7 @@ All subprojects are configured to deploy signatures for the artifacts uploaded t
 
 You can generate and upload a PGP key to a PGP keyserver using the following commands:
 
+    :::text
     gpg --gen-key
     gpg --fingerprint
     gpg --keyserver subkeys.pgp.net --send-keys <your key's id from last command>
@@ -158,10 +160,12 @@ Since we are using Nexus for releases the release process is as follows (see als
 
 ### Test the Project
 
+    :::text
     $ mvn release:prepare -DdryRun=true
 
 Be aware that this phase will ask you about the next version, and most important, for the next SCM tag :
 
+    :::text
     ...
     [INFO] Checking dependencies and plugins for snapshots ...
     What is the release version for "Apache Directory LDAP API"? (org.apache.directory.api:api-parent) 1.0.0-M16: : 
@@ -173,12 +177,14 @@ Be aware that this phase will ask you about the next version, and most important
 
 ### Deploy a Snapshot
 
+    :::text
     $ mvn deploy
 
 This is useful to verify your settings in ~/.m2/settings.xml (Nexus password and GPG key)
 
 ### Prepare the Release
 
+    :::text
     $ mvn release:clean
     $ mvn release:prepare
 
@@ -186,6 +192,7 @@ This creates a tag [here](http://svn.apache.org/viewvc/directory/shared/tags/)
 
 ### Stage the Release
 
+    :::text
     $ mvn release:perform
 
 This deploys the release to a staging repository.
@@ -194,6 +201,7 @@ Go to [the nexus server](https://repository.apache.org/index.html#stagingReposit
 
 ### Build the Site
 
+    :::text
     $ cd target/checkout
     $ mvn site
 
@@ -211,7 +219,8 @@ You can get the keys by typing :
 
 The produced packages already have .asc signature that you will need to remove :
 
-    $ cd target/checkout/distribution/target
+   :::text
+   $ cd target/checkout/distribution/target
     $ rm *.asc
     $ ~/sign.sh
     PGP Key ID: 
@@ -311,6 +320,7 @@ and copy the packages and signature to this area :
 
 Last, not least, commit your changes
 
+    :::text
     $ svn add ~/apacheds/dist/dev/directory/api/1.0.0-RC1
     $ svn ci ~/apacheds/dist/dev/directory/api/1.0.0-RC1 -m "Apache LDAP API 1.0.0-RC1 packages"
 
@@ -334,7 +344,7 @@ If the vote succeeds LDAP API project can be released.
 
 Go to [https://repository.apache.org/index.html#stagingRepositories](https://repository.apache.org/index.html#stagingRepositories) and release the staging repository so all artifacts are published to Maven central.
 
-The sources, binaries and their signatures, have to be pushed in a place where they can be downloaded by usersWe use the [distribution](https://dist.apache.org/repos/dist/release/directory) space for that purpose.
+The sources, binaries and their signatures, have to be pushed in a place where they can be downloaded by users. We use the [distribution](https://dist.apache.org/repos/dist/release/directory) space for that purpose.
 
 Move the distribution packages (sources and binaries) to the dist SVN repository: https://dist.apache.org/repos/dist/release/directory/api/dist/$(version)
 
@@ -385,6 +395,7 @@ Those files will be stored on the production server only !!! And some extra caut
 
 First of all, you must checkout the two CMS store for the site : staging and production.
 
+    :::text
     $ cd ~/apacheds
     $ svn co https://svn.apache.org/repos/infra/websites/staging/directory/trunk staging
     ...
@@ -393,18 +404,21 @@ First of all, you must checkout the two CMS store for the site : staging and pro
 
 Now, you will first add the directory for the newly generated version :
 
+    :::text
     $ cd ~/apacheds/production/content/api/gen-docs
     $ mkdir <version>
     $ svn add <version>
 
 Then copy the generated docs :
 
+    :::text
     $ cp -r ~/apacheds/trunks/shared/target/checkout/target/site/apidocs ~/apacheds/production/content/api/gen-docs/<version>
     $ cp -r ~/apacheds/trunks/shared/target/checkout/target/site/xref ~/apacheds/production/content/api/gen-docs/<version>
     $ 
 
 You have to check in those directories :
 
+    :::text
     $ svn add <version>/*
     $ svn ci <version> -m "Injected <version> javadocs"
 
@@ -412,11 +426,13 @@ Now, you have to update the staging site <em>extpaths.txt</em>
 
 This file list the file on the production site that will not be overriden by the publication of the staging site. It has to be updated
 
+    :::text
     $ cd ~/apacheds/staging/content/
     $ vi extpaths.txt
 
 Add the following line :
 
+    :::text
     ...
     # API
     api/gen-docs/<version>
@@ -426,11 +442,13 @@ then save and check in the file <em>extpaths.txt</em>
 
 We also have to update the <em>.htaccess</em> file :
 
+    :::text
     $ cd ~/apacheds/staging/content/api/gen-docs
     $ vi .htaccess
 
 And update the two last lines to refer to the version you've just released :
 
+    :::text
     RewriteRule ^latest$ <version>/
     RewriteRule ^latest/(.*)$ <version>/$1
 

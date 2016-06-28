@@ -68,6 +68,7 @@ First, you need to have a recent version of Maven (we are using 3.0.4) and a rec
 
 You'll need a settings section for the **Nexus** and **people.apache.org** servers with a password or a path to the SSH key used. Here's what my **settings.xml** file in **~/.m2** looks like:
 
+    :::text
     <settings>
 
       <servers>
@@ -140,6 +141,7 @@ All subprojects are configured to deploy signatures for the artifacts uploaded t
 
 You can generate and upload a PGP key to a PGP keyserver using the following commands:
 
+    :::text
     gpg --gen-key
     gpg --fingerprint
     gpg --keyserver subkeys.pgp.net --send-keys <your key's id from last command>
@@ -171,18 +173,21 @@ Since we are using Nexus for releases the release process is as follows (see als
 
 ##### Test the Project
 
+    :::text
     $ mvn release:prepare -DdryRun=true
 
 Replace the version by the new version. Be careful, and remove the 'apacheds-parent-' which is proposed for the new tag. We should just use the version number.
 
 ##### Deploy a Snapshot
 
+    :::text
     $ mvn deploy
 
 This is useful to verify your settings in ~/.m2/settings.xml (Nexus password and GPG key)
 
 ##### Prepare the Release
 
+    :::text
     $ mvn release:clean
     $ mvn release:prepare
 
@@ -198,6 +203,7 @@ This deploys the release to a staging repository. Go to [Staging Repositories](h
 
 In order to generate the site, you have to comment some modules in the apacheds <em>pom.xml</em> file :
 
+    :::text
     <!--module>all</module-->
     ...
     <!--module>installers-maven-plugin</module-->
@@ -205,6 +211,7 @@ In order to generate the site, you have to comment some modules in the apacheds 
 
 Then you can start the maven command :
 
+    :::text
     $ cd target/checkout
     $ mvn site
 
@@ -218,10 +225,12 @@ Use your PGP key ID (the pub key, 4096R/[XXXXXXX] where [XXXXXXX] is the key ID)
 
 You can get the keys by typing :
 
+    :::text
     gpg --list-keys
 
 You can use this small script that does the job (copy-paste this code in a file named <em>sign.sh</em> in your path) :
 
+    :::text
     #!/bin/sh
 
     echo "PGP Key ID: "
@@ -272,6 +281,7 @@ You can use this small script that does the job (copy-paste this code in a file 
 
 Then to sign the packages :
 
+    :::text
     $ sign.sh
     PGP Key ID: 
     <your PGP key>
@@ -413,6 +423,7 @@ Those files will be stored on the production server only !!! And some extra caut
 
 First of all, you must checkout the two CMS store for the site : staging and revision.
 
+    :::text
     $ cd ~/apacheds
     $ svn co https://svn.apache.org/repos/infra/websites/production/directory/trunk staging
     ...
@@ -421,17 +432,20 @@ First of all, you must checkout the two CMS store for the site : staging and rev
 
 Now, you will first add the directory for the newly generated version :
 
+    :::text
     $ cd ~/apacheds/production/content/apacheds/gen-docs
     $ mkdir <version>
 
 Then copy the generated docs :
 
+    :::text
     $ cp -r ~/apacheds/trunks/apacheds/target/checkout/target/site/apidocs ~/apacheds/production/content/apacheds/gen-docs/<version>
     $ cp -r ~/apacheds/trunks/apacheds/target/checkout/target/site/xref ~/apacheds/production/content/apacheds/gen-docs/<version>
     $ 
 
 You have to check in those directories :
 
+    :::text
     $ svn add <version>
     $ svn ci <version> -m "Injected <version> javadocs"
 
@@ -441,11 +455,13 @@ Now, you have to update the staging site :
 
 This file list the file on the production site that will not be overriden by the publication of the staging site. It has to be updated
 
+    :::text
     $ cd ~/apacheds/staging/content/
     $ vi extpaths.txt
 
 Add the following line :
 
+    :::text
     ...
     # Apacheds
     apacheds/gen-docs/<version>
@@ -455,6 +471,7 @@ then save and check in the file <em>.htaccess</em>
 
 We also have to update this file :
 
+    :::text
     $ cd ~/apacheds/staging/content/apacheds/gen-docs
     $ vi .htaccess
 
@@ -470,10 +487,11 @@ Save and commit the file.
 You can now update the site, add a news on the front page, and publish the site.
 
 There are a few places to modify :
-- /lib/path.pm : update the $version_apacheds variable with the new version.
-- /content/index.mdtext : same here, update the <!-- ApacheDS project --> section, which contains the version.
-- /content/apacheds/news.mdtext : add the news on top of thise page
-- /content/apacheds/download-old-versions.mdtext : add a new line on top of the array, which refers to the latest version before the new one
+
+* /lib/path.pm : update the $version_apacheds variable with the new version.
+* /content/index.mdtext : same here, update the <!-- ApacheDS project --> section, which contains the version.
+* /content/apacheds/news.mdtext : add the news on top of thise page
+* /content/apacheds/download-old-versions.mdtext : add a new line on top of the array, which refers to the latest version before the new one
 
 Commit the changes, and publish the web site, you are done !
 
