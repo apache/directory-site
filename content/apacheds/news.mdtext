@@ -1,4 +1,45 @@
 # News
+<h2 class="news">ApacheDS 2.0.0-M22 released <em>posted on June 28th, 2016</em></h2>
+
+The Apache Directory team is pleased to announce the release of ApacheDS 2.0.0-M22, the 22th milestone towards a 2.0 version.
+
+ApacheDS is an extensible and embeddable directory server entirely written in Java, which has been certified LDAPv3 compatible by the Open Group. Besides LDAP it supports Kerberos 5 and the Change Password Protocol. It has been designed to introduce triggers, stored procedures, queues and views to the world of LDAP which has lacked these rich constructs.
+
+Downloads are available [here](downloads.html)
+
+This release is a bug fix release. We also added a 'repair' mode taht can be used to fix a database corruption : you just have to start the server with the 'repair' parameter.
+
+This release also fixed the painful problem we have in Studio, when trying
+to save the configuration.
+
+Here is the release note for Apache Directory ApacheDS 2.0.0-M22:
+
+<b>Bugs :</b>
+
+  * [DIRSERVER-2120](https://issues.apache.org/jira/browse/DIRSERVER-2120) - apacheds init.d script always returning 0
+  * [DIRSERVER-2125](https://issues.apache.org/jira/browse/DIRSERVER-2125) - More than one value has been provided for the single-valued attribute: pwdAccountLockedTime
+  * [DIRSERVER-2139](https://issues.apache.org/jira/browse/DIRSERVER-2139) - IBM with IPV6
+  * [DIRSERVER-2141](https://issues.apache.org/jira/browse/DIRSERVER-2141) - Some tests are declaring user index with reverse
+
+
+<b>Improvements :</b>
+
+  * [DIRSERVER-2124](https://issues.apache.org/jira/browse/DIRSERVER-2124) - Add support for modular crypt format password
+  * [DIRSERVER-2128](https://issues.apache.org/jira/browse/DIRSERVER-2128) - Uplift dependency on commons-io from 2.4 to 2.5
+
+  
+
+<b>New features :</b>
+
+  * [DIRSERVER-2113](https://issues.apache.org/jira/browse/DIRSERVER-2113) - Integrate the 'partition-plumber' into ApacheDS
+  * [DIRSERVER-2129](https://issues.apache.org/jira/browse/DIRSERVER-2129>) - Add the number of descendant and the number of children to entries
+
+
+<b>Task : </b>
+  * [DIRSERVER-2123](https://issues.apache.org/jira/browse/DIRSERVER-2123) - Remove reference to commons.io and use the LDAP API Fileutils class instead
+
+
+# News
 <h2 class="news">ApacheDS 2.0.0-M21 released <em>posted on December 21th, 2015</em></h2>
 
 The Apache Directory team is pleased to announce the release of ApacheDS 2.0.0-M21, the 21th milestone towards a 2.0 version.

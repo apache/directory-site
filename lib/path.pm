@@ -2,7 +2,7 @@ package path;
  
 # Versions (for download links)
 our $version_api = "1.0.0-RC1";
-our $version_apacheds = "2.0.0-M21";
+our $version_apacheds = "2.0.0-M22";
 our $version_studio = "2.0.0.v20151221-M10";
 our $version_studio_name = "2.0.0-M10";
 our $version_mavibot = "1.0.0-M8";
