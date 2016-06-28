@@ -286,15 +286,33 @@ Then to sign the packages :
 
 ##### Publish Source Distribution Package
 
-First of all, create a new directory on people.apache.org/public_html to store the pacckages :
+The sources, binaries and their signatures, have to be pushed in a place where they can be downloaded by the other committers, in order to be chekced while validating the release. As the ~/people.apache.org server is not anymore available for that purpose, we use the [distribution](https://dist.apache.org/repos/dist/dev/directory) space for that purpose.
+
+If you haven't checked out this space, do it now :
 
     :::text
-    $ ssh people.apache.org
-    $ mkdir public_html/apacheds-<version>
-    $ exit
+    $ mkdir -p ~/apacheds/dist/dev/directory
+    $ svn co https://dist.apache.org/repos/dist/dev/directory ~/apacheds/dist/dev/directory
 
+That will checkout the full project distributions. 
+
+You may want to checkout only the part that you are going to generate, to avoid getting Gb of data :
+
+    :::text
+    $ mkdir -p ~/apacheds/dist/dev/directory/apacheds
+    $ svn co https://dist.apache.org/repos/dist/dev/directory/apacheds ~/apacheds/dist/dev/directory/apacheds
+
+Now, create a sub-directory for the version you have generated (here, for version 2.0.0-M22) :
+
+    :::text
+    $ mkdir ~/apacheds/dist/dev/directory/apacheds/2.0.0-M22
+
+
+and copy the packages and signature to this area :
+
+    :::text
     $ cd target/checkout/target
-    $ scp apacheds-parent-<version>-source-release.zip* people.apache.org:public_html/apacheds-<version>
+    $ cp apacheds-parent-<version>-source-release.zip* ~/apacheds/dist/dev/directory/apacheds/2.0.0-M22
 
 ##### Test the new version
 
@@ -302,9 +320,9 @@ The best way to do that is to download the sources, extract them, build the serv
 
 ##### Create the installers
 
-
 We now have to create the installers. Go into the <em>target/checkout</em> directory and run :
 
+    :::text
     $ cd apacheds/target/checkout/installers
     $ mvn clean install -Pinstallers
 
@@ -313,12 +331,14 @@ This will create the installers in the <em>target/checkout/installers/target/ins
 <DIV class="info" markdown="1">
     We are meant to create all the installers. It's possible to create installers for a specific platform by using a different profile :
     
-    o Debian   : mvn clean install -Pdebian
-    o Rpm      : mvn clean install -Prpm
-    o Windows  : mvn clean install -Pwindows  
-    o Mac OS X : mvn clean install -Pmac
-    o Binary   : mvn clean install -Pbin 
-    o Archive  : mvn clean install -Parchive
+  <UL>
+    <LI>Debian   : mvn clean install -Pdebian</LI>
+    <LI>Rpm      : mvn clean install -Prpm</LI>
+    <LI>Windows  : mvn clean install -Pwindows</LI> 
+    <LI>Mac OS X : mvn clean install -Pmac</LI>
+    <LI>Binary   : mvn clean install -Pbin</LI>
+    <LI>Archive  : mvn clean install -Parchive</LI>
+  </UL>
 
     This will build only one single target.
 </DIV>
@@ -326,33 +346,12 @@ This will create the installers in the <em>target/checkout/installers/target/ins
 
 Sign those installers using the <em>sign.sh</em> script, and copy them in <em>people.apache.org/public_html/apacheds-<version></em>
 
+    :::text
     $ cd apacheds/target/checkout/target/installers/target/installers
-    $ scp apacheds-<version>* people.apache.org:public_html/apacheds-<version>
+    $ cp apacheds-<version>* ~/apacheds/dist/dev/directory/apacheds/2.0.0-M22
 
 Note : you will need a Debian, a Fedora and a Windows server to generate dedicated binaries for those platforms, or you can use rpmbuild, dpkg or nsis if you don't want to use many different servers.
 
-Update your index.html file on people.apache.org/public_html to make the packages visible. Here is an example of possible content :
-
-    <h2>Last Directory Server <version> sources tarballs</h2>
-        <img src="/icons/compressed.gif" alt="[   ]"><a href="apacheds-<version>/apacheds-parent-<version>-source-release.zip">apacheds-parent-<version>-source-release.zip</a><br/>
-        <img src="/icons/compressed.gif" alt="[   ]"><a href="apacheds-<version>/apacheds-parent-<version>-source-release.zip.asc">apacheds-parent-<version>-source-release.zip.asc</a><br/>
-        <img src="/icons/compressed.gif" alt="[   ]"><a href="apacheds-<version>/apacheds-parent-<version>-source-release.zip.md5">apacheds-parent-<version>-source-release.zip.md5</a><br/>
-        <img src="/icons/compressed.gif" alt="[   ]"><a href="apacheds-<version>/apacheds-parent-<version>-source-release.zip.sha1">apacheds-parent-<version>-source-release.zip.sha1</a><br>
-  
-    <h2>Last Directory Server <version> installers</h2>
-        <h3>Plain 32 bits binary installers</h3>
-        <img src="/icons/compressed.gif" alt="[   ]"><a href="apacheds-<version>/apacheds-<version>-32bit.bin">apacheds-<version>-32bit.bin</a><br/>
-        <img src="/icons/compressed.gif" alt="[   ]"><a href="apacheds-<version>/apacheds-<version>-32bit.bin.asc">apacheds-<version>-32bit.bin.asc</a><br/>
-        <img src="/icons/compressed.gif" alt="[   ]"><a href="apacheds-<version>/apacheds-<version>-32bit.bin.md5">apacheds-<version>-32bit.bin.md5</a><br/>
-        <img src="/icons/compressed.gif" alt="[   ]"><a href="apacheds-<version>/apacheds-<version>-32bit.bin.sha1">apacheds-<version>-32bit.bin.sha1</a><br/>
-        <br/>
-        <h3>Plain 64 bits installers</h3>
-        <img src="/icons/compressed.gif" alt="[   ]"><a href="apacheds-<version>/apacheds-<version>-64bit.bin">apacheds-<version>-64bit.bin</a><br/>
-        <img src="/icons/compressed.gif" alt="[   ]"><a href="apacheds-<version>/apacheds-<version>-64bit.bin.asc">apacheds-<version>-64bit.bin.asc</a><br/>
-        <img src="/icons/compressed.gif" alt="[   ]"><a href="apacheds-<version>/apacheds-<version>-64bit.bin.md5">apacheds-<version>-64bit.bin.md5</a><br/>
-        <img src="/icons/compressed.gif" alt="[   ]"><a href="apacheds-<version>/apacheds-<version>-64bit.bin.sha1">apacheds-<version>-64bit.bin.sha1</a><br/>
-        <br/>
-    ...
 
 ##### Vote
 
@@ -366,19 +365,36 @@ Go to [https://repository.apache.org/index.html#stagingRepositories](https://rep
 
 Move the distribution packages (sources and binaries) to the dist SVN repository: <em>https://dist.apache.org/repos/dist/release/directory/apacheds/dist/$(version)</em>
 
-The best solution would be to checkout the directory in <em>people.apache.org</em>, to copy the packages in the right place, and to check in the changes :
+The sources, binaries and their signatures, have to be pushed in a place where they can be downloaded by users. We use the [distribution](https://dist.apache.org/repos/dist/release/directory) space for that purpose.
 
-    $ ssh people.apache.org
-    # svn co https://dist.apache.org/repos/dist/release/directory/apacheds/dist/ apacheds-dist
-    # cd apacheds-dist
-    # mkdir <version>
-    # cp ../public_html/apacheds-<version>/* <version>
+Move the distribution packages (sources and binaries) to the dist SVN repository: https://dist.apache.org/repos/dist/release/directory/apacheds/dist/$(version)
+
+If you haven't checked out this space, do it now :
+
+    :::text
+    $ mkdir -p ~/apacheds/dist/release/directory
+    $ svn co https://dist.apache.org/repos/dist/release/directory ~/apacheds/dist/release/directory
+
+That will checkout the full project distributions. 
+
+You may want to checkout only the part that you are going to generate, to avoid getting Gb of data :
+
+    :::text
+    $ mkdir -p ~/apacheds/dist/release/directory/apacheds/dist
+    $ svn co https://dist.apache.org/repos/dist/release/directory/apacheds/dist ~/apacheds/dist/release/directory/apacheds/dist
+
+Then move the packages from 'dev' to 'release' :
+
+    :::text
+    # cd dist/release/directory/apacheds/dist
+    # cp ~/apacheds/dist/dev/directory/apacheds/<version> .
+    # svn add <version>
     # svn ci <version>
     ...
     # exit
     $
 
-The packages should now be available on <em>http://www.us.apache.org/dist/directory/api/dist/<version></em>
+The packages should now be available on http://www.us.apache.org/dist/directory/apacheds/dist/<version>
 
 ##### Deploy the Javadocs and XRef
 

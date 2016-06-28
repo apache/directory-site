@@ -282,10 +282,11 @@ For the record, here is the script shell you can use to sign the packages. Name 
 
 ### Publish Source and Binary Distribution Packages
 
-The sources, binaries and their signatures, have to be pushed in a place where they can be downloaded by the other committers, in order to be chekced while validating the release. As the ~/people.apache.org server is not anymore available for that purpose, we use the [distribution](https://dist.apache.org/repos/dist/dev/directory) space for that purpose.
+The sources, binaries and their signatures, have to be pushed in a place where they can be downloaded by the other committers, in order to be checked while validating the release. As the ~/people.apache.org server is not anymore available for that purpose, we use the [distribution](https://dist.apache.org/repos/dist/dev/directory) space for that purpose.
 
-If you haven't chekced out this space, do it now :
+If you haven't checked out this space, do it now :
 
+    :::text
     $ mkdir -p ~/apacheds/dist/dev/directory
     $ svn co https://dist.apache.org/repos/dist/dev/directory ~/apacheds/dist/dev/directory
 
@@ -293,22 +294,25 @@ That will checkout the full project distributions.
 
 You may want to checkout only the part that you are going to generate, to avoid getting Gb of data :
 
+    :::text
     $ mkdir -p ~/apacheds/dist/dev/directory/api
     $ svn co https://dist.apache.org/repos/dist/dev/directory/api ~/apacheds/dist/dev/directory/api
 
 Now, create a sub-directory for the version you have generated (here, for version 1.0.0-RC1) :
 
+    :::text
     $ mkdir ~/apacheds/dist/dev/directory/api/1.0.0-RC1
 
 and copy the packages and signature to this area :
 
+    :::text
     $ cd distributions/target
     $ cp apache-ldap-api-<version>-* ~/apacheds/dist/dev/directory/api/1.0.0-RC1
 
 Last, not least, commit your changes
 
-    $ scn add ~/apacheds/dist/dev/directory/api/1.0.0-RC1
-    $ scn ci ~/apacheds/dist/dev/directory/api/1.0.0-RC1 -m "Apache LDAP API 1.0.0-RC1 packages"
+    $ svn add ~/apacheds/dist/dev/directory/api/1.0.0-RC1
+    $ svn ci ~/apacheds/dist/dev/directory/api/1.0.0-RC1 -m "Apache LDAP API 1.0.0-RC1 packages"
 
 ### Test the New Version in ApacheDS and Studio
 
@@ -330,16 +334,29 @@ If the vote succeeds LDAP API project can be released.
 
 Go to [https://repository.apache.org/index.html#stagingRepositories](https://repository.apache.org/index.html#stagingRepositories) and release the staging repository so all artifacts are published to Maven central.
 
+The sources, binaries and their signatures, have to be pushed in a place where they can be downloaded by usersWe use the [distribution](https://dist.apache.org/repos/dist/release/directory) space for that purpose.
+
 Move the distribution packages (sources and binaries) to the dist SVN repository: https://dist.apache.org/repos/dist/release/directory/api/dist/$(version)
 
-The best solution would be to checkout the directory in people.apache.org, to copy the packages in the right place, and to check in the changes (we assume you have a dist-all/api directory in your home directory. if not, create it) :
+If you haven't checked out this space, do it now :
 
-    $ ssh people.apache.org
-    # cd dist-all/api
-    # svn co https://dist.apache.org/repos/dist/release/directory/api/dist/ dist
-    # cd dist
-    # mkdir <version>
-    # cp ~/public_html/ldap-api-<version>/* <version>
+    :::text
+    $ mkdir -p ~/apacheds/dist/release/directory
+    $ svn co https://dist.apache.org/repos/dist/release/directory ~/apacheds/dist/release/directory
+
+That will checkout the full project distributions. 
+
+You may want to checkout only the part that you are going to generate, to avoid getting Gb of data :
+
+    :::text
+    $ mkdir -p ~/apacheds/dist/release/directory/api/dist
+    $ svn co https://dist.apache.org/repos/dist/release/directory/api/dist ~/apacheds/dist/release/directory/api/dist
+
+Then move the packages from 'dev' to 'release' :
+
+    :::text
+    # cd dist/release/directory/api/dist
+    # cp ~/apacheds/dist/dev/directory/api/<version> .
     # svn add <version>
     # svn ci <version>
     ...
