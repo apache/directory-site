@@ -1,4 +1,29 @@
 # News
+<h2 class="news">ApacheDS 2.0.0-M23 released <em>posted on July 22th, 2016</em></h2>
+
+The Apache Directory team is pleased to announce the release of ApacheDS 2.0.0-M23, the 23th milestone towards a 2.0 version.
+
+ApacheDS is an extensible and embeddable directory server entirely written in Java, which has been certified LDAPv3 compatible by the Open Group. Besides LDAP it supports Kerberos 5 and the Change Password Protocol. It has been designed to introduce triggers, stored procedures, queues and views to the world of LDAP which has lacked these rich constructs.
+
+Downloads are available [here](downloads.html)
+
+This release is a bug fix release. It fixes the installers that were broken on Linux. It also fixes teh 'repair' command, that allows user who have a broken backend to fix it (We still have some use case where the database can get corrupted. We are working on fixing this, but it's far from being easy...)
+
+In order to repair the database, one has just to start the server passing the 'repair' command to the apacheds script, instead of the 'start' comamnd. The server will start after having repaired the database.
+
+Here is the release note for Apache Directory ApacheDS 2.0.0-M23:
+
+<b>Bugs :</b>
+
+  * [DIRSERVER-2158](https://issues.apache.org/jira/browse/DIRSERVER-2158) - unable to start ApacheDS M22 x64
+  
+
+<b>Improvements :</b>
+
+  * [DIRKRB-595](https://issues.apache.org/jira/browse/DIRKRB-595) - Add mode to allow KerberosString's to contain UTF-8 for MSFT KDC interop
+  
+
+# News
 <h2 class="news">ApacheDS 2.0.0-M22 released <em>posted on June 28th, 2016</em></h2>
 
 The Apache Directory team is pleased to announce the release of ApacheDS 2.0.0-M22, the 22th milestone towards a 2.0 version.
