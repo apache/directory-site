@@ -201,6 +201,11 @@ This deploys the release to a staging repository. Go to [Staging Repositories](h
 
 ##### Build the Site
 
+We will now build the site. This will be done from the  <em>target/checkout</em> directory :
+
+    :::text
+    $ cd target/checkout
+
 In order to generate the site, you have to comment some modules in the apacheds <em>pom.xml</em> file :
 
     :::text
@@ -208,11 +213,13 @@ In order to generate the site, you have to comment some modules in the apacheds 
     ...
     <!--module>installers-maven-plugin</module-->
     <!--module>installers</module-->
+    ...
+    <!--module>service</module-->
+
 
 Then you can start the maven command :
 
     :::text
-    $ cd target/checkout
     $ mvn site
 
 This creates the site and the Javadocs.
@@ -324,6 +331,12 @@ and copy the packages and signature to this area :
     $ cd target/checkout/target
     $ cp apacheds-parent-<version>-source-release.zip* ~/apacheds/dist/dev/directory/apacheds/2.0.0-M22
 
+Last, not least, commit your changes
+
+    :::text
+    $ svn add ~/apacheds/dist/dev/directory/apacheds/2.0.0-M22
+    $ svn ci ~/apacheds/dist/dev/directory/apacheds/2.0.0-M22 -m "ApacheDS 2.0.M22 packages"
+
 ##### Test the new version
 
 The best way to do that is to download the sources, extract them, build the server and the installers, and check if the installers are correctly working. Then check that the server is correctly running.
@@ -372,8 +385,6 @@ Start a 72h vote at the dev mailing list.
 If the vote succeeds Apacheds project can be released.
 
 Go to [https://repository.apache.org/index.html#stagingRepositories](https://repository.apache.org/index.html#stagingRepositories) and release the staging repository so all artifacts are published to Maven central.
-
-Move the distribution packages (sources and binaries) to the dist SVN repository: <em>https://dist.apache.org/repos/dist/release/directory/apacheds/dist/$(version)</em>
 
 The sources, binaries and their signatures, have to be pushed in a place where they can be downloaded by users. We use the [distribution](https://dist.apache.org/repos/dist/release/directory) space for that purpose.
 
@@ -449,9 +460,7 @@ You have to check in those directories :
     $ svn add <version>
     $ svn ci <version> -m "Injected <version> javadocs"
 
-Now, you have to update the staging site :
-
-    extpaths.txt
+Now, you have to update the staging site, but first, do a <em>svn up</em>. the  you have to update the <em>extpaths.txt</em> file.
 
 This file list the file on the production site that will not be overriden by the publication of the staging site. It has to be updated
 
@@ -467,9 +476,9 @@ Add the following line :
     apacheds/gen-docs/<version>
     ...
 
-then save and check in the file <em>.htaccess</em>
+then save and check in the file.
 
-We also have to update this file :
+We also have to update the <em>.htaccess</em> file :
 
     :::text
     $ cd ~/apacheds/staging/content/apacheds/gen-docs
