@@ -1,4 +1,31 @@
 # News
+<h2 class="news">Apache Directory LDAP API 1.0.0-RC2 released <em>posted on November 2nd, 2016</em></h2>
+
+The Apache Directory Team is proud to announce the availability of version 1.0.0-RC2 of the Apache Directory LDAP API, the second release candidate before the GA.
+
+The Apache Directory LDAP API is an ongoing effort to provide an enhanced LDAP API, as a replacement for JNDI and the existing LDAP API (jLdap and Mozilla LDAP API).
+
+This is a schema aware API, with some convenient ways to access a LDAP server. This API is not only targeting the Apache Directory Server, but should work pristine with any LDAP server.
+
+It's also an extensible API : new Controls, schema elements and network layer could be added or used in the near future. It's also OSGi capable.
+
+Here is the list of fixed issues :
+
+<b>Bugs :</b>
+
+  * [DIRAPI-285](https://issues.apache.org/jira/browse/DIRAPI-285) - ModifyPassword extended operation incorrectly expects value in ModifyResponse 
+  * [DIRAPI-284](https://issues.apache.org/jira/browse/DIRAPI-284) - DateUtils throws an exception for certain timestamps
+  * [DIRAPI-279](https://issues.apache.org/jira/browse/DIRAPI-279) - We are using hashcode over a set in some tests, this is not reliable
+  * [DIRAPI-154](https://issues.apache.org/jira/browse/DIRAPI-154) - Implement "online" OpenLDAP schema parsing in DefaultSchemaLoader
+
+<b>Improvements :</b>
+
+  * [DIRAPI-283](https://issues.apache.org/jira/browse/DIRAPI-283) - We don't need to parse the DN when storing a name in the LDAP requests
+  * [DIRAPI-207](https://issues.apache.org/jira/browse/DIRAPI-207) - Expose the underlying socket config
+
+
+Downloads are available [here](downloads.html) and the User's Guide is [there](user-guide.html)
+
 <h2 class="news">Apache Directory LDAP API 1.0.0-RC1 released <em>posted on June 17th, 2016</em></h2>
 
 The Apache Directory Team is proud to announce the availability of version 1.0.0-RC1 of the Apache Directory LDAP API, the first release candidate before the GA.
