@@ -4,12 +4,12 @@
 
 The Apache Directory Project announces the fifth release of Fortress.  This major revision has a couple of changes that have broken backward compatibility with 1.x:
 
- 1. FC-183 - Use Apache IANA Number of OID - The LDAP schema uses the Apache Directory's IANA base number instead of the one from JoshuaTree.  Requires updating existing fortress impls to upgrade schema using latest:
+1. FC-183 - Use Apache IANA Number of OID - The LDAP schema uses the Apache Directory's IANA base number instead of the one from JoshuaTree.  Requires updating existing fortress impls to upgrade schema using latest:
      * OpenLDAP: https://github.com/apache/directory-fortress-core/blob/master/ldap/schema/fortress.schema
      * ApacheDS: https://github.com/apache/directory-fortress-core/blob/master/ldap/schema/apacheds-fortress.ldif
      * To ensure the old copy of data works with this release, be sure to export and reimport data (using ldif format) after the schema has been updated on the LDAP server. 
 
- 2. FC-194 - Change password representation from a char[] to a String.  Applies to all methods using a password in the arguments.  If using the fortress-realm, ensure the tomcat instance has the latest proxy jar also.
+2. FC-194 - Change password representation from a char[] to a String.  Applies to all methods using a password in the arguments.  If using the fortress-realm, ensure the tomcat instance has the latest proxy jar also.
 
 
 - Other enhancements include:
