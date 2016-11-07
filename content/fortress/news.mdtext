@@ -1,64 +1,59 @@
 # Fortress News
 
-<h2 class="news">Apache Fortress 2.0.0-RC1 Released<em>posted on November 7th, 2016</em></h2>
+<h2 class="news">Apache Fortress 2.0.0-RC1 Released <em>posted on November 7th, 2016</em></h2>
 
 The Apache Directory Project announces the fifth release of Fortress.  This major revision has a couple of changes that have broken backward compatibility with 1.x:
 
 1. FC-183 - Use Apache IANA Number of OID - The LDAP schema uses the Apache Directory's IANA base number instead of the one from JoshuaTree.  Requires updating existing fortress impls to upgrade schema using latest:
-     * OpenLDAP: https://github.com/apache/directory-fortress-core/blob/master/ldap/schema/fortress.schema
-     * ApacheDS: https://github.com/apache/directory-fortress-core/blob/master/ldap/schema/apacheds-fortress.ldif
-     * To ensure the old copy of data works with this release, be sure to export and reimport data (using ldif format) after the schema has been updated on the LDAP server. 
+ * OpenLDAP: https://github.com/apache/directory-fortress-core/blob/master/ldap/schema/fortress.schema
+ * ApacheDS: https://github.com/apache/directory-fortress-core/blob/master/ldap/schema/apacheds-fortress.ldif
+ * To ensure the old copy of data works with this release, be sure to export and reimport data (using ldif format) after the schema has been updated on the LDAP server. 
 
 2. FC-194 - Change password representation from a char[] to a String.  Applies to all methods using a password in the arguments.  If using the fortress-realm, ensure the tomcat instance has the latest proxy jar also.
 
 Other enhancements include:
-    * FC-116 Basic ABAC capabilities
-    * FC-144 Enhanced group-to-role mappings
-    * FC-181 Multitenancy for Realm and Web
+ * FC-116 Basic ABAC capabilities
+ * FC-144 Enhanced group-to-role mappings
+ * FC-181 Multitenancy for Realm and Web
 
 The complete list can be found in this JIRA report:
-    * https://issues.apache.org/jira/browse/FC-200?jql=project%20%3D%20FC%20AND%20fixVersion%20%3D%202.0.0-RC1%20ORDER%20BY%20updated%20DESC%2C%20priority%20DESC%2C%20created%20ASC
+ * https://issues.apache.org/jira/browse/FC-200?jql=project%20%3D%20FC%20AND%20fixVersion%20%3D%202.0.0-RC1%20ORDER%20BY%20updated%20DESC%2C%20priority%20DESC%2C%20created%20ASC
 
 To learn more about how to install Apache Fortress and configure for LDAP usage try one of the quickstarts:
-    * [ApacheDS & Fortress QUICKSTART](https://github.com/apache/directory-fortress-core/blob/master/README-QUICKSTART-APACHEDS.md)
-    * [OpenLDAP & Fortress QUICKSTART](https://github.com/apache/directory-fortress-core/blob/master/README-QUICKSTART-SLAPD.md)
+ * [ApacheDS & Fortress QUICKSTART](https://github.com/apache/directory-fortress-core/blob/master/README-QUICKSTART-APACHEDS.md)
+ * [OpenLDAP & Fortress QUICKSTART](https://github.com/apache/directory-fortress-core/blob/master/README-QUICKSTART-SLAPD.md)
 
 To understand how it may be used inside a Web app, for access control, check out these tutorials:
-    * [Enabling Java EE and Fortress Security inside an Apache Wicket Web App](http://iamfortress.net/2015/03/13/enabling-java-ee-and-fortress-security-inside-an-apache-wicket-web-app/)
-    * [Apache Fortress End-to-End Security Tutorial](http://iamfortress.net/2015/02/16/apache-fortress-end-to-end-security-tutorial/)
+ * [Enabling Java EE and Fortress Security inside an Apache Wicket Web App](http://iamfortress.net/2015/03/13/enabling-java-ee-and-fortress-security-inside-an-apache-wicket-web-app/)
+ * [Apache Fortress End-to-End Security Tutorial](http://iamfortress.net/2015/02/16/apache-fortress-end-to-end-security-tutorial/)
 
 More options:
-    * [Installation Guides](installation.html)
+ * [Installation Guides](installation.html)
 
-<h2 class="news">Apache Fortress 1.0.1 Released<em>posted on July 22nd, 2016</em></h2>
+<h2 class="news">Apache Fortress 1.0.1 Released <em>posted on July 22nd, 2016</em></h2>
 
 The Apache Directory Project announces the fourth release of Fortress.
-4
+
 This maintenance release includes the following enhancements:
+ * Fortress Core use of a non-static configurator
+ * Fortress Core to use the Apache LDAP API 1.0.0-RC1
+ * Fortress Rest to use Apache CXF 3.1.6 and Spring 4.3.1
+ * Fortress Web to use Apache Wicket 7.3.0 and Spring 4.3.1
 
-* Fortress Core use of a non-static configurator
-
-* Fortress Core to use the Apache LDAP API 1.0.0-RC1
-
-* Fortress Rest to use Apache CXF 3.1.6 and Spring 4.3.1
-
-* Fortress Web to use Apache Wicket 7.3.0 and Spring 4.3.1
-
-<h2 class="news">Apache Fortress 1.0.0 Released<em>posted on April 15th, 2016</em></h2>
+<h2 class="news">Apache Fortress 1.0.0 Released <em>posted on April 15th, 2016</em></h2>
 
 The Apache Directory Project announces the third release of Fortress which provides role-based access control, delegated administration and password policies using LDAP servers like ApacheDS and OpenLDAP.
 
-<h2 class="news">Apache Fortress 1.0-RC42 Released<em>posted on March 28th, 2016</em></h2>
+<h2 class="news">Apache Fortress 1.0-RC42 Released <em>posted on March 28th, 2016</em></h2>
 
 The Apache Directory Project announces the second release of Fortress which includes the Core, Realm, Rest and Web components.
 
 Dozens of features and bug fixes have been added since the last release.
-
-* [JIRA Report for fix version is 1.0-RC41 & 1.0-RC42](https://issues.apache.org/jira/issues/?jql=fixVersion%20%3D%201.0.0-RC41%20OR%20fixVersion%20%3D%201.0.0-RC42%20%20AND%20project%20%3D%20FC)
+ * [JIRA Report for fix version is 1.0-RC41 & 1.0-RC42](https://issues.apache.org/jira/issues/?jql=fixVersion%20%3D%201.0.0-RC41%20OR%20fixVersion%20%3D%201.0.0-RC42%20%20AND%20project%20%3D%20FC)
 
 This is the first time we've released other packages of Realm, Rest and Web components.  A 1.0 GA release will follow in coming weeks.
 
-<h2 class="news">Apache Fortress Core 1.0-RC40 released !<em>posted on April 15th, 2015</em></h2>
+<h2 class="news">Apache Fortress Core 1.0-RC40 released ! <em>posted on April 15th, 2015</em></h2>
 
 The Apache Directory Project is proud to announce the very first release of Fortress Core, the core library of the Fortress project.
 
