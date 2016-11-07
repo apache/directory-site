@@ -5,8 +5,8 @@
 The Apache Directory Project announces the fifth release of Fortress.  This major revision has a couple of changes that have broken backward compatibility with 1.x:
 
 1. FC-183 - Use Apache IANA Number of OID - The LDAP schema uses the Apache Directory's IANA base number instead of the one from JoshuaTree.  Requires updating existing fortress impls to upgrade schema using latest:
-     * OpenLDAP: https://github.com/apache/directory-fortress-core/blob/master/ldap/schema/fortress.schema
-     * ApacheDS: https://github.com/apache/directory-fortress-core/blob/master/ldap/schema/apacheds-fortress.ldif
+     * [OpenLDAP](https://github.com/apache/directory-fortress-core/blob/master/ldap/schema/fortress.schema)
+     * [ApacheDS](https://github.com/apache/directory-fortress-core/blob/master/ldap/schema/apacheds-fortress.ldif)
      * To ensure the old copy of data works with this release, be sure to export and reimport data (using ldif format) after the schema has been updated on the LDAP server. 
 
 2. FC-194 - Change password representation from a char[] to a String.  Applies to all methods using a password in the arguments.  If using the fortress-realm, ensure the tomcat instance has the latest proxy jar also.
@@ -14,15 +14,17 @@ The Apache Directory Project announces the fifth release of Fortress.  This majo
 <ul>
   <li>Other enhancements include:
     <ul>
-      <li>FC-116 Basic ABAC capabilities
-      <li>FC-144 Enhanced group-to-role mappings</li>
-      <li>FC-181 Multitenancy for Realm and Web</li>
+      <li>[FC-116](https://issues.apache.org/jira/browse/FC-116) Basic ABAC capabilities</li>
+      <li>[FC-144](https://issues.apache.org/jira/browse/FC-144) Enhanced group-to-role mappings</li>
+      <li>[FC-181](https://issues.apache.org/jira/browse/FC-181) Multitenancy for Realm and Web</li>
     </ul>
   </li>
+</ul>
+<ul>
   <li>The complete list can be found in this JIRA report:
     <ul>
       <li>
-        https://issues.apache.org/jira/browse/FC-200?jql=project%20%3D%20FC%20AND%20fixVersion%20%3D%202.0.0-RC1%20ORDER%20BY%20updated%20DESC%2C%20priority%20DESC%2C%20created%20ASC
+        [Issues fixed in this release](https://issues.apache.org/jira/browse/FC-200?jql=project%20%3D%20FC%20AND%20fixVersion%20%3D%202.0.0-RC1%20ORDER%20BY%20updated%20DESC%2C%20priority%20DESC%2C%20created%20ASC)
         <br>
       </li>
     </ul>
