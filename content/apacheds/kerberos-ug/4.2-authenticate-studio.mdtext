@@ -90,6 +90,17 @@ Here is a Ssnapshot of this configuration :
   <img alt="Kerberos configuration" src="images/kerberos-config.png">
 </DIV>
 
+The Kerberos server also requires a minimal **krb5.conf** file. The default location of that file is **/etc/krb5.conf**, alternatively you can also put it to **JAVA_HOME/jre/lib/security/krb5.conf**.
+
+    :::text
+    [libdefaults]
+        default_realm = EXAMPLE.COM
+
+    [realms]
+        EXAMPLE.COM = {
+            kdc = example.net:60088
+        }
+
 
 Once those modifications have been done, you must restart the server.
 
