@@ -73,19 +73,46 @@ Once you don't need to use the connection anymore (remember that hodling a conne
 
 ## Using a pool of connections
 
-Creating a connection is expensive. If you are to reuse a connection over and over, or if you are writing an application that will need many LDAP conenctions, you may want to use a pool of connections.
+Creating a connection is expensive. If that connection will be reused, or if your application needs multiple connections, you may want to consider using a _connection pool_.
 
-This is slightly more complex than simply opening a new connection, as you have a lot of parametrs that can come into play when creating a pool.
-Here is an example of creation of a pool of connections :
+This process is slightly more complex given that there are many parameters that can be used to tune the pool.  Here is an example:
 
     :::Java
     LdapConnectionConfig config = new LdapConnectionConfig();
-    config.setLdapHost( "localhost" );
-    config.setLdapPort( 389 );
-    config.setName( "uid=admin,ou=system" );
-    config.setCredentials( "secret" );
-    PoolableLdapConnectionFactory factory = new PoolableLdapConnectionFactory( config );
-    LdapConnectionPool pool = new LdapConnectionPool( factory );
-    pool.setTestOnBorrow( true );
+    config.setLdapHost( hostname );
+    config.setLdapPort( port );
+    config.setName( adminDn );
+    config.setCredentials( adminPassword );
 
-Here, we just have created a pool of connections which all are unthenticated using the administrator user. You can create anonymous connections, it's just a matter of not setting any name or credentials in the config.
+    DefaultLdapConnectionFactory factory = new DefaultLdapConnectionFactory( config );
+    factory.setTimeOut( connectionTimeout );
+
+    // optional, values below are defaults
+    GenericObjectPool.Config poolConfig = new GenericObjectPool.Config();
+    poolConfig.lifo = true;
+    poolConfig.maxActive = 8;
+    poolConfig.maxIdle = 8;
+    poolConfig.maxWait = -1L;
+    poolConfig.minEvictableIdleTimeMillis = 1000L * 60L * 30L;
+    poolConfig.minIdle = 0;
+    poolConfig.numTestsPerEvictionRun = 3;
+    poolConfig.softMinEvictableIdleTimeMillis = -1L;
+    poolConfig.testOnBorrow = false;
+    poolConfig.testOnReturn = false;
+    poolConfig.testWhileIdle = false;
+    poolConfig.timeBetweenEvictionRunsMillis = -1L;
+    poolConfig.whenExhaustedAction = GenericObjectPool.WHEN_EXHAUSTED_BLOCK;
+
+    LdapConnectionPool pool = new LdapConnectionPool(
+        new DefaultPoolableLdapConnectionFactory( factory ), poolConfig ) );
+
+This will create a pool of connections that will be pre-authenticated.  If you do not setName and setCredentials, then the pool will contain unauthenticated connections.
+
+The DefaultPoolableLdapConnectionFactory is sufficient for many cases.  However, certain operations result in modifications to the connection itself.  For example, when the pool is created, a bind operation will occur with the credentials supplied as part of the config.  If you borrow a connection and perform a bind yourself, that would result in the connection being re-bound as a different user.  The next time that connection gets borrowed, things are likely to break.  If you perform any operation that results in a modification of the connection, you should instead use ValidatingPoolableLdapConnectionFactory:
+
+    :::Java
+    ...
+    PoolableLdapConnectionFactory factory = new ValidatingPoolableLdapConnectionFactory( config );
+    ...
+
+A connection pool using this factory will unbind and rebind any connection that was modified while it was borrowed (_see the javadoc for more detail_).  This will be slower due to the additional operations, but not too significantly.
