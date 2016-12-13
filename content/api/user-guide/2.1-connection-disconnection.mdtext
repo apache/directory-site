@@ -112,7 +112,8 @@ The DefaultPoolableLdapConnectionFactory is sufficient for many cases.  However,
 
     :::Java
     ...
-    PoolableLdapConnectionFactory factory = new ValidatingPoolableLdapConnectionFactory( config );
+    LdapConnectionPool pool = new LdapConnectionPool(
+        new ValidatingPoolableLdapConnectionFactory( factory ), poolConfig ) );
     ...
 
 A connection pool using this factory will unbind and rebind any connection that was modified while it was borrowed (_see the javadoc for more detail_).  This will be slower due to the additional operations, but not too significantly.
