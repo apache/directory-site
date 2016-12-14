@@ -67,9 +67,12 @@ The connection template manages connections through a connection pool.  The conn
     poolConfig.timeBetweenEvictionRunsMillis = -1L;
     poolConfig.whenExhaustedAction = GenericObjectPool.WHEN_EXHAUSTED_BLOCK;
 
+    // could use DefaultPoolableLdapConnectionFactory instead
+    // see javadoc for ValidatingPoolableLdapConnectionFactory
+    // for an explanation
     LdapConnectionTemplate ldapConnectionTemplate = 
         new LdapConnectionTemplate( new LdapConnectionPool(
-            new PoolableLdapConnectionFactory( factory ), poolConfig ) );
+            new ValidatingPoolableLdapConnectionFactory( factory ), poolConfig ) );
 
 This may look like a lot, but most of it is optional and it is the last you will have to think about connections.
 
