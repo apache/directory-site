@@ -22,7 +22,7 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
     specific language governing permissions and limitations
     under the License.
 
-# 2.2 - Binding and unbinding (...)
+# 2.2 - Binding and unbinding
 
 In **LDAP**, if one wants to access the data in the base, the common way to do it is to bind on the server. However, it's important to understand that binding is a different beast than connection.
 
@@ -87,15 +87,30 @@ Note that this kind of bind will be supported only if the server allows anonymou
         connection.bind( "uid=admin,ou=system" );
     }
 
-### SASL Bind
+### Rebinding
 
-TO BE COMPLETED
+It's possible to issue a **Bind** on an already bound connection : the existing Ldap session will be terminated, and replaced by a new Ldap session. In any case, the connection is not dropped when doing so. Note that if the connection was encrypted, it will remain encrypted.
+
+    :::Java
+    @Test
+    public void testDoubleSimpleBindValid() throws Exception
+    {
+        connection.bind( "uid=admin,ou=system", "secret" );
+
+        // Now, rebind
+        connection.bind( "cn=john doe,dc=example,dc=com", "secret" );
+
+        assertTrue( connection.isConnected() );
+        assertTrue( connection.isAuthenticated() );
+    }
+
+If you issue a _bind_ on the same connection with some different credentials, then the existing session will be terminated on the server, and a new one will be created. All the pending requests for the initial session will be lost.
 
 ### Unbinding
 
 This is a trivial operation : you just send an **UnbindRequest** to the server, which will invalidate your session. 
 
-It's important to know that when you issue an **Unbind**, the connection is dropped. However, if you immediately try another bind, the **API** will open the connection again, using the information provided when the connection has been created. You can then do such a thing :
+It's important to know that when you issue an **Unbind**, the connection is dropped. You can then do such a thing :
 
     :::Java
     @Test
@@ -111,8 +126,6 @@ It's important to know that when you issue an **Unbind**, the connection is drop
         // And Bind again.
         connection.bind( "uid=admin,ou=system", "secret" );
     }
-
-If you issue a _bind_ on the same connection with some different credentials, then the existing session will be terminated on the server, and a new one will be created. All the pending requests for the initial session will be lost.
 
 Last, not least, if you close the connection, then the session will also be terminated.
  
