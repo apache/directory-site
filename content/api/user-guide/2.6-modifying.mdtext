@@ -26,9 +26,9 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 There are several ways an entry can be modified. Mainly, it's about adding or deleting an attribute, or modifying the values associated with an existing attribute.
 
-It's important to understand that many modifications can be applied on a single entry. All those modifications will be applied in an all or none fashion. i.e., if any of the modifications are invalid, none of them will occur. Also if the server crashes while applying the mods, it's guaranteed that the entry will remain consistent.
+It's important to understand that many modifications can be applied on a single entry. All those modifications will be applied in an all or none fashion. i.e., if any of the modifications are invalid, none will occur. Also if the server crashes while applying the mods, it's guaranteed that the entry remains consistent.
 
-## How it works ?
+## How it works?
 
 Each modification to be applied on an entry is encapsulated into an intermediate class : a _Modification_ instance, which can be created as :
 
