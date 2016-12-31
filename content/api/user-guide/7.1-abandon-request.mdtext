@@ -24,7 +24,7 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 # 7.1 AbandonRequest
 
-This request is used to tell the server that a given previous request must be abandonned. The only needed parameter is the *ID* of the request you want to stop. 
+This request is used to tell the server that a given request (sent previously) has been abandoned. The only required parameter is the *ID* field of a request you want to stop. 
 
     :::Java
     public interface AbandonRequest extends Request
@@ -46,7 +46,7 @@ This request is used to tell the server that a given previous request must be ab
         AbandonRequest setAbandoned( int requestId );
     }
 
-There are two existing implementations you can use :
+There are two existing implementations that can used:
 
 * _AbandonRequestImpl_ : The default implementation.
 * _AbandonRequestDsml_ : An implementation used when you want to generate a DSML request
@@ -55,16 +55,16 @@ The _AbandonRequest_ message does not have a response, the abandonned request wi
 
 ## Usage
 
-It's pretty easy. You just have inject the ID of the request you want to abandon :
+It's pretty easy to do. You just to inject the ID of the request you want to abandon:
 
     :::Java
     connection.abandon( messageId );
 
-This will interrupt the request which ID is _messageId_.
+This will interrupt the request whose ID equals _messageId_.
 
 ### Adding some controls
 
-You can add a control in the _AbandonRequest_, as soon as you create an instance of _AbandonRequestImpl :
+You can add a control in the _AbandonRequest_, once you create an instance of _AbandonRequestImpl:
 
 
     :::Java

@@ -24,21 +24,21 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 # 6.12 - Entry
 
-The _Entry_ class is one of the most important one in the _API_. It describes the base element stored into a *LDAP* server, and it associates a _Dn_ and some _Attributes_.
+The _Entry_ class is one of the most important ones in the _API_. It describes the base element stored into a *LDAP* server, and it associates a _Dn_ and some _Attributes_.
 
 We have two kinds of _Entry_ in the _API_, depending on the presence of a _SchemaManager_ in the _Entry_, or not.
 
 We also provide a few extended classes, like the _ImmutableEntry_, an immutable version of the _Entry_.
 
-## What is an entry ?
+## What an entry?
 
-An entry is an object containing a _Dn_ and some _Attributes_. The following schema shows what's inside an _entry_ :
+An entry is an object containing a _Dn_ and some _Attributes_. The following schema shows what's inside an _entry_:
 
 ![](images/entry.png)
 
 ## Creating an Entry
 
-We have many ways to create an _Entry_. Basically, an _Entry_ has a _Dn_ and some _Attributes_. It can be schema aware, or not. We provide constructors to allow a user to create the kind of _Entry_ he wants.
+We have many ways to create an _Entry_. Basically, an _Entry_ has a _Dn_ and some _Attributes_. It can be schema aware, or not. We provide constructors to allow a user to create the kind of _Entry_ wanted.
 
 The simplest way to create an _Entry_ is to call the default constructor. The created entry will have no attributes, and no _Dn_. We can also make it schema aware by passing a _SchemaManager_. Here is an example:
 
@@ -88,7 +88,7 @@ We can also create an entry by copying an existing entry. The created _Entry_ mu
     
     entry.clear();
 
-Last, not least, it's possible to create an _Entry_ using a list of LDIF formated attributes. An example worth ten lines of documentation, so let's see what it means.
+Last, but not least, it's possible to create an _Entry_ using a list of LDIF formated attributes. An example worth ten lines of documentation, so let's see what it means.
 
 First, we will create a schema agnostic entry:
 
@@ -142,7 +142,7 @@ We have six methods available that modify the _Entry_ content : _add_, _clear_, 
 
 ### Adding Attributes
 
-Two methods can be used to add some attribute into an _Entry_. The first one will add a complete _Attribute_, the second one will add some values to an existing _Attribute_.
+Two methods can be used to add attribute into an _Entry_. The first one will add a completed _Attribute_, the second one will add some values into an existing _Attribute_.
 
 In any case, we can add either an empty attribute, or an attribute with some values. Those values can be _Strings_, _byte[]_ or _Values_. The added attributes can be schema aware, and we can also provide a user provided name for the attribute type.
 
@@ -211,7 +211,7 @@ For a schema agnostic entry :
     entry.add( "cn", "A  second  test" );
 
 
-As you can see, there is no real difference between those two methods, except that we pass the _schemaManager_ in the first one.
+As you can see, there is no real difference between those two methods, except that we pass the _schemaManager_ into the first one.
 
 
 ##### put() methods
@@ -236,7 +236,7 @@ The big difference with the _add_ method is that the attribute is not added, it 
 
 We can remove either an attribute having a specific value, or an entire attribute. In order to remove a complete attribute, you just have to provide the attribute's name, and use the _removeAttributes_ method.
 
-Here are some example for both usages :
+Here are examples for both usages :
 
     :::Java
     Entry entry = new DefaultEntry( 
@@ -262,7 +262,7 @@ It's also possible to store a new _Dn_ into the Entry, using the _setDn() method
 
 ### Clearing the Entry
 
-You can remove all the _Attribute_ from the entry, using the _clear()_ method :
+You can remove all the _Attribute_s from the entry, using the _clear()_ method :
 
     :::Java
     Entry entry = new DefaultEntry( 
@@ -282,7 +282,7 @@ The _Dn_ will still be around though.
 
 ## Attribute data access methods
 
-The *API* provides convenient methods to access the _Entry_ content, and to check if it contains some attributes or some values. We will shortly expose those methods in the following paragraphs.
+The *API* provides convenient methods to access the _Entry_ content, and to check if it contains some attributes or some values. We will show these methods in the paragraphs that follow.
 
 ### Contains method
 
@@ -412,7 +412,7 @@ Returns the number of _Attribute_ stored in the _Entry_.
 
 #### equals(Object)
 
-Check if two *Entries* are equal or not. It's important to understand that depending on whether the entry is schema aware or not, the comparison will be processed differently. Typically, the attribute's name must be equals when they have been trimmed and lower cased if the entry is not schema aware, and we can't compare an attribute named 'cn' with another one named '2.5.4.3' in this case (the _Entry_ must be schema aware to allow such comparison). More important, the values *must* be identical (same casing, same spaces) in this case.
+Check if two *Entries* are equal or not. It's important to understand that depending on whether the entry is schema aware or not, the comparison will be processed differently. Typically, the attribute's name must be equivilent after being trimmed and set to lowercase.  If the entry is not schema aware, and we can't compare an attribute named 'cn' with another one named '2.5.4.3' in this case (the _Entry_ must be schema aware to allow such comparison). More important, the values *must* be identical (same casing, same spaces) in this case.
 The attribute's values order is irrelevant.
 
 Here are one example with a schema agnostic _Entry_:
