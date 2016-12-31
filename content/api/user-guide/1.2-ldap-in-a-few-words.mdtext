@@ -26,19 +26,19 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 **LDAP** is not a new technlology. It has been around since the 90's to mitigate complexities inherent in **X.500** usage. Its name refers to **L**ightweight **D**irectory **A**ccess **P**rotocol. Soon after the first standard was issued, the first full *LDAP* server was created and X.500 became obsolete.
 
-We'll use the term **LDAP** to represent the protocol and **LDAP** server to represent the server that implements it.
+We'll use the term **LDAP** to represent the protocol and **LDAP server** to represent the server that implements it.
 
 ## Features
-The **LDAP** protocol provides access to entries stored in a **LDAP Server's** database. It provides the mechanism for fast searching and retrieval of entries. Its data structures are hierarchical, and uses a schema to manage the definition of a particular entry's data formats.
+The **LDAP** protocol provides access to entries stored in a **LDAP Server's** database. It provides the mechanism for fast searching and retrieval of entries. Its data structures are hierarchical, and uses a schema to manage the definition of data formats allowed accross those entries.
 
 An **LDAP** client must first connect to a server and disconnect when finished. Some operations may be performed on the data itself, e.g. searches, modifications and deletions, along with a few others.
 
-**LDAP** servers are extensible, but they all use a common protocol which makes it easy for users to request to interact with them, in a way that isn't tied to a particular vendor's implementation. This API is an example of what **LDAP** is good at: fast data access across servers of all types.
+**LDAP** servers are extensible, but they all use a common protocol simplifies application access in a way that isn't tied to a particular vendor's implementation. This API is an example of what **LDAP** is good at: fast data access across servers of all types.
 
 ## Characteristics
 **LDAP** servers are fast for retrievals, having been designed specifically for this purpose. But modifications can be costly. These characteristics must be understood when writing applications that use an **LDAP** server for data storage.
 
-Each entry is associated with a location within its corresponding **D**irectory **I**nformation **T**ree, and we use what is known as a **D**istinguished **N**ame (or **Dn**) to describe this address. The base entry is known as the suffix, it along with all entries beneath it are collectively known as the **DIT**.
+Each entry is associated with a location within its corresponding **D**irectory **I**nformation **T**ree, and we use what is known as a **D**istinguished **N**ame (or **Dn**) to describe this address. The base entry is known as the suffix.  The suffix along with all entries beneath it are collectively known as the **DIT**.
 
 ## Programming 
 
@@ -46,4 +46,4 @@ Each entry is associated with a location within its corresponding **D**irectory 
 
 ## Going further
 
-This was a very short introduction, there's more literature about **LDAP** on the web : [Wikipedia](http://en.wikipedia.org/wiki/LDAP) provides a good starting point.
+This was a short introduction, there's more literature about **LDAP** on the web : [Wikipedia](http://en.wikipedia.org/wiki/LDAP) provides a good starting point.
