@@ -24,26 +24,26 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 # 1.2 - LDAP in a few words
 
-**LDAP** is not a new technlology. It has been around since mid 1990, as a way to mitigate the complexity of the **X.500** based servers access. It's name is an acronym for **L**ightweight **D**irectory **A**ccess **P**rotocol. Soon after the first standard has been issued, the first full *LDAP* server was written (ie, X.500 was pushed out of the equation).
+**LDAP** is not a new technlology. It's been around since the 90's to mitigate **X.500** complexities. Its name is an acronym for **L**ightweight **D**irectory **A**ccess **P**rotocol. Soon after the first standard was issued, the first full *LDAP* server was created and X.500 became obsolete.
 
-We will now use the term **LDAP** and **LDAP** server for respectively the protocole and the server.
+We'll use the term **LDAP** to represent the protocol and **LDAP** server to represent the server that implements it.
 
 ## Features
-A **LDAP** server provides access to entries, stored in a backend. It offers an interrogation mechanism allowing fast retrieval of entries. The data structure is hierarchical, and we use a schema to manage the content of entries, plus the organisation of data.
+An **LDAP** server provides access to entries stored in a backend database. It provides a mechanism for fast searching and retrieval of entries. Its data structure is hierarchical, and uses a schema to manage the definition of the entry's data formats.
 
-A **LDAP** client first has to connect to the server, and disconnect at the end. Some operations can be done on data, searches, modification and deletion, among a few others.
+An **LDAP** client must first connect to a server and disconnect when finished. Some operations may be performed on the data itself, e.g. searches, modifications and deletions, along with a few others.
 
-**LDAP** servers are extensible, but they all use a common protocol which makes it easy for users to request them. This API is an exemple of what **LDAP** is very good at : access data in a fast way, across servers.
+**LDAP** servers are extensible, but they all use a common protocol which makes it easy for users to request to interact with them. This API is an exemple of what **LDAP** is very good at : it access data in a fast way, across servers.
 
 ## Characteristics
-**LDAP** servers are fast for retrievals : they have been designed for this purpose. On the other hand, modifications can be costly. This has to be understood when writing an application using a **LDAP** server as a backend.
+**LDAP** servers are fast for retrievals : having been designed specifically for this purpose. But modifications can be costly. These characteristics must be understood when writing applications using an **LDAP** server for data storage.
 
-Each entry is identified by it's position in the hierarchy, and we use what is called a **D**istinguished **N**ame (or **Dn**) to describe this position in the tree. The base is also named the **DIT**, or **D**irectory **I**nformation **T**ree.
+Each entry is identified by a location within it's corresponding **D**irectory **I**nformation **T**ree, and we use what's called a **D**istinguished **N**ame (or **Dn**) to describe its address within it. The base entry, is known as the suffix, and all entries beneath it are collectively known as the **DIT**.
 
 ## Programming 
 
-Nowadays, **LDAP** is a part of the **IT** and it's difficult to avoid having to deal with it. **LDAP** servers are used to manage authentication, mainly, but also authorization, and more. It's very likely that you will have to write some code to access such a **LDAP** server, and the existing **API** are a bit cumbersome. This new **LDAP API** has been defined to facilitate this kind of tasks.
+**LDAP** is a part of the **IT** landscape and so it's unavoidable that we must deal with it. **LDAP** servers are used to manage authentication, authorizations, demographic info and more. It's very likely that you will have to write some code to access data over **LDAP**, and existing **API**s aren't quite up to the task. This **LDAP API** has been designed to simplify usage.
 
 ## Going further
 
-This was a very short introduction, you can find more literature about **LDAP** on the web : [Wikipedia](http://en.wikipedia.org/wiki/LDAP) gives you a good starting point with many valid pointers.
+This was a very short introduction, there's more literature about **LDAP** on the web : [Wikipedia](http://en.wikipedia.org/wiki/LDAP) provides a good starting point.

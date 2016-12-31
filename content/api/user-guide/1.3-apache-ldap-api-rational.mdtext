@@ -22,28 +22,28 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
     specific language governing permissions and limitations
     under the License.
 
-# 1.3 - The Apache LDAP API rational
+# 1.3 - The Apache LDAP API rationale
 
-Once we start to think about creating a new **LDAP** **API**, the first thing that comes to mind is that it could be a duplication of effort : there are already many libraries offering almost everything needed to write **LDAP** code. Some of them are :
+When creating a new **LDAP** **API**, we need to consider whether it's a duplication of effort; there are already some libraries that do this. For example:
 
 * **JNDI** : the default **JDK** **API**
-* **Netscape** [LdapSdk](http://www.mozilla.org/directory/javasdk.html)
+* **Netscape** (a.k.a Mozilla) [LdapSdk](http://www.mozilla.org/directory/javasdk.html)
 * **OpenLDAP** [JLdap](http://www.openldap.org/jldap/)
 
-So what makes the development of a new *LDAP JAVA API* a valid effort, and not another version of **[NIH](http://en.wikipedia.org/wiki/Not_Invented_Here)** syndrom ?
+What makes the development of this new *LDAP JAVA API* a valid effort, and **[NIH](http://en.wikipedia.org/wiki/Not_Invented_Here)** syndrom?
 
-There are many reasons why we decided to start to work on such an **API**, and we will expose them in this chapter.
+There are many reasons why we decided to start to work on this **API**, and we'll discuss them throughout this chapter.
 
-## history
-The Apache Directory Server project was first built on top of **JNDI**, but many of the internal **LDAP** structure were developed internally, just because **JNDI** was not designed specifically for **LDAP**, so it was not convenient for us to use those structure. Step by step, all of the **LDAP** objects (_Attribute_, _Entry_, _DN_, ...) were implemented again.
+## History
+The Apache Directory Server project was first using **JNDI**, but many of the internal **LDAP** structures were developed internally, because **JNDI** was not well suited for **LDAP** usage.  This meant it wasn't convenient for us to use these structures. Step by step, all of the **LDAP** objects (_Attribute_, _Entry_, _DN_, ...) were implemented again.
 
-At some point, we needed to communicate with another **LDAP** server without having to go through **JNDI**, so we developed our own _LdapConnection_ class. This was the last step toward a full **Java API**.
+At some point, we needed to communicate with other **LDAP** servers without having using **JNDI**, so we developed our own _LdapConnection_ class. This was the first step toward a full **Java API** specifically designed for LDAP.
 
-Strange enough, at the very same time in 2007, the **Sun** people working on **OpenDS** contacted us to know if we would agree to work on what would have become the next version of **JNDI** ([Resurrecting The Java LDAP Centric API](https://blogs.oracle.com/treydrake/entry/resurrecting_the_java_ldap_centric). Sadly, this effort soon staled, as it seemed that *JNDI2* was not anymore an urgency for **Sun**. We decided to go on but the pace was slow.
+Strangely enough when we were doing this, back in 2007, **Sun** people working on the **OpenDS** project contacted us to ask if we'd be interested in helping them with the next version of **JNDI** ([Resurrecting The Java LDAP Centric API](https://blogs.oracle.com/treydrake/entry/resurrecting_the_java_ldap_centric). Sadly, this effort stalled, as the need for *JNDI2* was no longer a priority for **Sun**. We decided to continue with our work but the the pace was slow.
 
-We started again to work on this API with the **OpenDS** team in 2009, and did a presentation during the 2009 **LdapCon** ([Towards a common LDAP API for the Java Platform](http://www.symas.com/ldapcon2009/papers/poitou1.shtml)). The story repeated itself with **Oracle** buying **Sun** in 2010, after months of valuable collaboration with *Sun*.
+The work began once again after the **OpenDS** project team's presentation at **LdapCon** back in 2009 ([Towards a common LDAP API for the Java Platform](http://www.symas.com/ldapcon2009/papers/poitou1.shtml)). The story repeated itself after **Oracle** bought **Sun** in 2010.
 
-At least, we get some kind of convergence in many aspects of the **API**. We agreed on some of the key features the new **LDAP API** should offer :
+Despite these fits and starts, a consensus was reached on the need for a new **API** and what it should do. We agreed on the key features for a new **LDAP API**:
 
 * A complete coverage of the **LDAP** protocol
 * A schema aware **API**
@@ -51,8 +51,8 @@ At least, we get some kind of convergence in many aspects of the **API**. We agr
 * An **API** taking advantage of the new **Java** construction (generics, ellipsis, NIO)
 
 ## Result
-The newly defined **API** fulfill all those aspects. 
+This newly defined **API** fulfills all of these aspects. 
 
-We also wanted to make this **API** available for the masses. The Apache Software Foundation value quality and community over code, which means we think that the code is the result of a collaborative work, our users being a part of this collaboration. Every bug a user find, it's an opportunity to provide a better version of the **API**.
+We wanted to make sure this **API** was made available to the masses. The Apache Software Foundation values quality and community over code, which means the code is the result of a collaborative work, our users being a necessary part of this collaboration. Every bug a user finds, is an opportunity to provide a better version of the **API** for everyone.
 
-At he end, we are proud to deliver an **API** which is used in the Apache Directory Server, but also in the Ldap Browser. 
+In the end, we're proud to deliver a useful **API** that everyone can use, include our own projects like the Apache Directory Server, Directory Studio and Fortress. 
