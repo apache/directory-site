@@ -24,38 +24,38 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 # 2.2 - Binding and unbinding
 
-In **LDAP**, if one wants to access the data in the base, the common way to do it is to bind on the server. However, it's important to understand that binding is a different beast than connection.
+In **LDAP**, if one wants to access the data in the base, the common way to do it is to bind to the server. However, it's important to understand that binding is a different from connecting.
 
-Creating a connection to a **LDAP** server is just about opening a socket between the client and the server. You just need to provide the address and the port. 
+Creating a connection to an **LDAP** server is opens a socket between the client and the server. You must provide the address and the port in order to do this. 
 
-The **bind** operation, on the other hand, create a _Session_ which will hold some user's information for the time being of the session. Those information are quite limited, they include the user's credentials.
+The **bind** operation, on the other hand, creates a _Session_ which will hold user information for the duration of the session. This information is limited, but includes the user's credentials.
 
-But it's important to know that it's possible to bind as anonymous, providing no name and password, and still be able to request the server (note though that the server can forbid such anonymous bind).
+But it's important to know that it's possible to bind anonymously, which doesn't require a user or password, and still be able to send requests to the server (although the server can forbid anonymous binds).
 
-Once the user has finished to request the server, then he can unbind, destroying his session on the server. That does not close the connection, because, one more time, _bind != connection_.
+Once the user has finished interacting with the server, they can unbind, destroying the session held on the server. This operation does not close the connection, because, again _bind != connection_!
 
 ## Binding
 
-You have two possible types of binds in *LDAP* :
+There are two possible types of binds in *LDAP*:
 
 * **Simple**
 * **SASL**
 
-The first one is based on a user/password being send to the server, which check that they are valid. It's also possible to proceed an Anonymous bind explicitly.
+The first one is based on a userid/password sent to the server, which verifies the credentials are valid. It's also possible to proceed with an anonymous bind explicitly.
 
-The second one is more complex, and is used if you want to proceed an authentication with some specific mechanism, like **DIGEST-MD5**, **Kerberos** or certificate based.
+The second type is more complicated, and is used whenever authentication with a specific mechanism, like **DIGEST-MD5**, **Kerberos** or certificate based is required.
 
 ### Simple Bind
-One can issue three kind of Simple bind :
+One can issue three kinds of simple binds:
 * _anonymous bind_
 * _name/password bind_
 * _unauthenticated authentication bind_
 
-The first one is the easiest one, but depending on the server configuration, it will be accepted or rejected (all the servers don't allow anonymous binds)
+The first one is the easiest, but depending on the server's configuration, will be accepted or rejected (not all servers allow anonymous binds)
 
-Most of the time, the _bind_ operation will not return anything. You will get bound, or you'll get an _LdapException_ if an error is met.
+Most of the time, the _bind_ operation will not return anything. You either get bound, or will receive an _LdapException_ if an error occurs.
 
-Issuing an anonymous bind is very simple, you just provide no user name nor any password :
+Issuing an anonymous bind is simple, you neither provide a user or password:
 
     :::Java
     @Test
@@ -64,7 +64,7 @@ Issuing an anonymous bind is very simple, you just provide no user name nor any 
         connection.bind();
     }
 
-Issuing a user/password bind is just slightly more complex, you just have to provide your user name and its password :
+Issuing a user/password bind is slightly more complex, because those credentials must be included:
 
     :::Java
     @Test
@@ -89,7 +89,7 @@ Note that this kind of bind will be supported only if the server allows anonymou
 
 ### Rebinding
 
-It's possible to issue a **Bind** on an already bound connection : the existing Ldap session will be terminated, and replaced by a new Ldap session. In any case, the connection is not dropped when doing so. Note that if the connection was encrypted, it will remain encrypted.
+It's possible to issue a **Bind** on an already bound connection and the existing LDAP session will be terminated, and replaced by a new LDAP session. In any case, the connection is not dropped when doing so. Note that if the connection was encrypted, it remains encrypted.
 
     :::Java
     @Test
@@ -110,7 +110,7 @@ If you issue a _bind_ on the same connection with some different credentials, th
 
 This is a trivial operation : you just send an **UnbindRequest** to the server, which will invalidate your session. 
 
-It's important to know that when you issue an **Unbind**, the connection is dropped. You can then do such a thing :
+It's important to know that when you issue an **Unbind**, the connection is dropped. It's done like this:
 
     :::Java
     @Test
@@ -127,5 +127,5 @@ It's important to know that when you issue an **Unbind**, the connection is drop
         connection.bind( "uid=admin,ou=system", "secret" );
     }
 
-Last, not least, if you close the connection, then the session will also be terminated.
+Last, but not least, if you close the connection, the session also terminates.
  

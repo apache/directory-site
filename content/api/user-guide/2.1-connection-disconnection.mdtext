@@ -24,7 +24,7 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 # 2.1 - Connection and disconnection
 
-**LDAP** is a protocol which requires the user to be connected - and likely identified - in order to be able to send requests to the server. We maintain this connection potentially forever. What make the **LDAP** protocol different from, say, the **HTTP** protocol is that the connection must be issued explicitly. Let's see how we do that.
+**LDAP** is a protocol which requires users to be connected - and likely identified (authenticated) - before sending requests to the server. This connection can potentially be maintained forever. What makes the **LDAP** protocol different from, say, the **HTTP** protocol is that the connections are issued explicitly. Here's we'll see how that is done.
 
 ## Opening a connection
 
@@ -32,18 +32,18 @@ We can open a secure or a standard connection.
 
 ### Standard connection
 
-We can first establish a standard connection, where the data are sent and received in clear text (encoded in ASN.1 BER, but still not encrypted). This example expose the way it's done :
+We can first establish a standard connection, where the data is sent and received in clear text (encoded in ASN.1 BER, but not encrypted). This example shows how it's done:
 
     :::Java
     LdapConnection connection = new LdapNetworkConnection( "localhost", 389 );
 
-Here, we just created an unsafe connection locally, using the 389 port. Quite simple...
+Here we created an unsafe connection locally using the 389 port. Which is quite simple to do but not safe because data is not encrypted.
 
 ### Secure connection
 
-Although the **LDAPS** (**LDAP** over **SSL**) is now considered as deprecated, many people continue to use it. The big advantage of not using **LDAPS** is that you don't need to setup two different listening ports (one for **LDAP** -389- and another one for **LDAPS** -636- ).
+Although the **LDAPS** (**LDAP** over **SSL**) is now considered as deprecated, many people still use it. The big advantage of not using **LDAPS** is that you don't need two different listening ports (one for **LDAP** -389- and another one for **LDAPS** -636- ).
 
-The only difference with the previous example is that we have to tell the connection that it has to use **SSL**, by passing **_true_** as a third parameter (incidentally, passing **_false_** set a unsafe connection).
+The only difference with the previous example is that we tell the connection to use **SSL**, by passing **_true_** as a third parameter (incidentally, passing **_false_** sets an unsafe connection).
 
 Here is an example
 
@@ -52,7 +52,7 @@ Here is an example
 
 ## Maintaining the connection opened
 
-We keep the connection opened for a limited period of time, defaulting to 30 seconds. This might be not long enough, so one can change this delay by calling the _setTimeOut()_ method :
+We keep the connection open for a limited period of time, defaulting to 30 seconds. This might be not long enough, so one can change this delay by calling the _setTimeOut()_ method :
 
     :::Java
     LdapConnection connection = new LdapNetworkConnection( "localhost", 389 );
@@ -60,11 +60,11 @@ We keep the connection opened for a limited period of time, defaulting to 30 sec
     ...
     connection.close();
 
->**Note:** Setting a value equal or below 0 will keep the connection opened for ever (or a soon as the connection is not explicitly closed).
+>**Note:** Setting a value equal or below 0 will keep the connection open forever (assuming the connection is not explicitly closed by the client).
 
 ## Closing the connection
 
-Once you don't need to use the connection anymore (remember that hodling a connection keeps a session opened on the server, and a socket opened between the client and the server), then you have to close it. This is done by calling the _close()_ method :
+Once the connection is no longer needed (remember that holding a connection keeps the session open on the server and a socket is held open between the client and the server), then you must close it. This is done by calling the _close()_ method :
 
     :::Java
     LdapConnection connection = new LdapNetworkConnection( "localhost", 389 );
@@ -106,9 +106,9 @@ This process is slightly more complex given that there are many parameters that 
     LdapConnectionPool pool = new LdapConnectionPool(
         new DefaultPoolableLdapConnectionFactory( factory ), poolConfig ) );
 
-This will create a pool of connections that will be pre-authenticated.  If you do not setName and setCredentials, then the pool will contain unauthenticated connections.
+This creates a pool of connections that are pre-authenticated.  If you don't setName and setCredentials, then the pool will contain unauthenticated connections.
 
-The DefaultPoolableLdapConnectionFactory is sufficient for many cases.  However, certain operations result in modifications to the connection itself.  For example, when the pool is created, a bind operation will occur with the credentials supplied as part of the config.  If you borrow a connection and perform a bind yourself, that would result in the connection being re-bound as a different user.  The next time that connection gets borrowed, things are likely to break.  If you perform any operation that results in a modification of the connection, you should instead use ValidatingPoolableLdapConnectionFactory:
+The DefaultPoolableLdapConnectionFactory is sufficient for many cases.  However some operations result in modifications to the connection itself.  For example, when the pool is created, a bind operation will occur with the credentials supplied as part of the config.  If you borrow a connection and perform a bind yourself, that would result in the connection being re-bound as a different user.  The next time that connection gets borrowed, things are likely to break.  If you perform any operation that results in a modification of the connection, you should instead use ValidatingPoolableLdapConnectionFactory:
 
     :::Java
     ...
@@ -116,4 +116,4 @@ The DefaultPoolableLdapConnectionFactory is sufficient for many cases.  However,
         new ValidatingPoolableLdapConnectionFactory( factory ), poolConfig ) );
     ...
 
-A connection pool using this factory will unbind and rebind any connection that was modified while it was borrowed (_see the javadoc for more detail_).  This will be slower due to the additional operations, but not too significantly.
+A connection pool using this factory will unbind and rebind any connection that was modified while it was borrowed (_see the javadoc for more detail_).  This will be slower due to the additional operations, but not significantly.

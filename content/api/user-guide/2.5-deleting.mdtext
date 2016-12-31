@@ -24,11 +24,11 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 # 2.5 - Deleting entries
 
-Deleting an entry is really easy. It's just a matter to know its _DN_. There is one important thing to understand though : if this entry has some children, it won't be deleted.
+Deleting an entry is pretty easy, it just requires the entry's _DN_. There is one important thing to understand though, if the entry has children, the operation will fail.
 
 ## Simple entry deletion
 
-We can ask the deletion by providing the entry's _DN_, like what is done in the following example :
+We request a deletion by providing the entry's _DN_, as in the following example:
 
     :::Java
     @Test
@@ -44,7 +44,7 @@ We can ask the deletion by providing the entry's _DN_, like what is done in the 
     }
 
 
-Trying to delete the parent alone would leads to an error (NOT_ALLOWED_ON_NON_LEAF) :
+Trying to delete a parent node would result in an error (NOT_ALLOWED_ON_NON_LEAF) :
 
     :::Java
     @Test
@@ -62,7 +62,7 @@ Trying to delete the parent alone would leads to an error (NOT_ALLOWED_ON_NON_LE
 
 ## Recursive deletion of entries
 
-Usually, you can't delete an entry and all of its children. However, some server accept such a request if you send a delete request and a TreeDelete control. This control is a [draft](http://tools.ietf.org/html/draft-armijo-ldap-treedelete-02), which has been implemented by **Microsoft**, **OpenDS**, **OpenDJ**. It will delete all the children and the entry itself. We don't use a normal _delete()_ method, there is a specific method, _deleteTree()_. Here is an example :
+Usually, you can't delete an entry and all of its children in one operation. However, some servers accept such requests if you send a delete request and a TreeDelete control. This control is a [draft](http://tools.ietf.org/html/draft-armijo-ldap-treedelete-02), which has been implemented by **Microsoft**, **OpenDS**, **OpenDJ**. It will delete all the children and the entry itself. We don't use a normal _delete()_ method, there is a specific method, _deleteTree()_. Here is an example :
 
     :::Java
     @Test

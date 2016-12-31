@@ -24,12 +24,12 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 # 2.4 - Adding entries
 
-Adding entries is one of the base operation a user can do on a **LDAP** server. Nevertheless, such an operation implies a lot of checks, and frequently the user gets some weird error messages. We will see how we can add an entry using the **LDAP API**, and then analyze the different error cases we can face.
+Adding entries is one of the base operations a user can do on an **LDAP** server. Nevertheless, it's an operation that implies many checks, and frequently the user receives strange error messages. We will see how to add an entry using the **LDAP API**, and analyze the various error cases that can occur.
 
 ## Adding an entry
-We will first see the easiest way to add an entry into the server, assuming that the entry is correct. In order to add an entry, you only have to provide the place where this entry will be stored (its _Dn_) and the list of its _Attributes_.
+Here is the simplest way to add an entry into the server, assuming that the entry is correct. In order to add an entry, you must provide the location where the entry is stored (its _Dn_) and the list of its _Attributes_ contained within it.
 
-Here is two examples where we inject the entry using **LDIF** :
+Here are two examples where the entry is injected using **LDIF**:
 
     :::Java
     @Test
@@ -77,13 +77,13 @@ Note that it is possible to use some variables in the **LDIF** instead of pure t
 
 Down the line, what is important is that the _add()_ operation is taking a full **[Entry](6.12-entry.html)**. 
 
-We can also create the **[Entry](6.12-entry.html)** in a different way, which will be exposed in the following paragraphs.
+We can also create the **[Entry](6.12-entry.html)** in a different way, which is shown in the following paragraphs.
 
 ## Sending an _AddRequest_
 
-Sometimes, we want more control. We can ask the server to add an entry by sending an **[AddRequest]()**, which allows you to send a **[Control]()** at the same time.
+When more control is needed we ask the server to add an entry by sending an **[AddRequest]()**, which allows a **[Control]()** to be included in the request.
 
-Here is an example (note that the control is just injected to demonstrate the feature, it simply does nothing in this case):
+Here is an example (note that the control is just injected to demonstrate the feature, it doesn't really do anything special in this example):
 
     :::java
     @Test
@@ -113,7 +113,7 @@ Here is an example (note that the control is just injected to demonstrate the fe
 
 ### Asynchronous addition
 
-Some may want to add an entry, but will not check the result immediately. It's just a matter of calling the _addAsync()_ method, which will return a _Future_ that can be checked somewhere else in the code:
+Sometimes we need to add an entry, but not check the result immediately. It's just a matter of calling the _addAsync()_ method, which returns a _Future_ that can be checked somewhere else in the code:
 
     :::java
     @Test
@@ -143,7 +143,7 @@ Some may want to add an entry, but will not check the result immediately. It's j
 
 ## Do, Don't
 
-Successfully adding an entry assume that the entry is correct, ie that the attributes and the value are compatible with the schema. There are many things checked by the server. Here is a list of constraints that you should respect in order to get your entry injected:
+Successfully adding an entry assumes that the entry was correct, i.e. the attributes and values are compatible with the LDAP schema. There are many things checked by the server. Here is a list of constraints that you should respect in order to get your entry injected:
 
 * The entry must have at least one **Structural** _ObjectClass_
 * If the entry has more than one **Structural** _ObjectClass_, then they must be hierarchically related
@@ -157,7 +157,7 @@ Successfully adding an entry assume that the entry is correct, ie that the attri
 
 There are also some other constraints, depending on the server, if it implements _NameForms_, _DITStructureRules_ or _DITContentRules_.
 
-One other reason your entry can be rejected is that you don't have enough privilege to add it. You have to check that the server configuration allows you to add an entry where you want to add it.
+Another reason an entry can be rejected is that there aren't enough privilege to add it. You must ensure the LDAP server's configuration allows you to add an entry in the correct location.
 
 ## Errors
 
@@ -167,6 +167,6 @@ At first, you might expect to get an exception if the entry addition has failed.
 In any other case, the server will simply return a **[LdapResult]()** instance containing either **SUCCESS** or the cause of the rejection.
 </DIV>
 
-Usually, if you get an error while adding an entry, the message might be pretty tedious. Most of the cases it's because either your entry already exists, or because your entry has some schema violation.
+Usually, if you get an error while adding an entry, the message is hard to read. Most of the errors occur because the entry already exists, or because the entry has an LDAP schema violation.
 
-The _LdapResult_ in the response will give you a clue about what going on.
+The _LdapResult_ in the response will provide helpful clues as to what the root cause is.
