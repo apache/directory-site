@@ -24,29 +24,29 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 # 6.3 - Attribute
 
-The _Attribute_ class is used to store values associated to an _AttributeType_. An _Entry_ can contain many _Attribute{s_, but only one of them is mandatory : the _ObjectClass_  _Attribute_.
+The _Attribute_ class is used to store values associated with an _AttributeType_. An _Entry_ can contain many _Attribute{s_, but only one of them is mandatory: the _ObjectClass_  _Attribute_.
 
 An _Attribute_ can store zero, one or N values, accordingly to its associated _AttributeType_, which may allow null values, and which also can forbid muli-values.
 
-The _Attribute_ has a interned _AttributeType_ which is usually defined using its name. This name is case insensitive, and we can also use the _AttributeType_ _OID_.
+The _Attribute_ has a internal _AttributeType_ which is usually defined using its name. This name is case insensitive, and we can also use the _AttributeType_ _OID_.
 
 ## Creating an Attribute
 
-Creating an _Attribute_ is not really a complex operation. Again, we split the API into two categories:
+Creating an _Attribute_ is not complex. Again, we split the API into two categories:
 
 * the schema agnostic _Attributes_
 * the schema aware _Attributes_
 
 ### Schema agnostic Attribute
 
-If we don't inject a _SchemaManager_ in the constructor, then the _Attribute_ will have no way to control that the _AttributeType_ exists, nor that the _Values_ are valid.
+If we don't inject a _SchemaManager_ into the constructor, then the _Attribute_ will have no way to control whether its _AttributeType_ exists, nor that its _Values_ are valid.
 
-Let's see how we can create _Attributes_. Basically, all what you need is to provide the _AttributeType_ as a String, and some _Values_ (it's optional). Here is an example:
+Let's see how we can create _Attributes_. Basically, all what that needed is to provide the _AttributeType_ as a String, and some _Values_ (that are optional). Here is an example:
 
     :::Java
     Attribute attribute = new DefaultAttribute( " CN " );
 
-Here, we created an empty _Attribute_. Note that _cn_ does not allow empty values, but it's not controlled. Also note that the _AttributeType_ is lower cased and trimmed internally.
+Here, we created an empty _Attribute_. Note that _cn_ does not allow empty values, but it's not enforced. Also note that the _AttributeType_ is lowercase and trimmed internally.
 
 Let's see another example, with some values:
 
@@ -66,9 +66,9 @@ It's possible to store binary values into an _Attribute_ too:
 
     Attribute attribute = new DefaultAttribute( " JpegPhoto ", bytes1, bytes2, bytes3 );
 
-Same here : values are not duplicated.
+Same here: values are not duplicated.
 
-Note that it's not allowed to store a mix of binary and String values in an _Attribute_:
+Note that it's not allowed to store a mix of binary and String values into an _Attribute_:
 
     :::Java
     byte[] bytes1 = new byte[]{0x01, 0x02};
@@ -77,7 +77,7 @@ Note that it's not allowed to store a mix of binary and String values in an _Att
 
 ### Schema aware Attribute
 
-We can inject a _SchemaManager_ into the _Attribute_ which will allow more control on the values stored into the _Attribute_. Let's see with some example how it works:
+We can inject a _SchemaManager_ into the _Attribute_ which will allow more control over the values stored within the _Attribute_. Let's see an example of how this works:
 
     :::Java
     Attribute attribute = new DefaultAttribute( atCn );
@@ -87,15 +87,15 @@ Here, we created an _Attribute_ with a specific _AttributeType_ ('atCn') and no 
     :::Java
     Attribute attribute = new DefaultAttribute( atCn, "test", "Test", "  test  " );
 
-The important point here is that the values are all considered equals. The _contains_ method also use the schema to compare the given value with the interned values. Here, with the _cn_ _AttributeType_, the value is not case sensitive, so _"TEST"_ is considered as an existing value, even if we injected _"test"_.
+The important point here is that the values are all considered equal. The _contains_ method also uses the schema to compare its given value with the interned values. Here, with the _cn_ _AttributeType_, the value is not case sensitive, so _"TEST"_ is considered as an existing value, even if we injected _"test"_.
 
 ## Modifying an Attribute
 
-Now that we created an _Attribute_ we would like to add or remove values from it. This is quite easy. We have a set of methods to add or remove values, and depending on the fact the _Attribute_ is schema aware or not, the added values will be checked. 
+Now that we created an _Attribute_ we would like to add or remove values from it. This is quite easy. We have a set of methods to add or remove values, and depending on whether the _Attribute_ is schema aware or not, the added values will be checked. 
 
 ### Adding some value
 
-Here is an example of some value addition into a schema agnostic _Attribute_, then the same operation into a schema aware _Attribute_:
+Here is an example of a value addition into a schema agnostic _Attribute_, then the same operation into a schema aware _Attribute_:
 
     :::Java
     Attribute attribute = new DefaultAttribute( " CN " );
@@ -110,7 +110,7 @@ Here is an example of some value addition into a schema agnostic _Attribute_, th
 
 We can see that the schema aware _Attribute_ just contains only one value after the operation, as the _cn_ attribute type does not allow empty strings.
 
-There is one important point to understand : when a schema agnostic _Attribute_ is created, it knows nothing about the type of values it will store. Once the first value is added, the _Attribute_ will be typed accordingly to the first value added. Then, we can't anymore add values if it has not the same type. 
+There is one important point to understand -- whenever a schema agnostic _Attribute_ is created, it knows nothing about the type of values it will store. Once the first value is added, the _Attribute_ will be typed accordingly to the first value added. Then we can no longer add values that are not of the same type. 
 
 If the _Attribute_ is schema aware, it's quite obvious. You won't be able to add a binary value into a Human Readable _Attribute_.
 The following test shows that:
@@ -195,11 +195,11 @@ Returns the internal _AttributeType_, if the _Attribute_ is schema aware.
 
 ### getBytes()
 
-Returns the first value as a _byte[]_, if the _Attribute_ is not human readable. The user **must** know that the _Attribute_ contains binary values, otherwise he will get an _LdapInvalidAttributeValueException_.
+Returns the first value as a _byte[]_, if the _Attribute_ is not human readable. The user **must** know that the _Attribute_ contains binary values, otherwise they will get an _LdapInvalidAttributeValueException_.
 
 ### getString()
 
-Returns the first value as a _String_, if the _Attribute_ is  human readable. The user **must** know that the _Attribute_ contains String values, otherwise he will get an _LdapInvalidAttributeValueException_.
+Returns the first value as a _String_, if the _Attribute_ is  human readable. The user **must** know that the _Attribute_ contains String values, otherwise they will get an _LdapInvalidAttributeValueException_.
 
 ### getId()
 
@@ -249,11 +249,11 @@ This method removes all the values from the attribute. The attribute type is not
 
 ### clone()
 
-This method create a new instance of an existing attribute. All the values and the attribute type are cloned too and distinct from the original attribute.
+This method creates a new instance of an existing attribute. All of the attribute values along with its attribute type are cloned and distinct from the original attribute.
 
 ### equals( Object )
 
-Compares two _Attributes_. All the values are compared and should be present in both attributes. If you compare a schema aware _Attribute_ with a schema agnostic _Attribute_, they won't be equal.
+Compares two _Attributes_. All of its values are compared and should be present in both attributes. If you compare a schema aware _Attribute_ with a schema agnostic _Attribute_, they won't be equal.
 
 Here is a snippet of code demonstrating the _equals_ method:
 
@@ -282,7 +282,7 @@ Here is a snippet of code demonstrating the _equals_ method:
 
 ### isInstanceOf( AttributeType )
 
-Tells if an _Attribute_ derives from a given _AttributeType_. It can be useful if you have some schema aware _Attribute_ and if you want to know if its attribute type inherit from an other one. Here is an example of usage:
+Tells if an _Attribute_ derives from a given _AttributeType_. It can be useful if you have a schema aware _Attribute_ and want to know if its attribute type inherits from another one. Here is an example of usage:
 
     :::Java
     Attribute attribute = new DefaultAttribute( atCn, "test 1", "test 2", "test 3" );
@@ -319,7 +319,7 @@ Here is some code that test the different use cases:
 
 ### iterator()
 
-A convenient way to iterate on all the _Attribute_ values. It makes it possible to use a _for ( Value<?> value : attribute )_ construct. Here is an example using the iterator:
+A convenient way to iterate over all of the _Attribute_ values. It enables the _for ( Value<?> value : attribute )_ construct. Here is an example using the iterator:
 
     :::Java
     Attribute attribute = new DefaultAttribute( atCn, "test 1", "test 2", "test 3" );

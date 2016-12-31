@@ -24,7 +24,7 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 # 6.4 - AttributeType
 
-The _AttributeType_ is one of the most important schema element. It describes what can be stored into an _Entry_, its syntax, and the various rules that are to be followed when searching for an associated value.
+The _AttributeType_ is one of the most important schema elements. It describes what can be stored into an _Entry_, its syntax, and the various rules that are to be followed whenever searching for an associated value.
 
 _AttributeType_ are immutable objects, created from the schema, and never changed. One can add a new _AttributeType_, or delete itfrom the schema, but once it's added to the schema, it can't be modified.
 
@@ -32,7 +32,7 @@ Usually, we just use them.
 
 ## Description
 
-An _AttributeType_ contains the following informations :
+An _AttributeType_ contains the following informations:
 
 | Value | Description | optional |
 |---|---|---|
@@ -53,7 +53,7 @@ An _AttributeType_ contains the following informations :
 
 An _AttributeType_ has some default elements : it's not OBSOLETE, has no SUP, is not SINGLE-VALUE, is not COLLECTIVE, can be modified by the user, and has an _userApplications_ USAGE.
 
-You can check some of those elements using the following methods :
+You can check some of those elements using the following methods:
 
 * isAncestorOf( AttrbuteType ) : tells if the current _AttributeType_ is the ancestor of another one
 * isCollective() : tells if the current _AttributeType_ is a collective attribute

@@ -3,8 +3,8 @@ NavPrev: 6.4-attribute-type.html
 NavPrevText: 6.4 - AttributeType
 NavUp: 6-ldap-data-structures.html
 NavUpText: 6 - LDAP data structures
-NavNext: 6.6-control.html
-NavNextText: 6.6 - Control
+NavNext: 6.6-csn.html
+NavNextText: 6.6 - Csn
 Notice: Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
     distributed with this work for additional information
@@ -26,18 +26,18 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 An _Ava_ is used to store an _Attribute_ value associated to an _AttributeType_. 
 
-It describes a container holding an _AttributeType_ associated with a _Value_ in a _Rdn_. An example would be :
+It describes a container holding an _AttributeType_ associated with a _Value_ in a _Rdn_. An example would be:
 
     :::Java
     dc=example
 
-where 'dc' is the _AttributeType_ and 'example' the associated value.
+where 'dc' is the _AttributeType_ and 'example' its associated value.
 
 The value can be a binary or a String value, depending on the _AttributeType_.
 
-We can create schema aware _Ava_, or just plain _Ava_. Having a schema aware _Ava_ allows further controls to be made on the value we inject : its syntax will be checked against the _AttributeType_ syntax.
+We can create a schema aware _Ava_, or just a plain _Ava_. Having a schema aware _Ava_ allows further controls to be made on the value we inject.  Is syntax will be checked against the _AttributeType_ syntax.
 
-Most of the time, one will not have to create or manipulate an _Ava_, as it's an internal element of a _Rdn_.
+Most of the time, one will not need to create or manipulate an _Ava_, as it's an internal element of a _Rdn_.
 
 _Ava_ is also a _Externalizable_ class.
 
@@ -46,7 +46,7 @@ _Ava_ instances are immutable.
 
 ## Usage
 
-As for the _Dn_ and _Rdn_ classes, we have to hold two representation for the interned _AttributeType_ and _Value_ : the User Provided form, and the escaped form (which is used in filters). If the _AVA_ is schema aware, the escaped form will be computed, otherwise we store the user provided form instead. Let's see some examples.
+As for the _Dn_ and _Rdn_ classes, we have to hold two representations of its internal _AttributeType_ and _Value_.  The User Provided form, and the escaped form (which are used inside filters). If the _AVA_ is schema aware, the escaped form will be computed, otherwise we store the user provided form. Let's see some examples.
 
 
 ### Schema Aware Ava
@@ -69,7 +69,7 @@ will produce :
 
 *{+}Not Schema Aware{+}*
 
-The biggest difference in this case is that the _AttributeType_ will not be replaced by its _Oid_, but instead by a lower cased form of the provided ID. We also escape the leading and trailing spaces in the value.
+The biggest difference in this case is that the _AttributeType_ will not be replaced by its _Oid_, but instead by a lowercase form of the provided ID. We also escape the leading and trailing spaces in the value.
 
 {code}
 public void testAvaSimpleNorm() throws LdapException

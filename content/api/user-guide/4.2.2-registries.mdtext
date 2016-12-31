@@ -24,8 +24,8 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 # 4.2.2 - Registries
 
-The **Registries** are the place where all the **SchemaObject**s are stored and retrieved from. It contains a registry per **SchemaObject**, plus a global registry which is used to retreive a **SchemaObject** from its OID (the OID is unique), and a list of the loaded schemas.
+The **Registries** are the place where all **SchemaObject**s are stored and retrieved from. It contains a registry per **SchemaObject**, plus a global registry which is used to retreive a **SchemaObject** from its OID (the OID is unique), and a list of the loaded schemas.
 
-Basically, it's the data center of teh **SchemaManager**. When you call **SchemaManager.getAttributeType( String )**, the **SchemaManager** will look into the **AttributeTypeRegistry** for the **AttributeType** instance associated with the name or OID.
+Basically, it's the data center of the **SchemaManager**. When you call **SchemaManager.getAttributeType( String )**, the **SchemaManager** will look into the **AttributeTypeRegistry** for the **AttributeType** instance associated with the name or OID.
 
 You usually won't need to manipulate this class at all.
