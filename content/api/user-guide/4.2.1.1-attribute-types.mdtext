@@ -24,7 +24,7 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 # 4.2.1.1 - AttributeTypes
 
-The **AttributeType** **SchemaObject** expose some extra parameters. Here is the description as found in RFC 4512 :
+The **AttributeType** **SchemaObject** exposes extra parameters. Here is the description as found in RFC 4512 :
 
     4.1.2.  Attribute Types
 
@@ -51,7 +51,7 @@ The **AttributeType** **SchemaObject** expose some extra parameters. Here is the
              "distributedOperation" /  ; DSA-shared operational
              "dSAOperation"            ; DSA-specific operational
 
-The follwing methods have been added to cover the ones that are not already present in the **SchemaObject** interface :
+The follwing methods have been added to cover ones not already present within the **SchemaObject** interface :
 
 * getEquality() : returns the **MatchingRule** instance used to control the equality of the **AttributeType**
 * getEqualityName() : returns the name of the EQUALITY **MatchingRule**.
@@ -78,4 +78,4 @@ The follwing methods have been added to cover the ones that are not already pres
 * isUser() : tells if the **AttributeType** is a USER_APPLICATIONS attribute
 * isUserModifiable() : tells if the **AttributeType** is modifiable or not
 
-What is important to know is that an **AttributeType** may inherit some characteristics from a **SUP** **AttributeType**. For instance, the **Syntax**, **MatchingRules**, etc. In any case, if you don't define the specific characteristics for a give **AttributeType**, they will be inherited from its parent, if there is one.
+What is important to know is that an **AttributeType** may inherit some characteristics from a **SUP** **AttributeType**. For example, the **Syntax**, **MatchingRules**, etc. In any case, if you don't define the specific characteristics for a given **AttributeType**, they'll be inherited from its parent -- if there is one.

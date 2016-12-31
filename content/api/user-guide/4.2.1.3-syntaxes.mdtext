@@ -24,7 +24,7 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 # 4.2.1.3 - Syntaxes
 
-The **LdapSyntax** class implements the LDAP **Syntax**s schema objects. A **Syntax** defines a constraints applied to the **AttributeType** value. Here is the TFC description of a **Syntax** :
+The **LdapSyntax** class implements the LDAP **Syntax**s schema objects. A **Syntax** defines constraints applied to the **AttributeType** value. Here is the RFC description of a **Syntax** :
 
      SyntaxDescription = LPAREN WSP
          numericoid                 ; object identifier
@@ -37,7 +37,7 @@ In order to enforce a **Syntax**, the **LDAP API** is associated with a **Syntax
 
 ## Methods
 
-The two important methods you might use are :
+The are the two most important methods that you might need:
 
 * getSyntaxChecker() : retreive the associated class that is used to check a syntax
 * isHumanReadable() : tells if the AttributeType is a String or a byte[]

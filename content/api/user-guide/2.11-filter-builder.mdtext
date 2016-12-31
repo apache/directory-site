@@ -25,7 +25,7 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 2.11 - The FilterBuilder(e)
 ===========================
 
-This class is a builder for constructing well formed search filters according to [RFC 4515](https://tools.ietf.org/html/rfc4515.html). This builder is most convenient when you use static imports. For example:
+This class is a builder for constructing well formed search filters according to [RFC 4515](https://tools.ietf.org/html/rfc4515.html). This builder is most convenient when using static imports. For example:
 
      import static org.apache.directory.ldap.client.api.search.FilterBuilder.and;
      import static org.apache.directory.ldap.client.api.search.FilterBuilder.equal;
@@ -47,7 +47,7 @@ This class is a builder for constructing well formed search filters according to
 ## And filter 
 
 
-Returns a new FilterBuilder that will & together all of the supplied filters. For example:
+Returns a new FilterBuilder that will combine all of the supplied filters with a **logical AND** (&). For example:
 
     and( equal( "givenName", "kermit" ), equal( "sn", "the frog" ) ).toString()
  
@@ -58,7 +58,7 @@ Which would match all entries with a given name of kermit and a surname the frog
 
 ## Or filter
 
-Returns a new FilterBuilder that will | together all of the supplied filters. For example:
+Returns a new FilterBuilder that will combine all of the supplied filters with a **logical OR** (|). For example:
 
     or( equal( "givenName", "kermit" ), equal( "givenName", "walter" ) ).toString()
  
@@ -69,7 +69,7 @@ Which would match any entry with the givenName of either kermit or walter.
 
 ## Not filter
 
-Returns a new FilterBuilder for negating another filter. For example:
+Returns a new FilterBuilder for negating another filter (!). For example:
 
     not( present( "givenName" ) ).toString();
  
@@ -114,8 +114,7 @@ Which would match entries with the common name Kermit The Frog.
  
 would result in the string: _(cn:dn:=Kermit The Frog)_
  
-Which would match entries with the common name Kermit The Frog even if the
-common name was only specified as part of the dn.
+Which would match entries with the common name Kermit The Frog even if the common name was only specified as part of the dn.
 
     extensible( "cn", "Kermit The Frog" )
         .setMatchingRule( "caseExactMatch" )
@@ -123,8 +122,7 @@ common name was only specified as part of the dn.
  
 would result in the string: _(cn:caseExactMatch:=Kermit The Frog)_
  
-Which would match entries with the common name Kermit The Frog, using a case
-sensitive matcher.
+Which would match entries with the common name Kermit The Frog, using a case sensitive matcher.
 
     extensible( "cn", "Kermit The Frog" )
         .useDnAttributes()
@@ -133,8 +131,7 @@ sensitive matcher.
  
 would result in the string: _(cn:dn:caseExactMatch:=Kermit The Frog)_
  
-Which would match entries with the common name Kermit The Frog, using a case
-sensitive matcher even if the name was only specified as part of the dn.
+Which would match entries with the common name Kermit The Frog, using a case sensitive matcher even if the name was only specified as part of the dn.
 
     extensible( "Kermit The Frog" )
         .setMatchingRule( "1.2.3.4.5.6.7" )
@@ -142,8 +139,7 @@ sensitive matcher even if the name was only specified as part of the dn.
  
 would result in the string: _(:1.2.3.4.5.6.7:=Kermit The Frog)_
  
-Which would match entries with any attribute whose value is Kermit The Frog, 
-using the _hypothetical_ matching rule indicated by the oid 1.2.3.4.5.6.7.
+Which would match entries with any attribute whose value is Kermit The Frog, using the _hypothetical_ matching rule indicated by the oid 1.2.3.4.5.6.7.
 
 ## Less Or Equal Filter
 
@@ -177,7 +173,7 @@ Which MIGHT match results whose locality is San Francisco. The matching rule use
 
 ## StartsWith Filter
 
-Returns a new FilterBuilder that will construct a SubString filter with an initial part, zero or more any parts, but no final part. For instance:
+Returns a new FilterBuilder that constructs a SubString filter with an initial part, zero or more any parts, but no final part. For example:
 
     startsWith( "sn", "Th", "Soft", "Foun" )).toString()
  
@@ -187,7 +183,7 @@ Which would match any entry with an sn starting with the string 'Th', followed b
 
 ## EndsWith Filter
 
-Returns a new FilterBuilder that will construct a SubString filter with no initial part, zero or more any parts, and a final part. For instance:
+Returns a new FilterBuilder that constructs a SubString filter with no initial part, zero or more any parts, and a final part. For instance:
 
     endsWith( "sn", "Soft", "Foun", "ion" )).toString()
  
@@ -197,7 +193,7 @@ Which would match any entry with an sn containing the string 'Soft' followed by 
 
 ## Contains Filter
 
-Returns a new FilterBuilder that will construct a SubString filter with no initial part, zero or more any parts, and no final part. For instance:
+Returns a new FilterBuilder that constructs a SubString filter with no initial part, zero or more any parts, and no final part. For instance:
 
     contains( "sn", "Soft", "Foun" )).toString()
  
@@ -207,7 +203,7 @@ Which would match any entry with an sn containing the string 'Soft' followed by 
 
 ## Substring Filter
 
-Returns a new FilterBuilder that will construct a SubString filter with an initial part, zero or more any parts, and a final part. For instance:
+Returns a new FilterBuilder that constructs a SubString filter with an initial part, zero or more any parts, and a final part. For instance:
 
     substring( "sn", "The", "Soft", "Foun", "ion" )).toString()
  

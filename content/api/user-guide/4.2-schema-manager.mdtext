@@ -24,7 +24,7 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 # 4.2 - Schema Manager
 
-The API and the ApacheDS server have to keep the schema elements available. This is done through what we call the **SchemaManager**. It hides all the internal structure from the users.
+The API and the ApacheDS server components must to keep schema elements available to interroate and use. This is done through what we call a **SchemaManager**. It hides the internal structure of the schema objects from the users.
 
 
 ## Contents
@@ -44,18 +44,17 @@ The API and the ApacheDS server have to keep the schema elements available. This
 
 ## Introduction
 
-The **SchemaManager** stores all the Schema elements (**[AttributeTypes (e)]()**, **[ObjectClasses (e)]()**, ... Internally, we store those elements into what we call the **Registries**, which are hives where each Schema Objects are stored. Each schema element has a dedicated **Registry**. Think of it as a Map which returns a reference to a specific Schema Element when you know it's name or its OID.
+The **SchemaManager** stores all the Schema elements (**[AttributeTypes (e)]()**, **[ObjectClasses (e)]()**, ... Internally, we store these elements into what is call a **Registries**.  Registries are hives where each Schema Object is stored. Each schema element has a dedicated **Registry** associated with it. Think of it as a Map which returns a reference to a specific Schema Element according to its name or OID.
 
-    Note : each Schema Element is properly defined by one of its names or its OID. The OID is unique across all the schema elements,
-    when the name can be used in different schema element (for instance, the **audio** AttributeType or ObjectClass)
+    Note : each Schema Element is properly defined by one of its names or OID. The OID must be unique across all schema elements, when the name can be used in different schema element (for instance, the **audio** AttributeType or ObjectClass)
 
-From the user point of view, the **SchemaManager** is seen as a representation of the available LDAP schema elements. It can of course be extended, or modified, by adding or removing some schema elements. For historic reasons, the schema elements are gathered into what we call a **schema**. Usually, this is what you load into a **schemaManager**
+From the user point of view, the **SchemaManager** is seen as a representation of the available LDAP schema elements. It can of course be extended, or modified, by adding or removing schema elements. For historic reasons, the schema elements are gathered into what we call a **schema**. Usually, this is what you load into a **schemaManager**
 
-The server has one instance of a **SchemaManager**, which is used internally, and a user won't control it, in any case. On the client side, we can load a **SchemaManager** either from the server (and then we have a duplicated instance), or from existing schema files. We can even create a brand new **SchemaManager** and fill it with all what we need.
+The server has one instance of a **SchemaManager**, which is used internally, and a users aren't allowed to control it. On the client side, we can load a **SchemaManager** either from the server (which will be a duplicated instance), or from existing schema files. We can even create a brand new **SchemaManager** and fill it with anything needed.
 
 ## The various pieces of the puzzle...
 
-Creating a **SchemaManager** results in a complex structure to be created, and involves a lot of other helper class to be used. We will separate the description in three groups :
+Creating a **SchemaManager** results in a complex structure being created, and involves a lot of other helper class. We will separate the description into three groups:
 
 * The elements stored in the **SchemaManager**
 * The containers in which those **SchemaObject** instances are stored, called **Registries**
@@ -63,14 +62,14 @@ Creating a **SchemaManager** results in a complex structure to be created, and i
 
 ## Getting a SchemaManager
 
-The very first thing when you want to have access to the schema elements is to access to the **SchemaManager**. This can be done in many ways :
+The very first thing we do to access the schema elements is to gain access to the **SchemaManager**. This can be done in many ways:
 
 * you can create one from scratch, and load it with the elements you want
 * you can use a default **SchemaManager**, with some default schema elements
 * you can create a **SchemaManager**, and load the schema elements from a destination
 * last, not least - and probably the most interesting possibility -, you can connect to a LDAP server and load the schema from it.
 
-We will show how to proceed in those four use cases.
+We will show how to proceed in each of these four use cases.
 
 
 ## Using a SchemaManager

@@ -34,7 +34,7 @@ The LdapConnectionTemplate provides simplified access to the API functions.  It 
 * [Providing Simplified, Password Policy Aware, Authentication/Password Modification Methods](#providing-simplified-password-policy-aware-authenticationpassword-modification-methods)
 * [Other Useful Methods](#other-useful-methods)
 
-The concept is basically that of the Template Method design pattern in that it does all the boiler plate work for you and hands back control as necessary.
+Conceptually it uses the Template Method design pattern to do all of the boiler plate work for you.  It can give control back as needed for special cases.
 
 Managing Connections
 --------------------
@@ -74,12 +74,12 @@ The connection template manages connections through a connection pool.  The conn
         new LdapConnectionTemplate( new LdapConnectionPool(
             new ValidatingPoolableLdapConnectionFactory( factory ), poolConfig ) );
 
-This may look like a lot, but most of it is optional and it is the last you will have to think about connections.
+This may look complicated, but most of the parameters are optional and it's an easy way for you to manage connections in a safe and efficient manner.
 
 Providing Factory Methods For Model Objects
 -------------------------------------------
 
-The connection template implements an interface called ModelFactory.  Any implementation of this factory can be injected into the template once it is constructed.  By default, it uses ModelFactoryImpl which in turn constructs the standard Apache LDAP API model objects.  This abstractions frees you from having to be concerned with implementation details while still giving you the power to override the default behavior as you see fit.
+The connection template implements an interface called the ModelFactory.  Any implementation of this factory can be injected into the template once it is constructed.  By default, it uses ModelFactoryImpl which in turn constructs the standard Apache LDAP API model objects.  This abstraction frees you from having to be concerned with implementation details while still giving you the power to override the default behavior as you see fit.
 
     :::Java
     ModelFactory modelFactory = new MyCustomModelFactory();
@@ -135,7 +135,7 @@ Modify simply supplies the 2 standard approaches:
             }
         } );
 
-Delete provides the 2 standard approaches plus an additional DN only option as that is most likely enough:
+Delete provides the 2 standard approaches plus an additional DN-only option as that is most likely enough:
 
     :::Java
     // using DN only
@@ -167,7 +167,7 @@ More information on EntryMapper can be found in the [Handling Search Result Iter
 Handling Search Result Iteration
 --------------------------------
 
-Searching usually contains a lot of boiler plate code for build requests and iterating through responses.  This template does the work for you. It iterates over the entire result set, feeds each entry through an EntryMapper, and collects the results into the list returned to the caller.  All you have to do is provide the EntryMapper for mapping a single entry to a domain object.  EntryMapper itself is a very simple interface with one method.  As you saw before in the lookup documentation, they are typically defined as static members of your service classes:
+Searching usually contains a lot of boilerplate code for building requests and iterating through its responses.  This template does the work for you. It iterates over the entire result set, feeds each entry through an EntryMapper, and assembles the results into a list tht is returned to the caller.  All you have to do is provide the EntryMapper for mapping a single entry to a domain object.  EntryMapper itself is a very simple interface with one method.  As you saw before in the lookup documentation, they are typically defined as static members of your service classes:
 
     :::Java
     // typically mappers are reused, so define a static member
@@ -193,7 +193,7 @@ And now your searches become much simpler:
         SearchScope.ONELEVEL,
         muppetEntryMapper );
 
-Now that is just plain ***SIMPLE***.  The search method has many overloads to simplify use as it is the most common LDAP operation.  There is also a searchFirst method which provides all the same overloads and is designed to return the first matching result:
+Now that is just plain ***SIMPLE***.  The search method has many overloads to simplify usages for the most common LDAP operations.  There is also a searchFirst method which provides all the same overloads and is designed to return the first matching result:
 
     :::Java
     Muppet kermit = ldapConnectionTemplate.searchFirst( 
@@ -224,7 +224,7 @@ This has the added benefit of ensuring that your search filter has been property
 Providing Simplified, Password Policy Aware, Authentication/Password Modification Methods
 -----------------------------------------------------------------------------------------
 
-One of the most common uses of LDAP is as an identity provider.  As such, the most common operation is authentication, and password management.  If your LDAP server supports the [password policy control](http://tools.ietf.org/html/draft-behera-ldap-password-policy-10) then the authenticate method is very handy:
+One of the most common usages of LDAP is as an identity provider.  As such, the most common operation is authentication, and password management.  If your LDAP server supports the [password policy control](http://tools.ietf.org/html/draft-behera-ldap-password-policy-10) then the authenticate method is very handy:
 
     :::Java
     // throws PasswordException if authentication fails
@@ -241,7 +241,7 @@ One of the most common uses of LDAP is as an identity provider.  As such, the mo
 
 In this case, if authentication failed, a PasswordException is thrown.  If authentication was successful, any warnings will be returned in the PasswordWarning object, or null will be returned if there are no warnings.
 
-Modifying a password is just as simple:
+Modifying a password is simple as well:
 
     :::Java
     // using administrator account to modify a users password
@@ -259,7 +259,7 @@ If you modify the password as an administrator, then the oldPassword is not requ
 Other Useful Methods
 --------------------
 
-The template provides a method that will check the response and throw an exception if the request was not successful.  It was designed to be chained:
+The template provides a method that checks the response and throws an exception if the request was unsuccessful.  It was designed to be chained:
 
     :::Java
     // using DN only
