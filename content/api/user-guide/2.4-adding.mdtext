@@ -162,9 +162,9 @@ Another reason an entry can be rejected is that there aren't enough privilege to
 ## Errors
 
 <DIV class="note" markdown="1">
-At first, you might expect to get an exception if the entry addition has failed. If the server is rejecting the addition, *you will get NO exception*. Exceptions are only thrown client side if the entry is not built correctly, or if the connection is not opened. 
+At first, you might expect to get an exception if the entry addition has failed. If the server is rejecting the addition, <b>you will get NO exception*</b>. Exceptions are only thrown client side if the entry is not built correctly, or if the connection is not opened. 
 
-In any other case, the server will simply return a **[LdapResult]()** instance containing either **SUCCESS** or the cause of the rejection.
+In any other case, the server will simply return a <b>[LdapResult]()</b> instance containing either <b>SUCCESS</b> or the cause of the rejection.
 </DIV>
 
 Usually, if you get an error while adding an entry, the message is hard to read. Most of the errors occur because the entry already exists, or because the entry has an LDAP schema violation.
