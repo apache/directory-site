@@ -24,8 +24,26 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 # 5 - LDAP Security
 
+LDAP stores critical informations, and that needs to be secured. The Apache LDAP API provides a way to access those data, there is little we can do to protect the access to those data, but we can at least make it impossible for a third party to capture the transiting data.
+
+Generally speaking when it comes to securing a system, we are addressing the three **A**s :
+* Authentication
+* Authorization
+* Auditing
+
+The only aspect we will focus on is the **Authentication** part, because the **LDAP** protocol does not address the two other aspects, when it comes to an **API**. We will shortly talk about authorization in the last chapter.
+
+An additional aspect is encryption :
+- securing the communication between the client and the server
+- password hash
+
+Last, not least, we have seen that we can bind on a **LDAP** server using a name and a password, but there are other ways to bind, using **SASL**. We will also explain how to use certificates in SSL/StartTLS.
+
 ## Contents
 
-*  [5.1 - ACI and ACLs](5.1-aci-and-acls.html)
-*  [5.2 - SSL](5.2-ssl.html)
-*  [5.3 - StartTLS](5.3-start-tls.html)
+*  [5.1 - SSL (e)](user-guide/5.1-ssl.html)
+*  [5.2 - StartTLS (e)](user-guide/5.2-start-tls.html)
+*  [5.3 - Password handling](user-guide/5.3-password-handling.html)
+*  [5.4 - SASL Bind](user-guide/5.4-sasl-bind.html)
+*  [5.5 - Certificates](user-guide/5.5-certificates.html)
+*  [5.6 - ACI and ACLs (e)](user-guide/5.6-aci-and-acls.html)
