@@ -67,5 +67,45 @@ This is as simple as that ! The **636* port is the default **LDAPS** port for st
 
 By default, the selected protocol is **TLS**, and we wont verify the server's certificate.
 
+## A more sophisticated sample
+
+It's possible to have more control on the **SSL** configuration, and specifically to provide a specific **TrustManager** :
+
+        try ( LdapConnection connection = new LdapNetworkConnection( Network.LOOPBACK_HOSTNAME, getLdapServer().getPortSSL(), new NoVerificationTrustManager() ) )
+        {
+            connection.bind( "uid=admin,ou=system", "secret" );
+            
+            assertTrue( ((LdapNetworkConnection)connection).getConfig().isUseSsl() );
+            assertTrue( connection.isAuthenticated() );
+        }
+
+Here, we use the _NoVerificationTrustManager_ class, but you can define your own implementation. The **Fortress** project is using [this class](https://github.com/apache/directory-fortress-core/blob/master/src/main/java/org/apache/directory/fortress/core/ldap/LdapClientTrustStoreManager.java).
+
+## Using a configuration
+
+One step further : you can define a dediated configuration that is passed to the constructor. Many parameters can be defined :
+
+* the enabled cipher suites
+* the enabled protocols
+* the KeyManager instances
+* the SecureRandom instance
+* the SSL protocol to use
+* the TrustManager instances
+
+All those parameters are configured using the _LdapConnectionConfig_ class :
+
+        LdapConnectionConfig sslConfig = new LdapConnectionConfig();
+        sslConfig.setLdapHost( Network.LOOPBACK_HOSTNAME );
+        sslConfig.setUseSsl( true );
+        sslConfig.setLdapPort( getLdapServer().getPortSSL() );
+        sslConfig.setTrustManagers( new NoVerificationTrustManager() );
+
+        try ( LdapConnection connection = new LdapNetworkConnection( sslConfig ) )
+        {
+            connection.bind( "uid=admin,ou=system", "secret" );
+            
+            assertTrue( ((LdapNetworkConnection)connection).getConfig().isUseSsl() );
+            assertTrue( connection.isAuthenticated() );
+        }
 
 
