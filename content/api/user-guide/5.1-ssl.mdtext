@@ -42,6 +42,30 @@ There are many version that can be used, but the idea is to use tha most recent 
 |---|---|---|---|---|
 | 2.0 | N/A | N/A | N/A | N/A |
 | 3.0 | Disabled | Disabled | N/A | N/A |
-| 3.1 (aka TLSv1) | Enabled | Enabled | Enabled | Enabled |
-| 3.2 (aka TLSv1.1 | Disabled | Enabled | Enabled | Enabled |
-| 3.3 (aka TLSv1.2) | Disabled | Enabled | Enabled | Enabled |
+| 3.1 (aka TLSv1) | **Enabled** | **Enabled** | **Enabled** | **Enabled** |
+| 3.2 (aka TLSv1.1 | Disabled | **Enabled** | **Enabled** | **Enabled** |
+| 3.3 (aka TLSv1.2) | Disabled | **Enabled** | **Enabled** | **Enabled** |
+
+(_Disabled_ mean it's not active by default, and must be activated explicitely).
+
+The default is for Java to pick the one that fits, assuming that it will always start with the newest version (**TLSv1.2**).
+
+Still, you can enforce the version if needed.
+
+## A quick primer
+
+Here is all what you need to get a **LDAPS** connection established with a server :
+
+        try ( LdapConnection connection = new LdapNetworkConnection( "server-name", 636, true ) )
+        {
+            connection.bind( "uid=admin,ou=system", "secret" );
+
+            assertTrue( connection.isAuthenticated() );
+        }
+
+This is as simple as that ! The **636* port is the default **LDAPS** port for standard **LDAP** servers, when running as **root**, and for **ApacheDS** you will have to pick **10636**. The **true** flag is set to secure the connection. You don't need to close the connection, it will be done automatically when exiting the try{...} block.
+
+By default, the selected protocol is **TLS**, and we wont verify the server's certificate.
+
+
+
