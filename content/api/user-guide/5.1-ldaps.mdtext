@@ -87,11 +87,11 @@ Here, we use the _NoVerificationTrustManager_ class, but you can define your own
 
 One step further : you can define a dediated configuration that is passed to the constructor. Many parameters can be defined :
 
-* the enabled cipher suites
+* the enabled cipher suites : a list of ciphers that may be used (like "TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384", etc)
 * the enabled protocols : a list of protocals that may be used ( "SSLv3", "TLS", "TLSv1", "TLSv1.1", "TLSv1.2")
 * the KeyManager instances
 * the SecureRandom instance
-* the SSL protocol to use
+* the SSL protocol to use : one of the enabled protocols
 * the TrustManager instances
 
 All those parameters are configured using the _LdapConnectionConfig_ class :
@@ -109,5 +109,17 @@ All those parameters are configured using the _LdapConnectionConfig_ class :
             assertTrue( ((LdapNetworkConnection)connection).getConfig().isUseSsl() );
             assertTrue( connection.isAuthenticated() );
         }
+
+## LDAPS or startTLS ?
+
+The important point to understand with **LDAPS** is that every request being exchanged between the client and the server will be encrypted, because the underlying transport is encrypted. That means you can't start communicating with the LDAP server before the connection is secured.
+
+It has a few drawbacks :
+- first of all, it has an added CPU cost, as everything has to be encrypted and decrypted.
+- second, it requires a dedicated port, thus some specific routing rules (firewall, load balancers, etc)
+- third, it's a all of nothing choice. If you want to come back to a non-encrypted communication, you need to use another connection.
+
+This is the reason why the **startTLS** extended operation should be used.
+
 
 
