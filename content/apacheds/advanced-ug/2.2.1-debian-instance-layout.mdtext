@@ -159,6 +159,18 @@ Stopping the server is done using the same command, with a different parameter :
 
 Again, you must provide the instance name if it's not the default one
 
+## Repairing the indexes
+
+Sometime, the database get corrupted. Hopefully, this is not frequent, but when it happens, it left you in a position where there is nothing you can do but re-injecting a backup.
+
+That is more than annoying, and the latest version (2.0.0-M23) as an added feature that allows you to repair the indexes (this is a best effort, it might not work in all cases). Here is the step to follow in order to run the tool :
+
+    $ sudo /etc/init.d/apacheds-<version> repair /var/lib/apacheds-<version>/<instance>
+
+All the indexes will be recreated, based on the content of the master table (which contains all the entries). You can also remove all the database files but the master.db and master.lg files from each user partitions in /var/lib/apacheds-<version>/<instance>/partitions, before running the command.
+
+The server should restart with a working database (it might take a bit of time, but not that much : rebuilding indexes is orders of magnitude faster than injcting entries in the server).
+
 ## Logs
 
 You can check what's going on in the <em>apacheds-&lt;version&gt;instances/&lt;instance-name&gt;/log/apacheds.log</em> file, which is created using the configuration set in <em>apacheds-&lt;version&gt;instances/&lt;instance-name&gt;/conf/log4j.properties</em>.
