@@ -22,4 +22,27 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
     specific language governing permissions and limitations
     under the License.
 
-# 2.7 - Moving an renaming entries (e)
+# 2.7 - Moving an renaming entries
+
+LDAP allows you to do more than adding, deleting or modifying entries : you can also move them, or rename them. Here, you are not changing the content of an entry, but its position in the **DIT**, or its name.
+
+Actually, changing an entry's name **may* have an impact on the entry's content, as the *DN* always contains elements that are part of the entry.
+
+Both operation can be applied at the same time.
+
+Actually the LDAP protocol reunite those two function into one call (**MODDN**, also called **MODRDN**), but for clarity, we defined three different methods, beside a fith one that mimic the LDAP protocol **MODDN** function  :
+
+* _move( current DN, new superior DN )_
+* _rename ( old DN, new DN[, keep the old RDN] )_
+* _moveAndRename( current DN, new DN[, keep the old RDN])_
+* _modifyDn_( ModifyDnRequest )
+
+## Move operation
+
+## Rename operation
+
+## Move and Rename operation
+
+## ModifyDn operation
+
+## Asynchornous ModifyDn operation
