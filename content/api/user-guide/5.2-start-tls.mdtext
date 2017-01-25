@@ -24,15 +24,15 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 # 5.2 - StartTLS
 
-As we have seen in the previous chapter, **LDAPS** has some drawbacks. There is a better alterntive whne it comes to secure a communication : using **startTLS**.
+As we have seen in the previous chapter, **LDAPS** has some drawbacks. There is a better alternative when it comes to securing communication -- using **startTLS**.
 
-The whole idea is to use an existing connection to send a message to the server asking for a secured communication to be initiated. We keep going with the current connection, on the same port, but the exchanged data are now encrypted.
+The idea is to use an existing connection to send a message to the server and request it to be encrypted. We keep going with the current connection, on the same port, but the exchanged data will continue as encrypted.
 
-The **startTLS** extended operation is used for that purpose. It's a pure LDAP request that will block any other requests done on the connection until it get secured. Of course, if some operations are pending, the operation will not be executed until the pending operations are completed.
+The **startTLS** extended operation is used for this. It's a pure LDAP request that blocks other requests on the connection until it becomes secured. Of course, if some operations are pending, the operation will not be executed until the pending operations are completed.
 
 ## How to use it
 
-This is quite simple. You just have to tell an opened connection to sebd the **startTLS** extended operation, whenever you want. Here is a quick example :
+It's quite simple. You just have to inform an opened connection to send the **startTLS** extended operation.  It can be done at any time.  Here is a quick example:
 
     try ( LdapNetworkConnection connection = 
        new LdapNetworkConnection( Network.LOOPBACK_HOSTNAME, getLdapServer().getPort() ) )
@@ -45,10 +45,9 @@ This is quite simple. You just have to tell an opened connection to sebd the **s
         connection.startTls();
         ...
 
-As you can see, we just use teh _startTLS()_ method, and we did it in the middle of a LDAP session (we previously have requested some information from the server, that have been transmitted in clear text).
+As you can see, we'll used the _startTLS()_ method, and it occurred in the middle of an LDAP session.  (There previously was data transmission with the server in clear text).
 
-You can also send the _startTLS_ request before binding, protecting the whole session :
-
+You can also send the _startTLS_ request prior to a bind, protecting the entire session:
 
     try ( LdapNetworkConnection connection = 
        new LdapNetworkConnection( Network.LOOPBACK_HOSTNAME, getLdapServer().getPort() ) )
@@ -59,13 +58,13 @@ You can also send the _startTLS_ request before binding, protecting the whole se
         Entry admin = connection.lookup( "uid=admin,ou=system" );
         ...
 
-This is it...
+That's about it...
 
 ## Advanced usage
 
-What we just saw is the basic usage of the **startTLS** extended operation. Keep in mind that behind the scene, a **TLS** session will be established, which requires some negociation between the client and the server. It's not any different from the establishement of a **LDAPS** connection, except that we are doing so on top of an existing **LDAP** connection. Still, the client and the server are going to exchange ciphers, certificates, and agree on a protocol version to use. You probably need more control.
+We just saw basic usage of the **startTLS** extended operation. Keep in mind that behind the scene, a **TLS** session will be established, which requires some negotiation between the client and the server. It's not different from the establishement of an **LDAPS** connection, except that we're doing it on top of an existing **LDAP** connection. Still, the client and the server must exchange ciphers, certificates, and agree on which protocol version to use. You probably need more control.
 
-The **startTLS()** method uses a **LdapConnectionConfig** instance for any parameter you would like to define (**TrustManagers**, list of allowed ciphers, enabled protocol versions, **KeyManager** instance, etc). You just need to get a **LdapConnectionConfig** instance, and feed it. for instance, if you want to use a specific **TrustManager** that does not check teh server's certiticate, just do :
+The **startTLS()** method uses an **LdapConnectionConfig** instance for parameters in order to define things like -- **TrustManagers**, allowed ciphers, enabled protocol versions, **KeyManager** instances, etc. You simply need an **LdapConnectionConfig** instance, and load it with instructions. for example, if you want to use a specific **TrustManager** that doesn't verify the server's certificate:
 
     LdapConnectionConfig tlsConfig = new LdapConnectionConfig();
     tlsConfig.setLdapHost( Network.LOOPBACK_HOSTNAME );
@@ -85,11 +84,8 @@ The **startTLS()** method uses a **LdapConnectionConfig** instance for any param
         connection.startTls();
         ...
 
-In this example, the **startTls** call will use whatever parameter that have been put in the _tlsConfig_ instance.
+In this example, the **startTls** call uses the parameter that was loaded into the _tlsConfig_ instance.
 
+## Here's what isn't supported
 
-## What we don't support
-
-The [LDAP StartTLS RFC](https://tools.ietf.org/html/rfc2830) requires more than just securing the connection. Typically, it should be possible to stop securing the connection, using a **Graceful Closure**. We currently don't support this feature.
-
-
+The [LDAP StartTLS RFC](https://tools.ietf.org/html/rfc2830) requires more than securing connections. Typically, it's possible to stop securing a connection, using a **Graceful Closure** operation. That feature isn't currently supported.
