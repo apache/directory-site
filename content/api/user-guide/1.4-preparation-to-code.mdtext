@@ -24,7 +24,7 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 # 1.4 - Preparation to code
 
-The **Apache Directory LDAP API** requires **Java 6** JDK or higher. 
+The **Apache Directory LDAP API** requires **Java 7** or higher. 
 
 Secondly, you must download the **[API](http://directory.apache.org/api/downloads.html)**. This package contains the **LDAP API** plus all of its dependent jars (like _commons-lang_, _slf4j_...).
 
@@ -32,9 +32,10 @@ If you're using **Maven**, add the following dependency on _api-all.jar_ :
 
     :::XML
     <dependency>
-      <groupId>org.apache.directory.shared</groupId>
+      <groupId>org.apache.directory.api</groupId>
       <artifactId>api-all</artifactId>
+      <version>${ldap-api-version}</version>
     </dependency>
 
 
-and all of its depedent jar files will be included automatically.  That's it, now you should be ready to code!
+and all of its dependent jar files will be included automatically.  That's it, now you should be ready to code!
