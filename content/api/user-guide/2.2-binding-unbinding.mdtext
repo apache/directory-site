@@ -26,7 +26,7 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 In **LDAP**, if one wants to access the data in the base, the common way to do it is to bind to the server. However, it's important to understand that binding is a different from connecting.
 
-Creating a connection to an **LDAP** server is opens a socket between the client and the server. You must provide the address and the port in order to do this. 
+Creating a connection to an **LDAP** server opens a socket between the client and the server. You must provide the address and the port in order to do this. 
 
 The **bind** operation, on the other hand, creates a _Session_ which will hold user information for the duration of the session. This information is limited, but includes the user's credentials.
 
@@ -47,6 +47,7 @@ The second type is more complicated, and is used whenever authentication with a 
 
 ### Simple Bind
 One can issue three kinds of simple binds:
+
 * _anonymous bind_
 * _name/password bind_
 * _unauthenticated authentication bind_
@@ -55,7 +56,7 @@ The first one is the easiest, but depending on the server's configuration, will 
 
 Most of the time, the _bind_ operation will not return anything. You either get bound, or will receive an _LdapException_ if an error occurs.
 
-Issuing an anonymous bind is simple, you neither provide a user or password:
+Issuing an anonymous bind is simple, you neither provide a user nor a password:
 
     :::Java
     @Test
@@ -73,7 +74,7 @@ Issuing a user/password bind is slightly more complex, because those credentials
         connection.bind( "uid=admin,ou=system", "secret" );
     }
 
->**Note** It's important to note that the user's name is a *[Dn](6.9-dn.html)*, not a simple name like 'John doe"
+>**Note** It's important to note that the user's name is a *[Dn](6.9-dn.html)*, not a simple name like 'John Doe"
 
 Last, not least, there is a quite unknown feature in **LDAP** bind that allows you to issue a Bind request without providing a password. It's equivalent to an anonymous bind, except that the server can log the user's name, thus being able to trace what the user does. Servers might forbid such bind, and this will be the case if the server disallow anonymous binds.
 
