@@ -33,46 +33,39 @@ Here are two examples where the entry is injected using **LDIF**:
 
     :::Java
     @Test
-    public void testAddLdif() throws Exception
+    public void testAddLdif1() throws Exception
     {
-        AddResponse response = connection.add( 
-            new DefaultEntry( 
-                "cn=testadd,ou=system",    // The Dn
+        connection.add(
+            new DefaultEntry(
+                "cn=testadd,ou=system", // The Dn
                 "ObjectClass: top",
                 "ObjectClass: person",
                 "cn: testadd_cn",
-                "sn: testadd_sn"
-                ) );
-
-        assertNotNull( response );
-        assertEquals( ResultCodeEnum.SUCCESS, response.getLdapResult().getResultCode() );
-
-        assertTrue( session.exists( "cn=testadd,ou=system" ) );
+                "sn: testadd_sn" ) );
+        
+        assertTrue( connection.exists( "cn=testadd,ou=system" ) );
     }
 
 In this basic example, we are adding a new entry, created using some **LDIF** formatted parameters, the first one being the entry's _Dn_.
+
 Note that it is possible to use some variables in the **LDIF** instead of pure text. Here is the same example, resulting to the same entry being added:
 
     :::Java
     @Test
-    public void testAddLdif() throws Exception
+    public void testAddLdif2() throws Exception
     {
         String cn = "testadd_cn";
         String sn = "testadd_sn";
-
-        AddResponse response = connection.add( 
-            new DefaultEntry( 
-                "cn=testadd,ou=system",    // The Dn
+        
+        connection.add(
+            new DefaultEntry(
+                "cn=testadd,ou=system", // The Dn
                 "ObjectClass: top",
                 "ObjectClass: person",
-                "cn", cn,                  // Note : there is no ':' when using a variable
-                "sn", sn
-                ) );
-
-        assertNotNull( response );
-        assertEquals( ResultCodeEnum.SUCCESS, response.getLdapResult().getResultCode() );
-
-        assertTrue( session.exists( "cn=testadd,ou=system" ) );
+                "cn", cn, // Note : there is no ':' when using a variable
+                "sn", sn ) );
+        
+        assertTrue( connection.exists( "cn=testadd,ou=system" ) );
     }
 
 Down the line, what is important is that the _add()_ operation is taking a full **[Entry](6.12-entry.html)**. 
@@ -89,26 +82,25 @@ Here is an example (note that the control is just injected to demonstrate the fe
     @Test
     public void testAddWithControl() throws Exception
     {
-        assertFalse( session.exists( "cn=testadd,ou=system" ) );
+        assertFalse( connection.exists( "cn=testadd,ou=system" ) );
         
-        Entry entry = new DefaultEntry( 
+        Entry entry = new DefaultEntry(
             "cn=testadd,ou=system",
             "ObjectClass : top",
             "ObjectClass : person",
             "cn: testadd_sn",
-            "sn: testadd_sn"
-            );
+            "sn: testadd_sn" );
         
         AddRequest addRequest = new AddRequestImpl();
         addRequest.setEntry( entry );
         addRequest.addControl( new ManageDsaITImpl() );
-
+        
         AddResponse response = connection.add( addRequest );
-
+        
         assertNotNull( response );
         assertEquals( ResultCodeEnum.SUCCESS, response.getLdapResult().getResultCode() );
-
-        assertTrue( session.exists( "cn=testadd,ou=system" ) );
+        
+        assertTrue( connection.exists( "cn=testadd,ou=system" ) );
     }
 
 ### Asynchronous addition
@@ -119,26 +111,28 @@ Sometimes we need to add an entry, but not check the result immediately. It's ju
     @Test
     public void testAddAsyncLdif() throws Exception
     {
-        Entry entry = new DefaultEntry( 
+        assertFalse( connection.exists( "cn=testAsyncAdd,ou=system" ) );
+        
+        Entry entry = new DefaultEntry(
             "cn=testAsyncAdd,ou=system",
             "ObjectClass: top",
             "ObjectClass: person",
             "cn: testAsyncAdd_cn",
             "sn: testAsyncAdd_sn" );
-
-        assertFalse( session.exists( "cn=testAsyncAdd,ou=system" ) );
+        
         AddRequest addRequest = new AddRequestImpl();
         addRequest.setEntry( entry );
-
+        
         AddFuture addFuture = connection.addAsync( addRequest );
-
+        
         // Here, we can do something else before checking that the entry has been added
-
+        
         AddResponse addResponse = addFuture.get( 1000, TimeUnit.MILLISECONDS );
-
+        
         assertNotNull( addResponse );
         assertEquals( ResultCodeEnum.SUCCESS, addResponse.getLdapResult().getResultCode() );
-        assertTrue( session.exists( "cn=testAsyncAdd,ou=system" ) );
+        
+        assertTrue( connection.exists( "cn=testAsyncAdd,ou=system" ) );
     }
 
 ## Do, Don't
