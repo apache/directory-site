@@ -1,4 +1,4 @@
-Title: 1.4.3 - Adding your own partition resp. suffix
+Title: 1.4.3 - Adding your own partition
 NavPrev: 1.4.2-changing-admin-password.html
 NavprevText: 1.4.2 - Changing the admin password
 NavUp: 1.4-basic-configuration-tasks.html
@@ -22,7 +22,7 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
     specific language governing permissions and limitations
     under the License.
 
-# 1.4.3 - Adding your own partition resp. suffix
+# 1.4.3 - Adding your own partition
 
 This section describes how to add your own data partition.
 
@@ -125,3 +125,56 @@ Here is a list of the used attributes, their default values and meaning :
 | ads-optimizerEnabled | Tells the server to turn on the optimizer | true | no |
 | ads-partitionCacheSize | The cache size (only for JDBM partitions) | -1 (no cache) | no |
 | ads-partitionSyncOnWrite | Syncs disks on every write operation | true | no |
+
+
+## Adding a partition manually
+
+When migrating from an earlier release, or perhaps a different LDAP Directory product, you might prefer to manually add your own partition with your specific directory root DN. There are two techniques available, and the most appropriate will depend on whether you have already allowed the apacheds server to start.
+
+When the server starts for the first time after installation, _config.ldif_ is renamed to _config.ldif_migrated_. After that time, this priming ldif file is never referred to again, so any changes you make will be ignored. [The reason for this change is discussed in a JIRA](https://issues.apache.org/jira/browse/DIRSERVER-2050).
+
+
+### Before starting the server
+
+Therefore, if you would like to have your (empty) partition created immediately following installation, you should prevent your server from starting during or after installation, i.e. when config.ldif has not yet been migrated.
+
+Next, edit _config.ldif_ to change all occurrences of "__example__" to suit the name of your own partition. Once the server has started and you run your first ldapsearch as the admin user, you will see that the server has created your own empty partition (instead of the example one).
+
+Note that the entry for the "__example__" partition does NOT have an _ads-contextEntry_ attribute. This "signature" attribute is created during the "migration" process (see below for details).
+
+Subsequent ldif changes to your new partition should work provided they use the default schema.
+
+
+### With ldapmodify to a running server
+
+This is task more tricky because the root of your new partition MUST have a valid _ads-contextEntry_ attribute and you must determine its value. The other attributes (see the definitions above) are quite straightforward, but this control value must be synthesised based on the specific attribute values of your own partition.
+
+Let us look at the ldif required to add the "example" partition:
+
+	dn: ads-partitionId=example,ou=partitions,ads-directoryServiceId=default,ou=config
+	objectclass: top
+	objectClass: ads-base
+	objectclass: ads-partition
+	objectclass: ads-jdbmPartition
+	ads-partitionSuffix: dc=example,dc=com
+	ads-contextentry:: ZG46IGRjPWV4YW1wbGUsZGM9Y29tCmRjOiBleGFtcGxlCm9iamVjdGNsYXNzOiBkb21haW4Kb2JqZWN0Y2xhc3M6IHRvcAoK
+	ads-jdbmpartitionoptimizerenabled: TRUE
+	ads-partitioncachesize: 10000
+	ads-partitionsynconwrite: TRUE
+	ads-partitionid: example
+	ads-enabled: TRUE 
+
+The _ads-contextentry_ attribute is a binary value which has been base64 encoded. The algorithm has to be followed accurately to be successful. Consider our example partition and take these four lines:
+
+	dn: dc=example,dc=com
+	dc: example
+	objectclass: domain
+	objectclass: top
+
+Base64 these four lines as a single string (with \n newlines, but without the prefix spaces). The result should match the _ads-contextentry_ value shown above.
+
+However, you need to be careful because simply adding an extra space or newline will change the base64 value and make it unacceptable to the server. Also, any valid UTF-8 attribute values which are not in the base64 character set (such as accented characters) ___MUST___ be base64-encoded strings, which effectively makes them double-encoded.
+e.g. ___"dn: cn=lécharny,dc=com"___ needs to be specified as ___"dn:: Y249bMOpY2hhcm55LGRjPWNvbQ=="___.
+
+You will probably want to create some associated index entries. You can use those of the "__example__" partition in _config.ldif-migrated_ for your templates (which do not require any special encoded attributes).
+
