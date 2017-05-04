@@ -1,35 +1,26 @@
 # Fortress News
 
+<h2 class="news">Apache Fortress 2.0.0-RC2 Released <em>posted on May 4th, 2017</em></h2>
+
+The Apache Directory Project announces the sixth release of Fortress.  This is a minor release, the second release candidate for a 2.0 release and includes a move to require Java version 8.  There are also a number of enhancements including:
+
+ * FC-201 jgrapht 1.0.0 requires Java 8
+ * FC-202 dir-fortress-core-docker-test to use latest slapd install procs
+ * FC-203 propmr modifiers
+ * FC-204 AccessMgrRestImpl.getUser not setting contextId on request
+ * FC-205 | FC-197 implement PropertyMgrRestImpl
+ * FC-207 Fix handling of truststore
+
+The complete list: <a href="https://issues.apache.org/jira/issues/?jql=project%20%3D%20FC%20AND%20fixVersion%20%3D%202.0.0-RC2%20ORDER%20BY%20updated%20DESC%2C%20priority%20DESC%2C%20created%20ASC">2.0.0-RC2 resolved issues</a>
+
 <h2 class="news">Apache Fortress 2.0.0-RC1 Released <em>posted on November 7th, 2016</em></h2>
 
 The Apache Directory Project announces the fifth release of Fortress.  This major revision has a couple of changes that have broken backward compatibility with 1.x:
 
-1. <a href="https://issues.apache.org/jira/browse/FC-183">FC-183</a> - Use Apache IANA Number of OID - The LDAP schema uses the Apache Directory's IANA base number instead of the one from JoshuaTree.  Requires updating existing fortress impls to upgrade schema using latest:
-     * [OpenLDAP](https://github.com/apache/directory-fortress-core/blob/master/ldap/schema/fortress.schema)
-     * [ApacheDS](https://github.com/apache/directory-fortress-core/blob/master/ldap/schema/apacheds-fortress.ldif)
-     * To ensure the old copy of data works with this release, be sure to export and reimport data (using ldif format) after the schema has been updated on the LDAP server. 
+ * FC-183 Use Apache IANA Number of OID - The LDAP schema uses the Apache Directory's IANA base number instead of the one from JoshuaTree.  Requires updating existing fortress impls to upgrade schema using latest
+ * FC-194 Change password representation from a char[] to a String.  Applies to all methods using a password in the arguments.  If using the fortress-realm, ensure the tomcat instance has the latest proxy jar also.
 
-2. <a href="https://issues.apache.org/jira/browse/FC-194">FC-194</a> - Change password representation from a char[] to a String.  Applies to all methods using a password in the arguments.  If using the fortress-realm, ensure the tomcat instance has the latest proxy jar also.
-
-<ul>
-  <li>Other enhancements include:
-    <ul>
-      <li><a href="https://issues.apache.org/jira/browse/FC-116">FC-116</a> : Basic ABAC capabilities</li>
-      <li><a href="https://issues.apache.org/jira/browse/FC-144">FC-144</a> : Enhanced group-to-role mappings</li>
-      <li><a href="https://issues.apache.org/jira/browse/FC-181">FC-181</a> : Multitenancy for Realm and Web</li>
-    </ul>
-  </li>
-</ul>
-<ul>
-  <li>The complete list can be found in this JIRA report:
-    <ul>
-      <li>
-        <a href="https://issues.apache.org/jira/browse/FC-200?jql=project%20%3D%20FC%20AND%20fixVersion%20%3D%202.0.0-RC1%20ORDER%20BY%20updated%20DESC%2C%20priority%20DESC%2C%20created%20ASC">Issues fixed in this release</a>
-        <br>
-      </li>
-    </ul>
-  </li>
-</ul>
+The complete list: <a href="https://issues.apache.org/jira/issues/?jql=project%20%3D%20FC%20AND%20fixVersion%20%3D%202.0.0-RC1%20ORDER%20BY%20updated%20DESC%2C%20priority%20DESC%2C%20created%20ASC">2.0.0-RC1 resolved issues</a>
 
 <h2 class="news">Apache Fortress 1.0.1 Released <em>posted on July 22nd, 2016</em></h2>
 
