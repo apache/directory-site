@@ -5,15 +5,15 @@ This work was contributed by Yudhi Karunia Surtan of PT. Global Digital Niaga (b
 
 ## Introduction
 
-This document contains an overview of the URL filtering mechanism.
+This document contains an overview for combining a CAS-based SSO module with fortress-based authorization, using a declarative URL filtering mechanism. 
 
 ###Detailed description of the project
 
-I created this solution because at the time I was looking an IAM and SSO solution, and there were no open source solution to provide everything that I required.
+I created this solution a few years ago because at the time I was looking for an IAM and SSO solution, and there were no open source solutions that provided everything that I needed.
 
-Basically, the idea is, I wanted to have a framework where the developer doesn't need to programmatically make authorization calls, use annotation or any other kind of “if condition” statements, in their code. With this solution, I'm can have a declarative mechanism capable of dynamic authorization decisions, even if the user hasn't been logged in or has the the proper role activated.  This is because the authorization has been centralized at the server and that server can activate and deactivate user roles that are needed to access the runtime environment.
+Basically, the idea was, I needed a framework where the developer didn't have to programmatically add authorization calls to their code, or use annotations, or any other kind of “if condition” statement. With this solution, I can have a declarative mechanism that is still capable of making advanced dynamic authorization decisions, even if the user hasn't been logged in before or has any of the proper roles activated to their session.  I can do this because I control the authorization and it has been centralized in the server, and that server can activate whatever user roles needed to to allow access to the runtime environment.
 
-I searched across all available open source solutions and finally decided to use Apereo CAS and Apache Fortress as the combined solution. Apereo CAS does the authentication and Apache Fortress will handle the authorization.
+I searched across all available open source solutions and finally decided to combine Apereo CAS and Apache Fortress into a single solution. Apereo CAS does the authentication and Apache Fortress will handle authorization.
 
 Apereo CAS is very good way to handle the Single Sign-On and Single Sign-Out problems, on the other hand it lacks authorization capaibilities because there aren't standardized solutions for authorization in that space yet. Apache Fortress is good at authorization because it uses standard RBAC. However, Apache Fortress doesn't have an SSO solution yet. That is why I think both should be combined because they complement each other.  Unfortunately, there aren't yet good documentation resources available to combine these which is why I figured I needed to create this, so other developers can follow my team's lead and make their life easier provding good security for their webapps.
 
