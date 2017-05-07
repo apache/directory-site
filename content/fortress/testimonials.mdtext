@@ -17,10 +17,9 @@ I searched across all available open source solutions and finally decided to use
 
 Apereo CAS is very good way to handle the Single Sign-On and Single Sign-Out problems, on the other hand Apereo CAS lacks authorization capaibilities because there are no standardized solutions for the authorization in that space yet. Apache Fortress is good at authorization because it uses standard RBAC. However, Apache Fortress doesn't have an SSO solution yet. That is why I think both can be combined and create a good solution because they complement each other.  Unfortunately, there isn't a good documentation resource available to combine both solution into wone which is why I needed to create this to other developers on my team and make their life easier.
 
-With this solution, I have successfully run inside a production environment since 2015 and have maintained this solution for almost 2 years now, I write this documentation to describe how it works and how you can try something like this as well.
+This solution I present to you here, has operated successfully inside a production environment since 2015 and so we have maintained it for almost 2 years now, I write this documentation to describe how it works and so it's something you could try as well.
 
 Here are the technologies stack used within my extended framework:
-
  * Apereo CAS -> 4.2.x
  * Apache Fortress Enmasse (rest) -> 1.0.0
  * Apache Fortress Proxy -> 1.0.0
@@ -38,7 +37,7 @@ The following sections contain code and xml snippets describing how the CAS and 
 
 ###Server side development:
 
-####The Authentication Handler
+####1. The Authentication Handler
 
  The interesting part for this solution is how to maintain both the Apereo CAS and Apache Fortress sessions. Luckily, CAS is using a token for maintaining their session and that token is also designed to have some extended attributes included with it.  Using this knowledge, we can modify the profile given by CAS Server to the client. Let's have a look what I've done with combining the Apereo CAS and Apache Fortress sessions in the code that follows.
 
@@ -146,7 +145,7 @@ The following sections contain code and xml snippets describing how the CAS and 
 
  In the above source code you can see how I construct a new principal by creating a new attribute map with values contained withing the Apache Fortress Session xml.
 
-####Attribute Populator
+####2. The Attribute Populator
 
  In order to populate fortress and pass it on to the client we need to override the casServiceValidationSuccess.jsp file, located at WEB-INF/view/jsp/protocol/2.0/, since its default view won't populating the necessary attributes. Here is how I was able to accomplish that:
 
@@ -181,13 +180,13 @@ The following sections contain code and xml snippets describing how the CAS and 
 
 One thing that I love about CAS, even if you correctly extracted the attribute at this page (or maybe you just got hacked at this page), CAS is able to protect the returned attributes by changing the services registry configuration. see the HTTPSandIMAPS-10000001.json file. I’ve put ReturnAllAttributeReleasePolicy type for debuging all the attributes returned, you can change it later to make your application more secure as well.
 
-####Apache Ignite For Ticket Replication
+####3. Apache Ignite For Ticket Replication
 
  To have a production readiness we need to somehow manage a high availability requirement, so we're not just using a single cas server. That is why we needed to have a centralized or distributed ticket repository, to allow cas to scale. To scale the ticket repository, I chose Apache Ignite for distributing the tickets. To Implement is very simple, and is also written about in Apereo CAS documentation.
 
 ###Client side development:
 
-####The Spring Voter
+####1. The Spring Voter
 
  Spring is a great framework, they allow you to add your own interceptors to use your own implementation. WebExpressionVoter is the class you need to extend in order to override the normal spring decision mechanism.  Usually you will use xml + regex for registering the condition. However, xml + regex is not the approach I wanted for my development team. See below code snippet, to understand what I did to make this more dynamic.
 
@@ -253,7 +252,7 @@ One thing that I love about CAS, even if you correctly extracted the attribute a
 
  Yep, I'm calling fortress to check if the user is allowed to access fortress permissions or not.
 
-#####UserDetail Populator
+#####2. UserDetail Populator
 
  Spring uses the implementation of AbstractCasAssertionUserDetailsService to populate user details following successful authentication, you can see the example at IamUserDetails code, here is the snipet of that class:
 
@@ -296,7 +295,7 @@ One thing that I love about CAS, even if you correctly extracted the attribute a
 
  You can change the implementation later for your needs.
 
-#####Network Might Be a Problem
+#####3. Network Might Be a Problem
 
  Since this is running inside a production environment, we needed to consider that sometimes there might be a trouble over our network that causes problems and requires retries. That is why it's important to allow a little delay time in our application.  Here's an example of how allow a small delay, in order to allow temorary network glitches and slowdowns to work themselves out.
 
