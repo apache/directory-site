@@ -15,9 +15,9 @@ Basically, the idea is, I wanted to have a framework where the developer doesn't
 
 I searched across all available open source solutions and finally decided to use Apereo CAS and Apache Fortress as the combined solution. Apereo CAS does the authentication and Apache Fortress will handle the authorization.
 
-Apereo CAS is very good way to handle the Single Sign-On and Single Sign-Out problems, on the other hand Apereo CAS lacks authorization capaibilities because there are no standardized solutions for the authorization in that space yet. Apache Fortress is good at authorization because it uses standard RBAC. However, Apache Fortress doesn't have an SSO solution yet. That is why I think both can be combined and create a good solution because they complement each other.  Unfortunately, there isn't a good documentation resource available to combine both solution into wone which is why I needed to create this to other developers on my team and make their life easier.
+Apereo CAS is very good way to handle the Single Sign-On and Single Sign-Out problems, on the other hand it lacks authorization capaibilities because there aren't standardized solutions for authorization in that space yet. Apache Fortress is good at authorization because it uses standard RBAC. However, Apache Fortress doesn't have an SSO solution yet. That is why I think both should be combined because they complement each other.  Unfortunately, there aren't yet good documentation resources available to combine these which is why I figured I needed to create this, so other developers can follow my team's lead and make their life easier provding good security for their webapps.
 
-This solution I present to you here, has operated successfully inside a production environment since 2015 and so we have maintained it for almost 2 years now, I write this documentation to describe how it works and so it's something you could try as well.
+The solution I present to you here has operated successfully inside production environments since 2015 and so we have maintained it for almost 2 years now and it's quite mature.  I write this documentation to describe how it works and it's intended as something you should try as well.
 
 Here are the technologies stack used within my extended framework:
  * Apereo CAS -> 4.2.x
