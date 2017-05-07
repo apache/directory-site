@@ -15,11 +15,12 @@ Basically, the idea was, I needed a framework where the developer didn't have to
 
 I searched across all available open source solutions and finally decided to combine Apereo CAS and Apache Fortress into a single solution. Apereo CAS does the authentication and Apache Fortress will handle authorization.
 
-Apereo CAS is very good way to handle the Single Sign-On and Single Sign-Out problems, on the other hand it lacks authorization capaibilities because there aren't standardized solutions for authorization in that space yet. Apache Fortress is good at authorization because it uses standard RBAC. However, Apache Fortress doesn't have an SSO solution yet. That is why I think both should be combined because they complement each other.  Unfortunately, there aren't yet good documentation resources available to combine these which is why I figured I needed to create this, so other developers can follow my team's lead and make their life easier provding good security for their webapps.
+Apereo CAS is very good way to handle the Single Sign-On and Single Sign-Out problems, on the other hand it lacks authorization capaibilities because there aren't standardized solutions for authorization in that space yet. Apache Fortress is good at authorization because it uses standard RBAC. However, Apache Fortress doesn't have an SSO solution yet. That is why I think both should be combined because they complement each other.  Unfortunately, there aren't yet good documentation resources available to combine these which is why I figured I needed to create this, so other developers can follow my team's lead and make their life easier providing good security for their webapps.
 
 The solution I present to you here has operated successfully inside production environments since 2015 and so we have maintained it for almost 2 years now and it's quite mature.  I write this documentation to describe how it works and it's intended as something you should try as well.
 
-Here are the technologies stack used within my extended framework:
+Here are the technology stacks used within my extended framework:
+
  * Apereo CAS -> 4.2.x
  * Apache Fortress Enmasse (rest) -> 1.0.0
  * Apache Fortress Proxy -> 1.0.0
