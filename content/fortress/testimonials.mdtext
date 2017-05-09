@@ -17,7 +17,7 @@ I searched all available open source solutions and finally decided to combine Ap
 
 I went this route because Apereo CAS is very good way to handle the Single Sign-On and Single Sign-Out problems, but it lacks authorization capabilities, because there aren't standardized solutions in that space yet. Apache Fortress is good at authorization because it uses standard RBAC. However, Apache Fortress doesn't have an SSO solution yet. That is why I think both should be combined because they complement each other.  Unfortunately, there aren't yet good documentation resources available to combine these which is why I created this one, so other developers can follow my team's lead and make their life easier by providing good security for their webapps.
 
-The solution I present to you here has operated successfully inside production environments since 2015 for almost 2 years now and so it's quite mature.  I write this how-to document to explain how it works and it's intended as a guide for you to follow as well.
+The solution I present to you here has operated successfully inside production environments since 2015 and so it's quite mature.  I write this how-to document to explain how it works.  It's intended as a guide for you to follow as well.
 
 Here are the technology stacks used within my extended framework:
 
@@ -27,7 +27,7 @@ Here are the technology stacks used within my extended framework:
  * Apache Ignite -> 1.7.0
  * Spring Framework -> 4.2.x-RELEASE
 
-There are two steps of development.  One to handle the server side and the other for the client.  The client is shared across my dev team for managing security within their web applications.
+There are two areas of development focus.  One to handle the server side and the other for the client.  The client is shared with my dev team for managing security within their web applications.
 
  1. CAS Server side development: Includes creating own implementation for AbstractUsernamePasswordAuthenticationHandler and implemening an Apache Ignite Service Registry for CAS
  2. CAS Client side development: Includes create own implementation for WebExpressionVoter and CasAuthenticationProvider
