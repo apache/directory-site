@@ -366,6 +366,17 @@ This will create the installers in the <em>target/checkout/installers/target/ins
     This will build only one single target.
 </DIV>
 
+<DIV class="info" markdown="1">
+    If the packging tool path is not correct, you can set it on the command line :
+    
+  <UL>
+    <LI>Debian   : mvn clean install -Pdebian -Dinstallers.dpkg=<path to the dpkg installer></LI>
+    <LI>Rpm      : mvn clean install -Prpm -Dinstallers.rpmbuild=<path to the rpmbuild installer></LI>
+    <LI>Windows  : mvn clean install -Pwindows -Dinstallers.makensis=<path to the makensis installer></LI> 
+  </UL>
+</DIV>
+
+
 
 Sign those installers using the <em>sign.sh</em> script, and copy them in <em>people.apache.org/public_html/apacheds-<version></em>
 
