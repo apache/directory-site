@@ -190,13 +190,17 @@ The following example could be used to log all incoming search, add, delete, mod
 	log4j.logger.org.apache.directory.server.ldap.handlers.ModifyHandler=DEBUG
 	log4j.logger.org.apache.directory.server.ldap.handlers.ModifyDnHandler=DEBUG
 
-## Log settings of the Windows daemon process 
+## Log settings of the Windows service
 
-After installation on Windows, you have the option to configure the ApacheDS Windows Service (you can do this later as well). If you do so, one option pane is dedicated to logging:
+To run as a Windows service, the ApacheDS Java classes must be executed within a Windows native binary.  The ApacheDS project relies on the Tanuki Software Java Service Wrapper's wrapper.exe to manage the ApacheDS Java Virtual Machine (JVM) process.  While the ApacheDS Java code's logging is log4j-based, the wrapper.exe Windows service has its own logging configuration.  For example, the wrapper.conf log settings govern the destination of the JVM's stdout and stderr logging and the logging of the communication between the wrapper.exe Windows service container and the JVM it hosts.
 
-![Windows service properties](images/w32_service_properties.png)
+An ApacheDS installation's wrapper.exe log settings are stored in:
 
-You can adjust the logging level and a log path. Note that this is for the daemon only. The server itself is configured as described above.
+	C:\Program Files (x86)\ApacheDS\conf\wrapper.conf.
+
+The Tanuki Software Java Service Wrapper web site documents all configuration settings for wrapper.exe including logging:
+
+	https://wrapper.tanukisoftware.com/doc/english/introduction.html#logging
 
 ## Resources
 
