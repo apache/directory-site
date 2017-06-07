@@ -1,4 +1,31 @@
 # News
+<h2 class="news">ApacheDS 2.0.0-M24 released <em>posted on June 7th, 2017</em></h2>
+
+The Apache Directory team is pleased to announce the release of ApacheDS 2.0.0-M24, the 24th milestone towards a 2.0 version.
+
+ApacheDS is an extensible and embeddable directory server entirely written in Java, which has been certified LDAPv3 compatible by the Open Group. Besides LDAP it supports Kerberos 5 and the Change Password Protocol. It has been designed to introduce triggers, stored procedures, queues and views to the world of LDAP which has lacked these rich constructs.
+
+Downloads are available [here](downloads.html)
+
+This is mainly a maintenance release, and it's needed to be able to release Studio with many fixes related to the server itself. The main fixes are related to SyntaxCheckers, which are now immutable, and the switch to LDAP 1.0.0 which fixes a critical SSL issue. Otherwise, the 'repair' command has been fixed, and a thread leak has been fixed.
+
+In order to repair the database, one has just to start the server passing the 'repair' command to the apacheds script, instead of the 'start' comamnd. The server will start after having repaired the database.
+
+Here is the release note for Apache Directory ApacheDS 2.0.0-M24:
+
+<b>Bugs :</b>
+
+  * [DIRSERVER-2190](https://issues.apache.org/jira/browse/DIRSERVER-2190) - there is thread leak when did following operations: ADD,DELETE,MODIFY,MOVE,RENAME
+  * [DIRSERVER-2173](https://issues.apache.org/jira/browse/DIRSERVER-2173) - Linux binary installation fails because RUN_AS_GROUP not used in chown commands
+  * [DIRSERVER-2121](https://issues.apache.org/jira/browse/DIRSERVER-2121) - ApacheDS fails  to start after upgrading to 2.0.0-M21
+  * [DIRSERVER-2072](https://issues.apache.org/jira/browse/DIRSERVER-2072) - Documentation For Kerberos Configuration Needs To Be Updated
+
+
+<b>Improvements :</b>
+
+  * [DIRSERVER-2186](https://issues.apache.org/jira/browse/DIRSERVER-2186) - Fix repair command 
+  
+
 <h2 class="news">ApacheDS 2.0.0-M23 released <em>posted on July 22th, 2016</em></h2>
 
 The Apache Directory team is pleased to announce the release of ApacheDS 2.0.0-M23, the 23th milestone towards a 2.0 version.
