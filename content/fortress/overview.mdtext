@@ -33,20 +33,26 @@ It's released under terms of the Apache License 2.0.
 
 ## How Does It Work?
 
-To learn, check out the quickstarts:
+Fortress is a Role-Based Access Control security system.  It uses a directory server to store the information about users, roles, permissions, etc.  Out-of-the-box it supports either ApacheDS or OpenLDAP servers but is LDAPv3 compliant and would work with any compliant system.
 
-* [README-QUICKSTART-APACHEDS.md](https://github.com/apache/directory-fortress-core/blob/master/README-QUICKSTART-APACHEDS.md) - Install Core for use with APACHEDS
-* [README-QUICKSTART-SLAPD.md](https://github.com/apache/directory-fortress-core/blob/master/README-QUICKSTART-SLAPD.md) - Install Core for use with OPENLDAP
-* [README-QUICKSTART-DOCKER-SLAPD.md](https://github.com/apache/directory-fortress-core/blob/master/README-QUICKSTART-DOCKER-SLAPD.md) - Install Core for use with OPENLDAP running inside DOCKER
-* [REALM-HOST-SETUP.md](https://github.com/apache/directory-fortress-realm/blob/master/REALM-HOST-SETUP.md) - Configure Tomcat Global Security using Realm
-* [REALM-CONTEXT-SETUP.md](https://github.com/apache/directory-fortress-realm/blob/master/REALM-CONTEXT-SETUP.md) - Configure Tomcat Local Security using Realm
-* [README-QUICKSTART.md](https://github.com/apache/directory-fortress-enmasse/blob/master/README-QUICKSTART.md) - Install Fortress Rest to Tomcat
-* [README-QUICKSTART.md](https://github.com/apache/directory-fortress-commander/blob/master/README-QUICKSTART.md) - Install Fortress Web to Tomcat
+To learn how to install, setup and configure with either of the supported servers, check out the quickstarts:
 
-Other Guides:
+    *  [QUICKSTARTS](installation.html)
+
+## Other Guides
+
+### Api usage
+Probably the best place to start is the javadoc.  To understand how RBAC works, look at the interfaces like AccessMgr, AdminMgr and ReviewMgr.  For ARBAC add 'Del' to the name - for delegated.  DelAdminMgr, DelAccessMgr, etc.  For password policies, PwPolicyMgr.
+
+### Configuration
+Next is to understand how the runtime works.  As you might expect, Fortress requires a large number of parameters that bind it to a runtime environment.  For example the LDAP server's coordinates, hostname, port, suffix, service account credentials and more.  The configuration subsystem pulls these parameters from a variety of locations.
+
+* [README-CONFIG.md](https://github.com/apache/directory-fortress-core/blob/master/README-CONFIG.md) - How the Fortress Config subsystem works
+
+### Multitenancy
+The Fortress APIs and data storage is fully multitenant.  To understand how that works.
 
 * [README-MULTITENANCY.md](https://github.com/apache/directory-fortress-core/blob/master/README-MULTITENANCY.md) - How Fortress Multitenancy works
-* [README-CONFIG.md](https://github.com/apache/directory-fortress-core/blob/master/README-CONFIG.md) - How the Fortress Config subsystem works
 
 ## What technologies at play?
 
@@ -72,7 +78,7 @@ The ARBAC model explains how [RBAC](http://csrc.nist.gov/groups/SNS/rbac/documen
 
 ### IETF Password Policies
 
-OpenLDAP has supported this draft since 2005.  Fortress adds by integrating with its administrative and access control APIs.  These APIs enable outside apps to participate and manipulate OpenLDAP password policies without understanding the specifics of how they work. Fortress provides services for setting up new policies and ensuring password policies are tracked and enforced across all avenues.
+Fortress sully supports password policies of both ApacheDS and OpenLDAP.  It adds by integrating with its administrative and access control APIs.  These APIs enable outside apps to participate and manipulate OpenLDAP password policies without understanding the specifics of how they work. Fortress provides services for setting up new policies and ensuring password policies are tracked and enforced across all avenues.
 
 ### Auditing
 
