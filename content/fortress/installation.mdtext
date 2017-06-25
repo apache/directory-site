@@ -18,23 +18,37 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 # Installation guides
 
-These Installation guides show you how to do a base install of Fortress Core, Rest and Web components using either ApacheDS or OpenLDAP along with Apache Tomcat.  There are quickstarts running in DOCKER for rapid deployments.
 
-## Fortress Core & ApacheDS
+## Fortress Core Setup with LDAP
+
+The Fortress Core requires and LDAP server.  These guides show you how to do a base install of either ApacheDS or OpenLDAP and configure Fortress Core usage.  Or, follow the DOCKER quickstarts for rapid deployment and testing of Fortress using preconfigured instances.
+
+### Fortress Core & ApacheDS
 * [README-QUICKSTART-DOCKER-APACHEDS.md](https://github.com/apache/directory-fortress-core/blob/master/README-QUICKSTART-DOCKER-APACHEDS.md) - Install Core for use with APACHEDS running inside DOCKER 
 * [README-QUICKSTART-APACHEDS.md](https://github.com/apache/directory-fortress-core/blob/master/README-QUICKSTART-APACHEDS.md) - Install Core for use with APACHEDS 
 
-## Fortress Core & OpenLDAP
+### Fortress Core & OpenLDAP
 * [README-QUICKSTART-SLAPD.md](https://github.com/apache/directory-fortress-core/blob/master/README-QUICKSTART-SLAPD.md) - Install Core for use with OPENLDAP 
 * [README-QUICKSTART-DOCKER-SLAPD.md](https://github.com/apache/directory-fortress-core/blob/master/README-QUICKSTART-DOCKER-SLAPD.md) - Install Core for use with OPENLDAP running inside DOCKER 
 
-## Fortress Realm & Tomcat
+## Fortress Web and Rest Setup with Tomcat
+
+Apache Tomcat is used for the Fortress Rest and Web deployment testing.
+
+### Fortress Realm & Tomcat
+
+The Realm plugs into Tomcat and provides JavaEE security support.
+
 * [REALM-HOST-SETUP.md](https://github.com/apache/directory-fortress-realm/blob/master/REALM-HOST-SETUP.md) - Configure Tomcat Global Security using Realm 
 * [REALM-CONTEXT-SETUP.md](https://github.com/apache/directory-fortress-realm/blob/master/REALM-CONTEXT-SETUP.md) - Configure Tomcat Local Security using Realm
 
-## Fortress Rest & Tomcat
+Next, pull either Fortress Web or Rest binaries from Maven, run inside Tomcat instance. 
+
+### Fortress Rest & Tomcat
 * [README-QUICKSTART.md](https://github.com/apache/directory-fortress-enmasse/blob/master/README-QUICKSTART.md) - Install Fortress Rest to Tomcat
 
-## Fortress Web & Tomcat
+### Fortress Web & Tomcat
 * [README-QUICKSTART.md](https://github.com/apache/directory-fortress-commander/blob/master/README-QUICKSTART.md) - Install Fortress Web to Tomcat
+
+More info can be found from each of the projects README's.
 
