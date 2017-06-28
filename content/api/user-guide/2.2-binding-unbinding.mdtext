@@ -94,7 +94,7 @@ It's possible to issue a **Bind** on an already bound connection and the existin
 
     :::Java
     @Test
-    public void testDoubleSimpleBindValid() throws Exception
+    public void testRebind() throws Exception
     {
         connection.bind( "uid=admin,ou=system", "secret" );
 
@@ -115,7 +115,7 @@ It's important to know that when you issue an **Unbind**, the connection is drop
 
     :::Java
     @Test
-    public void testDoubleSimpleBindValid() throws Exception
+    public void testUnbind() throws Exception
     {
         connection.bind( "uid=admin,ou=system", "secret" );
 

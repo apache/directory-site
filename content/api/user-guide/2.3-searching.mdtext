@@ -33,15 +33,19 @@ The idea is to define a search **API** which is easy to use in the simplest case
 Let's first look at a simple search. To process a search we need a starting point in the tree, a filter, and a scope. Here's an example:
 
     :::java
-    EntryCursor cursor = connection.search( "ou=system", "(objectclass=*)", SearchScope.ONELEVEL );
-    
-    for ( Entry entry : cursor )
+    @Test
+    public void testSearch() throws Exception
     {
-        assertNotNull( entry );
-        System.out.println( entry );
+        EntryCursor cursor = connection.search( "ou=system", "(objectclass=*)", SearchScope.ONELEVEL );
+
+        for ( Entry entry : cursor )
+        {
+            assertNotNull( entry );
+            System.out.println( entry );
+        }
+
+        cursor.close();
     }
-    
-    cursor.close();
 
 
 In this example, the _connection_ has been previously created. We search for all entries starting at *ou=system* along with its children, which have an _ObjectClass_ attribute (all the entries have such an attribute, so we should get back all the entries). The scope (_ONELEVEL_) searches one level under the starting base.
@@ -59,17 +63,21 @@ But this is not really enough, there are many possible options.
 In the previous sample, we used a String to define the starting point of the search. Sometimes it's convenient to start a search with a DN (i.e. because you got the DN from another operation). In this case, no need to transform the DN into a String before doing your search, simply use the DN!
 
     :::java
-    Dn systemDn = new Dn( "ou=system" );
-    ...
-    EntryCursor cursor = connection.search( systemDn, "(objectclass=*)", SearchScope.ONELEVEL );
-    
-    for ( Entry entry : cursor )
+    @Test
+    public void testSearchWithDn() throws Exception
     {
-        assertNotNull( entry );
-        System.out.println( entry );
+        Dn systemDn = new Dn( "ou=system" );
+
+        EntryCursor cursor = connection.search( systemDn, "(objectclass=*)", SearchScope.ONELEVEL );
+
+        for ( Entry entry : cursor )
+        {
+            assertNotNull( entry );
+            System.out.println( entry );
+        }
+
+        cursor.close();
     }
-    
-    cursor.close();
 
 This is it!
 
@@ -131,26 +139,30 @@ You may also add a Control to the search request, or request some specific Attri
 In both cases, you should fill the _SearchRequest_ message and send it to the server:
 
     :::Java
-    // Create the SearchRequest object
-    SearchRequest req = new SearchRequestImpl();
-    req.setScope( SearchScope.SUBTREE );
-    req.addAttributes( "*" );
-    req.setTimeLimit( 0 );
-    req.setBase( new Dn( "ou=system" ) );
-    req.setFilter( "(cn=user1)" );
-
-    // Process the request
-    SearchCursor searchCursor = connection.search( req );
-
-    while ( searchCursor.next() )
+    @Test
+    public void testSearchWithSearchRequest() throws Exception
     {
-        Response response = searchCursor.get();
+        // Create the SearchRequest object
+        SearchRequest req = new SearchRequestImpl();
+        req.setScope( SearchScope.SUBTREE );
+        req.addAttributes( "*" );
+        req.setTimeLimit( 0 );
+        req.setBase( new Dn( "ou=system" ) );
+        req.setFilter( "(cn=user1)" );
 
-        // process the SearchResultEntry
-        if ( response instanceof SearchResultEntry )
+        // Process the request
+        SearchCursor searchCursor = connection.search( req );
+
+        while ( searchCursor.next() )
         {
-            Entry resultEntry = ( ( SearchResultEntry ) response ).getEntry();
-            ...
+            Response response = searchCursor.get();
+
+            // process the SearchResultEntry
+            if ( response instanceof SearchResultEntry )
+            {
+                Entry resultEntry = ( ( SearchResultEntry ) response ).getEntry();
+                System.out.println( resultEntry );
+            }
         }
     }
 
