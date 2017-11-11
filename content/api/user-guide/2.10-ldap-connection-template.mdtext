@@ -171,10 +171,10 @@ Searching usually contains a lot of boilerplate code for building requests and i
 
     :::Java
     // typically mappers are reused, so define a static member
-    private static final EntryMapper muppetEntryMapper =
+    private static final EntryMapper<Muppet> muppetEntryMapper =
         new EntryMapper<Muppet>() {
             @Override
-            public String map( Entry entry ) throws LdapException {
+            public Muppet map( Entry entry ) throws LdapException {
                 return new Muppet.Builder()
                     .setId( entry.getDn() )
                     .setFirstName( entry.get( "givenName" ).getString() )
