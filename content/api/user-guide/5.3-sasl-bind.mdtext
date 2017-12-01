@@ -22,6 +22,62 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
     specific language governing permissions and limitations
     under the License.
 
+>**Note:** Work in progress...
+
 # 5.3 - SASL Bind
 
->**Note:** Contents for this page will be added soon...
+*SASL* is defined by [RFC 4422](https://tools.ietf.org/html/rfc4422) which obsoletes [RFC2222](https://tools.ietf.org/html/rfc2222). There are also a few RFCs that are related to *SASL*, they are listed in the next paragraph.
+
+In any case, as *ApacheDS* and the *Apache LDAP API* are based on *Java*, we depend on the *Java* *SASL* impementation. Typically, this is handled by the *SunSASL* provider, which only support the following mechanisms, as of Java 8 :
+
+* PLAIN (Client)
+* CRAM-MD5 (Client/Server)
+* DIGEST-MD5 (Client/Server)
+* GSSAPI (Client/Server)
+* EXTERNAL (Client)
+
+Note that in *Java 9*, those mechanisms are spread in two different providers, the *GSSAPI* mechanism being handled by the *JdkSASL* provider.
+
+We currently don't support any other provider.
+
+## RFCs
+
+Here are the list of RFCs related to *SASL*:
+
+![](../../images/icons/information.gif) : Informational
+
+![](../../images/icons/lightbulb.gif) : Historic
+
+![](../../images/icons/lightbulb_on.gif) : Proposed Standard
+
+![](../../images/icons/warning.gif) : Experimental
+
+![](../../images/icons/thumbs_up.gif) : Best current practice
+
+
+### Obsolete RFCs
+
+| RFC | Description | Obsoleted by | Status  |
+|---|---|---|---|
+| [RFC 2222](https://tools.ietf.org/html/rfc2222) | Simple Authentication and Security Layer (SASL) | [RFC 4422](https://tools.ietf.org/html/rfc4422), [RFC 4752](https://tools.ietf.org/html/rfc4752) | ![](../../images/icons/lightbulb_on.gif) |
+| [RFC 2245](https://tools.ietf.org/html/rfc2245) | Anonymous SASL Mechanism | [RFC 4505](https://tools.ietf.org/html/rfc4505) |  ![](../../images/icons/lightbulb_on.gif) |
+| [RFC 2831](https://tools.ietf.org/html/rfc2831) | Using Digest Authentication as a SASL Mechanism | [RFC 4505](https://tools.ietf.org/html/rfc4505) | ![](../../images/icons/lightbulb.gif) |
+| [RFC 4013](https://tools.ietf.org/html/rfc4013) | SASLprep: Stringprep Profile for User Names and Passwords | [RFC 7613](https://tools.ietf.org/html/rfc7613)| ![](../../images/icons/lightbulb_on.gif) |
+| [RFC 7613](https://tools.ietf.org/html/rfc7613) | Preparation, Enforcement, and Comparison of Internationalized Strings Representing Usernames and Passwords | [RFC 8265](https://tools.ietf.org/html/rfc8265) | ![](../../images/icons/lightbulb_on.gif) |
+
+### Active RFCs
+
+| RFC | Description | Status  |
+|---|---|---|---|
+| [RFC 2444](https://tools.ietf.org/html/rfc2444) | The One-Time-Password SASL Mechanism | ![](../../images/icons/lightbulb_on.gif) |
+| [RFC 2808](https://tools.ietf.org/html/rfc2808) | The SecurID(r) SASL Mechanism | ![](../../images/icons/information.gif)  |
+| [RFC 4422](https://tools.ietf.org/html/rfc4422) | Simple Authentication and Security Layer (SASL) | ![](../../images/icons/lightbulb_on.gif) |
+| [RFC 4505](https://tools.ietf.org/html/rfc4505) | Anonymous Simple Authentication and Security Layer (SASL) Mechanism | ![](../../images/icons/lightbulb_on.gif) |
+| [RFC 4616](https://tools.ietf.org/html/rfc4616) | The PLAIN Simple Authentication and Security Layer (SASL) Mechanism | ![](../../images/icons/lightbulb_on.gif) |
+| [RFC 4752](https://tools.ietf.org/html/rfc4752) | The Kerberos V5 ("GSSAPI") Simple Authentication and Security Layer (SASL) Mechanism | ![](../../images/icons/lightbulb_on.gif) |
+| [RFC 5801](https://tools.ietf.org/html/rfc58à&) | Using Generic Security Service Application Program Interface (GSS-API) Mechanisms in Simple Authentication and Security Layer (SASL): The GS2 Mechanism Family | ![](../../images/icons/lightbulb_on.gif) |
+| [RFC 5802](https://tools.ietf.org/html/rfc5802) | Salted Challenge Response Authentication Mechanism (SCRAM) SASL and GSS-API Mechanisms | ![](../../images/icons/lightbulb_on.gif) |
+| [RFC 6331](https://tools.ietf.org/html/rfc6331) | Moving DIGEST-MD5 to Historic | ![](../../images/icons/information.gif)|
+| [RFC 7677](https://tools.ietf.org/html/rfc7677) | SCRAM-SHA-256 and SCRAM-SHA-256-PLUS Simple Authentication and Security Layer (SASL) Mechanisms | ![](../../images/icons/lightbulb_on.gif) |
+| [RFC 8265](https://tools.ietf.org/html/rfc8265) | Preparation, Enforcement, and Comparison of Internationalized Strings Representing Usernames and Passwords | ![](../../images/icons/lightbulb_on.gif) |
+
