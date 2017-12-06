@@ -36,9 +36,14 @@ We request a deletion by providing the entry's _DN_, as in the following example
     {
         assertTrue( session.exists( "cn=child1,cn=parent,ou=system" ) );
 
-        DeleteResponse response = connection.delete( "cn=child1,cn=parent,ou=system" );
-        assertNotNull( response );
-        assertEquals( ResultCodeEnum.SUCCESS, response.getLdapResult().getResultCode() );
+        try 
+        {
+            connection.delete( "cn=child1,cn=parent,ou=system" );
+        }
+        catch ( LdapException le )
+        {
+            fail( le.getMessage() );
+        }
 
         assertFalse( session.exists( "cn=child1,cn=parent,ou=system" ) );
     }
@@ -52,9 +57,14 @@ Trying to delete a parent node would result in an error (NOT_ALLOWED_ON_NON_LEAF
     {
         assertTrue( session.exists( "cn=parent,ou=system" ) );
 
-        DeleteResponse response = connection.delete( "cn=parent,ou=system" );
-        assertNotNull( response );
-        assertEquals( ResultCodeEnum.NOT_ALLOWED_ON_NON_LEAF, response.getLdapResult().getResultCode() );
+        try 
+        {
+            connection.delete( "cn=parent,ou=system" );
+        }
+        catch ( LdapException le )
+        {
+            fail( le.getMessage() );
+        }
 
         assertTrue( session.exists( "cn=parent,ou=system" ) );
     }
@@ -71,9 +81,14 @@ Usually, you can't delete an entry and all of its children in one operation. How
         assertTrue( session.exists( "cn=parent,ou=system" ) );
 
 
-        DeleteResponse response = connection.deleteTree( "cn=parent,ou=system" );
-        assertNotNull( response );
-        assertEquals( ResultCodeEnum.SUCCESS, response.getLdapResult().getResultCode() );
+        try
+        {
+            connection.deleteTree( "cn=parent,ou=system" );
+        }
+        catch ( LdapException le )
+        {
+            fail( le.getMessage() );
+        }
 
         assertFalse( session.exists( "cn=parent,ou=system" ) );
     }
