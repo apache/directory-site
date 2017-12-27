@@ -22,7 +22,7 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
     specific language governing permissions and limitations
     under the License.
 
-# 6.7 - Control
+# 6.7 - Control (...)
 
 A *LDAP* *Control* is an extension to an operation. It tells the server to do something aside the standard operation, or it let the server send back some information to the client.
 
@@ -49,7 +49,7 @@ Here is the list of *control*s the LDAP API currently know about. The following 
 The C/S column indicate if the control is sent to the server (S), or back to the client (C) or can be used both ways (C/S).
 
 | Name | OID | Description | C/S | RFC | LDAP Servers |
-|---|---|---|---|---|
+|---|---|---|---|---|---|
 | AdDirSync | 1.2.840.113556.1.4.841 | Microsoft LDAP Control for Directory Synchronization | C/S | [DIRSync draft](http://tools.ietf.org/html/draft-armijo-ldap-dirsync-01) | AD |
 | AdPolicyHints | 1.2.840.113556.1.4.223 | Enforces the password history length constraint during password set | S | [LDAP_SERVER_POLICY_HINTS_OID](https://msdn.microsoft.com/en-us/library/hh128228.aspx) | AD |
 | AdShowDeleted | 1.2.840.113556.1.4.417 | DirSync search returns deleted entries | C | [LDAP_SERVER_SHOW_DELETED_OID](https://msdn.microsoft.com/en-us/library/cc223326.aspx) | AD |
