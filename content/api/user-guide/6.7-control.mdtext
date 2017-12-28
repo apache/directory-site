@@ -24,7 +24,10 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 # 6.7 - Control (...)
 
-A *LDAP* *Control* is an extension to an operation. It tells the server to do something aside the standard operation, or it let the server send back some information to the client.
+A *LDAP* *Control* is an extension to an operation. It tells the server to do something aside the standard operation, or it let the server send back some information to the client. A *Control* contains three different parts :
+* An identifier, the control *OID*
+* A flag telling the server what to do if it does not know about the control or if it results in an error (either return an error or ignore the control)
+* A value which is generally *BER* encoded
 
 There are many controls available, some being standardized, other being server specific.
 
@@ -70,3 +73,78 @@ The C/S column indicate if the control is sent to the server (S), or back to the
 | SyncStateValue | 1.3.6.1.4.1.4203.1.9.1.2 | Gives the syncrepl state | C | [RFC 4533](https://tools.ietf.org/html/rfc4533) | AP/OL |
 | VirtualListViewRequest | 2.16.840.1.113730.3.4.9 | Sent to the server to request a subset of results | S | [Scrolling View Browsing of Search Results](https://tools.ietf.org/html/draft-ietf-ldapext-ldapv3-vlv-09) | AP |
 | VirtualListViewResponse | 2.16.840.1.113730.3.4.10 | Sent back to the client to give the search current status | C | [Scrolling View Browsing of Search Results](https://tools.ietf.org/html/draft-ietf-ldapext-ldapv3-vlv-09) | AP |
+
+## How to use controls
+
+It's quite simple. You just have to instanciate the control you want to use, set its value, and add it to the request you will send to the server. Here is an example with the *ManageDsaIT* control :
+
+    :::Java
+    AddRequest addRequest = new AddRequestImpl();       // Create the request
+    ManageDsaIT manageDSAIT = new ManageDsaITImpl();    // Instanciate the control
+    manageDSAIT.setCritical( true );                    // Set a value
+    addRequest.addControl( manageDSAIT );               // Add the control to the request
+    ...
+
+
+and that's it !
+
+On the client side, you may want to check if there is a control and read it if so. This is a bit more complex, because you need to know which kind of control you are expecting. We will see with a more complex control, the *Paged Search* control (which allows the user to get a specific number of enries at each call). Here, we will fetch 4 entries in one go, until all the entries have been read, and as we have 10 entries to read, we will send 3 *SearchRequest*, teh first two will return 4 entries and teh last one only 2.
+
+
+    :::Java
+    try ( LdapConnection connection = new LdapNetworkConnection( "MyServer", 389 ) )
+    {
+        connection.bind( "cn=user,ou=system", "secret" );
+
+        // Create the control, and tell it we want 4 entries for every call
+        PagedResults pagedControl = new PagedResultsImpl();
+        pagedControl.setSize( 4 );
+    
+        // Read all the elements
+        List<Entry> results = new ArrayList<>();
+
+        // Create the SearchRequest
+        SearchRequest searchRequest = new SearchRequestImpl();
+        searchRequest.setBase( new Dn( "dc=users,ou=system" ) );
+        searchRequest.setFilter( "(cn=*)" );
+        searchRequest.setScope( SearchScope.SUBTREE );
+    
+        while ( true )
+        {
+            // Add the PagedSearch control to teh SearchRequest
+            searchRequest.addControl( pagedControl );
+                
+            // Do the search now
+            try ( SearchCursor cursor = connection.search( searchRequest ) )
+            {
+                // Loop on all teh entries we got back (Should be 4, or less)
+                while ( cursor.next() )
+                {
+                    Entry result = cursor.getEntry();
+                    results.add( result );
+                }
+        
+                // Now check the returned controls
+                Map<String, Control> controls =  cursor.getSearchResultDone().getControls();
+
+                // We should get a PagedResult response
+                PagedResults responseControl = ( PagedResults ) controls.get( PagedResults.OID );
+
+                // check if this is over, ie teh cookie is empty
+                byte[] cookie = responseControl.getCookie();
+                
+                if ( Strings.isEmpty( cookie ) )
+                {
+                    // Ok, we are done
+                    break;
+                }
+
+                // Prepare the next iteration, sending a bad cookie
+                pagedControl.setCookie( cookie );
+            }
+        }
+
+        // At this point, we should have read 10 entries
+    }
+ 
+Side note : in this piece of code, we don't close the connection nor the cursor, because they are *Closeable* : They will be close when we exit the _try_ scope. This is a feature added in *Java 7*, called *try with resources*
