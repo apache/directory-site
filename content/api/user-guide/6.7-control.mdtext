@@ -231,6 +231,59 @@ The cookie read from this control has to be injected in the control sent to the 
 
 * OID : 2.16.840.1.113730.3.4.2
 
+This is oe of the simplest control : it has no value, and he criticality flag may be absent. 
+
+It's used to get access to special objects, like *referrals* or *subentries* as normal objects. Let's see what that means for *referrals*.
+
+A  *Referral* is a special object which once returned to the client, will automatically will redirect the client to another part of teh *DIT* (or to another *LDAP* server). So to speak, the end user does not see the *referral*, but the reffered entry. The question is : how do we set a *referral*, or how do we modify it ? We use the *ManageDsaIT* control.
+
+Let say we have such an entry, which is actually a referal :
+
+    :::Text
+    dn: uid=entryRef,ou=users,dc=acme,dc=com
+    objectClass: extensibleObject
+    objectClass: referral
+    objectClass: top
+    uid: entryref"
+    ref: ldap://localhost:10389/uid=entry,ou=users,dc=acme,dc=com
+    ref: ldap://trust:10389/uid=entry,ou=users,dc=trust,dc=com
+
+A client searchingg for _uid=entryRef,ou=users,dc=acme,dc=com_ will be redirected to _uid=entry,ou=users,dc=acme,dc=com_ on the local server or on _uid=entry,ou=users,dc=trust,dc=com_ on the *trust* server (it's up to the client to decide which entry to fetch).
+
+If we want to modify this referral, we need to add the *ManageDsaIT* control :
+
+
+    :::Java
+    try ( LdapConnection connection = new LdapNetworkConnection( "MyServer", 389 ) )
+    {
+        connection.bind( "cn=user,ou=system", "secret" );
+
+        // modify the referral 
+        ModifyRequest modifyRequest = new ModifyRequestImpl();
+        modifyRequest.setName( new Dn( "uid=entryRef,ou=users,dc=acme,dc=com" ) );
+        modifyRequest.add( "ref", "ldap://subsidiary:10389/uid=entry,ou=users,dc=subsidiary,dc=com" );
+
+        // Add the control
+        modifyRequest.addControl( new ManageDsaITImpl() );
+
+        // And apply the modification
+        connection.modify( modifyRequest );
+    }
+
+Now, if we fetch the entry (still using the control), it will looks like :
+
+    :::Text
+    dn: uid=entryRef,ou=users,dc=acme,dc=com
+    objectClass: extensibleObject
+    objectClass: referral
+    objectClass: top
+    uid: entryref"
+    ref: ldap://localhost:10389/uid=entry,ou=users,dc=acme,dc=com
+    ref: ldap://trust:10389/uid=entry,ou=users,dc=trust,dc=com
+    ref: ldap://subsidiary:10389/uid=entry,ou=users,dc=subsidiary,dc=com
+
+As you can see, a third *ref* value has been added.
+
 ### PagedResults
 
 * OID : 1.2.840.113556.1.4.319
