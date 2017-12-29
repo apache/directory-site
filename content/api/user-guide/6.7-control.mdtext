@@ -25,15 +25,16 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 # 6.7 - Control (...)
 
 A *LDAP* *Control* is an extension to an operation. It tells the server to do something aside the standard operation, or it let the server send back some information to the client. A *Control* contains three different parts :
+
 * An identifier, the control *OID*
 * A flag telling the server what to do if it does not know about the control or if it results in an error (either return an error or ignore the control)
 * A value which is generally *BER* encoded
 
 There are many controls available, some being standardized, other being server specific.
 
-In any case, you can always add onr or more control to any operation. 
+One or more control can be added to any operation. 
 
-Note that either the client or the server might not know about the controls being used.
+Note that either the client or the server might not know about the controls being used, and if the _criticality_ flag is set to *FALSE*, the server will ignore the control in this case.
 
 
 ## Managed controls
@@ -88,7 +89,9 @@ It's quite simple. You just have to instanciate the control you want to use, set
 
 and that's it !
 
-On the client side, you may want to check if there is a control and read it if so. This is a bit more complex, because you need to know which kind of control you are expecting. We will see with a more complex control, the *Paged Search* control (which allows the user to get a specific number of enries at each call). Here, we will fetch 4 entries in one go, until all the entries have been read, and as we have 10 entries to read, we will send 3 *SearchRequest*, teh first two will return 4 entries and teh last one only 2.
+Note that you have to create an instance of teh operation you want to send to the server, if yu want to add a control to it. 
+
+On the client side, you may want to check if there is a control and read it if so. This is a bit more complex, because you need to know which kind of control you are expecting. We will see with a more complex control, the *Paged Search* control (which allows the user to get a specific number of enries at each call). Here, we will fetch 4 entries in one go, until all the entries have been read, and as we have 10 entries to read, we will send 3 *SearchRequest*, teh first two will return 4 entries and the last one only 2.
 
 
     :::Java
@@ -111,17 +114,23 @@ On the client side, you may want to check if there is a control and read it if s
     
         while ( true )
         {
-            // Add the PagedSearch control to teh SearchRequest
+            // Add the PagedSearch control to the SearchRequest
             searchRequest.addControl( pagedControl );
                 
             // Do the search now
             try ( SearchCursor cursor = connection.search( searchRequest ) )
             {
-                // Loop on all teh entries we got back (Should be 4, or less)
+                // Loop on all the entries we got back (Should be 4, or less)
                 while ( cursor.next() )
                 {
                     Entry result = cursor.getEntry();
                     results.add( result );
+                }
+
+                // Check if we have reached the size limit
+                if ( cursor.getSearchResultDone().getLdapResult().getResultCode() == ResultCodeEnum.SIZE_LIMIT_EXCEEDED )
+                {
+                    break;
                 }
         
                 // Now check the returned controls
@@ -130,21 +139,138 @@ On the client side, you may want to check if there is a control and read it if s
                 // We should get a PagedResult response
                 PagedResults responseControl = ( PagedResults ) controls.get( PagedResults.OID );
 
-                // check if this is over, ie teh cookie is empty
-                byte[] cookie = responseControl.getCookie();
-                
-                if ( Strings.isEmpty( cookie ) )
+                if ( responseControl != null )
                 {
-                    // Ok, we are done
+                    // check if this is over, ie the cookie is empty
+                    byte[] cookie = responseControl.getCookie();
+                
+                    if ( Strings.isEmpty( cookie ) )
+                    {
+                        // Ok, we are done
+                        break;
+                    }
+
+                    // Prepare the next iteration, sending a bad cookie
+                    pagedControl.setCookie( cookie );
+                }
+                else
+                {
                     break;
                 }
-
-                // Prepare the next iteration, sending a bad cookie
-                pagedControl.setCookie( cookie );
             }
         }
 
         // At this point, we should have read 10 entries
     }
  
+This sounds like a bit complex, but actually, this control is complex. What we are interested in is the way we get the control returned by the server. In this case, the control we are interested in is attached to the *SearchResultDone* response, which is the last result we have when reading the cursor. As we may have more than one control, the response conains a _Map_ of controls, ot of which we should be able to retreive the *PagedSearch* control from its *OID*. This is what does this piece of code :
+
+    :::Java
+                ...
+                // We should get a PagedResult response
+                PagedResults responseControl = ( PagedResults ) controls.get( PagedResults.OID );
+                ...
+
+If it's not null, we can proceed with the control.
+
 Side note : in this piece of code, we don't close the connection nor the cursor, because they are *Closeable* : They will be close when we exit the _try_ scope. This is a feature added in *Java 7*, called *try with resources*
+
+## Managed Controls detail
+
+### AdDirSync
+
+A control used to initiate a synchronization with an *Active Directory* server, and get back the results. Check [Microsoft LDAP Control for Directory Synchronization](https://tools.ietf.org/html/draft-armijo-ldap-dirsync-01) for a better understanding on how to use this control.
+
+* OID : 1.2.840.113556.1.4.841
+* Criticality : TRUE
+* ASN.1 description :
+
+Sent to the server :
+
+    :::Text
+    realReplControlValue ::= SEQUENCE {
+        flags                 integer
+        maxBytes              integer
+        cookie                OCTET STRING
+    }
+
+This control is only valid when send with a *SearchRequest*. 
+
+Received from the server :
+
+    :::Text
+    realReplControlValue ::= SEQUENCE {
+        flag                  integer
+        maxReturnLength       integer
+        cookie                OCTET STRING
+    }
+
+The cookie read from this control has to be injected in the control sent to the server for the next search.
+
+### AdPolicyHints
+
+* OID : 1.2.840.113556.1.4.223
+
+### AdShowDeleted
+
+* OID : 1.2.840.113556.1.4.417
+
+### Cascade
+
+* OID : 1.3.6.1.4.1.18060.0.0.1
+
+### EntryChange
+
+* OID : 2.16.840.1.113730.3.4.7
+
+### ManageDSAIT
+
+* OID : 2.16.840.1.113730.3.4.2
+
+### PasswordPolicy
+
+* OID : 1.3.6.1.4.1.42.2.27.8.5.1
+
+### PermissiveModify
+
+* OID : 1.2.840.113556.1.4.1413
+
+### PersistentSearch
+
+* OID : 2.16.840.1.113730.3.4.3
+
+### ProxiedAuthz
+
+* OID : 2.16.840.1.113730.3.4.18
+
+### SortRequest
+
+* OID : 1.2.840.113556.1.4.473
+
+### SortResponse
+
+* OID : 1.2.840.113556.1.4.474
+
+### Subentries
+
+* OID : 1.3.6.1.4.1.4203.1.10.1
+
+### SyncDoneValue
+
+* OID : 1.3.6.1.4.1.4203.1.9.1.3
+
+### SyncRequestValue
+
+* OID : 1.3.6.1.4.1.4203.1.9.1.1
+
+### SyncStateValue
+
+* OID : 1.3.6.1.4.1.4203.1.9.1.2
+
+### VirtualListViewRequest
+
+* OID : 2.16.840.1.113730.3.4.9
+
+### VirtualListViewResponse
+
+* OID : 2.16.840.1.113730.3.4.10
