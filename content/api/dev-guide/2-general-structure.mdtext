@@ -24,7 +24,7 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 # 2 - General Structure
 
-The *LDAP API* is split into many modules. Here is their hierarchy :
+The **Apache LDAP API** is split into many modules. Here is their hierarchy :
 
 <pre>
 LDAP API root
@@ -94,23 +94,23 @@ LDAP API root
   +-- util
 </pre>
 
-* The *all* module is just a packaging module, gathering all the other modules in one single jar to simplify the work o those who want to use the API. One can import each module speparately, or the *all* module only. Note that it does not include the tests and integration modules (_integ_, _integ-osgi_ and _distribution_)
+* The *all* module is just a packaging module, gathering all the other modules in one single jar to simplify the work o those who want to use the API. One can import each module speparately, or the *all* module only. Note that it does not include the tests and integration modules (**integ**, **integ-osgi** and **distribution**)
 
-* The *asn1* module contains the code needed to handle *ASN/1* encoding/decoding.
+* The **asn1** module contains the code needed to handle *ASN/1* encoding/decoding.
 
-* The *distribution* module just create the packages
+* The **distribution** module just create the packages
 
-* The *dsml* module covers *DSML* features
+* The **dsml** module covers *DSML* features
 
-* The *i18n* module contains all the messages, in various languages (english, french and german at the moment)
+* The **i18n** module contains all the messages, in various languages (english, french and german at the moment)
 
-* The *integ* module is for integration tests, covering many of the existing modules
+* The **integ** module is for integration tests, covering many of the existing modules
 
-* The *integ-osgi* module covers tests related to *OSGi* integration. It checks that we can instanciate some component within an *OSGi* framework.
+* The **integ-osgi** module covers tests related to **OSGi** integration. It checks that we can instanciate some component within an **OSGi** framework.
 
-* The *ldap* modules are the meat of the *API* : they contain all the needed modules related to *LDAP*, and mainly the *model* module. Note that the *net* module should not be part of *ldap*, per se...
+* The **ldap** modules are the meat of the *API* : they contain all the needed modules related to *LDAP*, and mainly the *model* module. Note that the *net* module should not be part of **ldap**, per se...
 
-* The *util* module contains classes that are shared across the various modules.
+* The **util** module contains classes that are shared across the various modules.
 
 
 Anyway, from a developer point of view, that does not tell a lot about the inner struture.
