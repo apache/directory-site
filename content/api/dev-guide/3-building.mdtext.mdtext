@@ -1,0 +1,60 @@
+Title: 3 - Building
+NavPrev: 2-general-structure.html
+NavPrevText: 2 - General Structure
+NavUp: ../dev-guide.html
+NavUpText: Developer Guide
+NavNext: 4-asn1.html
+NavNextText: 4 - ASN/1
+Notice: Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    .
+    http://www.apache.org/licenses/LICENSE-2.0
+    .
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+
+# 3 - Building
+
+The project is based on **Apache Maven** (version 3.x), so you'll have to install it first.
+
+That being said, building the **LDAP API** is pretty straightforward :
+
+    :::
+    $ mvn clean install
+    Java HotSpot(TM) 64-Bit Server VM warning: ignoring option MaxPermSize=256M; support was removed in 8.0
+    [INFO] Scanning for projects...
+    [INFO] ------------------------------------------------------------------------
+    [INFO] Reactor Build Order:
+    [INFO] 
+    [INFO] Apache Directory LDAP API
+    [INFO] Apache Directory LDAP API I18n
+    [INFO] Apache Directory LDAP API Utilities
+    ...
+    [INFO] Apache Directory LDAP API Model
+    [INFO] Apache Directory LDAP API Codec Parent
+    [INFO] Apache Directory API Integration Tests
+    [INFO] Apache Directory API OSGi Integration Tests
+    [INFO] Apache Directory LDAP API Distribution
+    [INFO]                                                                         
+    [INFO] ------------------------------------------------------------------------
+    [INFO] Building Apache Directory LDAP API 2.0.0.AM1-SNAPSHOT
+    [INFO] ------------------------------------------------------------------------
+    ...
+
+
+It takes around 1 min to build it all (a bit longer the first time, as some dependencies wil have to be pulled from the net).
+
+
+The top level _pom.xml_ depends on teh special _project_ 'project', which is used by all the **ApacheDS** projects. It gathers information about maven plugin dependenies and someother things. You don't really need to touch it anyway...
+
+Remember to use **Java 8** !!
+
