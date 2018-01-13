@@ -1,0 +1,127 @@
+Title: 4-1 - ASN/1 TLV
+NavPrev: 4-asn1.html
+NavPrevText: 4 - ASN/1
+NavUp: ../dev-guide.html
+NavUpText: Developer Guide
+NavNext: 5-network.html
+NavNextText: 5 - Network
+Notice: Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    .
+    http://www.apache.org/licenses/LICENSE-2.0
+    .
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+
+# 4 - ASN/1 TLV
+
+## What are TLVs ?
+
+The acronym **TLV** stands for **T**ag, **L**ength and **V**alue. It's a way to encode a piece of information with a type, a length followed by the information itself. Three points must be known:
+
+* The **Value** part may contents other **TLV**s. One can see **TLV**s as C structures, that can contain sub-structures.
+* The **Value** may not exist, and in this case the **Length** will be 0.
+* The **Length** part may not give the **Value** length: it is called an _indefinite Length_. In this - not so frequent - case, the **Value** must end with a specific terminator.
+
+### A quick sample
+
+Let's begin with a simple example, without too many explanations. This is the **PDU** (**P**acket **D**ata **U**nit) of a LDAP _BindRequest_:
+
+![TLV](../images/TLVs.png)
+
+We can see in this picture that you have what is called a first level **TLV**. It encapsulates other **TLV**s. It's basically a stream of bytes.
+
+
+### Type
+
+Each **Type** contains information about the **Value** part of the **TLV**. It tells if the **Value** is a primitive or a constructed one, which type of primitive is the value, gives some contextual information. A **Type** can be coded on more than one byte. The first 3 bits give some contextual information about the **Type**, and the 5 following bits are either a label or the beginning of a multi-bytes label.
+
+* Labels are numbers in [0..30], and they represent a specific **ASN/1** element in the protocol description, like _CompareRequest ::= [APPLICATION 14] _ (here, the label is 14). 
+* If the label is 31, then more than one byte is used to encode the **Type**. In this case, we use the following bytes to compute the label, where each byte which high bit is one will be followed by another byte. 
+
+We limit the label to 2,097,151 as we encode the **Type** in one Java int : 
+
+    :::
+    b1 xxx[1-1111], b2 1[111-1111], b3 1[111-1111], b4 0[111-1111]
+    ->
+    [111-1111][111-1111][111-1111] 
+    ->
+    0001-1111 1111-1111 1111-1111
+    ->
+    0x1FFFFF
+    -> 
+    2,097,151
+
+In **LDAP** or **Kerberos**, no label is higher than 30, so we always use 1 byte **Type**s.
+
+Other interesting information that we need to grab from a *Type* are stored in the two first bits (bit 7 and 6), and in the third bit (bit 5). The first two bits describe the class, the third tells if the **TLV** is a **primitive** (b5 = 0) or a **constructed** **TLV** (b5 = 1).
+
+
+### Length
+
+**Length** gives the number of bytes of the **Value**, and nothing else. So the total length of a **TLV** will be:
+
+    :::
+    TLV length = Tag length + Length length + Value length, 
+
+where the **Value** length is stored in the **Length** element.
+
+The **Length** may be 0, which means that there is no value following.
+
+How is **Length** encoded? A **Value** may be from 0 to N bytes long, with N < (256 ^ 126) - 1. This limit is purely hypothetic, of course. If we have to deal with huge objects like pictures or movies, their length will not exceed a few MBytes or a few GBytes
+
+Typically, we will find five kind of **Length**s :
+
+* zero length values;
+* values with a length less than 128 bytes
+* values with a length between 128 and 256 ^ 4 bytes long (an int will be able to hold 4 bytes);
+* values above 256 ^ 4 bytes long
+* values which length is not defined by the **Length** element.
+
+The last type of Length could occurs if the sender does not know the length of the value while it is sending it. **LDAP** protocol does not allow those kind of values, which are dangerous because you need to read the full **Value** to know its length.
+
+The fourth type could also be ignored (4 GBytes is quite a huge size for an LDAP element ...), so we can decide that we won't accept those **Values**. It seems reasonable.
+
+As the **Length** can be stored in more than one byte, we have to take care of fragmented **PDU** : we may receive only the first bytes, and have to wait for the rest to be received. The idea is to freeze and start again when we receive some more data.
+
+In any case, if the first byte is > 0x7F, that means it's a multi-bytes length, and we have to process the following bytesto get the real length. In this case, the first byte contains teh number of expected following bytes. Typically :
+
+    :::
+    0x74 -> 116
+    0x82 0x02 0x84 : 2 bytes, length = 2 * 16 + 132 -> 164
+    0x81 0x84 : 1 byte, length = 132
+
+
+### Value
+
+**Value** carries the 'meat' of a **TLV**. Depending on the **Type**, it's either a primitive value, or a constructed one (which means it contains a **TLV** or a set of **TLV**s). Remember that bit 5 of the **Type** tells if the **Value is _primitive_ ( b5 == 0) or _constructed (b5 == 1).
+
+* If we have a _primitive_ **Value**, we have to read **Length** byte and we are done
+** If we have a _constructed_ **Value**, we have to process it as one or more **TLV**.
+
+
+## TLV processing
+
+In the **API**, the **TLV** processing is done in the _Asn1Decoder_ class, and more specifically by the _decode( ByteBuffer stream, Asn1Container container )_ method, which takes a ByteBuffer as input, and feed a container as a result. 
+
+The important thing to understand is that this method can be called repetively, until a message is fully decoded, as soon as we feed it with some new _ByteBuffer_. The _Container_ instance will contain the result, as soon as its state has switched to **PDU_DECODED**.
+
+While processing a **TLV**, when we are done with the **Value** part, the decoder will check if any action is to be executed. The action is associated to the grammar in use, which is stored in the container. Here is the part that call the action, in the _Asn1Decoder.treatTLVDoneState()_ method :
+
+    :::java
+    private boolean treatTLVDoneState( ByteBuffer stream, Asn1Container container ) throws DecoderException
+    {
+        // First, we have to execute the associated action
+        container.getGrammar().executeAction( container );
+        ...
+
+So the _Container_ must contain the grammar, and the current state. We may not have any action to execute, either because none is associated with the current transition or because we are at the end of the message.
