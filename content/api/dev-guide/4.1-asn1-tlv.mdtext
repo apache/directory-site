@@ -22,7 +22,7 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
     specific language governing permissions and limitations
     under the License.
 
-# 4 - ASN/1 TLV
+# 4.1 - ASN/1 TLV
 
 ## What are TLVs ?
 
@@ -36,7 +36,7 @@ The acronym **TLV** stands for **T**ag, **L**ength and **V**alue. It's a way to 
 
 Let's begin with a simple example, without too many explanations. This is the **PDU** (**P**acket **D**ata **U**nit) of a LDAP _BindRequest_:
 
-![TLV](../images/TLVs.png)
+![TLV](images/TLVs.png)
 
 We can see in this picture that you have what is called a first level **TLV**. It encapsulates other **TLV**s. It's basically a stream of bytes.
 
@@ -108,7 +108,6 @@ In any case, if the first byte is > 0x7F, that means it's a multi-bytes length, 
 * If we have a _primitive_ **Value**, we have to read **Length** byte and we are done
 ** If we have a _constructed_ **Value**, we have to process it as one or more **TLV**.
 
-
 ## TLV processing
 
 In the **API**, the **TLV** processing is done in the _Asn1Decoder_ class, and more specifically by the _decode( ByteBuffer stream, Asn1Container container )_ method, which takes a ByteBuffer as input, and feed a container as a result. 
@@ -125,3 +124,254 @@ While processing a **TLV**, when we are done with the **Value** part, the decode
         ...
 
 So the _Container_ must contain the grammar, and the current state. We may not have any action to execute, either because none is associated with the current transition or because we are at the end of the message.
+
+### TLV implementation
+
+The **TLV** class stores the **Type**, **Length** and **Value**, plus some extra information, like a unique _id_, a reference to its parent's **TLV** and the expected length when the included **Value** is a set of **TLV**.
+
+![TLV/BerValue](images/tlv-bervalue.png)
+
+You won't have tp manipulate **TLV** frequently, except in the actions, where you might fetch its *Length** and **Value** content, using _getLength()_ and _getValue().getData()_ methods respectively.
+
+### Action
+
+This is quite a simple class and hierarchy :
+
+![GrammarAction](images/grammar-action.png)
+
+As we can see, each **Action** has a name (this is only used for debug purpose) and a _action(Asn1Container)_ method, which does what it needs. The _Asn1Container_ parameter gives access to the data through the _Asn1Container.getCurrentTLV().getValue().getData()_ method, and to the message being processed.
+
+At this point, an example would be useful.
+
+## Example
+
+Let say we want to implement a decoder for the following message :
+
+    :::
+    EntryChangeNotification ::= SEQUENCE
+    {
+        changeType ENUMERATED
+        {
+            add             (1),
+            delete          (2),
+            modify          (4),
+            modDN           (8)
+        },
+        previousDN   LDAPDN OPTIONAL,     -- modifyDN ops. only
+        changeNumber INTEGER OPTIONAL     -- if supported
+    }
+
+You don't need to know anything about this message, what is important is how we will decode it.
+
+The first thing we need to create is an interface and a implementation for the Java object that will represent the **EntryChange** object.
+
+Here is the interface (note that it's a _Control_, but it's a irrelevant information here) :
+
+    :::Java
+    public interface EntryChange extends Control
+    {
+        /** No defined change number */ 
+        int UNDEFINED_CHANGE_NUMBER = -1;
+
+        /** The EntryChange control */
+        String OID = "2.16.840.1.113730.3.4.7";
+
+
+        /**
+         * @return The ChangeType
+         */
+        ChangeType getChangeType();
+
+
+        /**
+         * Set the ChangeType
+         *
+         * @param changeType Add, Delete; Modify or ModifyDN
+         */
+        void setChangeType( ChangeType changeType );
+
+
+        /**
+         * @return The previous DN
+         */
+        Dn getPreviousDn();
+
+
+        /**
+         * Sets the previous DN
+         * 
+         * @param previousDn The previous DN
+         */
+        void setPreviousDn( Dn previousDn );
+
+
+        /**
+         * @return The change number
+         */
+        long getChangeNumber();
+
+
+        /**
+         * Sets the ChangeNumber
+         * 
+         * @param changeNumber The ChanegNumber
+         */
+        void setChangeNumber( long changeNumber );
+    }
+
+What is important is that we declare all the setters and getters for the object fields that matter : _changeType_, _previousDN_ and _changeNumber_
+
+The implementation is not really complex :
+
+    :::Java
+    /**
+     * A simple implementation of the EntryChange response control.
+     *
+     * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
+     */
+    public class EntryChangeImpl extends AbstractControl implements EntryChange
+    {
+        /** The changeType */
+        private ChangeType changeType = ChangeType.ADD;
+
+        private long changeNumber = UNDEFINED_CHANGE_NUMBER;
+
+        /** The previous Dn */
+        private Dn previousDn = null;
+
+
+        /**
+         *
+         * Creates a new instance of EntryChangeControl.
+         *
+         */
+        public EntryChangeImpl()
+        {
+            super( OID );
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public ChangeType getChangeType()
+        {
+            return changeType;
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public void setChangeType( ChangeType changeType )
+        {
+            this.changeType = changeType;
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public Dn getPreviousDn()
+        {
+            return previousDn;
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public void setPreviousDn( Dn previousDn )
+        {
+            this.previousDn = previousDn;
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public long getChangeNumber()
+        {
+            return changeNumber;
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public void setChangeNumber( long changeNumber )
+        {
+            this.changeNumber = changeNumber;
+        }
+
+
+        /**
+         * @see Object#hashCode()
+         */
+        @Override
+        public int hashCode()
+        {
+            int h = super.hashCode();
+
+            h = h * 37 + ( int ) changeNumber;
+            h = h * 37 + ( changeType == null ? 0 : changeType.hashCode() );
+            h = h * 37 + ( previousDn == null ? 0 : previousDn.hashCode() );
+
+            return h;
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public boolean equals( Object o )
+        {
+            if ( !super.equals( o ) )
+            {
+                return false;
+            }
+
+            EntryChange otherControl = ( EntryChange ) o;
+
+            return ( changeNumber == otherControl.getChangeNumber() ) && ( changeType == otherControl.getChangeType() )
+                && ( previousDn.equals( otherControl.getPreviousDn() ) );
+        }
+
+
+        /**
+         * Return a String representing this EntryChangeControl.
+         */
+        @Override
+        public String toString()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            sb.append( "    Entry Change Control\n" );
+            sb.append( "        oid : " ).append( getOid() ).append( '\n' );
+            sb.append( "        critical : " ).append( isCritical() ).append( '\n' );
+            sb.append( "        changeType   : '" ).append( changeType ).append( "'\n" );
+            sb.append( "        previousDN   : '" ).append( previousDn ).append( "'\n" );
+
+            if ( changeNumber == UNDEFINED_CHANGE_NUMBER )
+            {
+                sb.append( "        changeNumber : '" ).append( "UNDEFINED" ).append( "'\n" );
+            }
+            else
+            {
+                sb.append( "        changeNumber : '" ).append( changeNumber ).append( "'\n" );
+            }
+
+            return sb.toString();
+        }
+    }
+
+This is pretty much trivial.
+
+
