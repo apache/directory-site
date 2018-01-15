@@ -26,7 +26,7 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 _Interceptors_ are functional layers inside the _DirectoryService_. Each one of them are responsible for a specific task. They are ordered, and this order is not to be changed.
 
-Each operation rceived by the _DirectoryService_ will be processed by various interceptors, one after the other, down to the backend, and again when the result comes back to the caller. An _interceptor_ can call the next _interceptor_, whcih will be determinated by the position it has in the chain of _interceptors_, or simply return. Note that calling the next _interceptor_ does not require that you know which one will be called.
+Each operation received by the _DirectoryService_ will be processed by various interceptors, one after the other, down to the backend, and again when the result comes back to the caller. An _interceptor_ can call the next _interceptor_, whcih will be determinated by the position it has in the chain of _interceptors_, or simply return. Note that calling the next _interceptor_ does not require that you know which one will be called.
 
 Some _Interceptors_ can be disabled, some other can be enabled. It's also possible to add some new one.
 
