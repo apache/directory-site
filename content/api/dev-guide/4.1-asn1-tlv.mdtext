@@ -374,4 +374,246 @@ The implementation is not really complex :
 
 This is pretty much trivial.
 
+We now need a _Decorator to manipulate this instance. Here is the code :
 
+    :::Java
+    public class EntryChangeDecorator extends ControlDecorator<EntryChange> implements EntryChange
+    {
+        /** Default value when no change number is provided */
+        public static final int UNDEFINED_CHANGE_NUMBER = -1;
+
+        /** A temporary storage for the previous Dn */
+        private byte[] previousDnBytes = null;
+
+        /** The entry change global length */
+        private int eccSeqLength;
+
+        /** An instance of this decoder */
+        private static final Asn1Decoder DECODER = new Asn1Decoder();
+
+
+        /**
+         * Creates a new instance of EntryChangeDecoder wrapping a newly created
+         * EntryChange Control object.
+         * 
+         * @param codec The LDAP service instance
+         */
+        public EntryChangeDecorator( LdapApiService codec )
+        {
+            super( codec, new EntryChangeImpl() );
+        }
+
+
+        /**
+         * Creates a new instance of EntryChangeDecorator wrapping the supplied
+         * EntryChange Control.
+         *
+         * @param codec The LDAP service instance
+         * @param control The EntryChange Control to be decorated.
+         */
+        public EntryChangeDecorator( LdapApiService codec, EntryChange control )
+        {
+            super( codec, control );
+        }
+
+
+        /**
+         * Internally used to not have to cast the decorated Control.
+         *
+         * @return the decorated Control.
+         */
+        private EntryChange getEntryChange()
+        {
+            return getDecorated();
+        }
+
+
+        /**
+         * Compute the EntryChangeControl length 
+         * 
+         * <pre>
+         * 0x30 L1 
+         *   | 
+         *   +--&gt; 0x0A 0x0(1-4) [1|2|4|8] (changeType) 
+         *  [+--&gt; 0x04 L2 previousDN] 
+         *  [+--&gt; 0x02 0x0(1-4) [0..2^63-1] (changeNumber)]
+         *  </pre>
+         *  
+         * @return the control length.
+         */
+        @Override
+        public int computeLength()
+        {
+            int changeTypesLength = 1 + 1 + 1;
+
+            int previousDnLength = 0;
+            int changeNumberLength = 0;
+
+            if ( getPreviousDn() != null )
+            {
+                previousDnBytes = Strings.getBytesUtf8( getPreviousDn().getName() );
+                previousDnLength = 1 + TLV.getNbBytes( previousDnBytes.length ) + previousDnBytes.length;
+            }
+
+            if ( getChangeNumber() != UNDEFINED_CHANGE_NUMBER )
+            {
+                changeNumberLength = 1 + 1 + BerValue.getNbBytes( getChangeNumber() );
+            }
+
+            eccSeqLength = changeTypesLength + previousDnLength + changeNumberLength;
+            valueLength = 1 + TLV.getNbBytes( eccSeqLength ) + eccSeqLength;
+
+            return valueLength;
+        }
+
+
+        /**
+         * Encodes the entry change control.
+         * 
+         * @param buffer The encoded sink
+         * @return A ByteBuffer that contains the encoded PDU
+         * @throws EncoderException If anything goes wrong.
+         */
+        @Override
+        public ByteBuffer encode( ByteBuffer buffer ) throws EncoderException
+        {
+            if ( buffer == null )
+            {
+                throw new EncoderException( I18n.err( I18n.ERR_04023 ) );
+            }
+
+            buffer.put( UniversalTag.SEQUENCE.getValue() );
+            buffer.put( TLV.getBytes( eccSeqLength ) );
+
+            buffer.put( UniversalTag.ENUMERATED.getValue() );
+            buffer.put( ( byte ) 1 );
+            buffer.put( BerValue.getBytes( getChangeType().getValue() ) );
+
+            if ( getPreviousDn() != null )
+            {
+                BerValue.encode( buffer, previousDnBytes );
+            }
+
+            if ( getChangeNumber() != UNDEFINED_CHANGE_NUMBER )
+            {
+                BerValue.encode( buffer, getChangeNumber() );
+            }
+
+            return buffer;
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public byte[] getValue()
+        {
+            if ( value == null )
+            {
+                try
+                {
+                    computeLength();
+                    ByteBuffer buffer = ByteBuffer.allocate( valueLength );
+
+                    buffer.put( UniversalTag.SEQUENCE.getValue() );
+                    buffer.put( TLV.getBytes( eccSeqLength ) );
+
+                    buffer.put( UniversalTag.ENUMERATED.getValue() );
+                    buffer.put( ( byte ) 1 );
+                    buffer.put( BerValue.getBytes( getChangeType().getValue() ) );
+
+                    if ( getPreviousDn() != null )
+                    {
+                        BerValue.encode( buffer, previousDnBytes );
+                    }
+
+                    if ( getChangeNumber() != UNDEFINED_CHANGE_NUMBER )
+                    {
+                        BerValue.encode( buffer, getChangeNumber() );
+                    }
+
+                    value = buffer.array();
+                }
+                catch ( Exception e )
+                {
+                    return null;
+                }
+            }
+
+            return value;
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public ChangeType getChangeType()
+        {
+            return getEntryChange().getChangeType();
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public void setChangeType( ChangeType changeType )
+        {
+            getEntryChange().setChangeType( changeType );
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public Dn getPreviousDn()
+        {
+            return getEntryChange().getPreviousDn();
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public void setPreviousDn( Dn previousDn )
+        {
+            getEntryChange().setPreviousDn( previousDn );
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public long getChangeNumber()
+        {
+            return getEntryChange().getChangeNumber();
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public void setChangeNumber( long changeNumber )
+        {
+            getEntryChange().setChangeNumber( changeNumber );
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public Asn1Object decode( byte[] controlBytes ) throws DecoderException
+        {
+            ByteBuffer bb = ByteBuffer.wrap( controlBytes );
+            EntryChangeContainer container = new EntryChangeContainer( getCodecService(), this );
+            DECODER.decode( bb, container );
+            return this;
+        }
+    }
