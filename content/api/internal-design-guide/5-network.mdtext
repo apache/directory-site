@@ -38,6 +38,91 @@ NOTE : **LDAP** protocol is based on **TCP**, we are not dealing with **UDP** at
 
 ## MINA usage
 
+**MINA** handles all the complexity of managing sockets and transfering messages in and out. An application based on this framework just have to implement a few interfaces :
+
+* _IoHandler_ which is the part of the application that receives or sends messages, and manage the connection to the remote peer
+* _ProtocolDecoder_ and _ProtoclEncoder_ which is responsible for encoding a meassage to a _byte[]_ ready to be sent or to produce a message from a received _byte[]_
+* _ProtocolCodecFactory_ which is the factory that instanciates the encoder and decoder
+
+We also have to create a _Connector_, which is the instance in charge of managing the communication with the remote peer. That implies we properly set the filter chain it uses, especially the **SSL/TLS** part.
+
+Currently, we have a dedicated **MINA* module that covers a part of that, but the _Connector_ creation and initialization is done in the _LdapNetworkConnection_ class - which is a mistake, it should be delegated to a class in the **MINA** module-.
+
+### Initialization
+
+The initialization is done in the _LdapnetworkConnection.connect_ method :
+
+    :::Java
+    public boolean connect() throws LdapException
+     {
+         ...
+
+         // Create the connector if needed
+         if ( connector == null )
+         {
+             createConnector();
+         }
+
+and the private _createConnector_ method does all the work :
+
+    :::Java
+    private void createConnector() throws LdapException
+    {
+        // Use only one thread inside the connector
+        connector = new NioSocketConnector( 1 );
+        
+        if ( connectionConfig != null )
+        {
+            ( ( SocketSessionConfig ) connector.getSessionConfig() ).setAll( connectionConfig );
+        }
+        else
+        {
+            ( ( SocketSessionConfig ) connector.getSessionConfig() ).setReuseAddress( true );
+        }
+
+        // Add the codec to the chain
+        connector.getFilterChain().addLast( "ldapCodec", ldapProtocolFilter );
+
+        // If we use SSL, we have to add the SslFilter to the chain
+        if ( config.isUseSsl() )
+        {
+            addSslFilter();
+        }
+
+        // Inject the protocolHandler
+        connector.setHandler( this );
+    }
+
+A few things :
+
+* We use one thread as a default to handle the communication with the server, it's enough as we are only talking to one server anyawy. This is the reason we use '1' as a parameter to the _Connector_ constructor.
+* We may have a SocketSessionConfig instance, as soon as one is passed to the _LdapNetworkConnection_ instance before the first call to the _connect_ method is done. By default, we just set the _SO_REUSE_ flag.
+* We add one or two filters to the chain : the **codec** and the **SSL** filter, if needed. The **SSL** filter requires that a _LdapConnectionConfig_ instance is passed to the constructor.
+* As we can see, the _LdapNetwworkConnection_ class is the _IoHandler_ implementation.
+
+This private class should be moved to another class in the **MINA** module.
+
+#### Example : using a LdapConnectionConfig
+
+Here is an example on how we can create and use a _LdapConnectionConfig_ to set up a secured connection :
+
+    :::Java
+    LdapConnectionConfig sslConfig = new LdapConnectionConfig();
+    sslConfig.setLdapHost( Network.LOOPBACK_HOSTNAME );
+    sslConfig.setUseSsl( true );
+    sslConfig.setLdapPort( getLdapServer().getPortSSL() );
+    sslConfig.setTrustManagers( new NoVerificationTrustManager() );
+    sslConfig.setBinaryAttributeDetector( new SchemaBinaryAttributeDetector(
+            ldapServer.getDirectoryService().getSchemaManager() ) );
+
+    try ( LdapNetworkConnection connection = new LdapNetworkConnection( sslConfig ) )
+        {
+            connection.bind( "uid=admin,ou=system", "secret" );
+            ...
+
+
+### MINA Events processing
+
 There are two aspects we need to consider when it comes to use **MINA** :
 
 * events processing
@@ -188,3 +273,9 @@ The codec is inserted in **MINA** chain while connecting :
         connector.getFilterChain().addLast( "ldapCodec", ldapProtocolFilter );
 
 So the _ProtocolCodecFilter_ class is responsible for initializing the codec (it's a **MINA** class), and here, we use a factory to inject the encoder and decoder instances. This factory is _LdapProtocolCodecFactory_.
+
+This class, which is part of the _mina_ module, instanciate an instance of the statefull **LDAP** encoder and decoder classes, _LdapProtocolEncoder_ and _LdapProtocolDecoder_, which also belongs to the _mina_ module.
+
+What is important to remember is that **TCP** is not dealing with **LDAP** messages, but with bytes. The decoder must be able to start decoding a message, even if it does not have all the necessary bytes to decode a full **LDAP** message. It should also be able to decode more than one message if the bytes it received contains more than the bytes necessary to hold a message. All of this is handle by MINA anyway, but we must provide a way for the decoder to keep the current state. Check the [codec](codec.html) page for more explainations.
+
+
