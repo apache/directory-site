@@ -905,3 +905,44 @@ _<ldap/extras/codec-api>_ module _pom.xml_ file :
           org.apache.directory.api.ldap.extras.extended.startTransaction;version=${project.version};-noimport:=true,
           ...
         </Export-Package>
+
+# A more complex example
+
+Wealso have to add the _EndTransactionRequest_ and _endTransactionResponse_ extended opertions. We will focus on the response, which is more complex that the request.
+
+The _EndTransactionResponse_ value follows this ASN.1 description :
+
+    :::Text
+    txnEndRes ::= SEQUENCE {
+        messageID MessageID OPTIONAL,
+             -- msgid associated with non-success resultCode
+        updatesControls SEQUENCE OF updateControl SEQUENCE {
+             messageID MessageID,
+                  -- msgid associated with controls
+             controls  Controls
+        } OPTIONAL
+    }
+
+Here, [RFC 5805](https://tools.ietf.org/html/rfc5805) gives some information about the semantic of this grammar :
+
+* we can either have a message ID, if the transaction was a failure
+* or have a list of _UpdateControls_ structure if we have had a success, with some controls having to be returned
+* or we simply have nothing and then the full value is simply absent.
+
+_Controls_ is a list of _Control_ as defined in [RFC 4511](https://tools.ietf.org/html/rfc4511#section-4.1.11), with the following ASN.1 description :
+
+    :::Text
+    Controls ::= SEQUENCE OF control Control
+
+    Control ::= SEQUENCE {
+             controlType             LDAPOID,
+             criticality             BOOLEAN DEFAULT FALSE,
+             controlValue            OCTET STRING OPTIONAL }
+
+So we may have many _updateControls_ and for each one of them, one to many _controls_. We will need to define a state machine to decode those two ASN/1 description.
+
+First, let's see what is the state machine for the _txnEndRes_ type and the _controls_ type :
+
+![Extended Operations state machine](images/EndTransResponse.png)
+
+
