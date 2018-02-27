@@ -5,17 +5,17 @@
             [if-any http]
             <optgroup label="HTTP mirrors">
                 [for http]<option value="[http]">[http]</option>[end]
-            </potgroup>
+            </optgroup>
             [end]
             [if-any ftp]
             <optgroup label="FTP mirrors">
                 [for ftp]<option value="[ftp]">[ftp]</option>[end]
-            </potgroup>
+            <opttgroup>
             [end]
             [if-any backup]
             <optgroup label="Backup mirrors">
                 [for backup]<option value="[backup]">[backup] (backup)</option>[end]
-            </potgroup>
+            </optgroup>
             [end]
         </select>
         <input type="submit" value="Change Mirror"/>
