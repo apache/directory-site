@@ -22,7 +22,22 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
     specific language governing permissions and limitations
     under the License.
 
+
+
 # 5 - Network
+
+# Content
+
+*  [Class hierarchy](class-hierarchy)
+*  [MINA usage](mina-usage)
+* * [Initialization](initialization)
+* * * [Example : using a LdapConnectionConfig](example-using-a-ldapconnectionconfig)
+* * [MINA Events processing](mina-events-processing)
+* * * [Events processing](events-processing)
+* * * [Sending a message](sending-a-message)
+* * * [Receiving a message](receiving-a-message)
+* * * [Encoding/decoding](encoding-decoding)
+* * [StartTLS handling](startts-handling)
 
 
 The **Apache LDAP AP** is built on top of [**Apache MINA](http://mina.apache.org) which is a **NIO** framework. 
@@ -130,7 +145,7 @@ There are two aspects we need to consider when it comes to use **MINA** :
 * receiving a message
 * encoding/decoding
 
-### Events processing
+#### Events processing
 
 **MINA** is an asynchronous framework, which means it's event based : you will receive events when something 'happens' (like, a message is received, etc). The events have to be processed by the **LDAP API**, and the **IoHandler** interface is listing all the events we have to process. Here they are :
 
@@ -151,7 +166,7 @@ Regarding the _messageReceived/messageSent_ methods, it's important to know that
 
 Actually, we only implement the _messageReceived_, _exceptionCaught_, _inputClose_, _sessionCreated_ and _sessionClosed_ methods, the other are handled by the _IoHandlerAdpater_ methods (which does nothing with it).
 
-### Sending a message
+#### Sending a message
 
 There are two modes : **Synchronous** and **Asyncrhonous**. The methods are respectively described in the _LdapConnection_ interface and _LdapAsyncConnection_ interface. Actually, _synchronous_ methods are calling _asynchronous_ methods, which returns a _Future_ :
 
@@ -248,14 +263,14 @@ Here, we first create a connection if we don't have one yet, and then we try to 
 
 Once the request has been written, we do a _get_ on the returned _Future_. Either we get an _AddResponse_, or an error/timeout.
 
-### Receiving a message
+#### Receiving a message
 
 Once the _IoSession.write()_ method is called, we can assume the message has been sent to the remote server (sort of). The response will come as an event : _messageReceived()_, which is implemented in _LdapNetworkConnection_.
 
 Each **LDAP** message has a unique **ID**, and every sent message is associated with a _Future_. When the message is sent, we store a tuple <**ID**, **Future**> in a map, so when the response arrives, we just have to pull the _Future_ from the map using teh message **ID**. This is what we do in the _messageReceived()_ implementation. The response is enqueued in the _Future_ (we may have more than one, typically for **Search** operations).
 
 
-### Encoding/decoding
+#### Encoding/decoding
 
 Messages are encoded and decoded when we send or receive them. This is done by **MINA**, using a callback in the **LDAP API**. That means we configured **MINA** to process **LDAP** messages. 
 
