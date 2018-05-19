@@ -294,3 +294,49 @@ This class, which is part of the _mina_ module, instanciate an instance of the s
 What is important to remember is that **TCP** is not dealing with **LDAP** messages, but with bytes. The decoder must be able to start decoding a message, even if it does not have all the necessary bytes to decode a full **LDAP** message. It should also be able to decode more than one message if the bytes it received contains more than the bytes necessary to hold a message. All of this is handle by MINA anyway, but we must provide a way for the decoder to keep the current state. Check the [codec](codec.html) page for more explainations.
 
 
+## StartTLS Handling
+
+The **StartTLS** extended operation is a bit specific, as it is set over an existing connection, and based on a **LDAP** message being sent to the remote server. The big plus is that it uses the standard **LDAP** port, so there is no need to declare a dedicated port for a secured connection (aka **LDAPS**).
+
+The logic is the following :
+
+    ::: text
+    - The client sends a **startTLS** extended operation to the server - assuming the server supports it -
+    - The server setup a **TLS** 'listener', configure it, and send back an extended response to inform the client it is ready to proceed further. At this point, the server will not proceed any non-handshake messages received for this **LDAP** session, not will it send any response (they will be enqueued)
+    - On reception of this response, the client will add the **SslFilter** into the MINA network chain, configure it, and start the handshake (by sending a **CLIENT HELLO** message). No further message can be sent for this session, beside the handsake messages (they will be enqueued and delivered when teh handshake has been completed successfully)
+    - The handshake is performed: messages and responses are send and received, up to teh completion point.
+    - When the handshake is completed, the **SslFilter** inform the  connection that it's done by 'sending' (locally) a **SESSION_SECURED* message
+    - enqueued messages are flushed on bith the client and server. We are done, the session is secured.
+
+There are many aspect that are tricky here. One of them is to be sure we don't send messages to the remote peer while processing the handshake
+
+
+On the server :
+
+Init : the SSLContext is configured to TLS, regardless of the configuration...
+
+SslHandler.handleExtendedOperation
+  new SslFilter()
+    DefaultIoFilterChain.addFirst()
+      DefaultIoFilterChain.register()
+        SslFilter.onPreAdd()
+          new SslHandler()
+          SslHandler.init()
+            SSLContext.createSSLEngine()
+            [SSLEngine.beginHandshake()]  <<<----
+        SslFilter.onPostAdd()
+  write response
+
+On the client :
+
+addSslFilter
+  SSLContext.getInstance()
+  new SslFilter()
+  DefaultIoFilterChain.addFirst()
+    DefaultIoFilterChain.register()
+      SslFilter.onPreAdd()
+        new SslHandler()
+        SslHandler.init()
+          SSLContext.createSSLEngine()
+          SSLEngine.beginHandshake()  <<<----
+        SslFilter.onPostAdd()

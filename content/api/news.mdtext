@@ -1,4 +1,24 @@
 # News
+<h2 class="news">Apache Directory LDAP API 1.0.1 released <em>posted on May 19th, 2018</em></h2>
+
+The Apache Directory Team is proud to announce the availability of version 1.0.1 of the Apache Directory LDAP API.
+
+The Apache Directory LDAP API is an ongoing effort to provide an enhanced LDAP API, as a replacement for JNDI and the existing LDAP API (jLdap and Mozilla LDAP API).
+
+This is a schema aware API, with some convenient ways to access a LDAP server. This API is not only targeting the Apache Directory Server, but should work pristine with any LDAP server.
+
+It's also an extensible API : new Controls, schema elements and network layer could be added or used in the near future. It's also OSGi capable.
+
+Two security issues has been fixed :
+
+* A LDAPS race condition, where some clear text message could be sent over the wire, when using a connection pool
+* A StartTLS issue, where the establishmenent of the secured channel can't be made, and the connection is dropped
+
+Those are two critical issues, and we urge you to upgrade to **Apache LDAP API 1.0.1** if you were using a previous version.
+
+Downloads are available [here](downloads.html) and the User's Guide is [there](user-guide.html)
+
+
 <h2 class="news">Apache Directory LDAP API 1.0.0 released <em>posted on June 7th, 2017</em></h2>
 
 The Apache Directory Team is proud to announce the availability of version 1.0.0 final of the Apache Directory LDAP API.

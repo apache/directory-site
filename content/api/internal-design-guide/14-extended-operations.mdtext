@@ -946,3 +946,203 @@ First, let's see what is the state machine for the _txnEndRes_ type and the _con
 ![Extended Operations state machine](images/EndTransactionResponse.png)
 
 
+The transitions from one step to the other is based on the BER encoded tag :
+
+* 0x30 for SEQUENCE
+* 0x04 for OCTET STRING
+* 0x01 for BOOLEAN
+* 0x02 for INTEGER
+
+Note that some deep knowledge on ASN.1 is required to encode or decode some element.
+
+Here, we will need two state machines to decode an _EndTransactionResponse_ message :
+
+* one for the response value
+* one for the embedded controls
+
+Hopefully, we can reuse the _LdapMessage_ _Control_ grammar (at least the logic)
+
+So we need to code the following interfaces and classes :
+
+* A container
+* A Factory
+* A Grammar (actually 2)
+* A list of states (StatesEnum)
+* A decorator
+* A decoder
+* An interface
+* An implementation
+
+The interface, implementation, factory, container and decoder are not really complex, and follow the same logic that what we shown in teh previous example.
+
+The list of states is just an _enum_ that describes all the states shown in the state machine exposed before :
+
+* Global SEQUENCE
+* MessageId
+* UpdateControls SEQUENCE
+* UpdateControl SEQUENCE
+* UpdateControl messageId
+* Controls 
+* start and end states
+
+We can see we don't have any state associated with the _Control_ decoding : it's handled by another codec.
+
+Here is the _enum_ :
+
+    :::Java
+    package org.apache.directory.api.ldap.extras.extended.ads_impl.endTransaction;
+
+
+    import org.apache.directory.api.asn1.ber.grammar.States;
+
+
+    /**
+     * This class store the EndTransactionResponse's grammar constants. It is also used
+     * for debugging purposes.
+     * 
+     * @author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
+     */
+    public enum EndTransactionResponseStatesEnum implements States
+    {
+        /** The END_STATE */
+        END_STATE,
+        
+        /** start state*/
+        START_STATE,
+        
+        /** The initial SEQUENCE */
+        END_TRANSACTION_SEQUENCE_STATE,
+        
+        /** The failed message ID */
+        FAILED_MESSAGE_ID_STATE,
+        
+        /** The update controls SEQ */
+        UPDATE_CONTROLS_SEQ_STATE,
+        
+        /** The update control SEQ */
+        UPDATE_CONTROL_SEQ_STATE,
+        
+        /** THe control's message ID state */
+        CONTROL_MESSAGE_ID_STATE,
+        
+        /** The control's state */
+        CONTROLS_STATE,
+
+        /** Last state */
+        LAST_STATE;
+
+
+        /**
+         * Get the grammar name
+         * 
+         * @return The grammar name
+         */
+        public String getGrammarName()
+        {
+            return "END_TRANSACTION_RESPONSE_GRAMMER";
+        }
+
+
+        /**
+         * Get the string representing the state
+         * 
+         * @param state The state number
+         * @return The String representing the state
+         */
+        public String getState( int state )
+        {
+            return ( state == END_STATE.ordinal() ) ? "END_TRANSACTION_RESPONSE_GRAMMER" : name();
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public boolean isEndState()
+        {
+            return this == END_STATE;
+        }
+
+
+        /**
+         * {@inheritDoc}
+         */
+        @Override
+        public EndTransactionResponseStatesEnum getStartState()
+        {
+            return START_STATE;
+        }
+    }
+
+We can now define transitions between states, accordingly to the grammar semantic :
+
+|Initial state|Tag|Final state|action|
+|---|---|---|---|---|
+| START | SEQUENCE | END_TRANSACTION_SEQUENCE | Initialize the data structure holding the result |  
+| END_TRANSACTION_SEQUENCE | INTEGER | FAILED_MESSAGE_ID | Store the failed message ID |  
+| FAILED_MESSAGE_ID | none | END | The value has been fully decode, get out |  
+| END_TRANSACTION_SEQUENCE | SEQUENCE | UPDATE_CONTROLS_SEQ | Create a list of _UpdateControls_, store it in the response |  
+| UPDATE_CONTROLS_SEQ | SEQUENCE | UPDATE_CONTROL_SEQ | Create a _UpdateControls_ instance, store it in the list |  
+| UPDATE_CONTROL_SEQ | INTEGER | CONTROL_MESSAGE_ID | Store the message ID in the _updateControls_ instance |  
+| CONTROL_MESSAGE_ID | SEQUENCE | CONTROLS | Grab the full value, call teh Controls decoder, store the result in the _updateControls_ instance |  
+| CONTROLS | SEQUENCE | UPDATE_CONTROL_SEQ | Create a _UpdateControls_ instance, store it in the list |  
+| CONTROLS | none | END | The decoding is over, we can quit |  
+
+Each of those transitions will have an associated action. They are added in a _Grammar_ class. A _GrammarTransition_ is created and takes 3 or 4 parameters :
+
+* An initial state ('from')
+* A final state ('to')
+* A tag
+* An optional action to execute
+
+Each state may have many transitions going to many different states, but each transition must use a different tag. 
+
+Here is an example of transition :
+
+    :::Java
+    /**
+     * Transition from Sequence to messageId
+     *
+     * txnEndReq ::= SEQUENCE {
+     *         messageID MessageID OPTIONAL,
+     *              -- msgid associated with non-success resultCode
+     *     ...
+     *     
+     * Set the messageId into the EndTransactionResponse instance, if it's not SUCCESS.
+     */
+    super.transitions[EndTransactionResponseStatesEnum.END_TRANSACTION_SEQUENCE_STATE.ordinal()][UniversalTag.INTEGER.getValue()] =
+        new GrammarTransition<EndTransactionResponseContainer>(
+            EndTransactionResponseStatesEnum.END_TRANSACTION_SEQUENCE_STATE,
+            EndTransactionResponseStatesEnum.FAILED_MESSAGE_ID_STATE,
+            UniversalTag.INTEGER.getValue(),
+            new GrammarAction<EndTransactionResponseContainer>( "Set EndTransactionResponse failed MessageID" )
+            {
+                public void action( EndTransactionResponseContainer container ) throws DecoderException
+                {
+                    BerValue value = container.getCurrentTLV().getValue();
+
+                    try
+                    {
+                        int failedMessageId = IntegerDecoder.parse( value );
+                        
+                        if ( failedMessageId > 0 )
+                        {
+                            container.getEndTransactionResponse().setFailedMessageId( failedMessageId );
+                        }
+
+                        // We may have nothing left
+                        container.setGrammarEndAllowed( true );
+                    }
+                    catch ( IntegerDecoderException ide )
+                    {
+                        LOG.error( I18n
+                            .err( I18n.ERR_04490_BAD_END_TRANSACTION_COMMIT, Strings.dumpBytes( value.getData() ), ide.getMessage() ) );
+
+                        // This will generate a PROTOCOL_ERROR
+                        throw new DecoderException( ide.getMessage(), ide );
+                    }
+                }
+            } );
+
+In this example, we have a transition from a **END_TRANSACTION_SEQUENCE_STATE** state to a **FAILED_MESSAGE_ID** state, which is triggered by an **INTEGER** tag. The executed action is created immediately, but it could have been a separated class.
