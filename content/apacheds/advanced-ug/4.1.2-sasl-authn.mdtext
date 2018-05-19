@@ -40,9 +40,9 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 It extends the Simple authentication, by allowing the LDAP server to authenticate the user by various mechanisms.
 
-The **SASL* Authentication is used when a simple user/password authentication is not enough. Many other systems exist, and may take many parameters to authenticate a user. With **SASL**, a challenge/response system is used to get the needed information from the client, up to the point the authentication is either successful or fails.
+The **SASL* Authentication is used when a simple user/password authentication is not enough, or when one want to delegate authentication to another system. Many other systems exist, and may take many parameters to authenticate a user. With **SASL**, a challenge/response system is used to get the needed information from the client, up to the point the authentication is either successful or fails.
 
-As **ApacheDS** is based on Java, we only support the **SASL** mechanisms the JDK support :
+As **ApacheDS** is based on Java, we only support the **SASL** mechanisms the JDK supports :
 
     * PLAIN : cleartext user/password authentication
     * CRAM-MD5 : IMAP/POP authentication
