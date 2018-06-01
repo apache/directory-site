@@ -24,7 +24,7 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 Studio currentlly is translated in three languages: English (en), French (fr) and German (de). When starting Studio, the language setting of your operation system is used to determine the language of Studio (On linux, the LC_CTYPE environment variable is used to determinate the default language). 
 
-However it is possible to force another language. Add the following content to the _ApacheDirectoryStudio.ini_ file:
+However it is possible to force another language. Add the following content to the _ApacheDirectoryStudio.ini_ file (before the "-vmargs" line):
 
     -nl
     en
@@ -40,7 +40,7 @@ Studio uses a client-side count limit when browsing the DIT. This limit is defin
 
 ### How to set the Java VM to use?
 
-Add the following content to _ApacheDirectoryStudio.ini_ file:
+Add the following content to _ApacheDirectoryStudio.ini_ file (before the "-vmargs" line):
 
     -vm
     <path to java executable>
