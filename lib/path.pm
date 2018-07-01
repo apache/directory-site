@@ -6,7 +6,7 @@ our $version_apacheds = "2.0.0-M24";
 our $version_studio = "2.0.0.v20170904-M13";
 our $version_studio_name = "2.0.0-M13";
 our $version_mavibot = "1.0.0-M8";
-our $version_escimo = "1.0.0-M1";
+our $version_scimple = "1.0.0";
 our $version_fortress = "2.0.0";
 our $version_kerby = "1.1.1";
 
@@ -29,7 +29,7 @@ our @patterns = (
         version_studio => $version_studio,
         version_studio_name => $version_studio_name,
         version_mavibot => $version_mavibot,
-        version_escimo => $version_escimo,
+        version_scimple => $version_scimple,
         version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
     
@@ -42,7 +42,7 @@ our @patterns = (
         version_studio => $version_studio,
         version_studio_name => $version_studio_name,
         version_mavibot => $version_mavibot,
-        version_escimo => $version_escimo,
+        version_scimple => $version_scimple,
         version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
     
@@ -55,7 +55,7 @@ our @patterns = (
         version_studio => $version_studio,
         version_studio_name => $version_studio_name,
         version_mavibot => $version_mavibot,
-        version_escimo => $version_escimo,
+        version_scimple => $version_scimple,
         version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
     
@@ -68,7 +68,7 @@ our @patterns = (
         version_studio => $version_studio,
         version_studio_name => $version_studio_name,
         version_mavibot => $version_mavibot,
-        version_escimo => $version_escimo,
+        version_scimple => $version_scimple,
         version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
     
@@ -81,7 +81,7 @@ our @patterns = (
         version_studio => $version_studio,
         version_studio_name => $version_studio_name,
         version_mavibot => $version_mavibot,
-        version_escimo => $version_escimo,
+        version_scimple => $version_scimple,
         version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
     
@@ -94,7 +94,7 @@ our @patterns = (
         version_studio => $version_studio,
         version_studio_name => $version_studio_name,
         version_mavibot => $version_mavibot,
-        version_escimo => $version_escimo,
+        version_scimple => $version_scimple,
         version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
     
@@ -107,7 +107,7 @@ our @patterns = (
         version_studio => $version_studio,
         version_studio_name => $version_studio_name,
         version_mavibot => $version_mavibot,
-        version_escimo => $version_escimo,
+        version_scimple => $version_scimple,
         version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
         
@@ -120,7 +120,7 @@ our @patterns = (
         version_studio => $version_studio,
         version_studio_name => $version_studio_name,
         version_mavibot => $version_mavibot,
-        version_escimo => $version_escimo,
+        version_scimple => $version_scimple,
         version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
     
@@ -133,7 +133,7 @@ our @patterns = (
         version_studio => $version_studio,
         version_studio_name => $version_studio_name,
         version_mavibot => $version_mavibot,
-        version_escimo => $version_escimo,
+        version_scimple => $version_scimple,
         version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
     
@@ -150,7 +150,7 @@ our @patterns = (
         version_studio => $version_studio,
         version_studio_name => $version_studio_name,
         version_mavibot => $version_mavibot,
-        version_escimo => $version_escimo,
+        version_scimple => $version_scimple,
         version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
     
@@ -163,7 +163,7 @@ our @patterns = (
         version_studio => $version_studio,
         version_studio_name => $version_studio_name,
         version_mavibot => $version_mavibot,
-        version_escimo => $version_escimo,
+        version_scimple => $version_scimple,
         version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
         
@@ -176,7 +176,7 @@ our @patterns = (
         version_studio => $version_studio,
         version_studio_name => $version_studio_name,
         version_mavibot => $version_mavibot,
-        version_escimo => $version_escimo,
+        version_scimple => $version_scimple,
         version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
     
@@ -189,7 +189,7 @@ our @patterns = (
         version_studio => $version_studio,
         version_studio_name => $version_studio_name,
         version_mavibot => $version_mavibot,
-        version_escimo => $version_escimo,
+        version_scimple => $version_scimple,
         version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
     
@@ -206,7 +206,7 @@ our @patterns = (
         version_studio => $version_studio,
         version_studio_name => $version_studio_name,
         version_mavibot => $version_mavibot,
-        version_escimo => $version_escimo,
+        version_scimple => $version_scimple,
         version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
     
@@ -219,7 +219,7 @@ our @patterns = (
         version_studio => $version_studio,
         version_studio_name => $version_studio_name,
         version_mavibot => $version_mavibot,
-        version_escimo => $version_escimo,
+        version_scimple => $version_scimple,
         version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
         
@@ -232,7 +232,7 @@ our @patterns = (
         version_studio => $version_studio,
         version_studio_name => $version_studio_name,
         version_mavibot => $version_mavibot,
-        version_escimo => $version_escimo,
+        version_scimple => $version_scimple,
         version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
     
@@ -245,7 +245,7 @@ our @patterns = (
         version_studio => $version_studio,
         version_studio_name => $version_studio_name,
         version_mavibot => $version_mavibot,
-        version_escimo => $version_escimo,
+        version_scimple => $version_scimple,
         version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
     
@@ -262,7 +262,7 @@ our @patterns = (
         version_studio => $version_studio,
         version_studio_name => $version_studio_name,
         version_mavibot => $version_mavibot,
-        version_escimo => $version_escimo,
+        version_scimple => $version_scimple,
         version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
     
@@ -275,7 +275,7 @@ our @patterns = (
         version_studio => $version_studio,
         version_studio_name => $version_studio_name,
         version_mavibot => $version_mavibot,
-        version_escimo => $version_escimo,
+        version_scimple => $version_scimple,
         version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
     
@@ -288,7 +288,7 @@ our @patterns = (
         version_studio => $version_studio,
         version_studio_name => $version_studio_name,
         version_mavibot => $version_mavibot,
-        version_escimo => $version_escimo,
+        version_scimple => $version_scimple,
         version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
     
@@ -301,7 +301,7 @@ our @patterns = (
         version_studio => $version_studio,
         version_studio_name => $version_studio_name,
         version_mavibot => $version_mavibot,
-        version_escimo => $version_escimo,
+        version_scimple => $version_scimple,
         version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
         
@@ -314,7 +314,7 @@ our @patterns = (
         version_studio => $version_studio,
         version_studio_name => $version_studio_name,
         version_mavibot => $version_mavibot,
-        version_escimo => $version_escimo,
+        version_scimple => $version_scimple,
         version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
         
@@ -327,63 +327,63 @@ our @patterns = (
         version_studio => $version_studio,
         version_studio_name => $version_studio_name,
         version_mavibot => $version_mavibot,
-        version_escimo => $version_escimo,
+        version_scimple => $version_scimple,
         version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
 
     #
-    # Apache ESCIMO sub-project pages
+    # Apache SCIMple sub-project pages
     #
     
-    # Download Apache ESCIMO Archive page
-    [qr!escimo\/download\/download-archive\.mdtext$!, template_page => {
-        template => "escimo/download-archive.html",
-        isDirEscimo => true, 
+    # Download Apache SCIMple Archive page
+    [qr!scimple\/download\/download-archive\.mdtext$!, template_page => {
+        template => "scimple/download-archive.html",
+        isDirScimple => true, 
         version_api => $version_api,
         version_apacheds => $version_apacheds,
         version_studio => $version_studio,
         version_studio_name => $version_studio_name,
         version_mavibot => $version_mavibot,
-        version_escimo => $version_escimo,
+        version_scimple => $version_scimple,
         version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
     
-    # Download Apache ESCIMO Sources page
-    [qr!escimo\/download\/download-sources\.mdtext$!, template_page => {
-        template => "escimo/download-sources.html",
-        isDirEscimo => true, 
+    # Download Apache SCIMple Sources page
+    [qr!scimple\/download\/download-sources\.mdtext$!, template_page => {
+        template => "scimple/download-sources.html",
+        isDirScimple => true, 
         version_api => $version_api,
         version_apacheds => $version_apacheds,
         version_studio => $version_studio,
         version_studio_name => $version_studio_name,
         version_mavibot => $version_mavibot,
-        version_escimo => $version_escimo,
+        version_scimple => $version_scimple,
         version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
         
-    # Apache ESCIMO Index page
-    [qr!escimo\/index\.mdtext$!, template_page => {
-        template => "escimo/index.html",
-        isDirEscimo => true, 
+    # Apache SCIMple Index page
+    [qr!scimple\/index\.mdtext$!, template_page => {
+        template => "scimple/index.html",
+        isDirScimple => true, 
         version_api => $version_api,
         version_apacheds => $version_apacheds,
         version_studio => $version_studio,
         version_studio_name => $version_studio_name,
         version_mavibot => $version_mavibot,
-        version_escimo => $version_escimo,
+        version_scimple => $version_scimple,
         version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
     
-    # Standard Apache ESCIMO page
-    [qr!escimo\/.*?\.mdtext$!, template_page => {
-        template => "escimo/page.html",
-        isDirEscimo => true, 
+    # Standard Apache SCIMple page
+    [qr!scimple\/.*?\.mdtext$!, template_page => {
+        template => "scimple/page.html",
+        isDirScimple => true, 
         version_api => $version_api,
         version_apacheds => $version_apacheds,
         version_studio => $version_studio,
         version_studio_name => $version_studio_name,
         version_mavibot => $version_mavibot,
-        version_escimo => $version_escimo,
+        version_scimple => $version_scimple,
         version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
 
@@ -400,7 +400,7 @@ our @patterns = (
         version_studio => $version_studio,
         version_studio_name => $version_studio_name,
         version_mavibot => $version_mavibot,
-        version_escimo => $version_escimo,
+        version_scimple => $version_scimple,
         version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
     
@@ -413,7 +413,7 @@ our @patterns = (
         version_studio => $version_studio,
         version_studio_name => $version_studio_name,
         version_mavibot => $version_mavibot,
-        version_escimo => $version_escimo,
+        version_scimple => $version_scimple,
         version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
         
@@ -426,7 +426,7 @@ our @patterns = (
         version_studio => $version_studio,
         version_studio_name => $version_studio_name,
         version_mavibot => $version_mavibot,
-        version_escimo => $version_escimo,
+        version_scimple => $version_scimple,
         version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
     
@@ -439,7 +439,7 @@ our @patterns = (
         version_studio => $version_studio,
         version_studio_name => $version_studio_name,
         version_mavibot => $version_mavibot,
-        version_escimo => $version_escimo,
+        version_scimple => $version_scimple,
         version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
     
@@ -457,7 +457,7 @@ our @patterns = (
         version_studio => $version_studio,
         version_studio_name => $version_studio_name,
         version_mavibot => $version_mavibot,
-        version_escimo => $version_escimo,
+        version_scimple => $version_scimple,
         version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
     
@@ -470,7 +470,7 @@ our @patterns = (
         version_studio => $version_studio,
         version_studio_name => $version_studio_name,
         version_mavibot => $version_mavibot,
-        version_escimo => $version_escimo,
+        version_scimple => $version_scimple,
         version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
         
@@ -483,7 +483,7 @@ our @patterns = (
         version_studio => $version_studio,
         version_studio_name => $version_studio_name,
         version_mavibot => $version_mavibot,
-        version_escimo => $version_escimo,
+        version_scimple => $version_scimple,
         version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
     
@@ -496,7 +496,7 @@ our @patterns = (
         version_studio => $version_studio,
         version_studio_name => $version_studio_name,
         version_mavibot => $version_mavibot,
-        version_escimo => $version_escimo,
+        version_scimple => $version_scimple,
         version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
 
@@ -513,7 +513,7 @@ our @patterns = (
         version_studio => $version_studio,
         version_studio_name => $version_studio_name,
         version_mavibot => $version_mavibot,
-        version_escimo => $version_escimo,
+        version_scimple => $version_scimple,
         version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
     
@@ -526,7 +526,7 @@ our @patterns = (
         version_studio => $version_studio,
         version_studio_name => $version_studio_name,
         version_mavibot => $version_mavibot,
-        version_escimo => $version_escimo,
+        version_scimple => $version_scimple,
         version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
 );
