@@ -262,15 +262,6 @@ For the record, here is the script shell you can use to sign the packages. Name 
 
         echo -n "Signing: $FILE ... "
 
-        # MD5
-        if [ ! -f "$FILE.md5" ];
-        then
-            openssl md5 < "$FILE" | cut "-d " -f2 > "$FILE.md5"
-            echo "  - Generated '$FILE.md5'"
-        else
-            echo "  - Skipped '$FILE.md5' (file already existing)"
-        fi
-
         # SHA1
         if [ ! -f "$FILE.sha1" ];
         then
@@ -278,6 +269,24 @@ For the record, here is the script shell you can use to sign the packages. Name 
             echo "  - Generated '$FILE.sha1'"
         else
             echo "  - Skipped '$FILE.sha1' (file already existing)"
+        fi
+
+        # SHA-256
+        if [ ! -f "$FILE.sha256" ];
+        then
+            gpg -v --default-key "$DEFAULT_KEY" --print-md SHA256 "$FILE" > "$FILE".sha256
+            echo "  - Generated '$FILE.sha256'"
+        else
+            echo "  - Skipped '$FILE.sha256' (file already existing)"
+        fi
+
+        # SHA-512
+        if [ ! -f "$FILE.sha512" ];
+        then
+            gpg -v --default-key "$DEFAULT_KEY" --print-md SHA512 "$FILE" > "$FILE".sha512
+            echo "  - Generated '$FILE.sha512'"
+        else
+            echo "  - Skipped '$FILE.sha512' (file already existing)"
         fi
 
         # ASC
