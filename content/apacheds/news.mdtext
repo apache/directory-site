@@ -1,4 +1,42 @@
 # News
+<h2 class="news">ApacheDS 2.0.0.AM25 released <em>posted on August 18th, 2018</em></h2>
+
+The Apache Directory team is pleased to announce the release of ApacheDS 2.0.0.AM25, the 25th milestone towards a 2.0 version.
+
+ApacheDS is an extensible and embeddable directory server entirely written in Java, which has been certified LDAPv3 compatible by the Open Group. Besides LDAP it supports Kerberos 5 and the Change Password Protocol. It has been designed to introduce triggers, stored procedures, queues and views to the world of LDAP which has lacked these rich constructs.
+
+Downloads are available [here](downloads.html)
+
+This is a major release of ApacheDS.
+
+It uses the Apache LDAP API 2.0.0.AM1 release, which itself brings a lot of improvements and bug fixes.
+
+But the major improvement is the cross-indexes transaction support that has been added, which is expecting to solve the database corruption issue we are facing for years.
+
+Here is the release note for Apache Directory ApacheDS 2.0.0.AM25:
+
+<b>Bugs :</b>
+
+* [DIRSERVER-2109](https://issues.apache.org/jira/browse/DIRSERVER-2109) - Apply LDIF with special crafted DN creates two CN attributes
+* [DIRSERVER-2220](https://issues.apache.org/jira/browse/DIRSERVER-2220) - ApacheDS should not log credentials
+* [DIRSERVER-2231](https://issues.apache.org/jira/browse/DIRSERVER-2231) - NPE in AbstractBTreePartition when cacheService is not used
+* [DIRSERVER-2234](https://issues.apache.org/jira/browse/DIRSERVER-2234) - Kinit via TCP causes ApacheDS to create a
+NioProcessor thread at 100% CPU
+
+<b>Improvements :</b>
+
+* [DIRSERVER-2242](https://issues.apache.org/jira/browse/DIRSERVER-2242) - Keystore change from JKS to PKCS12
+* [DIRSERVER-2225](https://issues.apache.org/jira/browse/DIRSERVER-2225) - Usage of maven-source-plugin goal jar-no-fork instead of jar
+* [DIRSERVER-2230](https://issues.apache.org/jira/browse/DIRSERVER-2230) - SCM pointing to gitbox instead of svn
+* [DIRSERVER-2229](https://issues.apache.org/jira/browse/DIRSERVER-2229) - Remove duplicated declaration of
+versions-maven-plugin in pom.xml
+
+<b>Tasks :</b>
+
+* [DIRSERVER-2244](https://issues.apache.org/jira/browse/DIRSERVER-2244) - Support AES Encryption with HMAC-SHA2 for Kerberos
+5 defined in RFC 8009
+
+
 <h2 class="news">ApacheDS 2.0.0-M24 released <em>posted on June 7th, 2017</em></h2>
 
 The Apache Directory team is pleased to announce the release of ApacheDS 2.0.0-M24, the 24th milestone towards a 2.0 version.

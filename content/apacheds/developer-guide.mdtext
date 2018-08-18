@@ -181,7 +181,7 @@ Replace the version by the new version. Be careful, and remove the 'apacheds-par
 ##### Deploy a Snapshot
 
     :::text
-    $ mvn deploy
+    $ mvn deploy -Darguments="-DskipTests"
 
 This is useful to verify your settings in ~/.m2/settings.xml (Nexus password and GPG key)
 
@@ -195,9 +195,11 @@ This creates a tag [here](http://svn.apache.org/viewvc/directory/apacheds/tags/)
 
 ##### Stage the Release
 
-    $ mvn release:perform
+    $ mvn release:perform -Darguments="-DskipTests"
 
 This deploys the release to a staging repository. Go to [Staging Repositories](https://repository.apache.org/index.html#stagingRepositories) and close the staging repository.
+
+(The _-Darguments="-DskipTests"_ parameter is there to avoid running the tests again...)
 
 ##### Build the Site
 
@@ -228,6 +230,8 @@ This creates the site and the Javadocs.
 Now, you have to sign the sources packages which are in <em>apacheds/target/checkout/target</em>.
 
 Use your PGP key ID (the pub key, 4096R/[XXXXXXX] where [XXXXXXX] is the key ID)
+
+Note we should not sign with MD5 or SHA-1.
 </DIV>
 
 You can get the keys by typing :
@@ -258,24 +262,24 @@ You can use this small script that does the job (copy-paste this code in a file 
 
         echo -n "Signing: $FILE ... "
 
-        # MD5
-        if [ ! -f "$FILE.md5" ];
+        # SHA-256
+        if [ ! -f "$FILE.sha256" ];
         then
-            openssl md5 < "$FILE" | cut "-d " -f2 > "$FILE.md5"
-            echo "  - Generated '$FILE.md5'"
+            gpg -v --default-key "$DEFAULT_KEY" --print-md SHA256 "$FILE" > "$FILE".sha256
+            echo "  - Generated '$FILE.sha256'"
         else
-            echo "  - Skipped '$FILE.md5' (file already existing)"
+            echo "  - Skipped '$FILE.sha256' (file already existing)"
         fi
 
-        # SHA1
-        if [ ! -f "$FILE.sha1" ];
+        # SHA-512
+        if [ ! -f "$FILE.sha512" ];
         then
-            gpg -v --default-key "$DEFAULT_KEY" --print-md SHA1 "$FILE" > "$FILE".sha1
-            echo "  - Generated '$FILE.sha1'"
+            gpg -v --default-key "$DEFAULT_KEY" --print-md SHA512 "$FILE" > "$FILE".sha512
+            echo "  - Generated '$FILE.sha512'"
         else
-            echo "  - Skipped '$FILE.sha1' (file already existing)"
+            echo "  - Skipped '$FILE.sha512' (file already existing)"
         fi
- 
+
         # ASC
         if [ ! -f "$FILE.asc" ];
         then
@@ -303,7 +307,7 @@ Then to sign the packages :
 
 ##### Publish Source Distribution Package
 
-The sources, binaries and their signatures, have to be pushed in a place where they can be downloaded by the other committers, in order to be chekced while validating the release. As the ~/people.apache.org server is not anymore available for that purpose, we use the [distribution](https://dist.apache.org/repos/dist/dev/directory) space for that purpose.
+The sources, binaries and their signatures, have to be pushed in a place where they can be downloaded by the other committers, in order to be checked while validating the release. As the ~/people.apache.org server is not anymore available for that purpose, we use the [distribution](https://dist.apache.org/repos/dist/dev/directory) space for that purpose.
 
 If you haven't checked out this space, do it now :
 
@@ -367,7 +371,7 @@ This will create the installers in the <em>target/checkout/installers/target/ins
 </DIV>
 
 <DIV class="info" markdown="1">
-    If the packging tool path is not correct, you can set it on the command line :
+    If the packaging tool path is not correct, you can set it on the command line :
     
   <UL>
     <LI>Debian   : mvn clean install -Pdebian -Dinstallers.dpkg=&lt;path to the dpkg installer&gt;</LI>
@@ -375,11 +379,15 @@ This will create the installers in the <em>target/checkout/installers/target/ins
     <LI>Windows  : mvn clean install -Pwindows -Dinstallers.makensis=&lt;path to the makensis installer&gt;</LI> 
     <LI>Mac OS X : mvn clean install -Pmac -Dinstallers.packageMaker=&lt;path to the PackageMaker installer&gt;</LI>
   </UL>
+
+  Typically, recent versions of Mac OSX moved the tools from <EM>/usr/bin</EM> to <EM>/usr/local/bin</EM>
+
+  Keep in mind that you will have to sign and move each target package before building the next one, as the <EM>clean</EM> instruction will remove the content of the <EM>target</EM> directory...
 </DIV>
 
 
 
-Sign those installers using the <em>sign.sh</em> script, and copy them in <em>people.apache.org/public_html/apacheds-<version></em>
+Sign those installers using the <em>sign.sh</em> script, and copy them in <em>~/apacheds/dist/dev/directory/apacheds/<version></em>
 
     :::text
     $ cd apacheds/target/checkout/target/installers/target/installers
