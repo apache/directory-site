@@ -37,10 +37,11 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
     * [Sending a message](#sending-a-message)
     * [Receiving a message](#receiving-a-message)
     * [Encoding/decoding](#encoding-decoding)
+  * [SSL handling](#ssl-handling)
   * [StartTLS handling](#startts-handling)
 
 
-The **Apache LDAP AP** is built on top of [**Apache MINA](http://mina.apache.org) which is a **NIO** framework. 
+The **Apache LDAP AP** is built on top of [**Apache MINA**](http://mina.apache.org) which is a **NIO** framework. 
 
 As **MINA** is fully asynchronous, it has some impact on the design of the **LDAP API**. Basically, we send requests, and we don't wait for responses, we get informed when the response is there. Most of the time, the **API** users will want to wait for a response, instead of leveraging the asyncrhonous aspect of the **API**: this is the reason we have a blocking **API**, based on the non-blocking implementation. We will explain the whole thing here.
 
@@ -48,8 +49,15 @@ NOTE : **LDAP** protocol is based on **TCP**, we are not dealing with **UDP** at
 
 ## Class hierarchy
 
+The **LdapConnection** interface and its implementations are the entry point for any code that wants to communicate using the **LDAP** protocol. There are many flavors, but one usually want to instanciate a **LdapNetworkConnection**. Her eis the complete class hierarchy:
+
 ![LdapConnection hierarchy](images/ldapconnection.png)
 
+Creating a new **LdapConnection** is all about calling the appropriate constructor with the required parameters, or to create a **LdapConnectionConfig** and call the **LdapConnection** implementation constructor.
+
+It's also possible to use a **LdapConnectionFactory** implementation :
+
+![LdapConnection factory hierarchy](images/ldap-connection-factory.png)
 
 ## MINA usage
 
@@ -65,7 +73,7 @@ Currently, we have a dedicated **MINA* module that covers a part of that, but th
 
 ### Initialization
 
-The initialization is done in the _LdapnetworkConnection.connect_ method :
+The initialization is done in the _LdapnetworkConnection.connect()_ method :
 
     :::Java
     public boolean connect() throws LdapException
@@ -78,7 +86,7 @@ The initialization is done in the _LdapnetworkConnection.connect_ method :
              createConnector();
          }
 
-and the private _createConnector_ method does all the work :
+and the private _createConnector()_ method does all the work :
 
     :::Java
     private void createConnector() throws LdapException
@@ -117,6 +125,8 @@ A few things :
 
 This private class should be moved to another class in the **MINA** module.
 
+Note : We could share the _Connector_ between many **LdapConnections**, using less threads.
+
 #### Example : using a LdapConnectionConfig
 
 Here is an example on how we can create and use a _LdapConnectionConfig_ to set up a secured connection :
@@ -138,7 +148,7 @@ Here is an example on how we can create and use a _LdapConnectionConfig_ to set 
 
 ### MINA Events processing
 
-There are two aspects we need to consider when it comes to use **MINA** :
+There are many aspects we need to consider when it comes to use **MINA** :
 
 * events processing
 * sending a message
@@ -157,6 +167,7 @@ There are two aspects we need to consider when it comes to use **MINA** :
 * _sessionCreated_ : When a Session is created
 * _sessionIdle_ : When a Session is idle
 * _sessionOpened_ : When a Session is opened
+* _event_ : when the session receives a specific event
 
 The _session_ is created when you connect for the first time, it's atcive until it's closed. We are talking about a **TCP** session, not a **LDAP** session.
 
@@ -293,6 +304,12 @@ This class, which is part of the _mina_ module, instanciate an instance of the s
 
 What is important to remember is that **TCP** is not dealing with **LDAP** messages, but with bytes. The decoder must be able to start decoding a message, even if it does not have all the necessary bytes to decode a full **LDAP** message. It should also be able to decode more than one message if the bytes it received contains more than the bytes necessary to hold a message. All of this is handle by MINA anyway, but we must provide a way for the decoder to keep the current state. Check the [codec](codec.html) page for more explainations.
 
+
+## SSL Handling
+
+**LDAPS** is a **LDAP** connection secured with **SSL/TLS** (we still use **SSL** as a name, when actually **TLS** is used, as **SSL** is not anymore safe. The currrent version of the protocol is **TLS V.12**, but **TLS v1.3** has just been released.)
+
+A **LDAPS** connection is a standard **TCP** connection which has a secured layer installed before it can be used. 
 
 ## StartTLS Handling
 
