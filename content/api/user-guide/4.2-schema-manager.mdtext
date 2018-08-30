@@ -24,7 +24,7 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 # 4.2 - Schema Manager
 
-The API and the ApacheDS server components must to keep schema elements available to interroate and use. This is done through what we call a **SchemaManager**. It hides the internal structure of the schema objects from the users.
+The API and the ApacheDS server components must to keep schema elements available to interrogate and use. This is done through what we call a **SchemaManager**. It hides the internal structure of the schema objects from the users.
 
 
 ## Contents
@@ -46,7 +46,9 @@ The API and the ApacheDS server components must to keep schema elements availabl
 
 The **SchemaManager** stores all the Schema elements (**[AttributeTypes (e)]()**, **[ObjectClasses (e)]()**, ... Internally, we store these elements into what is call a **Registries**.  Registries are hives where each Schema Object is stored. Each schema element has a dedicated **Registry** associated with it. Think of it as a Map which returns a reference to a specific Schema Element according to its name or OID.
 
-    Note : each Schema Element is properly defined by one of its names or OID. The OID must be unique across all schema elements, when the name can be used in different schema element (for instance, the **audio** AttributeType or ObjectClass)
+    Note : 
+    each Schema Element is properly defined by one of its names or OID. The OID must be unique across all schema elements, 
+    when the name can be used in different schema element (for instance, the **audio** AttributeType or ObjectClass)
 
 From the user point of view, the **SchemaManager** is seen as a representation of the available LDAP schema elements. It can of course be extended, or modified, by adding or removing schema elements. For historic reasons, the schema elements are gathered into what we call a **schema**. Usually, this is what you load into a **schemaManager**
 
