@@ -47,8 +47,8 @@ The API and the ApacheDS server components must to keep schema elements availabl
 The **SchemaManager** stores all the Schema elements (**[AttributeTypes (e)]()**, **[ObjectClasses (e)]()**, ... Internally, we store these elements into what is call a **Registries**.  Registries are hives where each Schema Object is stored. Each schema element has a dedicated **Registry** associated with it. Think of it as a Map which returns a reference to a specific Schema Element according to its name or OID.
 
     Note : 
-    each Schema Element is properly defined by one of its names or OID. The OID must be unique across all schema elements, 
-    when the name can be used in different schema element (for instance, the **audio** AttributeType or ObjectClass)
+    Each Schema Element is properly defined by one of its names or <b>OID</b>. The <b>OID</b> must be unique across all schema elements, 
+    when the name can be used in different schema element (for instance, the <b>audio</b> <b>AttributeType</b> or <b>ObjectClass</b>)
 
 From the user point of view, the **SchemaManager** is seen as a representation of the available LDAP schema elements. It can of course be extended, or modified, by adding or removing schema elements. For historic reasons, the schema elements are gathered into what we call a **schema**. Usually, this is what you load into a **schemaManager**
 
