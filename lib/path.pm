@@ -152,8 +152,21 @@ our @patterns = (
     #
     
     # Download Apache LDAP API Archive page
-    [qr!api\/download\/download-archive\.mdtext$!, template_page => {
-        template => "api/download-archive.html",
+    [qr!api\/download\/download-archive-1\.mdtext$!, template_page => {
+        template => "api/download-archive-1.html",
+        isDirAPI => true, 
+        version_api => $version_api,
+        version_api2 => $version_api2,
+        version_apacheds => $version_apacheds,
+        version_studio => $version_studio,
+        version_studio_name => $version_studio_name,
+        version_mavibot => $version_mavibot,
+        version_scimple => $version_scimple,
+        version_kerby => $version_kerby,
+        version_fortress => $version_fortress } ],
+    
+    [qr!api\/download\/download-archive-2\.mdtext$!, template_page => {
+        template => "api/download-archive-2.html",
         isDirAPI => true, 
         version_api => $version_api,
         version_api2 => $version_api2,
@@ -166,8 +179,21 @@ our @patterns = (
         version_fortress => $version_fortress } ],
     
     # Download Apache LDAP API Sources page
-    [qr!api\/download\/download-sources\.mdtext$!, template_page => {
-        template => "api/download-sources.html",
+    [qr!api\/download\/download-sources-1\.mdtext$!, template_page => {
+        template => "api/download-sources-1.html",
+        isDirAPI => true, 
+        version_api => $version_api,
+        version_api2 => $version_api2,
+        version_apacheds => $version_apacheds,
+        version_studio => $version_studio,
+        version_studio_name => $version_studio_name,
+        version_mavibot => $version_mavibot,
+        version_scimple => $version_scimple,
+        version_kerby => $version_kerby,
+        version_fortress => $version_fortress } ],
+        
+    [qr!api\/download\/download-sources-1\.mdtext$!, template_page => {
+        template => "api/download-sources-2.html",
         isDirAPI => true, 
         version_api => $version_api,
         version_api2 => $version_api2,
