@@ -192,7 +192,7 @@ our @patterns = (
         version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
         
-    [qr!api\/download\/download-sources-1\.mdtext$!, template_page => {
+    [qr!api\/download\/download-sources-2\.mdtext$!, template_page => {
         template => "api/download-sources-2.html",
         isDirAPI => true, 
         version_api => $version_api,
