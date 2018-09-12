@@ -8,7 +8,7 @@ our $version_studio = "2.0.0.v20170904-M13";
 our $version_studio_name = "2.0.0-M13";
 our $version_mavibot = "1.0.0-M8";
 our $version_scimple = "1.0.0";
-our $version_fortress = "2.0.1";
+our $version_fortress = "2.0.2";
 our $version_kerby = "1.1.1";
 
 
