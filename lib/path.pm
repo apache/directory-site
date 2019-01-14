@@ -9,7 +9,7 @@ our $version_studio_name = "2.0.0-M14";
 our $version_mavibot = "1.0.0-M8";
 our $version_scimple = "1.0.0";
 our $version_fortress = "2.0.3";
-our $version_kerby = "1.1.1";
+our $version_kerby = "2.0.0";
 
 
 # All our pages use the same view function
