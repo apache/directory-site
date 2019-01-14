@@ -29,3 +29,47 @@ The Apache Directory Server is an embeddable LDAP server implemented in pure Jav
 * LDAP Stored Procedures and Triggers are scheduled for the next major version of ApacheDS.
 * LDAPv3 compatible certified by the OpenGroup
 
+
+# OID assignements Scheme
+
+*OID* strings are unique numeric identifiers based off of a hierarchical numeric namespace controlled by a central authority on the Internet: **IANA** (Internet Assigned Numbers Authority).
+
+**IANA** allows companies and organizations to register for a specific OID base called an enterprise number. There can only be one **IANA** Enterprise Number per organization.
+
+## The ASF's Enterprise Number
+
+**Apache** has such an enterprise number. You can look at the **IANA** assigned numbers here. Here's the record in this database for the *Apache Software Foundation*:
+
+
+    :::text
+    Apache Software Foundation
+
+    18060
+      The Apache Software Foundation
+        Alex Karasulu
+          akarasulu@apache.org
+
+This means **the ASF** can use the following unique OID base _1.3.6.1.4.1.18060_ for any of it's needs. However we internal here at **the ASF** need some kind of scheme for assigning these numbers internally so we do not have collisions.
+
+
+## Current Assignments
+
+Here's what we've assigned to date:
+
+| Branch Assignement | Assign To | Contact Person |
+|:-:|:-:|:-:|
+| 1.3.6.1.4.1.18060 | ASF | Alex Karasulu |
+| 1.3.6.1.4.1.18060.0 | Directory | Alex Karasulu |
+| 1.3.6.1.4.1.18060.1 | Geronimo | Alan Cabrera |
+| 1.3.6.1.4.1.18060.2 | Apache Infrastructure | Ben Laurie |
+| 1.3.6.1.4.1.18060.3 | Maven | Jason Van Zyl |
+| 1.3.6.1.4.1.18060.4 | Tuscany | Luciano Resende |
+| 1.3.6.1.4.1.18060.5 | Triplesec | Alex Karasulu |
+| 1.3.6.1.4.1.18060.10 | Hadoop | Owen O'Malley |
+| 1.3.6.1.4.1.18060.11 | Tomcat | Bernhard Unger |
+| 1.3.6.1.4.1.18060.12 | HTTPdvJoe Orton |
+| 1.3.6.1.4.1.18060.14 | Synapse | Hiranya Jayathilaka |
+| 1.3.6.1.4.1.18060.15 | CloudStack | David Nalley |
+| 1.3.6.1.4.1.18060.16 | Apache Ambari | Paul Codding |
+| 1.3.6.1.4.1.18060.17 | Apache Fortress Shawn McKinney |
+| 1.3.6.1.4.1.18060.18 | Apache Guacamole | Mike Jumper |
