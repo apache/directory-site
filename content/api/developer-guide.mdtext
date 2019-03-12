@@ -21,7 +21,7 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 This guide is intened to be read by those who participate into the development of the LDAP API. Users of the API are expected to read the [User guide](user-guide.html).
 
 ## Getting the source, Building the trunks
-To get the source, build the *trunks/shared* and get along with Maven.
+To get the source, build the *trunks/api* and get along with Maven.
 
 ## Versioning Scheme
 
@@ -190,7 +190,7 @@ This is useful to verify your settings in ~/.m2/settings.xml (Nexus password and
     $ mvn release:clean
     $ mvn release:prepare
 
-This creates a tag [here](http://svn.apache.org/viewvc/directory/shared/tags/)
+This creates a tag [here](https://gitbox.apache.org/repos/asf?p=directory-ldap-api.git)
 
 ### Stage the Release
 
@@ -337,9 +337,9 @@ Last, not least, commit your changes
 
 ### Test the New Version in ApacheDS and Studio
 
-In <em>apacheds/pom.xml</em> change the <org.apache.directory.shared.version> property, build ApacheDS, go into <em>apacheds/service</em>, and run <em>./apachds.sh</em> to start the server.
+In <em>apacheds/pom.xml</em> change the <org.apache.directory.api.version> property, build ApacheDS, go into <em>apacheds/service</em>, and run <em>./apachds.sh</em> to start the server.
 
-In <em>studio/pom.xml</em> change the <org.apache.directory.shared.version> and <org.apache.directory.shared.validversion> properties, build Studio, and start Studio in <em>applications/applications_<your platform>/target/ApacheDirectoryStudio-<your platform>/<executable></em>. Connect to the started **ApacheDS**.
+In <em>studio/pom.xml</em> change the <org.apache.directory.api.version> and <org.apache.directory.api.validversion> properties, build Studio, and start Studio in <em>applications/applications_<your platform>/target/ApacheDirectoryStudio-<your platform>/<executable></em>. Connect to the started **ApacheDS**.
 
 ### Stage the release
 
@@ -397,8 +397,7 @@ We will copy two directories :
     apidocs
     xref
 
-Staging or Production?
-
+*Staging or Production?*
 
 <DIV class="info" markdown="1">
 Those files will be stored on the production server only !!! And some extra caution ust be taken not to delete them when we will publish the staging site too...
@@ -423,8 +422,8 @@ Now, you will first add the directory for the newly generated version :
 Then copy the generated docs :
 
     :::text
-    $ cp -r ~/apacheds/trunks/shared/target/checkout/target/site/apidocs ~/apacheds/production/content/api/gen-docs/<version>
-    $ cp -r ~/apacheds/trunks/shared/target/checkout/target/site/xref ~/apacheds/production/content/api/gen-docs/<version>
+    $ cp -r ~/apacheds/trunks/api/target/checkout/target/site/apidocs ~/apacheds/production/content/api/gen-docs/<version>
+    $ cp -r ~/apacheds/trunks/api/target/checkout/target/site/xref ~/apacheds/production/content/api/gen-docs/<version>
     $ 
 
 You have to check in those directories :

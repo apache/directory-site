@@ -299,7 +299,7 @@ Done !
 
 Now, you have to close the staged project on nexus. In order to do that you *must* have exported your PGP key to a PGP public server [see](http://www.apache.org/dev/openpgp.html)
 
-Connect to the [Nexus server](https://repository.apache.org), login, and select the MINA staging repository you just created, then click on the 'close' button. You are home...
+Connect to the [Nexus server](https://repository.apache.org), login, and select the FORTRESS staging repository you just created, then click on the 'close' button. You are home...
 
 ### Step 6 : Build the Site
 
@@ -510,8 +510,7 @@ We will copy two directories :
     apidocs
     xref
 
-Staging or Production?
-
+*Staging or Production?*
 
 <DIV class="info" markdown="1">
 Those files will be stored on the production server only !!! And some extra caution ust be taken not to delete them when we will publish the staging site too...
@@ -519,22 +518,22 @@ Those files will be stored on the production server only !!! And some extra caut
 
 First of all, you must checkout the two CMS store for the site : staging and production.
 
-    $ svn co https://svn.apache.org/repos/infra/websites/staging/mina/trunk staging
+    $ svn co https://svn.apache.org/repos/infra/websites/staging/directory/trunk staging
     ...
-    $ svn co https://svn.apache.org/repos/infra/websites/production/mina production
+    $ svn co https://svn.apache.org/repos/infra/websites/production/directory production
     ...
 
 Then copy the generated docs :
 
-    $ cp -r ~/mina/target/checkout/target/site/apidocs production/content/mina/mina-project/
-    $ cp -r ~/mina/target/checkout/target/site/xref production/content/mina/mina-project/
+    $ cp -r ~/apacheds/directory-fortress-core/target/checkout/target/site/apidocs production/directory/content/fortress/gen-docs
+    $ cp -r ~/apacheds/directory-fortress-core/target/checkout/target/site/xref production/directory/content/fortress/gen-docs
     $ 
 
 You have to check in those directories :
 
     $ svn add apidocs
     $ svn add xref
-    $ svn ci apidocs xref -m "Injected MINA <version> javadocs"
+    $ svn ci apidocs xref -m "Injected Fortress <version> javadocs"
 
 Now, you have to update the staging site <em>extpaths.txt</em>
 
@@ -543,12 +542,14 @@ This file list the file on the production site that will not be overriden by the
     $ cd ~/apacheds/staging/content/
     $ vi extpaths.txt
 
-The following lines should be present. If not, add them and commit the file :
+The following lines should be present. If not, add them and commit the file  after having added a new line for the newly released version:
 
-    mina-project/apidocs
-    mina-project/testapidocs
-    mina-project/xref
-    mina-project/xref-test
+Add the following line :
+
+    :::text
+    ...
+    # Fortress
+    fortress/gen/docs/<the new version>
     ...
 
 ### Step 13: Wait 24 hours
@@ -574,5 +575,5 @@ We need to wait until any changes made in the web site and metadata file(s) go l
 
 ### Step 16: Announce the New Release
 
-An announcement message can be sent to [mailto:announce@apache.org], [mailto:announce@apachenews.org], [mailto:users@mina.apache.org] and [mailto:dev@mina.apache.org].  Please note that announcement messages are rejected unless your from-address ends with `@apache.org`.  Plus, you shouldn't forget to post a news to the MINA site main page.
+An announcement message can be sent to [mailto:announce@apache.org], [mailto:announce@apachenews.org], [mailto:users@directory.apache.org] and [mailto:dev@directory.apache.org].  Please note that announcement messages are rejected unless your from-address ends with `@apache.org`.  Plus, you shouldn't forget to post a news to the Directory site main page.
 
