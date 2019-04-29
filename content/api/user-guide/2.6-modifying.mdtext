@@ -37,11 +37,12 @@ Each modification to be applied on an entry is encapsulated into an intermediate
 
 Here the modification instance represents addition of values "John" and "Peter" to the _giveName_ attribute (the _givenName_ attribute can have more than one value).
 
-There are three different kind of modifications:
+There are four different kind of modifications:
 
 * ModificationOperation.ADD_ATTRIBUTE: add an attribute and values to an entry
 * ModificationOperation.REMOVE_ATTRIBUTE: remove an attribute and values from an entry
 * ModificationOperation.REPLACE_ATTRIBUTE: replace some existing values from an entry
+* ModificationOperation.INCREMENT_ATTRIBUTE: increment an Integer value of an attribute
 
 ## Adding or removing full attributes
 
@@ -346,7 +347,7 @@ Here, what we want to do is to replaces all the values from an attribute with so
 
 An example where such an operation is mandatory is when replacing the values of a mandatory attribute with something different: with two successive operations, that would fail. A replace will work.
 
-What is important here is that the operation simply replace *all the existing values* with new ones, removing the previous ones.
+What is important here is that the operation simply replace *all* the existing values* with new ones, removing the previous ones.
 
 Let's see how it works with a simple example, with an entry containing:
 
@@ -381,3 +382,21 @@ You will get the same errors seen in the two previous operation (ADD and REMOVE)
 * never delete all the values of a mandatory attribute
 * always have the right to modify the entry
 * never try to update a non-existent entry
+
+### Increment attribute
+
+This feature will only work with servers supporting the feature. It can be checked by reading the _rootDSE_ _supportedFeatures_ attribute, which should contain the **1.3.6.1.1.14** value.
+
+The idea is to make it possible to increment an integer attribute in one single operation, instead of reading the entry first, and modify the value in a second operation. That makes the increment operation atomic, and faster as only one operation will be necessary.
+
+Four methods are available in the _ModifyRequest_ operation:
+
+* ModifyRequest increment( String attribute ): Increment by 1 the attribute value
+* ModifyRequest increment( Striung attribute, int ): Increment by N the attribute value
+* ModifyRequest increment( Attribute attribute ): Increment by 1 the attribute value
+* ModifyRequest increment( Attribute attribute, int ): Increment by N the attribute value
+
+As you can see, it's possible to increment the value by more than 1 (which is the default).
+
+Note that if the increment attribute is muklti-valued, then all the values will be incremented.
+

@@ -231,11 +231,9 @@ The produced packages already have .asc signature that you will need to remove :
     <Your password>
     -n Signing: ./apache-ldap-api-1.0.0-M25-bin.tar.gz ... 
       - Generated './apache-ldap-api-1.0.0-M25-bin.tar.gz.md5'
-      - Generated './apache-ldap-api-1.0.0-M25-bin.tar.gz.sha1'
       - Generated './apache-ldap-api-1.0.0-M25-bin.tar.gz.asc'
     -n Signing: ./apache-ldap-api-1.0.0-M25-bin.zip ... 
       - Generated './apache-ldap-api-1.0.0-M25-bin.zip.md5'
-      - Generated './apache-ldap-api-1.0.0-M25-bin.zip.sha1'
       - Generated './apache-ldap-api-1.0.0-M25-bin.zip.asc'
     ...
 
@@ -254,22 +252,13 @@ For the record, here is the script shell you can use to sign the packages. Name 
     stty echo
     echo ""
 
-    for FILE in $(find . -maxdepth 1 -not '(' -name "sign.sh" -or -name ".*" -or -name "*.md5" -or -name "*.sha1" -or -name "*.asc" ')' -and -type f) ; do
+    for FILE in $(find . -maxdepth 1 -not '(' -name "sign.sh" -or -name ".*" -or -name "*.asc" ')' -and -type f) ; do
         if [ -f "$FILE.asc" ]; then
             echo "Skipping: $FILE"
             continue
         fi
 
         echo -n "Signing: $FILE ... "
-
-        # SHA1
-        if [ ! -f "$FILE.sha1" ];
-        then
-            gpg -v --default-key "$DEFAULT_KEY" --print-md SHA1 "$FILE" > "$FILE".sha1
-            echo "  - Generated '$FILE.sha1'"
-        else
-            echo "  - Skipped '$FILE.sha1' (file already existing)"
-        fi
 
         # SHA-256
         if [ ! -f "$FILE.sha256" ];
