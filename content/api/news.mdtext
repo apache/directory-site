@@ -14,58 +14,59 @@ It contains many fixes (37) and is needed to be able to release ApacheDS and Stu
 Here is the list of fixed issues:
 
 <b>Bugs :</b>
-  * [DIRAPI-109](https://issues.apache.org/jira/browse/DIRAPI-109] - Attribute values should be byte[]
-  * [DIRAPI-117](https://issues.apache.org/jira/browse/DIRAPI-117] - Refactor schema packages to decouple various aspects
-  * [DIRAPI-162](https://issues.apache.org/jira/browse/DIRAPI-162] - The CachingNormalizer class does not cache anything
-  * [DIRAPI-239](https://issues.apache.org/jira/browse/DIRAPI-239] - Client API exposes implementation classes of common-pools
-  * [DIRAPI-271](https://issues.apache.org/jira/browse/DIRAPI-271] - Multi-valued RDN should allow AVAs with same attribute
-  * [DIRAPI-300](https://issues.apache.org/jira/browse/DIRAPI-300] - Weird batchResponse when batchRequest contains grammar error
-  * [DIRAPI-301](https://issues.apache.org/jira/browse/DIRAPI-301] - Ldaps connection trusts all certificates
-  * [DIRAPI-302](https://issues.apache.org/jira/browse/DIRAPI-302] - DefaultAttribute NPE
-  * [DIRAPI-303](https://issues.apache.org/jira/browse/DIRAPI-303] - If and else-if branches has the same condition
-  * [DIRAPI-305](https://issues.apache.org/jira/browse/DIRAPI-305] - The SyncInfoValue element is not a control
-  * [DIRAPI-309](https://issues.apache.org/jira/browse/DIRAPI-309] - NoD extended operation is not properly implemented
-  * [DIRAPI-314](https://issues.apache.org/jira/browse/DIRAPI-314] - StartTLS operation is not correctly handled
-  * [DIRAPI-317](https://issues.apache.org/jira/browse/DIRAPI-317] - Non thread-safe tests could lead to errors while running them
-  * [DIRAPI-321](https://issues.apache.org/jira/browse/DIRAPI-321] - The ExtendedResponse message does not carry any value when sent back
-  * [DIRAPI-323](https://issues.apache.org/jira/browse/DIRAPI-323] - Decoding extended operations which require a value isn't enforcing the value to be present
-  * [DIRAPI-326](https://issues.apache.org/jira/browse/DIRAPI-326] - Schema Import - ERR_13215_VALUE_EXPECT_STRING
-  * [DIRAPI-332](https://issues.apache.org/jira/browse/DIRAPI-332] - Add missing hashcode method for Schema objects    
-  * [DIRAPI-336](https://issues.apache.org/jira/browse/DIRAPI-336] - GeneralizedTime issue with timezone when DST is applied    
+
+  * [DIRAPI-109](https://issues.apache.org/jira/browse/DIRAPI-109) - Attribute values should be byte[]
+  * [DIRAPI-117](https://issues.apache.org/jira/browse/DIRAPI-117) - Refactor schema packages to decouple various aspects
+  * [DIRAPI-162](https://issues.apache.org/jira/browse/DIRAPI-162) - The CachingNormalizer class does not cache anything
+  * [DIRAPI-239](https://issues.apache.org/jira/browse/DIRAPI-239) - Client API exposes implementation classes of common-pools
+  * [DIRAPI-271](https://issues.apache.org/jira/browse/DIRAPI-271) - Multi-valued RDN should allow AVAs with same attribute
+  * [DIRAPI-300](https://issues.apache.org/jira/browse/DIRAPI-300) - Weird batchResponse when batchRequest contains grammar error
+  * [DIRAPI-301](https://issues.apache.org/jira/browse/DIRAPI-301) - Ldaps connection trusts all certificates
+  * [DIRAPI-302](https://issues.apache.org/jira/browse/DIRAPI-302) - DefaultAttribute NPE
+  * [DIRAPI-303](https://issues.apache.org/jira/browse/DIRAPI-303) - If and else-if branches has the same condition
+  * [DIRAPI-305](https://issues.apache.org/jira/browse/DIRAPI-305) - The SyncInfoValue element is not a control
+  * [DIRAPI-309](https://issues.apache.org/jira/browse/DIRAPI-309) - NoD extended operation is not properly implemented
+  * [DIRAPI-314](https://issues.apache.org/jira/browse/DIRAPI-314) - StartTLS operation is not correctly handled
+  * [DIRAPI-317](https://issues.apache.org/jira/browse/DIRAPI-317) - Non thread-safe tests could lead to errors while running them
+  * [DIRAPI-321](https://issues.apache.org/jira/browse/DIRAPI-321) - The ExtendedResponse message does not carry any value when sent back
+  * [DIRAPI-323](https://issues.apache.org/jira/browse/DIRAPI-323) - Decoding extended operations which require a value isn't enforcing the value to be present
+  * [DIRAPI-326](https://issues.apache.org/jira/browse/DIRAPI-326) - Schema Import - ERR_13215_VALUE_EXPECT_STRING
+  * [DIRAPI-332](https://issues.apache.org/jira/browse/DIRAPI-332) - Add missing hashcode method for Schema objects    
+  * [DIRAPI-336](https://issues.apache.org/jira/browse/DIRAPI-336) - GeneralizedTime issue with timezone when DST is applied    
 
 
 <b>Improvements:</b>
 
-  * [DIRAPI-99](https://issues.apache.org/jira/browse/DIRAPI-99] - Build CLI wrapper around the API
-  * [DIRAPI-276](https://issues.apache.org/jira/browse/DIRAPI-276] - RDN normalization is under efficient
-  * [DIRAPI-277](https://issues.apache.org/jira/browse/DIRAPI-277] - Update commons pool implementation  Unassigned  Resolved    
-  * [DIRAPI-310](https://issues.apache.org/jira/browse/DIRAPI-310] - We most certainly don't need a Queue in operation futures
-  * [DIRAPI-311](https://issues.apache.org/jira/browse/DIRAPI-311] - Add RFC 5805 extended operation support    
-  * [DIRAPI-312](https://issues.apache.org/jira/browse/DIRAPI-312] - Add an explaination after the log error and message numbers
-  * [DIRAPI-315](https://issues.apache.org/jira/browse/DIRAPI-315] - Create a faster Schema parser
-  * [DIRAPI-322](https://issues.apache.org/jira/browse/DIRAPI-322] - Use a TLS buffer to encode requests and responses
-  * [DIRAPI-325](https://issues.apache.org/jira/browse/DIRAPI-325] - The Asn1Decoder class is not stateless
-  * [DIRAPI-330](https://issues.apache.org/jira/browse/DIRAPI-330] - Improve TLS handshake error handling
-  * [DIRAPI-331](https://issues.apache.org/jira/browse/DIRAPI-331] - Remove the Decorators
-  * [DIRAPI-338](https://issues.apache.org/jira/browse/DIRAPI-338] - Implement RFC 4525
-  * [DIRAPI-340](https://issues.apache.org/jira/browse/DIRAPI-340] - uniqueMemberComparator does not compare DN properly
+  * [DIRAPI-99](https://issues.apache.org/jira/browse/DIRAPI-99) - Build CLI wrapper around the API
+  * [DIRAPI-276](https://issues.apache.org/jira/browse/DIRAPI-276) - RDN normalization is under efficient
+  * [DIRAPI-277](https://issues.apache.org/jira/browse/DIRAPI-277) - Update commons pool implementation  Unassigned  Resolved    
+  * [DIRAPI-310](https://issues.apache.org/jira/browse/DIRAPI-310) - We most certainly don't need a Queue in operation futures
+  * [DIRAPI-311](https://issues.apache.org/jira/browse/DIRAPI-311) - Add RFC 5805 extended operation support    
+  * [DIRAPI-312](https://issues.apache.org/jira/browse/DIRAPI-312) - Add an explaination after the log error and message numbers
+  * [DIRAPI-315](https://issues.apache.org/jira/browse/DIRAPI-315) - Create a faster Schema parser
+  * [DIRAPI-322](https://issues.apache.org/jira/browse/DIRAPI-322) - Use a TLS buffer to encode requests and responses
+  * [DIRAPI-325](https://issues.apache.org/jira/browse/DIRAPI-325) - The Asn1Decoder class is not stateless
+  * [DIRAPI-330](https://issues.apache.org/jira/browse/DIRAPI-330) - Improve TLS handshake error handling
+  * [DIRAPI-331](https://issues.apache.org/jira/browse/DIRAPI-331) - Remove the Decorators
+  * [DIRAPI-338](https://issues.apache.org/jira/browse/DIRAPI-338) - Implement RFC 4525
+  * [DIRAPI-340](https://issues.apache.org/jira/browse/DIRAPI-340) - uniqueMemberComparator does not compare DN properly
 
 
 <b>Features:</b>
 
-  * [DIRAPI-306](https://issues.apache.org/jira/browse/DIRAPI-306] - Add a Control[] parameter in operations, like what we have for lookup()
+  * [DIRAPI-306](https://issues.apache.org/jira/browse/DIRAPI-306) - Add a Control[] parameter in operations, like what we have for lookup()
 
 
 <b>Tasks:</b>
 
-  * [DIRAPI-74](https://issues.apache.org/jira/browse/DIRAPI-74] - Complete the API documentation
-  * [DIRAPI-304](https://issues.apache.org/jira/browse/DIRAPI-304] - Add support for the Microsoft AD extended control Policy Hints (1.2.840.113556.1.4.2239)
+  * [DIRAPI-74](https://issues.apache.org/jira/browse/DIRAPI-74) - Complete the API documentation
+  * [DIRAPI-304](https://issues.apache.org/jira/browse/DIRAPI-304) - Add support for the Microsoft AD extended control Policy Hints (1.2.840.113556.1.4.2239)
 
 <b>Dependency updates:</b>
 
-  * [DIRAPI-313](https://issues.apache.org/jira/browse/DIRAPI-313] - SCM Pointing to SVN instead of GitBox
-  * [DIRAPI-324](https://issues.apache.org/jira/browse/DIRAPI-324] - commons-lang and commons-collections need to be updated to most recent versions
-  * [DIRAPI-333](https://issues.apache.org/jira/browse/DIRAPI-333] - Switch to Junit 5
+  * [DIRAPI-313](https://issues.apache.org/jira/browse/DIRAPI-313) - SCM Pointing to SVN instead of GitBox
+  * [DIRAPI-324](https://issues.apache.org/jira/browse/DIRAPI-324) - commons-lang and commons-collections need to be updated to most recent versions
+  * [DIRAPI-333](https://issues.apache.org/jira/browse/DIRAPI-333) - Switch to Junit 5
 
 Downloads are available [here](downloads-2.html) and the User's Guide is [there](user-guide.html)
 
