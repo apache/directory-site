@@ -19,18 +19,18 @@ Notice:    Licensed to the Apache Software Foundation (ASF) under one
 # Building FORTRESS
 
 <DIV class="note" markdown="1">
-	Please read <a href="http://www.apache.org/dev/" class="external-link" rel="nofollow">the Developer Infrastructure Information</a> if you haven't yet before you proceed.
+	Please read <a href="https://www.apache.org/dev/" class="external-link" rel="nofollow">the Developer Infrastructure Information</a> if you haven't yet before you proceed.
 </DIV>
 
 [TOC]
 
 # Checking out the code
 
-You need Git to check out the source code from our source code repository, and [Maven(http://maven.apache.org/) 3.0 to build the source code.  The following example shows how to get the Fortress projects.
+You need Git to check out the source code from our source code repository, and [Maven(https://maven.apache.org/) 3.0 to build the source code.  The following example shows how to get the Fortress projects.
 
 ## Fortress-core
 
-    $ git clone http://git-wip-us.apache.org/repos/asf/directory-fortress-core.git fortress-core
+    $ git clone https://gitbox.apache.org/repos/asf/directory-fortress-core.git fortress-core
     $ cd fortress-core
     $ mvn clean install             # Build packages (JARs) for the Fortress core API and other 
                                     # extensions and install them to the local Maven repository.
@@ -43,13 +43,13 @@ You can declare new variables in Eclipse in Windows -> Preferences... and select
 
 If you want to check out the source code of previous releases, you have to select the branch you want to work on :
 
-  $ git clone http://git-wip-us.apache.org/repos/asf/directory-fortress-core.git fortress-core
+  $ git clone https://gitbox.apache.org/repos/asf/directory-fortress-core.git fortress-core
   $ git checkout <tag>
 
 
 ## Fortress-realm
 
-    $ git clone http://git-wip-us.apache.org/repos/asf/directory-fortress-realm.git fortress-realm
+    $ git clone https://gitbox.apache.org/repos/asf/directory-fortress-realm.git fortress-realm
     $ cd fortress-realm
     $ mvn clean install             # Build packages (JARs) for the Fortress realm API and other 
                                     # extensions and install them to the local Maven repository.
@@ -62,13 +62,13 @@ You can declare new variables in Eclipse in Windows -> Preferences... and select
 
 If you want to check out the source code of previous releases, you have to select the branch you want to work on :
 
-  $ git clone http://git-wip-us.apache.org/repos/asf/directory-fortress-realm.git fortress-realm
+  $ git clone https://gitbox.apache.org/repos/asf/directory-fortress-realm.git fortress-realm
   $ git checkout <tag>
 
 
 ## Fortress-enmasse
 
-    $ git clone http://git-wip-us.apache.org/repos/asf/directory-fortress-enmasse.git fortress-enmasse
+    $ git clone https://gitbox.apache.org/repos/asf/directory-fortress-enmasse.git fortress-enmasse
     $ cd fortress-enmasse
     $ mvn clean install             # Build packages (JARs) for the Fortress enmasse API and other 
                                     # extensions and install them to the local Maven repository.
@@ -81,13 +81,13 @@ You can declare new variables in Eclipse in Windows -> Preferences... and select
 
 If you want to check out the source code of previous releases, you have to select the branch you want to work on :
 
-  $ git clone http://git-wip-us.apache.org/repos/asf/directory-fortress-enmasse.git fortress-enmasse
+  $ git clone https://gitbox.apache.org/repos/asf/directory-fortress-enmasse.git fortress-enmasse
   $ git checkout <tag>
 
 
 ## Fortress-commander
 
-    $ git clone http://git-wip-us.apache.org/repos/asf/directory-fortress-commander.git fortress-commander
+    $ git clone https://gitbox.apache.org/repos/asf/directory-fortress-commander.git fortress-commander
     $ cd fortress-commander
     $ mvn clean install             # Build packages (JARs) for the Fortress commander API and other 
                                     # extensions and install them to the local Maven repository.
@@ -100,7 +100,7 @@ You can declare new variables in Eclipse in Windows -> Preferences... and select
 
 If you want to check out the source code of previous releases, you have to select the branch you want to work on :
 
-  $ git clone http://git-wip-us.apache.org/repos/asf/directory-fortress-commander.git fortress-commander
+  $ git clone https://gitbox.apache.org/repos/asf/directory-fortress-commander.git fortress-commander
   $ git checkout <tag>
 
 # Coding Convention
@@ -117,7 +117,7 @@ Please note that you have to edit the correct `shrc` file.  If you use `csh`, th
 
 Now you are ready to deploy the artifacts if you configured your umask correctly.
 
-    $ git clone http://git-wip-us.apache.org/repos/asf/directory-fortress-core.git fortress-core
+    $ git clone https://gitbox.apache.org/repos/asf/directory-fortress-core.git fortress-core
     $ cd fortress-core
     $ mvn clean deploy site site:deploy    # Make sure to run 'clean' goal first to prevent side effects from your IDE.
 
@@ -202,7 +202,7 @@ In the `~/.m2/settings.xml` you need the following lines :
 
 After having checked out the trunk, and built it (see step 0), 
 
-    $ git clone http://git-wip-us.apache.org/repos/asf/directory-fortress-core.git directory-fortress-core
+    $ git clone https://gitbox.apache.org/repos/asf/directory-fortress-core.git directory-fortress-core
     $ cd directory-fortress-core
     $ mvn clean install
 
@@ -254,10 +254,10 @@ Three mails will be generated, and sent to commits@directory.apache.org :
     [maven-release-plugin] prepare release 1.0-RC40
     
     
-    Project: http://git-wip-us.apache.org/repos/asf/directory-fortress-core/repo
-    Commit: http://git-wip-us.apache.org/repos/asf/directory-fortress-core/commit/bb913713
-    Tree: http://git-wip-us.apache.org/repos/asf/directory-fortress-core/tree/bb913713
-    Diff: http://git-wip-us.apache.org/repos/asf/directory-fortress-core/diff/bb913713
+    Project: https://gitbox.apache.org/repos/asf/directory-fortress-core/repo
+    Commit: https://gitbox.apache.org/repos/asf/directory-fortress-core/commit/bb913713
+    Tree: https://gitbox.apache.org/repos/asf/directory-fortress-core/tree/bb913713
+    Diff: https://gitbox.apache.org/repos/asf/directory-fortress-core/diff/bb913713
       
     Branch: refs/heads/master
     Commit: bb9137136d58f334415825b15f58c3173c923de2
@@ -297,7 +297,7 @@ Done !
 
 ### Step 5 : closing the staging release on nexus
 
-Now, you have to close the staged project on nexus. In order to do that you *must* have exported your PGP key to a PGP public server [see](http://www.apache.org/dev/openpgp.html)
+Now, you have to close the staged project on nexus. In order to do that you *must* have exported your PGP key to a PGP public server [see](https://www.apache.org/dev/openpgp.html)
 
 Connect to the [Nexus server](https://repository.apache.org), login, and select the FORTRESS staging repository you just created, then click on the 'close' button. You are home...
 
