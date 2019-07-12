@@ -88,7 +88,114 @@ Note that this kind of bind will be supported only if the server allows anonymou
         connection.bind( "uid=admin,ou=system" );
     }
 
-### Rebinding
+### SASL Binding
+
+There are various **SASL** mechanisms that can be used to bind to a **LDAP** server. The **Apache LDAP API** support the following 5 mechanisms:
+
+#### PLAIN
+
+To be completed...
+
+#### CRAM-MD5
+
+To be completed...
+
+#### DIGEST-MD5
+
+To be completed...
+
+#### EXTERNAL
+
+To be completed...
+
+#### GSSAPI
+
+First, non-trivial Kerberos authentication requires configuration. Creating a Kerberos configuration is not well documented elsewhere, so we include here sample code. One approach is to create a JAAS configuration file. Here’s what such a file might contain:
+
+myapp {
+ com.sun.security.auth.module.Krb5LoginModule required debug=true useKeyTab=true principal="host/ilab2.myorg.org@MYORG.ORG" refreshKrb5Config=true keyTab="/etc/krb5.keytab";
+};
+
+See online documentation for Krb5LoginModule for possible options. This example uses the host’s principal, stored in /etc/krb5.keytab. What goes after @ is the Kerberos domain name.
+
+Note that if you specify a credential cache, the cache must be in a file. Many operating systems now put the user’s credentials in KEYRING or KCM. That worn’t work with Java.
+
+“myapp” is the name supplied as the login context name. See the code below.
+
+When you run the program, you must tell java where the configuration file is. e.g. “java -Djava.security.auth.login.config=jaas.config”.
+
+Here is code to connect to ldap with this configuration. We assume that ldapNetworkConnection has already been opened using connect.
+
+    :::Java
+    saslGssApiRequest = new SaslGssApiRequest();
+    saslGssApiRequest.setLoginModuleConfiguration(Configuration.getConfiguration());
+    saslGssApiRequest.setLoginContextName( "myapp");
+    saslGssApiRequest.setMutualAuthentication( true );
+
+    try  {
+            BindResponse br = ldapNetworkConnection.bind( saslGssApiRequest );
+            ldapNetworkConnection.startTls();
+    } catch ( LdapException e ) {
+            e.printStackTrace();
+    }
+
+At this point you can do operations such as search. Note that the argument to setLoginContextName must match the name in the configuration file. This sample uses mutual authentication. It is possible that some LDAP servers might not support that. If so you can set it to false. You may not need startTls if the connection is already secure.
+
+Sometimes it is more convenient to supply the configuration information programmatically. Here is an example that sets the same options as the config file
+
+    :::Java
+    class KerberosConfiguration extends Configuration {
+
+        @Override
+        public AppConfigurationEntry[] getAppConfigurationEntry(String name) {
+            Map<String, String> options = new HashMap<String, String>();
+            options.put("useKeyTab", "true");
+            try {
+                options.put("principal", "host/" + InetAddress.getLocalHost().getCanonicalHostName() + “@MYORG.ORG”);
+            } catch (Exception e){
+                System.out.println("Can't find our hostname " + e);
+            }
+            options.put("refreshKrb5Config", "true");
+            options.put("keyTab", "/etc/krb5.keytab");
+            options.put("debug", "true");
+
+            return new AppConfigurationEntry[]{
+                new AppConfigurationEntry("com.sun.security.auth.module.Krb5LoginModule",
+                                          AppConfigurationEntry.LoginModuleControlFlag.REQUIRED,
+                                          options),};
+        }
+    }
+
+Here is how it is used:
+
+    :::Java
+    saslGssApiRequest = new SaslGssApiRequest();
+    saslGssApiRequest.setLoginModuleConfiguration(new KerberosConfiguration());
+    saslGssApiRequest.setMutualAuthentication( true );
+
+    try  {
+            BindResponse br = ldapNetworkConnection.bind( saslGssApiRequest );
+            ldapNetworkConnection.startTls();
+    } catch ( LdapException e ) {
+            e.printStackTrace();
+    }
+
+Note that it is not necessary to set the login context name, since it is only needed to process the configuration file.’
+
+Warnings: 
+
+* **Apache Kerby** does not implement the option to prompt the user for a password, nor does it permit a password to be passed to **GSSAPI**. Thus authentication is limited to key tables and credential caches.
+
+* The ** Apache Kerby** code sets two system properties. In the default case, it clears **KRB5_CONF** and sets _javax.security.auth.useSubjectCredsOnly_ to true. If other code in your application uses **Kerberos**, be aware that there could be conflicts. Be particularly concerned about multi-threaded code that uses different values. Note that in Kirby you can explicitly set **KRB5_CONF**, with _setKrb5ConfFilePath_, or cause Kirby to set it with setRealmName, setKdcHost, and setKdcPort. If you use different settings for these options in different threads, there is a potential thread-safety issue.
+
+* The Java implementation of **Kerberos** has the ability to read standard **Kerberos** credential cache files, e.g. _/tmp/krb5cc_%{uid}_. However it can’t read credentials from **KEYRING** or **KCM**. If your code asks for authentication to come from an existing credential cache, make sure that it is in a file. If you write an application that expects to use existing credentials for logged in users, without prompting for a password, you may need to set _default_ccache_name_ in _/etc/krb5.conf_ to a file, e.g.
+  _default_ccache_name = /tmp/krb5cc_%{uid}_
+This is not an issue if your authentication comes from key tables or prompts the user.
+
+* The encryption types supported depends upon the Java version. E,g. _aes128-cts-hmac-sha256-128_ and _aes256-cts-hmac-sha384-192_ are supported only as of Java 11.
+
+
+## Rebinding
 
 It's possible to issue a **Bind** on an already bound connection and the existing LDAP session will be terminated, and replaced by a new LDAP session. In any case, the connection is not dropped when doing so. Note that if the connection was encrypted, it remains encrypted.
 
@@ -107,7 +214,7 @@ It's possible to issue a **Bind** on an already bound connection and the existin
 
 If you issue a _bind_ on the same connection with some different credentials, then the existing session will be terminated on the server, and a new one will be created. All the pending requests for the initial session will be lost.
 
-### Unbinding
+## Unbinding
 
 This is a trivial operation : you just send an **UnbindRequest** to the server, which will invalidate your session. 
 
