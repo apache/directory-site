@@ -110,21 +110,22 @@ To be completed...
 
 #### GSSAPI
 
-First, non-trivial Kerberos authentication requires configuration. Creating a Kerberos configuration is not well documented elsewhere, so we include here sample code. One approach is to create a JAAS configuration file. Here’s what such a file might contain:
+First, non-trivial **Kerberos** authentication requires configuration. Creating a **Kerberos** configuration is not well documented elsewhere, so we include here sample code. One approach is to create a **JAAS** configuration file. Here’s what such a file might contain:
 
-myapp {
- com.sun.security.auth.module.Krb5LoginModule required debug=true useKeyTab=true principal="host/ilab2.myorg.org@MYORG.ORG" refreshKrb5Config=true keyTab="/etc/krb5.keytab";
-};
+    :::text
+    myapp {
+     com.sun.security.auth.module.Krb5LoginModule required debug=true useKeyTab=true principal="host/ilab2.myorg.org@MYORG.ORG" refreshKrb5Config=true keyTab="/etc/krb5.keytab";
+    };
 
-See online documentation for Krb5LoginModule for possible options. This example uses the host’s principal, stored in /etc/krb5.keytab. What goes after @ is the Kerberos domain name.
+See online documentation for _Krb5LoginModule_ for possible options. This example uses the host’s principal, stored in _/etc/krb5.keytab_. What goes after **@** is the **Kerberos** domain name.
 
-Note that if you specify a credential cache, the cache must be in a file. Many operating systems now put the user’s credentials in KEYRING or KCM. That worn’t work with Java.
+Note that if you specify a credential cache, the cache must be in a file. Many operating systems now put the user’s credentials in **KEYRING** or **KCM**. That worn’t work with Java.
 
-“myapp” is the name supplied as the login context name. See the code below.
+_“myapp”_ is the name supplied as the login context name. See the code below.
 
-When you run the program, you must tell java where the configuration file is. e.g. “java -Djava.security.auth.login.config=jaas.config”.
+When you run the program, you must tell java where the configuration file is. e.g. _“java -Djava.security.auth.login.config=jaas.config”_.
 
-Here is code to connect to ldap with this configuration. We assume that ldapNetworkConnection has already been opened using connect.
+Here is code to connect to ldap with this configuration. We assume that _ldapNetworkConnection_ has already been opened using connect.
 
     :::Java
     saslGssApiRequest = new SaslGssApiRequest();
@@ -139,7 +140,7 @@ Here is code to connect to ldap with this configuration. We assume that ldapNetw
             e.printStackTrace();
     }
 
-At this point you can do operations such as search. Note that the argument to setLoginContextName must match the name in the configuration file. This sample uses mutual authentication. It is possible that some LDAP servers might not support that. If so you can set it to false. You may not need startTls if the connection is already secure.
+At this point you can do operations such as search. Note that the argument to _setLoginContextName_ must match the name in the configuration file. This sample uses mutual authentication. It is possible that some **LDAP** servers might not support that. If so you can set it to false. You may not need _startTls_ if the connection is already secure.
 
 Sometimes it is more convenient to supply the configuration information programmatically. Here is an example that sets the same options as the config file
 
