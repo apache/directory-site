@@ -203,6 +203,39 @@ Go to [the nexus server](https://repository.apache.org/index.html#stagingReposit
 
 ### Build the Site
 
+In order to be able to generate the site, you will have to modify the target/checkout/pom.xml file, by adding a line to the javadoc configuration (in two places) :
+
+    :::text
+    $ vi target/checkout/pom.xml
+    ...
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <configuration>
+          <show>private</show>
+          <nohelp>true</nohelp>
+          <doclint>none</doclint>     <---- This line 
+    ...
+
+and
+
+    :::text
+    ...
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <configuration>
+          <windowtitle>Apache LDAP API ${project.version} API Documentation</windowtitle>
+          <doctitle>Apache LDAP API ${project.version} API Documentation</doctitle>
+          <minmemory>512m</minmemory>
+          <maxmemory>1g</maxmemory>
+          <linksource>true</linksource>
+          <doclint>none</doclint>   <---- This line too
+    ...
+
+
+then run the maven site goal :
+
     :::text
     $ cd target/checkout
     $ mvn site
