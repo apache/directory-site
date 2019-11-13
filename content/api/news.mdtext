@@ -1,7 +1,31 @@
 # News 
+<h2 class="news">Apache Directory LDAP API 2.0.0 released <em>posted on November 13th, 2019</em></h2>
+
+The Apache Directory Team is proud to announce the availability of version 2.0.0 of the Apache Directory LDAP API.
+
+The Apache Directory LDAP API is an ongoing effort to provide an enhanced LDAP API, as a replacement for JNDI and the existing LDAP API (jLdap and Mozilla LDAP API).
+
+This is a schema aware API, with some convenient ways to access a LDAP server. This API is not only targeting the Apache Directory Server, but should work pristine with any LDAP server.
+
+It's also an extensible API : new Controls, schema elements and network layer could be added or used in the near future. It's also OSGi capable.
+
+This is the first GA version of the Apache LDAP API 2.0 ! It fixes an important bug in the connection management when unbinding and a coiuple of other issues :
+
+ <b>Bugs :</b>
+
+  * [DIRAPI-342](https://issues.apache.org/jira/browse/DIRAPI-342) - Unbind breaks connection
+  * [DIRAPI-349](https://issues.apache.org/jira/browse/DIRAPI-349) - DN with hex values aren't parsed properly when not schema aware
+
+<b>Improvement :</b>
+  * [DIRAPI-344](https://issues.apache.org/jira/browse/DIRAPI-344) - Allow a LDIF entry loading to be accepted when the SchemaManager is in relaxed mode
+
+
+Downloads are available [here](downloads-2.html) and the User's Guide is [there](user-guide.html)
+
+# News 
 <h2 class="news">Apache Directory LDAP API 2.0.0.AM4 released <em>posted on June 9th, 2019</em></h2>
 
-The Apache Directory Team is proud to announce the availability of version 2.0.0.AM3 of the Apache Directory LDAP API.
+The Apache Directory Team is proud to announce the availability of version 2.0.0.AM4 of the Apache Directory LDAP API.
 
 The Apache Directory LDAP API is an ongoing effort to provide an enhanced LDAP API, as a replacement for JNDI and the existing LDAP API (jLdap and Mozilla LDAP API).
 
@@ -120,9 +144,9 @@ A couple of other issues have also been fixed.
 
 Here are the associated JIRA tickets :
 
-DIRAPI-318, Schema elements HashCode are not computed at all
-DIRAPI-319, The RestrictedByItem class stores elements in a Set, expecting it to be ordered.
-DIRAPI-291, The Immutable schema object can't be used
+  * [DIRAPI-318](https://issues.apache.org/jira/browse/DIRAPI-318) - Schema elements HashCode are not computed at all
+  * [DIRAPI-319](https://issues.apache.org/jira/browse/DIRAPI-319) - The RestrictedByItem class stores elements in a Set, expecting it to be ordered.
+  * [DIRAPI-291](https://issues.apache.org/jira/browse/DIRAPI-291) - The Immutable schema object can't be used
 
 Downloads are available [here](downloads-2.html) and the User's Guide is [there](user-guide.html)
 
