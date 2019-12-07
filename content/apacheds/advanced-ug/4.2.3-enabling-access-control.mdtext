@@ -25,4 +25,29 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 # 4.2.3 - Enabling Access Control
 
-TODO...
+The Access Control Subsystem (ACI) is described in the Basic User Guide. The ACI is disabled by default and the simplest way to enable it is to [use Apache Directory Studio](apacheds/basic-ug/3.2-basic-authorization.html#enable-the-aci-subsystem).
+
+After the server has started, the relevant entry can be found in *config.ldif_migrated* :
+````
+    # default, config
+    dn: ads-directoryServiceId=default,ou=config
+    ads-directoryserviceid: default
+    ads-dssyncperiodmillis: 15000
+    ads-dsallowanonymousaccess: TRUE
+    ads-dsreplicaid: 1
+    ads-dsaccesscontrolenabled: FALSE
+    ads-dspasswordhidden: FALSE
+    ads-dsdenormalizeopattrsenabled: FALSE
+    ads-enabled: TRUE
+    objectclass: top
+    objectclass: ads-base
+    objectclass: ads-directoryService
+````
+
+The following ldapmodify (by the admin user) will activate the ACI Subsystem when the server is next restarted :
+````
+    dn: ads-directoryServiceId=default,ou=config
+    changetype: modify
+    replace: ads-dsaccesscontrolenabled
+    ads-dsaccesscontrolenabled: TRUE
+````
