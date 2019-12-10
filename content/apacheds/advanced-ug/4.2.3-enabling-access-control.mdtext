@@ -45,9 +45,8 @@ After the server has started, the relevant entry can be found in *config.ldif_mi
 
 The following ldapmodify (by the admin user) will activate the ACI Subsystem when the server is next restarted :
 
-```
-dn: ads-directoryServiceId=default,ou=config
-changetype: modify
-replace: ads-dsaccesscontrolenabled
-ads-dsaccesscontrolenabled: TRUE
-```
+    # turn on Access Control
+    dn: ads-directoryServiceId=default,ou=config
+    changetype: modify
+    replace: ads-dsaccesscontrolenabled
+    ads-dsaccesscontrolenabled: TRUE
