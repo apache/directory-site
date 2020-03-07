@@ -1,4 +1,85 @@
 # News
+<h2 class="news">ApacheDS 2.0.0.AM26 released <em>posted on March 7th, 2020</em></h2>
+
+The Apache Directory team is pleased to announce the release of ApacheDS 2.0.0.AM26, the 26th milestone towards a 2.0 version.
+
+ApacheDS is an extensible and embeddable directory server entirely written in Java, which has been certified LDAPv3 compatible by the Open Group. Besides LDAP it supports Kerberos 5 and the Change Password Protocol. It has been designed to introduce triggers, stored procedures, queues and views to the world of LDAP which has lacked these rich constructs.
+
+Downloads are available [here](downloads.html)
+
+This is a major release of ApacheDS. It brings many bug fixes, and is the first version implementing LDAP transactions,
+which are now used internally for atomic operations, but can also be used through an extended operation, to apply many
+operations in one transaction.
+We also have changed the Cache system we were using (ehcache) to use the more efficient and lighter [Caffeine]
+(https://github.com/ben-manes/caffeine/wiki).
+Otherwise, we don't anymore store certificates in the server by default, but use an external keystore.
+
+We can't anymore produce the Mac OSX installer package, we are working on finding a solution for that issue (Apple
+deprecated the MakePackage tool and is now applying way more stringent checks and controls for packages, like
+and Apple signature). This will most certainly be fixed in the next revision.
+
+It uses the Apache LDAP API 2.0.0 release
+
+Here is the release note for Apache Directory ApacheDS 2.0.0.AM26:
+
+<b>Bugs :</b>
+
+* [DIRSERVER-1414](https://issues.apache.org/jira/browse/DIRSERVER-1414] - Normalization is not handling correctly (buit this has no impact)
+* [DIRSERVER-1580](https://issues.apache.org/jira/browse/DIRSERVER-1580] - Numerous JUnit tests failing on Windows, again.
+* [DIRSERVER-1878](https://issues.apache.org/jira/browse/DIRSERVER-1878] - Bad warning from 'maven-shade-plugin' when creating the 'apacheds-service' jar
+* [DIRSERVER-1924](https://issues.apache.org/jira/browse/DIRSERVER-1924] - The MavibotPartition entry cache is not correctly set
+* [DIRSERVER-1974](https://issues.apache.org/jira/browse/DIRSERVER-1974] - Rename Operation Issue - ApacheDS
+* [DIRSERVER-2049](https://issues.apache.org/jira/browse/DIRSERVER-2049] - Queries interrupted with delete/add operations   
+* [DIRSERVER-2066](https://issues.apache.org/jira/browse/DIRSERVER-2066] - Maven 3.3.x produces Invalid installers/archives
+* [DIRSERVER-2070](https://issues.apache.org/jira/browse/DIRSERVER-2070] - Null pointer exception on kerberos password changing
+* [DIRSERVER-2071](https://issues.apache.org/jira/browse/DIRSERVER-2071] - MinaKerberosDecoder fails with NullPointerException if the kerberos message is split in multiple packets
+* [DIRSERVER-2074](https://issues.apache.org/jira/browse/DIRSERVER-2074] - small default TCP receive/send buffer size causing TCP packet fragmentation on some platforms
+* [DIRSERVER-2089](https://issues.apache.org/jira/browse/DIRSERVER-2089] - AttributeType breaks the equals/hashCode override contract
+* [DIRSERVER-2099](https://issues.apache.org/jira/browse/DIRSERVER-2099] - NOTICE and LICENSE files for DS 2.0.0-M20 are incorrect   
+* [DIRSERVER-2146](https://issues.apache.org/jira/browse/DIRSERVER-2146] - Using special chars in uid makes problem
+* [DIRSERVER-2197](https://issues.apache.org/jira/browse/DIRSERVER-2197] - Debian installer package contains the binary 4 times
+* [DIRSERVER-2237](https://issues.apache.org/jira/browse/DIRSERVER-2237] - Application opens but can't 'Open Connection' - IllegalArgumentException
+* [DIRSERVER-2247](https://issues.apache.org/jira/browse/DIRSERVER-2247] - Invalid signature file digest for Manifest main attributes - When switching from 2.0.0-M24 to 2.0.0-AM25
+* [DIRSERVER-2253](https://issues.apache.org/jira/browse/DIRSERVER-2253] - NIS schema object class and attribute problem   
+* [DIRSERVER-2264](https://issues.apache.org/jira/browse/DIRSERVER-2264] - missing schema type for NIS: nisMapName
+* [DIRSERVER-2273](https://issues.apache.org/jira/browse/DIRSERVER-2273] - Le serveur ne démarre plus
+* [DIRSERVER-2275](https://issues.apache.org/jira/browse/DIRSERVER-2275] - Les schemas LDIF générés à partir du schema browser font planter Directory au démarrage
+* [DIRSERVER-2289](https://issues.apache.org/jira/browse/DIRSERVER-]2289 - Paging support to retrieve all the entries available in ApacheDS between different client and LDAP server connections
+
+<b>Improvements :</b>
+
+* [DIRSERVER-959](https://issues.apache.org/jira/browse/DIRSERVER-959] - We nedd a global cache
+* [DIRSERVER-1639](https://issues.apache.org/jira/browse/DIRSERVER-1639] - Add support for specifying cipher suites in LdapServer's configuration   
+* [DIRSERVER-1892](https://issues.apache.org/jira/browse/DIRSERVER-1892] - We don't need to clone the full entry when returning it from the backen
+* [DIRSERVER-1916](https://issues.apache.org/jira/browse/DIRSERVER-1916] - Don't drop 'top' from ObjectClass index, it's never present in the BTree
+* [DIRSERVER-2044](https://issues.apache.org/jira/browse/DIRSERVER-2044] - The CacheService.initialize() method takes an unused InstanceID argument
+* [DIRSERVER-2132](https://issues.apache.org/jira/browse/DIRSERVER-2132] - Add the structuralObjectClass attribute to every returned entry
+* [DIRSERVER-2133](https://issues.apache.org/jira/browse/DIRSERVER-2133] - Add the hasSubordinates operational attribute to entries
+* [DIRSERVER-2145](https://issues.apache.org/jira/browse/DIRSERVER-2145] - A BIND request will do 2 lookups of the entry trying to bind
+* [DIRSERVER-2168](https://issues.apache.org/jira/browse/DIRSERVER-2168] - Possible performance improvement in the Add operation
+* [DIRSERVER-2262](https://issues.apache.org/jira/browse/DIRSERVER-2262] - The LdapServer.loadkeyStore() method do the work twice if there is no KeyStore defined
+* [DIRSERVER-2270](https://issues.apache.org/jira/browse/DIRSERVER-2270] - Inconsistent log level practices
+
+<b>New features :</b>
+
+* [DIRSERVER-279](https://issues.apache.org/jira/browse/DIRSERVER-279] - Transaction support
+* [DIRSERVER-1422](https://issues.apache.org/jira/browse/DIRSERVER-1422] - Delegation of Authentication
+* [DIRSERVER-1956](https://issues.apache.org/jira/browse/DIRSERVER-1956] - Add support for rfc4525 (increment)
+* [DIRSERVER-2245](https://issues.apache.org/jira/browse/DIRSERVER-2245] - Implement the transaction support in ApachedS
+* [DIRSERVER-2248](https://issues.apache.org/jira/browse/DIRSERVER-2248] - The server generates some errors when starting (Schema isues)
+
+
+<b>Tasks :</b>
+
+* [DIRSERVER-1245](https://issues.apache.org/jira/browse/DIRSERVER-1245] - Source audit
+* [DIRSERVER-2063](https://issues.apache.org/jira/browse/DIRSERVER-2063] - Automat testing of installers
+* [DIRSERVER-2097](https://issues.apache.org/jira/browse/DIRSERVER-2097] - Fix usage of default charset|locale|timezone and enable forbiddenapis check
+* [DIRSERVER-2271](https://issues.apache.org/jira/browse/DIRSERVER-2271] - Replace Ehcache with Caffeine
+
+<b>Tests :</b>
+
+* [DIRSERVER-1847](https://issues.apache.org/jira/browse/DIRSERVER-1847] - Introduce time provider for time dependent tests 
+
 <h2 class="news">ApacheDS 2.0.0.AM25 released <em>posted on August 18th, 2018</em></h2>
 
 The Apache Directory team is pleased to announce the release of ApacheDS 2.0.0.AM25, the 25th milestone towards a 2.0 version.
