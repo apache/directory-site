@@ -77,7 +77,7 @@ our @patterns = (
         version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
     
-    # Download ApacheDS Mac OS X page
+    # Download ApacheDS macOS page
     [qr!apacheds\/download\/download-macosx\.mdtext$!, template_page => {
         template => "apacheds/download-macosx.html",
         isDirApacheDS => true, 
@@ -311,7 +311,7 @@ our @patterns = (
         version_kerby => $version_kerby,
         version_fortress => $version_fortress } ],
     
-    # Download Apache Directory Studio Mac OS X page
+    # Download Apache Directory Studio macOS page
     [qr!studio\/download\/download-macosx\.mdtext$!, template_page => {
         template => "studio/download-macosx.html",
         isDirStudio => true, 
