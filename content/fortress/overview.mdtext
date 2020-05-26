@@ -18,16 +18,16 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 # Apache Fortress Overview
 
-FORTRESS is a standards-based access management system, written in Java, that provides role-based access control, delegated administration and password policy services with LDAP.
+FORTRESS is a standards-based authorization system, that provides role-based access control, delegated administration and password policy services using an LDAP backend.
 
 ## What's in it?  
 
 Included are the following components:
 
-* Core  - Java Access Management SDK
+* Core  - Java Authorization SDK
 * Realm - Java EE security for Apache Tomcat
-* Rest  - HTTP protocol wrappers for the APIs
-* Web   - HTML pages for the APIs
+* Rest  - HTTP protocol wrappers for the APIs using Apache CXF
+* Web   - HTML pages and framework for the APIs using Apache Wicket
 
 It's released under terms of the Apache License 2.0. 
 
@@ -78,7 +78,7 @@ The ARBAC model explains how [RBAC](http://csrc.nist.gov/groups/SNS/rbac/documen
 
 ### IETF Password Policies
 
-Fortress sully supports password policies of both ApacheDS and OpenLDAP.  It adds by integrating with its administrative and access control APIs.  These APIs enable outside apps to participate and manipulate OpenLDAP password policies without understanding the specifics of how they work. Fortress provides services for setting up new policies and ensuring password policies are tracked and enforced across all avenues.
+Fortress fully supports password policies of both ApacheDS and OpenLDAP.  It adds by integrating with its administrative and access control APIs.  These APIs enable outside apps to participate and manipulate OpenLDAP password policies without understanding the specifics of how they work. Fortress provides services for setting up new policies and ensuring password policies are tracked and enforced across all avenues.
 
 ### Auditing
 
