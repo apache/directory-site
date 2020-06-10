@@ -26,7 +26,7 @@ Notice: Licensed to the Apache Software Foundation (ASF) under one
 
 ## 5.4.1 Replication overview
 
-ApacheDS supports both Master-Slave and Multi-Master replication based on the [syncrepl](http://tools.ietf.org/html/rfc4533) specification.
+ApacheDS supports both Producer-Consumer and Multi-Producers replication based on the [syncrepl](http://tools.ietf.org/html/rfc4533) specification.
 
 ## Initial steps
 
@@ -40,12 +40,12 @@ The below initial conditions must be met before configuring the replication in a
   See [Adding Partition](../basic-ug/1.4.3-adding-partition.mdtext)
  
 
-## Configuring Master-Slave replication
+## Configuring Producer-Consumer replication
 
-Assuming that the master is running on localhost at port 10389 and slave on localhost at port 11997 and we want to
+Assuming that the Producer is running on localhost at port 10389 and consumer on localhost at port 11997 and we want to
 replicate the data from partition dc=apache,dc=org
 
-The below configuration must be added in the slave server and restart slave.
+The below configuration must be added in the Consumer server and it should be restarted.
 
 	dn: ads-replConsumerId=consumer1,ou=replConsumers,ads-serverId=ldapServer,ou=servers,ads-directoryServiceId=default,ou=config
 	ads-replconsumerid: consumer1
