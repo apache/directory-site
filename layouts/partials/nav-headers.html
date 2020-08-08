@@ -1,0 +1,29 @@
+{{ if or (or (isset .Params "navprev") (isset .Params "navup")) (isset .Params "navnext") }}
+    <div class="nav">
+        <div class="nav_prev">
+            {{ if isset .Params "navprev" }}
+                {{ $navprev := .Param "navprev" }}
+                <a href="{{ $navprev }}">{{ .Param "navprevtext" }}</a>
+            {{ else }}
+                &nbsp;
+            {{ end }}
+        </div>
+        <div class="nav_up">
+            {{ if isset .Params "navup" }}
+                {{ $navup := .Param "navup" }}
+                <a href="{{ $navup }}">{{ .Param "navuptext" }}</a>
+            {{ else }}
+                &nbsp;
+            {{ end }}
+        </div>
+        <div class="nav_next">
+            {{ if isset .Params "navnext" }}
+                {{ $navnext := .Param "navnext" }}
+                <a href="{{ $navnext }}">{{ .Param "navnexttext" }}</a>
+            {{ else }}
+                &nbsp;
+            {{ end }}
+        </div>
+        <div class="clearfix"></div>
+    </div>
+{{ end }}

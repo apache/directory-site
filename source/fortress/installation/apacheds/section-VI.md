@@ -1,0 +1,71 @@
+---
+title: Section VI - Instructions to run Fortress Console
+navPrev: section-V.html
+navPrevText: Section V -Instructions to run the Fortress Command Line Interpreter (CLI) utility
+navUp: apacheds.html
+navUpText: Quickstart ApacheDS - Table of contents
+navNext: section-VII.html
+navNextText: Section VII - Instructions to generate and view Javadoc
+---
+
+## Section VI - Instructions to run Fortress Console (optional)
+
+For tasks like one-time setup of new users, password resets, searches the Fortress Console application can be used.
+
+### Step 1
+
+From FORTRESS_HOME root folder, enter the following command from a system prompt:
+
+    ./b.sh console 
+
+<CENTER>
+  <IMG src="../../images/Screenshot17-ant-console.png" alt="Screenshot" width="766" height="49"/>
+</CENTER>
+
+### Some Console Screenshots... 
+
+#### Main Menu: 
+
+<CENTER>
+  <IMG src="../../images/Screenshot18-console-main.png" alt="Screenshot"/>
+</CENTER>
+
+#### Admin Manager Functions
+
+Enter choice 1 and follow the screen prompts to edit RBAC data: 
+
+<CENTER>
+  <IMG src="../../images/Screenshot19-console-admin.png" alt="Screenshot"/>
+</CENTER>
+
+#### Review Manager Functions
+
+Enter choice 2 and follow the screen prompts to search RBAC data: 
+
+<CENTER>
+  <IMG src="../../images/Screenshot20-console-review.png" alt="Screenshot"/>
+</CENTER>
+
+#### Access Manager Functions
+
+Enter choice 3 and follow the screen prompts to test RBAC policies: 
+
+<CENTER>
+  <IMG src="../../images/Screenshot21-console-access.png" alt="Screenshot"/>
+</CENTER>
+
+#### Delegated Admin Manager Functions
+
+Enter choice 4 and follow the screen prompts to setup ARBAC delegated policies: 
+
+<CENTER>
+  <IMG src="../../images/Screenshot22-console-deladmin.png" alt="Screenshot"/>
+</CENTER>
+
+#### Audit Manager Functions
+
+Enter choice 8 and follow the screen prompts to search through the AUDIT log: 
+
+<CENTER>
+  <IMG src="../../images/Screenshot23-console-audit.png" alt="Screenshot"/>
+</CENTER>

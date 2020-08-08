@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<html lang="en">
+<head>
+    <title>{{ .Title }} &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/green.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/server-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    {{ partial "header.html" (dict "context" . "project" "home") }}
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                <!--ul>
+                  <li>
+                    <a href="http://bit.ly/1n9YlQT" target="_blank">
+                      <img src="/images/ApacheConBudapest.png" width="125" height="125" alt="I'm Speaking at ApacheCon Europe 2014! Join me!" title="I'm Speaking at ApacheCon Europe 2014! Join me!" border="0" style="margin-bottom:-3px;"/>
+                    </a>
+                  </li>
+                </ul-->
+                <h5>Latest Downloads</h5>
+                <ul>
+                    <li><a href="/apacheds/downloads.html">ApacheDS {{ .Site.Params.version_apacheds }}</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/studio/downloads.html">Studio {{ .Site.Params.version_studio_name }}</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/downloads-1.html">LDAP API {{ .Site.Params.version_api }}</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/downloads-2.html">LDAP API {{ .Site.Params.version_api2 }}</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/mavibot/downloads.html">Mavibot {{ .Site.Params.version_mavibot }}</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/fortress/downloads.html">Fortress {{ .Site.Params.version_fortress }}</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/scimple/downloads.html">SCIMple {{ .Site.Params.version_scimple }}</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/kerby/downloads.html">Kerby {{ .Site.Params.version_kerby }}</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                </ul>
+
+                <h5>Sub-Projects</h5>
+                <ul>
+                    <li><a href="/apacheds/">ApacheDS</a></li>
+                    <li><a href="/studio/">Apache Directory Studio</a></li>
+                    <li><a href="/api/">Apache LDAP API</a></li>
+                    <li><a href="/mavibot/">Apache Mavibot</a></li>
+                    <li><a href="/scimple/">Apache SCIMple</a></li>
+                    <li><a href="/fortress/">Apache Fortress</a></li>
+                    <li><a href="/kerby/">Apache Kerby</a></li>
+                </ul>
+                <!--h5>Sandbox</h5>
+                <ul>
+                    <li><a href="/triplesec/">Triplesec</a></li>
+                </ul-->
+
+                <h5>Resources</h5>
+                <ul>
+                    <li><a href="/references.html">References</a></li>
+                    <li><a href="/articles.html">Articles</a></li>
+                    <li><a href="/conference-materials.html">Conferences</a></li>
+                    <li><a href="/testimonies.html">Testimonials</a></li>
+                    <li><a href="/vision.html">Vision</a></li>
+                    <li><a href="/security-advisories.html">Security Advisories</a></li>
+                    <!--li><a href="/interopability.html">Interropability</a></li-->
+                </ul>
+
+                {{ partialCached "common-navigation" . }}
+            </div><!-- navigation -->
+        </div><!-- leftColumn -->
+        <div id="rightColumn">
+            {{ partial "nav-headers.html" . }}
+            {{ block "main" . }}{{ end }}
+            {{ partial "nav-headers.html" . }}
+        </div><!-- rightColumn -->
+        <div id="endContent"></div>
+    </div><!-- content -->
+
+    {{ partial "footer.html" . }}
+</div><!-- container -->
+
+</body>
+
+</html>

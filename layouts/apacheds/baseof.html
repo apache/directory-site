@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<html lang="en">
+<head>
+    <title>{{ .Title }} &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/green.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/server-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    {{ partial "header.html" (dict "context" . "project" "apacheds") }}
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                <!--ul>
+                  <li>
+                    <a href="http://bit.ly/1n9YlQT" target="_blank">
+                      <img src="/images/ApacheConBudapest.png" width="125" height="125" alt="I'm Speaking at ApacheCon Europe 2014! Join me!" title="I'm Speaking at ApacheCon Europe 2014! Join me!" border="0" style="margin-bottom:-3px;"/>
+                    </a>
+                  </li>
+                </ul-->
+                <h5>ApacheDS 2.0</h5>
+                <ul>
+                    <li><a href="/apacheds/">Home</a></li>
+                    <li><a href="/apacheds/news.html">News</a></li>
+                    <li><a href="/apacheds/features.html">Features</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/apacheds/downloads.html">ApacheDS {{ .Site.Params.version_apacheds }}</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/apacheds/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/apacheds/basic-user-guide.html">Basic User Guide </a></li>
+                    <li><a href="/apacheds/advanced-user-guide.html">Advanced User Guide</a></li>
+                    <li><a href="/apacheds/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/apacheds/kerberos-user-guide.html">Kerberos User Guide</a></li>
+                    <li><a href="/apacheds/configuration/ads-2.0-configuration.html">Configuration</a></li>
+                    <li><a href="/apacheds/gen-docs/latest/apidocs">JavaDocs</a></li>
+                    <li><a href="/apacheds/gen-docs/latest/xref">Cross-Reference</a></li>
+                </ul>
+
+                {{ partialCached "common-navigation" . }}
+            </div><!-- navigation -->
+        </div><!-- leftColumn -->
+        <div id="rightColumn">
+            {{ partial "nav-headers.html" . }}
+            {{ block "main" . }}{{ end }}
+            {{ partial "nav-headers.html" . }}
+        </div><!-- rightColumn -->
+        <div id="endContent"></div>
+    </div><!-- content -->
+
+    {{ partial "footer.html" . }}
+</div><!-- container -->
+
+</body>
+
+</html>

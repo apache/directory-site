@@ -1,0 +1,44 @@
+baseURL = "https://directory.apache.org"
+title = "Apache Directory"
+languageCode = "en"
+
+contentDir = "source"
+publishDir = "target/content"
+
+disablePathToLower = true
+uglyURLs = true
+enableRobotsTXT = true
+disableBrowserError = true
+timeout = 3000
+
+disableKinds = ["taxonomy", "taxonomyTerm"]
+ignoreFiles = [ ] # No files to ignore
+
+# Highlighting config. See https://help.farbox.com/pygments.html
+pygmentsCodeFences = true
+pygmentsUseClasses = false
+pygmentsStyle = "emacs"
+
+# Enable Git variables like commit, lastmod
+enableGitInfo = true
+
+[markup.goldmark.renderer]
+unsafe= true
+
+[blackfriday]
+# hrefTargetBlank = true # We don't want everything opened in a new window
+fractions = false
+
+[frontmatter]
+date = ["date", ":filename", "publishDate", "lastmod"]
+
+[params]
+version_apacheds = "2.0.0.AM26"
+version_api = "1.0.3"
+version_api2 = "2.0.1"
+version_fortress = "2.0.5"
+version_kerby = "2.0.1"
+version_mavibot = "1.0.0-M8"
+version_scimple = "1.0.0"
+version_studio = "2.0.0.v20180908-M14"
+version_studio_name = "2.0.0-M14"

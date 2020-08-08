@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<html lang="en">
+<head>
+    <title>{{ .Title }} &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/orange.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/api-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    {{ partial "header.html" (dict "context" . "project" "kerby") }}
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                <h5>Kerby</h5>
+                <ul>
+                    <li><a href="/kerby/">Home</a></li>
+                    <li><a href="/kerby/news.html">News</a></li>
+                    <li><a href="/kerby/features.html">Features</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/kerby/downloads.html">Version {{ .Site.Params.version_kerby }}</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/kerby/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Getting Started</h5>
+                <ul>
+                    <!--li><a href="/kerby/vision.html">Vision</a></li-->
+                    <li><a href="/kerby/issues.html">Issues</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/kerby/overview.html">Overview</a></li>
+                    <!--li><a href="/kerby/quick-start.html">Quick Start</a></li-->
+                    <li><a href="/kerby/kerby-asn1.html">Kerby ASN1</a></li>
+                    <li><a href="/kerby/user-guide.html">User Guide</a></li>
+                    <!--li><a href="/kerby/gen-docs/latest/apidocs/">JavaDocs</a></li-->
+                    <!--li><a href="/kerby/gen-docs/latest/xref/">Cross-Reference</a></li-->
+                    <!--li><a href="/kerby/gen-docs/latest/">Generated Reports</a></li-->
+                    <li><a href="/kerby/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/kerby/tutorials.html">Tutorials</a></li>
+                </ul>
+
+                {{ partialCached "common-navigation" . }}
+            </div><!-- navigation -->
+        </div><!-- leftColumn -->
+        <div id="rightColumn">
+            {{ partial "nav-headers.html" . }}
+            {{ block "main" . }}{{ end }}
+            {{ partial "nav-headers.html" . }}
+        </div><!-- rightColumn -->
+        <div id="endContent"></div>
+    </div><!-- content -->
+
+    {{ partial "footer.html" . }}
+</div><!-- container -->
+
+</body>
+
+</html>

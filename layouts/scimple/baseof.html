@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one or more
+    contributor license agreements.  See the NOTICE file distributed with
+    this work for additional information regarding copyright ownership.
+    The ASF licenses this file to You under the Apache License, Version 2.0
+    (the "License"); you may not use this file except in compliance with
+    the License.  You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing, software
+    distributed under the License is distributed on an "AS IS" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the License for the specific language governing permissions and
+    limitations under the License.
+-->
+<html lang="en">
+<head>
+    <title>{{ .Title }} &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/brown.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/api-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    {{ partial "header.html" (dict "context" . "project" "scimple") }}
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                <!--ul>
+                  <li>
+                    <a href="http://bit.ly/1n9YlQT" target="_blank">
+                      <img src="/images/ApacheConBudapest.png" width="125" height="125" alt="I'm Speaking at ApacheCon Europe 2014! Join me!" title="I'm Speaking at ApacheCon Europe 2014! Join me!" border="0" style="margin-bottom:-3px;"/>
+                    </a>
+                  </li>
+                </ul-->
+                <h5>SCIMple 1.0</h5>
+                <ul>
+                    <li><a href="/scimple/">Home</a></li>
+                    <li><a href="/scimple/news.html">News</a></li>
+                </ul>
+                <!--<h5>Downloads</h5>
+                <ul>
+                    <li><a href="/scimple/downloads.html">Version {{ .Site.Params.version_scimple }}</a>&nbsp;&nbsp;<IMG src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/scimple/download-old-versions.html">Older versions</a></li>
+                </ul>-->
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/scimple/five-minutes-tutorial.html">Five minutes tutorial</a></li>
+                    <li><a href="/scimple/user-guide.html">User Guide</a></li>
+                    <li><a href="/scimple/gen-docs/latest/apidocs/">JavaDocs</a></li>
+                    <li><a href="/scimple/gen-docs/latest/xref/">Cross-Reference</a></li>
+                    <!--li><a href="/scimple/gen-docs/latest/">Generated Reports</a></li-->
+                    <li><a href="/scimple/developer-guide.html">Developer Guide</a></li>
+                </ul>
+
+                {{ partialCached "common-navigation" . }}
+            </div><!-- navigation -->
+        </div><!-- leftColumn -->
+        <div id="rightColumn">
+            {{ partial "nav-headers.html" . }}
+            {{ block "main" . }}{{ end }}
+            {{ partial "nav-headers.html" . }}
+        </div><!-- rightColumn -->
+        <div id="endContent"></div>
+    </div><!-- content -->
+
+    {{ partial "footer.html" . }}
+</div><!-- container -->
+
+</body>
+
+</html>
