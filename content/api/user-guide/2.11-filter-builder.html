@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>2.11 - The FilterBuilder &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/brown.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/api-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+             
+                ApacheDS
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+            
+                <strong>LDAP API</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>LDAP API </h5>
+                <ul>
+                    <li><a href="/api/">Home</a></li>
+                    <li><a href="/api/news.html">News</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/api/downloads-1.html">Version 1.0.3</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/downloads-2.html">Version 2.0.1</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Getting Started</h5>
+                <ul>
+                    <li><a href="/api/vision.html">Vision</a></li>
+                    <li><a href="/api/java-api.html">Java API</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/api/five-minutes-tutorial.html">Five minute tutorial</a></li>
+                    <li><a href="/api/user-guide.html">User Guide</a></li>
+                    <li><a href="/api/migration-guide.html">API 1 to 2 migration</a></li>
+                    <li><a href="/api/gen-docs/latest/apidocs/">JavaDocs</a></li>
+                    <li><a href="/api/gen-docs/latest2/apidocs/">JavaDocs 2</a></li>
+                    <li><a href="/api/gen-docs/latest/xref/">Cross-Reference</a></li>
+                    <li><a href="/api/gen-docs/latest2/xref/">Cross-Reference 2</a></li>
+                    
+                    <li><a href="/api/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/api/internal-design-guide.html">Internal Guide</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="2.10-ldap-connection-template.html">2.10 - The LdapConnectionTemplate</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="2-basic-ldap-api-usage.html">2 - Basic LDAP API usage</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="3-advanced-ldap-api-usage.html">3 - Advanced LDAP API Usage</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+            
+	<h1 id="211---the-filterbuildere">2.11 - The FilterBuilder(e)</h1>
+<p>This class is a builder for constructing well formed search filters according to <a href="https://tools.ietf.org/html/rfc4515.html">RFC 4515</a>. This builder is most convenient when using static imports. For example:</p>
+<pre><code> import static org.apache.directory.ldap.client.api.search.FilterBuilder.and;
+ import static org.apache.directory.ldap.client.api.search.FilterBuilder.equal;
+ import static org.apache.directory.ldap.client.api.search.FilterBuilder.or;
+ 
+ ...
+ 
+         String filter = 
+                 or(
+                     and( 
+                         equal( &quot;givenName&quot;, &quot;kermit&quot; ), 
+                         equal( &quot;sn&quot;, &quot;the frog&quot; ) ),
+                     and( 
+                         equal( &quot;givenName&quot;, &quot;miss&quot; ), 
+                         equal( &quot;sn&quot;, &quot;piggy&quot; ) ) )
+                 .toString()
+</code></pre>
+<h2 id="and-filter">And filter</h2>
+<p>Returns a new FilterBuilder that will combine all of the supplied filters with a <strong>logical AND</strong> (&amp;). For example:</p>
+<pre><code>and( equal( &quot;givenName&quot;, &quot;kermit&quot; ), equal( &quot;sn&quot;, &quot;the frog&quot; ) ).toString()
+</code></pre>
+<p>would result in the string: <em>(&amp;(givenName=kermit)(sn=the frog))</em></p>
+<p>Which would match all entries with a given name of kermit and a surname the frog.</p>
+<h2 id="or-filter">Or filter</h2>
+<p>Returns a new FilterBuilder that will combine all of the supplied filters with a <strong>logical OR</strong> (|). For example:</p>
+<pre><code>or( equal( &quot;givenName&quot;, &quot;kermit&quot; ), equal( &quot;givenName&quot;, &quot;walter&quot; ) ).toString()
+</code></pre>
+<p>would result in the string: <em>(|(givenName=kermit)(givenName=walter))</em></p>
+<p>Which would match any entry with the givenName of either kermit or walter.</p>
+<h2 id="not-filter">Not filter</h2>
+<p>Returns a new FilterBuilder for negating another filter (!). For example:</p>
+<pre><code>not( present( &quot;givenName&quot; ) ).toString();
+</code></pre>
+<p>would result in the string: _(!(givenName=*))_</p>
+<h2 id="present-filter">Present Filter</h2>
+<p>Returns a new FilterBuilder for testing the presence of an attributes. For example:</p>
+<pre><code>present( &quot;givenName&quot; ).toString();
+</code></pre>
+<p>would result in the string: _(givenName=*)_</p>
+<p>Which would match any entry that has a givenName attribute.</p>
+<h2 id="equal-filter">Equal Filter</h2>
+<p>Returns a new FilterBuilder for testing equality of an attribute. For example:</p>
+<pre><code>equal( &quot;cn&quot;, &quot;Kermit The Frog&quot; ).toString();
+</code></pre>
+<p>would result in the string: <em>(cn=Kermit The Frog)</em></p>
+<p>Which would match entries with the common name Kermit The Frog.  Be careful when using the equal filter as it is an <em>EXACT MATCH</em> filter.  While it may seem natural to use * as a wildcard, it will actually be escaped using this filter.  If you meant to use a wildcard in your filter, you should use one of <a href="#startswith-filter">startsWith</a>, <a href="#endswith-filter">endsWith</a>, <a href="#contains-filter">contains</a>, or <a href="#substring-filter">substring</a>, .</p>
+<h2 id="extensible-filter">Extensible Filter</h2>
+<p>Returns a new FilterBuilder for testing equality using specified matching rules.
+For example:</p>
+<pre><code>extensible( &quot;cn&quot;, &quot;Kermit The Frog&quot; ).toString();
+</code></pre>
+<p>would result in the string: <em>(cn:=Kermit The Frog)</em></p>
+<p>Which would match entries with the common name Kermit The Frog.</p>
+<pre><code>extensible( &quot;cn&quot;, &quot;Kermit The Frog&quot; )
+    .useDnAttributes()
+    .toString();
+</code></pre>
+<p>would result in the string: <em>(cn:dn:=Kermit The Frog)</em></p>
+<p>Which would match entries with the common name Kermit The Frog even if the common name was only specified as part of the dn.</p>
+<pre><code>extensible( &quot;cn&quot;, &quot;Kermit The Frog&quot; )
+    .setMatchingRule( &quot;caseExactMatch&quot; )
+    .toString();
+</code></pre>
+<p>would result in the string: <em>(cn:caseExactMatch:=Kermit The Frog)</em></p>
+<p>Which would match entries with the common name Kermit The Frog, using a case sensitive matcher.</p>
+<pre><code>extensible( &quot;cn&quot;, &quot;Kermit The Frog&quot; )
+    .useDnAttributes()
+    .setMatchingRule( &quot;caseExactMatch&quot; )
+    .toString();
+</code></pre>
+<p>would result in the string: <em>(cn:dn:caseExactMatch:=Kermit The Frog)</em></p>
+<p>Which would match entries with the common name Kermit The Frog, using a case sensitive matcher even if the name was only specified as part of the dn.</p>
+<pre><code>extensible( &quot;Kermit The Frog&quot; )
+    .setMatchingRule( &quot;1.2.3.4.5.6.7&quot; )
+    .toString();
+</code></pre>
+<p>would result in the string: <em>(:1.2.3.4.5.6.7:=Kermit The Frog)</em></p>
+<p>Which would match entries with any attribute whose value is Kermit The Frog, using the <em>hypothetical</em> matching rule indicated by the oid 1.2.3.4.5.6.7.</p>
+<h2 id="less-or-equal-filter">Less Or Equal Filter</h2>
+<p>Returns a new FilterBuilder for testing lexicographical less than. For example:</p>
+<pre><code>lessThanOrEqual( &quot;sn&quot;, &quot;mzzzzzz&quot; ).toString();
+</code></pre>
+<p>would result in the string: <em>(sn&lt;=mzzzzzz)</em></p>
+<p>which would match results whose surname starts with the first half of the alphabet. Note, this is not perfect, but if you know anybody with a last name that starts with an <em>m</em> followed by six <em>z&rsquo;s</em>_&hellip;</p>
+<h2 id="greater-or-equal-filter">Greater Or Equal Filter</h2>
+<p>Returns a new FilterBuilder for testing lexicographical greater than. For example:</p>
+<pre><code>greaterThanOrEqual( &quot;sn&quot;, &quot;n&quot; ).toString();
+</code></pre>
+<p>would result in the string: <em>(sn&gt;=n)</em></p>
+<p>which would match results whose surname starts with the second half of the alphabet.</p>
+<h2 id="approximate-filter">Approximate Filter</h2>
+<p>Returns a new FilterBuilder for testing the approximate equality of an attribute. For example:</p>
+<pre><code>approximatelyEqual( &quot;l&quot;, &quot;san fransico&quot; ).toString();
+</code></pre>
+<p>would result in the string: <em>(l~=san fransico)</em></p>
+<p>Which MIGHT match results whose locality is San Francisco. The matching rule used to apply this filter is dependent on the server implementation.</p>
+<h2 id="startswith-filter">StartsWith Filter</h2>
+<p>Returns a new FilterBuilder that constructs a SubString filter with an initial part, zero or more any parts, but no final part. For example:</p>
+<pre><code>startsWith( &quot;sn&quot;, &quot;Th&quot;, &quot;Soft&quot;, &quot;Foun&quot; )).toString()
+</code></pre>
+<p>would result in the string: <em>(sn=Th*Soft*Foun*)</em></p>
+<p>Which would match any entry with an sn starting with the string &lsquo;Th&rsquo;, followed by &lsquo;Soft&rsquo;, then &lsquo;Foun&rsquo;, like &lsquo;The Apache Software Foundation&rsquo;.</p>
+<h2 id="endswith-filter">EndsWith Filter</h2>
+<p>Returns a new FilterBuilder that constructs a SubString filter with no initial part, zero or more any parts, and a final part. For instance:</p>
+<pre><code>endsWith( &quot;sn&quot;, &quot;Soft&quot;, &quot;Foun&quot;, &quot;ion&quot; )).toString()
+</code></pre>
+<p>would result in the string: <em>(sn=*Soft*Foun*ion)</em></p>
+<p>Which would match any entry with an sn containing the string &lsquo;Soft&rsquo; followed by &lsquo;Foun&rsquo; ending in &lsquo;ion&rsquo;, like &lsquo;The Apache Software Foundation&rsquo;.</p>
+<h2 id="contains-filter">Contains Filter</h2>
+<p>Returns a new FilterBuilder that constructs a SubString filter with no initial part, zero or more any parts, and no final part. For instance:</p>
+<pre><code>contains( &quot;sn&quot;, &quot;Soft&quot;, &quot;Foun&quot; )).toString()
+</code></pre>
+<p>would result in the string: <em>(sn=*Soft*Foun*)</em></p>
+<p>Which would match any entry with an sn containing the string &lsquo;Soft&rsquo; followed by &lsquo;Foun&rsquo;, like &lsquo;The Apache Software Foundation&rsquo;.</p>
+<h2 id="substring-filter">Substring Filter</h2>
+<p>Returns a new FilterBuilder that constructs a SubString filter with an initial part, zero or more any parts, and a final part. For instance:</p>
+<pre><code>substring( &quot;sn&quot;, &quot;The&quot;, &quot;Soft&quot;, &quot;Foun&quot;, &quot;ion&quot; )).toString()
+</code></pre>
+<p>would result in the string: <em>(sn=The*Soft*Foun*ion)</em></p>
+<p>Which would match any entry with an sn starting with &lsquo;The&rsquo;, followed by &lsquo;Soft&rsquo;, then &lsquo;Foun&rsquo;, and ending with &lsquo;ion&rsquo;, like &lsquo;The Apache Software Foundation&rsquo;.</p>
+<p>Note that if only two strings are supplied for parts, they will be the initial and the final:</p>
+<pre><code>substring( &quot;sn&quot;, &quot;The&quot;, &quot;ion&quot; )).toString()
+</code></pre>
+<p>would result in the string: <em>(sn=The*ion)</em></p>
+
+
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="2.10-ldap-connection-template.html">2.10 - The LdapConnectionTemplate</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="2-basic-ldap-api-usage.html">2 - Basic LDAP API usage</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="3-advanced-ldap-api-usage.html">3 - Advanced LDAP API Usage</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

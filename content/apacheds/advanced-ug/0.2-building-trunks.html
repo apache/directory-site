@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>0.2 - Building Trunks &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/green.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/server-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+            
+                <strong>ApacheDS</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+             
+                LDAP API
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>ApacheDS 2.0</h5>
+                <ul>
+                    <li><a href="/apacheds/">Home</a></li>
+                    <li><a href="/apacheds/news.html">News</a></li>
+                    <li><a href="/apacheds/features.html">Features</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/apacheds/downloads.html">ApacheDS 2.0.0.AM26</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/apacheds/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/apacheds/basic-user-guide.html">Basic User Guide </a></li>
+                    <li><a href="/apacheds/advanced-user-guide.html">Advanced User Guide</a></li>
+                    <li><a href="/apacheds/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/apacheds/kerberos-user-guide.html">Kerberos User Guide</a></li>
+                    <li><a href="/apacheds/configuration/ads-2.0-configuration.html">Configuration</a></li>
+                    <li><a href="/apacheds/gen-docs/latest/apidocs">JavaDocs</a></li>
+                    <li><a href="/apacheds/gen-docs/latest/xref">Cross-Reference</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="0.1-reporting-bugs.html">0.1 - Reporting Bugs</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="0-community.html">0 - Community</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="0.3-contributing.html">0.3 - Contributing</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+            
+	<h1 id="02---building-trunks">0.2 - Building Trunks</h1>
+<p>This page give some information about the layout of <em>Apache DS 2.0</em> trunks, and try to explain how it is built.</p>
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#project-hierarchy">Project Hierarchy</a>
+      <ul>
+        <li><a href="#project-project">Project project</a></li>
+        <li><a href="#checkstyle-configuration-project">Checkstyle-Configuration project</a></li>
+      </ul>
+    </li>
+    <li><a href="#junit-addons-project">Junit-Addons project</a>
+      <ul>
+        <li><a href="#apache-directory-ldap-api-project-formerly-known-as-shared">Apache Directory LDAP API project (formerly known as &ldquo;Shared&rdquo;)</a></li>
+        <li><a href="#jdbm-project">JDBM project</a></li>
+        <li><a href="#apacheds-project">ApacheDS project</a></li>
+      </ul>
+    </li>
+    <li><a href="#prerequisites-for-building">Prerequisites for building</a>
+      <ul>
+        <li><a href="#maven">Maven</a></li>
+        <li><a href="#jdk-5">JDK 5</a></li>
+      </ul>
+    </li>
+    <li><a href="#getting-the-code">Getting the code</a></li>
+    <li><a href="#building-the-trunks">Building the trunks</a>
+      <ul>
+        <li><a href="#building-the-trunks-1">Building the trunks</a></li>
+      </ul>
+    </li>
+    <li><a href="#running-the-server-without-building-installers">Running the server without building installers</a></li>
+    <li><a href="#building-the-installers">Building the installers</a></li>
+    <li><a href="#starting-the-server-without-installation">Starting the server without installation</a></li>
+    <li><a href="#eclipse">Eclipse</a>
+      <ul>
+        <li><a href="#building-eclipse-files">Building eclipse files</a></li>
+        <li><a href="#maven-settings">Maven settings</a></li>
+        <li><a href="#eclipse-hints">Eclipse hints</a></li>
+        <li><a href="#coding-standards">Coding standards</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+<h2 id="project-hierarchy">Project Hierarchy</h2>
+<p>The server is a composition of many projects, which should be built in a given order, assuming you want to build the trunk. This order is enforced by a top level pom, so you don&rsquo;t need to take care of this at all.</p>
+<p>We will expose the projects hierarchy, just for information.</p>
+<h3 id="project-project">Project project</h3>
+<p>We first have a meta-project, which contains mainly information about the maven plugins we use. This meta-project is used by all the real projects. This project has one single module :</p>
+<ul>
+<li>project</li>
+</ul>
+<h3 id="checkstyle-configuration-project">Checkstyle-Configuration project</h3>
+<p>This project is used to define the checkstyle configuration we use when we generate the reports.</p>
+<p>It has one single module :</p>
+<ul>
+<li>checkstyle-configuration</li>
+</ul>
+<p><em>Dependencies</em> : project</p>
+<h2 id="junit-addons-project">Junit-Addons project</h2>
+<p>This project is used to add concurrent tests in the server. It&rsquo;s a fork of [Mycila](ref needed).</p>
+<p>It has one single module :</p>
+<ul>
+<li>junit-addons</li>
+</ul>
+<p><em>Dependencies</em> : project</p>
+<h3 id="apache-directory-ldap-api-project-formerly-known-as-shared">Apache Directory LDAP API project (formerly known as &ldquo;Shared&rdquo;)</h3>
+<p>This project contains all the common LDAP structures that are used by ApacheDS, Apache Studio and the Apache LDAP API. In fact, this is the Apache LDAP API (even if we do have slightly more than necessary for an LDAP API).</p>
+<p>This project depends on &lsquo;project&rsquo;.</p>
+<p>Here is its hierarchy :</p>
+<ul>
+<li>api-parent
+<ul>
+<li>api-i18n</li>
+<li>api-util</li>
+<li>api-asn1-parent</li>
+<li>api-asn1-api</li>
+<li>api-asn1-ber</li>
+<li>api-ldap-parent</li>
+<li>api-ldap-model</li>
+<li>api-ldap-codec-parent</li>
+<li>api-ldap-codec-core</li>
+<li>api-ldap-net-parent</li>
+<li>api-ldap-net-mina</li>
+<li>api-ldap-codec-standalone</li>
+<li>api-dsml-parent</li>
+<li>api-dsml-parser</li>
+<li>api-ldap-extras-parent</li>
+<li>api-ldap-extras-aci</li>
+<li>api-ldap-schema-parent</li>
+<li>api-ldap-schema-data</li>
+<li>api-ldap-client-parent</li>
+<li>api-ldap-client-api</li>
+<li>api-dsml-engine</li>
+<li>api-ldap-extras-codec-api</li>
+<li>api-ldap-extras-codec</li>
+<li>api-ldap-extras-util</li>
+<li>api-ldap-extras-sp</li>
+<li>api-ldap-extras-trigger</li>
+<li>api-ldap-schema-converter</li>
+<li>api-all</li>
+<li>api-ldap-client-all</li>
+<li>api-integ</li>
+<li>apache-ldap-api</li>
+</ul>
+</li>
+</ul>
+<p><em>Dependencies</em> : project, junit-addons</p>
+<h3 id="jdbm-project">JDBM project</h3>
+<p>This project covers the JDBM code. It&rsquo;s a fork of the [JDBM 1.0 project](ref needed).</p>
+<p>The current project hierarchy is the following :</p>
+<ul>
+<li>apacheds-jdbm-parent
+<ul>
+<li>apacheds-jdbm</li>
+<li>apacheds-jdbm2</li>
+</ul>
+</li>
+</ul>
+<p><em>Dependencies</em> : project, junit-addons</p>
+<h3 id="apacheds-project">ApacheDS project</h3>
+<p>This project is the server itself. It depends on &lsquo;project&rsquo;, &lsquo;shared&rsquo; and &lsquo;jdbm&rsquo;.</p>
+<p>The current project hierarchy is the following (as of 2.0.0-M9-SNAPSHOT) :</p>
+<ul>
+<li>apacheds-parent
+<ul>
+<li>apacheds-i18n</li>
+<li>apacheds-core-constants</li>
+<li>apacheds-core-api</li>
+<li>apacheds-core-shared</li>
+<li>apacheds-interceptors</li>
+<li>apacheds-interceptors-admin</li>
+<li>apacheds-interceptors-authn</li>
+<li>apacheds-interceptors-authz</li>
+<li>apacheds-interceptors-changelog</li>
+<li>apacheds-interceptors-collective</li>
+<li>apacheds-interceptors-event</li>
+<li>apacheds-interceptors-exception</li>
+<li>apacheds-interceptors-journal</li>
+<li>apacheds-interceptors-normalization</li>
+<li>apacheds-interceptors-operational</li>
+<li>apacheds-interceptors-referral</li>
+<li>apacheds-interceptors-schema</li>
+<li>apacheds-interceptors-subtree</li>
+<li>apacheds-interceptors-triggers</li>
+<li>apacheds-core</li>
+<li>apacheds-core-avl</li>
+<li>apacheds-xdbm-partition</li>
+<li>apacheds-ldif-partition</li>
+<li>apacheds-jdbm-partition</li>
+<li>apacheds-core-annotations</li>
+<li>apacheds-core-jndi</li>
+<li>apacheds-protocol-shared</li>
+<li>apacheds-kerberos-codec</li>
+<li>apacheds-interceptor-kerberos</li>
+<li>apacheds-protocol-dhcp</li>
+<li>apacheds-protocol-dns</li>
+<li>apacheds-protocol-kerberos</li>
+<li>apacheds-protocol-ldap</li>
+<li>apacheds-protocol-ntp</li>
+<li>apacheds-server-annotations</li>
+<li>apacheds-server-config</li>
+<li>apacheds-server-jndi</li>
+<li>apacheds-server-replication</li>
+<li>apacheds-test-framework</li>
+<li>apacheds-xdbm-tools</li>
+<li>apacheds-all</li>
+<li>apacheds-interceptors-logger</li>
+<li>apacheds-interceptors-hash</li>
+<li>apacheds-core-integ</li>
+<li>apacheds-server-integ</li>
+<li>apacheds-http-directory-bridge</li>
+<li>apacheds-http-integration</li>
+<li>apacheds-service-builder</li>
+<li>apacheds-kerberos-test</li>
+<li>ldap-client-test</li>
+<li>apacheds-service</li>
+<li>apacheds-wrapper</li>
+<li>apacheds-installers-maven-plugin</li>
+<li>apacheds-installers</li>
+</ul>
+</li>
+</ul>
+<p><em>Dependencies</em> : project, junit-addons jdbm, shared,</p>
+<h2 id="prerequisites-for-building">Prerequisites for building</h2>
+<p>You must have installed <strong>Maven 3.0.4</strong> and have a <strong>JDK 5</strong> (or a more recent one) installed on your computer. A working internet connection is also mandatory, unless you have all the needed dependences and plugins loaded locally.</p>
+<DIV class="note" markdown="1">
+If the build hangs or you get an out of memory exception please increase the heap space:
+<ul>
+<li>
+<p>For Linux:</p>
+<p>MAVEN_OPTS=&rdquo;-Xmx256m&rdquo; mvn clean install</p>
+</li>
+<li>
+<p>For Windows:</p>
+<pre><code>SET MAVEN_OPTS=&quot;-Xmx256m&quot;
+mvn clean install
+</code></pre>
+</li>
+</ul>
+</DIV>
+<h3 id="maven">Maven</h3>
+<p><a href="http://maven.apache.org/download.html">Download</a> and install Maven 3.0.4.</p>
+<p>Add a MAVEN_HOME environment variable and add MAVEN_HOME/bin to your system path:</p>
+<p>On a Linux box you could add the following to the .bashrc file  (.bashrc is a file you&rsquo;ll find in your home directory)</p>
+<pre><code>...
+export MAVEN_HOME=/opt/maven-3.0.4
+export PATH=$JAVA_HOME:$JAVA_HOME/bin:$MAVEN_HOME/bin:$PATH
+...
+</code></pre>
+<p>Windows users, use Control Panel -&gt; System -&gt; Advanced -&gt; Environment Variables</p>
+<h3 id="jdk-5">JDK 5</h3>
+<DIV class="note" markdown="1">
+There may be some issues with older JDK versions and Kerberos, therefore we recommend using a version >=1.5.0_09
+</DIV>
+<p>Any newer version should also work.</p>
+<h2 id="getting-the-code">Getting the code</h2>
+<p>To download the sources from trunk, you must have installed a <strong>Subversion</strong> client.</p>
+<p>With readonly access :</p>
+<pre><code>svn co http://svn.apache.org/repos/asf/directory/apacheds/trunk-with-dependencies apacheds-trunk
+</code></pre>
+<p>With read/write access (for committers only) :</p>
+<pre><code>svn co https://svn.apache.org/repos/asf/directory/apacheds/trunk-with-dependencies apacheds-trunk
+</code></pre>
+<h2 id="building-the-trunks">Building the trunks</h2>
+<p>You may either specify the profile at the command-line, each time you use &lsquo;mvn&rsquo;, or you may configure the profile to always be active.</p>
+<p>To use a profile at the command-line:</p>
+<pre><code># mvn -Papache [options] [&lt;goal(s)&gt;] [&lt;phase(s)&gt;]
+</code></pre>
+<h3 id="building-the-trunks-1">Building the trunks</h3>
+<p>Now, we can compile the projects.</p>
+<p>The command is simple :</p>
+<pre><code>cd apacheds-trunk
+mvn clean install
+</code></pre>
+<p>A lot of plugins will be downloaded. If you are curious, you can then look at .m2/repository to see what has been downloaded on this step.
+Building should finish with these lines:</p>
+<pre><code>[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESSFUL
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 8 minutes 30 seconds
+[INFO] Finished at: Mon Oct 30 23:32:41 CET 2006
+[INFO] Final Memory: 18M/32M
+[INFO] ------------------------------------------------------------------------
+</code></pre>
+<DIV class="info" markdown="1">
+If you want to do really safe build, run the following commands in trunks:
+<pre><code>resources/superclean.sh
+mvn install -Dintegration
+</code></pre>
+</DIV>
+<h2 id="running-the-server-without-building-installers">Running the server without building installers</h2>
+<p>The server can be run without building any installers. This is helpful during development
+(and also can be run for regular purpose as well)</p>
+<pre><code>cd apacheds-trunk/apacheds/service
+./apacheds.sh
+</code></pre>
+<p>To start the server in remote debug mode pass -debug flag. The JDWP socket will be listening
+on port 8008.</p>
+<h2 id="building-the-installers">Building the installers</h2>
+<p>Building the installers is a two phase process :</p>
+<pre><code>cd apacheds-trunk
+mvn -Pinstallers install
+</code></pre>
+<p>That&rsquo;s it, the jars will be find in target/images/apacheds-2.0.0-M?-SNAPSHOT-<XXXXXX>-setup.jar where XXXXXX is your local system and M? is the milestone release number for the 2.0 branch.</p>
+<h2 id="starting-the-server-without-installation">Starting the server without installation</h2>
+<p>The directory apacheds-trunk/installers/apacheds-noarch contains a script for Linux (apacheds.sh) and one for Windows (apacheds.bat) which can be used for starting the server without the need to install it first (as non-root-user on Linux and non-Windows-service on Windows).</p>
+<p>Linux:</p>
+<pre><code>cd apacheds-trunk/installers/apacheds-noarch
+./apacheds.sh
+</code></pre>
+<h2 id="eclipse">Eclipse</h2>
+<p>As Apache Studio is an Eclipse plugin/RCP application, we use extensively this IDE. Of course, you can use another IDE.</p>
+<h3 id="building-eclipse-files">Building eclipse files</h3>
+<p>To build the .project and .classpath files for eclipse, type the following commands :</p>
+<pre><code>cd apacheds-trunk
+mvn eclipse:eclipse
+</code></pre>
+<h3 id="maven-settings">Maven settings</h3>
+<p>Don&rsquo;t forget to declare a classpath variable named M2_REPO, pointing to ~/.m2/repository, otherwise many links to existing jars will be broken.</p>
+<p>You can declare new variables in Eclipse in <em>Windows -&gt; Preferences&hellip;</em> and selecting <em>Java -&gt; Build Path -&gt; Classpath Variables</em></p>
+<h3 id="eclipse-hints">Eclipse hints</h3>
+<p>Add an eclipse-apacheDS.sh file in your eclipse root directory, to allow eclipse to get more memory (e.g. 750MB)
+You may also declare a specific workspace when launching eclipse. I have created a workspace-apacheDS directory in my HOME directory, where all the ApacheDS project is built when I use Eclipse.</p>
+<pre><code>&lt;eclipse_root&gt;/eclipse -data $HOME/workspace-apacheDS -vm java -vmargs -Xmx750M
+</code></pre>
+<p>Launch eclipse :</p>
+<pre><code>&lt;eclipse_root&gt;/eclipse-apacheDS.sh
+</code></pre>
+<h3 id="coding-standards">Coding standards</h3>
+<p>The coding standards including an eclipse code formatting profile is available <a href="../coding-standards.html">here</a></p>
+
+
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="0.1-reporting-bugs.html">0.1 - Reporting Bugs</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="0-community.html">0 - Community</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="0.3-contributing.html">0.3 - Contributing</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

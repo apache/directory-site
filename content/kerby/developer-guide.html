@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>Developer&#39;s Guide &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/orange.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/api-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+             
+                ApacheDS
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+             
+                LDAP API
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+            
+                <strong>Kerby</strong>
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                <h5>Kerby</h5>
+                <ul>
+                    <li><a href="/kerby/">Home</a></li>
+                    <li><a href="/kerby/news.html">News</a></li>
+                    <li><a href="/kerby/features.html">Features</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/kerby/downloads.html">Version 2.0.1</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/kerby/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Getting Started</h5>
+                <ul>
+                    
+                    <li><a href="/kerby/issues.html">Issues</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/kerby/overview.html">Overview</a></li>
+                    
+                    <li><a href="/kerby/kerby-asn1.html">Kerby ASN1</a></li>
+                    <li><a href="/kerby/user-guide.html">User Guide</a></li>
+                    
+                    
+                    
+                    <li><a href="/kerby/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/kerby/tutorials.html">Tutorials</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+
+            
+	<h1 id="developers-guide">Developer&rsquo;s Guide</h1>
+<p>This is a simple guide to help developers get going.</p>
+<h2 id="source-repository">Source Repository</h2>
+<p>To get the source, you will need to have git installed. Just type the following command to get the latest development version:</p>
+<pre><code>git clone https://gitbox.apache.org/repos/asf/directory-kerby.git
+</code></pre>
+<h2 id="git-mirror">Git Mirror</h2>
+<p>The git repository is mirrored to Github: <a href="https://github.com/apache/directory-kerby/">https://github.com/apache/directory-kerby/</a>.</p>
+<h2 id="build-requirements">Build Requirements:</h2>
+<ul>
+<li>JDK 1.7+</li>
+<li>Maven 3.0 or later</li>
+<li>Internet connection for first build (to fetch all Maven and Kerby dependencies)</li>
+</ul>
+<p>##Where to run Maven from?</p>
+<p>It should be run at the top directory of Kerby.</p>
+<p>##Maven build goals:</p>
+<ul>
+<li>Clean         : mvn clean</li>
+<li>Compile       : mvn compile</li>
+<li>Run tests     : mvn test</li>
+<li>Create JAR    : mvn package</li>
+<li>Install JAR in M2 cache   : mvn install</li>
+<li>Deploy JAR to Maven repo  : mvn deploy</li>
+<li>Build distribution        : mvn package [-Pdist]</li>
+<li>Run findbugs   : mvn compile findbugs:findbugs</li>
+<li>Run benchmarks : mvn integration-test -Pbenchmark</li>
+</ul>
+<p>##Build options:</p>
+<ul>
+<li>
+<p>To run findbugs without running tests :</p>
+<p>$ mvn clean package -DskipTests findbugs:findbugs [site]</p>
+</li>
+<li>
+<p>Building distributions without running tests :</p>
+<p>$ mvn package -Pdist -DskipTests</p>
+</li>
+</ul>
+<p>(tar package in /kerby/kerby-dist/kdc-dist/target/ &amp; /kerby/kerby-dist/tool-dist/target/)</p>
+<ul>
+<li>
+<p>Generate javadoc without running tests:</p>
+<p>$ mvn clean package -DskipTests javadoc:javadoc</p>
+</li>
+<li>
+<p>Checkstyle plugin &amp; pmd plugin are run by default.
+To prevent them from running, add option [-Pnochecks], such as:</p>
+<p>$ mvn package -Pnochecks</p>
+</li>
+</ul>
+<h2 id="setup-intellij">Setup Intellij</h2>
+<ol>
+<li>File -&gt; Import Project&hellip;</li>
+<li>Choose &lsquo;directory-kerby&rsquo; as root directory</li>
+<li>Import project from external model -&gt; Maven</li>
+<li>Finish</li>
+</ol>
+<h2 id="issue-tracker">Issue Tracker</h2>
+<p>Jira: <a href="https://issues.apache.org/jira/browse/DIRKRB">https://issues.apache.org/jira/browse/DIRKRB</a></p>
+
+
+            
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

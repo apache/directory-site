@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>6.3 - Attribute &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/brown.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/api-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+             
+                ApacheDS
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+            
+                <strong>LDAP API</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>LDAP API </h5>
+                <ul>
+                    <li><a href="/api/">Home</a></li>
+                    <li><a href="/api/news.html">News</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/api/downloads-1.html">Version 1.0.3</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/downloads-2.html">Version 2.0.1</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Getting Started</h5>
+                <ul>
+                    <li><a href="/api/vision.html">Vision</a></li>
+                    <li><a href="/api/java-api.html">Java API</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/api/five-minutes-tutorial.html">Five minute tutorial</a></li>
+                    <li><a href="/api/user-guide.html">User Guide</a></li>
+                    <li><a href="/api/migration-guide.html">API 1 to 2 migration</a></li>
+                    <li><a href="/api/gen-docs/latest/apidocs/">JavaDocs</a></li>
+                    <li><a href="/api/gen-docs/latest2/apidocs/">JavaDocs 2</a></li>
+                    <li><a href="/api/gen-docs/latest/xref/">Cross-Reference</a></li>
+                    <li><a href="/api/gen-docs/latest2/xref/">Cross-Reference 2</a></li>
+                    
+                    <li><a href="/api/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/api/internal-design-guide.html">Internal Guide</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="6.2-administrative-role.html">6.2 - AdministrativeRole</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="6-ldap-data-structures.html">6 - LDAP data structures</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="6.4-attribute-type.html">6.4 - AttributeType</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+            
+	<h1 id="63---attribute">6.3 - Attribute</h1>
+<p>The <em>Attribute</em> class is used to store values associated with an <em>AttributeType</em>. An <em>Entry</em> can contain many <em>Attribute{s</em>, but only one of them is mandatory: the <em>ObjectClass</em>  <em>Attribute</em>.</p>
+<p>An <em>Attribute</em> can store zero, one or N values, accordingly to its associated <em>AttributeType</em>, which may allow null values, and which also can forbid muli-values.</p>
+<p>The <em>Attribute</em> has a internal <em>AttributeType</em> which is usually defined using its name. This name is case insensitive, and we can also use the <em>AttributeType</em> <em>OID</em>.</p>
+<h2 id="creating-an-attribute">Creating an Attribute</h2>
+<p>Creating an <em>Attribute</em> is not complex. Again, we split the API into two categories:</p>
+<ul>
+<li>the schema agnostic <em>Attributes</em></li>
+<li>the schema aware <em>Attributes</em></li>
+</ul>
+<h3 id="schema-agnostic-attribute">Schema agnostic Attribute</h3>
+<p>If we don&rsquo;t inject a <em>SchemaManager</em> into the constructor, then the <em>Attribute</em> will have no way to control whether its <em>AttributeType</em> exists, nor that its <em>Values</em> are valid.</p>
+<p>Let&rsquo;s see how we can create <em>Attributes</em>. Basically, all what that needed is to provide the <em>AttributeType</em> as a String, and some <em>Values</em> (that are optional). Here is an example:</p>
+<pre><code>:::Java
+Attribute attribute = new DefaultAttribute( &quot; CN &quot; );
+</code></pre>
+<p>Here, we created an empty <em>Attribute</em>. Note that <em>cn</em> does not allow empty values, but it&rsquo;s not enforced. Also note that the <em>AttributeType</em> is lowercase and trimmed internally.</p>
+<p>Let&rsquo;s see another example, with some values:</p>
+<pre><code>:::Java
+Attribute attribute = new DefaultAttribute( &quot; CN &quot;, &quot;test&quot;, &quot;Test&quot;, &quot; test &quot;, &quot;test&quot; );
+</code></pre>
+<p>Here, we create an <em>Attribute</em> with 3 values. We can see that the values are not duplicated (the <em>&ldquo;test&rdquo;</em> value is only inserted once) and that values are case sensitive (the <em>&ldquo;test&rdquo;</em> and <em>&ldquo;Test&rdquo;</em> values are both stored in the <em>Attribute</em>). The values aren&rsquo;t trimmed either, so we can have a <em>&ldquo;test&rdquo;</em> and a <em>&rdquo; test &ldquo;</em> values stored.</p>
+<p>This is why having a schema aware <em>Attribute</em> is really handy.</p>
+<p>It&rsquo;s possible to store binary values into an <em>Attribute</em> too:</p>
+<pre><code>:::Java
+byte[] bytes1 = new byte[]{0x01, 0x02};
+byte[] bytes2 = new byte[]{0x03, 0x04};
+byte[] bytes3 = new byte[]{0x01, 0x02};
+
+Attribute attribute = new DefaultAttribute( &quot; JpegPhoto &quot;, bytes1, bytes2, bytes3 );
+</code></pre>
+<p>Same here: values are not duplicated.</p>
+<p>Note that it&rsquo;s not allowed to store a mix of binary and String values into an <em>Attribute</em>:</p>
+<pre><code>:::Java
+byte[] bytes1 = new byte[]{0x01, 0x02};
+
+Attribute attribute = new DefaultAttribute( &quot; JpegPhoto &quot;, &quot;test&quot;, bytes1 ); // Does not compile
+</code></pre>
+<h3 id="schema-aware-attribute">Schema aware Attribute</h3>
+<p>We can inject a <em>SchemaManager</em> into the <em>Attribute</em> which will allow more control over the values stored within the <em>Attribute</em>. Let&rsquo;s see an example of how this works:</p>
+<pre><code>:::Java
+Attribute attribute = new DefaultAttribute( atCn );
+</code></pre>
+<p>Here, we created an <em>Attribute</em> with a specific <em>AttributeType</em> (&lsquo;atCn&rsquo;) and no value. Let&rsquo;s create a new <em>Attribute</em> with some values:</p>
+<pre><code>:::Java
+Attribute attribute = new DefaultAttribute( atCn, &quot;test&quot;, &quot;Test&quot;, &quot;  test  &quot; );
+</code></pre>
+<p>The important point here is that the values are all considered equal. The <em>contains</em> method also uses the schema to compare its given value with the interned values. Here, with the <em>cn</em> <em>AttributeType</em>, the value is not case sensitive, so <em>&ldquo;TEST&rdquo;</em> is considered as an existing value, even if we injected <em>&ldquo;test&rdquo;</em>.</p>
+<h2 id="modifying-an-attribute">Modifying an Attribute</h2>
+<p>Now that we created an <em>Attribute</em> we would like to add or remove values from it. This is quite easy. We have a set of methods to add or remove values, and depending on whether the <em>Attribute</em> is schema aware or not, the added values will be checked.</p>
+<h3 id="adding-some-value">Adding some value</h3>
+<p>Here is an example of a value addition into a schema agnostic <em>Attribute</em>, then the same operation into a schema aware <em>Attribute</em>:</p>
+<pre><code>:::Java
+Attribute attribute = new DefaultAttribute( &quot; CN &quot; );
+Attribute attributeSA = new DefaultAttribute( atCn );
+
+// Add two values
+attribute.add( &quot;test1&quot;, &quot;&quot; );
+
+// add two values
+attributeSA.add( &quot;test1&quot;, &quot;&quot; );
+</code></pre>
+<p>We can see that the schema aware <em>Attribute</em> just contains only one value after the operation, as the <em>cn</em> attribute type does not allow empty strings.</p>
+<p>There is one important point to understand &ndash; whenever a schema agnostic <em>Attribute</em> is created, it knows nothing about the type of values it will store. Once the first value is added, the <em>Attribute</em> will be typed accordingly to the first value added. Then we can no longer add values that are not of the same type.</p>
+<p>If the <em>Attribute</em> is schema aware, it&rsquo;s quite obvious. You won&rsquo;t be able to add a binary value into a Human Readable <em>Attribute</em>.
+The following test shows that:</p>
+<pre><code>:::Java
+Attribute attribute = new DefaultAttribute( &quot; CN &quot; );
+Attribute attributeSA = new DefaultAttribute( atCn );
+
+byte[] bytes = new byte[]{0x01, 0x02};
+
+
+// Add two values
+attribute.add( &quot;test1&quot; );
+attribute.add( bytes );
+
+// add two values
+attributeSA.add( &quot;test1&quot; );
+attributeSA.add( bytes );
+</code></pre>
+<h3 id="removing-some-values">Removing some values</h3>
+<p>Removing a value from an <em>Attribute</em> is a trivial operation. Of course, if the <em>Attribute</em> is schema aware, we will use the <em>AttributeType</em> comparator to check if the value is present in the <em>Attribute</em> or not (the comparator is associated with the attribute equality <em>MatchingRule</em>.</p>
+<p>Here is an example:</p>
+<pre><code>:::Java
+Attribute attribute = new DefaultAttribute( &quot; CN &quot; );
+
+// Add three values
+attribute.add( &quot;test1&quot;, &quot;test2&quot;, &quot;test3&quot; );
+
+// Remove 2 of them
+attribute.remove( &quot;test2&quot;, &quot;test3&quot; );
+
+// Try to remove the last one, using wrong casing
+attribute.remove( &quot;Test1&quot; );
+</code></pre>
+<p>And the same example, on a schema aware <em>Attribute</em>. It demonstrates how convenient it is to manipulate such schema aware objects:</p>
+<pre><code>:::Java
+Attribute attribute = new DefaultAttribute( atCn );
+
+// Add three values
+attribute.add( &quot;test 1&quot;, &quot;test 2&quot;, &quot;test 3&quot; );
+
+// Remove 2 of them
+attribute.remove( &quot;TEST 2&quot;, &quot;test   3&quot; );
+
+// Try to remove the last one, using wrong casing
+attribute.remove( &quot;Test 1&quot; );
+</code></pre>
+<h2 id="attribute-data-access-methods">Attribute data access methods</h2>
+<p>We have a set of methods used to get some information about the <em>Attribute</em>. They are described in this chapter.</p>
+<h3 id="contains">contains()</h3>
+<p>Checks if the given values are present in the <em>Attribute</em>. We can check for more than one value, but in this case, the method returns <em>true</em> only if <strong>all</strong> the values are present.</p>
+<p>If the <em>Attribute</em> is schema aware, then the check uses the <em>AttributeType</em> to compare the given values with the interned values, otherwise, we do a strict comparison.</p>
+<p>Here is an example:</p>
+<pre><code>:::Java
+Attribute attribute1 = new DefaultAttribute( atCn );
+
+// Add three values
+attribute1.add( &quot;test 1&quot;, &quot;test 2&quot;, &quot;test 3&quot; );
+
+Attribute attribute2 = new DefaultAttribute( &quot;cn&quot; );
+
+// Add three values
+attribute2.add( &quot;test 1&quot;, &quot;test 2&quot;, &quot;test 3&quot; );
+</code></pre>
+<h3 id="get">get()</h3>
+<p>Returns the first value from the <em>Attribute</em>. The first value is the one which has been added first. Note that it returns a <em>Value</em> instance.</p>
+<h3 id="getattributetype">getAttributeType()</h3>
+<p>Returns the internal <em>AttributeType</em>, if the <em>Attribute</em> is schema aware.</p>
+<h3 id="getbytes">getBytes()</h3>
+<p>Returns the first value as a <em>byte[]</em>, if the <em>Attribute</em> is not human readable. The user <strong>must</strong> know that the <em>Attribute</em> contains binary values, otherwise they will get an <em>LdapInvalidAttributeValueException</em>.</p>
+<h3 id="getstring">getString()</h3>
+<p>Returns the first value as a <em>String</em>, if the <em>Attribute</em> is  human readable. The user <strong>must</strong> know that the <em>Attribute</em> contains String values, otherwise they will get an <em>LdapInvalidAttributeValueException</em>.</p>
+<h3 id="getid">getId()</h3>
+<p>Returns the <em>AttributeType</em> normalized ID. If the <em>Attribute</em> is schema agnostic, it will be the trimmed and lower cased user provided ID, otherwise it will be the <em>AttributeType</em> OID (not the name).</p>
+<h3 id="getupid">getUpId()</h3>
+<p>Returns the attribute type user provided ID, if the user provided one. Typically, if the <em>Attribute</em> is schema aware, the user might not provide an ID, and in this case, this method will return the <em>AttributeType</em> name, or default to the OID.</p>
+<h3 id="ishumanreadable">isHumanReadable()</h3>
+<p>Tells if the <em>Attribute</em> contains String values or binary values.</p>
+<h2 id="miscellaneous-methods">Miscellaneous methods</h2>
+<p>We also have a set of miscellaneous methods, which are not frequently used. Here they are:</p>
+<h3 id="apply-attributetype-">apply( AttributeType )</h3>
+<p>Inject an <em>AttributeType</em> into the <em>Attribute</em>, making it schema aware. It will check that the associated values are valid at the same time, and normalize the values.</p>
+<p>Here is an example of the impact of such a method on an existing attribute :</p>
+<pre><code>:::Java
+Attribute attribute = new DefaultAttribute( &quot;CN&quot;, &quot;  A    test&quot; );
+
+attribute.apply( atCn );
+</code></pre>
+<p>It shows that we can now check that a value is not literately compared, the modified attribute uses the Equality <em>MatchingRule</em> to compare the values.</p>
+<p>Here is another example, where we try to apply an attribute type to some attribute containing an invalid value : it generates an exception, as expected.</p>
+<pre><code>:::Java
+byte[] bytes = new byte[]{0x01, 0x02};
+Attribute attribute = new DefaultAttribute( &quot;CN&quot;, bytes );
+
+attribute.apply( atCn );
+</code></pre>
+<h3 id="clear">clear()</h3>
+<p>This method removes all the values from the attribute. The attribute type is not removed. Here is an example demonstrating how it works:</p>
+<pre><code>:::Java
+Attribute attribute = new DefaultAttribute( atCn, &quot;test1&quot;, &quot;test2&quot; );
+
+attribute.clear();
+</code></pre>
+<h3 id="clone">clone()</h3>
+<p>This method creates a new instance of an existing attribute. All of the attribute values along with its attribute type are cloned and distinct from the original attribute.</p>
+<h3 id="equals-object-">equals( Object )</h3>
+<p>Compares two <em>Attributes</em>. All of its values are compared and should be present in both attributes. If you compare a schema aware <em>Attribute</em> with a schema agnostic <em>Attribute</em>, they won&rsquo;t be equal.</p>
+<p>Here is a snippet of code demonstrating the <em>equals</em> method:</p>
+<pre><code>:::Java
+Attribute attribute1 = new DefaultAttribute( atCn, &quot;test 1&quot;, &quot;test 2&quot;, &quot;test 3&quot; );
+Attribute attribute2 = new DefaultAttribute( atCn, &quot;Test   3&quot;, &quot;Test 2  &quot;, &quot;Test 1&quot; );
+Attribute attribute3 = new DefaultAttribute( &quot;cn&quot;, &quot;test 1&quot;, &quot;test 3&quot;, &quot;test 2&quot; );
+Attribute attribute4 = new DefaultAttribute( &quot;cn&quot;, &quot;test 1&quot;, &quot;test 3&quot;, &quot;test 2&quot; );
+
+// Should be true
+boolean equals = attribute1.equals( attribute2 );
+equals = attribute3.equals( attribute4 );
+
+// Should be false
+equals = attribute1.equals( attribute3 );
+equals = attribute1.equals( attribute4 );
+equals = attribute2.equals( attribute4 );
+
+// Now, inject an AttrbuteType in one attribute    
+attribute4.apply( atCn );
+
+// The previously not equals attributes are now equal :
+equals = attribute1.equals( attribute4 );
+equals = attribute2.equals( attribute4 );
+</code></pre>
+<h3 id="isinstanceof-attributetype-">isInstanceOf( AttributeType )</h3>
+<p>Tells if an <em>Attribute</em> derives from a given <em>AttributeType</em>. It can be useful if you have a schema aware <em>Attribute</em> and want to know if its attribute type inherits from another one. Here is an example of usage:</p>
+<pre><code>:::Java
+Attribute attribute = new DefaultAttribute( atCn, &quot;test 1&quot;, &quot;test 2&quot;, &quot;test 3&quot; );
+
+// Should be true
+boolean value = attribute.isInstanceOf( atCn );
+</code></pre>
+<h3 id="isvalid-attributetype-">isValid( AttributeType )</h3>
+<p>Checks if the <em>Attribute</em> contains valid data. It&rsquo;s useful if one wants to apply an <em>AttributeType</em> to the <em>Attribute</em>, as the <em>isValid</em> method will tell if it&rsquo;s possible to do so without throwing an exception.</p>
+<p>Here is some code that test the different use cases:</p>
+<pre><code>:::Java
+Attribute attribute1 = new DefaultAttribute( &quot;cn&quot;, &quot;\uFFFDtest&quot; );
+
+// Should be false
+boolean isValid = attribute1.isValid( atCn ) );
+
+Attribute attribute2 = new DefaultAttribute( &quot;cn&quot; );
+
+// Should be false, 'cn' requires a value
+isValid = attribute2.isValid( atCn );
+
+Attribute attribute3 = new DefaultAttribute( &quot;cn&quot;, &quot;test&quot; );
+
+// Should be true
+value = attribute3.isValid( atCn );
+
+Attribute attribute4 = new DefaultAttribute( &quot;dc&quot;, &quot;test&quot;, &quot;test2&quot; );
+
+// Should be false, we can't put more than one value in 'dc'
+value = attribute4.isValid( atDc );
+</code></pre>
+<h3 id="iterator">iterator()</h3>
+<p>A convenient way to iterate over all of the <em>Attribute</em> values. It enables the <em>for ( Value&lt;?&gt; value : attribute )</em> construct. Here is an example using the iterator:</p>
+<pre><code>:::Java
+Attribute attribute = new DefaultAttribute( atCn, &quot;test 1&quot;, &quot;test 2&quot;, &quot;test 3&quot; );
+
+for ( Value&lt;?&gt; value : attribute )
+{
+    System.out.println( &quot;Value : &quot; + value );
+}
+</code></pre>
+<p>This code produces the following output:</p>
+<pre><code>:::Java
+Value : test 1
+Value : test 2
+Value : test 3
+</code></pre>
+<h3 id="setupid">setUpId()</h3>
+<p>Sets the user provided identifier for the attribute type. If the <em>Attribute</em> is schema agnostic, then the normalized ID will be the given user provided ID lower cased and trimmed. If it&rsquo;s schema aware, it will be used instead of the <em>AttributeType</em> ID.</p>
+<h3 id="size">size()</h3>
+<p>Returns the number of values stored in this <em>Attribute</em></p>
+
+
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="6.2-administrative-role.html">6.2 - AdministrativeRole</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="6-ldap-data-structures.html">6 - LDAP data structures</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="6.4-attribute-type.html">6.4 - AttributeType</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

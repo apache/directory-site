@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>1.1 - B-tree Basics &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/turquoise.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/mavibot-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+             
+                ApacheDS
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+             
+                LDAP API
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+            
+                <strong>Mavibot</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>Mavibot 1.0</h5>
+                <ul>
+                    <li><a href="/mavibot/">Home</a></li>
+                    <li><a href="/mavibot/news.html">News</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/mavibot/downloads.html">Version 1.0.0-M8</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/mavibot/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Getting Started</h5>
+                <ul>
+                    <li><a href="/mavibot/vision.html">Vision</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/mavibot/five-minutes-tutorial.html">Five minutes tutorial</a></li>
+                    <li><a href="/mavibot/user-guide.html">User Guide</a></li>
+                    <li><a href="/mavibot/gen-docs/latest/apidocs/">JavaDocs</a></li>
+                    <li><a href="/mavibot/gen-docs/latest/xref/">Cross-Reference</a></li>
+                    
+                    <li><a href="/mavibot/developer-guide.html">Developer Guide</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                &nbsp;
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="1-introduction.html">1 - Introduction</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="2-btree-types.html">2 - B-tree Types</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+            
+	<h1 id="11---b-tree-basics">1.1 - B-tree Basics</h1>
+<p><strong>B-tree</strong> was invented back in 1971 by <strong>Bayer</strong> and <strong>McCreight</strong>  (the <strong>B</strong> does not mean anything known, speculations are that it comes either form the <strong>B</strong> of <strong>Bayer</strong> or from <strong>Boing</strong> they were working for back then). It was an extension to binary search tree, which was just able to store 2 elements per page.</p>
+<p>A <strong>B-tree</strong> is a &ldquo;tree data structure that keeps data sorted and allows searches, sequential access, insertions, and deletions in logarithmic time.&rdquo; (see <a href="http://en.wikipedia.org/wiki/B-tree">Wikipedia</a>)</p>
+<p>The important point here is the last one : it guarantees <strong>O(logn)</strong> operations, compared to any other data structures (a hashed data structure offers <strong>O(n)</strong> average operations, but can degenerate to <strong>O(n2)</strong>, and ordering is not kept). Although it would be optimal to keep only 2 elements in each node, it&rsquo;s way better from a performance point of view to keep more than 2 elements in each node, even if it leads to more comparison than strictly necessary. The reason is that reading a fixed size from disk is better than reading only what we need (considering that a disk access is 3 to 4 orders of magnitude slower than RAM access, it&rsquo;s always a good idea to cache pages in memory, rather than read data from the disk over and over. And these 3 to 4 orders of magnitude is for SSD&hellip; For spinning disks, we are more in the 4 to 5 orders of magnitude !)</p>
+<p>Add to that the fact that when <em>B-tree</em> were invented, data were stored on magnetic tapes, with a pure sequential access. Reading data sequentially made sense, and reading a block of data was the way to go - thus the page was meant to store more than 2 elements -.</p>
+<p><strong>B-trees</strong> are everywhere : databases, OS, etc. It&rsquo;s a critical data structure when you are to deal with a large set of data.</p>
+<p>1.1.1 - Inside a B-tree</p>
+<p>A <strong>B-Tree</strong> contains <strong>Nodes</strong> and <strong>Leaves</strong>. A <em>Node</em> points to other <strong>Nodes</strong> or <strong>Leaves</strong>. <strong>Nodes</strong> contain only <strong>keys</strong> and references to child <strong>nNodes</strong>, when <strong>Leaves</strong> have <strong>Keys</strong> that are associated with <strong>Values</strong>. The <strong>Nodes</strong>&rsquo; *<em>Keys</em> are used to find the right child that will ultimately contain the <strong>Value</strong> we are looking for (if it&rsquo;s present)</p>
+<p>Pretty simple !</p>
+<p>One last thing : <strong>Keys</strong> are ordered, and this is the condition for the easy and fast retrieval of <strong>Values</strong>.</p>
+<p>A few more rules are enforced :</p>
+<ul>
+<li>A <strong>Node</strong> and a <strong>Leaf</strong> contains up to N values (N being generally a power of 2, so 2, 4, 8, 16&hellip;).</li>
+<li>You can&rsquo;t have less than N/2 <strong>Values</strong> or <strong>keys</strong> in a <strong>Leaf</strong> or a <strong>Node</strong>, except for the root <strong>Node</strong>.</li>
+</ul>
+<p>The second rule allows the <strong>B-tree</strong> to have only one <strong>Leaf</strong>, when up to <strong>N</strong> elements are to be stored. If we want to store one mor element, then the root <strong>Leaf</strong> will be split and the elements will be spread equally in two <strong>Leaves</strong>, with a root *<em>Node$</em> containing references on those two <strong>Leaves</strong>.</p>
+<p>1.1.2 - Concurrent access</p>
+<p>The real problem with <strong>B-tree</strong>s is that we need to use some locks to allow concurrent access to the data, especially when some updates occur. The rationale is that when browsing a <strong>B-tree</strong>, changing it will just break the browse operation. There are some technics to avoid having such an issue, up to a point no read locks are needed, assuming some extra information is added to the pages : a pointer to the next page at the same level. Sadly, it comes with drawbacks, like it&rsquo;s difficult to remove empty pages from the <strong>B-tree</strong>.</p>
+<p>What we want is a way to guarantee that many users can read data from the <strong>B-tree</strong>, even while the <strong>B-tree</strong> is being updated. Of course, that will heavily favor reads over writes, as writes will have to be serialized, but in many cases, this is a comfortable trade we are ready to make.</p>
+
+
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                &nbsp;
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="1-introduction.html">1 - Introduction</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="2-btree-types.html">2 - B-tree Types</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

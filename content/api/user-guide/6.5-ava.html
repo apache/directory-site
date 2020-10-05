@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>6.5 - Ava &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/brown.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/api-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+             
+                ApacheDS
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+            
+                <strong>LDAP API</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>LDAP API </h5>
+                <ul>
+                    <li><a href="/api/">Home</a></li>
+                    <li><a href="/api/news.html">News</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/api/downloads-1.html">Version 1.0.3</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/downloads-2.html">Version 2.0.1</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Getting Started</h5>
+                <ul>
+                    <li><a href="/api/vision.html">Vision</a></li>
+                    <li><a href="/api/java-api.html">Java API</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/api/five-minutes-tutorial.html">Five minute tutorial</a></li>
+                    <li><a href="/api/user-guide.html">User Guide</a></li>
+                    <li><a href="/api/migration-guide.html">API 1 to 2 migration</a></li>
+                    <li><a href="/api/gen-docs/latest/apidocs/">JavaDocs</a></li>
+                    <li><a href="/api/gen-docs/latest2/apidocs/">JavaDocs 2</a></li>
+                    <li><a href="/api/gen-docs/latest/xref/">Cross-Reference</a></li>
+                    <li><a href="/api/gen-docs/latest2/xref/">Cross-Reference 2</a></li>
+                    
+                    <li><a href="/api/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/api/internal-design-guide.html">Internal Guide</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="6.4-attribute-type.html">6.4 - AttributeType</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="6-ldap-data-structures.html">6 - LDAP data structures</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="6.6-csn.html">6.6 - Csn</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+            
+	<h1 id="65---ava">6.5 - Ava</h1>
+<p>An <em>Ava</em> is used to store an <em>Attribute</em> value associated to an <em>AttributeType</em>.</p>
+<p>It describes a container holding an <em>AttributeType</em> associated with a <em>Value</em> in a <em>Rdn</em>. An example would be:</p>
+<pre><code>:::Java
+dc=example
+</code></pre>
+<p>where &lsquo;dc&rsquo; is the <em>AttributeType</em> and &lsquo;example&rsquo; its associated value.</p>
+<p>The value can be a binary or a String value, depending on the <em>AttributeType</em>.</p>
+<p>We can create a schema aware <em>Ava</em>, or just a plain <em>Ava</em>. Having a schema aware <em>Ava</em> allows further controls to be made on the value we inject.  Is syntax will be checked against the <em>AttributeType</em> syntax.</p>
+<p>Most of the time, one will not need to create or manipulate an <em>Ava</em>, as it&rsquo;s an internal element of a <em>Rdn</em>.</p>
+<p><em>Ava</em> is also a <em>Externalizable</em> class.</p>
+<p><em>Ava</em> instances are immutable.</p>
+<h2 id="usage">Usage</h2>
+<p>As for the <em>Dn</em> and <em>Rdn</em> classes, we have to hold two representations of its internal <em>AttributeType</em> and <em>Value</em>.  The User Provided form, and the escaped form (which are used inside filters). If the <em>AVA</em> is schema aware, the escaped form will be computed, otherwise we store the user provided form. Let&rsquo;s see some examples.</p>
+<h3 id="schema-aware-ava">Schema Aware Ava</h3>
+<p>Here we will create an <em>AVA</em> and check that the user provided values are preserved. The <em>getName()</em> and <em>getString()</em> methods will give back this user provided form, in a form that allows it to be used in a Filter.</p>
+<pre><code>:::Java
+Ava atav = new Ava( schemaManager, &quot; CommonName &quot;, &quot; This is    a TEST &quot; );
+System.out.println( &quot;toString     : '&quot; + atav.toString() + &quot;'&quot; );
+System.out.println( &quot;Escaped      : '&quot; + atav.getEscaped() + &quot;'&quot; );
+System.out.println( &quot;UserProvided : '&quot; + atav.getName() + &quot;'&quot; );
+</code></pre>
+<p>will produce :</p>
+<pre><code>:::Java
+toString     : ' CommonName =\ This is    a TEST\ '
+Escaped      : ' CommonName =\ This is    a TEST\ '
+UserProvided : ' CommonName =\ This is    a TEST\ '
+</code></pre>
+<p><em>{+}Not Schema Aware{+}</em></p>
+<p>The biggest difference in this case is that the <em>AttributeType</em> will not be replaced by its <em>Oid</em>, but instead by a lowercase form of the provided ID. We also escape the leading and trailing spaces in the value.</p>
+<p>{code}
+public void testAvaSimpleNorm() throws LdapException
+{
+Ava atav = new Ava( null, &quot; CommonName &ldquo;, &quot; This is    a TEST &quot; );
+assertEquals( &quot; CommonName = This is    a TEST &ldquo;, atav.toString() );
+assertEquals( &ldquo;commonname=\ This is    a TEST\ &ldquo;, atav.getNormName() );
+assertEquals( &quot; CommonName = This is    a TEST &ldquo;, atav.getUpName() );
+}
+{code}</p>
+
+
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="6.4-attribute-type.html">6.4 - AttributeType</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="6-ldap-data-structures.html">6 - LDAP data structures</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="6.6-csn.html">6.6 - Csn</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

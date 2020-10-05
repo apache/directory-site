@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>6.4 - AttributeType &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/brown.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/api-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+             
+                ApacheDS
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+            
+                <strong>LDAP API</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>LDAP API </h5>
+                <ul>
+                    <li><a href="/api/">Home</a></li>
+                    <li><a href="/api/news.html">News</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/api/downloads-1.html">Version 1.0.3</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/downloads-2.html">Version 2.0.1</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Getting Started</h5>
+                <ul>
+                    <li><a href="/api/vision.html">Vision</a></li>
+                    <li><a href="/api/java-api.html">Java API</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/api/five-minutes-tutorial.html">Five minute tutorial</a></li>
+                    <li><a href="/api/user-guide.html">User Guide</a></li>
+                    <li><a href="/api/migration-guide.html">API 1 to 2 migration</a></li>
+                    <li><a href="/api/gen-docs/latest/apidocs/">JavaDocs</a></li>
+                    <li><a href="/api/gen-docs/latest2/apidocs/">JavaDocs 2</a></li>
+                    <li><a href="/api/gen-docs/latest/xref/">Cross-Reference</a></li>
+                    <li><a href="/api/gen-docs/latest2/xref/">Cross-Reference 2</a></li>
+                    
+                    <li><a href="/api/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/api/internal-design-guide.html">Internal Guide</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="6.3-attribute.html">6.3 - Attribute</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="6-ldap-data-structures.html">6 - LDAP data structures</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="6.5-ava.html">6.5 - Ava</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+            
+	<h1 id="64---attributetype">6.4 - AttributeType</h1>
+<p>The <em>AttributeType</em> is one of the most important schema elements. It describes what can be stored into an <em>Entry</em>, its syntax, and the various rules that are to be followed whenever searching for an associated value.</p>
+<p><em>AttributeType</em> are immutable objects, created from the schema, and never changed. One can add a new <em>AttributeType</em>, or delete itfrom the schema, but once it&rsquo;s added to the schema, it can&rsquo;t be modified.</p>
+<p>Usually, we just use them.</p>
+<h2 id="description">Description</h2>
+<p>An <em>AttributeType</em> contains the following informations:</p>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Description</th>
+<th>optional</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OID</td>
+<td>An unique <em>Oid</em> for the <em>AttributeType</em></td>
+<td>no</td>
+</tr>
+<tr>
+<td>NAME</td>
+<td>some names, the fist one being considered as the <em>short name</em>.</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>DESCR</td>
+<td>A textual description describing the <em>AttributeType</em> role.</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>OBSOLETE</td>
+<td>A flag indicating if the <em>AttributeType</em> is deprecated</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>SUP</td>
+<td>The <em>AttributeType</em> it inherit from</td>
+<td>yes (If SYNTAX is null, can&rsquo;t be null)</td>
+</tr>
+<tr>
+<td>EQUALITY</td>
+<td>The EQUALITY <em>MatchingRule</em></td>
+<td>yes (if null, and if SUP is not null, takes its SUP&rsquo;s value)</td>
+</tr>
+<tr>
+<td>ORDERING</td>
+<td>The ORDERING <em>MatchingRule</em></td>
+<td>yes (if null, and if SUP is not null, takes its SUP&rsquo;s value)</td>
+</tr>
+<tr>
+<td>SUBSTR</td>
+<td>The SUBSTR <em>MatchingRule</em></td>
+<td>yes (if null, and if SUP is not null, takes its SUP&rsquo;s value)</td>
+</tr>
+<tr>
+<td>SYNTAX</td>
+<td>The Syntax to follow</td>
+<td>yes (If SUP is null, can&rsquo;t be null)</td>
+</tr>
+<tr>
+<td>SINGLE-VALUE</td>
+<td>Tells that the <em>AttributeType</em> does not allow more than one value</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>COLLECTIVE</td>
+<td>Define a collective attribute. The <em>AttributeType</em> USAGE must be <em>userApplications</em></td>
+<td>yes</td>
+</tr>
+<tr>
+<td>NO-USER-MODIFICATION</td>
+<td>Tells that the values can&rsquo;t be modified by the user. The <em>AttributeType</em> USAGE must be operational</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>USAGE</td>
+<td>The kind of <em>AttributeType</em> : one of {<em>userApplications</em>, <em>directoryOperation</em>, <em>directoryOperation</em>, <em>directoryOperation</em>}</td>
+<td>yes</td>
+</tr>
+<tr>
+<td>extensions</td>
+<td>Server specific parameters</td>
+<td>yes</td>
+</tr>
+</tbody>
+</table>
+<p>An <em>AttributeType</em> has some default elements : it&rsquo;s not OBSOLETE, has no SUP, is not SINGLE-VALUE, is not COLLECTIVE, can be modified by the user, and has an <em>userApplications</em> USAGE.</p>
+<p>You can check some of those elements using the following methods:</p>
+<ul>
+<li>isAncestorOf( AttrbuteType ) : tells if the current <em>AttributeType</em> is the ancestor of another one</li>
+<li>isCollective() : tells if the current <em>AttributeType</em> is a collective attribute</li>
+<li>isDescendantOf( AttributeType ) : tells if the current <em>AttributeType</em> inherits from another one</li>
+<li>isOperational() : tells if the current <em>AttributeType</em> is an Operational Attribute</li>
+<li>isSingleValued() : tells if the current <em>AttributeType</em> does not allow more than one value</li>
+<li>isUser() : tells if the current <em>AttributeType</em> is a User Application <em>AttributeType</em></li>
+<li>isUserModifiable() : tells if the <em>Attributes</em> usng this <em>AttributeType</em> can be modified on the server</li>
+</ul>
+
+
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="6.3-attribute.html">6.3 - Attribute</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="6-ldap-data-structures.html">6 - LDAP data structures</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="6.5-ava.html">6.5 - Ava</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

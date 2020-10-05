@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>4 - ASN/1 &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/brown.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/api-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+             
+                ApacheDS
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+            
+                <strong>LDAP API</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>LDAP API </h5>
+                <ul>
+                    <li><a href="/api/">Home</a></li>
+                    <li><a href="/api/news.html">News</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/api/downloads-1.html">Version 1.0.3</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/downloads-2.html">Version 2.0.1</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Getting Started</h5>
+                <ul>
+                    <li><a href="/api/vision.html">Vision</a></li>
+                    <li><a href="/api/java-api.html">Java API</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/api/five-minutes-tutorial.html">Five minute tutorial</a></li>
+                    <li><a href="/api/user-guide.html">User Guide</a></li>
+                    <li><a href="/api/migration-guide.html">API 1 to 2 migration</a></li>
+                    <li><a href="/api/gen-docs/latest/apidocs/">JavaDocs</a></li>
+                    <li><a href="/api/gen-docs/latest2/apidocs/">JavaDocs 2</a></li>
+                    <li><a href="/api/gen-docs/latest/xref/">Cross-Reference</a></li>
+                    <li><a href="/api/gen-docs/latest2/xref/">Cross-Reference 2</a></li>
+                    
+                    <li><a href="/api/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/api/internal-design-guide.html">Internal Guide</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="3-building.html">3 - Building</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="../internal-design-guide.html">Internal Design Guide</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="4.1-asn1-tlv.html">4.1 - ASN/1 TLV</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+            
+	<h1 id="4---asn1">4 - ASN/1</h1>
+<p>To be completed&hellip;</p>
+<p>The <strong>LDAP</strong> protocol is based on an <strong>ASN/1</strong> description. We will notexplain in detail what is <strong>ASN/1</strong> about, you would rather check <a href="https://en.wikipedia.org/wiki/Abstract_Syntax_Notation_One">This page</a> for a very limited introduction, or if you feel teh need to understand what is <strong>ASN/1</strong> in detail, just read the <a href="http://www.oss.com/asn1/resources/books-whitepapers-pubs/dubuisson-asn1-book.PDF">Olivier Dubuisson&rsquo;s book on ASN.1</a> (This is probably the best reference !)</p>
+<p>Anyway, we use a subset of <strong>ASN/1</strong>, as what we have to deal with is the <strong>BER/DER</strong> encoding. (<strong>BER</strong> or <strong>DER</strong> stands for <strong>B</strong>asic <strong>E</strong>ncoding <strong>R</strong>ule and <strong>D</strong>istinguished <strong>E</strong>ncoding <strong>R</strong>ule. There are other possible encoding, like <strong>PER</strong>, <strong>XER</strong>, <strong>CER</strong>, but they are irrelevant for <strong>LDAP</strong>)</p>
+<p>What is needed to know is that <strong>ASN/1</strong> is just a notation used to describe the messages being exchanged between a client and a server, and in order to use it, we need an encoder and a decoder on both sides :</p>
+<p><img src="images/asn1-codec.png" alt="Client/Server communication"></p>
+<h2 id="asn1-implementation-in-apache-ldap-api">ASN/1 implementation in Apache LDAP API</h2>
+<p>It took a long time to get it right ! And it&rsquo;s not perfect :-)</p>
+<p>The very first iteration was using a proprietary library (<strong>IBM SNACC</strong>), but that was before <strong>ApacheDS</strong> became a <strong>TLP</strong> ! The next iteration was based on a rewriting system, which was pretty slow. Then came <strong>Snicker</strong>, a <em>State Machine</em> based decoder, which is currently what we use. We might change for a faster implementation, like what <strong>Kerby</strong> is using&hellip;</p>
+<h3 id="asn1-messages">ASN/1 messages</h3>
+<p>Let&rsquo;s start with the basic information.</p>
+<p>An encoded ASN/1 message is a tuple contianing two or three elements : a <strong>T</strong>ype, a <strong>L</strong>ength and optionally - ie if the length is not 0 - a <strong>V</strong>alue. This tuple is called a <strong>TLV</strong>. Every message is a <strong>TLV</strong>.</p>
+<p>But a message can be have complex structure, so a <strong>TLV</strong> itself can encapsulate some <strong>TLV</strong>s. Actually the <strong>V</strong> part can be a list of <strong>TLV</strong>s. This is recursive&hellip;</p>
+<p>A typical encoded message can therefore represented this way :</p>
+<pre><code>:::
+[TL [TLV] [TL [TLV] [TLV]]]
+</code></pre>
+<p>Here, the message <strong>TLV</strong> value is a set of two <strong>TLV</strong>s, teh second one being itself a composition of 2 <strong>TLV</strong>s.</p>
+<p>The <strong>T</strong> describe the type of value, the <strong>L</strong> gives the length of this value (can be 0) and of course the <strong>V</strong> is the value, which can itself be a <strong>TLV</strong>.</p>
+<h3 id="encoderdecoder">Encoder/Decoder</h3>
+<p>There are two aspects we have to deal with :</p>
+<ul>
+<li>encoding messages</li>
+<li>decoding messages</li>
+</ul>
+<p>Those are two different things, and we don&rsquo;t use the same mechanism. <strong>Encoding</strong> is done using a <em>State Machine</em>, and <strong>Decoding</strong> which is hard wired in each class implementing a message.</p>
+<p>As we said, it&rsquo;s not perfect, first because it&rsquo;s complex to implement, complex to add a new message, and complex to test. We don&rsquo;t have a compiler that generates the stubs to encode or decode messages.</p>
+<h3 id="decoder">Decoder</h3>
+<p>The <em>Decoder</em> work is to take a <strong>byte[]</strong> and transform it into an instance of a jave object. When we receive the <strong>byte[]</strong>, we don&rsquo;t know yet what kind of message we are dealing with, so the creation of the instance is differed.</p>
+<p>We have built a generic decoder that takes some imputs and produces the result, based on those elements :</p>
+<ul>
+<li>A <em>Grammar</em></li>
+<li>A <em>Container</em></li>
+<li>A <em>StateEnum</em></li>
+<li>A <em>Decorator</em></li>
+<li>and optionally a <em>Factory</em></li>
+</ul>
+<p>The <em>Grammar</em> describes the transitions and actions of the state machine used to decode a message. Note that the actions can be stored in separate classes.</p>
+<p>The <em>Container</em> is a wrapper around a message that is fed by the State Machine and that will contain the Java instance once fully decoded. It&rsquo;s initally empty.</p>
+<p>The <em>StateEnum</em> is a Java enumeration listing all the possible <em>Grammar</em> states.</p>
+<p>The <em>Decorator</em> is a wrapper used to store a decoded message.</p>
+<p>The <em>Factory</em> is used to create the message instance (it&rsquo;s optional)</p>
+<p>And of course, you have the messsage class that will be created and stored in the <em>Decorator</em></p>
+<p>So what we have is based on a <strong>State Engine</strong>, which means you have to describe</p>
+<h3 id="encoder">Encoder</h3>
+<p>It&rsquo;s slightly simpler : we use the <em>Decorator</em> to implement the encoding of a message. Two methods are necessary :</p>
+<ul>
+<li><em>int computeLength()</em> : compute the <em>ByteBuffer</em> size necessary to stored the encoded message</li>
+<li><em>ByteBuffer encode( ByteBuffer )</em> : actually encode the message into a <em>ByteBuffer</em></li>
+</ul>
+<h3 id="the-state-machine">The state machine</h3>
+<p>So we decode a message using a state machine, which basically transit from one state to another, and optionally execute an action in between :</p>
+<p><img src="images/sm-transition.png" alt="State Machine transition"></p>
+<p>Now, let&rsquo;s see a real example.</p>
+
+
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="3-building.html">3 - Building</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="../internal-design-guide.html">Internal Design Guide</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="4.1-asn1-tlv.html">4.1 - ASN/1 TLV</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>4.2 - Authenticate with Studio &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/green.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/server-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+            
+                <strong>ApacheDS</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+             
+                LDAP API
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>ApacheDS 2.0</h5>
+                <ul>
+                    <li><a href="/apacheds/">Home</a></li>
+                    <li><a href="/apacheds/news.html">News</a></li>
+                    <li><a href="/apacheds/features.html">Features</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/apacheds/downloads.html">ApacheDS 2.0.0.AM26</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/apacheds/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/apacheds/basic-user-guide.html">Basic User Guide </a></li>
+                    <li><a href="/apacheds/advanced-user-guide.html">Advanced User Guide</a></li>
+                    <li><a href="/apacheds/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/apacheds/kerberos-user-guide.html">Kerberos User Guide</a></li>
+                    <li><a href="/apacheds/configuration/ads-2.0-configuration.html">Configuration</a></li>
+                    <li><a href="/apacheds/gen-docs/latest/apidocs">JavaDocs</a></li>
+                    <li><a href="/apacheds/gen-docs/latest/xref">Cross-Reference</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="4.1-authenticate-kinit.html">4.1 - Authenticate with kinit on Linux</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="4-using-kerberos.html">4 - Using Kerberos</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="5-interoperability.html">5 - Interoperability</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+            
+	<h1 id="41---authenticate-with-studio">4.1 - Authenticate with Studio</h1>
+<p>We will explain how to use the kerberos server to authentify users on a LDAP server. Let&rsquo;s first define the way we will store data in the LDAP server</p>
+<DIV class="info" markdown="1">
+We will suppose that the <strong>Kerberos</strong> server is installed on a server which <em>hostName</em> is <strong>example.net</strong> and the <em>realm</em> is <strong>EXAMPLE.COM</strong> in the following paragraphes.
+</DIV>
+<h2 id="servers-configuration">Servers configuration</h2>
+<p>We first have to configure the <strong>LDAP</strong> and <strong>Kerberos</strong> server, in order to be able to use the kerberos server to authenticate on the ldap server.</p>
+<p>If you have installed the <strong>ApacheDS</strong> package, the simplest way is to start the server, and to connect on it using Studio, using the <em>uid=admin,ou=system</em> user with <em>secret</em> as a password (this password will have to be changed later !).</p>
+<DIV align="center">
+  <img alt="Admin Connection" src="images/admin-connection.png">
+</DIV>
+<p>and :</p>
+<DIV align="center">
+  <img alt="Admin Authentication" src="images/admin-authentication.png">
+</DIV>
+<p>Once connected, right click on the connection :</p>
+<DIV align="center">
+  <img alt="Open Configuration" src="images/open-config.png">
+</DIV>
+<p>On the <strong>Overview</strong> tab, check the <strong>Enable Kerberos Server</strong> box :</p>
+<DIV align="center">
+  <img alt="Enable Kerberos Server" src="images/enable-kerberos.png">
+</DIV>
+<h3 id="ldap-server-configuration">LDAP Server configuration</h3>
+<p>There are a few parameters that are to be set in the <strong>LDAP</strong> configuration :</p>
+<pre><code>* The SASL host must be the local server name (here, example.net)
+* The SASL principal is ldap/example.net@EXAMPLE.COM
+* The Search Base DN should point to the place under which we store users and services (dc=security,dc=example,dc=com)
+</code></pre>
+<DIV class="warning" markdown="1">
+The <em>SASL principal</em> instance part (ie, <strong>example.net</strong>) is in lower case, as the hostname is not case sensitive. Sadly, the <em>KrbPrincipalName</em> attributeType is case sensitive, so if the left part is not lowercased, the server won't be able to retrieve the information from the LDAP server.
+</DIV>
+<p>Here is a snapshot of this configuration :</p>
+<DIV align="center">
+  <img alt="LDAP configuration" src="images/ldap-config.png" style="width: 100%; height: 100%">
+</DIV>
+<h3 id="kerberos-server-configuration">Kerberos Server configuration</h3>
+<p>Now, you can switch to the Kerberos tab, where some more configuration must be set :</p>
+<pre><code>* The Primary KDC Realm is EXAMPLE.COM
+* The Search Base DN is the same as for the LDAP server : dc=security,dc=example,dc=com
+</code></pre>
+<p>Here is a Ssnapshot of this configuration :</p>
+<DIV align="center">
+  <img alt="Kerberos configuration" src="images/kerberos-config.png" style="width: 100%; height: 100%">
+</DIV>
+<p>The Kerberos server also requires a minimal <strong>krb5.conf</strong> file. The default location of that file is <strong>/etc/krb5.conf</strong>, alternatively you can also put it to <strong>JAVA_HOME/jre/lib/security/krb5.conf</strong>.</p>
+<pre><code>[libdefaults]
+    default_realm = EXAMPLE.COM
+
+[realms]
+    EXAMPLE.COM = {
+        kdc = example.net:60088
+    }
+</code></pre>
+<p>Once those modifications have been done, you must restart the server.</p>
+<h3 id="other-configuration">Other configuration</h3>
+<p>There is one more thing that you need to configure : your domain name (here, example.net_) has to be reachable on your machine. Either you define in on a **DNS** server, or you can also add it in your _/etc/hosts_ file.</p>
+<p>Here is a way to add it on a local host :</p>
+<pre><code>...
+127.0.0.1 localhost example.net
+...
+</code></pre>
+<DIV class="warning" markdown="1">
+It's largely preferable to declare the server in a DNS.
+</DIV>
+<h2 id="ldap-hierarchy">LDAP Hierarchy</h2>
+<p>We will distinguish between <strong>users</strong> and <strong>services</strong> :</p>
+<ul>
+<li>Users are human beings, or applications that can log on a service</li>
+<li>Services are applications on which a user can log in</li>
+</ul>
+<p>In our case, the ldap server and the <strong>TGS</strong> are services.</p>
+<p>Each user and each service will be declared using an <em>entry</em> in the ldap server.</p>
+<p>We will store those entries in a part of the <strong>DIT</strong> where the kerberos server and the ldap server will be able to find them. Assuming we have created our own partition named <strong>dc=example,dc=com</strong>, we will define this hierarchy starting from there :</p>
+<DIV align="center">
+  <img alt="Authentification hierarchy" src="images/authent-hierarchy.png">
+</DIV>
+<p>This can be injected in the LDAP server using this LDIF :</p>
+<pre><code>dn: dc=security,dc=example,dc=com
+objectClass: top
+objectClass: domain
+dc: security
+
+dn: ou=services,dc=security,dc=example,dc=com
+objectClass: top
+objectClass: organizationalUnit
+ou: services
+
+dn: ou=users,dc=security,dc=example,dc=com
+objectClass: top
+objectClass: organizationalUnit
+ou: users
+</code></pre>
+<h2 id="users-and-service-declaration">Users and Service declaration</h2>
+<p>Now that we have built our container for users and services, we have to declare the users and services so that they can be used through <strong>kerberos</strong>.</p>
+<h3 id="users">Users</h3>
+<p>Each user must have the <strong>krb5KDCEntry</strong> objectclass, and the <strong>userPassword</strong> attributeType (which is present in one of the following objectclasses : <em>dmd</em>, <em>domain</em>, <em>organization</em>, <em>organizationalUnit</em>, <em>person</em>, <em>posixAccount</em>, <em>posixGroup</em> and <em>shadowAccount</em>, or one of their inheriting objectclass. You can also add it to your own objectclass).</p>
+<p>Our users will be <em>organizationalPerson</em>, which inherits from <em>person</em>.</p>
+<p>For our sample test, here is a person we will inject in the LDAP server :</p>
+<pre><code>dn: uid=hnelson,ou=users,dc=security,dc=example,dc=com
+objectClass: top
+objectClass: krb5KDCEntry
+objectClass: inetOrgPerson
+objectClass: krb5Principal
+objectClass: person
+objectClass: organizationalPerson
+cn: Horatio Nelson
+krb5KeyVersionNumber: 1
+krb5PrincipalName: hnelson@EXAMPLE.COM
+sn: Nelson
+uid: hnelson
+userPassword: secret
+</code></pre>
+<p>This user does not have a password yet.</p>
+<DIV class="info" markdown="1">
+The import thing is the <em>krb5PrincipalName</em>, which is the one that will be used to bind the user. It has a user login (<strong>hnelson</strong>) and a realm (<strong>EXAMPLE.COM</strong>).
+</DIV>
+<p>Once the user has been injected, we can see that the server has created some krb5Key attributes :</p>
+<pre><code>dn: uid=hnelson,ou=users,dc=security,dc=example,dc=com
+objectClass: top
+objectClass: krb5KDCEntry
+objectClass: inetOrgPerson
+objectClass: krb5Principal
+objectClass: person
+objectClass: organizationalPerson
+cn: Horatio Nelson
+krb5KeyVersionNumber: 0
+krb5PrincipalName: hnelson@EXAMPLE.COM
+sn: Nelson
+krb5Key:: MBGgAwIBA6EKBAj0pxNkimHOWw==
+krb5Key:: MBmgAwIBEaESBBCtIUs4tp38yqzxXzRtQXuQ
+krb5Key:: MCGgAwIBEKEaBBhXB84pUpIsHIy/Q8I9j4xenoz3XT5KXiU=
+krb5Key:: MBmgAwIBF6ESBBCHjYAUYGzaKWd6RO+hNT/H
+uid: hnelson
+userPassword:: e1NTSEF9VnhjYUl4U3JxUnAraWh1dXo2NEhzN1EwbXE0ZHBBQTNsUHJXMGc9P
+ Q== 
+</code></pre>
+<p>Those keys have been computed automatically by the Kerberos server. Every time you will change the password, the keys will be updated.</p>
+<p>We can add as many users as we want, but keep in mind that the login name should be the first part of the <strong>krb5PrincipalName</strong> attributeType.</p>
+<h3 id="services">Services</h3>
+<p>We now have to declare some services : the <strong>krbtgt</strong> service, which delivers tickets, and the <strong>ldap</strong> service.</p>
+<p>A user (or a service) which will try to authenticate on the LDAP server will first get a ticket from the <strong>krbtgt</strong> service, then will access the <strong>ldap</strong> service with the provided ticket.</p>
+<h4 id="krbtgt-service">krbtgt service</h4>
+<p>It&rsquo;s pretty much the same operation than for the user : create the entry, define a <em>krb5PrincipalName</em>, create a <em>userPassword</em> and inject the entry into the LDAP server.</p>
+<p>Here is the associated LDIF file :</p>
+<pre><code>dn: uid=ldap,ou=services,dc=security,dc=example,dc=com
+objectClass: top
+objectClass: organizationalUnit
+objectClass: krb5KDCEntry
+objectClass: uidObject
+objectClass: krb5Principal
+krb5KeyVersionNumber: 0
+krb5PrincipalName: ldap/example.net@EXAMPLE.COM
+uid: ldap
+userPassword: randomKey
+ou: TGT
+
+dn: uid=krbtgt,ou=services,dc=security,dc=example,dc=com
+objectClass: top
+objectClass: organizationalUnit
+objectClass: krb5KDCEntry
+objectClass: uidObject
+objectClass: krb5Principal
+krb5KeyVersionNumber: 0
+krb5PrincipalName: krbtgt/EXAMPLE.COM@EXAMPLE.COM
+uid: krbtgt
+userPassword:: randomkey
+ou: LDAP
+</code></pre>
+<DIV class="info" markdown="1">
+Three important things :
+<ul>
+<li>- the userPassword is 'randomkey'. The key will not be generated based on a know password, they will use a random key.</li>
+<li>- the <em>krb5PrincipalName</em> has one more information, after the / character : <em>EXAMPLE.COM</em> for 
+    the <strong>krbtgt</strong> service, and <em>example.net</em> for the <strong>ldap</strong> service. For the <strong>krbtgt</strong> principal, the instance is always the realm name. For the <strong>ldap</strong> principal, the instance is the hostname, in lowercase.</li>
+<li>- the krb5KeyVersionNumber is 0</li>
+</ul>
+</DIV>
+<p>Again, once those entries have been injected in the LDAP server, the <em>krb5Key</em> attributeTypes will be created</p>
+<h2 id="login-using-studio">Login using Studio</h2>
+<p>Now that the server is set, and the services and users are stored into it, we can create a new connection using the Kerberos authentication for the created users.</p>
+<h3 id="create-a-new-connection">Create a new connection</h3>
+<p>On the &ldquo;Connections&rdquo; tab, right click and select &lsquo;New Connection&hellip;&rsquo;</p>
+<DIV align="center">
+  <img alt="New Connection" src="images/new-connection.png">
+</DIV>
+<p>You will now have to set the network parameters, as in the following popup. Typically, set :</p>
+<pre><code>* The connection name (here, Kerberos User)
+* The LDAP server host (example.net)
+* The LDAP server port (10389)
+* The Provider (pick Apache Directory LDAP Client API)
+</code></pre>
+<p>You can check the connection on cliking the &lsquo;check network connection&rsquo; button, you should get back a popup stating that the connection was established successfully.</p>
+<p>Here is the screenshot :</p>
+<DIV align="center">
+  <img alt="Network Parameters" src="images/network-parameters.png">
+</DIV>
+<p>Then click on Next to setup the authentication part.
+Select the following parameters and values :</p>
+<pre><code>* Authentication method : GSSAPI
+* Bind DN : the user name (here, hnelson)
+* Bind password : here, secret
+* Do not change anything in the SASL settings
+* Kerberos settings 
+    * Obtain TGT from KDC
+    * Use following configuration :
+        * Kerberos Realm : EXAMPLE.COM
+        * KDC Host : example.net
+        * KDC port : 60088
+</code></pre>
+<p>Here is the resulting screen :</p>
+<DIV align="center">
+  <img alt="Kerberos authentification" src="images/kerberos-authent.png">
+</DIV>
+<p>Clinking in the &lsquo;Check Authentication&rsquo; button should be succesfull.</p>
+
+
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="4.1-authenticate-kinit.html">4.1 - Authenticate with kinit on Linux</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="4-using-kerberos.html">4 - Using Kerberos</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="5-interoperability.html">5 - Interoperability</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

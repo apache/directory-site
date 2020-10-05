@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>1.4.3 - Adding your own partition &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/green.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/server-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+            
+                <strong>ApacheDS</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+             
+                LDAP API
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>ApacheDS 2.0</h5>
+                <ul>
+                    <li><a href="/apacheds/">Home</a></li>
+                    <li><a href="/apacheds/news.html">News</a></li>
+                    <li><a href="/apacheds/features.html">Features</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/apacheds/downloads.html">ApacheDS 2.0.0.AM26</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/apacheds/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/apacheds/basic-user-guide.html">Basic User Guide </a></li>
+                    <li><a href="/apacheds/advanced-user-guide.html">Advanced User Guide</a></li>
+                    <li><a href="/apacheds/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/apacheds/kerberos-user-guide.html">Kerberos User Guide</a></li>
+                    <li><a href="/apacheds/configuration/ads-2.0-configuration.html">Configuration</a></li>
+                    <li><a href="/apacheds/gen-docs/latest/apidocs">JavaDocs</a></li>
+                    <li><a href="/apacheds/gen-docs/latest/xref">Cross-Reference</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="1.4.2-changing-admin-password.html">1.4.2 - Changing the admin password</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="1.4-basic-configuration-tasks.html">1.4 - Basic configuration tasks</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="1.4.4-configure-logging.html">1.4.4 - Configure logging</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+            
+	<h1 id="143---adding-your-own-partition">1.4.3 - Adding your own partition</h1>
+<p>This section describes how to add your own data partition.</p>
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#what-are-partitions">What are partitions?</a></li>
+    <li><a href="#minimal-partition-definition">Minimal partition definition</a></li>
+    <li><a href="#adding-a-partition-programmatically">Adding a partition programmatically</a></li>
+    <li><a href="#more-configuration-options-for-a-jdbm-partition">More configuration options for a JDBM partition</a></li>
+    <li><a href="#adding-a-partition-manually">Adding a partition manually</a>
+      <ul>
+        <li><a href="#before-starting-the-server">Before starting the server</a></li>
+        <li><a href="#with-ldapmodify-to-a-running-server">With ldapmodify to a running server</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+<h2 id="what-are-partitions">What are partitions?</h2>
+<p>In ApacheDS entries are stored in partitions.  Each partition contains a complete entry tree, also referred to as a DIT. Multiple partitions may exist and the entry trees they contain are disconnected from each other, meaning that changes to entries in partition <em>A</em> would never affect entries in partition <em>B</em>. The entries in a particular partition are stored below some naming context called the partition suffix.</p>
+<p>The default implementation of partitions is based on <a href="http://jdbm.sourceforge.net/">JDBM</a> B+Trees (but it&rsquo;s possible to add custom partition implementations). The ApacheDS default configuration contains a a data partition with the suffix &ldquo;dc=example,dc=com&rdquo;. The image below shows the suffixes of a freshly installed ApacheDS within Apache Directory Studio.</p>
+<p><img src="images/partitions-in-studio-after-installation.png" alt="Partition in studio after installation"></p>
+<p>The schema subsystem and ApacheDS itself store their information in special partitions, &ldquo;ou=schema&rdquo;, &ldquo;ou=config&rdquo; and &ldquo;ou=system&rdquo; respectively.</p>
+<h2 id="minimal-partition-definition">Minimal partition definition</h2>
+<p>For the examples in the following sections, we want to add a partition with the suffix &ldquo;o=sevenSeas&rdquo;. This requires editing of the configuration, and injecting a first entry, associated with the root of this partition (here, &ldquo;o=sevenseas&rdquo;). This can be done using <em>Apache Directory Studio</em>. Open the server configuration :</p>
+<p><img src="images/studio-apacheds-configuration1.png" alt="Studio Apacheds Configuration"></p>
+<p>and select the <em>Partitions</em> tab :</p>
+<p><img src="images/studio-partitions-configuration.png" alt="Studio Apacheds Partitions Configuration"></p>
+<p>Add another jdbmPartition element for the sevenSeas partition, just below the <em>example</em> partition:</p>
+<p><img src="images/sevenseas-partition-creation.png" alt="SevenSeas Partition Creation"></p>
+<p>As you can see, we have modified the <em>ID</em> and the <em>Suffix</em>, all the other parameters remaining to their default values.</p>
+<p>Save the configuration now, and restart the server.</p>
+<p>The server has a new suffix now, but no context entry has been created for it. If you connect with an LDAP Browser (Apache Directory Studio for instance), the partition is only visible in the Root DSE. Below the Entry Editor of Directory Studio for the Root DSE after connecting to an ApacheDS instance configured like above.</p>
+<p><img src="images/sevenseas-naming-context.png" alt="RootDSE"></p>
+<p>Before using the partition (e.g. adding entries), you have to add a context entry. If you plan to load LDIF data to your partition anyway, simply provide the context entry (the &ldquo;root&rdquo; of your partition) as a first data set. In our example it might look like this:</p>
+<pre><code>dn: o=sevenSeas
+o: sevenSeas
+objectClass: top
+objectClass: organization
+description: The context entry for suffix o=sevenSeas
+</code></pre>
+<p>It is also possible to import a file to ApacheDS which only contains such an entry, of cause. Here is an example on how to procede for the seven seas :</p>
+<p>In the LDAP Browser of Directory Studio, right click on the DIT entry and select &ldquo;Import -&gt; LDIF Import&hellip;&quot;. A file selections dialog appears. Browse to the LDIF file and click Finish. The entry (or entries, if you provide more of them) will be added to to partition.</p>
+<p>The following image depicts the partitions after reconnecting with Apache Directory Studio (<em>LDAP Browser</em> view).</p>
+<p><img src="images/partitions-in-studio-after-addition.png" alt="Partition in Studio after addition"></p>
+<h2 id="adding-a-partition-programmatically">Adding a partition programmatically</h2>
+<p>The same o=sevenseas partition can be created through the application code using the Partition and DirectoryService API</p>
+<p>Here is the sample code to create a new partition o=sevenseas and its context entry programmatically</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#080;font-style:italic">// Get the SchemaManager, we need it for this addition
+</span><span style="color:#080;font-style:italic"></span>SchemaManager schemaManager <span style="color:#666">=</span> directoryService<span style="color:#666">.</span><span style="color:#b44">getSchemaManager</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
+
+<span style="color:#080;font-style:italic">// Create the partition
+</span><span style="color:#080;font-style:italic"></span>JdbmPartition sevenseasPartition <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> JdbmPartition<span style="color:#666">(</span> schemaManager <span style="color:#666">)</span><span style="color:#666">;</span>
+sevenseasPartition<span style="color:#666">.</span><span style="color:#b44">setId</span><span style="color:#666">(</span><span style="color:#b44">&#34;sevenseas&#34;</span><span style="color:#666">)</span><span style="color:#666">;</span>
+Dn suffixDn <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> Dn<span style="color:#666">(</span> schemaManager<span style="color:#666">,</span> <span style="color:#b44">&#34;o=sevenseas&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+sevenseasPartition<span style="color:#666">.</span><span style="color:#b44">setSuffix</span><span style="color:#666">(</span> suffixDn <span style="color:#666">)</span><span style="color:#666">;</span>
+sevenseasPartition<span style="color:#666">.</span><span style="color:#b44">setCacheSize</span><span style="color:#666">(</span>1000<span style="color:#666">)</span><span style="color:#666">;</span>
+sevenseasPartition<span style="color:#666">.</span><span style="color:#b44">init</span><span style="color:#666">(</span>directoryService<span style="color:#666">)</span><span style="color:#666">;</span>
+sevenseasPartition<span style="color:#666">.</span><span style="color:#b44">setPartitionPath</span><span style="color:#666">(</span> <span style="color:#666">&lt;</span>a path on your disk<span style="color:#666">&gt;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+
+<span style="color:#080;font-style:italic">// Create some indices (optional)
+</span><span style="color:#080;font-style:italic"></span>sevenseasPartition<span style="color:#666">.</span><span style="color:#b44">addindex</span><span style="color:#666">(</span> <span style="color:#a2f;font-weight:bold">new</span> JdbmIndex<span style="color:#666">(</span> <span style="color:#b44">&#34;objectClass&#34;</span><span style="color:#666">,</span> <span style="color:#a2f;font-weight:bold">false</span> <span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+sevenseasPartition<span style="color:#666">.</span><span style="color:#b44">addindex</span><span style="color:#666">(</span> <span style="color:#a2f;font-weight:bold">new</span> JdbmIndex<span style="color:#666">(</span> <span style="color:#b44">&#34;o&#34;</span><span style="color:#666">,</span> <span style="color:#a2f;font-weight:bold">false</span> <span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+
+<span style="color:#080;font-style:italic">// Initialize the partition
+</span><span style="color:#080;font-style:italic"></span>sevenseasPartition<span style="color:#666">.</span><span style="color:#b44">initialize</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
+
+<span style="color:#080;font-style:italic">// create the context entry
+</span><span style="color:#080;font-style:italic"></span>Entry contextEntry <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> DefaultEntry<span style="color:#666">(</span> schemaManager<span style="color:#666">,</span> <span style="color:#b44">&#34;o=sevenseas&#34;</span><span style="color:#666">,</span>
+    <span style="color:#b44">&#34;objectClass: top&#34;</span><span style="color:#666">,</span> 
+    <span style="color:#b44">&#34;objectClass: organization&#34;</span><span style="color:#666">,</span>
+    <span style="color:#b44">&#34;o: sevenseas&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+
+<span style="color:#080;font-style:italic">// add the context entry
+</span><span style="color:#080;font-style:italic"></span>sevenseasPartition<span style="color:#666">.</span><span style="color:#b44">add</span><span style="color:#666">(</span> <span style="color:#a2f;font-weight:bold">new</span> AddOperationContext<span style="color:#666">(</span> <span style="color:#a2f;font-weight:bold">null</span><span style="color:#666">,</span> entry <span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+
+<span style="color:#080;font-style:italic">// We are done !
+</span></code></pre></div><h2 id="more-configuration-options-for-a-jdbm-partition">More configuration options for a JDBM partition</h2>
+<p>Here is a list of the used attributes, their default values and meaning :</p>
+<table>
+<thead>
+<tr>
+<th align="center">Property</th>
+<th align="center">Description</th>
+<th align="center">Default Value</th>
+<th align="center">Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">ads-partitionId</td>
+<td align="center">Uniquely identifies the partition</td>
+<td align="center">N/A</td>
+<td align="center">yes</td>
+</tr>
+<tr>
+<td align="center">ads-partitionSuffix</td>
+<td align="center">A DN (&ldquo;o=sevenseas&rdquo;), for instance</td>
+<td align="center">N/A</td>
+<td align="center">yes</td>
+</tr>
+<tr>
+<td align="center">ads-contextEntry</td>
+<td align="center">The context entry</td>
+<td align="center">Will be automatically deduced if no value is provided</td>
+<td align="center">no</td>
+</tr>
+<tr>
+<td align="center">ads-optimizerEnabled</td>
+<td align="center">Tells the server to turn on the optimizer</td>
+<td align="center">true</td>
+<td align="center">no</td>
+</tr>
+<tr>
+<td align="center">ads-partitionCacheSize</td>
+<td align="center">The cache size (only for JDBM partitions)</td>
+<td align="center">-1 (no cache)</td>
+<td align="center">no</td>
+</tr>
+<tr>
+<td align="center">ads-partitionSyncOnWrite</td>
+<td align="center">Syncs disks on every write operation</td>
+<td align="center">true</td>
+<td align="center">no</td>
+</tr>
+</tbody>
+</table>
+<h2 id="adding-a-partition-manually">Adding a partition manually</h2>
+<p>When migrating from an earlier release, or perhaps a different LDAP Directory product, you might prefer to manually add your own partition with your specific directory root DN. There are two techniques available, and the most appropriate will depend on whether you have already allowed the apacheds server to start.</p>
+<p>When the server starts for the first time after installation, <em>config.ldif</em> is renamed to <em>config.ldif_migrated</em>. After that time, this priming ldif file is never referred to again, so any changes you make will be ignored. <a href="https://issues.apache.org/jira/browse/DIRSERVER-2050">The reason for this change is discussed in a JIRA</a>.</p>
+<h3 id="before-starting-the-server">Before starting the server</h3>
+<p>Therefore, if you would like to have your (empty) partition created immediately following installation, you should prevent your server from starting during or after installation, i.e. when config.ldif has not yet been migrated.</p>
+<p>Next, edit <em>config.ldif</em> to change all occurrences of &ldquo;<em>example</em>&rdquo; to suit the name of your own partition. Once the server has started and you run your first ldapsearch as the admin user, you will see that the server has created your own empty partition (instead of the example one).</p>
+<p>Note that the entry for the &ldquo;<em>example</em>&rdquo; partition does NOT have an <em>ads-contextEntry</em> attribute. This &ldquo;signature&rdquo; attribute is created during the &ldquo;migration&rdquo; process (see below for details).</p>
+<p>Subsequent ldif changes to your new partition should work provided they use the default schema.</p>
+<h3 id="with-ldapmodify-to-a-running-server">With ldapmodify to a running server</h3>
+<p>This is task more tricky because the root of your new partition MUST have a valid <em>ads-contextEntry</em> attribute and you must determine its value. The other attributes (see the definitions above) are quite straightforward, but this control value must be synthesised based on the specific attribute values of your own partition.</p>
+<p>Let us look at the ldif required to add the &ldquo;example&rdquo; partition:</p>
+<pre><code>dn: ads-partitionId=example,ou=partitions,ads-directoryServiceId=default,ou=config
+objectclass: top
+objectClass: ads-base
+objectclass: ads-partition
+objectclass: ads-jdbmPartition
+ads-partitionSuffix: dc=example,dc=com
+ads-contextentry:: ZG46IGRjPWV4YW1wbGUsZGM9Y29tCmRjOiBleGFtcGxlCm9iamVjdGNsYXNzOiBkb21haW4Kb2JqZWN0Y2xhc3M6IHRvcAoK
+ads-jdbmpartitionoptimizerenabled: TRUE
+ads-partitioncachesize: 10000
+ads-partitionsynconwrite: TRUE
+ads-partitionid: example
+ads-enabled: TRUE 
+</code></pre>
+<p>The <em>ads-contextentry</em> attribute is a binary value which has been base64 encoded. The algorithm has to be followed accurately to be successful. Consider our example partition and take these four lines:</p>
+<pre><code>dn: dc=example,dc=com
+dc: example
+objectclass: domain
+objectclass: top
+</code></pre>
+<p>Base64 these four lines as a single string (with \n newlines, but without the prefix spaces). The result should match the <em>ads-contextentry</em> value shown above.</p>
+<p>However, you need to be careful because simply adding an extra space or newline will change the base64 value and make it unacceptable to the server. Also, any valid UTF-8 attribute values which are not in the base64 character set (such as accented characters) <em>MUST</em> be base64-encoded strings, which effectively makes them double-encoded.
+e.g. <em>&ldquo;dn: cn=lécharny,dc=com&rdquo;</em> needs to be specified as <em>&ldquo;dn:: Y249bMOpY2hhcm55LGRjPWNvbQ==&rdquo;</em>.</p>
+<p>You will probably want to create some associated index entries. You can use those of the &ldquo;<em>example</em>&rdquo; partition in <em>config.ldif-migrated</em> for your templates (which do not require any special encoded attributes).</p>
+
+
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="1.4.2-changing-admin-password.html">1.4.2 - Changing the admin password</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="1.4-basic-configuration-tasks.html">1.4 - Basic configuration tasks</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="1.4.4-configure-logging.html">1.4.4 - Configure logging</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

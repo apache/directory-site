@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>Table widget &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/blue.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/studio-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+             
+                ApacheDS
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+            
+                <strong>Studio</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+             
+                LDAP API
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>Apache Directory Studio</h5>
+                <ul>
+                    <li><a href="/studio/">Home</a></li>
+                    <li><a href="/studio/news.html">News</a></li>
+                    <li><a href="/studio/screenshots.html">Screenshots</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/studio/downloads.html">Version 2.0.0-M14</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/studio/download-old-versions.html">Older Versions</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/studio/users-guide.html">User's Guide</a></li>
+                    <li><a href="/studio/developers-guide.html">Developer's Guide</a></li>
+                    <li><a href="/studio/faqs.html">FAQs</a></li>
+                </ul>
+
+                <h5>Resources</h5>
+                <ul>
+                    <li><a href="/studio/changelog.html">ChangeLog</a></li>
+                    <li><a href="/studio/testimonials.html">Testimonials</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+
+            
+	<h1 id="table-widget">Table Widget</h1>
+<p>It&rsquo;s sometime convenient to use a Table which is associated with a list of optionnally ordered elements, with Add/Edit/Delete actions, and up/down actions if the table is ordered. We have such a widget in <em>org.org.apache.directory.studio.common.ui.widgets</em>.</p>
+<p>The Table which will be exposed looks like this :</p>
+<pre><code>+--------------------------------------+
+| Element 1                            | (Add... )
+| Element 2                            | (Edit...)
+|                                      | (Delete )
++--------------------------------------+
+</code></pre>
+<p>or this, if the elements are ordered</p>
+<pre><code>+--------------------------------------+
+| Element 1                            | (Add... )
+| Element 2                            | (Edit...)
+|                                      | (Delete )
+|                                      | ---------
+|                                      | (Up )
+|                                      | (Down )
++--------------------------------------+
+</code></pre>
+<p>Optionally, the <em>Edit</em> button might be disabled.</p>
+<p>Clicking on an element will select it, so that one can delete it.</p>
+<p>Last, not least, double clicking on an element will edit it, if allowed. In this case, a dedicated Dialog will be opened.</p>
+<h2 id="ordered-table">Ordered table</h2>
+<p>Here, we are not talking about the fact that the elements are ordered using some comparator, but the fact that the elements have an associated numeral prefix which is used to order the elements, regardeless of the element&rsquo;s content. This is an OpenLDAP extension, where elements are prefixed with a <em>{n}</em> String, where &lsquo;n&rsquo; is a vlaue between 0 to MAX_INTEGER (but it can also be -1, in one specific case).</p>
+<p>Bottom line, when a table is declared as Ordered, we use this prefix (which is shown) to order the elements in the tbale, otherwise we use the <em>compareTo</em> method.</p>
+<h2 id="the-element-requirements">The Element requirements</h2>
+<p>First of all, we have to focus on the elements. There are some requirements that such Objects much fulfill :</p>
+<ul>
+<li>Either the element can be compared and cloned natively (like an Enum)</li>
+<li>or it has to implement those methods (and the <em>Cloneable</em> and <em>Comparable</em> interfaces):
+<ul>
+<li>clone</li>
+<li>hashCode</li>
+<li>equals</li>
+<li>compareTo</li>
+<li>toString</li>
+</ul>
+</li>
+</ul>
+<p>The idea is to be able to find an element in the table using the <em>equals()</em> method, to copy an element, and to order the table content.</p>
+<h2 id="how-it-works">How it works</h2>
+<p>Basically, we assemble 5 different elements :
+* A Table
+* A listener to handle the actions on the table
+* A Decorator to show the elements in the Table
+* A Dialog to edit the elements, or to add them
+* A Wrapper to hold the elements that are stored in the Table</p>
+<p>Let see with some examples</p>
+<h3 id="table-with-addeditdelete-no-dialog">Table with Add/Edit/Delete, no dialog</h3>
+<p>Internally, we store the data in a <em>List<E></em> where <em>E</em> is the element&rsquo;s type (<em>TableWidget</em> is a generic class). The only thing you need to do when you want to use this widget is to add this code snippet :</p>
+<pre><code>/** A TableWidget containing some RootDSE elements */
+private TableWidget&lt;StringValueWrapper&gt; rootDseTableWidget; 
+...
+// Instanciate the TableWidget, associated with a Decorator
+rootDseTableWidget = new TableWidget&lt;StringValueWrapper&gt;( 
+    new StringValueDecorator( composite.getShell(), Messages.getString( &quot;OpenLDAPOptionsPage.RootDSE&quot; ) ) );
+
+// We want an Edit button, but no Up/Down buttons
+rootDseTableWidget.createWidgetWithEdit( composite, toolkit );
+rootDseTableWidget.getControl().setLayoutData( new GridData( SWT.FILL, SWT.NONE, true, false, 2, 1 ) );
+
+// Associate a listener to this table
+addModifyListener( rootDseTableWidget, rootDseTableListener );
+</code></pre>
+<p>Here, we declare a <em>TableWidget</em>, a type of elements (StringValueWrapper), a label provider (used to decorate the elements in the table, if needed).</p>
+<p>Last, not least, you create the widget and set its position in your screen.</p>
+<h3 id="the-element-wrapper">The element wrapper</h3>
+<p>We need to wrap the element in the table in order to expose a few basic functions :
+* clone
+* hashCode
+* equals
+* compareTo
+* toString</p>
+<p>Here is an exemple, the <em>StringValueWrapper</em>, which wrap a simple value, which is itself a String :</p>
+<pre><code>public class StringValueWrapper implements Cloneable, Comparable&lt;StringValueWrapper&gt;
+{
+    /** The value */
+    private String value;
+    
+    /** A flag to tell if the compare should be case sensitive or not */
+    private boolean caseSensitive = true;
+
+    /**
+     * Creates a new instance of StringValueWrapper.
+     *
+     * @param value the value
+     */
+    public StringValueWrapper( String value, boolean caseSensitive )
+    {
+        this.value = value;
+        this.caseSensitive = caseSensitive;
+    }
+
+    
+    /**
+     * @return the value
+     */
+    public String getValue()
+    {
+        return value;
+    }
+
+    /**
+     * @param value the value to set
+     */
+    public void setValue( String value )
+    {
+        this.value = value;
+    }
+    
+    
+    /**
+     * Clone the current object
+     */
+    public StringValueWrapper clone()
+    {
+        try
+        {
+            return (StringValueWrapper)super.clone();
+        }
+        catch ( CloneNotSupportedException e )
+        {
+            return null;
+        }
+    }
+
+    
+    /**
+     * @see Object#equals(Object)
+     */
+    public boolean equals( Object that )
+    {
+        // Quick test
+        if ( this == that )
+        {
+            return true;
+        }
+        
+        if ( that instanceof StringValueWrapper )
+        {
+            StringValueWrapper thatInstance = (StringValueWrapper)that;
+            
+            if ( caseSensitive )
+            {
+                return value.equals( thatInstance.value );
+            }
+            else
+            {
+                return value.equalsIgnoreCase( thatInstance.value );
+            }
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    
+    /**
+     * @see Object#hashCode()
+     */
+    public int hashCode()
+    {
+        int h = 37;
+        
+        if ( value != null )
+        {
+            h += h*17 + value.hashCode();
+        }
+        
+        return h;
+    }
+
+
+    /**
+     * @see Comparable#compareTo()
+     */
+    public int compareTo( StringValueWrapper that )
+    {
+        if ( that == null )
+        {
+            return 1;
+        }
+        
+        // Check the value
+        if ( Strings.isEmpty( value ) )
+        {
+            return -1;
+        }
+        else
+        {
+            return value.compareToIgnoreCase( that.value );
+        }
+    }
+    
+    
+    /**
+     * @see Object#toString()
+     */
+    public String toString()
+    {
+        return value;
+    }
+}
+</code></pre>
+<p>Of course, your implementation may be way more complex, but all in all, the API contract is the same.</p>
+<h3 id="the-decorator">The Decorator</h3>
+<p>This is just a class that extends the <em>TableDecorator</em> abstract class. The <em>TableDecorator</em> extendss the <em>LabelProvider</em> class and implements the <em>Comparator</em> interface.</p>
+<p>Here is an example :</p>
+<pre><code>public class StringValueDecorator extends TableDecorator&lt;StringValueWrapper&gt;
+{
+    /**
+     * Create a new instance of StringValueDecorator
+     * @param parentShell The parent Shell
+     * @param attributeName the name of the attribute which will contain the value
+     */
+    public StringValueDecorator( Shell parentShell, String attributeName )
+    {
+        setDialog( new StringValueDialog( parentShell, attributeName ) );
+    }
+    
+
+    /**
+     * Construct the label for a String.
+     * @param element the Element for which we want the value
+     * @return a String representation of the element
+     */
+    public String getText( Object element )
+    {
+        if ( element instanceof StringValueWrapper )
+        {
+            return ( ( StringValueWrapper ) element ).getValue();
+        }
+
+        return super.getText( element );
+    };
+
+
+    /**
+     * Get the image. We have none
+     * @param element The element for which we want the image
+     * @return The associated Image, or Null
+     */
+    public Image getImage( Object element )
+    {
+        return null;
+    };
+
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int compare( StringValueWrapper e1, StringValueWrapper e2 )
+    {
+        if ( e1 != null )
+        {
+            if ( e2 == null )
+            {
+                return 1;
+            }
+            else
+            {
+                return e1.compareTo( e2 );
+            }
+        }
+        else
+        {
+            if ( e2 == null )
+            {
+                return 0;
+            }
+            else
+            {
+                return 1;
+            }
+        }
+    }
+}
+</code></pre>
+<p>Here, each line in the Table will represent an instance of a <em>WtringValueWrapper</em>, with no image. Would you need to add an image before the text, it&rsquo;s just a matter to return this image in the <em>getImage()</em> method.</p>
+<p>The constructor takes 2 arguments, the second one will be used in the default Dialog we use to create new String values.</p>
+<p>The text is simply constructed using the <em>toString()</em> method, but you may use whatever fits your need.</p>
+<h3 id="the-dialog">The Dialog</h3>
+<p>This is the complex part, which totally depends on what you want to do. In any case, all the User&rsquo;s Dialog will inherit from the <em>AddEditDialog</em> class, which defines some default actions.</p>
+<p>Here is a quick description of this abstract class :</p>
+<pre><code>AddEditDialog&lt;E&gt; extends Dialog
+
+fields :
+    E editedElement  : The element that is edited, if one clicked on the Edit button, or the new element to create for the Add action
+    List&lt;E&gt; elements : The list of elements already in the Table
+    int selectedPosition : If an element has been selected in the Table, contain its position in the _elements_ list
+    boolean isAdd : A flag set to true if the Add button has been clicked.
+    boolean okDisabled : A flag to tell if the OK button has to be disabled (for instance, if the data are invalid while creating or editing an element)
+
+abstract methods :
+    void addNewElement() : If the Add button is clicked, we ask the specific Dialog to create an empty instance of Element. This method has to be implemented.
+    void initDialog() : read the wrapped element into the dialog's Widgets
+
+
+public methods :
+    E getEditedElement() : Get the element that is currently being edited.
+    int getSelectedPosition() : Get the selected position, if any
+    boolean isAdd() : Tells if the element is an addition or an edition
+    void setAdd() : This is an Addition
+    void setEdit() : This is an Edition
+    void setEditedElement( E editedElement ) : Set the element that will be edited. Actually, a new instance is created, that will contain a copy of the edited element.
+    void setElements( List&lt;E&gt; elements ) : Keep a copy (not shallow) of the Table content.
+    void setSelectedPosition( int selectedPosition ) : Store the selected position
+
+protected methods :
+    Control createButtonBar( Composite parent ) : Used to hide the OK button if needed
+    List&lt;E&gt; getElements() : Returns the list of elements
+    void initDialog() : Can be overloaded if the Dialog needs to inject an edited element in the Dialog widgets. Optional.
+</code></pre>
+<p>You generally have to implement the <em>addNewElement()</em> and <em>initDialog()</em> methods in your own Dialog class, then implement all the logic to render your dialog.</p>
+<p>Here is how you set up your Dialog instance :</p>
+<pre><code>protected Control createDialogArea( Composite parent )
+{
+    Composite composite = ( Composite ) super.createDialogArea( parent );
+    GridData gd = new GridData( GridData.FILL_BOTH );
+    composite.setLayoutData( gd );
+
+    // StringValue Group
+    Group stringValueGroup = BaseWidgetUtils.createGroup( parent, null, 1 );
+    GridLayout stringValueGroupGridLayout = new GridLayout( 2, false );
+    stringValueGroup.setLayout( stringValueGroupGridLayout );
+    stringValueGroup.setLayoutData( new GridData( SWT.FILL, SWT.NONE, true, false ) );
+
+    // String Text
+    BaseWidgetUtils.createLabel( stringValueGroup, attributeName + &quot;:&quot;, 1 );
+    stringValue = BaseWidgetUtils.createText( stringValueGroup, &quot;&quot;, 1 );
+    stringValue.setLayoutData( new GridData( SWT.FILL, SWT.NONE, true, false ) );
+
+    initDialog();
+    addListeners();
+
+    applyDialogFont( composite );
+    
+    return composite;
+}
+</code></pre>
+<p>Here is what you&rsquo;ll get on the screen when an element is selected :</p>
+<pre><code> +---------------------------------------+
+ | .-----------------------------------. |
+ | | Value  : [                      ] | |
+ | '-----------------------------------' |
+ |                                       |
+ |  (cancel)                       (OK)  |
+ +---------------------------------------+
+</code></pre>
+<p>The rendering can be way more complex though.</p>
+<h3 id="actions">Actions</h3>
+<p>There are two, three, four or five possible actions on this table :</p>
+<ul>
+<li>Add</li>
+<li>Edit (optional)</li>
+<li>Delete</li>
+<li>Up (optional)</li>
+<li>Down (optional)</li>
+</ul>
+<p>Let&rsquo;s see how it works.</p>
+<h4 id="add-action">Add action</h4>
+<p>We will open the Dialog that is provided, and get back a new element which will be exposed in the Table. We also will check that the element is not already present, and if so, no duplicate will be added, except if the table is ordered.</p>
+<p>If the table is not ordered, the newly created element will be injected at the right place in the Table : we use the <em>compareTo</em> method to find the position it as to be added in. If the element already exists, it&rsquo;s not added.</p>
+<p>If the table is ordered, this is a different story :</p>
+<ul>
+<li>there is a selected element : the newly created element is added <em>after</em> the selection, and all the following elements&rsquo; prefix are incremented.</li>
+<li>we don&rsquo;t have any selected element : the newly created element is added at the end of the Table, and its prefix is the laset element&rsquo;s prefix, plus one.</li>
+</ul>
+<h4 id="delete-action">Delete action</h4>
+<p>The delete action only works for a selected element.</p>
+<p>If the Table is ordered, we will update the prefix of the elements after the deleted one, decrementing all of them.</p>
+<h4 id="edit-action">Edit action</h4>
+<p>The edition of an element will replace the selected element by its new value.</p>
+<p>If the Table is ordered, the prefix will not be changed. Otherwise, the edited element might be moved to another position, depending on where it fits accordingly to the <em>compareTo</em> method.</p>
+<h4 id="up-action">Up Action</h4>
+<p>The Up action will move one element up in the table. It&rsquo;s only valid for an ordered Table. Basically, it does nothing more than just exchanging two elements, and sapping their prefix.</p>
+<h4 id="down-action">Down action</h4>
+<p>The Up action will move one element down in the table. It&rsquo;s only valid for an ordered Table. Basically, it does nothing more than just exchanging two elements, and sapping their prefix.</p>
+<h3 id="the-listener">The listener</h3>
+<p>Last, not least, we have to add a Listener to react on what happens on the table itself.</p>
+<p>It&rsquo;s all about post-modification actions. In our case, we want to update the underlaying OpenLDAP configuration :</p>
+<pre><code>private WidgetModifyListener rootDseTableListener = new WidgetModifyListener()
+{
+    public void widgetModified( WidgetModifyEvent e )
+    {
+        List&lt;String&gt; rootDses = new ArrayList&lt;String&gt;();
+        
+        for ( StringValueWrapper rootDse : rootDseTableWidget.getElements() )
+        {
+            rootDses.add( rootDse.getValue() );
+        }
+        
+        getConfiguration().getGlobal().setOlcRootDSE( rootDses );
+    }
+};
+</code></pre>
+<p>But it can be hatever fits your need.</p>
+<h2 id="creating-a-table-with-no-edit-button-or-an-ordered-table">Creating a Table with no edit button, or an Ordered table</h2>
+<p>We have seen how to create a Table with an Edit button. Creating teh other Table&rsquo;s flawors is easy :</p>
+<ul>
+<li>With edit : TableWidget.createWidgetWithEdit( Composite, FormToolkit );</li>
+<li>No edit : TableWidget.createWidgetNoEdit( Composite, FormToolkit );</li>
+<li>Ordered, No edit : TableWidget.createOrderedWidgetNoEdit( Composite, FormToolkit );</li>
+<li>Ordered, with edit : TableWidget.createOrderedWidgetWithEdit( Composite, FormToolkit );</li>
+</ul>
+<p>Everything else is the same.</p>
+
+
+            
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

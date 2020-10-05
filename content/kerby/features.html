@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>Features &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/orange.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/api-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+             
+                ApacheDS
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+             
+                LDAP API
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+            
+                <strong>Kerby</strong>
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                <h5>Kerby</h5>
+                <ul>
+                    <li><a href="/kerby/">Home</a></li>
+                    <li><a href="/kerby/news.html">News</a></li>
+                    <li><a href="/kerby/features.html">Features</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/kerby/downloads.html">Version 2.0.1</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/kerby/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Getting Started</h5>
+                <ul>
+                    
+                    <li><a href="/kerby/issues.html">Issues</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/kerby/overview.html">Overview</a></li>
+                    
+                    <li><a href="/kerby/kerby-asn1.html">Kerby ASN1</a></li>
+                    <li><a href="/kerby/user-guide.html">User Guide</a></li>
+                    
+                    
+                    
+                    <li><a href="/kerby/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/kerby/tutorials.html">Tutorials</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+
+            
+	<h1 id="kerby-features">Kerby Features</h1>
+<p>Kerby is an implementation of Kerberos V5 protocol in pure Java. It provides a rich, intuitive and interoperable library, KDC and various facilities that integrate PKI, OTP and token (OAuth2) as desired in modern environments such as cloud, Hadoop and mobile.
+Following features are (already) supported:</p>
+<ul>
+<li>
+<p>Kerberos libraries:</p>
+<ul>
+<li>Client</li>
+<li>KDC server</li>
+<li>Kadmin</li>
+<li>Credential cache and keytab utilities</li>
+</ul>
+</li>
+<li>
+<p>Standalone KDC server</p>
+</li>
+<li>
+<p>Support for various backends:</p>
+<ul>
+<li>In-memory</li>
+<li>Mavibot (MVCC BTree)</li>
+<li>LDAP</li>
+<li>JSON</li>
+<li>Zookeeper</li>
+</ul>
+</li>
+<li>
+<p>Embeddable KDC server allows easy integration into products for unit testing or production deployment.</p>
+</li>
+<li>
+<p>FAST/Preauthentication framework, to allow popular and useful authentication mechanisms.</p>
+</li>
+<li>
+<p>Token Preauth mechanism, to allow clients to request tickets using JWT tokens.</p>
+</li>
+<li>
+<p>Client can request a TGT with:</p>
+<ul>
+<li>User plain password credential</li>
+<li>User keyTab</li>
+<li>User token credential</li>
+</ul>
+</li>
+<li>
+<p>Client can request a service ticket with:</p>
+<ul>
+<li>user TGT credential for a server</li>
+<li>user AccessToken credential for a server</li>
+</ul>
+</li>
+<li>
+<p>Network support including UDP and TCP transport with two implementations:</p>
+<ul>
+<li>Default implementation based on the JRE without depending on other libraries.</li>
+<li>Netty based implementation for better throughput, lower latency.</li>
+</ul>
+</li>
+<li>
+<p>Tools:</p>
+<ul>
+<li>kdcinit: Initialize and prepare KDC, like choose storage type, setting up necessary principals (tgs, kadmin) etc.</li>
+<li>kadmin: Command-line interface to administer Kerby.</li>
+<li>kinit: Obtains and caches initial ticket-granting tickets for principals.</li>
+<li>klist: Lists the Kerberos principals and tickets held in a credentials cache, or the keys held in a keytab file.</li>
+</ul>
+</li>
+<li>
+<p>Support for JAAS, GSSAPI and SASL frameworks, allowing applications to leverage the authentication mechanisms provided by Kerby.</p>
+</li>
+</ul>
+
+
+            
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

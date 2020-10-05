@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>1.1 - What Apache DS is &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/green.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/server-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+            
+                <strong>ApacheDS</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+             
+                LDAP API
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>ApacheDS 2.0</h5>
+                <ul>
+                    <li><a href="/apacheds/">Home</a></li>
+                    <li><a href="/apacheds/news.html">News</a></li>
+                    <li><a href="/apacheds/features.html">Features</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/apacheds/downloads.html">ApacheDS 2.0.0.AM26</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/apacheds/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/apacheds/basic-user-guide.html">Basic User Guide </a></li>
+                    <li><a href="/apacheds/advanced-user-guide.html">Advanced User Guide</a></li>
+                    <li><a href="/apacheds/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/apacheds/kerberos-user-guide.html">Kerberos User Guide</a></li>
+                    <li><a href="/apacheds/configuration/ads-2.0-configuration.html">Configuration</a></li>
+                    <li><a href="/apacheds/gen-docs/latest/apidocs">JavaDocs</a></li>
+                    <li><a href="/apacheds/gen-docs/latest/xref">Cross-Reference</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="1-how-to-begin.html">1 - How to begin</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="1-how-to-begin.html">1 - How to begin</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="1.2-some-background.html">1.2 - Some Background. Directories, directory services and LDAP</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+            
+	<h1 id="11---what-apache-directory-server-is">1.1 - What Apache Directory Server is</h1>
+<p>This section describes what Apache Directory Server (abbreviated ApacheDS) is, and where it comes from.</p>
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#system-vision">System vision</a>
+      <ul>
+        <li><a href="#architectural-overview">Architectural overview</a></li>
+      </ul>
+    </li>
+    <li><a href="#origin-and-motives">Origin and Motives</a></li>
+    <li><a href="#resources">Resources</a></li>
+  </ul>
+</nav>
+<h2 id="system-vision">System vision</h2>
+<p>ApacheDS 2.0 is an embeddable, extendable, standards compliant, modern LDAP server written entirely in Java, and available under the Apache Software License. Other network protocols like Kerberos and NTP are supported as well (and even more may be added), but basically (and especially for this introduction guide) ApacheDS is an LDAP server.</p>
+<p><em>Embeddable</em> means that it is possible to configure, start and stop ApacheDS from other Java components, especially application servers, and the server runs within the same VM. The solution has already been successfully embedded in Apache Geronimo, JBoss, and others. The fact that the server is embeddable is quite interesting, nevertheless you also have the deployment option to run the server standalone, for instance as a Windows service. Perhaps you know this situation from other LDAP servers &ndash; open source (like OpenLDAP) as well as commercial ones (like Sun Java System Directory Server). This guide is dedicated to people that are new to ApacheDS.  The guide concentrates on installing, configuring and running ApacheDS in a standalone configuration.</p>
+<p><em>Extendable</em> means that the modern architecture of the solution provides many extension points. Write your own partitions to store directory data, interceptors to add functionality, etc. by implementing certain interfaces and plugging them in using Spring.</p>
+<p><em>Standard compliant</em> means that ApacheDS 2.0 adheres to all RFCs relevant to LDAPv3. Please note that version 1.0 of the server has been successfully certified by the Open Group in September 2006 (&ldquo;LDAP certified&rdquo;). Thus LDAP clients may rightly expect that ApacheDS behaves like they expect.</p>
+<p><em>Modern</em> means that ApacheDS aims modernize the LDAP territory, as well as it favors standards compliance. New rich integration tier constructs like LDAP Stored Procedures and Triggers are being built on top of existing standards.</p>
+<p><em>Entirely written in Java</em> means that the software compiles and runs on a huge number of hardware and software platforms. Native installers are available for Windows, MacOS and Solaris (both SPARC and intel platform), but in fact the set of possible targets is by far more extensive.</p>
+<h3 id="architectural-overview">Architectural overview</h3>
+<p><img src="images/50k-ft-architecture.png" alt="50k ft architecture"></p>
+<h2 id="origin-and-motives">Origin and Motives</h2>
+<p>Through his experiences with enterprise LDAP directories, Alex Karasulu, realized there is a great need for rich integration tier constructs like LDAP Stored Procedures, Triggers, and Views.  In 2001 he set out to alter the OpenLDAP server to offer support for these useful facilities which are present in relational databases but missing in the LDAP world.  Alex&rsquo;s attempts failed due to the complexity of the software which was brittle, and difficult to manage.  As C code ported to several platforms, the OpenLDAP code base, had several #IFDEF conditional pre-compiler directives that made it difficult to change the code.  At this point Alex thought about implementing a new LDAP server in pure Java.  Thanks to NIO this was finally possible using the 1.4 JDK.</p>
+<p>In October 2002 Alex Karasulu founded and registered the <a href="http://sourceforge.net/projects/ldapd">LDAPd</a> project at SourceForge.net.  LDAPd was a a pure Java embeddable LDAP v3 protocol daemon built on the Avalon framework.  Alex donated the code to the Apache Software Foundation and the code entered the <a href="http://incubator.apache.org/">Apache Incubator</a> in October 2003.  One year later in October of 2004, the Apache Directory Top Level Project (TLP) was formed after a successful incubation with the now called Apache Directory Server as its flagship product. After 4 years of development, in October 2006, Apache Directory Server 1.0 was released as an Open Group certified LDAPv3 protocol server. The certification has been renewed in September 2007.</p>
+<p>Having a standards compliant and modern LDAP server, Apache Directory Team is now working on Identity and Access Management solutions leveraging the directory technology.</p>
+<h2 id="resources">Resources</h2>
+<ul>
+<li><a href="../../original-project-proposal.html">Proposal for an Apache Directory Project</a> the original proposal for incubation, September 2003.</li>
+<li><a href="../../vision.html">Architecting the Modern LDAP Renaissance: The Apache Directory Vision</a>, Paper for 1st International Conference on LDAP, September 2007.</li>
+</ul>
+
+
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="1-how-to-begin.html">1 - How to begin</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="1-how-to-begin.html">1 - How to begin</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="1.2-some-background.html">1.2 - Some Background. Directories, directory services and LDAP</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

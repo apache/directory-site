@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>5.3 - SASL Bind &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/brown.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/api-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+             
+                ApacheDS
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+            
+                <strong>LDAP API</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>LDAP API </h5>
+                <ul>
+                    <li><a href="/api/">Home</a></li>
+                    <li><a href="/api/news.html">News</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/api/downloads-1.html">Version 1.0.3</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/downloads-2.html">Version 2.0.1</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Getting Started</h5>
+                <ul>
+                    <li><a href="/api/vision.html">Vision</a></li>
+                    <li><a href="/api/java-api.html">Java API</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/api/five-minutes-tutorial.html">Five minute tutorial</a></li>
+                    <li><a href="/api/user-guide.html">User Guide</a></li>
+                    <li><a href="/api/migration-guide.html">API 1 to 2 migration</a></li>
+                    <li><a href="/api/gen-docs/latest/apidocs/">JavaDocs</a></li>
+                    <li><a href="/api/gen-docs/latest2/apidocs/">JavaDocs 2</a></li>
+                    <li><a href="/api/gen-docs/latest/xref/">Cross-Reference</a></li>
+                    <li><a href="/api/gen-docs/latest2/xref/">Cross-Reference 2</a></li>
+                    
+                    <li><a href="/api/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/api/internal-design-guide.html">Internal Guide</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="5.2-start-tls.html">5.2 - StartTLS</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="5-ldap-security.html">5 - LDAP Security</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="5.4-password-handling.html">5.4 - Password Handling</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+            
+	<blockquote>
+<p><strong>Note:</strong> Work in progress&hellip;</p>
+</blockquote>
+<h1 id="53---sasl-bind">5.3 - SASL Bind</h1>
+<p><em>SASL</em> is defined by <a href="https://tools.ietf.org/html/rfc4422">RFC 4422</a> which obsoletes <a href="https://tools.ietf.org/html/rfc2222">RFC2222</a>. There are also a few RFCs that are related to <em>SASL</em>, they are listed in the next paragraph.</p>
+<p>In any case, as <em>ApacheDS</em> and the <em>Apache LDAP API</em> are based on <em>Java</em>, we depend on the <em>Java</em> <em>SASL</em> impementation. Typically, this is handled by the <em>SunSASL</em> provider, which only support the following mechanisms, as of Java 8 :</p>
+<ul>
+<li>PLAIN (Client)</li>
+<li>CRAM-MD5 (Client/Server)</li>
+<li>DIGEST-MD5 (Client/Server)</li>
+<li>GSSAPI (Client/Server)</li>
+<li>EXTERNAL (Client)</li>
+</ul>
+<p>Note that in <em>Java 9</em>, those mechanisms are spread in two different providers, the <em>GSSAPI</em> mechanism being handled by the <em>JdkSASL</em> provider.</p>
+<p>We currently don&rsquo;t support any other provider.</p>
+<h2 id="sasl-bind-handling">SASL Bind handling</h2>
+<p>The <em>SASL</em> framework may require more than one <em>BindRequest</em>/<em>BindResponse</em> to be exchanched, as ther server may need more information from the client.  The client must be ready to deal with such situation, by controling the resturned result : <em>SASL_BIND_IN_PROGRESS</em> means more is required.</p>
+<p>In any case, the client must send a first <em>BindRequest</em> with the proper information. We have dedicated methods to do so, based on the <em>SASL</em> mechanism to use :</p>
+<ul>
+<li>bindSaslPlain() : <em>PLAIN</em> mechanism</li>
+<li>bindSaslCramMd5() : <em>CRAM-MD5</em> mechanism</li>
+<li>bindSaslDigestMd5() : <em>DIGEST-MD5</em> mechanism</li>
+<li>bindSaslGssApi() : <em>GSSAPI</em> mechanism</li>
+<li>bindSaslExternal() : <em>EXTERNAL</em> mechaism</li>
+</ul>
+<p>We don&rsquo;t support the <em>SASL</em> <em>ANONYMOUS</em> mechanism.</p>
+<p>There is also a more generic method that anyone can use with any mechanism, assuming we have a class implementing it :</p>
+<ul>
+<li>bindSasl( Saslrequest )</li>
+</ul>
+<p>It&rsquo;s just about using an instance of a class extending the <em>SaslRequest</em> interface.</p>
+<p>Here is an example of a <em>SASL</em> bind, where we assume we have an entry which <em>uid</em> is &ldquo;hnelson&rdquo;, and a <em>userPassword</em> which is &ldquo;secret&rdquo; (note that the password must be in clear text in the server) :</p>
+<pre><code>:::java
+    LdapNetworkConnection connection = new LdapNetworkConnection( Network.LOOPBACK_HOSTNAME, getLdapServer().getPort() );
+
+    BindResponse resp = connection.bindSaslCramMd5( &quot;hnelson&quot;, &quot;secret&quot; );
+    assertEquals( ResultCodeEnum.SUCCESS, resp.getLdapResult().getResultCode() );
+</code></pre>
+<h2 id="rfcs">RFCs</h2>
+<p>Here are the list of RFCs related to <em>SASL</em>:</p>
+<p><img src="../../images/icons/information.gif" alt=""> : Informational</p>
+<p><img src="../../images/icons/lightbulb.gif" alt=""> : Historic</p>
+<p><img src="../../images/icons/lightbulb_on.gif" alt=""> : Proposed Standard</p>
+<p><img src="../../images/icons/warning.gif" alt=""> : Experimental</p>
+<p><img src="../../images/icons/thumbs_up.gif" alt=""> : Best current practice</p>
+<h3 id="obsolete-rfcs">Obsolete RFCs</h3>
+<table>
+<thead>
+<tr>
+<th>RFC</th>
+<th>Description</th>
+<th>Obsoleted by</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://tools.ietf.org/html/rfc2222">RFC 2222</a></td>
+<td>Simple Authentication and Security Layer (SASL)</td>
+<td><a href="https://tools.ietf.org/html/rfc4422">RFC 4422</a>, <a href="https://tools.ietf.org/html/rfc4752">RFC 4752</a></td>
+<td><img src="../../images/icons/lightbulb_on.gif" alt=""></td>
+</tr>
+<tr>
+<td><a href="https://tools.ietf.org/html/rfc2245">RFC 2245</a></td>
+<td>Anonymous SASL Mechanism</td>
+<td><a href="https://tools.ietf.org/html/rfc4505">RFC 4505</a></td>
+<td><img src="../../images/icons/lightbulb_on.gif" alt=""></td>
+</tr>
+<tr>
+<td><a href="https://tools.ietf.org/html/rfc2831">RFC 2831</a></td>
+<td>Using Digest Authentication as a SASL Mechanism</td>
+<td><a href="https://tools.ietf.org/html/rfc4505">RFC 4505</a></td>
+<td><img src="../../images/icons/lightbulb.gif" alt=""></td>
+</tr>
+<tr>
+<td><a href="https://tools.ietf.org/html/rfc4013">RFC 4013</a></td>
+<td>SASLprep: Stringprep Profile for User Names and Passwords</td>
+<td><a href="https://tools.ietf.org/html/rfc7613">RFC 7613</a></td>
+<td><img src="../../images/icons/lightbulb_on.gif" alt=""></td>
+</tr>
+<tr>
+<td><a href="https://tools.ietf.org/html/rfc7613">RFC 7613</a></td>
+<td>Preparation, Enforcement, and Comparison of Internationalized Strings Representing Usernames and Passwords</td>
+<td><a href="https://tools.ietf.org/html/rfc8265">RFC 8265</a></td>
+<td><img src="../../images/icons/lightbulb_on.gif" alt=""></td>
+</tr>
+</tbody>
+</table>
+<h3 id="active-rfcs">Active RFCs</h3>
+<table>
+<thead>
+<tr>
+<th>RFC</th>
+<th>Description</th>
+<th>Status</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://tools.ietf.org/html/rfc2444">RFC 2444</a></td>
+<td>The One-Time-Password SASL Mechanism</td>
+<td><img src="../../images/icons/lightbulb_on.gif" alt=""></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://tools.ietf.org/html/rfc2808">RFC 2808</a></td>
+<td>The SecurID(r) SASL Mechanism</td>
+<td><img src="../../images/icons/information.gif" alt=""></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://tools.ietf.org/html/rfc4422">RFC 4422</a></td>
+<td>Simple Authentication and Security Layer (SASL)</td>
+<td><img src="../../images/icons/lightbulb_on.gif" alt=""></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://tools.ietf.org/html/rfc4505">RFC 4505</a></td>
+<td>Anonymous Simple Authentication and Security Layer (SASL) Mechanism</td>
+<td><img src="../../images/icons/lightbulb_on.gif" alt=""></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://tools.ietf.org/html/rfc4616">RFC 4616</a></td>
+<td>The PLAIN Simple Authentication and Security Layer (SASL) Mechanism</td>
+<td><img src="../../images/icons/lightbulb_on.gif" alt=""></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://tools.ietf.org/html/rfc4752">RFC 4752</a></td>
+<td>The Kerberos V5 (&ldquo;GSSAPI&rdquo;) Simple Authentication and Security Layer (SASL) Mechanism</td>
+<td><img src="../../images/icons/lightbulb_on.gif" alt=""></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://tools.ietf.org/html/rfc58%C3%A0&amp;">RFC 5801</a></td>
+<td>Using Generic Security Service Application Program Interface (GSS-API) Mechanisms in Simple Authentication and Security Layer (SASL): The GS2 Mechanism Family</td>
+<td><img src="../../images/icons/lightbulb_on.gif" alt=""></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://tools.ietf.org/html/rfc5802">RFC 5802</a></td>
+<td>Salted Challenge Response Authentication Mechanism (SCRAM) SASL and GSS-API Mechanisms</td>
+<td><img src="../../images/icons/lightbulb_on.gif" alt=""></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://tools.ietf.org/html/rfc6331">RFC 6331</a></td>
+<td>Moving DIGEST-MD5 to Historic</td>
+<td><img src="../../images/icons/information.gif" alt=""></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://tools.ietf.org/html/rfc7677">RFC 7677</a></td>
+<td>SCRAM-SHA-256 and SCRAM-SHA-256-PLUS Simple Authentication and Security Layer (SASL) Mechanisms</td>
+<td><img src="../../images/icons/lightbulb_on.gif" alt=""></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="https://tools.ietf.org/html/rfc8265">RFC 8265</a></td>
+<td>Preparation, Enforcement, and Comparison of Internationalized Strings Representing Usernames and Passwords</td>
+<td><img src="../../images/icons/lightbulb_on.gif" alt=""></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="5.2-start-tls.html">5.2 - StartTLS</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="5-ldap-security.html">5 - LDAP Security</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="5.4-password-handling.html">5.4 - Password Handling</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

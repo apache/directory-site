@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>Proposal for an Apache Directory Project &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/green.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/server-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+            
+                <strong>Main</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+             
+                ApacheDS
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+             
+                LDAP API
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>Latest Downloads</h5>
+                <ul>
+                    <li><a href="/apacheds/downloads.html">ApacheDS 2.0.0.AM26</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/studio/downloads.html">Studio 2.0.0-M14</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/downloads-1.html">LDAP API 1.0.3</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/downloads-2.html">LDAP API 2.0.1</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/mavibot/downloads.html">Mavibot 1.0.0-M8</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/fortress/downloads.html">Fortress 2.0.5</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/scimple/downloads.html">SCIMple 1.0.0</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/kerby/downloads.html">Kerby 2.0.1</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                </ul>
+
+                <h5>Sub-Projects</h5>
+                <ul>
+                    <li><a href="/apacheds/">ApacheDS</a></li>
+                    <li><a href="/studio/">Apache Directory Studio</a></li>
+                    <li><a href="/api/">Apache LDAP API</a></li>
+                    <li><a href="/mavibot/">Apache Mavibot</a></li>
+                    <li><a href="/scimple/">Apache SCIMple</a></li>
+                    <li><a href="/fortress/">Apache Fortress</a></li>
+                    <li><a href="/kerby/">Apache Kerby</a></li>
+                </ul>
+                
+
+                <h5>Resources</h5>
+                <ul>
+                    <li><a href="/references.html">References</a></li>
+                    <li><a href="/articles.html">Articles</a></li>
+                    <li><a href="/conference-materials.html">Conferences</a></li>
+                    <li><a href="/testimonies.html">Testimonials</a></li>
+                    <li><a href="/vision.html">Vision</a></li>
+                    <li><a href="/security-advisories.html">Security Advisories</a></li>
+                    
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+
+            
+	<p>This is the original project proposal for the incubation of the Apache Directory Project sent to the Apache Incubator by Alex Karasulu.  Although old (September 2003), it is still worth reading as the original vision of the project.  It&rsquo;s a piece of history.</p>
+<h1 id="proposal-for-an-apache-directory-project">Proposal for an Apache Directory Project</h1>
+<p>10 Sept 2003, Alex Karasulu (<a href="mailto:akarasulu@apache.org">akarasulu@apache.org</a>) LDAPd Group Founder</p>
+<ul>
+<li><a href="#section-0-rationale">Rationale</a></li>
+<li><a href="#section-1-scope-of-the-project">Scope of the Project</a></li>
+<li><a href="#section-2-initial-source">Initial Source</a></li>
+<li><a href="#section-3-asf-resources-to-be-created">ASF Resources to be Created</a></li>
+<li><a href="#section-4-initial-set-of-committers">Initial Set of Committers</a></li>
+<li><a href="#section-5-apache-sponsoring-individuals">Apache Sponsoring Individuals</a></li>
+<li><a href="#section-6-incubation-exit-criteria">Incubation Exit Criteria</a></li>
+</ul>
+<h2 id="section-0--rationale">Section 0 : Rationale</h2>
+<p>The geometric growth of networks, services, distributed systems, and their components has brought about a revival of interest in directories. Directories are no longer considered commodity products used to store a phone book or list of users. Directories and LDAP have grown into a critical technology that will inevitably become a cornerstone of distributed systems. Several software giants like BEA, SUN, and Microsoft have already demonstrated their belief in this outcome by heavily integrating their products with directories. Directory and naming systems are being used in everything from a simplified form for J2EE configuration to full-blown enterprise directories, within identity management systems and distributed computing platforms like JINI.</p>
+<p>The overhead of managing several copies of relatively static information across systems and enterprises is daunting and introduces the potential for data inconsistency. The frequently replicated user and group tables in almost every database driven application alone is a testament to this fact. When multiple systems have to inter operate, they must share access to common information, and directories are the best storage paradigm for rapidly accessing this type of data. Whether the information to be stored, is a component&rsquo;s configuration, a user&rsquo;s security profile, a business rule or a business process, directories are the place to store it for centralized management, and distribution across systems.</p>
+<p>To date, a fully compliant pure Java open source LDAPv3 server has not yet been written. This is partially due to the fact that a practical stateful protocol server in Java was virtually impossible until the introduction of the NIO packages in the 1.4 SDK. LDAP, as a stateful protocol, manages client state through a TCP socket connection. The socket connection persists through several client requests and server responses tying them together under a logical session or conversation. Before the introduction of non-blocking IO in the NIO packages of the 1.4 SDK, a thread had to be dedicated to each socket to detect IO. A stateful protocol server written completely in Java, would have needed as many active threads as the number of concurrent clients. Theoretically, scalability would have been very poor; the performance curve would be asymptotic, degrading rapidly with an increase in the number of concurrent connections. To scale pure Java statefull protocol server implementations had to wait until the Merlin release of the JDK.</p>
+<p>Furthermore, no embeddable pure Java LDAPv3 server has yet been written and made freely available. We believe the embedding of LDAP servers into existing mail, application and web servers to be the next logical steps in the progression and integration of LDAP. Several commercial examples can already be sited: Microsoft Exchange and BEA Weblogic Server. The management benefits of coupling these servers with an LDAP server are beyond the scope of this proposal and left to the imagination of the reader. However, the synergy between embedded LDAP servers and other flagship Apache servers would lead to greater economies of scale for the Apache server suite and reduce the overhead of management for the Apache software user community.</p>
+<p>LDAP directories are specialized databases, however unlike their RDBMS counterparts, LDAP directories are fairly new and for this reason lack rich integration features. High on the list of features lacking in LDAP servers are stored procedures and triggers. Triggers and Java stored procedures would expand the horizon of LDAP in itself even without the benefits of Java. Triggers and stored procedures would alleviate ugly workarounds which currently using polling and meta directories. These features alone would attract groups within the LDAP and Java communities to band together and support the Apache LDAP Project.</p>
+<p>LDAP is both a network line protocol and a hierarchical relational database. Some might even argue that LDAP is object oriented. Regardless, the implementation of an LDAP server is not a trivial matter. LDAP code bases written in native languages have to be ported to run on different platforms. Conditional complies in C based implementations were shown to considerably reduce the maintainability of code bases. The complexity of a database, a network line protocol and conditional compilation together have resulted in reduced maintainability for C based LDAP servers. Also the learning curve and hence barrier to entry for developers is greater. These complications would not exist for a Java based LDAP server that is written once and can run anywhere.</p>
+<p>The Apache Foundation supports several component container projects which provide the proper foundation for a Java LDAP directory server. Apache also supports several server side application containers which can realize significant functional enhancements by employing an LDAP directory server. Also LDAP requiring organizations today must settle for less than optimal implementations and often have to pay as high as a dollar per entry to directory enable their applications. The Apache LDAP Project would solve these problems by providing a free robust LDAPv3 implementation in a standalone configuration or an embeddable configuration for use in all Apache servers and other third party products.</p>
+<p>Our goal is to produce a community of developers with backgrounds in LDAP, X.500, Database Engineering and JNDI tasked with the development of pure Java LDAPv3 Clients, APIs, JNDI providers and LDAPv3 compliant servers with the aforementioned features. The produced software will be ASF licensed. Where applicable the best available ASF/BSD licensed code will be reused and new code will be added to complete the LDAPv3 protocol as defined in <a href="http://www.ietf.org/rfc/rfc3377.txt">RFC 3377</a> and its associated 8 RFCs listed below:</p>
+<ul>
+<li><a href="http://www.ietf.org/rfc/rfc2251.txt">RFC2251</a> Lightweight Directory Access Protocol (v3): LDAP on-the-wire protocol</li>
+<li><a href="http://www.ietf.org/rfc/rfc2252.txt">RFC2252</a> Lightweight Directory Access Protocol (v3): Attribute Syntax Definitions</li>
+<li><a href="http://www.ietf.org/rfc/rfc2253.txt">RFC2253</a> Lightweight Directory Access Protocol (v3): UTF-8 String Representation of DNs</li>
+<li><a href="http://www.ietf.org/rfc/rfc2254.txt">RFC2254</a> The String Representation of LDAP Search Filters</li>
+<li><a href="http://www.ietf.org/rfc/rfc2255.txt">RFC2255</a> The LDAP URL Format</li>
+<li><a href="http://www.ietf.org/rfc/rfc2256.txt">RFC2256</a> A Summary of the X.500(96) User Schema for use with LDAPv3</li>
+<li><a href="http://www.ietf.org/rfc/rfc2829.txt">RFC2829</a> Authentication Methods for LDAP</li>
+<li><a href="http://www.ietf.org/rfc/rfc2830.txt">RFC2830</a> Lightweight Directory Access Protocol (v3): Extension for Transport Layer Security</li>
+</ul>
+<p>Additionally, the schema objects specified within the following RFCs will be defined for use and partial or full complaince will be met where relavent to the project:</p>
+<ul>
+<li><a href="http://www.ietf.org/rfc/rfc1274.txt">RFC1274</a> The COSINE and Internet X.500 Schema</li>
+<li><a href="http://www.ietf.org/rfc/rfc1804.txt">RFC1804</a> Schema Publishing in X.500 Directory</li>
+<li><a href="http://www.ietf.org/rfc/rfc2079.txt">RFC2079</a> Definition of an X.500 Attribute Type and an Object Class to Hold Uniform Resource Identifiers (URIs)</li>
+<li><a href="http://www.ietf.org/rfc/rfc2247.txt">RFC2247</a> Using Domains in LDAP/X.500 Distinguished Names</li>
+<li><a href="http://www.ietf.org/rfc/rfc2293.txt">RFC2293</a> Representing Tables and Subtrees in the X.500 Directory</li>
+<li><a href="http://www.ietf.org/rfc/rfc2294.txt">RFC2294</a> Representing the O/R Address hierarchy in the X.500 Directory Information Tree</li>
+<li><a href="http://www.ietf.org/rfc/rfc2307.txt">RFC2307</a> An Approach for Using LDAP as a Network Information Service</li>
+<li><a href="http://www.ietf.org/rfc/rfc2377.txt">RFC2377</a> Naming Plan for Internet Directory-Enabled Applications</li>
+<li><a href="http://www.ietf.org/rfc/rfc2587.txt">RFC2587</a> Internet X.509 Public Key Infrastructure LDAPv2 Schema</li>
+<li><a href="http://www.ietf.org/rfc/rfc2589.txt">RFC2589</a> Lightweight Directory Access Protocol (v3): Extensions for Dynamic Directory Services</li>
+<li><a href="http://www.ietf.org/rfc/rfc2596.txt">RFC2596</a> Use of Language Codes in LDAP</li>
+<li><a href="http://www.ietf.org/rfc/rfc2649.txt">RFC2649</a> An LDAP Control and Schema for Holding Operation Signatures</li>
+<li><a href="http://www.ietf.org/rfc/rfc2696.txt">RFC2696</a> LDAP Control Extension for Simple Paged Results Manipulation</li>
+<li><a href="http://www.ietf.org/rfc/rfc2713.txt">RFC2713</a> Schema for Representing Java(tm) Objects in an LDAP Directory</li>
+<li><a href="http://www.ietf.org/rfc/rfc2714.txt">RFC2714</a> Schema for Representing CORBA Object References in an LDAP Directory</li>
+<li><a href="http://www.ietf.org/rfc/rfc2798.txt">RFC2798</a> Definition of the inetOrgPerson? LDAP Object Class</li>
+<li><a href="http://www.ietf.org/rfc/rfc2829.txt">RFC2829</a> Authentication Methods for LDAP</li>
+<li><a href="http://www.ietf.org/rfc/rfc2830.txt">RFC2830</a> Lightweight Directory Access Protocol (v3): Extension for Transport Layer Security</li>
+<li><a href="http://www.ietf.org/rfc/rfc2849.txt">RFC2849</a> The LDAP Data Interchange Format (LDIF) - Technical Specification</li>
+<li><a href="http://www.ietf.org/rfc/rfc2891.txt">RFC2891</a> LDAP Control Extension for Server Side Sorting of Search Results</li>
+<li><a href="http://www.ietf.org/rfc/rfc3045.txt">RFC3045</a> Storing Vendor Information in the LDAP root DSE</li>
+<li><a href="http://www.ietf.org/rfc/rfc3062.txt">RFC3062</a> LDAP Password Modify Extended Operation</li>
+<li><a href="http://www.ietf.org/rfc/rfc3088.txt">RFC3088</a> OpenLDAP? Root Service An experimental LDAP referral service</li>
+<li><a href="http://www.ietf.org/rfc/rfc3112.txt">RFC3112</a> LDAP Authentication Password Schema</li>
+<li><a href="http://www.ietf.org/rfc/rfc3296.txt">RFC3296</a> Named Subordinate References in Lightweight Directory Access Protocol (LDAP) Directories</li>
+<li><a href="http://www.ietf.org/rfc/rfc3383.txt">RFC3383</a> Internet Assigned Numbers Authority (IANA) considerations for the Lightweight Directory Access Protocol (LDAP)</li>
+</ul>
+<h3 id="section-01--criteria">Section 0.1 : Criteria</h3>
+<p>We feel that this project has a good chance for success as the following project aspects are carefully considered :</p>
+<p>Meritocracy: The project will be meritocratic - the usual Apache meritocracy rules would apply.</p>
+<p>Community: The user community for this project is potentially massive. The initial developer community for this project consists of developers from Apache and LDAPd projects. The aim is for this community to grow considerably once this project enters the incubator.</p>
+<p>Core Developers: The initial developers are listed further below within this document and consist of some existing Apache committers together with committers from the LDAPd Group.</p>
+<p>Alignment: There is clear alignment with many existing Apache projects. From Jakarta projects such as Tomcat, James and Slide for embedding LDAP. The LDAP DSML standards will eventually require the use of several XML projects. Other projects like OpenJms?, which currently are not Apache projects but very well may be in the future will be used for things like replication. Jdbm likewise is used for building Btree based indices for custom databases. Also projects like Apache Xindice may be leveraged for an XML based backend or for DSML enabling subsystems of an LDAP server.</p>
+<p>We see the Apache Directory Project as a separate project to existing Apache projects, serving several roles</p>
+<ul>
+<li>Home for Apache Directory Client APIs and Client Scripts</li>
+<li>Home for Apache JNDI Providers for Various Directory Namespaces</li>
+<li>Home for Apache Directory Servers</li>
+<li>May also become home to an ASN.1 Encoding/Decoding? Library</li>
+</ul>
+<h3 id="section-02--warning-signs">Section 0.2 : Warning Signs</h3>
+<p>We feel this project has a good chance for success as the following warning signs do not apply to the project we are proposing:</p>
+<p>Orphaned products: This project is starting with an existing code base which using lots of the high quality open source code out there which is ASF/BSD licensed.</p>
+<p>Inexperience with open source: The initial community is made up of existing Apache and LDAPd Group committers exclusively so the open source experience is there to varying degrees.</p>
+<p>Reliance on salaried developers: None of the initial developers are currently paid to work on the Directory Project.</p>
+<p>No ties to other Apache products: The Apache Directory Project is complementary to existing technologies at Apache. LDAPd currently uses Avalon and will eventually be used by james. LDAPd will eventually integrate into Geronimo. The Apache Directory Project will integrate with, and possibly subsume, Jakarta Commons Naming.</p>
+<p>A fascination with the Apache brand: The committers are interested in developing a healthy open source community around ASF/BSD licensed directory servers and their clients along with other JNDI accessible name spaces. Is Apache the right place? We think it is. Several Apache folks have already shown interest in LDAPd, the seed code base to be used for this project. In fact the LDAPd Group was initially approached by Apache to submit an Incubator proposal. LDAPd Group members voted unanimously to donate the code to Apache in an effort to build the next flagship server at Apache and much more.</p>
+<h2 id="section-1--scope-of-the-project">Section 1 : Scope of the Project</h2>
+<p>There are multiple goals for this Apache project:</p>
+<ul>
+<li>Promote a healthy open source community!</li>
+<li>Promote a language agnostic environment for both client side and server side endeavors.</li>
+<li>A one stop location for all directory and naming needs on any platform or any language.
+<ul>
+<li>client APIs</li>
+<li>clients</li>
+<li>JNDI providers for Java and other namespaces.</li>
+<li>May also include an LDAP protocol correctness and stress testing suite in the future.</li>
+</ul>
+</li>
+<li>Provide servers in embeddable configurations.</li>
+<li>Provide servers in standalone configurations as UNIX daemons or NT Services.</li>
+<li>Provide support for Directory Server embedding or integration with existing Apache servers like httpd, Slide, Tomcat, James and Geronimo.</li>
+</ul>
+<h2 id="section-2--initial-source">Section 2 : Initial Source</h2>
+<p>The initial code base from which to create the Apache Directory repository is contained mostly at Sourceforge under the LDAPd project accessible <a href="#">here</a>. This code base must assign copyright to the Apache Software Foundation. The code base will need to be licensed under The Apache Software Foundation license. The license file in every subproject will be changed to the Apache license. The current license is already an Apache &ldquo;style&rdquo; license, so this change is basically a change to name The ASF as the owner.</p>
+<p>The proposed TLP (after incubation) would have an one or more directory servers with multiple datastore backends, a JNDI context for J2EE configuration, JNDI service provider(s) for LDAP and other transports, State and Object Factories suitable for use in the various Context/DirContext? implementations, etc.</p>
+<p>Beside source code the LDAPd Group must transfer its IANA assigned ASN.1 Object Identifier to Apache Software Foundation.</p>
+<h2 id="section-3--asf-resources-to-be-created">Section 3 : ASF Resources to be Created</h2>
+<h3 id="section-31--mailing-lists">Section 3.1 : Mailing Lists</h3>
+<ul>
+<li><a href="mailto:directory-dev@incubator.apache.org">directory-dev@incubator.apache.org</a></li>
+</ul>
+<h3 id="section-32--cvs-repositories">Section 3.2 : CVS Repositories</h3>
+<ul>
+<li>incubator-directory</li>
+</ul>
+<h3 id="section-33--bugzilla-or-preferably-jira">Section 3.3 : Bugzilla or (preferably) Jira</h3>
+<ul>
+<li>directory</li>
+</ul>
+<h2 id="section-4--initial-set-of-committers">Section 4 : Initial Set of Committers</h2>
+<p>All contributors must sign and submit a Contributors License Agreement. The following individuals are the contributors, and have signed and sent the agreement at one time or another:</p>
+<ul>
+<li>Alex Karasulu</li>
+<li>Phil Steitz</li>
+<li>Robb Penoyer</li>
+<li>Noel Bergman</li>
+<li>Jeff Machols</li>
+<li>Henri Yandell</li>
+<li>Wes McKean?</li>
+</ul>
+<h2 id="section-5--apache-sponsoring-individuals">Section 5 : Apache Sponsoring Individuals</h2>
+<ul>
+<li>Nicola Ken Barozzi (Apache Incubator)</li>
+<li>Noel J. Bergman (Apache James)</li>
+<li>Henri Yandell (Jakarta Commons Naming)</li>
+<li>Stephen McConnell? (Apache Avalon)</li>
+<li>James Strachan (Apache Geronimo)</li>
+</ul>
+<h2 id="section-6--incubation-exit-criteria">Section 6 : Incubation Exit Criteria</h2>
+<p>We feel this project should exit the incubator to a TLP using the domain name directory.apache.org should the following goals be met:</p>
+<p>Technical Goals:</p>
+<ul>
+<li>Clean status with Apaches Continuous Integration System</li>
+<li>Website cross reference to existing Apache literature with respect to rules and regulations</li>
+<li>At a minimum a beta release and/or a series of Release Candidates for a directory server and its clients.</li>
+<li>At least one server that complies with <a href="http://www.ietf.org/rfc/rfc2251.txt">RFC2251</a></li>
+</ul>
+<p>Non-Technical Goals:</p>
+<ul>
+<li>List presence and monitoring in wider Apache communities</li>
+<li>Website cross reference to existing Apache literarature with respect to rules and regulations</li>
+<li>Initial integration plan and cooperation with Geronimo, and James</li>
+<li>Member presence on the licensing@apache list</li>
+<li>More Apache or non-Apache committers who are actively modifying source code</li>
+</ul>
+
+
+            
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

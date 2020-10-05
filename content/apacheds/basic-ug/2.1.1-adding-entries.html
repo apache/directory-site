@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>2.1.1 - Adding Entries &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/green.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/server-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+            
+                <strong>ApacheDS</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+             
+                LDAP API
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>ApacheDS 2.0</h5>
+                <ul>
+                    <li><a href="/apacheds/">Home</a></li>
+                    <li><a href="/apacheds/news.html">News</a></li>
+                    <li><a href="/apacheds/features.html">Features</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/apacheds/downloads.html">ApacheDS 2.0.0.AM26</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/apacheds/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/apacheds/basic-user-guide.html">Basic User Guide </a></li>
+                    <li><a href="/apacheds/advanced-user-guide.html">Advanced User Guide</a></li>
+                    <li><a href="/apacheds/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/apacheds/kerberos-user-guide.html">Kerberos User Guide</a></li>
+                    <li><a href="/apacheds/configuration/ads-2.0-configuration.html">Configuration</a></li>
+                    <li><a href="/apacheds/gen-docs/latest/apidocs">JavaDocs</a></li>
+                    <li><a href="/apacheds/gen-docs/latest/xref">Cross-Reference</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="2.1-data-modification.html">2.1 - Data modification</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="2.1-data-modification.html">2.1 - Data modification</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="2.1.2-deleting-entries.html">2.1.2 - Deleting Entries</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+            
+	<h1 id="211---adding-entries">2.1.1 - Adding Entries</h1>
+<p>We will see how to add new entries into the server. Assuming that we have already created a partition (see <a href="1.4.3-adding-partition.html">Adding a partition</a>), we will use this added partition as a root for the entry addition. We will also create the <em>ou=people</em> entry.</p>
+<p>We try to add a new user to the &ldquo;Seven Seas&rdquo; partition. The data for the entry is inspired by &ldquo;Peter Pan&rdquo; and provided by this LDIF file (<a href="resources/captain-hook-hierarchy.ldif">Captain hook</a>):</p>
+<pre><code># File captain_hook.ldif
+dn: ou=people,o=sevenSeas
+objectclass: organizationalUnit
+objectclass: top
+ou: people
+
+dn: cn=James Hook,ou=people,o=sevenSeas
+objectclass: inetOrgPerson
+objectclass: organizationalPerson
+objectclass: person
+objectclass: top
+cn: James Hook
+description: A pirate captain and Peter Pan's nemesis
+sn: Hook
+mail: jhook@neverland
+userpassword: peterPan
+</code></pre>
+<p>The first entry creates the <em>ou=people</em> container, which is necessary otherwise we can&rsquo;t inject the second entry.</p>
+<h2 id="using-the-command-line">Using the command line</h2>
+<p>You have to use an authorized user to inject the entry, here, <em>cn=Horatio Nelson,ou=people,o=sevenSeas</em> :</p>
+<pre><code>$ ldapmodify -h zanzibar -p 10389 -D &quot;cn=Horatio Nelson,ou=people,o=sevenSeas&quot; -w pass \\
+    -a -f captain_hook.ldif
+adding new entry cn=James Hook,ou=people,o=sevenSeas
+$
+</code></pre>
+<p>Afterwards a new entry is successfully created within the &ldquo;Seven Seas&rdquo; partition by user &ldquo;Horatio Nelson&rdquo;. The &lsquo;+&rsquo; sign in the attributes list of the <em>ldapsearch</em> command causes ApacheDS to return the operational attributes, which demonstrate this.</p>
+<pre><code>$ ldapsearch -h zanzibar -p 10389 -b &quot;o=sevenSeas&quot; -s sub &quot;(cn=James Hook)&quot; +
+version: 1
+dn: cn=James Hook,ou=people,o=sevenSeas
+accessControlSubentries: cn=sevenSeasAuthorizationRequirementsACISubentry,o=sevenSeas
+creatorsName: cn=Horatio Nelson,ou=people,o=sevenSeas
+createTimestamp: 20061203140109Z
+</code></pre>
+<h2 id="using-apache-directory-studio">Using Apache Directory Studio</h2>
+<p>Once connected on the server with studio, you should be able to inject new entries -assuming you have the sufficent priviledge - :</p>
+<p><img src="images/import-entry-studio.png" alt="Import entry with studio"></p>
+<p>Then select the LDIF file containing the entry :</p>
+<p><img src="images/ldif-import-file-select.png" alt="LDIF import"></p>
+<p>When imported, the <em>log</em> windows should contain this message :</p>
+<pre><code>#!RESULT OK
+#!CONNECTION ldap://localhost:10389
+#!DATE 2012-10-30T14:36:21.294
+dn: ou=people,o=sevenSeas
+changetype: add
+ou: people
+objectclass: organizationalUnit
+objectclass: top
+
+#! RESULT OK
+#! CONNECTION ldap://localhost:10389
+#! DATE 2012-10-30T14:36:21.320
+dn: cn=James Hook,ou=people,o=sevenSeas
+changetype: add
+mail: jhook@neverland
+userpassword: peterPan
+description: A pirate captain and Peter Pan's nemesis
+objectclass: inetOrgPerson
+objectclass: organizationalPerson
+objectclass: person
+objectclass: top
+sn: Hook
+cn: James Hook
+</code></pre>
+<p>This is it for this basic introduction on how to add entries in the server. There are other ways, like using and LDAP API, to do the same thing.</p>
+
+
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="2.1-data-modification.html">2.1 - Data modification</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="2.1-data-modification.html">2.1 - Data modification</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="2.1.2-deleting-entries.html">2.1.2 - Deleting Entries</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

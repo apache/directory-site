@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>LDAP Java API - Developer Guide &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/brown.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/api-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+             
+                ApacheDS
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+            
+                <strong>LDAP API</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>LDAP API </h5>
+                <ul>
+                    <li><a href="/api/">Home</a></li>
+                    <li><a href="/api/news.html">News</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/api/downloads-1.html">Version 1.0.3</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/downloads-2.html">Version 2.0.1</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Getting Started</h5>
+                <ul>
+                    <li><a href="/api/vision.html">Vision</a></li>
+                    <li><a href="/api/java-api.html">Java API</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/api/five-minutes-tutorial.html">Five minute tutorial</a></li>
+                    <li><a href="/api/user-guide.html">User Guide</a></li>
+                    <li><a href="/api/migration-guide.html">API 1 to 2 migration</a></li>
+                    <li><a href="/api/gen-docs/latest/apidocs/">JavaDocs</a></li>
+                    <li><a href="/api/gen-docs/latest2/apidocs/">JavaDocs 2</a></li>
+                    <li><a href="/api/gen-docs/latest/xref/">Cross-Reference</a></li>
+                    <li><a href="/api/gen-docs/latest2/xref/">Cross-Reference 2</a></li>
+                    
+                    <li><a href="/api/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/api/internal-design-guide.html">Internal Guide</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+
+            
+	<h1 id="developer-guide">Developer Guide</h1>
+<p>This guide is intened to be read by those who participate into the development of the LDAP API. Users of the API are expected to read the <a href="user-guide.html">User guide</a>.</p>
+<h2 id="getting-the-source-building-the-trunks">Getting the source, Building the trunks</h2>
+<p>To get the source, build the <em>trunks/api</em> and get along with Maven.</p>
+<h2 id="versioning-scheme">Versioning Scheme</h2>
+<p>The version number of <strong>LDAP API</strong> has the following form:</p>
+<DIV class="info" markdown="1">
+    &lt;major>.&lt;minor>.&lt;micro> \[-M&lt;milestone number> or -RC&lt;release candidate number>]
+</DIV>
+<p>This scheme has three number components:</p>
+<ul>
+<li>The <strong>major</strong> number increases when there are incompatible changes in the API.</li>
+<li>The <strong>minor</strong> number increases when a new feature is introduced.</li>
+<li>The <strong>micro</strong> number increases when a bug or a trivial change is made.</li>
+</ul>
+<p>and an optional label that indicates the maturity of a release:</p>
+<ul>
+<li><strong>M</strong> (Milestone) means the feature set can change at any time in the next milestone releases. The last milestone release becomes the first release candidate after a vote.</li>
+<li><strong>RC</strong> (Release Candidate) means the feature set is frozen and the next RC releases will focus on fixing problems unless there is a serious flaw in design. The last release candidate becomes the first GA release after a vote.</li>
+<li>No label implies <strong>GA</strong> (General Availability), which means the release is stable enough and therefore ready for production environment.</li>
+</ul>
+<DIV class="info" markdown="1">
+    A <b>stable</b> version is a version with a frozen set of features, and a frozen <b>API</b>. We don't release a version if all the integration tests are not passing, so any release should be considered stable enogh to be used.<BR/>
+    Although we may add new features between two milestones, and the data structure may change, which may imply that the data have to be extracted and reimported in order for the server to be operational.<BR/>
+    The configuration might also evolve between two versions.
+</DIV>
+<h2 id="coding-standards">Coding standards</h2>
+<p>The applicable coding standards for LDAP API 1.0 are described in <a href="coding-standards.html">Coding Standards</a></p>
+<p>There are some more rules, as we are using <strong>Java 6</strong> now :</p>
+<ul>
+<li>Use generics as much as you can. Generic are a good way to avoid casting, and it enforce the usage of the correct type.</li>
+<li>If you can avoid <em>Iterators</em>, do so. There is this cool construction with a <strong>for( Type t:<collection instance> )</strong> : use it !</li>
+<li>Use <strong>assert</strong>. It&rsquo;s usefull, especially instead of a bunch of <strong>if (<test is wrong>)</strong> then throw Exception* when controlling incoming parameters</li>
+<li>Use the new <em>Enum</em> type !</li>
+</ul>
+<h2 id="releasing-the-ldap-api">Releasing the LDAP API</h2>
+<p><strong>Note: The release guide needs to be updated after git migration!</strong></p>
+<p>Here is a guide on how to cut a new release. This is a long process, expect it to last a couple of hours !</p>
+<p>First, you need to have a recent version of Maven (we are using 3.0.4) and a recent version of the JDK (1.7 is ok, it should also build with 1.6).</p>
+<h3 id="maven-settings">Maven Settings</h3>
+<p>You&rsquo;ll need a settings section for the <strong>Nexus</strong> and <strong>people.apache.org</strong> servers with a password or a path to the SSH key used. Here&rsquo;s what my <strong>settings.xml</strong> file in <strong>~/.m2</strong> looks like:</p>
+<pre><code>&lt;settings&gt;
+
+  &lt;servers&gt;
+    &lt;!-- To publish a snapshot of some part of Maven --&gt;
+    &lt;server&gt;
+      &lt;id&gt;apache.snapshots.https&lt;/id&gt;
+      &lt;username&gt;username&lt;/username&gt;
+      &lt;password&gt;********&lt;/password&gt;
+    &lt;/server&gt;
+
+    &lt;!-- To publish a website using Maven --&gt;
+    &lt;server&gt;
+      &lt;id&gt;apache.directory&lt;/id&gt;
+      &lt;username&gt;username&lt;/username&gt;
+      &lt;privateKey&gt;/Users/username/.ssh/id_rsa&lt;/privateKey&gt;
+      &lt;filePermissions&gt;664&lt;/filePermissions&gt;
+      &lt;directoryPermissions&gt;775&lt;/directoryPermissions&gt;
+    &lt;/server&gt;
+
+    &lt;!-- To stage a release of some part of Maven --&gt;
+    &lt;server&gt;
+      &lt;id&gt;apache.releases.https&lt;/id&gt;
+      &lt;username&gt;username&lt;/username&gt;
+      &lt;password&gt;********&lt;/password&gt;
+    &lt;/server&gt;
+
+    &lt;!-- To stage a website of some part of Maven --&gt;
+    &lt;server&gt;
+      &lt;id&gt;stagingSite&lt;/id&gt; &lt;!-- must match hard-coded repository identifier in site:stage-deploy --&gt;
+      &lt;username&gt;elecharny&lt;/username&gt;
+      &lt;filePermissions&gt;664&lt;/filePermissions&gt;
+      &lt;directoryPermissions&gt;775&lt;/directoryPermissions&gt;
+    &lt;/server&gt;
+
+  &lt;/servers&gt;    
+
+  &lt;profiles&gt;
+    &lt;profile&gt;
+      &lt;id&gt;apache-public&lt;/id&gt;
+      &lt;pluginRepositories&gt;
+        &lt;pluginRepository&gt;
+          &lt;id&gt;apache.public&lt;/id&gt;
+          &lt;url&gt;https://repository.apache.org/content/groups/public/&lt;/url&gt;
+        &lt;/pluginRepository&gt;
+      &lt;/pluginRepositories&gt;
+    &lt;/profile&gt;
+
+    &lt;profile&gt;
+      &lt;id&gt;apache-release&lt;/id&gt;
+      &lt;!-- Configuration for artifacts signature --&gt;
+      &lt;properties&gt;
+        &lt;gpg.passphrase&gt;********&lt;/gpg.passphrase&gt;
+        &lt;gpg.keyname&gt;elecharny@apache.org&lt;/gpg.keyname&gt;
+      &lt;/properties&gt;
+    &lt;/profile&gt;
+  &lt;/profiles&gt;
+
+&lt;/settings&gt;
+</code></pre>
+<p>Just replace your username, passwords and paths. Note that the username and password is your Apache LDAP account.</p>
+<DIV class="info" markdown="1">
+You'll need to provide the passphrase in the <b>settings.xml</b> to access the gpg secret key installed on your host. This is due to a bug with the passphrase prompt in the <em>maven-gpg-plugin</em>. So unfortunately we must provide the passphrase in the <b>settings.xml</b> file in clear text. This should change in the future when this bug is fixed. Note that this passphrase is put into the release profile which we activate to properly sign and release the artifacts and poms via the release plugin.
+</DIV>
+<h3 id="gpg-key">GPG Key</h3>
+<p>All subprojects are configured to deploy signatures for the artifacts uploaded to the repository. The <strong>gpg</strong> plugin will check use the default gpg key for the user deploying the project with the release:perform directive of the release plugin. This will prompt you for the passphrase for the default key. If you do not have one setup the build will fail.</p>
+<p>You can generate and upload a PGP key to a PGP keyserver using the following commands:</p>
+<pre><code>gpg --gen-key
+gpg --fingerprint
+gpg --keyserver subkeys.pgp.net --send-keys &lt;your key's id from last command&gt;
+</code></pre>
+<DIV class="info" markdown="1">
+Make sure to have created the .pgpkey in your <em>p.a.o/~</em> directory and to have added your public key to the <b>KEYS</b> file.
+See also http://people.apache.org/~henkp/repo/faq.html#4
+</DIV>
+<h2 id="release-process">Release process</h2>
+<p>Since we are using Nexus for releases the release process is as follows (see also <a href="http://www.apache.org/dev/publishing-maven-artifacts.html#staging-maven">Publishing maven artifacts</a>).</p>
+<h3 id="test-the-project">Test the Project</h3>
+<pre><code>$ mvn release:prepare -DdryRun=true
+</code></pre>
+<p>Be aware that this phase will ask you about the next version, and most important, for the next SCM tag :</p>
+<pre><code>...
+[INFO] Checking dependencies and plugins for snapshots ...
+What is the release version for &quot;Apache Directory LDAP API&quot;? (org.apache.directory.api:api-parent) 1.0.0-M16: : 
+What is the release version for &quot;Apache Directory LDAP API I18n&quot;? (org.apache.directory.api:api-i18n) 1.0.0-M16: : 
+What is the release version for &quot;Apache Directory LDAP API Utilities&quot;? (org.apache.directory.api:api-util) 1.0.0-M16: : 
+...
+What is SCM release tag or label for &quot;Apache Directory LDAP API&quot;? (org.apache.directory.api:api-parent) 1.0.0-M16: :
+...
+</code></pre>
+<h3 id="deploy-a-snapshot">Deploy a Snapshot</h3>
+<pre><code>$ mvn deploy
+</code></pre>
+<p>This is useful to verify your settings in ~/.m2/settings.xml (Nexus password and GPG key)</p>
+<h3 id="prepare-the-release">Prepare the Release</h3>
+<pre><code>$ mvn release:clean
+$ mvn release:prepare
+</code></pre>
+<p>This creates a tag <a href="https://gitbox.apache.org/repos/asf?p=directory-ldap-api.git">here</a></p>
+<h3 id="stage-the-release">Stage the Release</h3>
+<pre><code>$ mvn release:perform
+</code></pre>
+<p>This deploys the release to a staging repository.</p>
+<p>Go to <a href="https://repository.apache.org/index.html#stagingRepositories">the nexus server</a> and close the staging repository.</p>
+<h3 id="build-the-site">Build the Site</h3>
+<p>In order to be able to generate the site, you will have to modify the target/checkout/pom.xml file, by adding a line to the javadoc configuration (in two places) :</p>
+<pre><code>$ vi target/checkout/pom.xml
+...
+  &lt;plugin&gt;
+    &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+    &lt;artifactId&gt;maven-javadoc-plugin&lt;/artifactId&gt;
+    &lt;configuration&gt;
+      &lt;show&gt;private&lt;/show&gt;
+      &lt;nohelp&gt;true&lt;/nohelp&gt;
+      &lt;doclint&gt;none&lt;/doclint&gt;     &lt;---- This line 
+...
+</code></pre>
+<p>and</p>
+<pre><code>...
+  &lt;plugin&gt;
+    &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
+    &lt;artifactId&gt;maven-javadoc-plugin&lt;/artifactId&gt;
+    &lt;configuration&gt;
+      &lt;windowtitle&gt;Apache LDAP API ${project.version} API Documentation&lt;/windowtitle&gt;
+      &lt;doctitle&gt;Apache LDAP API ${project.version} API Documentation&lt;/doctitle&gt;
+      &lt;minmemory&gt;512m&lt;/minmemory&gt;
+      &lt;maxmemory&gt;1g&lt;/maxmemory&gt;
+      &lt;linksource&gt;true&lt;/linksource&gt;
+      &lt;doclint&gt;none&lt;/doclint&gt;   &lt;---- This line too
+...
+</code></pre>
+<p>then run the maven site goal :</p>
+<pre><code>$ cd target/checkout
+$ mvn site
+</code></pre>
+<p>This creates the site.</p>
+<h3 id="sign-the-packages">Sign the packages</h3>
+<p>Now, you have to sign the binary packages which are in target/checkout/distribution/target.</p>
+<p>Use your PGP key ID (the pub key, 4096R/[XXXXXXX] where [XXXXXXX] is the key ID)</p>
+<p>You can get the keys by typing :</p>
+<pre><code>gpg --list-keys
+</code></pre>
+<p>The produced packages already have .asc signature that you will need to remove :</p>
+<pre><code>$ cd target/checkout/distribution/target
+$ rm *.asc
+$ ~/sign.sh
+PGP Key ID: 
+&lt;You public key&gt;
+PGP Key Password: 
+&lt;Your password&gt;
+-n Signing: ./apache-ldap-api-1.0.0-M25-bin.tar.gz ... 
+  - Generated './apache-ldap-api-1.0.0-M25-bin.tar.gz.md5'
+  - Generated './apache-ldap-api-1.0.0-M25-bin.tar.gz.asc'
+-n Signing: ./apache-ldap-api-1.0.0-M25-bin.zip ... 
+  - Generated './apache-ldap-api-1.0.0-M25-bin.zip.md5'
+  - Generated './apache-ldap-api-1.0.0-M25-bin.zip.asc'
+...
+</code></pre>
+<p>You are done with the signature.</p>
+<p>For the record, here is the script shell you can use to sign the packages. Name it sign.sh, and put it into your home directory (on a unix based computer) :</p>
+<pre><code>#!/bin/sh
+
+echo &quot;PGP Key ID: &quot;
+read DEFAULT_KEY
+
+echo &quot;PGP Key Password: &quot;
+stty -echo
+read PASSWORD
+stty echo
+echo &quot;&quot;
+
+for FILE in $(find . -maxdepth 1 -not '(' -name &quot;sign.sh&quot; -or -name &quot;.*&quot; -or -name &quot;*.asc&quot; ')' -and -type f) ; do
+    if [ -f &quot;$FILE.asc&quot; ]; then
+        echo &quot;Skipping: $FILE&quot;
+        continue
+    fi
+
+    echo -n &quot;Signing: $FILE ... &quot;
+
+    # SHA-256
+    if [ ! -f &quot;$FILE.sha256&quot; ];
+    then
+        gpg -v --default-key &quot;$DEFAULT_KEY&quot; --print-md SHA256 &quot;$FILE&quot; &gt; &quot;$FILE&quot;.sha256
+        echo &quot;  - Generated '$FILE.sha256'&quot;
+    else
+        echo &quot;  - Skipped '$FILE.sha256' (file already existing)&quot;
+    fi
+
+    # SHA-512
+    if [ ! -f &quot;$FILE.sha512&quot; ];
+    then
+        gpg -v --default-key &quot;$DEFAULT_KEY&quot; --print-md SHA512 &quot;$FILE&quot; &gt; &quot;$FILE&quot;.sha512
+        echo &quot;  - Generated '$FILE.sha512'&quot;
+    else
+        echo &quot;  - Skipped '$FILE.sha512' (file already existing)&quot;
+    fi
+
+    # ASC
+    if [ ! -f &quot;$FILE.asc&quot; ];
+    then
+        echo &quot;$PASSWORD&quot; | gpg --default-key &quot;$DEFAULT_KEY&quot; --detach-sign --armor --no-tty --yes --passphrase-fd 0 &quot;$FILE&quot;
+        echo &quot;  - Generated '$FILE.asc'&quot;
+    else
+        echo &quot;  - Skipped '$FILE.asc' (file already existing)&quot;
+    fi
+done
+</code></pre>
+<h3 id="publish-source-and-binary-distribution-packages">Publish Source and Binary Distribution Packages</h3>
+<p>The sources, binaries and their signatures, have to be pushed in a place where they can be downloaded by the other committers, in order to be checked while validating the release. As the ~/people.apache.org server is not anymore available for that purpose, we use the <a href="https://dist.apache.org/repos/dist/dev/directory">distribution</a> space for that purpose.</p>
+<p>If you haven&rsquo;t checked out this space, do it now :</p>
+<pre><code>$ mkdir -p ~/apacheds/dist/dev/directory
+$ svn co https://dist.apache.org/repos/dist/dev/directory ~/apacheds/dist/dev/directory
+</code></pre>
+<p>That will checkout the full project distributions.</p>
+<p>You may want to checkout only the part that you are going to generate, to avoid getting Gb of data :</p>
+<pre><code>$ mkdir -p ~/apacheds/dist/dev/directory/api
+$ svn co https://dist.apache.org/repos/dist/dev/directory/api ~/apacheds/dist/dev/directory/api
+</code></pre>
+<p>Now, create a sub-directory for the version you have generated (here, for version 1.0.0-RC1) :</p>
+<pre><code>$ mkdir ~/apacheds/dist/dev/directory/api/1.0.0-RC1
+</code></pre>
+<p>and copy the packages and signature to this area :</p>
+<pre><code>$ cd distributions/target
+$ cp apache-ldap-api-&lt;version&gt;-* ~/apacheds/dist/dev/directory/api/1.0.0-RC1
+</code></pre>
+<p>Last, not least, commit your changes</p>
+<pre><code>$ svn add ~/apacheds/dist/dev/directory/api/1.0.0-RC1
+$ svn ci ~/apacheds/dist/dev/directory/api/1.0.0-RC1 -m &quot;Apache LDAP API 1.0.0-RC1 packages&quot;
+</code></pre>
+<h3 id="test-the-new-version-in-apacheds-and-studio">Test the New Version in ApacheDS and Studio</h3>
+<p>In <em>apacheds/pom.xml</em> change the &lt;org.apache.directory.api.version&gt; property, build ApacheDS, go into <em>apacheds/service</em>, and run <em>./apachds.sh</em> to start the server.</p>
+<p>In <em>studio/pom.xml</em> change the &lt;org.apache.directory.api.version&gt; and &lt;org.apache.directory.api.validversion&gt; properties, build Studio, and start Studio in <em>applications/applications_<your platform>/target/ApacheDirectoryStudio-<your platform>/<executable></em>. Connect to the started <strong>ApacheDS</strong>.</p>
+<h3 id="stage-the-release-1">Stage the release</h3>
+<p>Go to <a href="https://repository.apache.org/index.html#stagingRepositories">https://repository.apache.org/index.html#stagingRepositories</a> and close the staging repository.</p>
+<h3 id="vote">Vote</h3>
+<p>Start a 72h vote at the dev mailing list.</p>
+<h3 id="release">Release</h3>
+<p>If the vote succeeds LDAP API project can be released.</p>
+<p>Go to <a href="https://repository.apache.org/index.html#stagingRepositories">https://repository.apache.org/index.html#stagingRepositories</a> and release the staging repository so all artifacts are published to Maven central.</p>
+<p>The sources, binaries and their signatures, have to be pushed in a place where they can be downloaded by users. We use the <a href="https://dist.apache.org/repos/dist/release/directory">distribution</a> space for that purpose.</p>
+<p>Move the distribution packages (sources and binaries) to the dist SVN repository: <a href="https://dist.apache.org/repos/dist/release/directory/api/dist/$(version)">https://dist.apache.org/repos/dist/release/directory/api/dist/$(version)</a></p>
+<p>If you haven&rsquo;t checked out this space, do it now :</p>
+<pre><code>$ mkdir -p ~/apacheds/dist/release/directory
+$ svn co https://dist.apache.org/repos/dist/release/directory ~/apacheds/dist/release/directory
+</code></pre>
+<p>That will checkout the full project distributions.</p>
+<p>You may want to checkout only the part that you are going to generate, to avoid getting Gb of data :</p>
+<pre><code>$ mkdir -p ~/apacheds/dist/release/directory/api/dist
+$ svn co https://dist.apache.org/repos/dist/release/directory/api/dist ~/apacheds/dist/release/directory/api/dist
+</code></pre>
+<p>Then move the packages from &lsquo;dev&rsquo; to &lsquo;release&rsquo; :</p>
+<pre><code># cd dist/release/directory/api/dist
+# cp ~/apacheds/dist/dev/directory/api/&lt;version&gt; .
+# svn add &lt;version&gt;
+# svn ci &lt;version&gt;
+...
+# exit
+$
+</code></pre>
+<p>The packages should now be available on <a href="http://www.us.apache.org/dist/directory/api/dist/">http://www.us.apache.org/dist/directory/api/dist/</a><version></p>
+<h3 id="deploy-the-javadocs-and-xref">Deploy the Javadocs and XRef</h3>
+<p>We now can deploy the generated Javadoc and cross-reference pages. They are generated in the following directory :</p>
+<pre><code>target/checkout/target/site
+</code></pre>
+<p>We will copy two directories :</p>
+<pre><code>apidocs
+xref
+</code></pre>
+<p><em>Staging or Production?</em></p>
+<DIV class="info" markdown="1">
+Those files will be stored on the production server only !!! And some extra caution ust be taken not to delete them when we will publish the staging site too...
+</DIV>
+<p>First of all, you must checkout the two CMS store for the site : staging and production.</p>
+<pre><code>$ cd ~/apacheds
+$ svn co https://svn.apache.org/repos/infra/websites/staging/directory/trunk staging
+...
+$ svn co https://svn.apache.org/repos/infra/websites/production/directory production
+...
+</code></pre>
+<p>Now, you will first add the directory for the newly generated version :</p>
+<pre><code>$ cd ~/apacheds/production/content/api/gen-docs
+$ mkdir &lt;version&gt;
+$ svn add &lt;version&gt;
+</code></pre>
+<p>Then copy the generated docs :</p>
+<pre><code>$ cp -r ~/apacheds/trunks/api/target/checkout/target/site/apidocs ~/apacheds/production/content/api/gen-docs/&lt;version&gt;
+$ cp -r ~/apacheds/trunks/api/target/checkout/target/site/xref ~/apacheds/production/content/api/gen-docs/&lt;version&gt;
+$ 
+</code></pre>
+<p>You have to check in those directories :</p>
+<pre><code>$ svn add &lt;version&gt;/*
+$ svn ci &lt;version&gt; -m &quot;Injected &lt;version&gt; javadocs&quot;
+</code></pre>
+<p>Now, you have to update the staging site <em>extpaths.txt</em></p>
+<p>This file list the file on the production site that will not be overriden by the publication of the staging site. It has to be updated</p>
+<pre><code>$ cd ~/apacheds/staging/content/
+$ vi extpaths.txt
+</code></pre>
+<p>Add the following line :</p>
+<pre><code>...
+# API
+api/gen-docs/&lt;version&gt;
+...
+</code></pre>
+<p>then save and check in the file <em>extpaths.txt</em></p>
+<p>We also have to update the <em>.htaccess</em> file :</p>
+<pre><code>$ cd ~/apacheds/staging/content/api/gen-docs
+$ vi .htaccess
+</code></pre>
+<p>And update the two last lines to refer to the version you&rsquo;ve just released :</p>
+<pre><code>RewriteRule ^latest$ &lt;version&gt;/
+RewriteRule ^latest/(.*)$ &lt;version&gt;/$1
+</code></pre>
+<p>Save and commit the file.</p>
+<h3 id="update-the-web-site">Update the web site</h3>
+<p>You can now update the site, add a news on the front page, and publish the site.</p>
+<p>There are a few places to modify :</p>
+<ul>
+<li>/lib/path.pm : update the $version_api variable with the new version.</li>
+<li>/content/index.mdtext : same here, update the <!-- LDAP API project --> section, which contains the version.</li>
+<li>/content/api/news.mdtext : add the news on top of this page</li>
+<li>/content/api/download-old-versions.mdtext : add a new line on top of the array, which refers to the latest version before the new one</li>
+</ul>
+<p>Commit the changes, and publish the web site, you are done !</p>
+<h3 id="inform-the-world-">Inform the world !</h3>
+<p>After 24h, you can now inform the world about the release.</p>
+<p>Send a mail to the users and dev mailing list, and one to the <strong><a href="mailto:announce@apache.org">announce@apache.org</a></strong></p>
+<p>You are done !</p>
+
+
+            
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

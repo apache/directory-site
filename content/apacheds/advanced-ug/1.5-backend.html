@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>1.5 - Backend &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/green.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/server-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+            
+                <strong>ApacheDS</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+             
+                LDAP API
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>ApacheDS 2.0</h5>
+                <ul>
+                    <li><a href="/apacheds/">Home</a></li>
+                    <li><a href="/apacheds/news.html">News</a></li>
+                    <li><a href="/apacheds/features.html">Features</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/apacheds/downloads.html">ApacheDS 2.0.0.AM26</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/apacheds/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/apacheds/basic-user-guide.html">Basic User Guide </a></li>
+                    <li><a href="/apacheds/advanced-user-guide.html">Advanced User Guide</a></li>
+                    <li><a href="/apacheds/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/apacheds/kerberos-user-guide.html">Kerberos User Guide</a></li>
+                    <li><a href="/apacheds/configuration/ads-2.0-configuration.html">Configuration</a></li>
+                    <li><a href="/apacheds/gen-docs/latest/apidocs">JavaDocs</a></li>
+                    <li><a href="/apacheds/gen-docs/latest/xref">Cross-Reference</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="1.4-interceptors.html">1.4 - Interceptors</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="1-architecture.html">1 - Architecture</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="2-server-config.html">2 - Server Configuration</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+            
+	<h1 id="15---backend">1.5 - Backend</h1>
+<p>The <em>Backend</em> is the part of the server responsible for storing data in a way we can easily retrieve them. This storage does not necessarily have to be remanent : we can have a in-memory <em>backend</em>.</p>
+<h2 id="existing-backends">Existing Backends</h2>
+<p>We currently have 3 different backends :</p>
+<ul>
+<li>JDBM</li>
+<li>LDIF</li>
+<li>In-Memory</li>
+</ul>
+<h3 id="jdbm-backend">JDBM Backend</h3>
+<p>The <strong>JDBM</strong> backend is storing data on disk, using <strong>BTrees</strong>. It&rsquo;s fast when it comes to retrieve data, slow when you have to add them.</p>
+<h3 id="in-memory-backend">In-Memory Backend</h3>
+<p>This Backend loads in memory a full set of entries. ALl of them must be hold by the existig memory, we don&rsquo;t write on disk anything nor we read anything from disk. If the server is stopped, everything is lost.</p>
+<h3 id="ldif-backend">LDIF Backend</h3>
+<p>It comes in two forms : one single file, or many fles (one per entry). It&rsquo;s always backed by a in-memory <em>Backend</em>, otherwise it would not be possible to retrieve the entries.</p>
+<p>As we depend on a in-memory backend, which handles the indexes, we have to create those indexes when this <em>Backend</em> is read, which can be a costly operation.</p>
+<h3 id="future-backends">Future Backends</h3>
+<p>We intend to add another in-memory backend, based on <em>Mavibot</em>, a <strong>MVCC BTREE</strong>. The biggest advantage over the other systems is that it&rsquo;s fast, it allows concurrent reads without locks when the other <em>Backend</em> block the reads when some write operation is being processed. Also it saves on disk it contents periodically, and has a Journal so that we can recover from a crash.</p>
+<p>The only drawback is that all the entries and indexes must hold in memory. On the other hand, we don&rsquo;t anymore need a cache.</p>
+<h2 id="how-it-works">How it works</h2>
+<p>Basically, each <em>Backend</em> instance inherit from the <em>AbstractBTreePartition</em> class. We can see that a <em>Backend</em> <strong>must</strong> be a <strong>Btree</strong>.</p>
+<p>Data are stored into various tables. In fact, we have one table containing all the entries - the <strong>MasterTable</strong> - and many indexes.</p>
+<h3 id="mastertable">MasterTable</h3>
+<p>The <em>MasterTable</em> contains all the entries, serialized.</p>
+<p>This table is a &lt;Key, Value&gt; <strong>BTree</strong>, where the key is the entry&rsquo;s <strong>UUID</strong>, and the value the serialized entry.</p>
+<DIV class="note" markdown="1">
+Theoretically, we could be able to read it, and restore the whole database, indexes included, assuming that we know which index we have to create. Sadly, it's not enough, as the entries are stored without any information about their position in the **DIT**.
+</DIV>
+<h3 id="indexes">Indexes</h3>
+<p>Each index is also a &lt;key, value&gt; <strong>BTree</strong>, with some exceptions : as we may store multi-valued elements, it&rsquo;s perfectly possible that the value will grow up to a point it&rsquo;s extremely costly to store it serialized. For instance, the <em>ObjectClass</em> index may have thousands of entries for the <em>Person</em> key.</p>
+<p>In this case, we use a sub-btree, which is a &lt;key,key&gt; <strong>BTree</strong> (as strange as it sounds, it&rsquo;s an easy way to add a new key without having to rewrite the full value).</p>
+<p>The key can be a <em>String</em>, or a <em>ParentIdAndRdn</em>.</p>
+<p>We have 7 system indexes, which are created when the server is started :</p>
+<ul>
+<li>ObjectClass : to easily find any entry associated with a give <em>ObjectClass</em></li>
+<li>EntryCsn : The Change Sequence Number index</li>
+<li>Rdn : A special index containing a RDN and its parent</li>
+<li>Presence : An index used when searching for the presence of an attributeType in an entry</li>
+<li>Alias : An index used for aliases</li>
+<li>OneAlias : An index used for children aliases</li>
+<li>SubAlias : An index used of descendant aliases</li>
+</ul>
+<p>The user may define many different indexes, depending on his or her needs.</p>
+<h3 id="the-parentidandrdn-index">The ParentIdAndRdn index</h3>
+<p>This index is special, as it&rsquo;s used to associate an entry to a position in the <strong>DIT</strong>. Assuming that each entry has a <em>Dn</em>, and that this <em>Dn</em> describes a hierarchy, the <em>ParentIdAndRdn</em> index depicts this hierarchy.</p>
+<p>The <em>ParentId</em> part refers to the <em>UUID</em> of the parent for the current entry. The <em>Rdn</em> part is the entry <em>Rdn</em>. In order to rebuild the full <em>Dn</em> for a given entry, we must get all the <em>ParentIdAndRdn</em> up to the root to grab all the needed <em>Rdn</em>.</p>
+<p>This index is also used to process one level and sub level indexes.</p>
+
+
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="1.4-interceptors.html">1.4 - Interceptors</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="1-architecture.html">1 - Architecture</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="2-server-config.html">2 - Server Configuration</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

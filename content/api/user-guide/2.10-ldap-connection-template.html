@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>2.10 - The LdapConnectionTemplate &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/brown.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/api-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+             
+                ApacheDS
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+            
+                <strong>LDAP API</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>LDAP API </h5>
+                <ul>
+                    <li><a href="/api/">Home</a></li>
+                    <li><a href="/api/news.html">News</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/api/downloads-1.html">Version 1.0.3</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/downloads-2.html">Version 2.0.1</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Getting Started</h5>
+                <ul>
+                    <li><a href="/api/vision.html">Vision</a></li>
+                    <li><a href="/api/java-api.html">Java API</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/api/five-minutes-tutorial.html">Five minute tutorial</a></li>
+                    <li><a href="/api/user-guide.html">User Guide</a></li>
+                    <li><a href="/api/migration-guide.html">API 1 to 2 migration</a></li>
+                    <li><a href="/api/gen-docs/latest/apidocs/">JavaDocs</a></li>
+                    <li><a href="/api/gen-docs/latest2/apidocs/">JavaDocs 2</a></li>
+                    <li><a href="/api/gen-docs/latest/xref/">Cross-Reference</a></li>
+                    <li><a href="/api/gen-docs/latest2/xref/">Cross-Reference 2</a></li>
+                    
+                    <li><a href="/api/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/api/internal-design-guide.html">Internal Guide</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="2.9-exception-management.html">2.9 - Exception management</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="2-basic-ldap-api-usage.html">2 - Basic LDAP API usage</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="2.11-filter-builder.html">2.11 - The FilterBuilder</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+            
+	<h1 id="210---why-use-the-ldapconnectiontemplate">2.10 - Why use the LdapConnectionTemplate?</h1>
+<p>The LdapConnectionTemplate provides simplified access to the API functions.  It does so by</p>
+<ul>
+<li><a href="#managing-connections">Managing Connections</a></li>
+<li><a href="#providing-factory-methods-for-model-objects">Providing Factory Methods For Model Objects</a></li>
+<li><a href="#providing-crud-methods">Providing CRUD Methods</a></li>
+<li><a href="#handling-search-result-iteration">Handling Search Result Iteration</a></li>
+<li><a href="#providing-simplified-password-policy-aware-authenticationpassword-modification-methods">Providing Simplified, Password Policy Aware, Authentication/Password Modification Methods</a></li>
+<li><a href="#other-useful-methods">Other Useful Methods</a></li>
+</ul>
+<p>Conceptually it uses the Template Method design pattern to do all of the boiler plate work for you.  It can give control back as needed for special cases.</p>
+<h2 id="managing-connections">Managing Connections</h2>
+<p>The connection template manages connections through a connection pool.  The connection pool must be supplied to the constructor:</p>
+<pre><code>:::Java
+LdapConnectionConfig config = new LdapConnectionConfig();
+config.setLdapHost( hostname );
+config.setLdapPort( port );
+config.setName( adminDn );
+config.setCredentials( adminPassword );
+
+DefaultLdapConnectionFactory factory = new DefaultLdapConnectionFactory( config );
+factory.setTimeOut( connectionTimeout );
+
+// optional, values below are defaults
+GenericObjectPool.Config poolConfig = new GenericObjectPool.Config();
+poolConfig.lifo = true;
+poolConfig.maxActive = 8;
+poolConfig.maxIdle = 8;
+poolConfig.maxWait = -1L;
+poolConfig.minEvictableIdleTimeMillis = 1000L * 60L * 30L;
+poolConfig.minIdle = 0;
+poolConfig.numTestsPerEvictionRun = 3;
+poolConfig.softMinEvictableIdleTimeMillis = -1L;
+poolConfig.testOnBorrow = false;
+poolConfig.testOnReturn = false;
+poolConfig.testWhileIdle = false;
+poolConfig.timeBetweenEvictionRunsMillis = -1L;
+poolConfig.whenExhaustedAction = GenericObjectPool.WHEN_EXHAUSTED_BLOCK;
+
+// could use DefaultPoolableLdapConnectionFactory instead
+// see javadoc for ValidatingPoolableLdapConnectionFactory
+// for an explanation
+LdapConnectionTemplate ldapConnectionTemplate = 
+    new LdapConnectionTemplate( new LdapConnectionPool(
+        new ValidatingPoolableLdapConnectionFactory( factory ), poolConfig ) );
+</code></pre>
+<p>This may look complicated, but most of the parameters are optional and it&rsquo;s an easy way for you to manage connections in a safe and efficient manner.</p>
+<h2 id="providing-factory-methods-for-model-objects">Providing Factory Methods For Model Objects</h2>
+<p>The connection template implements an interface called the ModelFactory.  Any implementation of this factory can be injected into the template once it is constructed.  By default, it uses ModelFactoryImpl which in turn constructs the standard Apache LDAP API model objects.  This abstraction frees you from having to be concerned with implementation details while still giving you the power to override the default behavior as you see fit.</p>
+<pre><code>:::Java
+ModelFactory modelFactory = new MyCustomModelFactory();
+ldapConnectionTemplate.setModelFactory( modelFactory );
+</code></pre>
+<h2 id="providing-crud-methods">Providing CRUD Methods</h2>
+<p>The standard CRUD methods are provided (<em>though in this case Add, Lookup, Modify, Delete</em>) with a couple useful overloads.  Add, Delete, and Modify all provide at least 2 approaches.  The first is creating your own XxxRequest objects and supplying that to the method.  These request objects can be created using the ModelFactory methods provided by LdapConnectionTemplate.  The second, more elegant solution, is to use the DN and RequestBuilder approach.  This approach will generate the request for you from the internal ModelFactory and provide it to a callback for you to fill in the details.  This has the added benefit of translating any LdapException&rsquo;s that may occur (usually due to model implementation setter methods) to LdapRuntimeException, to remove the <em><strong>need</strong></em> for try/catch blocks.  Now for some examples:</p>
+<p>Add provides the standard approaches of supplying your own AddRequest and using RequestBuilder, as well as a third shortcut approach where you supply all the attributes instead of a RequestBuilder:</p>
+<pre><code>:::Java
+// using RequestBuilder
+AddResponse response = ldapConnectionTemplate.add( 
+    ldapConnectionTemplate.newDn( &quot;uid=kermitthefrog,ou=muppets,dc=muppets,dc=org&quot; ),
+    new RequestBuilder&lt;AddRequest&gt;() {
+        @Override
+        public void buildRequest( AddRequest request ) throws LdapException {
+            request.getEntry()
+                .add( &quot;objectClass&quot;, &quot;top&quot;, &quot;person&quot;, &quot;organizationalPerson&quot;, &quot;inetOrgPerson&quot; )
+                .add( &quot;cn&quot;, &quot;Kermit The Frog&quot; )
+                .add( &quot;givenName&quot;, &quot;Kermit&quot; )
+                .add( &quot;sn&quot;, &quot;The Frog&quot; )
+                .add( &quot;mail&quot;, &quot;kermitthefrog@muppets.org&quot; )
+                .add( &quot;uid&quot;, &quot;kermitthefrog&quot; );
+        }
+    } );
+
+// using Attributes list
+AddResponse response = ldapConnectionTemplate.add( 
+    ldapConnectionTemplate.newDn( &quot;uid=misspiggy,ou=muppets,dc=muppets,dc=org&quot; ),
+    ldapConnectionTemplate.newAttribute( &quot;objectClass&quot;, 
+        &quot;top&quot;, &quot;person&quot;, &quot;organizationalPerson&quot;, &quot;inetOrgPerson&quot; ),
+    ldapConnectionTemplate.newAttribute( &quot;cn&quot;, &quot;Miss Piggy&quot; ),
+    ldapConnectionTemplate.newAttribute( &quot;givenName&quot;, &quot;Miss&quot; ),
+    ldapConnectionTemplate.newAttribute( &quot;sn&quot;, &quot;Piggy&quot; ),
+    ldapConnectionTemplate.newAttribute( &quot;mail&quot;, &quot;misspiggy@muppets.org&quot; ),
+    ldapConnectionTemplate.newAttribute( &quot;uid&quot;, &quot;misspiggy&quot; ) );
+</code></pre>
+<p>Modify simply supplies the 2 standard approaches:</p>
+<pre><code>:::Java
+// using RequestBuilder
+ModifyResponse response = ldapConnectionTemplate.modify( 
+    ldapConnectionTemplate.newDn( &quot;uid=misspiggy,ou=muppets,dc=muppets,dc=org&quot; ),
+    new RequestBuilder&lt;ModifyRequest&gt;() {
+        @Override
+        public void buildRequest( ModifyRequest request ) throws LdapException {
+            request.replace( &quot;sn&quot;, &quot;The Frog&quot; )
+                .replace( &quot;cn&quot;, &quot;Miss The Frog&quot; )
+                .replace( &quot;mail&quot;, &quot;missthefrog@muppets.org&quot; );
+        }
+    } );
+</code></pre>
+<p>Delete provides the 2 standard approaches plus an additional DN-only option as that is most likely enough:</p>
+<pre><code>:::Java
+// using DN only
+DeleteResponse response = ldapConnectionTemplate.delete( 
+    ldapConnectionTemplate.newDn( &quot;uid=misspiggy,ou=muppets,dc=muppets,dc=org&quot; ) );
+</code></pre>
+<p>Lookup is a different story in that it is an accessor (instead of mutator) so its interface must provide a way of handling the expected response data.  To that end, we supply an EntryMapper.  EntryMapper defines how a returned ldap entry should be interpreted.  This is typically used to construct a domain object:</p>
+<pre><code>:::Java
+// using a previously defined EntryMapper
+Muppet kermit = ldapConnectionTemplate.lookup( 
+    ldapConnectionTemplate.newDn( &quot;uid=kermitthefrog,ou=muppets,dc=muppets,dc=org&quot; ),
+    muppetEntryMapper );
+
+// using an inline defined EntityMapper 
+String email = ldapConnectionTemplate.lookup(
+    ldapConnectionTemplate.newDn( &quot;uid=kermitthefrog,ou=muppets,dc=muppets,dc=org&quot; ),
+    new String[] { &quot;mail&quot; }, // attribute list
+    new EntryMapper&lt;String&gt;() {
+        @Override
+        public String map( Entry entry ) throws LdapException {
+            return entry.get( &quot;mail&quot; ).getString();
+        }
+    } );
+</code></pre>
+<p>More information on EntryMapper can be found in the <a href="#handling-search-result-iteration">Handling Search Result Iteration</a> section.</p>
+<h2 id="handling-search-result-iteration">Handling Search Result Iteration</h2>
+<p>Searching usually contains a lot of boilerplate code for building requests and iterating through its responses.  This template does the work for you. It iterates over the entire result set, feeds each entry through an EntryMapper, and assembles the results into a list tht is returned to the caller.  All you have to do is provide the EntryMapper for mapping a single entry to a domain object.  EntryMapper itself is a very simple interface with one method.  As you saw before in the lookup documentation, they are typically defined as static members of your service classes:</p>
+<pre><code>:::Java
+// typically mappers are reused, so define a static member
+private static final EntryMapper&lt;Muppet&gt; muppetEntryMapper =
+    new EntryMapper&lt;Muppet&gt;() {
+        @Override
+        public Muppet map( Entry entry ) throws LdapException {
+            return new Muppet.Builder()
+                .setId( entry.getDn() )
+                .setFirstName( entry.get( &quot;givenName&quot; ).getString() )
+                .setLastName( entry.get( &quot;sn&quot; ).getString() )
+                .setEmailAddress( entry.get( &quot;mail&quot; ).getString() )
+                .build();
+        }
+    };
+</code></pre>
+<p>And now your searches become much simpler:</p>
+<pre><code>:::Java
+List&lt;Muppet&gt; allTheMuppets = ldapConnectionTemplate.search( 
+    &quot;ou=muppets,dc=muppets,dc=org&quot;, 
+    &quot;(objectClass=inetOrgPerson)&quot;, 
+    SearchScope.ONELEVEL,
+    muppetEntryMapper );
+</code></pre>
+<p>Now that is just plain <em><strong>SIMPLE</strong></em>.  The search method has many overloads to simplify usages for the most common LDAP operations.  There is also a searchFirst method which provides all the same overloads and is designed to return the first matching result:</p>
+<pre><code>:::Java
+Muppet kermit = ldapConnectionTemplate.searchFirst( 
+    &quot;ou=muppets,dc=muppets,dc=org&quot;, 
+    &quot;(mail=kermitthefrog@muppets.org)&quot;, 
+    SearchScope.ONELEVEL,
+    muppetEntryMapper );
+</code></pre>
+<p>It is also natural to pair the search function with the FilterBuilder:</p>
+<pre><code>:::Java
+import static org.apache.directory.ldap.client.api.search.FilterBuilder.equal;
+import static org.apache.directory.ldap.client.api.search.FilterBuilder.or;
+
+...
+
+    Muppet kermit = ldapConnectionTemplate.search( 
+       &quot;ou=muppets,dc=muppets,dc=org&quot;, 
+        or(
+            equal( &quot;mail&quot;, &quot;kermitthefrog@muppets.org&quot; ), 
+            equal( &quot;mail&quot;, &quot;misspiggy@muppets.org&quot; ) ), 
+        SearchScope.ONELEVEL,
+        muppetEntryMapper );
+</code></pre>
+<p>This has the added benefit of ensuring that your search filter has been property encoded per <a href="https://tools.ietf.org/html/rfc4515.html#section-3">RFC4515 section 3</a>.  For more information, see <a href="/api/user-guide/2.11-filter-builder.html">Filter Builder</a>.</p>
+<h2 id="providing-simplified-password-policy-aware-authenticationpassword-modification-methods">Providing Simplified, Password Policy Aware, Authentication/Password Modification Methods</h2>
+<p>One of the most common usages of LDAP is as an identity provider.  As such, the most common operation is authentication, and password management.  If your LDAP server supports the <a href="http://tools.ietf.org/html/draft-behera-ldap-password-policy-10">password policy control</a> then the authenticate method is very handy:</p>
+<pre><code>:::Java
+// throws PasswordException if authentication fails
+PasswordWarning warning = ldapConnectionTemplate.authenticate( 
+    ldapConnectionTemplate.newDn( &quot;uid=&quot; + uid + &quot;, ou=people, dc=example, dc=com&quot; ),
+    password );
+
+// or if you authenticate using an attribute not in the dn
+PasswordWarning warning = ldapConnectionTemplate.authenticate( 
+    &quot;ou=people,dc=example,dc=com&quot;,
+    &quot;(mail=kermitthefrog@muppets.com)&quot;,
+    SearchScope.ONELEVEL,
+    &quot;set4now&quot;.toCharArray() );
+</code></pre>
+<p>In this case, if authentication failed, a PasswordException is thrown.  If authentication was successful, any warnings will be returned in the PasswordWarning object, or null will be returned if there are no warnings.</p>
+<p>Modifying a password is simple as well:</p>
+<pre><code>:::Java
+// using administrator account to modify a users password
+ldapConnectionTemplate.modifyPassword( userDn, password );
+
+// or user account modifying their own password
+ldapConnectionTemplate.modifyPassword( userDn, oldPassword, newPassword );
+
+// or if you want want more control
+ldapConnectionTemplate.modifyPassword( userDn, oldPassword, newPassword, asAdmin );
+</code></pre>
+<p>If you modify the password as an administrator, then the oldPassword is not required, and if your password policy is set to, the password reset flag will be set causing a PasswordWarning to be returned the next time authenticate was called for that user.</p>
+<h2 id="other-useful-methods">Other Useful Methods</h2>
+<p>The template provides a method that checks the response and throws an exception if the request was unsuccessful.  It was designed to be chained:</p>
+<pre><code>:::Java
+// using DN only
+DeleteResponse response = ldapConnectionTemplate.responseOrException( 
+    ldapConnectionTemplate.delete( 
+        ldapConnectionTemplate.newDn( &quot;uid=misspiggy,ou=muppets,dc=muppets,dc=org&quot; ) ) );
+</code></pre>
+
+
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="2.9-exception-management.html">2.9 - Exception management</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="2-basic-ldap-api-usage.html">2 - Basic LDAP API usage</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="2.11-filter-builder.html">2.11 - The FilterBuilder</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

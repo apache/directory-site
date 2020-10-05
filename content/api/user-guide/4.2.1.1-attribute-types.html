@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>4.2.1.1 - AttributeTypes &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/brown.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/api-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+             
+                ApacheDS
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+            
+                <strong>LDAP API</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>LDAP API </h5>
+                <ul>
+                    <li><a href="/api/">Home</a></li>
+                    <li><a href="/api/news.html">News</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/api/downloads-1.html">Version 1.0.3</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/downloads-2.html">Version 2.0.1</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Getting Started</h5>
+                <ul>
+                    <li><a href="/api/vision.html">Vision</a></li>
+                    <li><a href="/api/java-api.html">Java API</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/api/five-minutes-tutorial.html">Five minute tutorial</a></li>
+                    <li><a href="/api/user-guide.html">User Guide</a></li>
+                    <li><a href="/api/migration-guide.html">API 1 to 2 migration</a></li>
+                    <li><a href="/api/gen-docs/latest/apidocs/">JavaDocs</a></li>
+                    <li><a href="/api/gen-docs/latest2/apidocs/">JavaDocs 2</a></li>
+                    <li><a href="/api/gen-docs/latest/xref/">Cross-Reference</a></li>
+                    <li><a href="/api/gen-docs/latest2/xref/">Cross-Reference 2</a></li>
+                    
+                    <li><a href="/api/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/api/internal-design-guide.html">Internal Guide</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="4.2.1-schema-objects.html">4.2.1 - Schema Objects</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="4.2.1-schema-object.html">4.2.1 - Schema Objects</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="4.2.1.2-object-classes.html">4.2.1.2 - ObjectClasses</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+            
+	<h1 id="4211---attributetypes">4.2.1.1 - AttributeTypes</h1>
+<p>The <strong>AttributeType</strong> <strong>SchemaObject</strong> exposes extra parameters. Here is the description as found in RFC 4512 :</p>
+<pre><code>4.1.2.  Attribute Types
+
+Attribute Type definitions are written according to the ABNF:
+
+ AttributeTypeDescription = LPAREN WSP
+     numericoid                    ; object identifier
+     [ SP &quot;NAME&quot; SP qdescrs ]      ; short names (descriptors)
+     [ SP &quot;DESC&quot; SP qdstring ]     ; description
+     [ SP &quot;OBSOLETE&quot; ]             ; not active
+     [ SP &quot;SUP&quot; SP oid ]           ; supertype
+     [ SP &quot;EQUALITY&quot; SP oid ]      ; equality matching rule
+     [ SP &quot;ORDERING&quot; SP oid ]      ; ordering matching rule
+     [ SP &quot;SUBSTR&quot; SP oid ]        ; substrings matching rule
+     [ SP &quot;SYNTAX&quot; SP noidlen ]    ; value syntax
+     [ SP &quot;SINGLE-VALUE&quot; ]         ; single-value
+     [ SP &quot;COLLECTIVE&quot; ]           ; collective
+     [ SP &quot;NO-USER-MODIFICATION&quot; ] ; not user modifiable
+     [ SP &quot;USAGE&quot; SP usage ]       ; usage
+     extensions WSP RPAREN         ; extensions
+
+ usage = &quot;userApplications&quot;     /  ; user
+         &quot;directoryOperation&quot;   /  ; directory operational
+         &quot;distributedOperation&quot; /  ; DSA-shared operational
+         &quot;dSAOperation&quot;            ; DSA-specific operational
+</code></pre>
+<p>The follwing methods have been added to cover ones not already present within the <strong>SchemaObject</strong> interface :</p>
+<ul>
+<li>getEquality() : returns the <strong>MatchingRule</strong> instance used to control the equality of the <strong>AttributeType</strong></li>
+<li>getEqualityName() : returns the name of the EQUALITY <strong>MatchingRule</strong>.</li>
+<li>getEqualityOid() : returns the OID of the EQUALITY <strong>MatchingRule</strong>.</li>
+<li>getOrdering() : returns the <strong>MatchingRule</strong> instance used to control the ordering of the <em>AttributeType</em>*</li>
+<li>getOrderingName() : returns the name of the ORDERING <strong>MatchingRule</strong>.</li>
+<li>getOrderingOid() : returns the OID of the ORDERING <strong>MatchingRule</strong>.</li>
+<li>getSubstring() : returns the <strong>MatchingRule</strong> instance used to match a substring from the <strong>AttributeType</strong></li>
+<li>getSubstringName() : returns the name of the SUBSTR <strong>MatchingRule</strong>.</li>
+<li>getSubstringOid() : returns the OID of the SUBSTR <strong>MatchingRule</strong>.</li>
+<li>getSuperior() : returns the <strong>AttributeType</strong> instance that this instance inherits from</li>
+<li>getSuperiorName() : returns the superior <strong>AttributeType</strong>&lsquo;s name</li>
+<li>getSuperiorOid() : returns the superior <strong>AttributeType</strong>&lsquo;s OID</li>
+<li>getSyntax() : returns the associated <strong>LdapSyntax</strong> instance (or the parent&rsquo;s <strong>AttributeType</strong>&lsquo;s one)</li>
+<li>getSyntaxLength() : returns the maximum length for the <strong>AttributeType</strong> value</li>
+<li>getSyntaxName() : returns the associated <strong>LdapSyntax</strong> instance&rsquo;s name</li>
+<li>getSyntaxOid() :  returns the associated <strong>LdapSyntax</strong> instance&rsquo;s OID</li>
+<li>getUsage() : returns the usage (one of (USER_APPLICATIONS, DIRECTORY_OPERATION, DISTRIBUTED_OPERATION and DSA_OPERATION)</li>
+<li>isAncestorOf(AttributeType) : tells if the <strong>AttributeType</strong> is the superior of another one</li>
+<li>isCollective() : tells if the <strong>AttributeType</strong> is a collective attribute</li>
+<li>isDescendantOf(AttributeType)</li>
+<li>isOperational() : tells if the <strong>AttributeType</strong> is an operational attribute (one of DIRECTORY_OPERATION, DISTRIBUTED_OPERATION and DSA_OPERATION)</li>
+<li>isSingleValued() : tells if the <strong>AttributeType</strong> only accept single values</li>
+<li>isUser() : tells if the <strong>AttributeType</strong> is a USER_APPLICATIONS attribute</li>
+<li>isUserModifiable() : tells if the <strong>AttributeType</strong> is modifiable or not</li>
+</ul>
+<p>What is important to know is that an <strong>AttributeType</strong> may inherit some characteristics from a <strong>SUP</strong> <strong>AttributeType</strong>. For example, the <strong>Syntax</strong>, <strong>MatchingRules</strong>, etc. In any case, if you don&rsquo;t define the specific characteristics for a given <strong>AttributeType</strong>, they&rsquo;ll be inherited from its parent &ndash; if there is one.</p>
+
+
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="4.2.1-schema-objects.html">4.2.1 - Schema Objects</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="4.2.1-schema-object.html">4.2.1 - Schema Objects</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="4.2.1.2-object-classes.html">4.2.1.2 - ObjectClasses</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

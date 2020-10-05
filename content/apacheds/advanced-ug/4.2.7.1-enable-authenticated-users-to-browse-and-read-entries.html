@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>4.2.7.1 - Enable Authenticated Users to Browse and Read Entries &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/green.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/server-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+            
+                <strong>ApacheDS</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+             
+                LDAP API
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>ApacheDS 2.0</h5>
+                <ul>
+                    <li><a href="/apacheds/">Home</a></li>
+                    <li><a href="/apacheds/news.html">News</a></li>
+                    <li><a href="/apacheds/features.html">Features</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/apacheds/downloads.html">ApacheDS 2.0.0.AM26</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/apacheds/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/apacheds/basic-user-guide.html">Basic User Guide </a></li>
+                    <li><a href="/apacheds/advanced-user-guide.html">Advanced User Guide</a></li>
+                    <li><a href="/apacheds/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/apacheds/kerberos-user-guide.html">Kerberos User Guide</a></li>
+                    <li><a href="/apacheds/configuration/ads-2.0-configuration.html">Configuration</a></li>
+                    <li><a href="/apacheds/gen-docs/latest/apidocs">JavaDocs</a></li>
+                    <li><a href="/apacheds/gen-docs/latest/xref">Cross-Reference</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="4.2.7-using-acis-trail.html">4.2.7 Using ACIs trail</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="4.2.7-using-acis-trail.html">4.2.7 Using ACIs trail</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="4.2.8-acis-administration.html">4.2.8 - ACIs administration</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+            
+	<h1 id="4271---enable-authenticated-users-to-browse-and-read-entries">4.2.7.1 - Enable Authenticated Users to Browse and Read Entries</h1>
+<p>In this trail, we will show how we will allow all authenticated users to browse and read all the entries.</p>
+<p>By default, if the access control subsystem is enabled, no one but the administrator can browse the DIT. This is obviously not convenient &hellip;</p>
+<h1 id="partition-and-access-control-area-setup">Partition and Access Control Area Setup</h1>
+<p>For this example we presume you have setup a partition at the namingContext <strong>dc=example,dc=com</strong> and have turned on access controls. Now you want to grant browse and read access to entries and their attributes.</p>
+<p>Before you can add a <strong>subentry</strong> with the <strong>prescriptiveACI</strong> you&rsquo;ll need to create an <strong>administrative area</strong>. For now we&rsquo;ll make the root of the partition the <strong>Administrative Point</strong> (<strong>AP</strong>). Every entry including this entry and those underneath will be part of the autonomous administrative area for managing access controls. To do this we must add the <strong>administrativeRole</strong> operational attribute to the <strong>AP</strong> entry.</p>
+<DIV class="warning" markdown="1">
+<B>Reminder...</B>
+Don't forget to check the 'fetch subentries' and 'fetch operational attributes' in your connection's browser option tab, otherwise some parts of the following tutorial will not appear !
+</DIV>
+<h2 id="administrationpoint-setup">AdministrationPoint setup</h2>
+<p>In our case, the <strong>dc=example,dc=com</strong> context entry has to contain the <strong>administrativeRole</strong> attribute, with the <strong>accessControlSpecificArea</strong> value.</p>
+<p>Let&rsquo;s first connect to the server using the <strong>admin</strong> user, and select the <strong>dc=example,dc=com</strong> entry :</p>
+<p><img src="images/ACI-example.png" alt="dc=example.com"></p>
+<p>We will now add the <strong>directoryOperation</strong> attribute <strong>administrativeRole</strong> to this entry :</p>
+<p><img src="images/ACI-new-attribute.png" alt="AdministrativeRole new attribute"></p>
+<p>and we select the <strong>accessControlSpecificArea</strong> value :</p>
+<p><img src="images/ACI-access-control-specific-area.png" alt="AccessControlSpecificArea"></p>
+<p>Here is the resulting entry :</p>
+<p><img src="images/ACI-result-entry.png" alt="Result Entry"></p>
+<h2 id="subentry-addition">Subentry addition</h2>
+<p>Now, we have to create a <strong>subentry</strong> in which we will add the <strong>prescriptiveACI</strong> granting access to all the users.</p>
+<p>Let&rsquo;s define the ACI first.</p>
+<h3 id="aciitem-description">ACIItem Description</h3>
+<p>Here&rsquo;s the ACIItem we will add :</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#666">{</span> 
+  identificationTag <span style="color:#b44">&#34;enableSearchForAllUsers&#34;</span><span style="color:#666">,</span>
+  precedence 14<span style="color:#666">,</span>
+  authenticationLevel simple<span style="color:#666">,</span>
+  itemOrUserFirst userFirst<span style="color:#666">:</span> 
+  <span style="color:#666">{</span> 
+    userClasses <span style="color:#666">{</span> allUsers <span style="color:#666">}</span><span style="color:#666">,</span> 
+    userPermissions 
+    <span style="color:#666">{</span> 
+      <span style="color:#666">{</span>
+          protectedItems <span style="color:#666">{</span>entry<span style="color:#666">,</span> allUserAttributeTypesAndValues<span style="color:#666">}</span><span style="color:#666">,</span> 
+          grantsAndDenials <span style="color:#666">{</span> grantRead<span style="color:#666">,</span> grantReturnDN<span style="color:#666">,</span> grantBrowse <span style="color:#666">}</span> 
+      <span style="color:#666">}</span>
+    <span style="color:#666">}</span> 
+  <span style="color:#666">}</span> 
+<span style="color:#666">}</span>
+</code></pre></div><p>There are several parameters to this simple ACIItem. Here&rsquo;s a brief
+explanation of each field and it&rsquo;s meaning or significance.</p>
+<table>
+<thead>
+<tr>
+<th>Fields</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>identificationTag</td>
+<td>Identifies the ACIItem within an entry.</td>
+</tr>
+<tr>
+<td>precedence</td>
+<td>Determine which ACI to apply with conflicting ACIItems.</td>
+</tr>
+<tr>
+<td>authenticationLevel</td>
+<td>User&rsquo;s level of trust with values of none, simple, strong</td>
+</tr>
+<tr>
+<td>itemOrUserFirst</td>
+<td>Determines order of item permissions or user permissions.</td>
+</tr>
+<tr>
+<td>userClasses</td>
+<td>The set of users the permissions apply to.</td>
+</tr>
+<tr>
+<td>userPermissions</td>
+<td>Permissions on protected items</td>
+</tr>
+</tbody>
+</table>
+<p>In our case, we want to grant all the users :</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">userClasses <span style="color:#666">{</span> allUsers <span style="color:#666">}</span>
+</code></pre></div><p>to be granted a read access :</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">grantsAndDenials <span style="color:#666">{</span> grantRead<span style="color:#666">,</span> grantReturnDN<span style="color:#666">,</span> grantBrowse <span style="color:#666">}</span> 
+</code></pre></div><p>for the Entry and all the values :</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">protectedItems <span style="color:#666">{</span>entry<span style="color:#666">,</span> allUserAttributeTypesAndValues<span style="color:#666">}</span><span style="color:#666">,</span> 
+</code></pre></div><p>The granted permissions are used to allow the user to browse the tree
+(<strong>grantBrowse</strong>), read the entries (<strong>grantRead</strong>) and return the DN for
+aliases (<strong>grantReturnDN</strong>).</p>
+<p><a name="2.5.7.1EnableAuthenticatedUserstoBrowseandReadEntries-PrescriptiveACIaddition"></a></p>
+<h2 id="prescriptiveaci-addition">PrescriptiveACI addition</h2>
+<p>Now that we have defined the <em>A</em>CIItem**, we have to add it into a **subentry**
+associated with the **administration point**. This is just an entry under the
+**administration Point**, here, we will call it **cn=enableSearchForAllUsers,
+dc=example,dc=com**.</p>
+<p>The entry is described below in a LDIF format :</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">dn: cn=enableSearchForAllUsers,dc=example,dc=com
+objectClass: top
+objectClass: subentry
+objectClass: accessControlSubentry
+subtreeSpecification: {}
+prescriptiveACI: 
+{ 
+  identificationTag &#34;enableSearchForAllUsers&#34;,
+  precedence 14,
+  authenticationLevel simple,
+  itemOrUserFirst userFirst: 
+  { 
+    userClasses { allUsers }, 
+    userPermissions 
+    { 
+      {
+          protectedItems {entry, allUserAttributeTypesAndValues}
+          grantsAndDenials { grantRead, grantReturnDN, grantBrowse }
+    }
+  }
+}
+}
+</code></pre></div><p>It&rsquo;s also easy to create such an entry with <strong>Apache Directory Studio</strong>.
+First, right click on the context entry, and select &lsquo;new Entry&rsquo; :</p>
+<p><img src="images/ACI-new-entry.png" alt="New entry"></p>
+<p>Then create a new entry from scratch, and select the &lsquo;subentry&rsquo; and
+&lsquo;accessControlSubentry&rsquo; ObjectClasses :</p>
+<p><img src="images/ACI-subentry-oc.png" alt="ObjectClass selection"></p>
+<p>Create the RDN for this new entry :</p>
+<p><img src="images/ACI-rdn-creation.png" alt="Rdn creation"></p>
+<p>Pass the subtree editor, we don&rsquo;t need to define anything here, and go to
+the Attributes definition :</p>
+<p><img src="images/ACI-attributes-definition.png" alt="Attributes definition"></p>
+<p>The next step is to add the <strong>prescriptiveACI</strong> value, using the dedicated
+editor :</p>
+<p><img src="images/ACI-prescriptive-aci.png" alt="PrescriptiveACI addition"></p>
+<p>When the selection has been done, we have to add the permissions :</p>
+<p><img src="images/ACI-add-permissions.png" alt="Add permissions"></p>
+<p>Once done, all the entries under <strong>dc=example,dc=com</strong> are ruled by this ACI</p>
+
+
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="4.2.7-using-acis-trail.html">4.2.7 Using ACIs trail</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="4.2.7-using-acis-trail.html">4.2.7 Using ACIs trail</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="4.2.8-acis-administration.html">4.2.8 - ACIs administration</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

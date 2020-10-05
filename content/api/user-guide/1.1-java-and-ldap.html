@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>1.1 - Java and LDAP &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/brown.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/api-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+             
+                ApacheDS
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+            
+                <strong>LDAP API</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>LDAP API </h5>
+                <ul>
+                    <li><a href="/api/">Home</a></li>
+                    <li><a href="/api/news.html">News</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/api/downloads-1.html">Version 1.0.3</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/downloads-2.html">Version 2.0.1</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Getting Started</h5>
+                <ul>
+                    <li><a href="/api/vision.html">Vision</a></li>
+                    <li><a href="/api/java-api.html">Java API</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/api/five-minutes-tutorial.html">Five minute tutorial</a></li>
+                    <li><a href="/api/user-guide.html">User Guide</a></li>
+                    <li><a href="/api/migration-guide.html">API 1 to 2 migration</a></li>
+                    <li><a href="/api/gen-docs/latest/apidocs/">JavaDocs</a></li>
+                    <li><a href="/api/gen-docs/latest2/apidocs/">JavaDocs 2</a></li>
+                    <li><a href="/api/gen-docs/latest/xref/">Cross-Reference</a></li>
+                    <li><a href="/api/gen-docs/latest2/xref/">Cross-Reference 2</a></li>
+                    
+                    <li><a href="/api/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/api/internal-design-guide.html">Internal Guide</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="1-introduction.html">1 - Introduction</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="1-introduction.html">1 - Introduction</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="1.2-ldap-in-a-few-words.html">1.2 - LDAP in a few words</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+            
+	<h1 id="11---java-and-ldap">1.1 - Java and LDAP</h1>
+<p>Most developers will at some point need to learn how to communicate with an <strong>LDAP</strong> server. It should be a very simple technology to use but isn&rsquo;t because many aspects are not well known.</p>
+<p>Java is one of the most commonly used languages in the enterprise. Some call it the new <strong>Cobol</strong>!</p>
+<p>These facts mean it&rsquo;s necessary to communicate over <strong>LDAP</strong> using <strong>Java</strong>. This is why a convenient <strong>API</strong> is necessary, so we created this <strong>API</strong> to fill the necessary gaps.</p>
+<p>There are alternatives, like <strong>JNDI</strong>. But the alternatives aren&rsquo;t effective helping users cope with <strong>LDAP</strong>&lsquo;s inherent complexities. <strong>JNDI</strong>&lsquo;s semantics are very different from what&rsquo;s required for proper <strong>LDAP</strong> usage. For example:</p>
+<ul>
+<li><strong>Bind</strong> : used in <strong>LDAP</strong> to authenticate a user but creates an entry in <strong>JNDI</strong></li>
+<li><strong>Unbind</strong> : closes the <strong>LDAP</strong> session in <strong>LDAP</strong> but deletes an entry in <strong>JNDI</strong></li>
+<li>**Compare **: is mapped to a search in <strong>JNDI</strong> while its proper usage is to compare to determine if a targeted attribute value matches a particular value inside an <strong>LDAP</strong> entry.</li>
+<li>Various properties have to be set in <strong>JNDI</strong> in order to connect or tweak the <strong>Search</strong> operation, which is not convenient</li>
+<li><strong>Attributes</strong> are case sensitive by default in <strong>JNDI</strong> and not schema aware which is not compliant with LDAP standard.</li>
+<li><strong>Name</strong> in <strong>JNDI</strong> can&rsquo;t do a valid comparison in <strong>JNDI</strong></li>
+<li><strong>NamingEnumeration</strong> must be explcitly closed in <strong>JNDI</strong>, and don&rsquo;t close automatically upon disconnect, which causes resource leakage to occur.</li>
+</ul>
+<p>Some of these same problems exist for the other <strong>LDAP API</strong>s.  Other alternatives are no longer supported and/or lack a permissive license.</p>
+<p>All in all, writing applications to perform basic <strong>LDAP</strong> operations in <strong>Java</strong> is a painful task for most developers.</p>
+<p>Our target is to provide a better <strong>API</strong>, one that leads to correct and efficient usage of <strong>LDAP</strong> operation.</p>
+
+
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="1-introduction.html">1 - Introduction</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="1-introduction.html">1 - Introduction</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="1.2-ldap-in-a-few-words.html">1.2 - LDAP in a few words</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

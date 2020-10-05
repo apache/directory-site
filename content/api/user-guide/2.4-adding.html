@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>2.4 - Adding entries &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/brown.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/api-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+             
+                ApacheDS
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+            
+                <strong>LDAP API</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>LDAP API </h5>
+                <ul>
+                    <li><a href="/api/">Home</a></li>
+                    <li><a href="/api/news.html">News</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/api/downloads-1.html">Version 1.0.3</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/downloads-2.html">Version 2.0.1</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Getting Started</h5>
+                <ul>
+                    <li><a href="/api/vision.html">Vision</a></li>
+                    <li><a href="/api/java-api.html">Java API</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/api/five-minutes-tutorial.html">Five minute tutorial</a></li>
+                    <li><a href="/api/user-guide.html">User Guide</a></li>
+                    <li><a href="/api/migration-guide.html">API 1 to 2 migration</a></li>
+                    <li><a href="/api/gen-docs/latest/apidocs/">JavaDocs</a></li>
+                    <li><a href="/api/gen-docs/latest2/apidocs/">JavaDocs 2</a></li>
+                    <li><a href="/api/gen-docs/latest/xref/">Cross-Reference</a></li>
+                    <li><a href="/api/gen-docs/latest2/xref/">Cross-Reference 2</a></li>
+                    
+                    <li><a href="/api/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/api/internal-design-guide.html">Internal Guide</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="2.3-searching.html">2.3 Searching</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="2-basic-ldap-api-usage.html">2 - Basic LDAP API usage</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="2.5-deleting.html">2.5 - Deleting entries</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+            
+	<h1 id="24---adding-entries">2.4 - Adding entries</h1>
+<p>Adding entries is one of the base operations a user can do on an <strong>LDAP</strong> server. Nevertheless, it&rsquo;s an operation that implies many checks, and frequently the user receives strange error messages. We will see how to add an entry using the <strong>LDAP API</strong>, and analyze the various error cases that can occur.</p>
+<h2 id="adding-an-entry">Adding an entry</h2>
+<p>Here is the simplest way to add an entry into the server, assuming that the entry is correct. In order to add an entry, you must provide the location where the entry is stored (its <em>Dn</em>) and the list of its <em>Attributes</em> contained within it.</p>
+<p>Here are two examples where the entry is injected using <strong>LDIF</strong>:</p>
+<pre><code>:::Java
+@Test
+public void testAddLdif1() throws Exception
+{
+    connection.add(
+        new DefaultEntry(
+            &quot;cn=testadd,ou=system&quot;, // The Dn
+            &quot;ObjectClass: top&quot;,
+            &quot;ObjectClass: person&quot;,
+            &quot;cn: testadd_cn&quot;,
+            &quot;sn: testadd_sn&quot; ) );
+    
+    assertTrue( connection.exists( &quot;cn=testadd,ou=system&quot; ) );
+}
+</code></pre>
+<p>In this basic example, we are adding a new entry, created using some <strong>LDIF</strong> formatted parameters, the first one being the entry&rsquo;s <em>Dn</em>.</p>
+<p>Note that it is possible to use some variables in the <strong>LDIF</strong> instead of pure text. Here is the same example, resulting to the same entry being added:</p>
+<pre><code>:::Java
+@Test
+public void testAddLdif2() throws Exception
+{
+    String cn = &quot;testadd_cn&quot;;
+    String sn = &quot;testadd_sn&quot;;
+    
+    connection.add(
+        new DefaultEntry(
+            &quot;cn=testadd,ou=system&quot;, // The Dn
+            &quot;ObjectClass: top&quot;,
+            &quot;ObjectClass: person&quot;,
+            &quot;cn&quot;, cn, // Note : there is no ':' when using a variable
+            &quot;sn&quot;, sn ) );
+    
+    assertTrue( connection.exists( &quot;cn=testadd,ou=system&quot; ) );
+}
+</code></pre>
+<p>Down the line, what is important is that the <em>add()</em> operation is taking a full <strong><a href="6.12-entry.html">Entry</a></strong>.</p>
+<p>We can also create the <strong><a href="6.12-entry.html">Entry</a></strong> in a different way, which is shown in the following paragraphs.</p>
+<h2 id="sending-an-_addrequest_">Sending an <em>AddRequest</em></h2>
+<p>When more control is needed we ask the server to add an entry by sending an <strong><a href="">AddRequest</a></strong>, which allows a <strong><a href="">Control</a></strong> to be included in the request.</p>
+<p>Here is an example (note that the control is just injected to demonstrate the feature, it doesn&rsquo;t really do anything special in this example):</p>
+<pre><code>:::java
+@Test
+public void testAddWithControl() throws Exception
+{
+    assertFalse( connection.exists( &quot;cn=testadd,ou=system&quot; ) );
+    
+    Entry entry = new DefaultEntry(
+        &quot;cn=testadd,ou=system&quot;,
+        &quot;ObjectClass : top&quot;,
+        &quot;ObjectClass : person&quot;,
+        &quot;cn: testadd_sn&quot;,
+        &quot;sn: testadd_sn&quot; );
+    
+    AddRequest addRequest = new AddRequestImpl();
+    addRequest.setEntry( entry );
+    addRequest.addControl( new ManageDsaITImpl() );
+    
+    AddResponse response = connection.add( addRequest );
+    
+    assertNotNull( response );
+    assertEquals( ResultCodeEnum.SUCCESS, response.getLdapResult().getResultCode() );
+    
+    assertTrue( connection.exists( &quot;cn=testadd,ou=system&quot; ) );
+}
+</code></pre>
+<h3 id="asynchronous-addition">Asynchronous addition</h3>
+<p>Sometimes we need to add an entry, but not check the result immediately. It&rsquo;s just a matter of calling the <em>addAsync()</em> method, which returns a <em>Future</em> that can be checked somewhere else in the code:</p>
+<pre><code>:::java
+@Test
+public void testAddAsyncLdif() throws Exception
+{
+    assertFalse( connection.exists( &quot;cn=testAsyncAdd,ou=system&quot; ) );
+    
+    Entry entry = new DefaultEntry(
+        &quot;cn=testAsyncAdd,ou=system&quot;,
+        &quot;ObjectClass: top&quot;,
+        &quot;ObjectClass: person&quot;,
+        &quot;cn: testAsyncAdd_cn&quot;,
+        &quot;sn: testAsyncAdd_sn&quot; );
+    
+    AddRequest addRequest = new AddRequestImpl();
+    addRequest.setEntry( entry );
+    
+    AddFuture addFuture = connection.addAsync( addRequest );
+    
+    // Here, we can do something else before checking that the entry has been added
+    
+    AddResponse addResponse = addFuture.get( 1000, TimeUnit.MILLISECONDS );
+    
+    assertNotNull( addResponse );
+    assertEquals( ResultCodeEnum.SUCCESS, addResponse.getLdapResult().getResultCode() );
+    
+    assertTrue( connection.exists( &quot;cn=testAsyncAdd,ou=system&quot; ) );
+}
+</code></pre>
+<h2 id="do-dont">Do, Don&rsquo;t</h2>
+<p>Successfully adding an entry assumes that the entry was correct, i.e. the attributes and values are compatible with the LDAP schema. There are many things checked by the server. Here is a list of constraints that you should respect in order to get your entry injected:</p>
+<ul>
+<li>The entry must have at least one <strong>Structural</strong> <em>ObjectClass</em></li>
+<li>If the entry has more than one <strong>Structural</strong> <em>ObjectClass</em>, then they must be hierarchically related</li>
+<li>The <em>ObjectClasses</em> define the list of allowed <strong>Structural</strong> <em>AttributeTypes</em> that can be used (<strong>MAY</strong> and <strong>MUST</strong>)</li>
+<li>All the <strong>MUST</strong> <strong><a href="">AttributeTypes</a></strong> must be present</li>
+<li>Each added value must follow the <em>AttributeType</em> <em>Syntax</em></li>
+<li>If the <em>AttributeType</em> is single valued, then you can&rsquo;t add more than one value</li>
+<li>The entry&rsquo;s <em>Dn</em> must have a parent</li>
+<li>You are not allowed as a user to inject operational attributes, unless they have the <strong>USER-MODIFICATION</strong> flag set to true.</li>
+</ul>
+<p>There are also some other constraints, depending on the server, if it implements <em>NameForms</em>, <em>DITStructureRules</em> or <em>DITContentRules</em>.</p>
+<p>Another reason an entry can be rejected is that there aren&rsquo;t enough privilege to add it. You must ensure the LDAP server&rsquo;s configuration allows you to add an entry in the correct location.</p>
+<h2 id="errors">Errors</h2>
+<DIV class="note" markdown="1">
+At first, you might expect to get an exception if the entry addition has failed. If the server is rejecting the addition, <b>you will get NO exception*</b>. Exceptions are only thrown client side if the entry is not built correctly, or if the connection is not opened. 
+<p>In any other case, the server will simply return a <b><a href="">LdapResult</a></b> instance containing either <b>SUCCESS</b> or the cause of the rejection.</p>
+</DIV>
+<p>Usually, if you get an error while adding an entry, the message is hard to read. Most of the errors occur because the entry already exists, or because the entry has an LDAP schema violation.</p>
+<p>The <em>LdapResult</em> in the response will provide helpful clues as to what the root cause is.</p>
+
+
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="2.3-searching.html">2.3 Searching</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="2-basic-ldap-api-usage.html">2 - Basic LDAP API usage</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="2.5-deleting.html">2.5 - Deleting entries</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

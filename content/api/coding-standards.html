@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>Coding Standards &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/brown.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/api-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+             
+                ApacheDS
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+            
+                <strong>LDAP API</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>LDAP API </h5>
+                <ul>
+                    <li><a href="/api/">Home</a></li>
+                    <li><a href="/api/news.html">News</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/api/downloads-1.html">Version 1.0.3</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/downloads-2.html">Version 2.0.1</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Getting Started</h5>
+                <ul>
+                    <li><a href="/api/vision.html">Vision</a></li>
+                    <li><a href="/api/java-api.html">Java API</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/api/five-minutes-tutorial.html">Five minute tutorial</a></li>
+                    <li><a href="/api/user-guide.html">User Guide</a></li>
+                    <li><a href="/api/migration-guide.html">API 1 to 2 migration</a></li>
+                    <li><a href="/api/gen-docs/latest/apidocs/">JavaDocs</a></li>
+                    <li><a href="/api/gen-docs/latest2/apidocs/">JavaDocs 2</a></li>
+                    <li><a href="/api/gen-docs/latest/xref/">Cross-Reference</a></li>
+                    <li><a href="/api/gen-docs/latest2/xref/">Cross-Reference 2</a></li>
+                    
+                    <li><a href="/api/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/api/internal-design-guide.html">Internal Guide</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+
+            
+	<h1 id="coding-standards">Coding Standards</h1>
+<p>Welcome to you fellow developer.  You&rsquo;ve maybe been elected committer on the project, or want to contribute some code / patch? This is great news! However, in order to be able to share your &lsquo;vision&rsquo; with your code, some rules must be followed.</p>
+<p>Hey, remember that those rules are not the best nor the worst, they are pretty much what they are for historical reasons, or for technical reasons, however, please, accept them as they are, and avoid religious war (please, oh please, no mail to say &ldquo;WTF ? You are using spaces instead of tab ??? How stupid is this rule etc etc.) Rules are **alway<em>s</em> stupid, but smart people follow them ;)</p>
+<p><strong>eclipse IDE</strong></p>
+<p>Eclipse users can import those two files to enfore the code formating : <a href="https://github.com/apache/directory-project/blob/master/resources/formatting.xml">formatting.xml</a> and <a href="https://github.com/apache/directory-project/blob/master/resources/codetemplates.xml">codetemplates.xml</a></p>
+<p><strong>IDEA IDE</strong></p>
+<p>IDEA users can import <a href="settings.jar">this file</a> to enfore the code formating.</p>
+<h2 id="headers">Headers</h2>
+<p>First, you <strong>must</strong> (and this rule accept no exception) use this header in top of all source file, or each file in which you can have comments :</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">	/*
+	 *  Licensed to the Apache Software Foundation (ASF) under one
+	 *  or more contributor license agreements.  See the NOTICE file
+	 *  distributed with this work for additional information
+	 *  regarding copyright ownership.  The ASF licenses this file
+	 *  to you under the Apache License, Version 2.0 (the
+	 *  &#34;License&#34;); you may not use this file except in compliance
+	 *  with the License.  You may obtain a copy of the License at
+	 *
+	 *    http://www.apache.org/licenses/LICENSE-2.0
+	 *
+	 *  Unless required by applicable law or agreed to in writing,
+	 *  software distributed under the License is distributed on an
+	 *  &#34;AS IS&#34; BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+	 *  KIND, either express or implied.  See the License for the
+	 *  specific language governing permissions and limitations
+	 *  under the License.
+	 *
+	 */
+</code></pre></div><h3 id="classinterface-headers">Class/Interface headers</h3>
+<p>Each <strong>Class</strong> or <em>Interface</em> should have an header which must contains :</p>
+<ul>
+<li>A descrption of this class/interface</li>
+<li>an <em>author</em> tag which should be :</li>
+</ul>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a2f">@author</span> <span style="color:#666">&lt;</span>a href<span style="color:#666">=</span><span style="color:#b44">&#34;mailto:dev@directory.apache.org&#34;</span><span style="color:#666">&gt;</span>Apache Directory Project<span style="color:#666">&lt;</span><span style="color:#666">/</span>a<span style="color:#666">&gt;</span>
+</code></pre></div><DIV class="note" markdown="1">
+Thanks to avoid to put your name. The code is not yours, and much more important, but putting ypur name and e-mail, you will intimidate other developper ("Oh, no, I won't mess with this code, it has been developped by XXXX \!") and second, you will receive mail in three years even if you have stopped all commitment on the project (and those who have sent you an e-mail will think that the project's memeber are not responsive...)
+</DIV>
+<p>If you use <strong>html</strong> tags, remember to escape &lsquo;&lt;&rsquo; and &lsquo;&gt;&rsquo; characters&hellip;</p>
+<h3 id="static-members-and-other-members">Static members and other members</h3>
+<p>Just add a single line javadoc comment like : _/** blah &hellip; */_ before each member</p>
+<h3 id="methods">Methods</h3>
+<p>Follow the standard <strong>javadoc</strong> rules : Description, <strong>@param</strong>, <strong>@exception</strong> and <strong>@return</strong>. It should be enough. Avoid <strong>@tags</strong>, <strong>@todo</strong> tags, etc&hellip;</p>
+<p>Escape <strong>html</strong> characters</p>
+<h2 id="comments">Comments</h2>
+<p>No special rules, except that you should avoid :</p>
+<ul>
+<li>Useless comments like : i++; /* Increment i */</li>
+<li>Overusing comments : if you have to heavily comment a peice of code, then this piece of code might be too complex &hellip;</li>
+<li>Speading little comments all over a method : if possible, write blocs of comments. The method header could hgenerally contains a full description of the code, and if it&rsquo;s not the case, just consider your method might be too long !</li>
+<li>Dead code commented. If it&rsquo;s dead, then put it in a cuffin. We use SVN, the Ressuscitator !</li>
+</ul>
+<p>Basically, use your common sense :-)</p>
+<h2 id="naming">Naming</h2>
+<p>Naming ! Sounds like Blaming :-). Ok. We use <strong>Sun(tm/c/r)</strong> style :</p>
+<ul>
+<li>Constants are in UPPER CASE with accepted &lsquo;_&rsquo;</li>
+<li>Class starts with an uppercase and each starting word is upper cased. No &lsquo;_', please !</li>
+<li>Methods starts with lower case and then follow the same rule than classes. No &lsquo;_', please !</li>
+<li>Interfaces should not start with an &lsquo;I&rsquo;</li>
+<li>Classes which implements an Interface must be followed by the postfix &lsquo;impl&rsquo;</li>
+<li>Variables follow the method naming convention. No &lsquo;_', please !</li>
+<li>Use meaningfull names.</li>
+<li>No double letter variables like ii, jj etc&hellip;</li>
+</ul>
+<p>If you browse the code, you will see that many classes does not respect those rules. That&rsquo;s life ! Don&rsquo;t fix it if you don&rsquo;t touch a class. If you are fixing a method in a class, then you can change the code to respect the rules. Little by little, we may reach a stable state where all the code respect the rules ;)</p>
+<p>Naming is really important for <strong>APIs</strong>. Be smart. If you are not sure, ask.</p>
+<h2 id="spaces-vs-tabs">Spaces vs tabs</h2>
+<DIV class="warning" markdown="1">
+**FOUR SPACES, NO TAB. Final.**
+</DIV>
+<p>No discussion. Using tabs break diffs. Modify your <strong>IDE</strong> to insert spaces when you use tabs, before it saves the file.</p>
+<h2 id="formatting">Formatting</h2>
+<p>Use the <strong>formatting.xml</strong> file which can be found in the <strong>resources</strong> directory in the root of the project. This is for <em>Eclipse</em>. If you don&rsquo;t use eclipse, then translate the formating to your favorite <strong>IDE</strong>.</p>
+<p>Use the <strong>codetemplates.xml</strong> file if you are using <em>Eclipse</em> too. You will find it at the same location. It brings you some standard headers for new classes, nex methods, etc.</p>
+<p>Use <strong>UTF-8</strong> as a default for your files (except for properties, thanks to <strong>java</strong>, which should be in <strong>ISO-8859-1</strong>). Forget about exotic encoding&hellip;</p>
+<DIV class="warning" markdown="1">
+**DO NOT USE AN AUTOMATIC FORMATER FOR COMMENTS!!!**
+</DIV>
+<p>People spend a lot of time making their comment looks like pretty, so if you just format them, you will have to recover the previous comments&hellip;</p>
+<p>Some general rules :</p>
+<ul>
+<li>Always use &lsquo;{&rsquo; and &lsquo;}&rsquo; even for a single instruction, or if you have an empty block (don&rsquo;t use &lsquo;;&rsquo; for empty blocks)</li>
+<li>No more than one instruction on a single line, the only exception is the &lsquo;?&rsquo; &lsquo;:&rsquo; operation</li>
+<li>Use <em>this</em> to address the class variable if there is a risk of confusion (for instanc eif you have a parameter with the same name.</li>
+<li>Don&rsquo;t add a &lsquo;a_', or &lsquo;the_&rsquo; before a parameter&rsquo;s name to distinguish it from the class variable which has the same name. Use **this** instead.</li>
+<li>Don&rsquo;t add <strong>final</strong> everywhere. Even if <strong>final</strong> is a substitute for <strong>const</strong>, it&rsquo;s semantic is not clear enough that you use it everywhere.</li>
+<li>Add spaces in method calls after &lsquo;(&rsquo; and before &lsquo;)&rsquo;</li>
+<li>&lsquo;{&rsquo; and &lsquo;}&rsquo; must be on the same column</li>
+</ul>
+<p>This is a code example :</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#666">.</span><span style="color:#666">.</span><span style="color:#666">.</span>
+<span style="color:#0b0;font-weight:bold">int</span> result <span style="color:#666">=</span> myMethod<span style="color:#666">(</span> param1<span style="color:#666">,</span> param2 <span style="color:#666">)</span>
+
+<span style="color:#a2f;font-weight:bold">if</span> <span style="color:#666">(</span> result <span style="color:#666">&gt;</span> 0 <span style="color:#666">)</span>
+<span style="color:#666">{</span>
+    <span style="color:#080;font-style:italic">// do something
+</span><span style="color:#080;font-style:italic"></span><span style="color:#666">}</span>
+<span style="color:#666">.</span><span style="color:#666">.</span><span style="color:#666">.</span>
+</code></pre></div><h2 id="imports">Imports</h2>
+<p>Always declare all the classes you import, do not use <strong>x.y.*</strong></p>
+<h2 id="what-else-">What else ?</h2>
+<p>Well, this was a very short introduction about coding rules. Use commen sense, look at what you see around you when adding some code, ask people about format, if you have a question.</p>
+<p>That&rsquo;s it ! (I wait your comments, guys :-)</p>
+
+
+            
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

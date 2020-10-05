@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>2.2 - Binding and unbinding &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/brown.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/api-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+             
+                ApacheDS
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+            
+                <strong>LDAP API</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>LDAP API </h5>
+                <ul>
+                    <li><a href="/api/">Home</a></li>
+                    <li><a href="/api/news.html">News</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/api/downloads-1.html">Version 1.0.3</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/downloads-2.html">Version 2.0.1</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Getting Started</h5>
+                <ul>
+                    <li><a href="/api/vision.html">Vision</a></li>
+                    <li><a href="/api/java-api.html">Java API</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/api/five-minutes-tutorial.html">Five minute tutorial</a></li>
+                    <li><a href="/api/user-guide.html">User Guide</a></li>
+                    <li><a href="/api/migration-guide.html">API 1 to 2 migration</a></li>
+                    <li><a href="/api/gen-docs/latest/apidocs/">JavaDocs</a></li>
+                    <li><a href="/api/gen-docs/latest2/apidocs/">JavaDocs 2</a></li>
+                    <li><a href="/api/gen-docs/latest/xref/">Cross-Reference</a></li>
+                    <li><a href="/api/gen-docs/latest2/xref/">Cross-Reference 2</a></li>
+                    
+                    <li><a href="/api/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/api/internal-design-guide.html">Internal Guide</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="2.1-connection-disconnection.html">2.1 - Connection and disconnection</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="2-basic-ldap-api-usage.html">2 - Basic LDAP API usage</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="2.3-searching.html">2.3 Searching</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+            
+	<h1 id="22---binding-and-unbinding">2.2 - Binding and unbinding</h1>
+<p>In <strong>LDAP</strong>, if one wants to access the data in the base, the common way to do it is to bind to the server. However, it&rsquo;s important to understand that binding is a different from connecting.</p>
+<p>Creating a connection to an <strong>LDAP</strong> server opens a socket between the client and the server. You must provide the address and the port in order to do this.</p>
+<p>The <strong>bind</strong> operation, on the other hand, creates a <em>Session</em> which will hold user information for the duration of the session. This information is limited, but includes the user&rsquo;s credentials.</p>
+<p>But it&rsquo;s important to know that it&rsquo;s possible to bind anonymously, which doesn&rsquo;t require a user or password, and still be able to send requests to the server (although the server can forbid anonymous binds).</p>
+<p>Once the user has finished interacting with the server, they can unbind, destroying the session held on the server. This operation does not close the connection, because, again <em>bind != connection</em>!</p>
+<h2 id="binding">Binding</h2>
+<p>There are two possible types of binds in <em>LDAP</em>:</p>
+<ul>
+<li><strong>Simple</strong></li>
+<li><strong>SASL</strong></li>
+</ul>
+<p>The first one is based on a userid/password sent to the server, which verifies the credentials are valid. It&rsquo;s also possible to proceed with an anonymous bind explicitly.</p>
+<p>The second type is more complicated, and is used whenever authentication with a specific mechanism, like <strong>DIGEST-MD5</strong>, <strong>Kerberos</strong> or certificate based is required.</p>
+<h3 id="simple-bind">Simple Bind</h3>
+<p>One can issue three kinds of simple binds:</p>
+<ul>
+<li><em>anonymous bind</em></li>
+<li><em>name/password bind</em></li>
+<li><em>unauthenticated authentication bind</em></li>
+</ul>
+<p>The first one is the easiest, but depending on the server&rsquo;s configuration, will be accepted or rejected (not all servers allow anonymous binds)</p>
+<p>Most of the time, the <em>bind</em> operation will not return anything. You either get bound, or will receive an <em>LdapException</em> if an error occurs.</p>
+<p>Issuing an anonymous bind is simple, you neither provide a user nor a password:</p>
+<pre><code>:::Java
+@Test
+public void testAnonymousBindRequest() throws Exception
+{
+    connection.bind();
+}
+</code></pre>
+<p>Issuing a user/password bind is slightly more complex, because those credentials must be included:</p>
+<pre><code>:::Java
+@Test
+public void testSimpleBindRequest() throws Exception
+{
+    connection.bind( &quot;uid=admin,ou=system&quot;, &quot;secret&quot; );
+}
+</code></pre>
+<blockquote>
+<p><strong>Note</strong> It&rsquo;s important to note that the user&rsquo;s name is a <em><a href="6.9-dn.html">Dn</a></em>, not a simple name like &lsquo;John Doe&rdquo;</p>
+</blockquote>
+<p>Last, not least, there is a quite unknown feature in <strong>LDAP</strong> bind that allows you to issue a Bind request without providing a password. It&rsquo;s equivalent to an anonymous bind, except that the server can log the user&rsquo;s name, thus being able to trace what the user does. Servers might forbid such bind, and this will be the case if the server disallow anonymous binds.</p>
+<p>Note that this kind of bind will be supported only if the server allows anonymous binds. It&rsquo;s not supported by <em>ApacheDS</em>.</p>
+<pre><code>:::Java
+@Test
+public void testSimpleBindRequest() throws Exception
+{
+
+    connection.bind( &quot;uid=admin,ou=system&quot; );
+}
+</code></pre>
+<h3 id="sasl-binding">SASL Binding</h3>
+<p>There are various <strong>SASL</strong> mechanisms that can be used to bind to a <strong>LDAP</strong> server. The <strong>Apache LDAP API</strong> support the following 5 mechanisms:</p>
+<h4 id="plain">PLAIN</h4>
+<p>To be completed&hellip;</p>
+<h4 id="cram-md5">CRAM-MD5</h4>
+<p>To be completed&hellip;</p>
+<h4 id="digest-md5">DIGEST-MD5</h4>
+<p>To be completed&hellip;</p>
+<h4 id="external">EXTERNAL</h4>
+<p>To be completed&hellip;</p>
+<h4 id="gssapi">GSSAPI</h4>
+<p>First, non-trivial <strong>Kerberos</strong> authentication requires configuration. Creating a <strong>Kerberos</strong> configuration is not well documented elsewhere, so we include here sample code. One approach is to create a <strong>JAAS</strong> configuration file. Here’s what such a file might contain:</p>
+<pre><code>myapp {
+ com.sun.security.auth.module.Krb5LoginModule required debug=true useKeyTab=true principal=&quot;host/ilab2.myorg.org@MYORG.ORG&quot; refreshKrb5Config=true keyTab=&quot;/etc/krb5.keytab&quot;;
+};
+</code></pre>
+<p>See online documentation for <em>Krb5LoginModule</em> for possible options. This example uses the host’s principal, stored in <em>/etc/krb5.keytab</em>. What goes after <strong>@</strong> is the <strong>Kerberos</strong> domain name.</p>
+<p>Note that if you specify a credential cache, the cache must be in a file. Many operating systems now put the user’s credentials in <strong>KEYRING</strong> or <strong>KCM</strong>. That worn’t work with Java.</p>
+<p><em>“myapp”</em> is the name supplied as the login context name. See the code below.</p>
+<p>When you run the program, you must tell java where the configuration file is. e.g. <em>“java -Djava.security.auth.login.config=jaas.config”</em>.</p>
+<p>Here is code to connect to ldap with this configuration. We assume that <em>ldapNetworkConnection</em> has already been opened using connect.</p>
+<pre><code>:::Java
+saslGssApiRequest = new SaslGssApiRequest();
+saslGssApiRequest.setLoginModuleConfiguration(Configuration.getConfiguration());
+saslGssApiRequest.setLoginContextName( &quot;myapp&quot;);
+saslGssApiRequest.setMutualAuthentication( true );
+
+try  {
+        BindResponse br = ldapNetworkConnection.bind( saslGssApiRequest );
+        ldapNetworkConnection.startTls();
+} catch ( LdapException e ) {
+        e.printStackTrace();
+}
+</code></pre>
+<p>At this point you can do operations such as search. Note that the argument to <em>setLoginContextName</em> must match the name in the configuration file. This sample uses mutual authentication. It is possible that some <strong>LDAP</strong> servers might not support that. If so you can set it to false. You may not need <em>startTls</em> if the connection is already secure.</p>
+<p>Sometimes it is more convenient to supply the configuration information programmatically. Here is an example that sets the same options as the config file</p>
+<pre><code>:::Java
+class KerberosConfiguration extends Configuration {
+
+    @Override
+    public AppConfigurationEntry[] getAppConfigurationEntry(String name) {
+        Map&lt;String, String&gt; options = new HashMap&lt;String, String&gt;();
+        options.put(&quot;useKeyTab&quot;, &quot;true&quot;);
+        try {
+            options.put(&quot;principal&quot;, &quot;host/&quot; + InetAddress.getLocalHost().getCanonicalHostName() + “@MYORG.ORG”);
+        } catch (Exception e){
+            System.out.println(&quot;Can't find our hostname &quot; + e);
+        }
+        options.put(&quot;refreshKrb5Config&quot;, &quot;true&quot;);
+        options.put(&quot;keyTab&quot;, &quot;/etc/krb5.keytab&quot;);
+        options.put(&quot;debug&quot;, &quot;true&quot;);
+
+        return new AppConfigurationEntry[]{
+            new AppConfigurationEntry(&quot;com.sun.security.auth.module.Krb5LoginModule&quot;,
+                                      AppConfigurationEntry.LoginModuleControlFlag.REQUIRED,
+                                      options),};
+    }
+}
+</code></pre>
+<p>Here is how it is used:</p>
+<pre><code>:::Java
+saslGssApiRequest = new SaslGssApiRequest();
+saslGssApiRequest.setLoginModuleConfiguration(new KerberosConfiguration());
+saslGssApiRequest.setMutualAuthentication( true );
+
+try  {
+        BindResponse br = ldapNetworkConnection.bind( saslGssApiRequest );
+        ldapNetworkConnection.startTls();
+} catch ( LdapException e ) {
+        e.printStackTrace();
+}
+</code></pre>
+<p>Note that it is not necessary to set the login context name, since it is only needed to process the configuration file.’</p>
+<p>Warnings:</p>
+<ul>
+<li>
+<p><strong>Apache Kerby</strong> does not implement the option to prompt the user for a password, nor does it permit a password to be passed to <strong>GSSAPI</strong>. Thus authentication is limited to key tables and credential caches.</p>
+</li>
+<li>
+<p>The ** Apache Kerby** code sets two system properties. In the default case, it clears **KRB5_CONF** and sets _javax.security.auth.useSubjectCredsOnly_ to true. If other code in your application uses **Kerberos**, be aware that there could be conflicts. Be particularly concerned about multi-threaded code that uses different values. Note that in Kirby you can explicitly set **KRB5_CONF**, with _setKrb5ConfFilePath_, or cause Kirby to set it with setRealmName, setKdcHost, and setKdcPort. If you use different settings for these options in different threads, there is a potential thread-safety issue.</p>
+</li>
+<li>
+<p>The Java implementation of <strong>Kerberos</strong> has the ability to read standard <strong>Kerberos</strong> credential cache files, e.g. <em>/tmp/krb5cc</em>%{uid}<em>. However it can’t read credentials from <strong>KEYRING</strong> or <strong>KCM</strong>. If your code asks for authentication to come from an existing credential cache, make sure that it is in a file. If you write an application that expects to use existing credentials for logged in users, without prompting for a password, you may need to set <em>default_ccache_name</em> in <em>/etc/krb5.conf</em> to a file, e.g.
+<em>default_ccache_name = /tmp/krb5cc</em>%{uid}</em>
+This is not an issue if your authentication comes from key tables or prompts the user.</p>
+</li>
+<li>
+<p>The encryption types supported depends upon the Java version. E,g. <em>aes128-cts-hmac-sha256-128</em> and <em>aes256-cts-hmac-sha384-192</em> are supported only as of Java 11.</p>
+</li>
+</ul>
+<h2 id="rebinding">Rebinding</h2>
+<p>It&rsquo;s possible to issue a <strong>Bind</strong> on an already bound connection and the existing LDAP session will be terminated, and replaced by a new LDAP session. In any case, the connection is not dropped when doing so. Note that if the connection was encrypted, it remains encrypted.</p>
+<pre><code>:::Java
+@Test
+public void testRebind() throws Exception
+{
+    connection.bind( &quot;uid=admin,ou=system&quot;, &quot;secret&quot; );
+
+    // Now, rebind
+    connection.bind( &quot;cn=john doe,dc=example,dc=com&quot;, &quot;secret&quot; );
+
+    assertTrue( connection.isConnected() );
+    assertTrue( connection.isAuthenticated() );
+}
+</code></pre>
+<p>If you issue a <em>bind</em> on the same connection with some different credentials, then the existing session will be terminated on the server, and a new one will be created. All the pending requests for the initial session will be lost.</p>
+<h2 id="unbinding">Unbinding</h2>
+<p>This is a trivial operation : you just send an <strong>UnbindRequest</strong> to the server, which will invalidate your session.</p>
+<p>It&rsquo;s important to know that when you issue an <strong>Unbind</strong>, the connection is dropped. It&rsquo;s done like this:</p>
+<pre><code>:::Java
+@Test
+public void testUnbind() throws Exception
+{
+    connection.bind( &quot;uid=admin,ou=system&quot;, &quot;secret&quot; );
+
+    // Now, unbind
+    connection.unBind();
+    assertFalse( connection.isConnected() );
+    assertFalse( connection.isAuthenticated() );
+
+    // And Bind again.
+    connection.bind( &quot;uid=admin,ou=system&quot;, &quot;secret&quot; );
+}
+</code></pre>
+<p>Last, but not least, if you close the connection, the session also terminates.</p>
+
+
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="2.1-connection-disconnection.html">2.1 - Connection and disconnection</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="2-basic-ldap-api-usage.html">2 - Basic LDAP API usage</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="2.3-searching.html">2.3 Searching</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

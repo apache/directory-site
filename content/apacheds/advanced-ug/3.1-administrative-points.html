@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>3.1. Administrative points &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/green.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/server-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+            
+                <strong>ApacheDS</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+             
+                LDAP API
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>ApacheDS 2.0</h5>
+                <ul>
+                    <li><a href="/apacheds/">Home</a></li>
+                    <li><a href="/apacheds/news.html">News</a></li>
+                    <li><a href="/apacheds/features.html">Features</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/apacheds/downloads.html">ApacheDS 2.0.0.AM26</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/apacheds/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/apacheds/basic-user-guide.html">Basic User Guide </a></li>
+                    <li><a href="/apacheds/advanced-user-guide.html">Advanced User Guide</a></li>
+                    <li><a href="/apacheds/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/apacheds/kerberos-user-guide.html">Kerberos User Guide</a></li>
+                    <li><a href="/apacheds/configuration/ads-2.0-configuration.html">Configuration</a></li>
+                    <li><a href="/apacheds/gen-docs/latest/apidocs">JavaDocs</a></li>
+                    <li><a href="/apacheds/gen-docs/latest/xref">Cross-Reference</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="3-admin-model.html">3 - Administrative Model</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="3-admin-model.html">3 - Administrative Model</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="3.2-operations-on-an-administrativepoint.html">3.2 Operations on an a Administrative Point</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+            
+	<h1 id="31-administrative-points">3.1. Administrative points</h1>
+<p>An <em>Administrative Point</em> is an entry which is defining a starting point
+from which some of the four existing administrative roles will span. It&rsquo;s
+important to understand than an Administrative Point (or <em>AP</em>) comes hand
+in hand with the associated <em>Subentries</em>, otherwise it&rsquo;s useless.</p>
+<p>Any entry can be defined as an <em>AP</em>.</p>
+<p>In the following schema, we have depicted a DIT with three <em>AP</em>s, the big
+one being an <em>AAP</em>, the blue one is a <em>SAP</em> and the green one is an <em>IAP</em>.
+They all define an area on which they are active and the dashed lines for
+the <em>IAP</em> are used to express the fact that an entry within the <em>IAP</em> area
+still depends on the higher <em>AAP</em>.</p>
+<p><img src="images/APs-tree.png" alt="APs-tree"></p>
+<p>Directly under an <em>AP</em>, we will find some <em>Subentries</em> defining the scopes
+on which they are active. These scopes (one per subentry) are called
+<em>SubtreeSpecification</em>, and define the entries that can be handled by the
+role the Subentry is defined for.</p>
+<p>The schema shows the relation between the <em>AP</em> and one <em>SubEntry</em> :</p>
+<p><img src="images/subentry.png" alt="subentry"></p>
+<h2 id="administrative-point">Administrative Point</h2>
+<p>We will describe the types of Administrative Points we are managing and the
+way they impact their associated Administrative Areas (<em>AA</em>)</p>
+<p>We have three different kind of <em>AP</em>  :</p>
+<ul>
+<li>Autonomous AP ( <em>AAP</em>)</li>
+<li>Specific AP (<em>SAP</em>)</li>
+<li>Inner AP (<em>IAP</em>)</li>
+</ul>
+<p>Those three different <em>APs</em> are related with each other in this way :</p>
+<ul>
+<li><em>AAPs</em> manage an <em>AA</em> as if all the possible type of <em>SAP</em> where declared
+for this area</li>
+<li><em>SAPs</em> manage an <em>AA</em> with respect to one specific kind of role (Access
+Control, Collective Attributes, SubSchema or Trigger Execution)</li>
+<li>IAPs manage an <em>AA</em> inside another <em>AP</em></li>
+<li>An <em>AAP</em> or a <em>SAP</em> starts at some point in the tree, and all the entries
+below this <em>AAP</em>/<em>SAP</em> aren&rsquo;t related to any other <em>AAP</em>. That also means
+that if an <em>AAP</em>/<em>SAP</em> is created below an existing AP, then all the
+entries it covers are unlinked from the previous AP (except that for <em>SAP</em>,
+we just logically keep a link to the higher AP for all the other aspects
+but the one covered by the new <em>SAP</em>)</li>
+<li>An <em>IAP</em> <em>must</em> be included into another <em>AP</em>, being it an <em>AAP</em>, <em>SAP</em>
+or <em>IAP</em>. It controls a specific aspect too, as for the <em>SAP</em>, but it will
+be combined with any of the above <em>AP</em>.</li>
+</ul>
+<h2 id="roles">Roles</h2>
+<p><em>AP</em> are managing some administrative aspect, defined by a role :</p>
+<ul>
+<li>ACI : Manage the access control</li>
+<li>CollectiveAttribute : Manage the collective attributes</li>
+<li>SubSchema (not handled atm)</li>
+<li>TriggrExecution : Manage the execution of stored procedures</li>
+</ul>
+<h1 id="subentry">Subentry</h1>
+<p>Once we have defined an <em>AP</em>, we can add some <em>subentries</em> which contain
+the description of the administrative actions, including :</p>
+<ul>
+<li>The area this <em>subentry</em> covers, defined by a <em>SubtreeSpecification</em>,
+named <em>subtree</em>.</li>
+</ul>
+<p>The <em>SubtreeSpecification</em> can be complex. Its grammar is given below :</p>
+<pre><code>&lt;subtreeSpecification&gt; ::= '{' &lt;sps-e&gt; &lt;subtreeSpecificationComponent-e&gt;'}'
+
+&lt;subtreeSpecificationComponent-e&gt; ::= &lt;subtreeSpecificationComponent&gt; &lt;sps-e&gt;    &lt;subtreeSpecificationComponent-list&gt; | e
+
+&lt;subtreeSpecificationComponent-list&gt; ::= ',' &lt;sps-e&gt;
+&lt;subtreeSpecificationComponent&gt; &lt;sps-e&gt;
+&lt;subtreeSpecificationComponent-list&gt; | e 
+
+&lt;subtreeSpecificationComponent&gt; ::= 
+    'base' &lt;sps&gt; DN
+    | 'specificExclusions' &lt;sps&gt; '{' &lt;sps-e&gt; &lt;specificExclusion-e&gt; '}'
+    | 'minimum' &lt;sps&gt; INTEGER
+    | 'maximum' &lt;sps&gt; INTEGER
+    | 'specificationFilter' &lt;sps&gt; &lt;refinement-filter&gt;
+
+&lt;specificExclusion-e&gt; ::= &lt;specificExclusion&gt; &lt;sps-e&gt;
+&lt;specificExclusion-list&gt; | e
+
+&lt;specificExclusion-list&gt; ::= ',' &lt;sps-e&gt; &lt;specificExclusion&gt; &lt;sps-e&gt;
+&lt;specificExclusion-list&gt; | e
+
+&lt;specificExclusion&gt; ::= 'chopBefore' &lt;sps-e&gt; ':' &lt;sps-e&gt; DN | 'chopAfter'
+&lt;sps-e&gt; ':' &lt;sps-e&gt; DN
+
+&lt;refinement-filter&gt; ::= &lt;refinement&gt; | FILTER
+
+&lt;refinement&gt; ::= 
+    'item' &lt;sps-e&gt; ':' &lt;sps-e&gt; &lt;oid&gt; 
+    | 'and' &lt;sps-e&gt; ':' &lt;sps-e&gt; '{' &lt;sps-e&gt; &lt;refinement-e&gt; '}'
+    | 'or' &lt;sps-e&gt; ':' &lt;sps-e&gt; '{' &lt;sps-e&gt; &lt;refinement-e&gt; '}' 
+    | 'not' &lt;sps-e&gt; ':' &lt;sps-e&gt; &lt;refinement&gt;
+
+&lt;refinement-e&gt; ::= &lt;refinement&gt; &lt;sps-e&gt; &lt;refinement-list&gt; | e
+
+&lt;refinement-list&gt; ::= ',' &lt;sps-e&gt; &lt;refinement&gt; &lt;sps-e&gt; &lt;refinement-list&gt; | e
+
+&lt;oid&gt; ::= DESCR | NUMERICOID
+
+&lt;sps&gt; ::= ' ' &lt;sps-e&gt;
+
+&lt;sps-e&gt; ::= ' ' &lt;sps-e&gt; | e
+</code></pre>
+<p>Some exemple of such subtrees :</p>
+<p><strong>select all the entries below the AdministrativePoint entry :</strong></p>
+<pre><code>{} 
+</code></pre>
+<p><strong>select all the entries below the ou=users branch
+starting from the AdministrativePoint entry :</strong></p>
+<pre><code>{ base &quot;ou=users&quot; } 
+</code></pre>
+<p>** exclude all the entries below the &ldquo;ou=groups&rdquo; branch : **</p>
+<pre><code>{ specificExclusions { chopBefore:&quot;ou=groups&quot; } } 
+</code></pre>
+
+
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="3-admin-model.html">3 - Administrative Model</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="3-admin-model.html">3 - Administrative Model</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="3.2-operations-on-an-administrativepoint.html">3.2 Operations on an a Administrative Point</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>8 - Schema &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/brown.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/api-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+             
+                ApacheDS
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+            
+                <strong>LDAP API</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>LDAP API </h5>
+                <ul>
+                    <li><a href="/api/">Home</a></li>
+                    <li><a href="/api/news.html">News</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/api/downloads-1.html">Version 1.0.3</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/downloads-2.html">Version 2.0.1</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Getting Started</h5>
+                <ul>
+                    <li><a href="/api/vision.html">Vision</a></li>
+                    <li><a href="/api/java-api.html">Java API</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/api/five-minutes-tutorial.html">Five minute tutorial</a></li>
+                    <li><a href="/api/user-guide.html">User Guide</a></li>
+                    <li><a href="/api/migration-guide.html">API 1 to 2 migration</a></li>
+                    <li><a href="/api/gen-docs/latest/apidocs/">JavaDocs</a></li>
+                    <li><a href="/api/gen-docs/latest2/apidocs/">JavaDocs 2</a></li>
+                    <li><a href="/api/gen-docs/latest/xref/">Cross-Reference</a></li>
+                    <li><a href="/api/gen-docs/latest2/xref/">Cross-Reference 2</a></li>
+                    
+                    <li><a href="/api/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/api/internal-design-guide.html">Internal Guide</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="7-ldap-messages.html">7 - LDAP Messages</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="../internal-design-guide.html">Internal Design Guide</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="9-dn.html">9 - DN</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+            
+	<h1 id="8---schema">8 - Schema</h1>
+<h2 id="schema-parsers">Schema parsers</h2>
+<p>We use a set of classes to parse schema elements. There are 11 flavors of schema elements, 8 of them being described in a <strong>RFC</strong>, 3 of them being ApacheDS proprietary:</p>
+<ul>
+<li><a href="https://tools.ietf.org/html/rfc4512#section-4.1.2">AttributeType</a></li>
+<li><a href="https://tools.ietf.org/html/rfc4512#section-4.1.6">DitContentRule</a></li>
+<li><a href="https://tools.ietf.org/html/rfc4512#section-4.1.7.1">DitStructureRule</a></li>
+<li><a href="https://tools.ietf.org/html/rfc4512#section-4.1.5">LDAPSyntax</a></li>
+<li><a href="https://tools.ietf.org/html/rfc4512#section-4.1.3">MatchingRule</a></li>
+<li><a href="https://tools.ietf.org/html/rfc4512#section-4.1.4">MatchingRuleUse</a></li>
+<li><a href="https://tools.ietf.org/html/rfc4512#section-4.1.7.2">NameForm</a></li>
+<li><a href="https://tools.ietf.org/html/rfc4512#section-4.1.1">ObjectClass</a></li>
+</ul>
+<p>and</p>
+<ul>
+<li>LdapComparator</li>
+<li>Normalizer</li>
+<li>SyntaxChecker</li>
+</ul>
+<p>We need to be able to parse those schema elements because they can be added into the server as a description (ie, a String representing one of those schema elements as defined by the RFC). For the same reason, the <strong>LDAP API</strong> need to validate that those schema elements are valid before sending them to a <strong>LDAP SERVER</strong>, or to be able to properly parse what it gets from a <strong>LDAP server</strong>.</p>
+<h2 id="strict-vs-quirks-mode">Strict vs quirks mode</h2>
+<p>Here we have a problem : most of the LDAP server implementation violate the RFC. We can&rsquo;t simply expect the String representing a schema element to be compliant with the RFC. Some typical deviations are :</p>
+<ul>
+<li>OpenLDAP uses some macro instead of OIDs. This is convenient, as it allows to define the root OID with a name, and reuse it in the associated schema elements</li>
+<li>AD and many other servers expect some specific characters to be accepted, like &lsquo;_', &lsquo;:', &lsquo;#', &hellip;</li>
+<li>Sometime, the values may come without quotes, when it&rsquo;s required</li>
+<li>etc.</li>
+</ul>
+<p>We will define the <em>strict mode</em> a mode which follows the <strong>RFC</strong> tightly, and the <em>quirks mode</em> a relaxed version of the parser, more permissive. One can use either the strict or relaxed mode using a flag.</p>
+<h3 id="strict-mode">Strict mode</h3>
+<p>The only thing we will relax is the order in which the various parts of each description is present in a schema description : we don&rsquo;t expect them to be ordered as described in the RFC.</p>
+<p>The various parts are defined using a few syntaxes :</p>
+<ul>
+<li>
+<p><em>NAME</em>: qdescrs</p>
+</li>
+<li>
+<p><em>DESC</em>: qdstring</p>
+</li>
+<li>
+<p><em>SUP</em> (<strong>ObjectClass</strong>), <em>MUST</em>, <em>MAY</em>, <em>APPLIES</em>, <em>AUX</em>, <em>NOT</em>: oids</p>
+</li>
+<li>
+<p><em>SUP</em> (<strong>AttributeType</strong>), <em>EQUALITY</em>, <em>ORDERING</em>, <em>SUBSTR</em>, <em>FORM</em>, <em>OC</em>: oid</p>
+</li>
+<li>
+<p><em>SYNTAX</em> (<strong>AttributeType</strong>): noidlen</p>
+</li>
+<li>
+<p><em>SYNTAX</em> (<strong>MathingRule</strong>): numericoid</p>
+</li>
+<li>
+<p><em>SUP</em> (<strong>DitStructureRule</strong>): ruleids</p>
+</li>
+<li>
+<p><em>descr</em>: oid, qdescrs</p>
+</li>
+<li>
+<p><em>qdescr</em>: qdescrs, qdescrlist</p>
+</li>
+</ul>
+<p><em>qdescrs</em> and <em>oids</em> may contain one or many <em>qdescr</em> and <em>oid</em>.</p>
+<h4 id="descr-strict">descr, strict</h4>
+<p>The <em>descr</em> construct is used by <em>oid</em> and <em>qdescrs</em> (an <em>OID</em> can be a name). The strict mode will use this grammar :</p>
+<pre><code>descr       ::= keystring
+keystring   ::= leadkeychar keychar*
+leadkeychar ::= ALPHA
+keychar     ::= ALPHA | DIGIT | HYPHEN
+ALPHA       ::= ['A'..'Z'] | ['a'..'z']
+DIGIT       ::= ['0'..'9']
+HYPHEN      ::= '-'
+SQUOTE      ::= '\''
+</code></pre>
+<h4 id="qdstring-strict">qdstring, strict</h4>
+<p>A <em>qdstring</em> can contain any type of <strong>UTF-8</strong> characters, except the simple quote or the backslash, which must be encoded. It&rsquo;s always surrounded by simple quotes :</p>
+<pre><code>qdstring    ::= SQUOTE dstring SQUOTE
+dstring     ::= ( QS | QQ | QUTF8 )*
+QQ          ::= ESC %x32 %x37
+QS          ::= ESC %x35 ( %x43 / %x63 )
+QUTF8       ::= QUTF1 | UTFMB
+QUTF1       ::= %x00-26 | %x28-5B | %x5D-7F
+</code></pre>
+<h4 id="qdescr-strict">qdescr, strict</h4>
+<p><em>qdescr</em> is a quoted name, where the first char must be alphabetic, and the following chars must be alphabetic, digits or hyphen. Here is the <strong>ABNF</strong> for <em>qdescr</em> :</p>
+<pre><code>qdescr      ::= SQUOTE descr SQUOTE
+</code></pre>
+<h4 id="noidlen-strict">noidlen, strict</h4>
+<h3 id="relaxed-mode">Relaxed mode</h3>
+<h4 id="qdstring-relaxed">qdstring, relaxed</h4>
+<p>There</p>
+<h4 id="descr-relaxed">descr, relaxed</h4>
+<p>The relaxed <em>descr</em> accepts more characters, like underscore, semi-colon, dot, colon or sharp. The leadkeychar will not be mandatory, too. Here is the <strong>ABNF</strong> we will accept :</p>
+<pre><code>relaxed-descr   ::= relaxed-keystring
+leaxed-keystring::= keychar+
+relaxed-keychar ::= ALPHA | DIGIT | HYPHEN | UNDERSCORE | SEMICOLON | DOT | COLON | SHARP
+ALPHA           ::= ['A'..'Z'] | ['a'..'z']
+DIGIT           ::= ['0'..'9']
+HYPHEN          ::= '-'
+UNDERSCORE      ::= '_'
+SEMI_COLON      ::= ';'
+COLON           ::= ':'
+SDOT            ::= '.'
+SHARP           ::= '#'
+</code></pre>
+<h4 id="qdescr-relaxed">qdescr, relaxed</h4>
+<p>Compared to the strict mode, we will accept a non-quoted String, or a String using double quotes.</p>
+<pre><code>relaxed-qdescr  ::= SQUOTE relaxed-descr SQUOTE | DQUOTE relaxed-descr DQUOTE | relaxed-descr
+</code></pre>
+<h4 id="oid-relaxed">oid, relaxed</h4>
+<p>We will accept quoted and double quoted OIDs and Names, in relaxed mode. Here is teh supported <strong>ABNF</strong> :</p>
+<pre><code>oid-relaxed ::= SQUOTE relaxed-descr SQUOTE | DQUOTE relaxed-descr DQUOTE | descr-relaxed |
+                SQUOTE numericoid SQUOTE | DQUOTE numericoid DQUOTE | numericoid
+</code></pre>
+<h4 id="noidlen-strict-1">noidlen, strict</h4>
+<p>Here, we will allow textual syntax name to be used, not only OIDs. For instance, something like <em>SYNTAX IA5String</em> will be allowed.</p>
+<p>We also allow quoted and double quoted OIDs.</p>
+
+
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="7-ldap-messages.html">7 - LDAP Messages</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="../internal-design-guide.html">Internal Design Guide</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="9-dn.html">9 - DN</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

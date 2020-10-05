@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>Section I - Instructions to download, extract and configure Fortress &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/turquoise.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/fortress-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+             
+                ApacheDS
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+             
+                LDAP API
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+            
+                <strong>Fortress</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>Fortress</h5>
+                <ul>
+                    <li><a href="/fortress/">Home</a></li>
+                    <li><a href="/fortress/history.html">History</a></li>
+                    <li><a href="/fortress/news.html">News</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/fortress/downloads.html">Fortress 2.0.5</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/fortress/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/fortress/overview.html">Overview</a></li>
+                    <li><a href="/fortress/installation.html">Installation Guide</a></li>
+                    <li><a href="/fortress/user-guide.html">Users Guide</a></li>
+                    <li><a href="/fortress/coding-standards.html">Coding Standards</a></li>
+                    <li><a href="/fortress/gen-docs/latest/apidocs/">JavaDocs</a></li>
+                    
+                    <li><a href="/fortress/gen-docs/latest/">Generated Reports</a></li>
+                    <li><a href="/fortress/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/fortress/testimonials.html">Testimonials</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="guidelines.html">Guidelines and Tips for first-time users</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="linux.html">Quickstart Linux - Table of contents</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="section-II.html">Section II - Instructions to run the Fortress Ant Build</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+            
+	<h2 id="section-i---instructions-to-download-extract-and-configure-fortress-builder-package-to-target-system">Section I - Instructions to download, extract and configure Fortress Builder Package to Target System</h2>
+<ul>
+<li>
+<p>Download one of the linux packages from here: iamfortress.org/download</p>
+</li>
+<li>
+<p>Copy fortressBuilder-[platform]-[version].zip to hard drive on target server env.</p>
+</li>
+<li>
+<p>Extract the zip. The location for archive can vary according to requirements. The location of package will be referred to as FORTRESS_HOME later on.
+*Enable permission for the binaries to execute. From FORTRESS_HOME root folder, enter the following command from a system prompt:</p>
+<p>chmod a+x -Rf *</p>
+</li>
+</ul>
+<CENTER>
+  <IMG src="../../images/Screenshot1-chmod.png" alt="Screenshot" width="766" height="58"/>
+</CENTER>
+<p>If debian platform and using sudo, edit file named &lsquo;build.properties&rsquo; and insert sudo password here:</p>
+<pre><code>sudo.pw=your pw here
+</code></pre>
+<p>Note: For Redhat deployments leave this param&rsquo;s value empty, like below, otherwise the &lsquo;stop-slapd&rsquo; target may not work.</p>
+<pre><code>sudo.pw=
+</code></pre>
+<CENTER>
+  <IMG src="../../images/Screenshot2-edit-sudo.png" alt="Screenshot" width="766" height="111"/>
+</CENTER>
+
+
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="guidelines.html">Guidelines and Tips for first-time users</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="linux.html">Quickstart Linux - Table of contents</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="section-II.html">Section II - Instructions to run the Fortress Ant Build</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

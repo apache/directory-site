@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>Internationalization (i18n) &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/blue.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/studio-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+             
+                ApacheDS
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+            
+                <strong>Studio</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+             
+                LDAP API
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>Apache Directory Studio</h5>
+                <ul>
+                    <li><a href="/studio/">Home</a></li>
+                    <li><a href="/studio/news.html">News</a></li>
+                    <li><a href="/studio/screenshots.html">Screenshots</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/studio/downloads.html">Version 2.0.0-M14</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/studio/download-old-versions.html">Older Versions</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/studio/users-guide.html">User's Guide</a></li>
+                    <li><a href="/studio/developers-guide.html">Developer's Guide</a></li>
+                    <li><a href="/studio/faqs.html">FAQs</a></li>
+                </ul>
+
+                <h5>Resources</h5>
+                <ul>
+                    <li><a href="/studio/changelog.html">ChangeLog</a></li>
+                    <li><a href="/studio/testimonials.html">Testimonials</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+
+            
+	<h1 id="internationalization-i18n">Internationalization (i18n)</h1>
+<p>It exists a good guide on internationalization (and externalizing string) at <a href="http://www.eclipse.org/articles/Article-Internationalization/how2I18n.html">How to Internationalize your Eclipse Plug-In</a>.</p>
+<h2 id="translating-the-current-code">Translating the current code</h2>
+<p>Translating Studio is not an simple task. There are many files to translate :</p>
+<ul>
+<li>messages.properties</li>
+<li>plugin.properties</li>
+<li>help files</li>
+<li>some other semi-random files ;)</li>
+</ul>
+<h2 id="when-writing-code">When writing code&hellip;</h2>
+<p>When doing the translation for a specific language please add in any case the messages_{language}.properties file of the language to the resource folder, even if it&rsquo;s empty (meaning all translations are taken from the messages.properties file). This will show to other developers, that you&rsquo;ve thought about translation but no one was needed.</p>
+<p>Notes:</p>
+<ul>
+<li>
+<p>The message&rdquo;.properties files are located in the src/main/java/** folder (not following maven&rsquo;s philosophy) to be able to use Eclipse&rsquo; &lsquo;Externalize Strings&rsquo; wizard also later on. Following maven philosophy (*.properties in src/main/resources) the wizard doesn&rsquo;t finds the created properties files anymore.</p>
+</li>
+<li>
+<p>To replace placeholders we use Eclipse&rsquo;s NLS.bind function, e.g.</p>
+<pre><code>  From messages.properties:
+  EditAliasesDialog.TheAliasBegin=The alias &quot;{0}&quot; is invalid.
+
+  Will look like in Java code:
+  NLS.bind( Messages.getString( &quot;EditAliasesDialog.TheAliasBegin&quot; ), new String[] { alias } ) );
+</code></pre>
+</li>
+</ul>
+<p>Hints:</p>
+<ul>
+<li>Using Eclipse&rsquo; Property-Editor in the &lsquo;Properties&rsquo; view will prevent you from getting into troubles with uncomment characters like e.g. the German &lsquo;Umlauts&rsquo;</li>
+</ul>
+
+
+            
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>4.2.10 - ACI grammar &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/green.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/server-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+            
+                <strong>ApacheDS</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+             
+                LDAP API
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>ApacheDS 2.0</h5>
+                <ul>
+                    <li><a href="/apacheds/">Home</a></li>
+                    <li><a href="/apacheds/news.html">News</a></li>
+                    <li><a href="/apacheds/features.html">Features</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/apacheds/downloads.html">ApacheDS 2.0.0.AM26</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/apacheds/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/apacheds/basic-user-guide.html">Basic User Guide </a></li>
+                    <li><a href="/apacheds/advanced-user-guide.html">Advanced User Guide</a></li>
+                    <li><a href="/apacheds/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/apacheds/kerberos-user-guide.html">Kerberos User Guide</a></li>
+                    <li><a href="/apacheds/configuration/ads-2.0-configuration.html">Configuration</a></li>
+                    <li><a href="/apacheds/gen-docs/latest/apidocs">JavaDocs</a></li>
+                    <li><a href="/apacheds/gen-docs/latest/xref">Cross-Reference</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="4.2.9-migration-from-other-ldap-servers.html">4.2.9 - Migration from other LDAP servers</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="4.2-authorization.html">4.2 - Authorization</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="4.2.11-links-and-references.html">4.2.11 - Links and references</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+            
+	<h1 id="4210---aci-grammar">4.2.10 - ACI grammar</h1>
+<p>The ACI attributes store data following a specific structure, which is
+define by this grammar :</p>
+<pre><code>&lt;wrapperEntryPoint&gt; ::= &lt;SP*&gt; '{' &lt;SP*&gt; &lt;mainACIItemComponent&gt; &lt;SP*&gt;
+&lt;mainACIItemComponents&gt; '}' &lt;SP*&gt; EOF
+
+&lt;mainACIItemComponents&gt; ::= ',' &lt;SP*&gt; &lt;mainACIItemComponent&gt; &lt;SP*&gt;
+&lt;mainACIItemComponents&gt; | e
+
+** Note : we have to allow only one of each option
+&lt;mainACIItemComponent&gt; ::= 
+    &quot;identificationTag&quot; &lt;SP+&gt; SAFEUTF8STRING
+    | &quot;precedence&quot; &lt;SP+&gt; INTEGER
+    | &quot;authenticationLevel&quot; &lt;SP+&gt; &lt;authenticationLevel&gt;
+    | &quot;itemOrUserFirst&quot; &lt;SP+&gt; &lt;itemOrUserFirst&gt;
+
+&lt;authenticationLevel&gt; ::= &quot;none&quot; | &quot;simple&quot; | &quot;strong&quot;
+
+&lt;itemOrUserFirst&gt; ::= 
+           &quot;itemFirst&quot; &lt;SP*&gt; ':' &lt;SP*&gt; '{' &lt;SP*&gt; &lt;itemType&gt; &lt;SP*&gt;
+'}' 
+           | 
+           &quot;userFirst&quot; &lt;SP*&gt; ':' &lt;SP*&gt; '{' &lt;SP*&gt; &lt;userType&gt; &lt;SP*&gt;
+'}'
+
+&lt;itemType&gt; ::= 
+        &quot;protectedItems&quot; &lt;SP*&gt; '{' &lt;SP*&gt; &lt;protectedItem?&gt; '}' &lt;SP*&gt; 
+                 ',' &lt;SP*&gt; '{' &lt;SP*&gt; &lt;anyItemPermission&gt; &lt;SP*&gt;
+&lt;anyItemPermission*&gt; '}'
+        | 
+        &quot;itemPermissions&quot; &lt;SP+&gt; '{' &lt;SP*&gt; &lt;itemPermissions?&gt; '}' &lt;SP*&gt; 
+                 ',' &lt;SP*&gt; &quot;protectedItems&quot; &lt;SP*&gt; '{' &lt;SP*&gt;
+&lt;protectedItem?&gt; '}'
+
+&lt;userType&gt; ::= 
+         &quot;userClasses&quot; &lt;SP+&gt; '{' &lt;SP*&gt; &lt;userClass?&gt; '}' &lt;SP*&gt; ',' 
+                   &lt;SP*&gt; '{' &lt;SP*&gt; &lt;anyUserPermission&gt; &lt;SP*&gt;
+&lt;anyUserPermission*&gt; '}'
+          |
+          &quot;userPermissions&quot; &lt;SP+&gt; '{' &lt;SP*&gt; &lt;userPermissions?&gt; '}'
+&lt;SP*&gt; ',' 
+                   &lt;SP*&gt; &quot;userClasses&quot; &lt;SP+&gt; '{' &lt;SP*&gt;
+&lt;userClass?&gt; '}'
+
+&lt;protectedItem?&gt; ::= &lt;protectedItem&gt; &lt;SP*&gt; &lt;protectedItem*&gt; | e
+
+&lt;protectedItem*&gt; ::= ',' &lt;SP*&gt; &lt;protectedItem&gt; &lt;SP*&gt; &lt;protectedItem*&gt; | e
+
+&lt;protectedItem&gt; ::= 
+    &quot;entry&quot;
+    | &quot;allUserAttributeTypes&quot;
+    | &quot;attributeType&quot; &lt;SP+&gt; '{' &lt;SP*&gt; &lt;oid&gt; &lt;SP*&gt; &lt;oids&gt; '}'
+    | &quot;allAttributeValues&quot; &lt;SP+&gt; '{' &lt;SP*&gt; &lt;oid&gt; &lt;SP*&gt; &lt;oids&gt; '}'
+    | &quot;allUserAttributeTypesAndValues&quot;
+    | ATTRIBUTE_VALUE_CANDIDATE
+    | &quot;selfValue&quot; &lt;SP+&gt; '{' &lt;SP*&gt; &lt;oid&gt; &lt;SP*&gt; &lt;oids&gt; '}'
+    | RANGE_OF_VALUES_CANDIDATE
+    | &quot;maxValueCount&quot; &lt;SP+&gt; '{' &lt;SP*&gt; '{' &lt;SP*&gt; &lt;valueCountType&gt; &lt;SP*&gt; '}'
+&lt;SP*&gt; &lt;maxValueCount*&gt; '}'
+    | &quot;maxImmSub&quot; &lt;SP+&gt; INTEGER
+    | &quot;restrictedBy&quot; &lt;SP+&gt; '{' &lt;SP*&gt; '{' &lt;SP*&gt; &lt;typeValueIn&gt; &lt;SP*&gt; '}'
+&lt;SP*&gt; &lt;restrictedValue*&gt; '}'
+    | &quot;classes&quot; &lt;SP+&gt; &lt;refinement&gt;
+
+&lt;maxValueCount*&gt; ::= ',' &lt;SP*&gt; '{' &lt;SP*&gt; &lt;valueCountType&gt; &lt;SP*&gt; '}' &lt;SP*&gt;
+&lt;maxValueCount*&gt; | e
+
+&lt;valueCountType&gt; ::= 
+           &quot;type&quot; &lt;SP+&gt; &lt;oid&gt; &lt;SP*&gt; ',' &lt;SP*&gt; &quot;maxCount&quot; &lt;SP+&gt;
+INTEGER 
+            | 
+           &quot;maxCount&quot; &lt;SP+&gt; INTEGER &lt;SP*&gt; ',' &lt;SP*&gt; &quot;type&quot; &lt;SP+&gt;
+&lt;oid&gt; 
+    
+&lt;restrictedValue*&gt; ::= ',' &lt;SP*&gt; '{' &lt;SP*&gt; &lt;typeValueIn&gt; &lt;SP*&gt; '}' &lt;SP*&gt;
+&lt;restrictedValue*&gt; | e 
+    
+&lt;typeValueIn&gt; ::=
+        &quot;type&quot; &lt;SP+&gt; &lt;oid&gt; &lt;SP*&gt; ',' &lt;SP*&gt; &quot;valuesIn&quot; &lt;SP+&gt; &lt;oid&gt;
+        |
+        &quot;valuesIn&quot; &lt;SP+&gt; &lt;oid&gt; &lt;SP*&gt; ',' &lt;SP*&gt; &quot;type&quot; &lt;SP+&gt; &lt;oid&gt;
+
+&lt;oids&gt; ::= ',' &lt;SP*&gt; &lt;oid&gt; &lt;SP*&gt; &lt;oids&gt; | e
+
+&lt;itemPermissions?&gt; ::= '{' &lt;SP*&gt; &lt;anyItemPermission&gt; &lt;SP*&gt;
+&lt;anyItemPermission*&gt; '}' &lt;SP*&gt; &lt;itemPermissions*&gt; | e
+
+&lt;itemPermissions*&gt; ::= 
+             ',' &lt;SP*&gt; '{' &lt;SP*&gt; &lt;anyItemPermission&gt; &lt;SP*&gt;
+&lt;anyItemPermission*&gt; '}' &lt;SP*&gt; &lt;itemPermissions*&gt; | e
+
+&lt;anyItemPermission*&gt; ::= ',' &lt;SP*&gt; &lt;anyItemPermission&gt; &lt;SP*&gt;
+&lt;anyItemPermission*&gt; | e
+
+&lt;anyItemPermission&gt; :
+    &quot;precedence&quot; &lt;SP+&gt; &lt;INTEGER&gt;
+    | &quot;userClasses&quot; &lt;SP+&gt; '{' &lt;SP*&gt; &lt;userClass?&gt; '}'
+    | &quot;grantsAndDenials&quot; &lt;SP+&gt; '{' &lt;SP*&gt; &lt;grantAndDenial?&gt; '}'
+
+&lt;grantAndDenial?&gt; ::= &lt;grantAndDenial&gt; &lt;SP*&gt; &lt;grantAndDenial*&gt; | e
+
+&lt;grantAndDenial*&gt; ::= ',' &lt;SP*&gt; &lt;grantAndDenial&gt; &lt;SP*&gt; &lt;grantAndDenial*&gt;
+
+&lt;grantAndDenial&gt; :
+    &quot;grantAdd&quot; 
+    | &quot;denyAdd&quot; 
+    | &quot;grantDiscloseOnError&quot;
+    | &quot;denyDiscloseOnError&quot; 
+    | &quot;grantRead&quot; 
+    | &quot;denyRead&quot; 
+    | &quot;grantRemove&quot; 
+    | &quot;denyRemove&quot; 
+    | &quot;grantBrowse&quot; 
+    | &quot;denyBrowse&quot; 
+    | &quot;grantExport&quot;
+    | &quot;denyExport&quot; 
+    | &quot;grantImport&quot; 
+    | &quot;denyImport&quot; 
+    | &quot;grantModify&quot; 
+    | &quot;denyModify&quot; 
+    | &quot;grantRename&quot; 
+    | &quot;denyRename&quot;
+    | &quot;grantReturnDN&quot;
+    | &quot;denyReturnDN&quot; 
+    | &quot;grantCompare&quot; 
+    | &quot;denyCompare&quot; 
+    | &quot;grantFilterMatch&quot;
+    | &quot;denyFilterMatch&quot; 
+    | &quot;grantInvoke&quot;
+    | &quot;denyInvoke&quot;
+
+&lt;userClass?&gt; ::= &lt;userClass&gt; &lt;SP*&gt; &lt;userClass*&gt; | e
+
+&lt;userClass*&gt; ::= ',' &lt;SP*&gt; &lt;userClass&gt; &lt;SP*&gt; &lt;userClass*&gt; | e
+
+&lt;userClass&gt; :
+    &quot;allUsers&quot;
+    | &quot;thisEntry&quot;
+    | &quot;parentOfEntry&quot;
+    | &quot;name&quot; &lt;SP+&gt; '{' &lt;SP*&gt; &lt;distinguishedName&gt; &lt;SP*&gt; &lt;name*&gt; '}'
+    | &quot;userGroup&quot; &lt;SP+&gt; '{' &lt;SP*&gt; &lt;distinguishedName&gt; &lt;SP*&gt; &lt;userGroup*&gt;
+'}'
+    | &quot;subtree&quot; &lt;SP+&gt; '{' &lt;SP*&gt; '{' &lt;SP*&gt; &lt;subtreeSpecificationComponent?&gt;
+'}' &lt;SP*&gt; &lt;subTree*&gt; '}'
+
+&lt;name*&gt; ::= ',' &lt;SP*&gt; &lt;distinguishedName&gt; &lt;SP*&gt; &lt;name*&gt; | e
+ 
+&lt;userGroup*&gt; ::= ',' &lt;SP*&gt; &lt;distinguishedName&gt; &lt;SP*&gt; &lt;userGroup*&gt; | e
+
+&lt;subTree*&gt; ::= ',' &lt;SP*&gt; '{' &lt;SP*&gt; &lt;subtreeSpecificationComponent?&gt; '}'
+&lt;SP*&gt; &lt;subTree*&gt; | e
+
+&lt;userPermissions?&gt; ::= '{' &lt;SP*&gt; &lt;anyUserPermission&gt; &lt;SP*&gt;
+&lt;anyUserPermission*&gt; '}' &lt;SP*&gt; &lt;userPermissions*&gt; | e
+
+&lt;userPermissions*&gt; ::= 
+             ',' &lt;SP*&gt; '{' &lt;SP*&gt; &lt;anyUserPermission&gt; &lt;SP*&gt;
+&lt;anyUserPermission*&gt; '}' &lt;SP*&gt; &lt;userPermissions*&gt; | e
+
+&lt;anyUserPermission*&gt; ::= ',' &lt;SP*&gt; &lt;anyUserPermission&gt; &lt;SP*&gt;
+&lt;anyUserPermission*&gt; | e
+
+&lt;anyUserPermission&gt; :
+    &quot;precedence&quot; &lt;SP+&gt; &lt;INTEGER&gt;
+    | &quot;protectedItems&quot; &lt;SP*&gt; '{' &lt;SP*&gt; &lt;protectedItem?&gt; '}'
+    | &quot;grantsAndDenials&quot; &lt;SP+&gt; '{' &lt;SP*&gt; &lt;grantAndDenial?&gt; '}'
+
+&lt;subtreeSpecificationComponent?&gt; ::= &lt;subtreeSpecificationComponent&gt; &lt;SP*&gt;
+&lt;subtreeSpecificationComponent*&gt; | e
+&lt;subtreeSpecificationComponent*&gt; ::= ',' &lt;SP*&gt;
+&lt;subtreeSpecificationComponent&gt; &lt;SP*&gt; &lt;subtreeSpecificationComponent*&gt; | e
+
+&lt;subtreeSpecificationComponent&gt; :
+    &quot;base&quot; &lt;SP+&gt; &lt;distinguishedName&gt;
+    | &quot;specificExclusions&quot; &lt;SP+&gt; '{' &lt;SP*&gt; &lt;specificExclusion?&gt; '}'
+    | &quot;minimum&quot; &lt;SP+&gt; INTEGER
+    | &quot;maximum&quot; &lt;SP+&gt; INTEGER
+
+&lt;specificExclusion?&gt; ::= &lt;specificExclusion&gt; &lt;SP*&gt; &lt;specificExclusion*&gt; | e
+
+&lt;specificExclusion*&gt; ::= ',' &lt;SP*&gt; &lt;specificExclusion&gt; &lt;SP*&gt;
+&lt;specificExclusion*&gt; | e
+
+&lt;specificExclusion&gt; ::=
+              &quot;chopBefore&quot; &lt;SP*&gt; ':' &lt;SP*&gt; &lt;distinguishedName&gt; 
+              | 
+              &quot;chopAfter&quot; &lt;SP*&gt; ':' &lt;SP*&gt; &lt;distinguishedName&gt;
+
+&lt;refinement&gt; ::= 
+           &quot;item&quot; &lt;SP*&gt; ':' &lt;SP*&gt; &lt;oid&gt; 
+           | 
+           &quot;and&quot; &lt;SP*&gt; ':' &lt;SP*&gt; '{' &lt;refinements?&gt; '}'
+           | 
+           &quot;or&quot; &lt;SP*&gt; ':' &lt;SP*&gt; '{' &lt;refinements?&gt; '}'
+           | 
+           &quot;not&quot; &lt;SP*&gt; ':' &lt;SP*&gt; '{' &lt;refinements?&gt; '}'
+
+&lt;refinements?&gt; ::= &lt;SP*&gt; &lt;refinements?&gt; &lt;SP*&gt; &lt;refinement*&gt; | e
+
+&lt;refinement*&gt; ::= ',' &lt;SP*&gt; &lt;refinement&gt; &lt;SP*&gt; &lt;refinement*&gt; | e
+
+&lt;distinguishedName&gt; ::= SAFEUTF8STRING
+
+&lt;oid&gt; ::= DESCR | NUMERICOID
+
+SAFEUTF8CHAR :
+    '\u0001'..'\u0021' |
+    '\u0023'..'\u007F' |
+    '\u00c0'..'\u00d6' |
+    '\u00d8'..'\u00f6' |
+    '\u00f8'..'\u00ff' |
+    '\u0100'..'\u1fff' |
+    '\u3040'..'\u318f' |
+    '\u3300'..'\u337f' |
+    '\u3400'..'\u3d2d' |
+    '\u4e00'..'\u9fff' |
+    '\uf900'..'\ufaff' ;
+
+&lt;SP+&gt; ::= &lt;SP&gt; &lt;SP*&gt;
+&lt;SP*&gt; ::= &lt;SP&gt; &lt;SP*&gt; | e
+&lt;SP&gt; ::= ' ' | '\t' | '\n' | '\r' ;
+
+
+ALPHA : 'A'..'Z' | 'a'..'z' ;
+
+&lt;INTEGER&gt; ::= &lt;DIGIT&gt; | &lt;LDIGIT&gt; &lt;DIGIT&gt; &lt;DIGIT*&gt;
+&lt;DIGIT&gt; ::= '0' | &lt;LDIGIT&gt; ;
+&lt;LDIGIT&gt; ::= '1'..'9' ;
+&lt;DIGIT*&gt; ::= &lt;DIGIT&gt; &lt;DIGIT*&gt; | e
+
+HYPHEN : '-' ;
+
+NUMERICOID : INTEGER ( DOT INTEGER )+ ;
+
+DOT : '.' ;
+
+INTEGER_OR_NUMERICOID
+    :
+    ( INTEGER DOT ) =&gt; NUMERICOID
+    |
+    INTEGER
+
+SAFEUTF8STRING : '&quot;'! ( SAFEUTF8CHAR )* '&quot;'! ;
+
+DESCR 
+    :
+    ( &quot;attributeValue&quot; ( SP! )+ '{' ) =&gt;
+      &quot;attributeValue&quot;! ( SP! )+ '{'! ( options : . )* '}'!
+    | ( &quot;rangeOfValues&quot; ( SP! )+ '(' ) =&gt;
+      &quot;rangeOfValues&quot;! ( SP! )+ FILTER
+    | ALPHA ( ALPHA | DIGIT | HYPHEN )*
+    ;
+
+FILTER : '(' ( ( '&amp;' (SP)* (FILTER)+ ) | ( '|' (SP)* (FILTER)+ ) | ( '!'
+(SP)* FILTER ) | FILTER_VALUE ) ')' (SP)* ;
+
+FILTER_VALUE : (options: ~( ')' | '(' | '&amp;' | '|' | '!' ) ( ~(')') )* ) ;
+</code></pre>
+
+
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="4.2.9-migration-from-other-ldap-servers.html">4.2.9 - Migration from other LDAP servers</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="4.2-authorization.html">4.2 - Authorization</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="4.2.11-links-and-references.html">4.2.11 - Links and references</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

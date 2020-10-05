@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Kerbies on Apache Directory</title>
+    <link>https://directory.apache.org/kerby.html</link>
+    <description>Recent content in Kerbies on Apache Directory</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    
+	<atom:link href="https://directory.apache.org/kerby/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>1 - How To Begin</title>
+      <link>https://directory.apache.org/kerby/user-guide/1-how-to-begin.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/kerby/user-guide/1-how-to-begin.html</guid>
+      <description>1 - How to begin This chapter helps you to set up a Apache Kerby kdc server, with the minimal configuration options being explained. That should be enough to get a running server.
+How to play with the standalone KDC: The distribution of Kerby.
+To run with a standalone kdc server, kinit and kadmin   Generate libraries for distribution:
+$ mvn package -Pdist
+  Run kdcinit:
+$ cd kerby-dist/kdc-dist $ sh bin/kdcinit.</description>
+    </item>
+    
+    <item>
+      <title>2 - Kerberos library</title>
+      <link>https://directory.apache.org/kerby/user-guide/2-kerberos-library.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/kerby/user-guide/2-kerberos-library.html</guid>
+      <description>2 - Kerberos library Kerby provides the KrbClient API, Kadmin API, Kerberos Server API and the simplified kdc server APIs.
+Table of content  2.1 - KrbClient API 2.2 - Kadmin 2.3 - KdcServer 2.4 - SimpleKdcServer  Please look at github for details.</description>
+    </item>
+    
+    <item>
+      <title>2.1 - KrbClient APIs</title>
+      <link>https://directory.apache.org/kerby/user-guide/2.1-krbclient-apis.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/kerby/user-guide/2.1-krbclient-apis.html</guid>
+      <description>2.1 - KrbClient APIs A Krb client API for applications to interact with KDC.
+Initiate a KrbClient  Initiate a KrbClient with prepared KrbConfig.   KrbClient krbClient = new KrbClient(krbConfig);   Initiate a KrbClient with with conf dir.   KrbClient krbClient = new KrbClient(confDir);  Request a TGT  Request a TGT with user plain password credential   requestTgtWithPassword(principal, password);   Request a TGT with user token credential   requestTgtWithToken(token, armorCache);  Request a service ticket  Request a service ticket with user TGT credential for a server   requestServiceTicketWithTgt(tgt, serverPrincipal);   Request a service ticket with user AccessToken credential for a server   requestServiceTicketWithAccessToken(accessToken, serverPrincipal, armorCache);  </description>
+    </item>
+    
+    <item>
+      <title>2.2 - Kadmin</title>
+      <link>https://directory.apache.org/kerby/user-guide/2.2-kadmin.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/kerby/user-guide/2.2-kadmin.html</guid>
+      <description>2.2 - Kadmin Server side admin facilities.
+Local mode Initiate a LocalKadminImpl  Initiate a LocalKadminImpl with prepared KdcConfig and BackendConfig.   LocalKadmin kadmin = new LocalKadminImpl(kdcConfig, backendConfig);   Initiate a LocalKadmin with confDir.   LocalKadmin kadmin = new LocalKadminImpl(confDir);   Initiate a LocalKadmin with kdcSetting and backend.   LocalKadmin kadmin = new LocalKadminImpl(kdcSetting, backend);  Principal operating  Add principle with principal name.   addPrincipal(principal);   Add principle with principal name and password.</description>
+    </item>
+    
+    <item>
+      <title>2.3 - KdcServer</title>
+      <link>https://directory.apache.org/kerby/user-guide/2.3-kdcserver.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/kerby/user-guide/2.3-kdcserver.html</guid>
+      <description>2.3 - KdcServer Kerberos Server API.
+Initiate kdc server  Initiate a kdc server with prepared confDir.   KdcServer server = new KdcServer(confDir);  Start and set kdc server  Start kdc server.   start();   Set KDC realm for ticket request   setKdcRealm(realm);   Set KDC host.   setKdcHost(kdcHost);   Set KDC tcp port.   setKdcTcpPort(kdcTcpPort);   Set KDC udp port.</description>
+    </item>
+    
+    <item>
+      <title>2.4 - SimpleKdcServer</title>
+      <link>https://directory.apache.org/kerby/user-guide/2.4-simplekdcserver.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/kerby/user-guide/2.4-simplekdcserver.html</guid>
+      <description>2.4 - SimpleKdcServer A simplified Kdc server. It can be imported by other project to work as a kdc server.
+Kdc server 
+ Start simple kdc server.   start();   Set KDC realm for ticket request   setKdcRealm(realm);   Set KDC host.   setKdcHost(kdcHost);   Set KDC tcp port.   setKdcTcpPort(kdcTcpPort);   Set KDC udp port. Only makes sense when allowUdp is set.</description>
+    </item>
+    
+    <item>
+      <title>3 - Tools</title>
+      <link>https://directory.apache.org/kerby/user-guide/3-tools.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/kerby/user-guide/3-tools.html</guid>
+      <description>3 - Tools Kerby provides tools including both client side and server side.
+Table of content  3.1 - kdcinit 3.2 - kadmin 3.3 - kinit 3.4 - klist  </description>
+    </item>
+    
+    <item>
+      <title>3.1 - kdcinit</title>
+      <link>https://directory.apache.org/kerby/user-guide/3.1-kdcinit.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/kerby/user-guide/3.1-kdcinit.html</guid>
+      <description>3.1 - kdcinit SYNOPSIS kdcinit [conf_dir] [keytab]
+DESCRIPTION kdcinit is used by admin to initialize and prepare all kinds of KDC side materials, like initializing concrete back end, setting necessary principals (tgs, kadmin) and etc.</description>
+    </item>
+    
+    <item>
+      <title>3.2 - kadmin</title>
+      <link>https://directory.apache.org/kerby/user-guide/3.2-kadmin.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/kerby/user-guide/3.2-kadmin.html</guid>
+      <description>3.2 - kadmin SYNOPSIS kadmin [conf-dir] [-c cache_name] | [-k keytab_name]
+DESCRIPTION kadmin is command-line interfaces to the Kerberos V5 administration system. kadmin provides for the maintenance of Kerberos principals, password policies, and service key tables (keytabs).
+Commands   add_principal
+  modify_principal
+  rename_principal
+  delete_principal
+  change_password
+  get_principal
+  ktadd
+  ktremove
+  </description>
+    </item>
+    
+    <item>
+      <title>3.3 - kinit</title>
+      <link>https://directory.apache.org/kerby/user-guide/3.3-kinit.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/kerby/user-guide/3.3-kinit.html</guid>
+      <description>3.3 - kinit SYNOPSIS kinit [-conf conf_dir] [principal]
+DESCRIPTION kinit obtains and caches an initial ticket-granting ticket for principal.</description>
+    </item>
+    
+    <item>
+      <title>3.4 - klist</title>
+      <link>https://directory.apache.org/kerby/user-guide/3.4-klist.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/kerby/user-guide/3.4-klist.html</guid>
+      <description>3.4 - klist SYNOPSIS klist [-c cache_name] | [-k keytab_name]
+DESCRIPTION klist lists the Kerberos principal and Kerberos tickets held in a credentials cache, or the keys held in a keytab file.</description>
+    </item>
+    
+    <item>
+      <title>4 - Identity Backend</title>
+      <link>https://directory.apache.org/kerby/user-guide/4-identity-backend.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/kerby/user-guide/4-identity-backend.html</guid>
+      <description>4 - Identity Backend A standalone KDC server that can integrate various identity back ends including:
+  MemoryIdentityBackend.
+ It is default Identity Backend, and no cofiguration is needed. This backend is for no permanent storage requirements.    JsonIdentityBackend.
+ It implemented by Gson which is used to convert Java Objects into their JSON representation and convert a JSON string to an equivalent Java object. A json file will be created in &amp;ldquo;backend.</description>
+    </item>
+    
+    <item>
+      <title>5 - Kerberos Crypto and Encryption Types</title>
+      <link>https://directory.apache.org/kerby/user-guide/5-crypto-and-encryption-types.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/kerby/user-guide/5-crypto-and-encryption-types.html</guid>
+      <description>5 - Kerberos Crypto and Encryption Types Supported des, des3, rc4, aes, camellia encryption and corresponding checksum types Interoperates with MIT Kerberos and Microsoft AD Independent of Kerberos code in JRE, but rely on JCE
+   Encryption Type Description     des-cbc-crc DES cbc mode with CRC-32 (weak)   des-cbc-md4 DES cbc mode with RSA-MD4 (weak)   des-cbc-md5 DES cbc mode with RSA-MD5 (weak)   des3-cbc-sha1 des3-hmac-sha1 des3-cbc-sha1-kd Triple DES cbc mode with HMAC/sha1   des-hmac-sha1 DES with HMAC/sha1 (weak)   aes256-cts-hmac-sha1-96 aes256-cts AES-256 CTS mode with 96-bit SHA-1 HMAC   aes128-cts-hmac-sha1-96 aes128-cts AES-128 CTS mode with 96-bit SHA-1 HMAC   arcfour-hmac rc4-hmac arcfour-hmac-md5 RC4 with HMAC/MD5   arcfour-hmac-exp rc4-hmac-exp arcfour-hmac-md5-exp Exportable RC4 with HMAC/MD5 (weak)   camellia256-cts-cmac camellia256-cts Camellia-256 CTS mode with CMAC   camellia128-cts-cmac camellia128-cts Camellia-128 CTS mode with CMAC   des The DES family: des-cbc-crc, des-cbc-md5, and des-cbc-md4 (weak)   des3 The triple DES family: des3-cbc-sha1   aes The AES family: aes256-cts-hmac-sha1-96 and aes128-cts-hmac-sha1-96   rc4 The RC4 family: arcfour-hmac   camellia The Camellia family: camellia256-cts-cmac and camellia128-cts-cmac    </description>
+    </item>
+    
+    <item>
+      <title>6 - Network Support</title>
+      <link>https://directory.apache.org/kerby/user-guide/6-network-support.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/kerby/user-guide/6-network-support.html</guid>
+      <description>6 - Network Support  Include UDP and TCP transport. Default KDC server implementation.  The Networking Classes in the JDK is used.   Netty based KDC server implementation.  Netty is an asynchronous event-driven network application framework for rapid development of maintainable high performance protocol servers &amp;amp; clients. With better throughput, lower latency.    </description>
+    </item>
+    
+    <item>
+      <title>7 - Dependency</title>
+      <link>https://directory.apache.org/kerby/user-guide/7-dependency.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/kerby/user-guide/7-dependency.html</guid>
+      <description>7 - Dependency  The core part is ensured to only depend on the JRE and SLF4J. Every external dependency is taken carefully and maintained separately. Nimbus JOSE + JWT, needed by token-provider and TokenPreauth mechanism. Netty, needed by netty based KDC server. Zookeeper, needed by zookeeper identity backend.  </description>
+    </item>
+    
+    <item>
+      <title>Developer&#39;s Guide</title>
+      <link>https://directory.apache.org/kerby/developer-guide.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/kerby/developer-guide.html</guid>
+      <description>Developer&amp;rsquo;s Guide This is a simple guide to help developers get going.
+Source Repository To get the source, you will need to have git installed. Just type the following command to get the latest development version:
+git clone https://gitbox.apache.org/repos/asf/directory-kerby.git  Git Mirror The git repository is mirrored to Github: https://github.com/apache/directory-kerby/.
+Build Requirements:  JDK 1.7+ Maven 3.0 or later Internet connection for first build (to fetch all Maven and Kerby dependencies)  ##Where to run Maven from?</description>
+    </item>
+    
+    <item>
+      <title>Download Old Versions</title>
+      <link>https://directory.apache.org/kerby/download-old-versions.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/kerby/download-old-versions.html</guid>
+      <description>Download Old Versions     Version Download Link Javadoc &amp;amp; XRef Date     Apache KERBY 1.1.1 Download     Apache KERBY 1.0.1 Download       We encourage you to verify the integrity of the downloaded file using:
+ the ASC file (OpenPGP compatible signature) with the KEYS file (code signing keys used to sign the product) the checksum file  Verify the integrity of the file The PGP signatures can be verified using PGP or GPG.</description>
+    </item>
+    
+    <item>
+      <title>Downloads for Archive</title>
+      <link>https://directory.apache.org/kerby/download/download-archive.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/kerby/download/download-archive.html</guid>
+      <description>Downloads of Archive packages  [if-any logo]  [end] We suggest the following mirror site for your download: ZIP Archive      &amp;nbsp;   [preferred]/&amp;#91;...&amp;#93;/apache-kerby-2.0.1-bin.zip    [ASC-SHA-512]     TAR.GZ Archive      &amp;nbsp;   [preferred]/&amp;#91;...&amp;#93;/apache-kerby-2.0.1-bin.tar.gz    [ASC-SHA-512]     &amp;nbsp;
+ Other mirrors: [if-any http] [for http][http][end]  [end] [if-any ftp] [for ftp][ftp][end]  [end] [if-any backup] [for backup][backup] (backup)[end]  [end]    We encourage you to verify the integrity of the downloaded file using:  the ASC file (OpenPGP compatible signature) with the KEYS file (code signing keys used to sign the product) the SHA256 or SHA512 files (checksum).</description>
+    </item>
+    
+    <item>
+      <title>Downloads for Sources</title>
+      <link>https://directory.apache.org/kerby/download/download-sources.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/kerby/download/download-sources.html</guid>
+      <description>Downloads for Archive  [if-any logo]  [end] We suggest the following mirror site for your download: ZIP Archive      &amp;nbsp;   [preferred]/&amp;#91;...&amp;#93;/kerby-all-2.0.1-source-release.zip    [ASC-SHA-512]     &amp;nbsp;
+ Other mirrors: [if-any http] [for http][http][end]  [end] [if-any ftp] [for ftp][ftp][end]  [end] [if-any backup] [for backup][backup] (backup)[end]  [end]    We encourage you to verify the integrity of the downloaded file using:  the ASC file (OpenPGP compatible signature) with the KEYS file (code signing keys used to sign the product) the SHA256 or SHA512 files (checksum).</description>
+    </item>
+    
+    <item>
+      <title>Features</title>
+      <link>https://directory.apache.org/kerby/features.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/kerby/features.html</guid>
+      <description>Kerby Features Kerby is an implementation of Kerberos V5 protocol in pure Java. It provides a rich, intuitive and interoperable library, KDC and various facilities that integrate PKI, OTP and token (OAuth2) as desired in modern environments such as cloud, Hadoop and mobile. Following features are (already) supported:
+  Kerberos libraries:
+ Client KDC server Kadmin Credential cache and keytab utilities    Standalone KDC server
+  Support for various backends:</description>
+    </item>
+    
+    <item>
+      <title>Kerby - Vision</title>
+      <link>https://directory.apache.org/kerby/vision.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/kerby/vision.html</guid>
+      <description>Vision Kerby is an implementation of Kerberos V5 protocol in pure Java.</description>
+    </item>
+    
+    <item>
+      <title>Kerby ASN1</title>
+      <link>https://directory.apache.org/kerby/kerby-asn1.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/kerby/kerby-asn1.html</guid>
+      <description>Kerby ASN1 ASN1 hierarcy A ASN1 parser with easy and simple API // encoding Asn1Integer aValue = new Asn1Integer(8899); byte[] encoded = aValue.encode(); // decoding byte[] contentToDecode = ... Asn1Integer decodedValue = new Asn1Integer(); decodedValue.decode(contentToDecode); Integer value = decodedValue.getValue();  Data-driven ASN1 encoding/decoding framework and parser With the following definition from Kerberos protocol
+AuthorizationData ::= SEQUENCE OF SEQUENCE { ad-type [0] Int32, ad-data [1] OCTET STRING }  You can model AuthzDataEntry as follows</description>
+    </item>
+    
+    <item>
+      <title>Kerby Downloads</title>
+      <link>https://directory.apache.org/kerby/downloads.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/kerby/downloads.html</guid>
+      <description>Downloads Jar Download   Download Sources  Maven Dependency The Apache Kerby is also available as a Maven dependency:
+Kerby Client API: &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.apache.kerby&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;kerb-client-api-all&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;2.0.1&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt;  Kerby Server API: &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.apache.kerby&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;kerb-server-api-all&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;2.0.1&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt;  Kerby ASN1: &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.apache.kerby&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;kerby-asn1&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;2.0.1&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt;  Kerby Simple KDC: &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.apache.kerby&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;kerb-simplekdc&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;2.0.1&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt;  </description>
+    </item>
+    
+    <item>
+      <title>Kerby Issues</title>
+      <link>https://directory.apache.org/kerby/issues.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/kerby/issues.html</guid>
+      <description>Kerby Issue tracking Our project uses JIRA, a Java EE based issue tracking and project management application.
+Issues, bugs, and feature requests should be submitted to the following issue tracking system :
+   Directory Sub-Project JIRA key Link to issue tracking system     Kerby DIRKRB http://issues.apache.org/jira/browse/DIRKRB    Umbrella JIRA: it&amp;rsquo;s tracked in the master JIRA DIRKRB-102(issues.apache.org/jira/browse/DIRKRB-102), and find tasks there.</description>
+    </item>
+    
+    <item>
+      <title>Kerby User&#39;s Guide</title>
+      <link>https://directory.apache.org/kerby/user-guide.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/kerby/user-guide.html</guid>
+      <description>Kerby User&amp;rsquo;s Guide This is a simple guide to help users and developers to go through the concepts.
+Table of contents  1 - How to begin 2 - APIs  2.1 - KrbClient APIs 2.2 - Kadmin 2.3 - KdcServer 2.4 - SimpleKdcServer   3 - Tools  3.1 - kdcinit 3.2 - kadmin 3.3 - kinit 3.4 - klist   4 - Identity Backend 5 - Kerberos Crypto and Encryption Types 6 - Network Support 7 - Dependency  </description>
+    </item>
+    
+    <item>
+      <title>News</title>
+      <link>https://directory.apache.org/kerby/news.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/kerby/news.html</guid>
+      <description>News Apache Kerby 2.0.1 released posted on June 3, 2020 The Apache Directory team is pleased to announce the release of Apache Kerby 2.0.1.
+The issues fixed are available here.
+Downloads are available here
+Apache Kerby 2.0.0 released posted on Jan 14, 2019 The Apache Directory team is pleased to announce the release of Apache Kerby 2.0.0.
+The issues fixed are available here.
+Downloads are available here
+Apache Kerby 1.1.1 released posted on May 25th, 2018 The Apache Directory team is pleased to announce the release of Apache Kerby 1.</description>
+    </item>
+    
+    <item>
+      <title>Overview</title>
+      <link>https://directory.apache.org/kerby/overview.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/kerby/overview.html</guid>
+      <description>The Initiatives/Goals  Aims to become the preferred Kerberos server implementation in java, with rich facilities that integrate Kerberos, PKI and token (OAuth2) on both client and server sides. Provides client API to interact with any KDC server. Provides an embeddable and standalone KDC server that supports various backends for storing principals and keys. Comes with in-memory, Mavibot(MVCC BTree), JSON, LDAP and Zookeeper backends to store data. Embedded KDC server allows easy integration into products for unit testing or production deployment.</description>
+    </item>
+    
+    <item>
+      <title>Tutorials</title>
+      <link>https://directory.apache.org/kerby/tutorials.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/kerby/tutorials.html</guid>
+      <description>Apache Kerby Tutorials  Testing Kerberos with Web Services using Apache Kerby Integrating JSON Web Tokens with Kerberos using Apache Kerby  </description>
+    </item>
+    
+    <item>
+      <title>Welcome to Apache Kerby</title>
+      <link>https://directory.apache.org/kerby/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/kerby/</guid>
+      <description>Apache Kerby&amp;trade; A Kerberos Protocol and KDC Implementation    Apache Kerby&amp;trade; is a Java Kerberos binding. It provides a rich, intuitive and interoperable implementation, library, KDC and various facilities that integrates PKI, OTP and token (OAuth2) as desired in modern environments such as cloud, Hadoop and mobile.  Download Apache
+Kerby 2.0.1  The Initiatives/Goals  Aims to become the preferred Kerberos server implementation in java, with rich facilities that integrate Kerberos, PKI and token (OAuth2) on both client and server sides.</description>
+    </item>
+    
+  </channel>
+</rss>

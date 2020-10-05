@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>9 - ApacheDS internals &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/green.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/server-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+            
+                <strong>ApacheDS</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+             
+                LDAP API
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>ApacheDS 2.0</h5>
+                <ul>
+                    <li><a href="/apacheds/">Home</a></li>
+                    <li><a href="/apacheds/news.html">News</a></li>
+                    <li><a href="/apacheds/features.html">Features</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/apacheds/downloads.html">ApacheDS 2.0.0.AM26</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/apacheds/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/apacheds/basic-user-guide.html">Basic User Guide </a></li>
+                    <li><a href="/apacheds/advanced-user-guide.html">Advanced User Guide</a></li>
+                    <li><a href="/apacheds/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/apacheds/kerberos-user-guide.html">Kerberos User Guide</a></li>
+                    <li><a href="/apacheds/configuration/ads-2.0-configuration.html">Configuration</a></li>
+                    <li><a href="/apacheds/gen-docs/latest/apidocs">JavaDocs</a></li>
+                    <li><a href="/apacheds/gen-docs/latest/xref">Cross-Reference</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href=""></a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="../advanced-user-guide.html">Advanced User Guide</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                &nbsp;
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+            
+	<h1 id="9---apacheds-internals">9 - ApacheDS internals</h1>
+<h2 id="startup">Startup</h2>
+<p>The server is started by calling the <em>UberJarMain</em> class, with the directory containing the server&rsquo;s layout. The layout is the list of directory where we will store various server&rsquo;s files :</p>
+<ul>
+<li>The instance directory, ie the base directory for the server : $BASE</li>
+<li>The configuration directory : <em>${BASE}/conf/</em></li>
+<li>The log directory : <em>${BASE}/log/</em></li>
+<li>The partition directory, which will contain the data :  <em>${BASE}/partitions/</em></li>
+<li>The run directory, which will contain the server PID : <em>${BASE}/run/</em></li>
+<li>The cache directory, containing the cache files : <em>${BASE}/cache/</em></li>
+</ul>
+<p>All those directories will be created if they do not exist already. It&rsquo;s also possible to provide specific directories by setting some environment variables : <em>apacheds.log.dir</em> for the logs directory, and <em>apacheds.run.dir</em> for the run directory.</p>
+<p>The server will also loog for some configuration files :</p>
+<ul>
+<li>The wrapper configuration : <em>${BASE}/conf/wrapper.conf</em></li>
+<li>The log configuration file : <em>${BASE}/conf/log4j.properties</em></li>
+</ul>
+<p>Once those elements configured, we start an instance of <em>ApacheDsService</em>, which is responsible for initializing the service, and the various configured servers :</p>
+<pre><code>...
+// Creating ApacheDS service
+service = new ApacheDsService();
+
+service.start( layout );
+...
+</code></pre>
+<p>We first create the cache service, which will be used all over the server. This cache can be configured by creating and tuning the <em>${BASE}/conf/directory-cacheservice.xml</em> file, otherwise we use a default configuration.</p>
+<p>The next step is to initialize the <em>SchemaManager</em> which, again, will be used by the whole service. This will read the existing schema, or extract the default schema, and load it in an instance of the <em>SchemaManager</em> class. The schema is extracted on disk as LDIF files, into the <em>${BASE}/partitions/schema</em> directory.</p>
+<p>We also initialize the <em>DnFactory</em> class, which is used to cache created DNs. This factory has a cache. Every <em>Dn</em> created using this factory will be schema aware, as we passed a <em>SchemaManager</em> instance to the factory.</p>
+<p>Then we create the schema partition, that will manage access and updates done on the schema.</p>
+<p>The configuration is now initialized. If it wasn&rsquo;t existing, we extract a default one. We create a configuration partition, which will be stored on <em>${BASE}/conf/ou=config</em>.
+The configuration is in LDIF format, it is read from disk, and a in-memory representation is created.</p>
+<p>The <em>DirectoryService</em> can now be created and initialized.</p>
+<h3 id="directoryservice-initialization">DirectoryService initialization</h3>
+<p>The <em>DirectoryService</em> is the core of the system. It manages the access to the data though the interceptors chain, offer the needed services to all the servers that need it, and manage the sessions.</p>
+<h2 id="ldapapiservice">LdapApiService</h2>
+<p>Load the default controls
+Load the default extended operations
+Create the LDAP decoder and encoder (should be done when we start the LDAP server)
+Create the OperationManager
+Create the changeLog
+Create the Journal
+Create the default interceptors (ordered) :</p>
+<pre><code>    NormalizationInterceptor
+    AuthenticationInterceptor
+        create the authenticators
+        initialize the passwordPolicies
+    ReferralInterceptor
+    AciAuthorizationInterceptor
+    DefaultAuthorizationInterceptor
+    AdministrativePointInterceptor
+    ExceptionInterceptor
+    SchemaInterceptor
+    OperationalAttributeInterceptor
+    CollectiveAttributeInterceptor
+    SubentryInterceptor
+    EventInterceptor
+    TriggerInterceptor
+    ChangeLogInterceptor
+    JournalInterceptor
+</code></pre>
+<p>Create the partitions :</p>
+<pre><code>system
+example (or whatever user partition is defined)
+</code></pre>
+<p>Create the changeLog
+Create the Journal
+Add the Schema partition
+Add the config partition</p>
+<p>and startup the directoryService, which will create a shutdown hook, and initialize the various compnents (cachService, schemaPartition, partitionNexus which loads the rootDSE, the system partition, interceptors, changeLog, journal and the vatious user&rsquo;s partitions)</p>
+<h3 id="servers-initialization">Servers initialization</h3>
+<p>It&rsquo;s time to initialize the servers : LDAP (if requested), NTP (if requested), Kerberos (if requested), HTTP (if requested). The DNS and DHCP server are not supported at the moment. As we can see, we can start many different servers, which will rely - or not - on the DirectoryService.</p>
+<h4 id="ldap-server">LDAP server</h4>
+<p>We first load a KeyStore taht will be used to manage certificates, then create the LDAP protocol handles - the handlers are responsible for processing each LDAP operation, like BIND, ADD, etc&hellip; -. We also register the extended operations, the SASL mechanisms, start the replication producer if needed, and starts the needed transports - we may have two : the default transport and the encrypted transport -. At the end, we initialize the replication consumer if needed.</p>
+<h4 id="ntp-server">NTP server</h4>
+<p>The NTP server registers the protocol handler, and start the associated transport (UDP, port 123)</p>
+<h4 id="kerberos-server">Kerberos server</h4>
+<p>To be completed</p>
+<h4 id="http-server">Http server</h4>
+<p>This is mainly use as a mean to manage the LDAP server through a HTTP layer.</p>
+<h3 id="last-steps">Last steps</h3>
+<p>We register an event listener to manage dynamic configuration updates, start the shutdown hook, and we are done !</p>
+
+
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href=""></a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="../advanced-user-guide.html">Advanced User Guide</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                &nbsp;
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

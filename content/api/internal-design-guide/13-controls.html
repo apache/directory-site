@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>13 - Controls &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/brown.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/api-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+             
+                ApacheDS
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+            
+                <strong>LDAP API</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>LDAP API </h5>
+                <ul>
+                    <li><a href="/api/">Home</a></li>
+                    <li><a href="/api/news.html">News</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/api/downloads-1.html">Version 1.0.3</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/downloads-2.html">Version 2.0.1</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Getting Started</h5>
+                <ul>
+                    <li><a href="/api/vision.html">Vision</a></li>
+                    <li><a href="/api/java-api.html">Java API</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/api/five-minutes-tutorial.html">Five minute tutorial</a></li>
+                    <li><a href="/api/user-guide.html">User Guide</a></li>
+                    <li><a href="/api/migration-guide.html">API 1 to 2 migration</a></li>
+                    <li><a href="/api/gen-docs/latest/apidocs/">JavaDocs</a></li>
+                    <li><a href="/api/gen-docs/latest2/apidocs/">JavaDocs 2</a></li>
+                    <li><a href="/api/gen-docs/latest/xref/">Cross-Reference</a></li>
+                    <li><a href="/api/gen-docs/latest2/xref/">Cross-Reference 2</a></li>
+                    
+                    <li><a href="/api/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/api/internal-design-guide.html">Internal Guide</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="12-cursor.html">12 - Cursor</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="../internal-design-guide.html">Internal Design Guide</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="14-extended-operations.html">14 - Extended Operations</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+            
+	<h1 id="13---controls">13 - Controls</h1>
+<p>Controls are extension to the protocol. They are added in messages, and can contain extra information. A <strong>Control</strong> contains :</p>
+<ul>
+<li>an <strong>OID</strong>, unique to this <strong>Control</strong>, as an identifier</li>
+<li>a <strong>Criticality</strong> flag, which tells if the control can be ignored or not</li>
+<li>a value, which might be <strong>BER</strong> encoded</li>
+</ul>
+<p>We have 20 <strong>Control</strong>s declared in the <strong>LDAP API</strong>, and we can add more.</p>
+<h2 id="implementation">Implementation</h2>
+<p>Here is the <strong>Control</strong> classes and interfaces hierarchy :</p>
+<p><img src="images/controls.png" alt="Control Hierarchy"></p>
+<p>As we can see, each <em>Impl</em> class is coupled with a <em>Decorator</em> class, used to process teh encoding and decoding of a <strong>Control</strong></p>
+<p>Keep in mind that <strong>Control</strong>s have to be sent within a message, thus be encoded or decoded when the response come back.</p>
+<h2 id="packagemodule">Package/module</h2>
+<p>We have two flavors of <strong>Control</strong>s, standard and &lsquo;extra&rsquo;. Standard <strong>Control</strong>s are those supported by all he servers, extras are oly supported by a few servers. This is an arbitrary decision, we could have put all of them at teh same place.</p>
+<p>The list of standard <strong>Control</strong>s is :</p>
+<ul>
+<li><em>Cascade</em></li>
+<li><em>EntryChange</em></li>
+<li><em>ManageDsaIT</em></li>
+<li><em>PagedResults</em></li>
+<li><em>PersistentSearch</em></li>
+<li><em>ProxiedAuthz</em></li>
+<li><em>SortRequest</em></li>
+<li><em>SortResponse</em></li>
+<li><em>Subentries</em></li>
+</ul>
+<p>The list of extra <strong>Control</strong>s is :</p>
+<ul>
+<li><em>AdDirSync</em></li>
+<li><em>AdPolicyHints</em></li>
+<li><em>AdShowDeleted</em></li>
+<li><em>ChangeNotifications</em></li>
+<li><em>PermissiveModify</em></li>
+<li><em>PasswordPolicy</em></li>
+<li><em>SyncDoneValue</em></li>
+<li><em>SyncRequestValue</em></li>
+<li><em>SyncStateValue</em></li>
+<li><em>VirtualListViewRequest</em></li>
+<li><em>VirtualListViewResponse</em></li>
+</ul>
+<p>The standard <strong>Control</strong>s are described in the <em>ldap/model</em> module (for the classes and interfaces) and in the <em>ldap/codec/core</em> module (for the <em>Decorator</em> and the decoding classes), in the <em>org.apache.directory.api.ldap.model.message.controls</em> package.</p>
+<p>The extra <strong>Control</strong>s are described in the <em>ldap/extras/codec</em> and _ldap/extras/codec-api modules (the first module contains the <em>classes</em> and <em>interfaces</em>, the second module contains the _Decorator_s and all the decoder classes.) , in the <em>org.apache.directory.api.ldap.extras.controls.XXX</em> packages (one sub-package per control) and in the <em>org.apache.directory.api.ldap.codec.controls.XXX</em> package.</p>
+<p>Any new <strong>Control</strong> is likely to be declared as an extra <strong>Control</strong>.</p>
+<h2 id="creating-a-new-control">Creating a new Control</h2>
+<p>The <strong>Control</strong> creation follows a few rules :</p>
+<ul>
+<li>It has to have a unique <strong>OID</strong> (this is generally the case, for <strong>Control</strong>s defined in RFCs)</li>
+<li>It has an <em>Interface</em>, a <em>Decorator</em> and an implementation</li>
+<li>It must be declared</li>
+</ul>
+<p>Let&rsquo;s see how it all works, using an example. We will add the <strong>Transaction Specification Control</strong>, defined in [RFC 5805(https://tools.ietf.org/html/rfc5805)], paragraphe 2.2 :</p>
+<pre><code>2.2.  Transaction Specification Control
+
+A Transaction Specification Control is an LDAPControl where the
+controlType is 1.3.6.1.1.21.2, the criticality is TRUE, and the
+controlValue is a transaction identifier.  The control is appropriate
+for update requests including Add, Delete, Modify, and ModifyDN
+(Rename) requests [RFC4511], as well as the Password Modify requests
+[RFC3062].
+
+As discussed in Section 4, the Transaction Specification control can
+be used in conjunction with request controls appropriate for the
+update request.
+</code></pre>
+<p>The <em>Interface</em> will just expose the <em>Transaction Identifier</em>, and store the <strong>Control</strong> <strong>OID</strong> :</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a2f;font-weight:bold">package</span> <span style="color:#00f;font-weight:bold">org.apache.directory.api.ldap.extras.controls.transaction</span><span style="color:#666">;</span>
+
+<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.api.ldap.model.message.Control</span><span style="color:#666">;</span>
+
+<span style="color:#080;font-style:italic">/**
+</span><span style="color:#080;font-style:italic"> * The Transaction Specification control. It&#39;s defined in RFC 5805.
+</span><span style="color:#080;font-style:italic"> * This control is sent with every update once a transaction is started.
+</span><span style="color:#080;font-style:italic"> * It contains the Transaction ID. 
+</span><span style="color:#080;font-style:italic"> *
+</span><span style="color:#080;font-style:italic"> * @author &lt;a href=&#34;mailto:dev@directory.apache.org&#34;&gt;Apache Directory Project&lt;/a&gt;
+</span><span style="color:#080;font-style:italic"> */</span>
+<span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">interface</span> <span style="color:#00f">TransactionSpecification</span>
+<span style="color:#666">{</span>
+    <span style="color:#080;font-style:italic">/** The Transaction Specification control OID */</span>
+    String OID <span style="color:#666">=</span> <span style="color:#b44">&#34;1.3.6.1.1.21.2&#34;</span><span style="color:#666">;</span>
+
+    <span style="color:#080;font-style:italic">/**
+</span><span style="color:#080;font-style:italic">     * @return The transaction identifier
+</span><span style="color:#080;font-style:italic">     */</span>
+    <span style="color:#0b0;font-weight:bold">byte</span><span style="color:#666">[</span><span style="color:#666">]</span> <span style="color:#00a000">getIdentifier</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
+    
+    
+    <span style="color:#080;font-style:italic">/**
+</span><span style="color:#080;font-style:italic">     * Set the transaction ID
+</span><span style="color:#080;font-style:italic">     * @param The transaction identifier, an opaque byte array
+</span><span style="color:#080;font-style:italic">     */</span>
+    <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">setIdentifier</span><span style="color:#666">(</span> <span style="color:#0b0;font-weight:bold">byte</span><span style="color:#666">[</span><span style="color:#666">]</span> identifier <span style="color:#666">)</span><span style="color:#666">;</span>
+<span style="color:#666">}</span>
+</code></pre></div><p>We now need an implementation for this <strong>Control</strong>. It really just a matter of having an instanciable object. Note that this class exteds the <em>AbstractControl</em> class.</p>
+<p>Here it is :</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a2f;font-weight:bold">package</span> <span style="color:#00f;font-weight:bold">org.apache.directory.api.ldap.extras.controls.transaction</span><span style="color:#666">;</span>
+
+<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.api.ldap.model.message.controls.AbstractControl</span><span style="color:#666">;</span>
+<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.api.util.Strings</span><span style="color:#666">;</span>
+
+<span style="color:#080;font-style:italic">/**
+</span><span style="color:#080;font-style:italic"> * The Transaction Specification control. It&#39;s defined in RFC 5805.
+</span><span style="color:#080;font-style:italic"> * This control is sent with every update once a transaction is started.
+</span><span style="color:#080;font-style:italic"> * It contains the Transaction ID. 
+</span><span style="color:#080;font-style:italic"> *
+</span><span style="color:#080;font-style:italic"> * @author &lt;a href=&#34;mailto:dev@directory.apache.org&#34;&gt;Apache Directory Project&lt;/a&gt;
+</span><span style="color:#080;font-style:italic"> */</span>
+<span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">class</span> <span style="color:#00f">TransactionSpecificationImpl</span> <span style="color:#a2f;font-weight:bold">extends</span> AbstractControl <span style="color:#a2f;font-weight:bold">implements</span> TransactionSpecification
+<span style="color:#666">{</span>
+    <span style="color:#080;font-style:italic">/** The Transaction Specification identifier */</span>
+    <span style="color:#a2f;font-weight:bold">private</span> <span style="color:#0b0;font-weight:bold">byte</span><span style="color:#666">[</span><span style="color:#666">]</span> identifier<span style="color:#666">;</span>
+
+
+    <span style="color:#080;font-style:italic">/**
+</span><span style="color:#080;font-style:italic">     * Default constructor
+</span><span style="color:#080;font-style:italic">     */</span>
+    <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#00a000">TransactionSpecificationImpl</span><span style="color:#666">(</span><span style="color:#666">)</span>
+    <span style="color:#666">{</span>
+        <span style="color:#a2f;font-weight:bold">super</span><span style="color:#666">(</span> OID <span style="color:#666">)</span><span style="color:#666">;</span>
+    <span style="color:#666">}</span>
+    
+
+    <span style="color:#080;font-style:italic">/**
+</span><span style="color:#080;font-style:italic">     * {@inheritDoc}
+</span><span style="color:#080;font-style:italic">     */</span>
+    <span style="color:#a2f">@Override</span>
+    <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#0b0;font-weight:bold">byte</span><span style="color:#666">[</span><span style="color:#666">]</span> <span style="color:#00a000">getIdentifier</span><span style="color:#666">(</span><span style="color:#666">)</span>
+    <span style="color:#666">{</span>
+        <span style="color:#a2f;font-weight:bold">return</span> identifier<span style="color:#666">;</span>
+    <span style="color:#666">}</span>
+    
+    
+    <span style="color:#080;font-style:italic">/**
+</span><span style="color:#080;font-style:italic">     * {@inheritDoc}
+</span><span style="color:#080;font-style:italic">     */</span>
+    <span style="color:#a2f">@Override</span>
+    <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">setIdentifier</span><span style="color:#666">(</span> <span style="color:#0b0;font-weight:bold">byte</span><span style="color:#666">[</span><span style="color:#666">]</span> identifier <span style="color:#666">)</span>
+    <span style="color:#666">{</span>
+        <span style="color:#080;font-style:italic">// Copy the byte[]
+</span><span style="color:#080;font-style:italic"></span>        <span style="color:#a2f;font-weight:bold">if</span> <span style="color:#666">(</span> identifier <span style="color:#666">!</span><span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">null</span> <span style="color:#666">)</span>
+        <span style="color:#666">{</span>
+            <span style="color:#a2f;font-weight:bold">this</span><span style="color:#666">.</span><span style="color:#b44">identifier</span> <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> <span style="color:#0b0;font-weight:bold">byte</span><span style="color:#666">[</span>identifier<span style="color:#666">.</span><span style="color:#b44">length</span><span style="color:#666">]</span><span style="color:#666">;</span>
+            System<span style="color:#666">.</span><span style="color:#b44">arraycopy</span><span style="color:#666">(</span> identifier<span style="color:#666">,</span> 0<span style="color:#666">,</span> <span style="color:#a2f;font-weight:bold">this</span><span style="color:#666">.</span><span style="color:#b44">identifier</span><span style="color:#666">,</span> 0<span style="color:#666">,</span> identifier<span style="color:#666">.</span><span style="color:#b44">length</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+        <span style="color:#666">}</span>
+    <span style="color:#666">}</span>
+    
+    
+    <span style="color:#080;font-style:italic">/**
+</span><span style="color:#080;font-style:italic">     * @see Object#toString()
+</span><span style="color:#080;font-style:italic">     */</span>
+    <span style="color:#a2f">@Override</span>
+    <span style="color:#a2f;font-weight:bold">public</span> String <span style="color:#00a000">toString</span><span style="color:#666">(</span><span style="color:#666">)</span>
+    <span style="color:#666">{</span>
+        <span style="color:#a2f;font-weight:bold">if</span> <span style="color:#666">(</span> identifier <span style="color:#666">!</span><span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">null</span> <span style="color:#666">)</span>
+        <span style="color:#666">{</span>
+            <span style="color:#a2f;font-weight:bold">return</span> <span style="color:#b44">&#34;Transaction specification ID=null&#34;</span><span style="color:#666">;</span>
+        <span style="color:#666">}</span>
+        <span style="color:#a2f;font-weight:bold">else</span>
+        <span style="color:#666">{</span>
+            <span style="color:#a2f;font-weight:bold">return</span> <span style="color:#b44">&#34;Transaction specification ID=&#34;</span> <span style="color:#666">+</span> Strings<span style="color:#666">.</span><span style="color:#b44">dumpBytes</span><span style="color:#666">(</span> identifier <span style="color:#666">)</span><span style="color:#666">;</span>
+        <span style="color:#666">}</span>
+    <span style="color:#666">}</span>
+<span style="color:#666">}</span>
+</code></pre></div><p>Nothing much to say, except that we have a default constructor that use the <strong>Control</strong>&lsquo;s <strong>OID</strong> and a <em>toString()</em> method, for convenience. The <em>Identifier</em> is printed in hex format.</p>
+<p>That&rsquo;s it for the two base <em>class</em> and <em>interface</em>, we now have to deal with encoding and decoding.</p>
+<h3 id="encoding--decoding">Encoding &amp; Decoding</h3>
+<p>Encoding the <strong>Control</strong> is done by the <strong>Decorator</strong>. This class implements the <em>Asn1Object</em> which defines the method <em>encode()</em>. Let&rsquo;s see how it works&hellip;</p>
+<p>In order to encode the value we need to know its length, this is why we also have to implement the <em>computeLegth()</em> method. In our case, it&rsquo;s superflouous, as the length is known : it&rsquo;s the <em>identifier</em>&lsquo;s length.
+Decoidng is quitre trivial : as we only need to decode the <strong>Control</strong> value, and as it&rsquo;s an opaque <em>byte[]</em>, we just need to copy this value in the instance.</p>
+<p>In any case, we don&rsquo;t encode the whole <strong>Control</strong>, we just encode it&rsquo;s value : the <strong>Control</strong> itself is encode by the <strong>LdapMessage</strong>.</p>
+<p>Here is the <em>Decorator</em> code.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a2f;font-weight:bold">package</span> <span style="color:#00f;font-weight:bold">org.apache.directory.api.ldap.extras.controls.transaction</span><span style="color:#666">;</span>
+
+<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">java.nio.ByteBuffer</span><span style="color:#666">;</span>
+
+<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.api.asn1.Asn1Object</span><span style="color:#666">;</span>
+<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.api.asn1.DecoderException</span><span style="color:#666">;</span>
+<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.api.asn1.EncoderException</span><span style="color:#666">;</span>
+<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.api.ldap.codec.api.ControlDecorator</span><span style="color:#666">;</span>
+<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.api.ldap.codec.api.LdapApiService</span><span style="color:#666">;</span>
+
+<span style="color:#080;font-style:italic">/**
+</span><span style="color:#080;font-style:italic"> * TransactionSpecification decorator.
+</span><span style="color:#080;font-style:italic"> *
+</span><span style="color:#080;font-style:italic"> * @author &lt;a href=&#34;mailto:dev@directory.apache.org&#34;&gt;Apache Directory Project&lt;/a&gt;
+</span><span style="color:#080;font-style:italic"> */</span>
+<span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">class</span> <span style="color:#00f">TransactionSpecificationDecorator</span> <span style="color:#a2f;font-weight:bold">extends</span> ControlDecorator<span style="color:#666">&lt;</span>TransactionSpecification<span style="color:#666">&gt;</span> <span style="color:#a2f;font-weight:bold">implements</span> TransactionSpecification
+<span style="color:#666">{</span>
+    <span style="color:#080;font-style:italic">/**
+</span><span style="color:#080;font-style:italic">     * Create a new instance of TransactionSpecificationDecorator
+</span><span style="color:#080;font-style:italic">     * 
+</span><span style="color:#080;font-style:italic">     * @param codec  The LDAP Service to use
+</span><span style="color:#080;font-style:italic">     * @param decoratedControl The control to decorate
+</span><span style="color:#080;font-style:italic">     */</span>
+    <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#00a000">TransactionSpecificationDecorator</span><span style="color:#666">(</span> LdapApiService codec<span style="color:#666">,</span> TransactionSpecification decoratedControl <span style="color:#666">)</span>
+    <span style="color:#666">{</span>
+        <span style="color:#a2f;font-weight:bold">super</span><span style="color:#666">(</span> codec<span style="color:#666">,</span> decoratedControl <span style="color:#666">)</span><span style="color:#666">;</span>
+    <span style="color:#666">}</span>
+    
+
+    <span style="color:#080;font-style:italic">/**
+</span><span style="color:#080;font-style:italic">     * {@inheritDoc}
+</span><span style="color:#080;font-style:italic">     */</span>
+    <span style="color:#a2f">@Override</span>
+    <span style="color:#a2f;font-weight:bold">public</span> Asn1Object <span style="color:#00a000">decode</span><span style="color:#666">(</span> <span style="color:#0b0;font-weight:bold">byte</span><span style="color:#666">[</span><span style="color:#666">]</span> controlBytes <span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> DecoderException
+    <span style="color:#666">{</span>
+        <span style="color:#080;font-style:italic">// Nothing to decode, the byte array is copied as is in identifier
+</span><span style="color:#080;font-style:italic"></span>        setIdentifier<span style="color:#666">(</span> controlBytes <span style="color:#666">)</span><span style="color:#666">;</span>
+        
+        <span style="color:#a2f;font-weight:bold">return</span> <span style="color:#a2f;font-weight:bold">this</span><span style="color:#666">;</span>
+    <span style="color:#666">}</span>
+
+    
+    <span style="color:#080;font-style:italic">/**
+</span><span style="color:#080;font-style:italic">     * {@inheritDoc}
+</span><span style="color:#080;font-style:italic">     */</span>
+    <span style="color:#a2f">@Override</span>
+    <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#0b0;font-weight:bold">int</span> <span style="color:#00a000">computeLength</span><span style="color:#666">(</span><span style="color:#666">)</span>
+    <span style="color:#666">{</span>
+        <span style="color:#0b0;font-weight:bold">byte</span><span style="color:#666">[</span><span style="color:#666">]</span> identifier <span style="color:#666">=</span> getDecorated<span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">.</span><span style="color:#b44">getIdentifier</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
+        
+        <span style="color:#a2f;font-weight:bold">if</span> <span style="color:#666">(</span> identifier <span style="color:#666">!</span><span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">null</span> <span style="color:#666">)</span>
+        <span style="color:#666">{</span>
+            <span style="color:#a2f;font-weight:bold">return</span> identifier<span style="color:#666">.</span><span style="color:#b44">length</span><span style="color:#666">;</span>
+        <span style="color:#666">}</span>
+        <span style="color:#a2f;font-weight:bold">else</span>
+        <span style="color:#666">{</span>
+            <span style="color:#a2f;font-weight:bold">return</span> <span style="color:#666">-</span>1<span style="color:#666">;</span>
+        <span style="color:#666">}</span>
+    <span style="color:#666">}</span>
+
+    
+    <span style="color:#080;font-style:italic">/**
+</span><span style="color:#080;font-style:italic">     * {@inheritDoc}
+</span><span style="color:#080;font-style:italic">     */</span>
+    <span style="color:#a2f">@Override</span>
+    <span style="color:#a2f;font-weight:bold">public</span> ByteBuffer <span style="color:#00a000">encode</span><span style="color:#666">(</span> ByteBuffer buffer <span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> EncoderException
+    <span style="color:#666">{</span>
+        <span style="color:#0b0;font-weight:bold">byte</span><span style="color:#666">[</span><span style="color:#666">]</span> identifier <span style="color:#666">=</span> getDecorated<span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">.</span><span style="color:#b44">getIdentifier</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
+        
+        <span style="color:#a2f;font-weight:bold">if</span> <span style="color:#666">(</span> identifier <span style="color:#666">!</span><span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">null</span> <span style="color:#666">)</span>
+        <span style="color:#666">{</span>
+            ByteBuffer encoded <span style="color:#666">=</span> ByteBuffer<span style="color:#666">.</span><span style="color:#b44">allocate</span><span style="color:#666">(</span> identifier<span style="color:#666">.</span><span style="color:#b44">length</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+            
+            encoded<span style="color:#666">.</span><span style="color:#b44">put</span><span style="color:#666">(</span> identifier <span style="color:#666">)</span><span style="color:#666">;</span>
+            
+            <span style="color:#a2f;font-weight:bold">return</span> encoded<span style="color:#666">;</span>
+        <span style="color:#666">}</span>
+        <span style="color:#a2f;font-weight:bold">else</span>
+        <span style="color:#666">{</span>
+            <span style="color:#a2f;font-weight:bold">return</span> ByteBuffer<span style="color:#666">.</span><span style="color:#b44">allocate</span><span style="color:#666">(</span> 0 <span style="color:#666">)</span><span style="color:#666">;</span>
+        <span style="color:#666">}</span>
+    <span style="color:#666">}</span>
+
+    
+    <span style="color:#080;font-style:italic">/**
+</span><span style="color:#080;font-style:italic">     * {@inheritDoc}
+</span><span style="color:#080;font-style:italic">     */</span>
+    <span style="color:#a2f">@Override</span>
+    <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#0b0;font-weight:bold">byte</span><span style="color:#666">[</span><span style="color:#666">]</span> <span style="color:#00a000">getIdentifier</span><span style="color:#666">(</span><span style="color:#666">)</span>
+    <span style="color:#666">{</span>
+        <span style="color:#a2f;font-weight:bold">return</span> getDecorated<span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">.</span><span style="color:#b44">getIdentifier</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
+    <span style="color:#666">}</span>
+
+    
+    <span style="color:#080;font-style:italic">/**
+</span><span style="color:#080;font-style:italic">     * {@inheritDoc}
+</span><span style="color:#080;font-style:italic">     */</span>
+    <span style="color:#a2f">@Override</span>
+    <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">setIdentifier</span><span style="color:#666">(</span> <span style="color:#0b0;font-weight:bold">byte</span><span style="color:#666">[</span><span style="color:#666">]</span> identifier <span style="color:#666">)</span>
+    <span style="color:#666">{</span>
+        getDecorated<span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">.</span><span style="color:#b44">setIdentifier</span><span style="color:#666">(</span> identifier <span style="color:#666">)</span><span style="color:#666">;</span>
+    <span style="color:#666">}</span>
+<span style="color:#666">}</span>
+</code></pre></div><h3 id="the-factory">The Factory</h3>
+<p>We also need a <em>Factory</em> class that is used to register the <strong>Control</strong>. This class simply expose a constructor for the <strong>Control</strong>. It&rsquo;s code is pretty trival, there is nothing specific to the added <strong>Control</strong>.</p>
+<p>Side note : as this class is ony invoked at startup, we could use reflection instead of having one <em>Factory</em> per <strong>Control</strong>&hellip;</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a2f;font-weight:bold">package</span> <span style="color:#00f;font-weight:bold">org.apache.directory.api.ldap.extras.controls.transaction</span><span style="color:#666">;</span>
+
+
+<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.api.ldap.codec.api.CodecControl</span><span style="color:#666">;</span>
+<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.api.ldap.codec.api.ControlFactory</span><span style="color:#666">;</span>
+<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.api.ldap.codec.api.LdapApiService</span><span style="color:#666">;</span>
+
+
+<span style="color:#080;font-style:italic">/**
+</span><span style="color:#080;font-style:italic"> * A codec {@link ControlFactory} implementation for {@link TransactionSpecification} controls.
+</span><span style="color:#080;font-style:italic"> *
+</span><span style="color:#080;font-style:italic"> * @author &lt;a href=&#34;mailto:dev@directory.apache.org&#34;&gt;Apache Directory Project&lt;/a&gt;
+</span><span style="color:#080;font-style:italic"> */</span>
+<span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">class</span> <span style="color:#00f">TransactionSpecificationFactory</span> <span style="color:#a2f;font-weight:bold">implements</span> ControlFactory<span style="color:#666">&lt;</span>TransactionSpecification<span style="color:#666">&gt;</span>
+<span style="color:#666">{</span>
+    <span style="color:#080;font-style:italic">/** The LDAP codec responsible for encoding and decoding Cascade Controls */</span>
+    <span style="color:#a2f;font-weight:bold">private</span> LdapApiService codec<span style="color:#666">;</span>
+
+
+    <span style="color:#080;font-style:italic">/**
+</span><span style="color:#080;font-style:italic">     * Creates a new instance of TransactionSpecificationFactory.
+</span><span style="color:#080;font-style:italic">     *
+</span><span style="color:#080;font-style:italic">     * @param codec The LDAP codec
+</span><span style="color:#080;font-style:italic">     */</span>
+    <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#00a000">TransactionSpecificationFactory</span><span style="color:#666">(</span> LdapApiService codec <span style="color:#666">)</span>
+    <span style="color:#666">{</span>
+        <span style="color:#a2f;font-weight:bold">this</span><span style="color:#666">.</span><span style="color:#b44">codec</span> <span style="color:#666">=</span> codec<span style="color:#666">;</span>
+    <span style="color:#666">}</span>
+
+
+    <span style="color:#080;font-style:italic">/**
+</span><span style="color:#080;font-style:italic">     * {@inheritDoc}
+</span><span style="color:#080;font-style:italic">     */</span>
+    <span style="color:#a2f">@Override</span>
+    <span style="color:#a2f;font-weight:bold">public</span> String <span style="color:#00a000">getOid</span><span style="color:#666">(</span><span style="color:#666">)</span>
+    <span style="color:#666">{</span>
+        <span style="color:#a2f;font-weight:bold">return</span> TransactionSpecification<span style="color:#666">.</span><span style="color:#b44">OID</span><span style="color:#666">;</span>
+    <span style="color:#666">}</span>
+
+
+    <span style="color:#080;font-style:italic">/**
+</span><span style="color:#080;font-style:italic">     * {@inheritDoc}
+</span><span style="color:#080;font-style:italic">     */</span>
+    <span style="color:#a2f">@Override</span>
+    <span style="color:#a2f;font-weight:bold">public</span> CodecControl<span style="color:#666">&lt;</span>TransactionSpecification<span style="color:#666">&gt;</span> <span style="color:#00a000">newCodecControl</span><span style="color:#666">(</span><span style="color:#666">)</span>
+    <span style="color:#666">{</span>
+        <span style="color:#a2f;font-weight:bold">return</span> <span style="color:#a2f;font-weight:bold">new</span> TransactionSpecificationDecorator<span style="color:#666">(</span> codec<span style="color:#666">,</span> <span style="color:#a2f;font-weight:bold">new</span> TransactionSpecificationImpl<span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+    <span style="color:#666">}</span>
+
+
+    <span style="color:#080;font-style:italic">/**
+</span><span style="color:#080;font-style:italic">     * {@inheritDoc}
+</span><span style="color:#080;font-style:italic">     */</span>
+    <span style="color:#a2f">@Override</span>
+    <span style="color:#a2f;font-weight:bold">public</span> CodecControl<span style="color:#666">&lt;</span>TransactionSpecification<span style="color:#666">&gt;</span> <span style="color:#00a000">newCodecControl</span><span style="color:#666">(</span> TransactionSpecification control <span style="color:#666">)</span>
+    <span style="color:#666">{</span>
+        <span style="color:#a2f;font-weight:bold">return</span> <span style="color:#a2f;font-weight:bold">new</span> TransactionSpecificationDecorator<span style="color:#666">(</span> codec<span style="color:#666">,</span> control <span style="color:#666">)</span><span style="color:#666">;</span>
+    <span style="color:#666">}</span>
+<span style="color:#666">}</span>
+</code></pre></div><h2 id="a-more-complex-control">A more complex Control</h2>
+<p>We just shown a <strong>Control</strong> which was easy to encode or decode. Most of the time, the <strong>Control</strong>&lsquo;s value is itself an <strong>ASN/1</strong> <strong>BER</strong> encoded value, and we need more classes to be able to process the decoding. Let use another <strong>Control</strong> as a sample :</p>
+<p>TODO</p>
+<h2 id="adding-a-control-to-the-api">Adding a Control to the API</h2>
+<p>Once we have written the <strong>Control</strong> classes and interfaces, we need to declare it so that the <strong>LDAP API</strong> can use it.</p>
+<p>The thing is that the <strong>LDAP API</strong> is <strong>OSGi</strong> compliant, so we need to expose the <strong>Control</strong>s and we also have to activate them.</p>
+<p>The <em>ExtrasBundleActivator</em> class (in the <em>ldap/extras/codec</em> module) has to be modified to register and unregister the added <strong>Control</strong> :</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#666">.</span><span style="color:#666">.</span><span style="color:#666">.</span>
+<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.api.ldap.extras.controls.changeNotifications.TransactionSpecification</span><span style="color:#666">;</span>
+<span style="color:#666">.</span><span style="color:#666">.</span><span style="color:#666">.</span>
+
+<span style="color:#080;font-style:italic">/**
+</span><span style="color:#080;font-style:italic"> * A BundleActivator for the ldap codec extras extension: extra ApacheDS and 
+</span><span style="color:#080;font-style:italic"> * Apache Directory Studio specific controls and extended operations. 
+</span><span style="color:#080;font-style:italic"> *
+</span><span style="color:#080;font-style:italic"> * @author &lt;a href=&#34;mailto:dev@directory.apache.org&#34;&gt;Apache Directory Project&lt;/a&gt;
+</span><span style="color:#080;font-style:italic"> */</span>
+<span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">class</span> <span style="color:#00f">ExtrasBundleActivator</span> <span style="color:#a2f;font-weight:bold">implements</span> BundleActivator
+<span style="color:#666">{</span>
+    <span style="color:#666">.</span><span style="color:#666">.</span><span style="color:#666">.</span><span style="color:#666">.</span>
+    <span style="color:#080;font-style:italic">/**
+</span><span style="color:#080;font-style:italic">     * Registers all the extras controls present in this control pack.
+</span><span style="color:#080;font-style:italic">     *
+</span><span style="color:#080;font-style:italic">     * @param codec The codec service.
+</span><span style="color:#080;font-style:italic">     */</span>
+    <span style="color:#a2f;font-weight:bold">private</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">registerExtrasControls</span><span style="color:#666">(</span> LdapApiService codec <span style="color:#666">)</span>
+    <span style="color:#666">{</span>
+        ControlFactory<span style="color:#666">&lt;</span>AdDirSync<span style="color:#666">&gt;</span> adDirSyncFactory <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> AdDirSyncFactory<span style="color:#666">(</span> codec <span style="color:#666">)</span><span style="color:#666">;</span>
+        codec<span style="color:#666">.</span><span style="color:#b44">registerControl</span><span style="color:#666">(</span> adDirSyncFactory <span style="color:#666">)</span><span style="color:#666">;</span>
+        <span style="color:#666">.</span><span style="color:#666">.</span><span style="color:#666">.</span>
+
+        ControlFactory<span style="color:#666">&lt;</span>TransactionSpecification<span style="color:#666">&gt;</span> TransactionSpecificationFactory <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> TransactionSpecificationFactory<span style="color:#666">(</span> codec <span style="color:#666">)</span><span style="color:#666">;</span>
+        codec<span style="color:#666">.</span><span style="color:#b44">registerControl</span><span style="color:#666">(</span> TransactionSpecification <span style="color:#666">)</span><span style="color:#666">;</span>
+    <span style="color:#666">}</span>
+
+    <span style="color:#666">.</span><span style="color:#666">.</span><span style="color:#666">.</span>
+
+    <span style="color:#a2f;font-weight:bold">private</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">unregisterExtrasControls</span><span style="color:#666">(</span> LdapApiService codec <span style="color:#666">)</span>
+    <span style="color:#666">{</span>
+        codec<span style="color:#666">.</span><span style="color:#b44">unregisterControl</span><span style="color:#666">(</span> AdDirSync<span style="color:#666">.</span><span style="color:#b44">OID</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+        codec<span style="color:#666">.</span><span style="color:#b44">unregisterControl</span><span style="color:#666">(</span> AdShowDeleted<span style="color:#666">.</span><span style="color:#b44">OID</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+        <span style="color:#666">.</span><span style="color:#666">.</span><span style="color:#666">.</span>
+        codec<span style="color:#666">.</span><span style="color:#b44">unregisterControl</span><span style="color:#666">(</span> TransactionSpecification<span style="color:#666">.</span><span style="color:#b44">OID</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+    <span style="color:#666">}</span>
+
+    <span style="color:#666">.</span><span style="color:#666">.</span><span style="color:#666">.</span><span style="color:#666">.</span>
+</code></pre></div><p>Here we added the <em>TransactionSpecification</em> <strong>Control</strong> at the end of thse two methods, and added the associated <em>import</em>.</p>
+<p>Last, not least, we need to update the <em>loadStockControls</em> method in the <em>CodecFactoryUtil</em> class (in <em>ldap/codec/standalone</em> module) :</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#666">.</span><span style="color:#666">.</span><span style="color:#666">.</span>
+<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.api.ldap.extras.controls.changeNotifications.TransactionSpecification</span><span style="color:#666">;</span>
+<span style="color:#666">.</span><span style="color:#666">.</span><span style="color:#666">.</span>
+
+<span style="color:#080;font-style:italic">/**
+</span><span style="color:#080;font-style:italic"> * A utility class for adding Codec and extended operation factories.
+</span><span style="color:#080;font-style:italic"> *
+</span><span style="color:#080;font-style:italic"> * @author &lt;a href=&#34;mailto:dev@directory.apache.org&#34;&gt;Apache Directory Project&lt;/a&gt;
+</span><span style="color:#080;font-style:italic"> */</span>
+<span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">final</span> <span style="color:#a2f;font-weight:bold">class</span> <span style="color:#00f">CodecFactoryUtil</span>
+<span style="color:#666">{</span>
+    <span style="color:#666">.</span><span style="color:#666">.</span><span style="color:#666">.</span><span style="color:#666">.</span>
+    <span style="color:#080;font-style:italic">/**
+</span><span style="color:#080;font-style:italic">     * Loads the Controls implement out of the box in the codec.
+</span><span style="color:#080;font-style:italic">     * 
+</span><span style="color:#080;font-style:italic">     * @param controlFactories The Control factories to use
+</span><span style="color:#080;font-style:italic">     * @param apiService The LDAP Service instance to use
+</span><span style="color:#080;font-style:italic">     */</span>
+    <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">static</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">loadStockControls</span><span style="color:#666">(</span> Map<span style="color:#666">&lt;</span>String<span style="color:#666">,</span> ControlFactory<span style="color:#666">&lt;</span><span style="color:#666">?</span><span style="color:#666">&gt;</span><span style="color:#666">&gt;</span> controlFactories<span style="color:#666">,</span> LdapApiService apiService <span style="color:#666">)</span>
+    <span style="color:#666">{</span>
+        <span style="color:#080;font-style:italic">// Standard controls
+</span><span style="color:#080;font-style:italic"></span>        ControlFactory<span style="color:#666">&lt;</span>Cascade<span style="color:#666">&gt;</span> cascadeFactory <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> CascadeFactory<span style="color:#666">(</span> apiService <span style="color:#666">)</span><span style="color:#666">;</span>
+        controlFactories<span style="color:#666">.</span><span style="color:#b44">put</span><span style="color:#666">(</span> cascadeFactory<span style="color:#666">.</span><span style="color:#b44">getOid</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">,</span> cascadeFactory <span style="color:#666">)</span><span style="color:#666">;</span>
+        LOG<span style="color:#666">.</span><span style="color:#b44">info</span><span style="color:#666">(</span> <span style="color:#b44">&#34;Registered pre-bundled control factory: {}&#34;</span><span style="color:#666">,</span> cascadeFactory<span style="color:#666">.</span><span style="color:#b44">getOid</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+
+        <span style="color:#666">.</span><span style="color:#666">.</span><span style="color:#666">.</span>
+        ControlFactory<span style="color:#666">&lt;</span>TransactionSpecification<span style="color:#666">&gt;</span> transactionSpecificationFactory <span style="color:#666">=</span> 
+            <span style="color:#a2f;font-weight:bold">new</span> TransactionSpecificationFactory<span style="color:#666">(</span> apiService <span style="color:#666">)</span><span style="color:#666">;</span>
+        controlFactories<span style="color:#666">.</span><span style="color:#b44">put</span><span style="color:#666">(</span> transactionSpecificationFactory<span style="color:#666">.</span><span style="color:#b44">getOid</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">,</span> transactionSpecificationFactory <span style="color:#666">)</span><span style="color:#666">;</span>
+        LOG<span style="color:#666">.</span><span style="color:#b44">info</span><span style="color:#666">(</span> <span style="color:#b44">&#34;Registered pre-bundled control factory: {}&#34;</span><span style="color:#666">,</span> transactionSpecificationFactory<span style="color:#666">.</span><span style="color:#b44">getOid</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+    <span style="color:#666">}</span>
+
+    <span style="color:#666">.</span><span style="color:#666">.</span><span style="color:#666">.</span>
+<span style="color:#666">}</span>
+</code></pre></div><p>We are done ! Note that there is nothing to change in the <em>MANIFEST.MF</em> file, as the packages are already exported.</p>
+
+
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="12-cursor.html">12 - Cursor</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="../internal-design-guide.html">Internal Design Guide</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="14-extended-operations.html">14 - Extended Operations</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>5.1 - Layout &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/green.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/server-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+            
+                <strong>ApacheDS</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+             
+                LDAP API
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>ApacheDS 2.0</h5>
+                <ul>
+                    <li><a href="/apacheds/">Home</a></li>
+                    <li><a href="/apacheds/news.html">News</a></li>
+                    <li><a href="/apacheds/features.html">Features</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/apacheds/downloads.html">ApacheDS 2.0.0.AM26</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/apacheds/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/apacheds/basic-user-guide.html">Basic User Guide </a></li>
+                    <li><a href="/apacheds/advanced-user-guide.html">Advanced User Guide</a></li>
+                    <li><a href="/apacheds/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/apacheds/kerberos-user-guide.html">Kerberos User Guide</a></li>
+                    <li><a href="/apacheds/configuration/ads-2.0-configuration.html">Configuration</a></li>
+                    <li><a href="/apacheds/gen-docs/latest/apidocs">JavaDocs</a></li>
+                    <li><a href="/apacheds/gen-docs/latest/xref">Cross-Reference</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="5-administration.html">5 - Administration</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="5-administration.html">5 - Administration</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="5.2-start-stop.html">5.2 - Starting and Stopping</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+            
+	<h1 id="51---layout">5.1 - Layout</h1>
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#511-general-layout">5.1.1 General Layout</a>
+      <ul>
+        <li><a href="#5111-installation-layout">5.1.1.1 Installation Layout</a></li>
+        <li><a href="#5112-instance-layout">5.1.1.2 Instance Layout</a></li>
+      </ul>
+    </li>
+    <li><a href="#512-specific-layouts">5.1.2 Specific Layouts</a>
+      <ul>
+        <li><a href="#5121-archive-distribution-ziptargz">5.1.2.1 Archive Distribution (zip/tar.gz)</a></li>
+        <li><a href="#5122-windows-installer-exe">5.1.2.2 Windows Installer (.exe)</a></li>
+        <li><a href="#5123-linux-binary-bin-debian-deb--fedora-rpm-installers">5.1.2.3 Linux Binary (.bin), Debian (.deb) & Fedora (.rpm) Installers</a></li>
+        <li><a href="#5124-mac-os-x-installer-pkg">5.1.2.4 Mac OS X Installer (.pkg)</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+<h2 id="511-general-layout">5.1.1 General Layout</h2>
+<p>The general layout for ApacheDS is fairly simple and consists in two major concepts:</p>
+<ul>
+<li>an installation layout</li>
+<li>an instance layout</li>
+</ul>
+<h3 id="5111-installation-layout">5.1.1.1 Installation Layout</h3>
+<p>The installation is where are stored all files essential to ApacheDS like the launch script, libraries, eventually a service wrapper (depending on the kind of installer used).</p>
+<p>The most common installation, shared by all ApacheDS installers, can be described as follows:</p>
+<pre><code>[Installation-Layout]
+    |- bin/
+        |- apacheds (or 'apacheds.exe' on Windows)
+        |- wrapper (or 'wrapper.exe' on Windows)
+    |- conf/
+        |- wrapper.conf
+    |- lib/
+        |- apacheds-service-${version}.jar
+        |- apacheds-wrapper-${version}.jar
+        |- libwrapper.jnilib (or 'libwrapper.so', or 'libwrapper.dll' depending on the platform)
+        |- wrapper-3.2.3.jar
+    |- LICENSE
+    |- NOTICE
+</code></pre>
+<ul>
+<li>The <em><strong>bin/</strong></em> directory contains the <em><strong>apacheds</strong></em> launch script and <em><strong>wrapper</strong></em> binary used to configure ApacheDS as a <em>service</em>.</li>
+<li>The <em><strong>conf/</strong></em> directory holds the general configuration for the service in <em><strong>wrapper.conf</strong></em>.</li>
+<li>The <em><strong>lib/</strong></em> directory contains all ApacheDS and wrapper libraries necessary to run the server.</li>
+<li><em><strong>LICENCE</strong></em> and <em><strong>NOTICE</strong></em> files contains the required legal information about ApacheDS.</li>
+</ul>
+<h3 id="5112-instance-layout">5.1.1.2 Instance Layout</h3>
+<p>ApacheDS is built to be able to run multiple instances of the server at the same time, which means that optionally an <em><strong>instances</strong></em> folder can be found in the installation layout (or elsewhere on disk depending on the platform).
+In that folder, can be found a single or multiple directories, all sharing the same layout, corresponding to all ApacheDS instance (one directory per instance, named by the id of the instance).</p>
+<p>Here&rsquo;s how this instance layout can be described:</p>
+<pre><code>[Instance-Layout]
+    |- cache/
+        |- [...]
+    |- conf/
+        |- config.ldif
+        |- log4j.properties
+        |- wrapper.conf
+    |- log/
+        |- apacheds.log
+        |- wrapper.log
+    |- partitions/
+        |- example/
+            |- [...]
+        |- schema/
+            |- [...]
+        |- system/
+            |- [...]
+</code></pre>
+<ul>
+<li>The <em><strong>cache/</strong></em> directory is empty upon installation and contains all the data required for the cache system after the first start of the server.</li>
+<li>The <em><strong>conf/</strong></em> directory contains:
+<ul>
+<li>an additional <em><strong>wrapper.conf</strong></em> where general configuration defined in the installation layout can be overwritten for the given instance.</li>
+<li>a <em><strong>log4j.properties</strong></em> file which is responsible for logging configuration.</li>
+<li>a <em><strong>config.ldif</strong></em> file corresponding to the inner configuration of ApacheDS.</li>
+</ul>
+</li>
+<li>The <em><strong>log/</strong></em> directory is empty upon installation and contains two files after the first start of the server:
+<ul>
+<li>a <em><strong>apacheds.log</strong></em> which is where all logs defined in the <em><strong>log4j.properties</strong></em> go.</li>
+<li>a <em><strong>wrapper.log</strong></em> which only contains the wrapper logs (related to the service&rsquo;s start/stop).</li>
+</ul>
+</li>
+<li>The <em><strong>partitions/</strong></em> directory is empty upon installation and contains after the first start of the server a directory for each partition defined in the configuration:
+<ul>
+<li>the <em><strong>example/</strong></em> directory holds the data for the &ldquo;<em>example</em>&rdquo; partition defined in ApacheDS&rsquo; default configuration.</li>
+<li>the <em><strong>schema/</strong></em> and <em><strong>system/</strong></em> directories contain the data for both internal &ldquo;<em>schema</em>&rdquo; and &ldquo;<em>system</em>&rdquo; partitions.</li>
+</ul>
+</li>
+</ul>
+<h2 id="512-specific-layouts">5.1.2 Specific Layouts</h2>
+<p>Depending on the type of distribution used to install ApacheDS, the layout varies to adapt as best as possible to the specificities of each platform.</p>
+<h3 id="5121-archive-distribution-ziptargz">5.1.2.1 Archive Distribution (zip/tar.gz)</h3>
+<p>The Archive distribution consist of a compressed directory containing everything needed to run ApacheDS. It doesn&rsquo;t install on the machine and does not require any extra permission (root user, installer password, etc.). The directory is simply unarchived and ApacheDS is ready to be launched.</p>
+<p>The installation layout is a bit simpler for this kind of distribution since no wrapper is distributed, the application being run in a terminal or via the .bat script.</p>
+<pre><code>[Installation-Layout]
+    |- bin/
+        |- apacheds.bat
+        |- apacheds.sh
+        |- cpappend.bat
+    |- instances/
+    |- lib/
+        |- apacheds-service-${version}.jar
+    |- LICENSE
+    |- NOTICE
+</code></pre>
+<ul>
+<li>The <em><strong>bin/</strong></em> directory contains the <em><strong>apacheds.bat</strong></em> (Windows) and <em><strong>apacheds.sh</strong></em> (Linux/Unix) launch scripts and a <em><strong>cpappend.bat</strong></em> utility (only used on Windows).</li>
+<li>The <em><strong>instances/</strong></em> directory hold all ApacheDS instances (an instance named <em><strong>default</strong></em> is provided by default).</li>
+<li>The <em><strong>lib/</strong></em> directory only contains the ApacheDS library.</li>
+<li><em><strong>LICENCE</strong></em> and <em><strong>NOTICE</strong></em> files contains the required legal information about ApacheDS.</li>
+</ul>
+<h3 id="5122-windows-installer-exe">5.1.2.2 Windows Installer (.exe)</h3>
+<p>The Windows installer uses the general installation and instances layout.</p>
+<p>By default, the installation directory is:</p>
+<pre><code>C:\Program Files\ApacheDS
+</code></pre>
+<p>An <em><strong>instances/</strong></em> directory in the installation layout holds all ApacheDS instances (an instance named <em><strong>default</strong></em> is provided by default).</p>
+<p>ApacheDS is registered as a service on Windows. Operations on the service can be achieved in the <em><strong>Services</strong></em> utility which is accessible via <em><strong>Start</strong></em> &gt; <em><strong>Contol Panel</strong></em> &gt; <em><strong>Administration Tools</strong></em> &gt; <em><strong>Services</strong></em>.</p>
+<h3 id="5123-linux-binary-bin-debian-deb--fedora-rpm-installers">5.1.2.3 Linux Binary (.bin), Debian (.deb) &amp; Fedora (.rpm) Installers</h3>
+<p>The Mac OS X installer uses the general installation and instances layout.</p>
+<p>By default, the installation directory is:</p>
+<pre><code>/opt/apacheds-${version}
+</code></pre>
+<p>All ApacheDS instances are located in a directory at the following location (an instance named <em><strong>default</strong></em> is provided by default):</p>
+<pre><code>/var/lib/apacheds-${version}
+</code></pre>
+<p>The installer also adds a <em>shortcut</em> launch script for the default instance at:</p>
+<pre><code>/etc/init.d/apacheds-${version}-default
+</code></pre>
+<p><strong>NOTE:</strong> The ApacheDS Linux Binary installer lets the user decide the locations of the installation directory, the instances directory and the default instance launch script. The locations above refer to the default location and need to be adapted to whatever path was chosen during the installation.</p>
+<h3 id="5124-mac-os-x-installer-pkg">5.1.2.4 Mac OS X Installer (.pkg)</h3>
+<p>The Mac OS X installer uses the general installation and instances layout.</p>
+<p>By default, the installation directory is:</p>
+<pre><code>/usr/local/apacheds-${version}
+</code></pre>
+<p>An <em><strong>instances/</strong></em> directory in the installation layout holds all ApacheDS instances (an instance named <em><strong>default</strong></em> is provided by default).</p>
+<p>The installer also adds a <em>shortcut</em> to the command in the <em><strong>bin</strong></em> directory called &ldquo;<em><strong>apacheds</strong></em>&quot;, accessible directly in a terminal and located at:</p>
+<pre><code>/usr/bin/apacheds
+</code></pre>
+
+
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="5-administration.html">5 - Administration</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="5-administration.html">5 - Administration</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="5.2-start-stop.html">5.2 - Starting and Stopping</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

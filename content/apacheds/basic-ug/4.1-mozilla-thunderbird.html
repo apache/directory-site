@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>4.1 - Mozilla Thunderbird Integration &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/green.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/server-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+            
+                <strong>ApacheDS</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+             
+                LDAP API
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>ApacheDS 2.0</h5>
+                <ul>
+                    <li><a href="/apacheds/">Home</a></li>
+                    <li><a href="/apacheds/news.html">News</a></li>
+                    <li><a href="/apacheds/features.html">Features</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/apacheds/downloads.html">ApacheDS 2.0.0.AM26</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/apacheds/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/apacheds/basic-user-guide.html">Basic User Guide </a></li>
+                    <li><a href="/apacheds/advanced-user-guide.html">Advanced User Guide</a></li>
+                    <li><a href="/apacheds/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/apacheds/kerberos-user-guide.html">Kerberos User Guide</a></li>
+                    <li><a href="/apacheds/configuration/ads-2.0-configuration.html">Configuration</a></li>
+                    <li><a href="/apacheds/gen-docs/latest/apidocs">JavaDocs</a></li>
+                    <li><a href="/apacheds/gen-docs/latest/xref">Cross-Reference</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="4-integrating-apacheds.html">4 - Integrating ApacheDS with other programs</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="4-integrating-apacheds.html">4 - Integrating ApacheDS with other programs</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                &nbsp;
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+            
+	<h1 id="41---mozilla-thunderbird-integration">4.1 - Mozilla Thunderbird Integration</h1>
+<p>In this section you will learn how to integrate Apache Directory Server into a mail client in order to use the data as an address book. Mozilla Thunderbird is used as an example.</p>
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#e-mail-clients-and-mozilla-thunderbird">E-Mail clients and Mozilla Thunderbird</a>
+      <ul>
+        <li><a href="#mozilla-thunderbird">Mozilla Thunderbird</a></li>
+      </ul>
+    </li>
+    <li><a href="#prerequisites">Prerequisites</a></li>
+    <li><a href="#define-apache-directory-server-as-an-address-book">Define Apache Directory Server as an address book</a>
+      <ul>
+        <li><a href="#open-the-address-book">Open the address book</a></li>
+        <li><a href="#define-a-new-ldap-directory">Define a new LDAP directory</a></li>
+        <li><a href="#provide-connection-data">Provide connection data</a></li>
+      </ul>
+    </li>
+    <li><a href="#searching-your-new-address-book">Searching your new address book</a></li>
+    <li><a href="#resources">Resources</a></li>
+  </ul>
+</nav>
+<h2 id="e-mail-clients-and-mozilla-thunderbird">E-Mail clients and Mozilla Thunderbird</h2>
+<p>Integrating an LDAP server in an E-Mail client is a very traditionally task, because directories are commonly used as user repositories within companies and organizations. Contact data is stored for all users of the enterprise, and it is quite common to build the companies online phone/address book on this directory. These address books are often web based application within the intranet. But many E-Mail clients allow to connect to an LDAP based directory directly and use its data as an address book. This seamless integration provides better user experience. One of these clients is Mozilla Thunderbird. Other E-Mail clients that support LDAP integration for address books include <a href="http://www.microsoft.com/windows/oe/">Microsoft Outlook Expess</a>, <a href="http://www.eudora.com/">Eudora Email</a> and <a href="http://www.ibm.com/software/lotus/">IBM Lotus Notes</a>.</p>
+<p>Technically, a mail program acts as a normal LDAP client, as described in earlier sections (i.e. the client connects to the server and performs LDAP search operations). Therefore the parameters you have to specify are the same. Main difference between searches with E-Mail clients and searches with LDAP Browsers like Softerra or JXplorer is that most of the complexity of the LDAP search is hidden to the user. Hence these tools are easier to use, but less powerful.</p>
+<h3 id="mozilla-thunderbird">Mozilla Thunderbird</h3>
+<p>Mozilla Thunderbird is a popular open source E-Mail client which supports many platforms. Actually it is more than just an E-Mail client (e.g. a news client as well). Features include junk mail control and RSS reading. Learn more about this software at the projects Homepage: <a href="http://www.mozilla.org/products/thunderbird/">Mozilla Thunderbird</a>.</p>
+<p>Within this lesson we use Thunderbird primarily because of its broad support for different operation systems and hardware platforms (and because it allows the integration of LDAP servers as address books, of course). You may use other E-Mail clients as well. It is likely that that allow the integration of LDAP directories as well, and even that the configuration is similar to Thunderbird. Check your product documentation for details.</p>
+<h2 id="prerequisites">Prerequisites</h2>
+<p>We assume that you have Mozilla Thunderbird installed on your system (or you use another E-Mail client and are willing to assimilate the instructions to your situation). You may wish to download the software at the homepage (<a href="http://www.mozilla.org/products/thunderbird/">Mozilla Thunderbird</a>) and install it, before proceed with this lesson.
+Furthermore you need an LDAP server up and running, which address data should be used as an address book within your E-Mail client. For the instructions it is assumed that you have installed Apache Directory Server as described in the first trail and loaded our sample data. To sum it up the following is assumed for the environment:</p>
+<ul>
+<li>Apache Directory runs on host <em>zanzibar</em>. LDAP and listens to port <em>10389</em></li>
+<li>Anonymous access to the directory is allowed</li>
+<li>Data is imported as described in section 2, Base DN is <em>o=sevenSeas</em></li>
+</ul>
+<p>You may use this lesson as a blueprint to integrate other directory servers as well. At least you need the data given above in <em>bold</em>.</p>
+<h2 id="define-apache-directory-server-as-an-address-book">Define Apache Directory Server as an address book</h2>
+<h3 id="open-the-address-book">Open the address book</h3>
+<p>After starting Mozilla Thunderbird on your workstation, go to the address book by</p>
+<ul>
+<li>clicking the adress book icon or</li>
+<li>activation of the corresponding  menu item (&ldquo;Tools&rdquo; &ndash; &ldquo;Address Book&rdquo;)  or</li>
+<li>pressing Ctrl+2</li>
+</ul>
+<p><img src="images/thunderbird-open-adressbook.png" alt="Thunderbirs open addressbook"></p>
+<h3 id="define-a-new-ldap-directory">Define a new LDAP directory</h3>
+<p>Within the adress book window open the dialog to define a new LDAP directory by</p>
+<ul>
+<li>activation of the corresponding  menu item (&ldquo;File&rdquo; &ndash; &ldquo;New&rdquo; &ndash; &ldquo;LDAP Directory&hellip;&quot;)</li>
+</ul>
+<p><img src="images/thunderbird-new-ldap-directory-menu.png" alt="thunderbird new ldap directory"></p>
+<p>Thunderbird opens a dialog with three tabbed panes to provide the data of the directory.</p>
+<h3 id="provide-connection-data">Provide connection data</h3>
+<p>Within the &ldquo;General&rdquo; tab, enter basic connection data to your directory:</p>
+<ul>
+<li>Name: A name which is used by Thunderbird within the UI, e.g. &ldquo;Seven Seas&rdquo;</li>
+<li>Hostname: the hostname or IP address of the server, &ldquo;zanzibar&rdquo; in our case</li>
+<li>Base DN: Search base for looking up people, we choose &ldquo;ou=people,o=sevenSeas&rdquo;</li>
+<li>Port number: The port the LDAP provider of Apache Directory Server is listening on, &ldquo;10389&rdquo; in our case</li>
+</ul>
+<p><img src="images/thunderbird-new-ldap-1.png" alt="Thunderbird new ldap"></p>
+<p>In this example we do not provide a Bind DN but let Thunderbird look up the users within our directory anonymously. Apache Directory Server should be appropriately configured for that, or you have to provide a user here.</p>
+<p>The advance tab of the dialog provides input fields for result set limits, search scope and search filter. In our example we perform a search with subtree scope and a maximum number of 100 entries within the result set. The search filter restricts the results to person entries only.</p>
+<p><img src="images/thunderbird-new-ldap-2.png" alt="Thunderbird new ldap"></p>
+<p>You probably have noticed that the input fields in the two tabbed panes corresponds exactly to the parameters for an LDAP search operation as described in lesson [Search the directory] of this trail.</p>
+<h2 id="searching-your-new-address-book">Searching your new address book</h2>
+<p><img src="images/thunderbird-adressbook.png" alt="Thunderbird new ldap"></p>
+<h2 id="resources">Resources</h2>
+<ul>
+<li><a href="http://opensourcearticles.com/articles/introduction_to_thunderbird">An introduction to Thunderbird</a>, Open Source Articles</li>
+<li><a href="http://www.mozilla.org/projects/thunderbird/specs/ldap.html">LDAP Attribute Mapping</a> for Mozilla Thunderbird</li>
+</ul>
+
+
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="4-integrating-apacheds.html">4 - Integrating ApacheDS with other programs</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="4-integrating-apacheds.html">4 - Integrating ApacheDS with other programs</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                &nbsp;
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

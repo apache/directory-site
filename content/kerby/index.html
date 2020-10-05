@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>Welcome to Apache Kerby &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/orange.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/api-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+             
+                ApacheDS
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+             
+                LDAP API
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+            
+                <strong>Kerby</strong>
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                <h5>Kerby</h5>
+                <ul>
+                    <li><a href="/kerby/">Home</a></li>
+                    <li><a href="/kerby/news.html">News</a></li>
+                    <li><a href="/kerby/features.html">Features</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/kerby/downloads.html">Version 2.0.1</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/kerby/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Getting Started</h5>
+                <ul>
+                    
+                    <li><a href="/kerby/issues.html">Issues</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/kerby/overview.html">Overview</a></li>
+                    
+                    <li><a href="/kerby/kerby-asn1.html">Kerby ASN1</a></li>
+                    <li><a href="/kerby/user-guide.html">User Guide</a></li>
+                    
+                    
+                    
+                    <li><a href="/kerby/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/kerby/tutorials.html">Tutorials</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+
+            
+	<div class="hero clearfix">
+  <div class="left">
+    <h1>Apache Kerby&trade;</h1>
+    <h2>A Kerberos Protocol and KDC Implementation</h2>
+  </div>
+  <div class="right">
+    <img src="../images/kerby_logo.png" width="125" height="125" border="0"/>
+  </div>
+</div>
+<div class="description">
+  Apache Kerby&trade; is a Java Kerberos binding. It provides a rich, intuitive and interoperable implementation, library, KDC and various facilities that integrates PKI, OTP and token (OAuth2) as desired in modern environments such as cloud, Hadoop and mobile.<br/>
+</div>
+<!-- div class="download-link">
+  <a href="/kerby/downloads.html" class="download_badge"><b>Download Apache<br>Kerby 2.0.1</b></a>
+</div-->
+<div class="news">
+<h2 id="the-initiativesgoals">The Initiatives/Goals</h2>
+<ul>
+<li>Aims to become the preferred Kerberos server implementation in java, with rich facilities that integrate Kerberos, PKI and token (OAuth2) on both client and server sides.</li>
+<li>Provides client API to interact with any KDC server.</li>
+<li>Provides an embeddable and standalone KDC server that supports various backends for storing principals and keys.</li>
+<li>Comes with in-memory, Mavibot(MVCC BTree), JSON, LDAP and Zookeeper backends to store data.</li>
+<li>Embedded KDC server allows easy integration into products for unit testing or production deployment.</li>
+<li>Supports FAST/Preauthentication framework to allow popular and useful authentication mechanisms.</li>
+<li>Supports PKINIT mechanism to allow clients to request tickets using x509 certificate credentials.</li>
+<li>Supports Token Preauth mechanism to allow clients to request tickets using JWT tokens.</li>
+<li>Supports OTP mechanism to allow clients to request tickets using One Time Password.</li>
+<li>Provides support for JAAS, GSSAPI and SASL frameworks that applications can leverage.</li>
+<li>Minimal dependencies, SLF4J is the only external dependency in the core part.</li>
+</ul>
+</div>
+<div class="news">
+    
+<h1 id="news">News</h1>
+<h2 class="news">Apache Kerby 2.0.1 released <em>posted on June 3, 2020</em></h2>
+<p>The Apache Directory team is pleased to announce the release of Apache Kerby
+2.0.1.</p>
+<p>The issues fixed are available <a href="https://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310910&amp;version=12344836">here</a>.</p>
+<p>Downloads are available <a href="downloads.html">here</a></p>
+<h2 class="news">Apache Kerby 2.0.0 released <em>posted on Jan 14, 2019</em></h2>
+<p>The Apache Directory team is pleased to announce the release of Apache Kerby
+2.0.0.</p>
+<p>The issues fixed are available <a href="https://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310910&amp;version=12342433">here</a>.</p>
+<p>Downloads are available <a href="downloads.html">here</a></p>
+<h2 class="news">Apache Kerby 1.1.1 released <em>posted on May 25th, 2018</em></h2>
+<p>The Apache Directory team is pleased to announce the release of Apache Kerby
+1.1.1.</p>
+<p>The issues fixed are available <a href="https://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310910&amp;version=12342211">here</a>.</p>
+<p>Downloads are available <a href="downloads.html">here</a></p>
+<h2 class="news">Apache Kerby 1.1.0 released <em>posted on November 27th, 2017</em></h2>
+<p>The Apache Directory team is pleased to announce the release of Apache Kerby
+1.1.0. This is a new major release of Apache Kerby, which implements
+cross-realm support, and also includes a GSSAPI module.</p>
+<p>The issues fixed are available <a href="https://issues.apache.org/jira/projects/DIRKRB/versions/12341144">here</a>.</p>
+<p>Downloads are available <a href="downloads.html">here</a></p>
+<h2 class="news">Apache Kerby 1.0.1 released <em>posted on September 4th, 2017</em></h2>
+<p>The Apache Directory team is pleased to announce the release of Apache Kerby
+1.0.1. The issues fixed are available <a href="https://issues.apache.org/jira/projects/DIRKRB/versions/12340574">here</a>.</p>
+<p>Downloads are available <a href="downloads.html">here</a></p>
+<h2 class="news">Apache Kerby 1.0.0 released <em>posted on May 13th, 2017</em></h2>
+<p>The Apache Directory team is pleased to announce the release of Apache Kerby
+1.0.0. The issues fixed are available <a href="https://issues.apache.org/jira/browse/DIRKRB/fixforversion/12332775">here</a>.</p>
+<p>Downloads are available <a href="downloads.html">here</a></p>
+<h2 class="news">Apache Kerby 1.0.0-RC2 released <em>posted on March 14th, 2016</em></h2>
+<p>The Apache Directory team is pleased to announce the release of Apache Kerby 1.0.0-RC2.</p>
+<p>105 JIRA issues were resolved and with the following Features and important changes since 1.0.0-RC1:</p>
+<ol>
+<li>
+<p>Anonymous PKINIT support(BETA): allows a client to obtain anonymous credentials without authenticating as any particular principal.</p>
+</li>
+<li>
+<p>Finished token support:</p>
+</li>
+</ol>
+<ul>
+<li>Add ability to encrypt and sign using non-RSA keys;</li>
+<li>Get the verify key for signed JWT token from kdc config;</li>
+<li>Token issuer must be trusted as one of preconfigured issuers;</li>
+<li>Add support for decrypting JWT tokens in the KDC.</li>
+</ul>
+<ol start="3">
+<li>
+<p>PKIX CMS/X509 support.</p>
+</li>
+<li>
+<p>BER encoding support.</p>
+</li>
+<li>
+<p>Improved the ASN1 framework:</p>
+</li>
+</ol>
+<ul>
+<li>Separate Asn1 parser;</li>
+<li>Support decoding of primitive but constructed encoded types;</li>
+<li>Allow to define explicit and implicit fields more easily for collection types;</li>
+<li>Providing an API to use some useful ASN1 functions by consolidating existing utilities</li>
+</ul>
+<ol start="6">
+<li>Dump support for Asn1.</li>
+</ol>
+<ul>
+<li>provide an ASN1 dumping tool for troubleshooting</li>
+</ul>
+<ol start="7">
+<li>Separate KrbClient, KrbTokenClient, and KrbPkinitClient APIs.</li>
+</ol>
+<h2 class="news">Apache Kerby 1.0.0-RC1 released <em>posted on September 16th, 2015</em></h2>
+<p>The Apache Directory team is pleased to announce the release of Apache Kerby 1.0.0-RC1, the
+first release candidate towards a 1.0 version.</p>
+<p>Downloads are available <a href="downloads.html">here</a></p>
+<h1 id="apache-kerby-100-rc1-release-notes">Apache Kerby 1.0.0-RC1 Release Notes</h1>
+<p>In this release 236 JIRA issues were resolved and the following features are supported:</p>
+<ol>
+<li>
+<p>Kerberos libraries:</p>
+<ul>
+<li>Client</li>
+<li>KDC server</li>
+<li>Kadmin</li>
+<li>Credential cache and keytab utilities</li>
+</ul>
+</li>
+<li>
+<p>Standalone KDC server .</p>
+</li>
+<li>
+<p>Support for various identity backends:</p>
+<ul>
+<li>In-memory</li>
+<li>JSON</li>
+<li>LDAP</li>
+<li>Mavibot(MVCC BTree)</li>
+<li>Zookeeper</li>
+</ul>
+</li>
+<li>
+<p>Embedded KDC server allows easy integration into products for unit tests or production deployment.</p>
+</li>
+<li>
+<p>FAST/Preauthentication framework to allow popular and useful authentication mechanisms.</p>
+</li>
+<li>
+<p>Token Preauth mechanism to allow clients to request tickets using JWT tokens.</p>
+</li>
+<li>
+<p>Client can request a TGT with:</p>
+<ul>
+<li>User plain password credential</li>
+<li>User keyTab</li>
+<li>User token credential</li>
+</ul>
+</li>
+<li>
+<p>Client can request a service ticket with:</p>
+<ul>
+<li>user TGT credential for a server</li>
+<li>user AccessToken credential for a server</li>
+</ul>
+</li>
+<li>
+<p>Network support including UDP and TCP transport with two implementations:</p>
+<ul>
+<li>Default implementation based on the JRE without depending on other libraries.</li>
+<li>Netty based implementation for better throughput, lower latency.</li>
+</ul>
+</li>
+<li>
+<p>Tools:</p>
+<ul>
+<li>kdcinit: Initialize and prepare KDC, like choose storage type, setting up necessary principals (tgs, kadmin) etc.</li>
+<li>kadmin: Command-line interfaces to administration system.</li>
+<li>kinit: Obtains and caches an initial ticket-granting ticket for principal.</li>
+<li>klist: Lists the Kerby principal and tickets held in a credentials cache, or the keys held in a keytab file.</li>
+</ul>
+</li>
+<li>
+<p>Support for JAAS, GSSAPI and SASL frameworks that applications can leverage the authentication mechanisms provided by Kerby.</p>
+</li>
+<li>
+<p>Building support: checking style and find bugs.</p>
+</li>
+</ol>
+
+
+</div>
+
+
+            
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

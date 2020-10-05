@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>LDAP Java API - Internal Design Guide &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/brown.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/api-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+             
+                ApacheDS
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+            
+                <strong>LDAP API</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>LDAP API </h5>
+                <ul>
+                    <li><a href="/api/">Home</a></li>
+                    <li><a href="/api/news.html">News</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/api/downloads-1.html">Version 1.0.3</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/downloads-2.html">Version 2.0.1</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Getting Started</h5>
+                <ul>
+                    <li><a href="/api/vision.html">Vision</a></li>
+                    <li><a href="/api/java-api.html">Java API</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/api/five-minutes-tutorial.html">Five minute tutorial</a></li>
+                    <li><a href="/api/user-guide.html">User Guide</a></li>
+                    <li><a href="/api/migration-guide.html">API 1 to 2 migration</a></li>
+                    <li><a href="/api/gen-docs/latest/apidocs/">JavaDocs</a></li>
+                    <li><a href="/api/gen-docs/latest2/apidocs/">JavaDocs 2</a></li>
+                    <li><a href="/api/gen-docs/latest/xref/">Cross-Reference</a></li>
+                    <li><a href="/api/gen-docs/latest2/xref/">Cross-Reference 2</a></li>
+                    
+                    <li><a href="/api/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/api/internal-design-guide.html">Internal Guide</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+
+            
+	<h1 id="internal-design-guide">Internal Design Guide</h1>
+<p>This guide expose the internal structure of the <em>Apache LDAP API</em> : how it is designed, achitectural choices made, implementation decisions, in general it offers an isnsight of the existing code.</p>
+<p>Although it&rsquo;s not exhaustive, it should allow a new commer interested in loking into teh code to have a better understanding on its design, and hopefully help her/him to jump in and add new features/fix bugs.</p>
+<p>Note that is a on-going effort, so please don&rsquo;t jump to conclusion when you find a &lsquo;TODO&rsquo; or some erros : you can help adding the missing pieces, or fix the current content.</p>
+<p>Keep in mind that it&rsquo;s a 10+ years effort, and obviously some parts of the code might be aging&hellip;</p>
+<p>Thanks !</p>
+<p>Here is the content :</p>
+<ul>
+<li><a href="internal-design-guide/1-introduction.html">1 - Introduction</a></li>
+<li><a href="internal-design-guide/2-general-structure.html">2 - General structure</a></li>
+<li><a href="internal-design-guide/3-building.html">3 - Building</a></li>
+<li><a href="internal-design-guide/4-asn1.html">4 - ASN/1</a></li>
+<li>
+<ul>
+<li><a href="internal-design-guide/4.1-asn1-tlv.html">4.1 - ASN/1 TLV</a></li>
+</ul>
+</li>
+<li><a href="internal-design-guide/5-network.html">5 - Network</a></li>
+<li><a href="internal-design-guide/6-codec.html">6 - Encoding/Decoding</a></li>
+<li><a href="internal-design-guide/7-ldap-messages.html">7 - LDAP Messages</a></li>
+<li><a href="internal-design-guide/8-schema.html">8 - Schema</a></li>
+<li><a href="internal-design-guide/9-dn.html">9 - Dn</a></li>
+<li><a href="internal-design-guide/10-entry.html">10 - Entry</a></li>
+<li><a href="internal-design-guide/11-filter.html">11 - Filter</a></li>
+<li><a href="internal-design-guide/12-cursor.html">12 - Cursor</a></li>
+<li><a href="internal-design-guide/13-controls.html">13 - Controls</a></li>
+<li><a href="internal-design-guide/14-extended-operations.html">14 - Extended Operations</a></li>
+<li><a href="internal-design-guide/15-ldif.html">15 - LDIF</a></li>
+<li><a href="internal-design-guide/16-dsml.html">16 - DSML</a></li>
+<li><a href="internal-design-guide/17-osgi.html">17 - OSGi</a></li>
+</ul>
+
+
+            
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

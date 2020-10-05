@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>1.4.4 - Configure logging &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/green.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/server-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+            
+                <strong>ApacheDS</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+             
+                LDAP API
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>ApacheDS 2.0</h5>
+                <ul>
+                    <li><a href="/apacheds/">Home</a></li>
+                    <li><a href="/apacheds/news.html">News</a></li>
+                    <li><a href="/apacheds/features.html">Features</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/apacheds/downloads.html">ApacheDS 2.0.0.AM26</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/apacheds/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/apacheds/basic-user-guide.html">Basic User Guide </a></li>
+                    <li><a href="/apacheds/advanced-user-guide.html">Advanced User Guide</a></li>
+                    <li><a href="/apacheds/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/apacheds/kerberos-user-guide.html">Kerberos User Guide</a></li>
+                    <li><a href="/apacheds/configuration/ads-2.0-configuration.html">Configuration</a></li>
+                    <li><a href="/apacheds/gen-docs/latest/apidocs">JavaDocs</a></li>
+                    <li><a href="/apacheds/gen-docs/latest/xref">Cross-Reference</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="1.4.3-adding-partition.html">1.4.3 - Adding your own partition</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="1.4-basic-configuration-tasks.html">1.4 - Basic configuration tasks</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="1.4.5-anonymous-access.html">1.4.5 - Enable and disable anonymous access</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+            
+	<h1 id="144---configure-logging">1.4.4 - Configure logging</h1>
+<p>In order to detect and analyze problems, adjusting the log level of a server can be a valuable tool. This section describes how to configure logging within a standalone ApacheDS.</p>
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#apacheds-and-logging">ApacheDS and logging</a></li>
+    <li><a href="#default-behavior-after-installation">Default behavior after installation</a></li>
+    <li><a href="#adjusting-logging-to-your-needs">Adjusting logging to your needs</a>
+      <ul>
+        <li><a href="#log-file-location-where-the-log-files-are-placed">Log file location (where the log files are placed)</a></li>
+        <li><a href="#log-level-how-detailed-the-logs-are">Log level (how detailed the logs are)</a></li>
+        <li><a href="#format-for-log-messages">Format for log messages</a></li>
+        <li><a href="#advanced-log4j-configuration">Advanced log4j configuration</a></li>
+      </ul>
+    </li>
+    <li><a href="#example-configurations">Example configurations</a></li>
+    <li><a href="#log-settings-of-the-windows-service">Log settings of the Windows service</a></li>
+    <li><a href="#resources">Resources</a></li>
+  </ul>
+</nav>
+<h2 id="apacheds-and-logging">ApacheDS and logging</h2>
+<p>ApacheDS 2.0 uses <a href="http://www.slf4j.org/">SLF4J</a> as its logging solution. This is a simple facade for various logging APIs. The default for ApacheDS 2.0 is <a href="http://logging.apache.org/log4j/">log4j</a>.</p>
+<h2 id="default-behavior-after-installation">Default behavior after installation</h2>
+<p>By default, ApacheDS writes log files in the directory <em>&lt;APACHEDS_HOME&gt;/var/log/</em>. Besides stdout, a <a href="http://logging.apache.org/log4j/docs/api/org/apache/log4j/RollingFileAppender.html">RollingFileAppender</a> is used to collect warnings and errors. It backups the log files when they reach a certain size.</p>
+<p>Here is what the default configuration file <em>log4j.properties</em>, which is located in <em>&lt;APACHEDS_HOME&gt;/conf/</em>, looks like.
+The name of the <em>RollingFileAppender</em> is &ldquo;R&rdquo;:</p>
+<pre><code>log4j.rootCategory=WARN, stdout, R
+
+log4j.appender.stdout=org.apache.log4j.ConsoleAppender
+log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
+
+log4j.appender.R=org.apache.log4j.RollingFileAppender
+log4j.appender.R.File=apacheds-rolling.log
+
+log4j.appender.R.MaxFileSize=1024KB
+# Keep some backup files
+log4j.appender.R.MaxBackupIndex=5
+
+log4j.appender.R.layout=org.apache.log4j.PatternLayout
+log4j.appender.R.layout.ConversionPattern=[%d{HH:mm:ss}] %p [%c] - %m%n
+
+log4j.appender.stdout.layout.ConversionPattern=[%d{HH:mm:ss}] %p [%c] - %m%n
+
+# with these we'll not get inundated when switching to DEBUG
+log4j.logger.org.apache.directory.shared.ldap.name=WARN
+log4j.logger.org.springframework=WARN
+log4j.logger.org.apache.directory.shared.codec=WARN
+log4j.logger.org.apache.directory.shared.asn1=WARN
+</code></pre>
+<p>In this file &ldquo;R&rdquo; is configured like this:</p>
+<table>
+<thead>
+<tr>
+<th align="center">Property name</th>
+<th align="center">Value in file above</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">File</td>
+<td align="center">apacheds-rolling.log</td>
+<td>Path to the output log file, in our case relative to <em>var/log</em></td>
+</tr>
+<tr>
+<td align="center">MaxFileSize</td>
+<td align="center">1024KB</td>
+<td>Maximum size that the output file is allowed to reach before being rolled over to backup files</td>
+</tr>
+<tr>
+<td align="center">MaxBackupIndex</td>
+<td align="center">5</td>
+<td>Number of backup files kept</td>
+</tr>
+<tr>
+<td align="center">layout.ConversionPattern</td>
+<td align="center">[%d{HH:mm:ss}] %p [%c] - %m%n</td>
+<td>Format string for logging events</td>
+</tr>
+</tbody>
+</table>
+<p>If the default logging does not meet your requirements, you can easily adjust the configuration to your needs.</p>
+<h2 id="adjusting-logging-to-your-needs">Adjusting logging to your needs</h2>
+<h3 id="log-file-location-where-the-log-files-are-placed">Log file location (where the log files are placed)</h3>
+<p>By default the log files are placed at <em>&lt;APACHEDS_HOME&gt;/var/log/</em>, but that can be changed.</p>
+<h4 id="linuxmacossolaris">Linux/MacOS/Solaris</h4>
+<p>On this systems the location of the log files is configured via an entry in <em>/bin/server.init</em>. Look for the following lines and change it to your preferences:</p>
+<pre><code>$DAEMON_HOME/apacheds \
+...
+-outfile $SERVER_HOME/var/log/apacheds-stdout.log \
+-errfile $SERVER_HOME/var/log/apacheds-stderr.log \
+...    
+$APACHEDS_HOME start
+</code></pre>
+<h4 id="windows">Windows</h4>
+<p>On Windows you can use the configuration wizard for the service as shown in the screenshot above. To adjust the log path you have to adjust the values of <em>Redirect Stdout</em> and <em>Redirect Stderror</em></p>
+<h3 id="log-level-how-detailed-the-logs-are">Log level (how detailed the logs are)</h3>
+<p>The following log levels from log4j are used for messages within ApacheDS:</p>
+<table>
+<thead>
+<tr>
+<th align="center">Level</th>
+<th>Description from log4j documentation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">DEBUG</td>
+<td>Designates fine-grained informational events that are most useful to debug an application</td>
+</tr>
+<tr>
+<td align="center">INFO</td>
+<td>Designates informational messages that highlight the progress of the application at coarse-grained level</td>
+</tr>
+<tr>
+<td align="center">WARN</td>
+<td>Designates potentially harmful situations</td>
+</tr>
+<tr>
+<td align="center">ERROR</td>
+<td>Designates error events that might still allow the application to continue running</td>
+</tr>
+<tr>
+<td align="center">FATAL</td>
+<td>Designates very severe error events that will presumably lead the application to abort</td>
+</tr>
+</tbody>
+</table>
+<p>The default (global) log level in the configuration is <em>WARN</em>. All messages of level WARN and more severe (ERROR, FATAL) are written to the rolling log file. The easiest way to get finer log messages is to change it like this</p>
+<pre><code>log4j.rootCategory=DEBUG, stdout, R
+...
+</code></pre>
+<p>These detailed log messages took much file space and time and therefore should only be enabled globally in order to analyze problems.</p>
+<p>It is possible to configure the logging more fine grained by using categories. Within the default configuration there are some examples:</p>
+<pre><code>...
+# with these we'll not get inundated when switching to DEBUG
+log4j.logger.org.apache.directory.shared.ldap.name=WARN
+log4j.logger.org.springframework=WARN
+log4j.logger.org.apache.directory.shared.codec=WARN
+log4j.logger.org.apache.directory.shared.asn1=WARN
+</code></pre>
+<p>If the global level is switched to DEBUG, these definitions override the setting with WARN for certain areas and therefore keep the file a little bit smaller. Learn more about the concept of categories in the <a href="http://logging.apache.org/log4j/docs/manual.html">Short introduction to log4j</a>.</p>
+<h3 id="format-for-log-messages">Format for log messages</h3>
+<p>The format of each line within a log file is controlled by a pattern. For the <em>RollingFileAppender</em> in the default configuration it looks like this</p>
+<pre><code>...
+log4j.appender.R.layout=org.apache.log4j.PatternLayout
+log4j.appender.R.layout.ConversionPattern=[%d{HH:mm:ss}] %p [%c] - %m%n
+...
+</code></pre>
+<p>Some examples lines within the log file, formatted with the pattern &ldquo;[%d{HH:mm:ss}] %p [%c] - %m%n&rdquo; are:</p>
+<pre><code>...
+[12:29:03] WARN [org.apache.directory.server.core.DefaultDirectoryService]
+    - You didn't change the admin password of directory service instance 'default'.
+    Please update the admin password as soon as possible to prevent a possible security breach.
+...
+[12:29:05] INFO [org.apache.directory.server.jndi.ServerContextFactory]
+    - Successful bind of an LDAP Service (636) is complete.
+[12:29:05] INFO [org.apache.directory.server.Service] - server: started in 6750 milliseconds
+...
+</code></pre>
+<p>The pattern uses the following conversion characters:</p>
+<table>
+<thead>
+<tr>
+<th align="center">Character</th>
+<th>Output</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">%d</td>
+<td>Date of the logging event in the given format. like &ldquo;12:29:05&rdquo; for %d{HH:mm:ss}</td>
+</tr>
+<tr>
+<td align="center">%p</td>
+<td>Priority (level) of the logging event, like &ldquo;INFO&rdquo; or &ldquo;WARN&rdquo;</td>
+</tr>
+<tr>
+<td align="center">%c</td>
+<td>Category of the logging event, like &ldquo;org.apache.directory.server.Service&rdquo;</td>
+</tr>
+<tr>
+<td align="center">%m</td>
+<td>Application supplied message associated with the logging event</td>
+</tr>
+<tr>
+<td align="center">%n</td>
+<td>Platform dependent line separator</td>
+</tr>
+</tbody>
+</table>
+<p>The <a href="http://logging.apache.org/log4j/docs/api/org/apache/log4j/PatternLayout.html">javadoc of log4j</a> contains a table with all valid %-characters and their meaning.</p>
+<p>Simple adjust the pattern in the <em>log4j.properties file</em> to get the log format of your choice, for instance</p>
+<pre><code>log4j.appender.R.layout.ConversionPattern=[%d{dd.MM.yyyy HH:mm:ss}] %p: %c{1}.%M() - %m%n
+</code></pre>
+<p>leads to messages of this form:</p>
+<pre><code>...
+[29.12.2006 13:50:44] INFO: ServerContextFactory.startLDAP0() 
+    - Successful bind of an LDAP Service (636) is complete.
+[29.12.2006 13:50:44] INFO: Service.init() - server: started in 3016 milliseconds
+...
+</code></pre>
+<DIV class="warning" markdown="1">
+** Warning**
+<p>&ldquo;Generating caller location information like with %M or %L is extremely slow. Its use should be avoided unless execution speed is not an issue.&rdquo; (from the log4j documentation)</p>
+</DIV>
+<h3 id="advanced-log4j-configuration">Advanced log4j configuration</h3>
+<p>You can take advantage of other features of log4j as well, such as other appenders like the daily rolling file appender. And you can configure logging to make it easier for you to view the messages with tools like Log Factor 5 or <a href="http://logging.apache.org/log4j/docs/chainsaw.html">Chainsaw</a>.</p>
+<p>Learn more about log4j and related tools at its <a href="http://logging.apache.org/log4j/docs/index.html">homepage</a>.</p>
+<h2 id="example-configurations">Example configurations</h2>
+<p>The following example could be used to log all incoming search, add, delete, modify and moddn requests:</p>
+<pre><code>log4j.logger.org.apache.directory.server.ldap.handlers.SearchHandler=DEBUG
+log4j.logger.org.apache.directory.server.ldap.handlers.AddHandler=DEBUG
+log4j.logger.org.apache.directory.server.ldap.handlers.DeleteHandler=DEBUG
+log4j.logger.org.apache.directory.server.ldap.handlers.ModifyHandler=DEBUG
+log4j.logger.org.apache.directory.server.ldap.handlers.ModifyDnHandler=DEBUG
+</code></pre>
+<h2 id="log-settings-of-the-windows-service">Log settings of the Windows service</h2>
+<p>To run as a Windows service, the ApacheDS Java classes must be executed within a Windows native binary.  The ApacheDS project relies on the Tanuki Software Java Service Wrapper&rsquo;s wrapper.exe to manage the ApacheDS Java Virtual Machine (JVM) process.  While the ApacheDS Java code&rsquo;s logging is log4j-based, the wrapper.exe Windows service has its own logging configuration.  For example, the wrapper.conf log settings govern the destination of the JVM&rsquo;s stdout and stderr logging and the logging of the communication between the wrapper.exe Windows service container and the JVM it hosts.</p>
+<p>An ApacheDS installation&rsquo;s wrapper.exe log settings are stored in:</p>
+<pre><code>C:\Program Files (x86)\ApacheDS\conf\wrapper.conf.
+</code></pre>
+<p>The Tanuki Software Java Service Wrapper web site documents all configuration settings for wrapper.exe including logging:</p>
+<pre><code>https://wrapper.tanukisoftware.com/doc/english/introduction.html#logging
+</code></pre>
+<h2 id="resources">Resources</h2>
+<ul>
+<li><a href="http://logging.apache.org/log4j/docs/manual.html">Short introduction to log4j</a></li>
+</ul>
+
+
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="1.4.3-adding-partition.html">1.4.3 - Adding your own partition</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="1.4-basic-configuration-tasks.html">1.4 - Basic configuration tasks</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="1.4.5-anonymous-access.html">1.4.5 - Enable and disable anonymous access</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

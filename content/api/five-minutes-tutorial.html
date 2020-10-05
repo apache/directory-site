@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>Five Minute Tutorial &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/brown.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/api-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+             
+                ApacheDS
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+            
+                <strong>LDAP API</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>LDAP API </h5>
+                <ul>
+                    <li><a href="/api/">Home</a></li>
+                    <li><a href="/api/news.html">News</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/api/downloads-1.html">Version 1.0.3</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/downloads-2.html">Version 2.0.1</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Getting Started</h5>
+                <ul>
+                    <li><a href="/api/vision.html">Vision</a></li>
+                    <li><a href="/api/java-api.html">Java API</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/api/five-minutes-tutorial.html">Five minute tutorial</a></li>
+                    <li><a href="/api/user-guide.html">User Guide</a></li>
+                    <li><a href="/api/migration-guide.html">API 1 to 2 migration</a></li>
+                    <li><a href="/api/gen-docs/latest/apidocs/">JavaDocs</a></li>
+                    <li><a href="/api/gen-docs/latest2/apidocs/">JavaDocs 2</a></li>
+                    <li><a href="/api/gen-docs/latest/xref/">Cross-Reference</a></li>
+                    <li><a href="/api/gen-docs/latest2/xref/">Cross-Reference 2</a></li>
+                    
+                    <li><a href="/api/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/api/internal-design-guide.html">Internal Guide</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+
+            
+	<h1 id="five-minute-tutorial">Five Minute Tutorial</h1>
+<h2 id="introduction">Introduction</h2>
+<blockquote>
+<p><em>Warning</em>: This is a very preliminary tutorial, the user must be informed that the current implementation will evolve a <strong>lot</strong> in the near future. So will the tutorial, hopefully&hellip;</p>
+</blockquote>
+<p>This new API has been created in order to offer a better API than what we currently use, namely JNDI or older API like LdapSDK or jldap. It benefits from some improvements brought by <strong>ApacheDS</strong> and <strong>OpenDS</strong>.</p>
+<p>This 5-minutes tutorial will present the way to use this API when working with a LDAP server.</p>
+<h2 id="base-principles">Base principles</h2>
+<p>LDAP is a connected protocol, so you need to create a connection in order to send request and receive response from a Ldap server. This is the main point : you have to create a connection first.</p>
+<p>Each operation can have one or more responses, and produce exceptions when something went wrong.</p>
+<p>The API is schema ware, ie the manipulated objects will be controlled on the client side, assuming you have brought back the schema from the server, or by using a default schema configuration</p>
+<h2 id="connection">Connection</h2>
+<p>In order to create a connection, you first have to provide the name of the server, and the port to use. Those parameters will be defaulted to <strong>localHost</strong> and <strong>389</strong> if nothing is defined.</p>
+<h3 id="opening-a-connection">Opening a connection</h3>
+<p>Here is an example :</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">LdapConnection connection <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> LdapNetworkConnection<span style="color:#666">(</span> <span style="color:#b44">&#34;localhost&#34;</span><span style="color:#666">,</span> 389 <span style="color:#666">)</span><span style="color:#666">;</span>
+</code></pre></div><p>It&rsquo;s important to note that the connection has nothing to do with being bound, and this is a major difference with JNDI, where you create some context and provide the principalDN. A Connection is just a channel opened with the server, here.</p>
+<p>Another important thing to understand is that the connection is not explicitly opened. In fact, the <strong>bind</strong> operation will open the connection.</p>
+<h3 id="secure-connection">Secure connection</h3>
+<blockquote>
+<p>TODO</p>
+</blockquote>
+<h2 id="bind-operation">Bind operation</h2>
+<p>Now that the connection has been created, you can call the <strong>bind()</strong> method. This will create a identified connection between a client and the server. The <strong>bind</strong> operation has nothing to do with the <strong>JNDI</strong> bind, as no entry will be created.</p>
+<h3 id="anonymous-bind">Anonymous bind</h3>
+<p>You can bind using no identifier, and in this case, you&rsquo;ll create an anonymous LDAP session. This is done this way :</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">connection<span style="color:#666">.</span><span style="color:#b44">bind</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
+</code></pre></div><h3 id="simple-bind">Simple bind</h3>
+<p>The most common bind uses an identifier and a password. The identifier must be a <em>DN</em>, and the password can be encrypted. Here is an example of a bind operation :</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#080;font-style:italic">// Don&#39;t do that ! Password in clear text = danger !
+</span><span style="color:#080;font-style:italic"></span>connection<span style="color:#666">.</span><span style="color:#b44">bind</span><span style="color:#666">(</span> <span style="color:#b44">&#34;ou=example, dc=com&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;secret&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+
+<span style="color:#080;font-style:italic">// The password is encrypted, but it does not protect against a MITM attack
+</span><span style="color:#080;font-style:italic"></span>connection<span style="color:#666">.</span><span style="color:#b44">bind</span><span style="color:#666">(</span> <span style="color:#b44">&#34;ou=example, dc=com&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;{crypt}wSiewPyxdEC2c&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+</code></pre></div><h2 id="search-operation">Search operation</h2>
+<p>We have tried to make it easy to search information in a LDAP server, as this is the most frequently used operation.</p>
+<p>Many parameters can be used in a search. The most commonly used are :</p>
+<ul>
+<li>The base DN</li>
+<li>The filter</li>
+<li>The scope</li>
+<li>The returning attributes list</li>
+</ul>
+<h3 id="simple-search-operation">Simple search operation</h3>
+<p>Here is a simple search, done using only those four parameters :</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">EntryCursor cursor <span style="color:#666">=</span> connection<span style="color:#666">.</span><span style="color:#b44">search</span><span style="color:#666">(</span> <span style="color:#b44">&#34;ou=system&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;(objectclass=*)&#34;</span><span style="color:#666">,</span> SearchScope<span style="color:#666">.</span><span style="color:#b44">ONELEVEL</span><span style="color:#666">,</span> <span style="color:#b44">&#34;*&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+
+<span style="color:#a2f;font-weight:bold">while</span> <span style="color:#666">(</span> cursor<span style="color:#666">.</span><span style="color:#b44">next</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span>
+<span style="color:#666">{</span>
+    Entry entry <span style="color:#666">=</span> cursor<span style="color:#666">.</span><span style="color:#b44">get</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
+
+    <span style="color:#080;font-style:italic">// Process the entry
+</span><span style="color:#080;font-style:italic"></span>    <span style="color:#666">.</span><span style="color:#666">.</span><span style="color:#666">.</span>
+<span style="color:#666">}</span>
+</code></pre></div><p>Here, we call the search operation, and we get back a cursor. Reading search result from the cursor is done with the <strong>get()</strong> method, moving forward uses the <strong>next()</strong> method.</p>
+<h2 id="unbinding">Unbinding</h2>
+<p>When you are done with the operation, you can unbind. This is done by calling the <strong>unbind()</strong> method, this way :</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">connection<span style="color:#666">.</span><span style="color:#b44">unbind</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
+</code></pre></div><h2 id="closing-the-connection">Closing the connection</h2>
+<p>Once you are done with the connection, don&rsquo;t forget to close it. It&rsquo;s done by calling the <strong>close()</strong> method :</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">connection<span style="color:#666">.</span><span style="color:#b44">close</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
+</code></pre></div><p>If you explicitly call the <strong>unbind()</strong> method, the connection will also be closed, and in this case, you wont have to close it explicitly.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>This very limited presentation was written to give users a quick insight about how to use the <strong>API</strong>. In order to get some further information, please check the <strong><a href="user-guide.html">User Guide</a></strong></p>
+
+
+            
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>Section IV - Instructions to regression test Fortress and OpenLDAP &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/turquoise.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/fortress-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+             
+                ApacheDS
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+             
+                LDAP API
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+            
+                <strong>Fortress</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>Fortress</h5>
+                <ul>
+                    <li><a href="/fortress/">Home</a></li>
+                    <li><a href="/fortress/history.html">History</a></li>
+                    <li><a href="/fortress/news.html">News</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/fortress/downloads.html">Fortress 2.0.5</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/fortress/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/fortress/overview.html">Overview</a></li>
+                    <li><a href="/fortress/installation.html">Installation Guide</a></li>
+                    <li><a href="/fortress/user-guide.html">Users Guide</a></li>
+                    <li><a href="/fortress/coding-standards.html">Coding Standards</a></li>
+                    <li><a href="/fortress/gen-docs/latest/apidocs/">JavaDocs</a></li>
+                    
+                    <li><a href="/fortress/gen-docs/latest/">Generated Reports</a></li>
+                    <li><a href="/fortress/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/fortress/testimonials.html">Testimonials</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="section-III.html">Section III - Instructions to run the Builder to Install OpenLDAP</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="linux.html">Quickstart Linux - Table of contents</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="section-V.html">Section V - Instructions to install Commander Web UI Demo</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+            
+	<h2 id="section-iv---instructions-to-regression-test-fortress-and-openldap-on-target-machine-optional">Section IV - Instructions to regression test Fortress and OpenLDAP on target machine (optional)</h2>
+<h3 id="step-1">Step 1</h3>
+<p>From FORTRESS_HOME root folder, enter the following command from a system prompt:</p>
+<pre><code>./b.sh test-full 
+</code></pre>
+<CENTER>
+  <IMG src="../../images/Screenshot10-ant-test-init.png" alt="Screenshot"/>
+</CENTER>
+<p>Note: The Fortress regression tests will run for around 3 minutes.</p>
+<h3 id="step-2">Step 2</h3>
+<p>Verify these tests ran with no ERRORS.</p>
+<pre><code>BUILD SUCCESSFUL 
+</code></pre>
+<CENTER>
+  <IMG src="../../images/Screenshot11-ant-test-success.png" alt="Screenshot" width="766" height="59"/>
+</CENTER>
+<h3 id="step-3">Step 3</h3>
+<p>To re-run these tests:</p>
+<pre><code>./b.sh test-full
+</code></pre>
+<DIV class="note" markdown="1">
+    WARNING messages in test output are good as these are negative tests in action.
+</DIV>
+<CENTER>
+  <IMG src="../../images/Screenshot12-junit-warn.png" alt="Screenshot"/>
+</CENTER>
+<DIV class="note" markdown="1">
+    If you made it this far without junit or ant ERRORS, the Fortress and OpenLDAP IAM system are certified to run on your machine.
+</DIV>
+<DIV class="note" markdown="1">
+    These tests load tens of thousands of records into your newly installed directory. The 'init-slapd' and 'test-full' targets may be re-run as often as necessary. After regressions testing has completed, you may run the 'init-slapd' target to remove all test data from the directory. 
+</DIV>
+
+
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="section-III.html">Section III - Instructions to run the Builder to Install OpenLDAP</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="linux.html">Quickstart Linux - Table of contents</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="section-V.html">Section V - Instructions to install Commander Web UI Demo</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>Developers Guide &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/green.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/server-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+            
+                <strong>ApacheDS</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+             
+                LDAP API
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>ApacheDS 2.0</h5>
+                <ul>
+                    <li><a href="/apacheds/">Home</a></li>
+                    <li><a href="/apacheds/news.html">News</a></li>
+                    <li><a href="/apacheds/features.html">Features</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/apacheds/downloads.html">ApacheDS 2.0.0.AM26</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/apacheds/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/apacheds/basic-user-guide.html">Basic User Guide </a></li>
+                    <li><a href="/apacheds/advanced-user-guide.html">Advanced User Guide</a></li>
+                    <li><a href="/apacheds/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/apacheds/kerberos-user-guide.html">Kerberos User Guide</a></li>
+                    <li><a href="/apacheds/configuration/ads-2.0-configuration.html">Configuration</a></li>
+                    <li><a href="/apacheds/gen-docs/latest/apidocs">JavaDocs</a></li>
+                    <li><a href="/apacheds/gen-docs/latest/xref">Cross-Reference</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+
+            
+	<h1 id="developers-guide">Developers Guide</h1>
+<h2 id="getting-the-source-building-the-trunks">Getting the source, Building the trunks</h2>
+<p>To get the source, build the <em>trunks</em> and get along with Maven, follow the instruction given in this page: <a href="advanced-ug/0.2-building-trunks.html">AUG : 0.2. Building trunks</a></p>
+<h2 id="versioning-scheme">Versioning Scheme</h2>
+<p>The version number of <em>ApacheDS</em> has the following form:</p>
+<DIV class="info" markdown="1">
+    &lt;major>.&lt;minor>.&lt;micro> \[-M&lt;milestone number> or -RC&lt;release candidate number>]
+</DIV>
+<p>This scheme has three number components:</p>
+<ul>
+<li>The <strong>major</strong> number increases when there are incompatible changes in the API.</li>
+<li>The <strong>minor</strong> number increases when a new feature is introduced.</li>
+<li>The <strong>micro</strong> number increases when a bug or a trivial change is made.</li>
+</ul>
+<p>and an optional label that indicates the maturity of a release:</p>
+<ul>
+<li><strong>M</strong> (Milestone) means the feature set can change at any time in the next milestone releases. The last milestone release becomes the first release candidate after a vote.</li>
+<li><strong>RC</strong> (Release Candidate) means the feature set is frozen and the next RC releases will focus on fixing problems unless there is a serious flaw in design. The last release candidate becomes the first GA release after a vote.</li>
+<li>No label implies <strong>GA</strong> (General Availability), which means the release is stable enough and therefore ready for production environment.</li>
+</ul>
+<DIV class="info" markdown="1">
+    A <b>stable</b> version is a version with a frozen set of features, and a frozen <b>API</b>. We don't release a version if all the integration tests are not passing, so any release should be considered stable enogh to be used.<BR/>
+    Although we may add new features between two milestones, and the data structure may change, which may imply that the data have to be extracted and reimported in order for the server to be operational.<BR/>
+    The configuration might also evolve between two versions.
+</DIV>
+<h2 id="coding-standards">Coding standards</h2>
+<p>The applicable coding standards for ADS 2.0 are described in <a href="coding-standards.html">Coding Standards</a></p>
+<p>There are some more rules, as we are using <strong>Java 6</strong> now :</p>
+<ul>
+<li>Use generics as much as you can. Generic are a good way to avoid casting, and it enforce the usage of the correct type.</li>
+<li>If you can avoid <em>Iterators</em>, do so. There is this cool construction with a <strong>for( Type t:<collection instance> )</strong> : use it !</li>
+<li>Use <strong>assert</strong>. It&rsquo;s usefull, especially instead of a bunch of <strong>if (<test is wrong>)</strong> then throw Exception* when controlling incoming parameters</li>
+<li>Use the new <em>Enum</em> type !</li>
+</ul>
+<h2 id="releasing-apacheds">Releasing ApacheDS</h2>
+<p>Here is a guide on how to cut a new release. This is a long process, expect it to last a few hours !</p>
+<p>First, you need to have a recent version of Maven (we are using 3.0.4) and a recent version of the JDK (Java 8 is required, due to some checkstye plugin requiring it. Note that the generated code is Java 7 compliant).</p>
+<h3 id="maven-settings">Maven Settings</h3>
+<p>You&rsquo;ll need a settings section for the <strong>Nexus</strong> and <strong>people.apache.org</strong> servers with a password or a path to the SSH key used. Here&rsquo;s what my <strong>settings.xml</strong> file in <strong>~/.m2</strong> looks like:</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#008000;font-weight:bold">&lt;settings</span><span style="color:#008000;font-weight:bold">&gt;</span>
+
+  <span style="color:#008000;font-weight:bold">&lt;servers</span><span style="color:#008000;font-weight:bold">&gt;</span>
+    <span style="color:#080;font-style:italic">&lt;!--</span><span style="color:#080;font-style:italic"> To publish a snapshot of some part of Maven </span><span style="color:#080;font-style:italic">--&gt;</span>
+    <span style="color:#008000;font-weight:bold">&lt;server</span><span style="color:#008000;font-weight:bold">&gt;</span>
+      <span style="color:#008000;font-weight:bold">&lt;id</span><span style="color:#008000;font-weight:bold">&gt;</span>apache.snapshots.https<span style="color:#008000;font-weight:bold">&lt;/id&gt;</span>
+      <span style="color:#008000;font-weight:bold">&lt;username</span><span style="color:#008000;font-weight:bold">&gt;</span>username<span style="color:#008000;font-weight:bold">&lt;/username&gt;</span>
+      <span style="color:#008000;font-weight:bold">&lt;password</span><span style="color:#008000;font-weight:bold">&gt;</span>********<span style="color:#008000;font-weight:bold">&lt;/password&gt;</span>
+    <span style="color:#008000;font-weight:bold">&lt;/server&gt;</span>
+
+    <span style="color:#080;font-style:italic">&lt;!--</span><span style="color:#080;font-style:italic"> To publish a website using Maven </span><span style="color:#080;font-style:italic">--&gt;</span>
+    <span style="color:#008000;font-weight:bold">&lt;server</span><span style="color:#008000;font-weight:bold">&gt;</span>
+      <span style="color:#008000;font-weight:bold">&lt;id</span><span style="color:#008000;font-weight:bold">&gt;</span>apache.directory<span style="color:#008000;font-weight:bold">&lt;/id&gt;</span>
+      <span style="color:#008000;font-weight:bold">&lt;username</span><span style="color:#008000;font-weight:bold">&gt;</span>username<span style="color:#008000;font-weight:bold">&lt;/username&gt;</span>
+      <span style="color:#008000;font-weight:bold">&lt;privateKey</span><span style="color:#008000;font-weight:bold">&gt;</span>/Users/username/.ssh/id_rsa<span style="color:#008000;font-weight:bold">&lt;/privateKey&gt;</span>
+      <span style="color:#008000;font-weight:bold">&lt;filePermissions</span><span style="color:#008000;font-weight:bold">&gt;</span>664<span style="color:#008000;font-weight:bold">&lt;/filePermissions&gt;</span>
+      <span style="color:#008000;font-weight:bold">&lt;directoryPermissions</span><span style="color:#008000;font-weight:bold">&gt;</span>775<span style="color:#008000;font-weight:bold">&lt;/directoryPermissions&gt;</span>
+    <span style="color:#008000;font-weight:bold">&lt;/server&gt;</span>
+
+    <span style="color:#080;font-style:italic">&lt;!--</span><span style="color:#080;font-style:italic"> To stage a release of some part of Maven </span><span style="color:#080;font-style:italic">--&gt;</span>
+    <span style="color:#008000;font-weight:bold">&lt;server</span><span style="color:#008000;font-weight:bold">&gt;</span>
+      <span style="color:#008000;font-weight:bold">&lt;id</span><span style="color:#008000;font-weight:bold">&gt;</span>apache.releases.https<span style="color:#008000;font-weight:bold">&lt;/id&gt;</span>
+      <span style="color:#008000;font-weight:bold">&lt;username</span><span style="color:#008000;font-weight:bold">&gt;</span>username<span style="color:#008000;font-weight:bold">&lt;/username&gt;</span>
+      <span style="color:#008000;font-weight:bold">&lt;password</span><span style="color:#008000;font-weight:bold">&gt;</span>********<span style="color:#008000;font-weight:bold">&lt;/password&gt;</span>
+    <span style="color:#008000;font-weight:bold">&lt;/server&gt;</span>
+
+    <span style="color:#080;font-style:italic">&lt;!--</span><span style="color:#080;font-style:italic"> To stage a website of some part of Maven </span><span style="color:#080;font-style:italic">--&gt;</span>
+    <span style="color:#008000;font-weight:bold">&lt;server</span><span style="color:#008000;font-weight:bold">&gt;</span>
+      <span style="color:#008000;font-weight:bold">&lt;id</span><span style="color:#008000;font-weight:bold">&gt;</span>stagingSite<span style="color:#008000;font-weight:bold">&lt;/id&gt;</span> <span style="color:#080;font-style:italic">&lt;!--</span><span style="color:#080;font-style:italic"> must match hard</span><span style="color:#080;font-style:italic">-</span><span style="color:#080;font-style:italic">coded repository identifier in site:stage</span><span style="color:#080;font-style:italic">-</span><span style="color:#080;font-style:italic">deploy </span><span style="color:#080;font-style:italic">--&gt;</span>
+      <span style="color:#008000;font-weight:bold">&lt;username</span><span style="color:#008000;font-weight:bold">&gt;</span>elecharny<span style="color:#008000;font-weight:bold">&lt;/username&gt;</span>
+      <span style="color:#008000;font-weight:bold">&lt;filePermissions</span><span style="color:#008000;font-weight:bold">&gt;</span>664<span style="color:#008000;font-weight:bold">&lt;/filePermissions&gt;</span>
+      <span style="color:#008000;font-weight:bold">&lt;directoryPermissions</span><span style="color:#008000;font-weight:bold">&gt;</span>775<span style="color:#008000;font-weight:bold">&lt;/directoryPermissions&gt;</span>
+    <span style="color:#008000;font-weight:bold">&lt;/server&gt;</span>
+
+  <span style="color:#008000;font-weight:bold">&lt;/servers&gt;</span>    
+
+  <span style="color:#008000;font-weight:bold">&lt;profiles</span><span style="color:#008000;font-weight:bold">&gt;</span>
+    <span style="color:#008000;font-weight:bold">&lt;profile</span><span style="color:#008000;font-weight:bold">&gt;</span>
+      <span style="color:#008000;font-weight:bold">&lt;id</span><span style="color:#008000;font-weight:bold">&gt;</span>apache-public<span style="color:#008000;font-weight:bold">&lt;/id&gt;</span>
+      <span style="color:#008000;font-weight:bold">&lt;pluginRepositories</span><span style="color:#008000;font-weight:bold">&gt;</span>
+        <span style="color:#008000;font-weight:bold">&lt;pluginRepository</span><span style="color:#008000;font-weight:bold">&gt;</span>
+          <span style="color:#008000;font-weight:bold">&lt;id</span><span style="color:#008000;font-weight:bold">&gt;</span>apache.public<span style="color:#008000;font-weight:bold">&lt;/id&gt;</span>
+          <span style="color:#008000;font-weight:bold">&lt;url</span><span style="color:#008000;font-weight:bold">&gt;</span>https://repository.apache.org/content/groups/public/<span style="color:#008000;font-weight:bold">&lt;/url&gt;</span>
+        <span style="color:#008000;font-weight:bold">&lt;/pluginRepository&gt;</span>
+      <span style="color:#008000;font-weight:bold">&lt;/pluginRepositories&gt;</span>
+    <span style="color:#008000;font-weight:bold">&lt;/profile&gt;</span>
+
+    <span style="color:#008000;font-weight:bold">&lt;profile</span><span style="color:#008000;font-weight:bold">&gt;</span>
+      <span style="color:#008000;font-weight:bold">&lt;id</span><span style="color:#008000;font-weight:bold">&gt;</span>apache-release<span style="color:#008000;font-weight:bold">&lt;/id&gt;</span>
+      <span style="color:#080;font-style:italic">&lt;!--</span><span style="color:#080;font-style:italic"> Configuration for artifacts signature </span><span style="color:#080;font-style:italic">--&gt;</span>
+      <span style="color:#008000;font-weight:bold">&lt;properties</span><span style="color:#008000;font-weight:bold">&gt;</span>
+        <span style="color:#008000;font-weight:bold">&lt;gpg.passphrase</span><span style="color:#008000;font-weight:bold">&gt;</span>********<span style="color:#008000;font-weight:bold">&lt;/gpg.passphrase&gt;</span>
+        <span style="color:#008000;font-weight:bold">&lt;gpg.keyname</span><span style="color:#008000;font-weight:bold">&gt;</span>elecharny@apache.org<span style="color:#008000;font-weight:bold">&lt;/gpg.keyname&gt;</span>
+      <span style="color:#008000;font-weight:bold">&lt;/properties&gt;</span>
+    <span style="color:#008000;font-weight:bold">&lt;/profile&gt;</span>
+  <span style="color:#008000;font-weight:bold">&lt;/profiles&gt;</span>
+
+<span style="color:#008000;font-weight:bold">&lt;/settings&gt;</span>
+</code></pre></div><p>Just replace your username, passwords and paths. Note that the username and password is your Apache LDAP account.</p>
+<DIV class="info" markdown="1">
+You'll need to provide the passphrase in the <b>settings.xml</b> to access the gpg secret key installed on your host. This is due to a bug with the passphrase prompt in the <em>maven-gpg-plugin</em>. So unfortunately we must provide the passphrase in the <b>settings.xml</b> file in clear text. This should change in the future when this bug is fixed. Note that this passphrase is put into the release profile which we activate to properly sign and release the artifacts and poms via the release plugin.
+</DIV>
+<h3 id="gpg-key">GPG Key</h3>
+<p>All subprojects are configured to deploy signatures for the artifacts uploaded to the repository. The <strong>gpg</strong> plugin will check use the default gpg key for the user deploying the project with the release:perform directive of the release plugin. This will prompt you for the passphrase for the default key. If you do not have one setup the build will fail.</p>
+<p>You can generate and upload a PGP key to a PGP keyserver using the following commands:</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">gpg --gen-key
+gpg --fingerprint
+gpg --keyserver subkeys.pgp.net --send-keys &lt;your key<span style="">&#39;</span>s id from last command&gt;
+</code></pre></div><DIV class="info" markdown="1">
+Make sure to have created the .pgpkey in your <em>p.a.o/~</em> directory and to have added your public key to the <b>KEYS</b> file.
+See also http://people.apache.org/~henkp/repo/faq.html#4
+</DIV>
+<h3 id="releasing-apacheds-1">Releasing ApacheDS</h3>
+<p>Now that your environment has been setup, we will show you how to build and release the ApacheDS subproject. Keep an eye out for warnings and note sections that show version specific differences in this process.</p>
+<h4 id="manual-steps">Manual Steps</h4>
+<p>Some things have not yet been automated with maven and require users to manually edit some files. Below are the steps to follow.</p>
+<h5 id="update-the-apachedspomxml">Update the apacheds/pom.xml</h5>
+<p>The current <em>apacheds/pom.xml</em> contains references to LDAP API SNAPSHOTs, which is not good. You have to bump up those references to the latest LDAP-API version.</p>
+<h5 id="update-serviceapachedssh-and-serviceapachedsbat">Update service/apacheds.sh and service/apacheds.bat</h5>
+<p>Edit the <em>apacheds.sh/bat</em> files in the service project directory to update the revision numbers used in that file to reference non-SNAPSHOT releases.</p>
+<h4 id="release-process">Release process</h4>
+<p>Since we are using Nexus for releases the release process is as follows (see also <a href="http://www.apache.org/dev/publishing-maven-artifacts.html#staging-maven">Publishing maven artifacts</a>.</p>
+<h5 id="test-the-project">Test the Project</h5>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ mvn release:prepare -DdryRun<span style="color:#666">=</span><span style="color:#a2f">true</span>
+</code></pre></div><p>Replace the version by the new version. Be careful, and remove the &lsquo;apacheds-parent-&rsquo; which is proposed for the new tag. We should just use the version number.</p>
+<h5 id="deploy-a-snapshot">Deploy a Snapshot</h5>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ mvn deploy -Darguments<span style="color:#666">=</span><span style="color:#b44">&#34;-DskipTests&#34;</span>
+</code></pre></div><p>This is useful to verify your settings in ~/.m2/settings.xml (Nexus password and GPG key)</p>
+<h5 id="prepare-the-release">Prepare the Release</h5>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ mvn release:clean
+$ mvn release:prepare
+</code></pre></div><p>This creates a tag <a href="http://svn.apache.org/viewvc/directory/apacheds/tags/">here</a></p>
+<h5 id="stage-the-release">Stage the Release</h5>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ mvn release:perform -Darguments<span style="color:#666">=</span><span style="color:#b44">&#34;-DskipTests&#34;</span>
+</code></pre></div><p>This deploys the release to a staging repository. Go to <a href="https://repository.apache.org/index.html#stagingRepositories">Staging Repositories</a> and close the staging repository.</p>
+<p>(The <em>-Darguments=&rdquo;-DskipTests&rdquo;</em> parameter is there to avoid running the tests again&hellip;)</p>
+<h5 id="build-the-site">Build the Site</h5>
+<p>We will now build the site. This will be done from the  <em>target/checkout</em> directory :</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ <span style="color:#a2f">cd</span> target/checkout
+</code></pre></div><p>In order to generate the site, you have to comment some modules in the apacheds <em>pom.xml</em> file :</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#080;font-style:italic">&lt;!--</span><span style="color:#080;font-style:italic">module&gt;all&lt;/module</span><span style="color:#080;font-style:italic">--&gt;</span>
+...
+<span style="color:#080;font-style:italic">&lt;!--</span><span style="color:#080;font-style:italic">module&gt;installers</span><span style="color:#080;font-style:italic">-</span><span style="color:#080;font-style:italic">maven</span><span style="color:#080;font-style:italic">-</span><span style="color:#080;font-style:italic">plugin&lt;/module</span><span style="color:#080;font-style:italic">--&gt;</span>
+<span style="color:#080;font-style:italic">&lt;!--</span><span style="color:#080;font-style:italic">module&gt;installers&lt;/module</span><span style="color:#080;font-style:italic">--&gt;</span>
+...
+<span style="color:#080;font-style:italic">&lt;!--</span><span style="color:#080;font-style:italic">module&gt;service&lt;/module</span><span style="color:#080;font-style:italic">--&gt;</span>
+</code></pre></div><p>Then you can start the maven command :</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ mvn site
+</code></pre></div><p>This creates the site and the Javadocs.</p>
+<DIV class="info" markdown="1">
+Now, you have to sign the sources packages which are in <em>apacheds/target/checkout/target</em>.
+<p>Use your PGP key ID (the pub key, 4096R/[XXXXXXX] where [XXXXXXX] is the key ID)</p>
+<p>Note we should not sign with MD5 or SHA-1.</p>
+</DIV>
+<p>You can get the keys by typing :</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">gpg --list-keys
+</code></pre></div><p>You can use this small script that does the job (copy-paste this code in a file named <em>sign.sh</em> in your path) :</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#080">#!/bin/sh
+</span><span style="color:#080"></span>
+<span style="color:#a2f">echo</span> <span style="color:#b44">&#34;PGP Key ID: &#34;</span>
+<span style="color:#a2f">read</span> DEFAULT_KEY
+
+<span style="color:#a2f">echo</span> <span style="color:#b44">&#34;PGP Key Password: &#34;</span>
+stty -echo
+<span style="color:#a2f">read</span> PASSWORD
+stty <span style="color:#a2f">echo</span>
+<span style="color:#a2f">echo</span> <span style="color:#b44">&#34;&#34;</span>
+
+<span style="color:#a2f;font-weight:bold">for</span> FILE in <span style="color:#a2f;font-weight:bold">$(</span>find . -maxdepth <span style="color:#666">1</span> -not <span style="color:#b44">&#39;(&#39;</span> -name <span style="color:#b44">&#34;sign.sh&#34;</span> -or -name <span style="color:#b44">&#34;.*&#34;</span> -or -name <span style="color:#b44">&#34;*.md5&#34;</span> -or -name <span style="color:#b44">&#34;*.sha1&#34;</span> -or -name <span style="color:#b44">&#34;*.asc&#34;</span> <span style="color:#b44">&#39;)&#39;</span> -and -type f<span style="color:#a2f;font-weight:bold">)</span> ; <span style="color:#a2f;font-weight:bold">do</span>
+
+    <span style="color:#a2f;font-weight:bold">if</span> <span style="color:#666">[</span> -f <span style="color:#b44">&#34;</span><span style="color:#b8860b">$FILE</span><span style="color:#b44">.asc</span><span style="color:#b44">&#34;</span> <span style="color:#666">]</span>; <span style="color:#a2f;font-weight:bold">then</span>
+        <span style="color:#a2f">echo</span> <span style="color:#b44">&#34;</span><span style="color:#b44">Skipping: </span><span style="color:#b8860b">$FILE</span><span style="color:#b44">&#34;</span>
+        <span style="color:#a2f;font-weight:bold">continue</span>
+    <span style="color:#a2f;font-weight:bold">fi</span>
+
+    <span style="color:#a2f">echo</span> -n <span style="color:#b44">&#34;</span><span style="color:#b44">Signing: </span><span style="color:#b8860b">$FILE</span><span style="color:#b44"> ... </span><span style="color:#b44">&#34;</span>
+
+    <span style="color:#080;font-style:italic"># SHA-256</span>
+    <span style="color:#a2f;font-weight:bold">if</span> <span style="color:#666">[</span> ! -f <span style="color:#b44">&#34;</span><span style="color:#b8860b">$FILE</span><span style="color:#b44">.sha256</span><span style="color:#b44">&#34;</span> <span style="color:#666">]</span>;
+    <span style="color:#a2f;font-weight:bold">then</span>
+        gpg -v --default-key <span style="color:#b44">&#34;</span><span style="color:#b8860b">$DEFAULT_KEY</span><span style="color:#b44">&#34;</span> --print-md SHA256 <span style="color:#b44">&#34;</span><span style="color:#b8860b">$FILE</span><span style="color:#b44">&#34;</span> &gt; <span style="color:#b44">&#34;</span><span style="color:#b8860b">$FILE</span><span style="color:#b44">&#34;</span>.sha256
+        <span style="color:#a2f">echo</span> <span style="color:#b44">&#34;</span><span style="color:#b44">  - Generated &#39;</span><span style="color:#b8860b">$FILE</span><span style="color:#b44">.sha256&#39;</span><span style="color:#b44">&#34;</span>
+    <span style="color:#a2f;font-weight:bold">else</span>
+        <span style="color:#a2f">echo</span> <span style="color:#b44">&#34;</span><span style="color:#b44">  - Skipped &#39;</span><span style="color:#b8860b">$FILE</span><span style="color:#b44">.sha256&#39; (file already existing)</span><span style="color:#b44">&#34;</span>
+    <span style="color:#a2f;font-weight:bold">fi</span>
+
+    <span style="color:#080;font-style:italic"># SHA-512</span>
+    <span style="color:#a2f;font-weight:bold">if</span> <span style="color:#666">[</span> ! -f <span style="color:#b44">&#34;</span><span style="color:#b8860b">$FILE</span><span style="color:#b44">.sha512</span><span style="color:#b44">&#34;</span> <span style="color:#666">]</span>;
+    <span style="color:#a2f;font-weight:bold">then</span>
+        gpg -v --default-key <span style="color:#b44">&#34;</span><span style="color:#b8860b">$DEFAULT_KEY</span><span style="color:#b44">&#34;</span> --print-md SHA512 <span style="color:#b44">&#34;</span><span style="color:#b8860b">$FILE</span><span style="color:#b44">&#34;</span> &gt; <span style="color:#b44">&#34;</span><span style="color:#b8860b">$FILE</span><span style="color:#b44">&#34;</span>.sha512
+        <span style="color:#a2f">echo</span> <span style="color:#b44">&#34;</span><span style="color:#b44">  - Generated &#39;</span><span style="color:#b8860b">$FILE</span><span style="color:#b44">.sha512&#39;</span><span style="color:#b44">&#34;</span>
+    <span style="color:#a2f;font-weight:bold">else</span>
+        <span style="color:#a2f">echo</span> <span style="color:#b44">&#34;</span><span style="color:#b44">  - Skipped &#39;</span><span style="color:#b8860b">$FILE</span><span style="color:#b44">.sha512&#39; (file already existing)</span><span style="color:#b44">&#34;</span>
+    <span style="color:#a2f;font-weight:bold">fi</span>
+
+    <span style="color:#080;font-style:italic"># ASC</span>
+    <span style="color:#a2f;font-weight:bold">if</span> <span style="color:#666">[</span> ! -f <span style="color:#b44">&#34;</span><span style="color:#b8860b">$FILE</span><span style="color:#b44">.asc</span><span style="color:#b44">&#34;</span> <span style="color:#666">]</span>;
+    <span style="color:#a2f;font-weight:bold">then</span>
+        <span style="color:#a2f">echo</span> <span style="color:#b44">&#34;</span><span style="color:#b8860b">$PASSWORD</span><span style="color:#b44">&#34;</span> | gpg --default-key <span style="color:#b44">&#34;</span><span style="color:#b8860b">$DEFAULT_KEY</span><span style="color:#b44">&#34;</span> --detach-sign --armor --no-tty --yes --passphrase-fd <span style="color:#666">0</span> <span style="color:#b44">&#34;</span><span style="color:#b8860b">$FILE</span><span style="color:#b44">&#34;</span>
+        <span style="color:#a2f">echo</span> <span style="color:#b44">&#34;</span><span style="color:#b44">  - Generated &#39;</span><span style="color:#b8860b">$FILE</span><span style="color:#b44">.asc&#39;</span><span style="color:#b44">&#34;</span>
+    <span style="color:#a2f;font-weight:bold">else</span>
+        <span style="color:#a2f">echo</span> <span style="color:#b44">&#34;</span><span style="color:#b44">  - Skipped &#39;</span><span style="color:#b8860b">$FILE</span><span style="color:#b44">.asc&#39; (file already existing)</span><span style="color:#b44">&#34;</span>
+    <span style="color:#a2f;font-weight:bold">fi</span>
+<span style="color:#a2f;font-weight:bold">done</span>
+</code></pre></div><p>Then to sign the packages :</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sign.sh
+PGP Key ID: 
+&lt;your PGP key&gt;
+PGP Key Password: 
+&lt;Your password&gt;
+
+-n Signing: ./apacheds-parent-&lt;version&gt;-source-release.zip ... 
+- Generated <span style="color:#b44">&#39;./apacheds-parent-&lt;version&gt;-source-release.zip.md5&#39;</span>
+- Generated <span style="color:#b44">&#39;./apacheds-parent-&lt;version&gt;-source-release.zip.sha1&#39;</span>
+- Generated <span style="color:#b44">&#39;./apacheds-parent-&lt;version&gt;-source-release.zip.asc&#39;</span>
+$
+</code></pre></div><h5 id="publish-source-distribution-package">Publish Source Distribution Package</h5>
+<p>The sources, binaries and their signatures, have to be pushed in a place where they can be downloaded by the other committers, in order to be checked while validating the release. As the ~/people.apache.org server is not anymore available for that purpose, we use the <a href="https://dist.apache.org/repos/dist/dev/directory">distribution</a> space for that purpose.</p>
+<p>If you haven&rsquo;t checked out this space, do it now :</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ mkdir -p ~/apacheds/dist/dev/directory
+$ svn co https://dist.apache.org/repos/dist/dev/directory ~/apacheds/dist/dev/directory
+</code></pre></div><p>That will checkout the full project distributions.</p>
+<p>You may want to checkout only the part that you are going to generate, to avoid getting Gb of data :</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ mkdir -p ~/apacheds/dist/dev/directory/apacheds
+$ svn co https://dist.apache.org/repos/dist/dev/directory/apacheds ~/apacheds/dist/dev/directory/apacheds
+</code></pre></div><p>Now, create a sub-directory for the version you have generated (here, for version 2.0.0-M22) :</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ mkdir ~/apacheds/dist/dev/directory/apacheds/2.0.0-M22
+</code></pre></div><p>and copy the packages and signature to this area :</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ <span style="color:#a2f">cd</span> target/checkout/target
+$ cp apacheds-parent-&lt;version&gt;-source-release.zip* ~/apacheds/dist/dev/directory/apacheds/2.0.0-M22
+</code></pre></div><p>Last, not least, commit your changes</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ svn add ~/apacheds/dist/dev/directory/apacheds/2.0.0-M22
+$ svn ci ~/apacheds/dist/dev/directory/apacheds/2.0.0-M22 -m <span style="color:#b44">&#34;ApacheDS 2.0.M22 packages&#34;</span>
+</code></pre></div><h5 id="test-the-new-version">Test the new version</h5>
+<p>The best way to do that is to download the sources, extract them, build the server and the installers, and check if the installers are correctly working. Then check that the server is correctly running.</p>
+<h5 id="create-the-installers">Create the installers</h5>
+<p>We now have to create the installers. Go into the <em>target/checkout</em> directory and run :</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ <span style="color:#a2f">cd</span> apacheds/target/checkout/installers
+$ mvn clean install -Pinstallers
+</code></pre></div><p>This will create the installers in the <em>target/checkout/installers/target/installers</em> directory</p>
+<DIV class="info" markdown="1">
+    We are meant to create all the installers. It's possible to create installers for a specific platform by using a different profile :
+  <UL>
+    <LI>Debian   : mvn clean install -Pdebian</LI>
+    <LI>Rpm      : mvn clean install -Prpm</LI>
+    <LI>Windows  : mvn clean install -Pwindows</LI> 
+    <LI>Mac OS X : mvn clean install -Pmac</LI>
+    <LI>Binary   : mvn clean install -Pbin</LI>
+    <LI>Archive  : mvn clean install -Parchive</LI>
+  </UL>
+<pre><code>This will build only one single target.
+</code></pre>
+</DIV>
+<DIV class="info" markdown="1">
+    If the packaging tool path is not correct, you can set it on the command line :
+  <UL>
+    <LI>Debian   : mvn clean install -Pdebian -Dinstallers.dpkg=&lt;path to the dpkg installer&gt;</LI>
+    <LI>Rpm      : mvn clean install -Prpm -Dinstallers.rpmbuild=&lt;path to the rpmbuild installer&gt;</LI>
+    <LI>Windows  : mvn clean install -Pwindows -Dinstallers.makensis=&lt;path to the makensis installer&gt;</LI> 
+    <LI>Mac OS X : mvn clean install -Pmac -Dinstallers.packageMaker=&lt;path to the PackageMaker installer&gt;</LI>
+  </UL>
+<p>Typically, recent versions of Mac OSX moved the tools from <EM>/usr/bin</EM> to <EM>/usr/local/bin</EM></p>
+<p>Keep in mind that you will have to sign and move each target package before building the next one, as the <EM>clean</EM> instruction will remove the content of the <EM>target</EM> directory&hellip;</p>
+</DIV>
+<p>Sign those installers using the <em>sign.sh</em> script, and copy them in <em>~/apacheds/dist/dev/directory/apacheds/<version></em></p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ <span style="color:#a2f">cd</span> apacheds/target/checkout/target/installers/target/installers
+$ cp apacheds-&lt;version&gt;* ~/apacheds/dist/dev/directory/apacheds/2.0.0-M22
+</code></pre></div><p>Note : you will need a Debian, a Fedora and a Windows server to generate dedicated binaries for those platforms, or you can use rpmbuild, dpkg or nsis if you don&rsquo;t want to use many different servers.</p>
+<h5 id="vote">Vote</h5>
+<p>Start a 72h vote at the dev mailing list.</p>
+<h5 id="release">Release</h5>
+<p>If the vote succeeds Apacheds project can be released.</p>
+<p>Go to <a href="https://repository.apache.org/index.html#stagingRepositories">https://repository.apache.org/index.html#stagingRepositories</a> and release the staging repository so all artifacts are published to Maven central.</p>
+<p>The sources, binaries and their signatures, have to be pushed in a place where they can be downloaded by users. We use the <a href="https://dist.apache.org/repos/dist/release/directory">distribution</a> space for that purpose.</p>
+<p>Move the distribution packages (sources and binaries) to the dist SVN repository: <a href="https://dist.apache.org/repos/dist/release/directory/apacheds/dist/$(version)">https://dist.apache.org/repos/dist/release/directory/apacheds/dist/$(version)</a></p>
+<p>If you haven&rsquo;t checked out this space, do it now :</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ mkdir -p ~/apacheds/dist/release/directory
+$ svn co https://dist.apache.org/repos/dist/release/directory ~/apacheds/dist/release/directory
+</code></pre></div><p>That will checkout the full project distributions.</p>
+<p>You may want to checkout only the part that you are going to generate, to avoid getting Gb of data :</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ mkdir -p ~/apacheds/dist/release/directory/apacheds/dist
+$ svn co https://dist.apache.org/repos/dist/release/directory/apacheds/dist ~/apacheds/dist/release/directory/apacheds/dist
+</code></pre></div><p>Then move the packages from &lsquo;dev&rsquo; to &lsquo;release&rsquo; :</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#080;font-style:italic"># cd dist/release/directory/apacheds/dist</span>
+<span style="color:#080;font-style:italic"># cp ~/apacheds/dist/dev/directory/apacheds/&lt;version&gt; .</span>
+<span style="color:#080;font-style:italic"># svn add &lt;version&gt;</span>
+<span style="color:#080;font-style:italic"># svn ci &lt;version&gt;</span>
+...
+<span style="color:#080;font-style:italic"># exit</span>
+$
+</code></pre></div><p>The packages should now be available on <a href="http://www.us.apache.org/dist/directory/apacheds/dist/">http://www.us.apache.org/dist/directory/apacheds/dist/</a><version></p>
+<h5 id="deploy-the-javadocs-and-xref">Deploy the Javadocs and XRef</h5>
+<p>We now can deploy the generated Javadoc and cross-reference pages. They are generated in the following directory :</p>
+<pre><code>target/checkout/target/site
+</code></pre>
+<p>We will copy two directories :</p>
+<pre><code>apidocs
+xref
+</code></pre>
+<p><em>Staging or Production?</em></p>
+<p>Those files will be stored on the production server only !!! And some extra caution must be taken not to delete them when we will publish the staging site too&hellip;</p>
+<p>First of all, you must checkout the two CMS store for the site : staging and revision.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ <span style="color:#a2f">cd</span> ~/apacheds
+$ svn co https://svn.apache.org/repos/infra/websites/staging/directory/trunk staging
+...
+$ svn co https://svn.apache.org/repos/infra/websites/production/directory production
+...
+</code></pre></div><p>Now, you will first add the directory for the newly generated version :</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ <span style="color:#a2f">cd</span> ~/apacheds/production/content/apacheds/gen-docs
+$ mkdir &lt;version&gt;
+</code></pre></div><p>Then copy the generated docs :</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cp -r ~/apacheds/trunks/apacheds/target/checkout/target/site/apidocs ~/apacheds/production/content/apacheds/gen-docs/&lt;version&gt;
+$ cp -r ~/apacheds/trunks/apacheds/target/checkout/target/site/xref ~/apacheds/production/content/apacheds/gen-docs/&lt;version&gt;
+</code></pre></div><p>You have to check in those directories :</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ svn add &lt;version&gt;
+$ svn ci &lt;version&gt; -m <span style="color:#b44">&#34;Injected &lt;version&gt; javadocs&#34;</span>
+</code></pre></div><p>Now, you have to update the staging site, but first, do a <em>svn up</em>. Then you have to update the <em>extpaths.txt</em> file.</p>
+<p>This file list the files on the production site that will not be overriden by the publication of the staging site. It has to be updated.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ <span style="color:#a2f">cd</span> ~/apacheds/staging/content/
+$ vi extpaths.txt
+</code></pre></div><p>Add the following line :</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">...
+# Apacheds
+apacheds/gen-docs/&lt;version&gt;
+...
+</code></pre></div><p>then save and check in the file.</p>
+<p>We also have to update the <em>.htaccess</em> file :</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ <span style="color:#a2f">cd</span> ~/apacheds/staging/content/apacheds/gen-docs
+$ vi .htaccess
+</code></pre></div><p>And update the two last lines to refer to the version you&rsquo;ve just released :</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">RewriteRule ^latest$ &lt;version&gt;/
+RewriteRule ^latest/<span style="color:#666">(</span>.*<span style="color:#666">)</span>$ &lt;version&gt;/<span style="color:#b8860b">$1</span>
+</code></pre></div><p>Save and commit the file.</p>
+<h5 id="update-the-web-site">Update the web site</h5>
+<p>You can now update the site, add a news on the front page, and publish the site.</p>
+<p>There are a few places to modify :</p>
+<ul>
+<li>/lib/path.pm : update the $version_apacheds variable with the new version.</li>
+<li>/content/index.mdtext : same here, update the <!-- ApacheDS project --> section, which contains the version.</li>
+<li>/content/apacheds/news.mdtext : add the news on top of thise page</li>
+<li>/content/apacheds/download-old-versions.mdtext : add a new line on top of the array, which refers to the latest version before the new one</li>
+</ul>
+<p>Commit the changes, and publish the web site, you are done !</p>
+<h5 id="inform-the-world-">Inform the world !</h5>
+<p>After 24h, you can now inform the world about the release.</p>
+<p>Send a mail to the users and dev mailing list, and one to the <em><a href="mailto:announce@apache.org">announce@apache.org</a></em></p>
+<p>You are done !</p>
+
+
+            
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

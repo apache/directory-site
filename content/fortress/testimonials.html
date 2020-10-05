@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>Testimonials &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/turquoise.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/fortress-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+             
+                ApacheDS
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+             
+                LDAP API
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+            
+                <strong>Fortress</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>Fortress</h5>
+                <ul>
+                    <li><a href="/fortress/">Home</a></li>
+                    <li><a href="/fortress/history.html">History</a></li>
+                    <li><a href="/fortress/news.html">News</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/fortress/downloads.html">Fortress 2.0.5</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/fortress/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/fortress/overview.html">Overview</a></li>
+                    <li><a href="/fortress/installation.html">Installation Guide</a></li>
+                    <li><a href="/fortress/user-guide.html">Users Guide</a></li>
+                    <li><a href="/fortress/coding-standards.html">Coding Standards</a></li>
+                    <li><a href="/fortress/gen-docs/latest/apidocs/">JavaDocs</a></li>
+                    
+                    <li><a href="/fortress/gen-docs/latest/">Generated Reports</a></li>
+                    <li><a href="/fortress/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/fortress/testimonials.html">Testimonials</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+
+            
+	<h1 id="testimonials">Testimonials</h1>
+<h2 id="credits">Credits</h2>
+<p>This work was contributed by Yudhi Karunia Surtan of PT. Global Digital Niaga (blibli.com).  Thanks to him and his team for their efforts in helping others use Fortress.</p>
+<h2 id="introduction">Introduction</h2>
+<p>This document contains an overview for combining a CAS-based SSO module with fortress-based authorization, using a declarative URL filtering mechanism.</p>
+<p>###Detailed description of the project</p>
+<p>I created this solution a few years ago because at the time I was looking for an IAM and SSO solution, and there were no open source solutions that provided everything that I needed.</p>
+<p>Basically, the idea was, I needed a framework where the developer didn&rsquo;t have to programmatically add authorization calls to their code, or use annotations, or any other kind of <em>if condition</em> statement. With this solution, I can have a declarative mechanism that is still capable of making advanced dynamic authorization decisions, even if the user hasn&rsquo;t been logged in before or has any of the proper roles activated to their session.  I can do this because I control the authorization and it has been centralized in the server, and that server can activate whatever user roles needed to to allow access to the runtime environment.</p>
+<p>I searched all available open source solutions and finally decided to combine Apereo CAS and Apache Fortress into a single solution. Apereo CAS does the authentication and Apache Fortress will handle authorization.</p>
+<p>I went this route because Apereo CAS is very good way to handle the Single Sign-On and Single Sign-Out problems, but it lacks authorization capabilities, because there aren&rsquo;t standardized solutions in that space yet. Apache Fortress is good at authorization because it uses standard RBAC. However, Apache Fortress doesn&rsquo;t have an SSO solution yet. That is why I think both should be combined because they complement each other.  Unfortunately, there aren&rsquo;t yet good documentation resources available to combine these which is why I created this one, so other developers can follow my team&rsquo;s lead and make their life easier by providing good security for their webapps.</p>
+<p>The solution I present to you here has operated successfully inside production environments since 2015 and so it&rsquo;s quite mature.  I write this how-to document to explain how it works.  It&rsquo;s intended as a guide for you to follow as well.</p>
+<p>Here are the technology stacks used within my extended framework:</p>
+<ul>
+<li>Apereo CAS -&gt; 4.2.x</li>
+<li>Apache Fortress Enmasse (rest) -&gt; 1.0.0</li>
+<li>Apache Fortress Proxy -&gt; 1.0.0</li>
+<li>Apache Ignite -&gt; 1.7.0</li>
+<li>Spring Framework -&gt; 4.2.x-RELEASE</li>
+</ul>
+<p>There are two areas of development focus.  One to handle the server side and the other for the client.  The client is shared with my dev team for managing security within their web applications.</p>
+<ol>
+<li>CAS Server side development: Includes creating own implementation for AbstractUsernamePasswordAuthenticationHandler and implemening an Apache Ignite Service Registry for CAS</li>
+<li>CAS Client side development: Includes create own implementation for WebExpressionVoter and CasAuthenticationProvider</li>
+</ol>
+<h2 id="code-descriptions">Code Descriptions</h2>
+<p>The following sections contain code and xml snippets describing how the CAS and Fortress integration was accomplished.</p>
+<p>###Server side development:</p>
+<p>####1. The Authentication Handler</p>
+<p>The interesting part for this solution is how to maintain both the Apereo CAS and Apache Fortress sessions. Luckily, CAS is using a token for maintaining their session and that token is also designed to have some extended attributes included with it.  Using this knowledge, we can modify the profile given by CAS Server to the client. Let&rsquo;s have a look what I&rsquo;ve done with combining the Apereo CAS and Apache Fortress sessions in the code that follows.</p>
+<pre><code>:::Java
+
+/*
+ * Copyright 2017 to PT. Global Digital Niaga(Blibli.com)
+ * 
+ * Licensed under the Apache License, Version 2.0; you may not use this file except in compliance
+ * with the License. You may obtain a copy of the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an &quot;AS IS&quot; BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing permissions and limitations under
+ * the License.
+ */
+package com.gdn.iam.cas;
+
+import java.io.StringWriter;
+import java.security.GeneralSecurityException;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+
+import org.apache.directory.fortress.core.AccessMgr;
+import org.apache.directory.fortress.core.model.Session;
+import org.apache.directory.fortress.core.model.User;
+import org.jasig.cas.authentication.HandlerResult;
+import org.jasig.cas.authentication.PreventedException;
+import org.jasig.cas.authentication.UsernamePasswordCredential;
+import org.jasig.cas.authentication.handler.support.AbstractUsernamePasswordAuthenticationHandler;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+public class IamAuthenticationHandler extends AbstractUsernamePasswordAuthenticationHandler {
+
+  private static final Logger LOG = LoggerFactory.getLogger(IamAuthenticationHandler.class);
+
+  private AccessMgr accessManager;
+  private JAXBContext jaxbContext;
+  private Marshaller marshaller;
+
+  public IamAuthenticationHandler() {
+    try {
+      jaxbContext = JAXBContext.newInstance(Session.class);
+      marshaller = jaxbContext.createMarshaller();
+    } catch (JAXBException e) {
+      LOG.error(&quot;cannot bind Session with jaxb context&quot;, e);
+    }
+  }
+
+  @Override
+  protected HandlerResult authenticateUsernamePasswordInternal(
+      UsernamePasswordCredential usernamePasswordCredential)
+          throws GeneralSecurityException, PreventedException {
+    String username = usernamePasswordCredential.getUsername();
+    String password = usernamePasswordCredential.getPassword();
+    Session iamSession = null;
+    String iamXmlSession = null;
+    try {
+      LOG.trace(&quot;trying to authenticate username : {}, password : {}&quot;,
+          new Object[] {username, password});
+      iamSession = accessManager.createSession(new User(username, password.toCharArray()), false);
+      LOG.trace(&quot;iam session : {}&quot;, iamSession);
+      if (iamSession != null) {
+        StringWriter writer = new StringWriter();
+        marshaller.marshal(iamSession, writer);
+        iamXmlSession = writer.toString();
+        LOG.trace(&quot;iam xml session : {}&quot;, iamXmlSession);
+        Map&lt;String, Object&gt; attributes = new HashMap&lt;&gt;();
+        attributes.put(&quot;iamSession&quot;, iamXmlSession);
+        return createHandlerResult(usernamePasswordCredential,
+            principalFactory.createPrincipal(username, attributes), null);
+      }
+    } catch (org.apache.directory.fortress.core.SecurityException e) {
+      String errorMessage = &quot;IAM authentication failed for [&quot; + username + &quot;]&quot;;
+      LOG.trace(errorMessage);
+      throw new GeneralSecurityException(errorMessage);
+    } catch (JAXBException e) {
+      String errorMessage = &quot;cannot marshalling session with value : &quot; + iamSession == null ? &quot;null&quot;
+          : iamSession.toString();
+      LOG.trace(errorMessage);
+      throw new GeneralSecurityException(errorMessage);
+    }
+    LOG.trace(&quot;returning default handler&quot;);
+    return createHandlerResult(usernamePasswordCredential,
+        principalFactory.createPrincipal(username), null);
+  }
+
+  public AccessMgr getAccessManager() {
+    return accessManager;
+  }
+
+  public void setAccessManager(AccessMgr accessManager) {
+    this.accessManager = accessManager;
+  }
+
+}
+</code></pre>
+<p>In the above source code you can see how I construct a new principal by creating a new attribute map with values contained withing the Apache Fortress Session xml.</p>
+<h4 id="2-the-attribute-populator">2. The Attribute Populator</h4>
+<p>In order to populate fortress and pass it on to the client we need to override the casServiceValidationSuccess.jsp file, located at WEB-INF/view/jsp/protocol/2.0/, since its default view won&rsquo;t populating the necessary attributes. Here is how I was able to accomplish that:</p>
+<pre><code>:::XML
+
+&lt;%@ page session=&quot;false&quot; contentType=&quot;application/xml; charset=UTF-8&quot; %&gt;
+&lt;%@ taglib prefix=&quot;c&quot; uri=&quot;http://java.sun.com/jsp/jstl/core&quot; %&gt;
+&lt;%@ taglib uri=&quot;http://java.sun.com/jsp/jstl/functions&quot; prefix=&quot;fn&quot; %&gt;
+&lt;cas:serviceResponse xmlns:cas='http://www.yale.edu/tp/cas'&gt;
+    &lt;!-- cas 2 validation success --&gt;
+    &lt;cas:authenticationSuccess&gt;
+        &lt;cas:user&gt;${fn:escapeXml(assertion.primaryAuthentication.principal.id)}&lt;/cas:user&gt;
+        &lt;c:if test=&quot;${not empty assertion.primaryAuthentication.principal.attributes}&quot;&gt;
+        &lt;cas:attributes&gt;
+            &lt;c:forEach var=&quot;attr&quot; items=&quot;${assertion.primaryAuthentication.principal.attributes}&quot; &gt;
+                &lt;cas:${fn:escapeXml(attr.key)}&gt;&lt;![CDATA[${attr.value}]]&gt;&lt;/cas:${fn:escapeXml(attr.key)}&gt;
+            &lt;/c:forEach&gt;
+        &lt;/cas:attributes&gt;
+        &lt;/c:if&gt;
+        &lt;c:if test=&quot;${not empty pgtIou}&quot;&gt;
+                &lt;cas:proxyGrantingTicket&gt;${pgtIou}&lt;/cas:proxyGrantingTicket&gt;
+        &lt;/c:if&gt;
+        &lt;c:if test=&quot;${fn:length(assertion.chainedAuthentications) &gt; 1}&quot;&gt;
+          &lt;cas:proxies&gt;
+            &lt;c:forEach var=&quot;proxy&quot; items=&quot;${assertion.chainedAuthentications}&quot; varStatus=&quot;loopStatus&quot; begin=&quot;0&quot; end=&quot;${fn:length(assertion.chainedAuthentications)-2}&quot; step=&quot;1&quot;&gt;
+                 &lt;cas:proxy&gt;${fn:escapeXml(proxy.principal.id)}&lt;/cas:proxy&gt;
+            &lt;/c:forEach&gt;
+          &lt;/cas:proxies&gt;
+        &lt;/c:if&gt;
+    &lt;/cas:authenticationSuccess&gt;
+&lt;/cas:serviceResponse&gt;
+</code></pre>
+<p>One thing that I love about CAS, even if you correctly extracted the attribute at this page (or maybe you just got hacked at this page), CAS is able to protect the returned attributes by changing the services registry configuration. see the HTTPSandIMAPS-10000001.json file. I’ve put ReturnAllAttributeReleasePolicy type for debuging all the attributes returned, you can change it later to make your application more secure as well.</p>
+<p>####3. Apache Ignite For Ticket Replication</p>
+<p>To have a production readiness we need to somehow manage a high availability requirement, so we&rsquo;re not just using a single cas server. That is why we needed to have a centralized or distributed ticket repository, to allow cas to scale. To scale the ticket repository, I chose Apache Ignite for distributing the tickets. To Implement is very simple, and is also written about in Apereo CAS documentation.</p>
+<p>###Client side development:</p>
+<p>####1. The Spring Voter</p>
+<p>Spring is a great framework, they allow you to add your own interceptors to use your own implementation. WebExpressionVoter is the class you need to extend in order to override the normal spring decision mechanism.  Usually you will use xml + regex for registering the condition. However, xml + regex is not the approach I wanted for my development team. See below code snippet, to understand what I did to make this more dynamic.</p>
+<pre><code>:::Java
+  @Override
+  @SuppressWarnings(&quot;static-access&quot;)
+  public int vote(Authentication authentication, FilterInvocation fi,
+      Collection&lt;ConfigAttribute&gt; attributes) {
+    Authentication securityContextAuthentication =
+        SecurityContextHolder.getContext().getAuthentication();
+    int result = super.vote(securityContextAuthentication, fi, attributes);
+    if (System.getenv(IAM_SECURITY_PARAMETER) != null) {
+      LOG.warn(&quot;iam security is disable, enable all access mode is enable&quot;);
+      return result;
+    } else {
+      LOG.debug(&quot;authentication = {}&quot;,
+          ToStringBuilder.reflectionToString(securityContextAuthentication));
+      LOG.debug(&quot;super vote for : {}&quot;, result);
+      if (super.ACCESS_GRANTED == result) {
+        String requestMethod = fi.getRequest().getMethod().toLowerCase();
+        String filterUrl = getFilterUrl(fi.getHttpRequest());
+        if (filterUrl == null) {
+          return result;
+        }
+        try {
+          CasAuthenticationToken casAuthenticationToken =
+              ((CasAuthenticationToken) securityContextAuthentication);
+          LOG.debug(&quot;assertion : {}&quot;,
+              ToStringBuilder.reflectionToString(casAuthenticationToken.getAssertion()));
+          String iamSessionXml = (String) casAuthenticationToken.getAssertion().getAttributes()
+              .get(IAM_SESSION_ATTRIBUTE_KEY);
+          LOG.debug(&quot;iam session xml == {}&quot;, iamSessionXml);
+          Session iamSession = sessionCache.getIfPresent(casAuthenticationToken.getKeyHash());
+          if (iamSession == null) {
+            Unmarshaller unmarshaller = null;
+            try {
+              unmarshaller = context.createUnmarshaller();
+            } catch (JAXBException ex) {
+              LOG.warn(&quot;cannot create unmarshaller : &quot;, ex);
+            }
+            iamSession = (Session) unmarshaller.unmarshal(new StringReader(iamSessionXml));
+            sessionCache.put(casAuthenticationToken.getKeyHash(), iamSession);
+          }
+          StringBuilder sessionPermissionKeyBuilder = new StringBuilder(iamSession.getSessionId()).append(filterUrl).append(requestMethod);
+          Boolean isAllowed = accessCache.getIfPresent(sessionPermissionKeyBuilder.toString());
+          if(isAllowed == null) {
+            isAllowed = accessManager.checkAccess(iamSession, new Permission(filterUrl, requestMethod));
+            accessCache.put(sessionPermissionKeyBuilder.toString(), isAllowed);
+          }
+          LOG.debug(&quot;{} is {} to access {} with method {}&quot;,
+              new Object[] {securityContextAuthentication.getName(),
+                  isAllowed ? &quot;granted&quot; : &quot;denied&quot;, filterUrl, requestMethod});
+          if (isAllowed) {
+            return super.ACCESS_GRANTED;
+          }
+        } catch (Exception e) {
+          LOG.error(&quot;catch exception when communicate with iam server&quot;, e);
+        }
+      }
+      return super.ACCESS_DENIED;
+    }
+  }
+</code></pre>
+<p>Yep, I&rsquo;m calling fortress to check if the user is allowed to access fortress permissions or not.</p>
+<p>#####2. UserDetail Populator</p>
+<p>Spring uses the implementation of AbstractCasAssertionUserDetailsService to populate user details following successful authentication, you can see the example at IamUserDetails code, here is the snipet of that class:</p>
+<pre><code>:::Java
+@Override
+  protected UserDetails loadUserDetails(final Assertion assertion) {
+    List&lt;GrantedAuthority&gt; grantedAuthorities = new ArrayList&lt;&gt;();
+    LOG.debug(&quot;user asssertion : {}&quot;, ToStringBuilder.reflectionToString(assertion));
+    boolean accountNonExpired = true;
+    boolean credentialsNonExpired = true;
+    boolean accountNonLocked = true;
+    boolean enabled = true;
+    for (String attribute : this.attributes) {
+      String value = (String) assertion.getPrincipal().getAttributes().get(attribute);
+      LOG.debug(&quot;value = {}&quot;, value);
+      if (value != null) {
+        LOG.debug(&quot;adding default authorization to user&quot;);
+    grantedAuthorities.add(new SimpleGrantedAuthority(ROLE_USER));    
+
+        Unmarshaller unmarshaller = null;    
+        Session iamSession = null;
+        try {
+          unmarshaller = context.createUnmarshaller();
+          iamSession = (Session) unmarshaller.unmarshal(new StringReader(value));
+          for (UserRole role : iamSession.getRoles()) {
+            LOG.debug(&quot;adding {} authorization to user&quot;, role.getName().toUpperCase());
+            grantedAuthorities.add(new SimpleGrantedAuthority(role.getName().toUpperCase()));
+          }
+        } catch (Exception ex) {
+          LOG.error(&quot;cannot generate user details&quot;, ex);
+        }
+      }
+    }
+    LOG.debug(
+        &quot;accountNonExpired : {}, credentialsNonExpired : {}, accountNonLocked : {}, enabled : {}&quot;,
+        new Object[] {accountNonExpired, credentialsNonExpired, accountNonLocked, enabled});
+    return new User(assertion.getPrincipal().getName().toLowerCase().trim(), NON_EXISTENT_PASSWORD_VALUE, enabled,
+        accountNonExpired, credentialsNonExpired, accountNonLocked, grantedAuthorities);
+  }
+</code></pre>
+<p>You can change the implementation later for your needs.</p>
+<p>#####3. Network Might Be a Problem</p>
+<p>Since this is running inside a production environment, we needed to consider that sometimes there might be a trouble over our network that causes problems and requires retries. That is why it&rsquo;s important to allow a little delay time in our application.  Here&rsquo;s an example of how allow a small delay, in order to allow temorary network glitches and slowdowns to work themselves out.</p>
+<pre><code>:::Java
+/*
+ * Copyright 2017 to PT. Global Digital Niaga(Blibli.com)
+ * 
+ * Licensed under the Apache License, Version 2.0; you may not use this file except in compliance
+ * with the License. You may obtain a copy of the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an &quot;AS IS&quot; BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing permissions and limitations under
+ * the License.
+ */
+package com.gdn.iam.spring.security;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.security.cas.authentication.CasAuthenticationProvider;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
+
+public class GdnCasAuthenticationProvider extends CasAuthenticationProvider {
+
+  private static transient Logger LOG = LoggerFactory.getLogger(GdnCasAuthenticationProvider.class);
+  private long sleepForDistributeTicketTime = 300;
+
+  @Override
+  public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+    try {
+      LOG.trace(
+          &quot;will try to sleep for waiting ticket to be distributed to other node, sleep time : {}&quot;,
+          getSleepForDistributeTicketTime());
+      Thread.sleep(getSleepForDistributeTicketTime());
+    } catch (InterruptedException e) {
+      LOG.error(&quot;something wrong when sleeping&quot;, e);
+    }
+    return super.authenticate(authentication);
+  }
+
+  public long getSleepForDistributeTicketTime() {
+    return sleepForDistributeTicketTime;
+  }
+
+  public void setSleepForDistributeTicketTime(long sleepForDistributeTicketTime) {
+    this.sleepForDistributeTicketTime = sleepForDistributeTicketTime;
+  }
+
+}
+</code></pre>
+<p>###Descriptions of authentication flow</p>
+<p>The CAS authentication flow will be the same, no changes are required in terms of that authentication flow. Furthermore, you can see that flow at Apereo CAS 4.2.x documentation page.</p>
+<p>The main difference now is we don&rsquo;t put the ticket registry inside an in-memory database, we put it inside an Apache Ignite cache, so when other nodes are there it can replicate the ticket between them which increases efficiencies.</p>
+<p>###Descriptions of authorization flow</p>
+<p>Spring Security usually has the authorization role configuration inside your spring context xml file or using annotations in source. This is the only difference between plain spring security and that using my extended framework solution.  We put the configuration inside of Fortress. Everytime the user changes the URL, it will check the user has access to that specific URL and not through the extended voter class. If the user is authorized then the app will give them the correct page, otherwise it will route to 40X http error status page.</p>
+<p>###Instructions to test</p>
+<p>For testing this example, you need to understand that Apache Fortress configuration is necessary to find fortress.properties on the classpath so it might be good if you put that configuration file at the same classpath, for instance, if you are using tomcat remove all the fortress.properties inside the classes directory and put it on $TOMCAT_HOME/lib/ folder. Make sure get Apache Fortress running at the first step. Here are the detailed instructions for testing this example:</p>
+<p>####Server Section</p>
+<p>#####1. Read and find the instructions at:</p>
+<ul>
+<li><a href="https://github.com/apache/directory-fortress-core">https://github.com/apache/directory-fortress-core</a></li>
+<li><a href="https://github.com/apache/directory-fortress-enmasse">https://github.com/apache/directory-fortress-enmasse</a></li>
+<li><a href="https://github.com/apache/directory-fortress-commander">https://github.com/apache/directory-fortress-commander</a></li>
+</ul>
+<p>and configure your Apache Fortress properly.</p>
+<p>#####2. Clone the project from link at <em>Where to download</em> section below, change the configuration properly inside *cas-fortress-servers/src/main/resourcesz8 folder and package it using</p>
+<pre><code>:::Maven
+ mvn clean package.
+</code></pre>
+<p>Copy the war file from cas-fortress-server/target into the web-container deploy directory.</p>
+<p>#####3. Start your web-container and you get cas fortress integrated.</p>
+<p>####Client Section</p>
+<ul>
+<li>Simply put the war file inside the web-container deploy directory.</li>
+<li>Open and login to your commander(fortress-web)</li>
+<li>Create a user with role ROLE_USER (you can change to what ever role). The role need to align with spring-security.xml for this statement <intercept-url pattern="/**" access="hasRole('ROLE_USER')" />. This is the mandatory role, with this role we are seperate between the anonymous role and authenticate one.</li>
+<li>Create a permission object containing your restricted url, for instance http://localhost:8080/cas-fortress-client/profile and http://localhost:8080/cas-fortress-client/catalog.</li>
+<li>Map the permission object and role at permission tab at your commander. Currently we only support get for both of the url.</li>
+<li>Start your web-container and play with your cas-fortress-client later on.</li>
+</ul>
+<p>###Where to download</p>
+<ul>
+<li><a href="https://github.com/bliblidotcom/cas-fortress-example">https://github.com/bliblidotcom/cas-fortress-example</a></li>
+</ul>
+<p>##Next Steps</p>
+<p>Next should be implementing ARBAC solution. Since I don&rsquo;t allow people to create conditional statements inside their application code to check for roles, buttons or page elements that should be not accessible for specific users will appear on their pages, even they can&rsquo;t perform that particular action.  This causes some confusion in terms or usability for my users. With ARBAC I believe I can do a whitelist for the page attributes and increase the usability for the user.</p>
+
+
+            
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

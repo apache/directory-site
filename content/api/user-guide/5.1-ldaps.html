@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>5.1 - LDAPS &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/brown.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/api-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+             
+                ApacheDS
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+            
+                <strong>LDAP API</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>LDAP API </h5>
+                <ul>
+                    <li><a href="/api/">Home</a></li>
+                    <li><a href="/api/news.html">News</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/api/downloads-1.html">Version 1.0.3</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/downloads-2.html">Version 2.0.1</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Getting Started</h5>
+                <ul>
+                    <li><a href="/api/vision.html">Vision</a></li>
+                    <li><a href="/api/java-api.html">Java API</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/api/five-minutes-tutorial.html">Five minute tutorial</a></li>
+                    <li><a href="/api/user-guide.html">User Guide</a></li>
+                    <li><a href="/api/migration-guide.html">API 1 to 2 migration</a></li>
+                    <li><a href="/api/gen-docs/latest/apidocs/">JavaDocs</a></li>
+                    <li><a href="/api/gen-docs/latest2/apidocs/">JavaDocs 2</a></li>
+                    <li><a href="/api/gen-docs/latest/xref/">Cross-Reference</a></li>
+                    <li><a href="/api/gen-docs/latest2/xref/">Cross-Reference 2</a></li>
+                    
+                    <li><a href="/api/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/api/internal-design-guide.html">Internal Guide</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="5-ldap-security.html">5 - LDAP Security</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="5-ldap-security.html">5 - LDAP Security</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="5.2-start-tls.html">5.2 - StartTLS</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+            
+	<h1 id="51---ldaps">5.1 - LDAPS</h1>
+<p><strong>LDAP</strong> supports <strong>SSL</strong>, it&rsquo;s called <strong>LDAPS</strong>, and it uses a dedicated port. As of today, and since 2000, <strong>LDAPS</strong> is deprecated and <strong>StartTLS</strong> should be used.</p>
+<p>That being said, many servers accept <strong>LDAPS</strong>, and the <strong>Apache LDAP API</strong> supports it.</p>
+<h2 id="how-does-it-work-">How does it work ?</h2>
+<p>The <strong>SSL</strong> protocol ensures that data is transmitted encrypted, and guarantees that the data received is valid. Noone can capture this data and read it, assuming the ciphers used are of sufficient strength.</p>
+<p>With <strong>SSL</strong>, a dialog between the client and the server occurs, and when both agree on the particular cipher to use, then all subsequent data is encrypted. This dialog may include a mutual validation of their X.509 certificates.</p>
+<h2 id="protocols">Protocols</h2>
+<p>There are many version that can be used, but the idea is to use the most recent one, if the server supports it. In any case, as we depend on <strong>Java</strong>, we are also limited by the supported version on the client side. Here are all of the existing versions, and their statuses:</p>
+<table>
+<thead>
+<tr>
+<th>SSLversion</th>
+<th>Java 7 Client</th>
+<th>Java 7 Server</th>
+<th>Java 8 Client</th>
+<th>Java 8 Server</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2.0</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>3.0</td>
+<td>Disabled</td>
+<td>Disabled</td>
+<td>N/A</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>3.1 (aka TLSv1)</td>
+<td><strong>Enabled</strong></td>
+<td><strong>Enabled</strong></td>
+<td><strong>Enabled</strong></td>
+<td><strong>Enabled</strong></td>
+</tr>
+<tr>
+<td>3.2 (aka TLSv1.1</td>
+<td>Disabled</td>
+<td><strong>Enabled</strong></td>
+<td><strong>Enabled</strong></td>
+<td><strong>Enabled</strong></td>
+</tr>
+<tr>
+<td>3.3 (aka TLSv1.2)</td>
+<td>Disabled</td>
+<td><strong>Enabled</strong></td>
+<td><strong>Enabled</strong></td>
+<td><strong>Enabled</strong></td>
+</tr>
+</tbody>
+</table>
+<p>(<em>Disabled</em> means it&rsquo;s not active by default, and so must be activated explicitly).</p>
+<p>The default is Java will choose the best fit, assuming that it always starts with the newest version (<strong>TLSv1.2</strong>).</p>
+<p>Still, you can enforce the version used &ndash; if needed.</p>
+<h2 id="a-quick-primer">A quick primer</h2>
+<p>Here is all that is needed to get <strong>LDAPS</strong> connections established with a server :</p>
+<pre><code>    try ( LdapConnection connection = new LdapNetworkConnection( &quot;server-name&quot;, 636, true ) )
+    {
+        connection.bind( &quot;uid=admin,ou=system&quot;, &quot;secret&quot; );
+
+        assertTrue( connection.isAuthenticated() );
+    }
+</code></pre>
+<p>It&rsquo;s as simple as that! The <strong>636</strong> port is the default <strong>LDAPS</strong> port for standard <strong>LDAP</strong> servers, when running as <strong>root</strong>, and for <strong>ApacheDS</strong> you must pick <strong>10636</strong>. The <strong>true</strong> flag is set to secure the connection. You don&rsquo;t need to close the connection, it will be done automatically upon exiting the try{&hellip;} block.</p>
+<p>By default, the selected protocol is <strong>TLS</strong>, and the server&rsquo;s certificate is not verified.</p>
+<h2 id="a-more-sophisticated-sample">A more sophisticated sample</h2>
+<p>It&rsquo;s possible to have more control on the <strong>SSL</strong> configuration, and specifically to provide a specific <strong>TrustManager</strong> :</p>
+<pre><code>    try ( LdapConnection connection = new LdapNetworkConnection( Network.LOOPBACK_HOSTNAME, getLdapServer().getPortSSL(), 
+            new NoVerificationTrustManager() ) )
+    {
+        connection.bind( &quot;uid=admin,ou=system&quot;, &quot;secret&quot; );
+        
+        assertTrue( ((LdapNetworkConnection)connection).getConfig().isUseSsl() );
+        assertTrue( connection.isAuthenticated() );
+    }
+</code></pre>
+<p>Here, we use the <em>NoVerificationTrustManager</em> class, but you may define your own implementation of it. The <strong>Fortress</strong> project uses <a href="https://github.com/apache/directory-fortress-core/blob/master/src/main/java/org/apache/directory/fortress/core/ldap/LdapClientTrustStoreManager.java">this class</a>.</p>
+<h2 id="using-a-configuration">Using a configuration</h2>
+<p>One step further : you can define a dedicated configuration that is passed to the constructor. Many parameters can be defined:</p>
+<ul>
+<li>the enabled cipher suites: a list of ciphers that may be used (like &ldquo;TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA384&rdquo;, etc)</li>
+<li>the enabled protocols: a list of protocals that may be used ( &ldquo;SSLv3&rdquo;, &ldquo;TLS&rdquo;, &ldquo;TLSv1&rdquo;, &ldquo;TLSv1.1&rdquo;, &ldquo;TLSv1.2&rdquo;)</li>
+<li>the KeyManager instances</li>
+<li>the SecureRandom instance</li>
+<li>the SSL protocol to use: one of the enabled protocols</li>
+<li>the TrustManager instances</li>
+</ul>
+<p>All these parameters are configured using the <em>LdapConnectionConfig</em> class :</p>
+<pre><code>    LdapConnectionConfig sslConfig = new LdapConnectionConfig();
+    sslConfig.setLdapHost( Network.LOOPBACK_HOSTNAME );
+    sslConfig.setUseSsl( true );
+    sslConfig.setLdapPort( getLdapServer().getPortSSL() );
+    sslConfig.setTrustManagers( new NoVerificationTrustManager() );
+
+    try ( LdapConnection connection = new LdapNetworkConnection( sslConfig ) )
+    {
+        connection.bind( &quot;uid=admin,ou=system&quot;, &quot;secret&quot; );
+        
+        assertTrue( ((LdapNetworkConnection)connection).getConfig().isUseSsl() );
+        assertTrue( connection.isAuthenticated() );
+    }
+</code></pre>
+<h2 id="ldaps-or-starttls-">LDAPS or startTLS ?</h2>
+<p>The important point to understand with <strong>LDAPS</strong> is that every request being exchanged between the client and the server is encrypted, because its underlying transport is encrypted. That means you can&rsquo;t start communicating with the LDAP server before the connection is secured.</p>
+<p>It has a few drawbacks:</p>
+<ul>
+<li>first of all, it has an added CPU cost, as everything has to be encrypted and decrypted.</li>
+<li>second, it requires a dedicated port, thus some specific routing rules (firewall, load balancers, etc)</li>
+<li>third, it&rsquo;s a all of nothing choice. If you want to return to a non-encrypted communication, you must use another connection.</li>
+</ul>
+<p>This is the why the <strong>startTLS</strong> extended operation should be used instead.</p>
+
+
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="5-ldap-security.html">5 - LDAP Security</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="5-ldap-security.html">5 - LDAP Security</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="5.2-start-tls.html">5.2 - StartTLS</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

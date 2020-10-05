@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>2.3.1 - Adding Schema Elements &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/green.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/server-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+            
+                <strong>ApacheDS</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+             
+                LDAP API
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>ApacheDS 2.0</h5>
+                <ul>
+                    <li><a href="/apacheds/">Home</a></li>
+                    <li><a href="/apacheds/news.html">News</a></li>
+                    <li><a href="/apacheds/features.html">Features</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/apacheds/downloads.html">ApacheDS 2.0.0.AM26</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/apacheds/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/apacheds/basic-user-guide.html">Basic User Guide </a></li>
+                    <li><a href="/apacheds/advanced-user-guide.html">Advanced User Guide</a></li>
+                    <li><a href="/apacheds/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/apacheds/kerberos-user-guide.html">Kerberos User Guide</a></li>
+                    <li><a href="/apacheds/configuration/ads-2.0-configuration.html">Configuration</a></li>
+                    <li><a href="/apacheds/gen-docs/latest/apidocs">JavaDocs</a></li>
+                    <li><a href="/apacheds/gen-docs/latest/xref">Cross-Reference</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="2.3-introducing-schema.html">2.3 - Introducing Schema</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="2.3-introducing-schema.html">2.3 - Introducing Schema</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="2.3.2-enabling-schema.html">2.3.2 - Enabling Schema</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+            
+	<h1 id="231---adding-schema-elements">2.3.1 - Adding Schema Elements</h1>
+<h2 id="motivation">Motivation</h2>
+<p>The schema of an LDAP server is comprised of object classes, attributes, syntaxes and matching rules. Basically it defines which entries are allowed within the server and how the server should handle them</p>
+<DIV class="info" markdown="1">
+<b>Is it always necessary to define my own schema elements?</b><br/>
+No. <b>ApacheDS</b> comes with a comprehensive set of predefined, standardized schema elements (like <em>inetOrgPerson</em>). It is quite common to solely use the predefined schema. The same holds true for other directory servers, by the way.
+</DIV>
+<p>In the following text the addition of user defined schema elements to the schema is described in tutorial style.</p>
+<h2 id="browsing-apacheds-schemas">Browsing ApacheDS schemas</h2>
+<p>LDAPv3 servers publish their schema via LDAP. Thus it is possible to list the schema elements with standard LDAP tools. For instance it is possible to use the ldapsearch command line tool to list all object classes</p>
+<pre><code>$ ldapsearch -h zanzibar -p 10389 -D &quot;uid=admin,ou=system&quot; -w ****** \
+     -b &quot;cn=schema&quot; -s base &quot;(objectclass=subschema)&quot; objectclasses
+...
+objectClasses: ( 2.5.6.6 NAME 'person' DESC 'RFC2256: a person' SUP top 
+    STRUCTURAL MUST ( sn $ cn ) MAY ( userPassword $ telephoneNumber $ 
+    seeAlso $ description ) X-SCHEMA 'core' )
+...
+</code></pre>
+<p>The output (formatted as defines in RFC 4512) contains all things which are interesting to know about an object class (required attributes, optional attributes etc.), but is not easy to read by a human user. It is therefore often appropriate to use a GUI tool to browse the schema (which basically performs the same search operations but presents the output prettily). One option is Apache Directory Studio, an Eclipse based LDAP tool set which contains a powerful graphical Schema browser:</p>
+<p><img src="images/schema-browser-person.png" alt="Schema brower"></p>
+<p>The techniques described above work for all LDAP v3 compliant servers. The ability to browse the schema gives us a chance to check whether our future changes to the schema really took place.</p>
+<p>The schema subsystem of ApacheDS 1.5 stores the schema elements as entries in the DIT. You can find them within a special partition with suffix ou=schema; simply browse the content with your favorite LDAP Browser. With Apache Directory Studio, it looks like this:</p>
+<p><img src="images/schema-browser-tree.png" alt="ApacheDS Schemas"></p>
+<p>Browsing the schema like this gives a good impression of the ApacheDS implementation of the schema subsystem and an even better way to analyze effects during schema updates. But keep in mind that the storage scheme is server dependent; not all LDAP server implementations store the schema elements in the DIT.</p>
+<h2 id="which-oids-should-you-use">Which OIDs should you use?</h2>
+<p>If you plan to add custom schema elements, you need numerical OIDs (object identifiers) for them. If you implement schema elements defined somewhere else (like eduPerson), you can use the OIDs which are are part of their descriptions. But what if you plan to design your own?</p>
+<h3 id="some-oid-background-information">Some OID background information</h3>
+<p>An OID is a string formed by a series of numbers which are separated by a dot (like &ldquo;12.4.1971.0.1&rdquo;). Many elements in directory world use OIDs: Controls, extended operations and schema elements (like &ldquo;2.5.6.6&rdquo; for object class person). They identify these objects in a unique fashion and therefore avoid name clashes.</p>
+<p>How is this accomplished? OIDs are assigned hierarchically: The owner of an OID is allowed to create new IDs by simply appending numbers. S/he is also allowed to delegate ownership of newly created OIDs to someone else. This way every person or organization is able to allocate an arbitrary number of new OIDs after obtaining one from &ldquo;higher command&rdquo;, and they are still unique world-wide.</p>
+<h3 id="oids-in-the-example">OIDs in the example</h3>
+<p>OIDs starting with <strong>1.3.6.1.4.1</strong> represent IANA-registered private enterprises, Apache Software Foundation for instance owns the OID <strong>1.3.6.1.4.1.18060</strong>. The <strong>1.3.6.1.4.1.18060.0</strong> has been assigned to the Apache Directory project by the ASF, and we have decided to use the branch &ldquo;1.3.6.1.4.1.18060.0.4.3&rdquo; for schema elements used as examples in the documentation.</p>
+<h3 id="oids-for-your-own-custom-schema-elements">OIDs for your own custom schema elements</h3>
+<p>If you just want to play around with the schema subsystem, want to explore the capabilities, or learn about LDAP in general, you will probably not mind about unique OIDs. This is comparable to using self-signed certificates for SSL experiments. But it is nevertheless necessary that you use OIDs which are not used in the schema yet (otherwise addition will fail).</p>
+<p>But if you plan to use your schema elements in a production environment (an object class for instance which describes employees with company specific attributes), or to ship your schema elements with a product (e.g. a CRM or portal solution), you should definitely use unique OIDs. In order to do this you have to obtain OIDs from a branch assigned to your company or organization (your network administrators will be helpful here, do not invent OIDs without asking or obtaining a branch from someone who owns the prefix OID). If your company or organization does not own on OID, there are several option to obtain one, one is the IANA (Internet Assigned Numbers Authority). It is also possible to get an OID branch as an individual.</p>
+<DIV class="info" markdown="1">
+**Obtaining a PEN**
+You can ask for your own PEN (Private Enterprise Number) here : http://pen.iana.org/pen/PenApplication.page
+It takes a few weeks to have a private OID assigned to you, so be patient, or do it early !
+</DIV>
+<h2 id="a-simple-example">A simple example</h2>
+<p>The goal is to store ship entries in our directory, backing the &ldquo;Seven Seas&rdquo; example used throughout the Basic User&rsquo;s Guide. There are no schema elements shipped with ApacheDS covering our naval requirements. So we add some.</p>
+<p>Here is a sample entry for a ship in LDIF:</p>
+<pre><code>dn: cn=HMS Victory,ou=ships,o=sevenSeas
+objectClass: top
+objectClass: ship
+cn: HMS Victory
+numberOfGuns: 104
+description: a ship of the line of the Royal Navy
+description: built between 1759 and 1765
+</code></pre>
+<p>A ship entry is comprised of a mandatory value for common name (cn) of the ship, description values and the number of guns (numberOfGuns). Thus a new object class ship and a new attribute type numberOfGuns have to be added to the schema. There are different ways to accomplish the task. In any case, we have to add the attribute type first, because the object class refers to it.</p>
+<h4 id="attribute-type-numberofguns">attribute type numberOfGuns</h4>
+<p>Here is the definition of our custom attribute type numberOfGuns formatted according to RFC 4512.</p>
+<pre><code>( 1.3.6.1.4.1.18060.0.4.3.2.1 
+ NAME 'numberOfGuns'  DESC 'Number of guns of a ship'
+ EQUALITY integerMatch SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 
+ SINGLE-VALUE 
+)
+</code></pre>
+<h4 id="object-class-ship">object class ship</h4>
+<p>Custom object class ship is defined as follows</p>
+<pre><code>( 1.3.6.1.4.1.18060.0.4.3.3.1 
+ NAME 'ship' DESC 'An entry which represents a ship' 
+ SUP top STRUCTURAL 
+ MUST cn MAY ( numberOfGuns $ description ) 
+)
+</code></pre>
+<h2 id="using-apache-directory-studio-schema-editor-to-load-the-new-schema-elements">Using Apache Directory Studio Schema Editor to load the new schema elements</h2>
+<p>A very convenient way to add your own schema elements to Apache Directory Server is to use the Schema Editor of Apache Directory Studio. It is even possible to define/design them within the UI, but we opt here use a prepared file in OpenLDAP format and import it using Studio. This is a good choice if you have the schema to add already described that way.</p>
+<p>Our file sevenSeas.schema looks like this:</p>
+<pre><code>attributetype ( 1.3.6.1.4.1.18060.0.4.3.2.1 
+        NAME 'numberOfGuns' 
+        DESC 'Number of guns of a ship'
+        EQUALITY integerMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.27 
+        SINGLE-VALUE 
+ )
+ 
+objectclass ( 1.3.6.1.4.1.18060.0.4.3.3.1 
+        NAME 'ship'
+        DESC 'An entry which represents a ship' 
+        SUP top 
+        STRUCTURAL 
+        MUST cn 
+        MAY ( numberOfGuns $ description ) 
+ )
+</code></pre>
+<p>In Eclipse with the Apache Directory Studio plugins installed (or alternatively the standalone RCP application of Apache Directory Studio, if you prefer this), open the Schemas Editor :</p>
+<p><img src="images/schema-editor.png" alt="Schema Editor"></p>
+<p>Now, create a new schema project. Here, you have a choice :</p>
+<ul>
+<li>either you create a offline schema project</li>
+<li>or you create a project that will pull the schema from an existing ApacheDS server (it must be running, and a connection must have been created in Studio)</li>
+</ul>
+<h3 id="offline-schema-project">Offline schema project</h3>
+<p>You need to create a new schema project, and to select the targeted server (either ApacheDS or OpenLDAP) :</p>
+<p><img src="images/select-target-server.png" alt="Select target server"></p>
+<p>Then select all the schema you want to use this is necessary if you are to extend an AttributeType or an ObjectClass in your own schema)</p>
+<h3 id="connected-schema-project">Connected schema project</h3>
+<p>In this case, you will see all the existing schema in the ApacheDS server you are connected to :</p>
+<p><img src="images/connected-schema-project.png" alt="Connected Schema Project"></p>
+<h3 id="creating-the-new-schema">Creating the new schema</h3>
+<p>Create the new schema you want to add by clicking on the &lsquo;schema creation&rsquo; icon, as shown in the following picture :</p>
+<p><img src="images/create-schema.png" alt="Create Schema"></p>
+<p>Now, you can add the Attribute Type or ObjectClasses you need in this added schema (see how to create schema elements in Apache Directory Studio documentation).</p>
+<DIV class="warning" markdown="1">
+Sadly, in this version, the modifications you have made on a schema won't be injected into the server. In fact, the existing schemas are loaded from the server, and every modification is applied locally, not on the remote server.
+<p>In order to inject the modified schema, you need to export the modifications in LDIF format for ApacheDS, and to import this LDIF into the targeted ApacheDS server.</p>
+</DIV>
+<p>Once this is done, you hav to export the modifications in a format that will fit what is expected by ApacheDS. Right click on the schemas windows, select &lsquo;export-&gt; Schemas for ApacheDS&rsquo;, and in the popup, select the schema you have added :</p>
+<p><img src="images/export-schema.png" alt="Export Schema"></p>
+<h3 id="importing-the-schema">Importing the schema</h3>
+<p>The last step is to import the newly created LDIF into your ApacheDS instance. Just import it as any other LDIF, it will create a new element in your server schema :
+<img src="images/import-schema.png" alt="Import Schema"></p>
+<p>You should see your schema into the list of supported schemas.</p>
+<DIV class="warning" markdown="1">
+You must restart the server if you want to use the added AttributeTypes or ObjectClasses. The schema is currently not dynamic in ApacheDS
+</DIV>
+
+
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="2.3-introducing-schema.html">2.3 - Introducing Schema</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="2.3-introducing-schema.html">2.3 - Introducing Schema</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="2.3.2-enabling-schema.html">2.3.2 - Enabling Schema</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

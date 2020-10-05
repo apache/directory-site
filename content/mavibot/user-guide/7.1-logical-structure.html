@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>7.1 - Logical Structure &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/turquoise.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/mavibot-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+             
+                ApacheDS
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+             
+                LDAP API
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+            
+                <strong>Mavibot</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>Mavibot 1.0</h5>
+                <ul>
+                    <li><a href="/mavibot/">Home</a></li>
+                    <li><a href="/mavibot/news.html">News</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/mavibot/downloads.html">Version 1.0.0-M8</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/mavibot/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Getting Started</h5>
+                <ul>
+                    <li><a href="/mavibot/vision.html">Vision</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/mavibot/five-minutes-tutorial.html">Five minutes tutorial</a></li>
+                    <li><a href="/mavibot/user-guide.html">User Guide</a></li>
+                    <li><a href="/mavibot/gen-docs/latest/apidocs/">JavaDocs</a></li>
+                    <li><a href="/mavibot/gen-docs/latest/xref/">Cross-Reference</a></li>
+                    
+                    <li><a href="/mavibot/developer-guide.html">Developer Guide</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="7-btree-internals.html">7 - Mavibot Internals</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="7-btree-internals.html">7 - Mavibot Internals</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="7.2-physical-storage.html">7.2 - Physical storage</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+            
+	<h1 id="71---logical-structure">7.1 - Logical Structure</h1>
+<p><strong>Mavibot</strong> stores data in one or more <em>BTree</em>s, and defines a few more internal data structures to handle the data and <em>BTree</em>s.</p>
+<p>We can have three different ways to use <strong>Mavibot</strong> :</p>
+<ul>
+<li>using in-memory <em>BTree</em>s (IN-MEMORY)</li>
+<li>using in-memory <em>BTree</em>s stored on disk (PERSISTED)</li>
+<li>storing the <em>BTree</em>s on disk (so called managed <em>BTree</em>s) (MANAGED)</li>
+</ul>
+<h2 id="in-memory-btrees">In Memory BTrees</h2>
+<p>They are <em>BTree</em>s stored in memory : as soon as you quit your program, all the stored data will be lost. The biggest advantage is that it is fast.</p>
+<p>As <em>Mavibot</em> is handling <strong>MVCC</strong> <em>BTree</em>s, you have to keep in mind that for each modification, we copy pages and values, hence the <em>BTree</em>s will quickly grow and use a lot of memory. On the other hand, copied data which are not anymore in use will be discarded automatically. The beauty of having a garbage collector is that we don&rsquo;t have to take care of this copied data, i.e., if they are not any more referenced by any objects using the <em>BTree</em>, they will be reclaimed by the GC.</p>
+<p>The below diagram shows the logical representation of an in-memory <em>BTree</em> :</p>
+<p><img src="images/InMemoryBTree.png" alt="In-Memory BTree"></p>
+<h2 id="persistent-btrees">Persistent BTrees</h2>
+<p>A persistent <em>BTree</em> is a <em>BTree</em> which can be flushed to disk on demand. The <em>BTree</em> is a in-Memory <em>BTree</em>, but while closing it, then content of the latest revision is serialized on disk. The data can be loaded while opening a persistent BTree.</p>
+<p>Other than that, there is no difference between an in-memory <em>BTree</em> and a persistent <em>BTree</em>.</p>
+<h2 id="managed-btrees">Managed BTrees</h2>
+<p>Managed <em>BTree</em>s are very different : data is guaranteed to be preserved on disk after each modification, even when the program crashes, it is guaranteed that the disk will contain everything needed to recover the <em>BTree</em> to the state it was in just before the crash.</p>
+<p>This is important to understand that in managed mode, not all <em>BTree</em>s (of a mavibot database) are kept in memory. In other words, all nodes, except the <em>root</em> node, of a BTree may or may not be present at the time of accessing. <strong>Mavibot</strong> will fetch these nodes from disk when needed.</p>
+<p>Obviously this approach has both pros and cons :</p>
+<p>Pros :</p>
+<ul>
+<li>there is no limit on the number of elements one can store in a BTree, except on the available disk space</li>
+<li>A <em>BTree</em> will always be consistent, even if there was a crash</li>
+<li>data durability is guaranteed</li>
+</ul>
+<p>Cons :</p>
+<ul>
+<li>reads might be costly when the data is not present in memory, due to fetching data from disk</li>
+<li>accessing the data from disk requires an extra layer of accessor code, this costs some extra memory</li>
+</ul>
+<p>Here, this is just a question of tradeoff : depending on the existing memory size, and the level of robustness needed, one may decide to go for an in-memory <em>BTree</em>, a persistent <em>BTree</em> or a managed one. Most of the time, though, managed <em>BTree</em> is what you want to use.</p>
+<p>Also note that we use internal cache to speed up the data access. This cache and its size can be configured.</p>
+<p>Managed <em>BTree</em>s are stored using <em>Nodes</em> and <em>Leaves</em>. A <em>Node</em> contains only keys or references to underlaying nodes or leaves. A <em>Leaf</em> contains keys and values. As we don&rsquo;t want to eat too much memory, the references to nodes, leaves, keys and values are stored as offset, read and translated to java objects on demand. For instance, we keep an offset to a key until someone needs to access the key, then we deserialize this key and store it in memory. This is the very same for references to nodes, leaves or values.</p>
+<p>Here is a picture describing this structure :</p>
+<p><img src="images/managedReferences.png" alt="Managed references"></p>
+<p>In this BTree, only two pages are present in memory : one node and one leaf. In these pages, the keys aren&rsquo;t yet objects, they are pointing to the page&rsquo;s raw data, except for the <strong>D</strong> key and it&rsquo;s value, they were loaded and deserialized.</p>
+<p>Here each element, contains an offset and the byte[] of the serialized value or the deserialized value if the value has already been accessed.</p>
+<h3 id="users-btrees">User&rsquo;s BTrees</h3>
+<p>These are the BTrees that are created by the user and these trees hold the data.</p>
+<h3 id="special-btrees">Special BTrees</h3>
+<p>These are the two special <em>BTree</em>s used internally to manage the revisions and the copied pages.</p>
+<h4 id="revision-tree">Revision tree</h4>
+<p>Mavibot uses this tree to keep track of each active revision, so that a search can work with a specific revision. The idea is that when a search starts, it uses the latest revision, but while the search is being processed a new modification can occur which creates a new revision. And also sometimes, we may want to keep a revision active for quite a long time.</p>
+<p>This revision <em>BTree</em> manages the revisions of all the managed <em>BTree</em>s.
+The key of the revision btree is a combination of the <em>BTree</em> name and its revision.</p>
+<p>When a revision is not anymore used, it can be removed from the revision <em>BTree</em>.</p>
+<p>Unlike all other user btrees the revision <em>BTree</em> is not a <strong>MVCC</strong> <em>BTree</em>. In other words, only the latest revision of the revision btree is preserved(i.e, all the modified pages are immediately freed)</p>
+<h4 id="copied-pages-btree">Copied pages BTree</h4>
+<p>Once a new revision is created, the pages that were copied are not anymore in use except if the revisions they are associated with are still in use. These pages cannot be discarded and moved
+to the free list until the associated revision is free.</p>
+<p>A dedicated <em>BTree</em> is used to keep track of the copied pages, which will be reclaimed and moved to the free pages list once the associated revision gets released.</p>
+<h3 id="managing-the-free-pages">Managing the free pages</h3>
+<p>There is a mechanism to manage the <em>PageIO</em> that are not anymore in use. This is a linked list in which the free pages are added. Whenever a new page(s) is needed this list is searched first and reclaim as many <em>PageIO</em>s as needed - until the end of this list is reached. When a page gets freed that will be added at the end of the free page list.</p>
+<p>Note that only logical pages are released, which may be stored in many <em>PageIO</em>s. These <em>PageIO</em>s are already linked, hence while adding this logical page to the free page list, the last existing free <em>PageIO</em> will be modified to point to the first freed <em>PageIO</em> of this logical page, and update the pointer of the last free page to the last <em>PageIO</em> of this logical page.</p>
+
+
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="7-btree-internals.html">7 - Mavibot Internals</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="7-btree-internals.html">7 - Mavibot Internals</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="7.2-physical-storage.html">7.2 - Physical storage</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

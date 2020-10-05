@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>0.1 - Reporting Bugs &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/green.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/server-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+            
+                <strong>ApacheDS</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+             
+                LDAP API
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>ApacheDS 2.0</h5>
+                <ul>
+                    <li><a href="/apacheds/">Home</a></li>
+                    <li><a href="/apacheds/news.html">News</a></li>
+                    <li><a href="/apacheds/features.html">Features</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/apacheds/downloads.html">ApacheDS 2.0.0.AM26</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/apacheds/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/apacheds/basic-user-guide.html">Basic User Guide </a></li>
+                    <li><a href="/apacheds/advanced-user-guide.html">Advanced User Guide</a></li>
+                    <li><a href="/apacheds/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/apacheds/kerberos-user-guide.html">Kerberos User Guide</a></li>
+                    <li><a href="/apacheds/configuration/ads-2.0-configuration.html">Configuration</a></li>
+                    <li><a href="/apacheds/gen-docs/latest/apidocs">JavaDocs</a></li>
+                    <li><a href="/apacheds/gen-docs/latest/xref">Cross-Reference</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="0-community.html">0 - Community</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="0-community.html">0 - Community</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="0.2-building-trunks.html">0.2 - Building Trunks</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+            
+	<h1 id="01---reporting-bugs">0.1 - Reporting Bugs</h1>
+<p>So you found a bug in ApacheDS.  Don&rsquo;t worry this is a good thing!  We can fix it but need your help.  There are different degrees to your ability to help out.  Some of you have developer skills so you might be able to write a test case that pin points that bug.</p>
+<p>This wiki page shows you how you can help us to help you.</p>
+<h2 id="creating-a-testcase-project-using-the-apacheds-archetype-testcase">Creating a testcase project: using the apacheds-archetype-testcase.</h2>
+<p>We&rsquo;ve created a simple archetype for you to rapidly create a Maven project that fires up ApacheDS in embedded mode within a JUnit testcase. This test case will start up ApacheDS as a server on any available port above 1024 on your machine. You can then use JNDI or the Apache LDAP API going over the wire on that port above 1024. You can also use the ApacheDS core API to access the data directly.</p>
+<p>So you can write client code in your test case immediately. Just add your code, tar gzip the project, and attach it to your JIRA issue on the ApacheDS JIRA here:</p>
+<p>[https://issues.apache.org/jira/browse/DIRSERVER]</p>
+<p>We&rsquo;ll prioritize your bug higher than others and probably fix it rapidly because the problem is isolated thanks to your testcase submission. We will in fact strip out your testcase and add it to our suite of test cases to make sure ApacheDS always passes this integration test you&rsquo;ve provided.</p>
+<h3 id="installing-the-apacheds-archetype-testcase">Installing the apacheds-archetype-testcase</h3>
+<p>To use the archetype you&rsquo;ll need to check it out and install it. Here&rsquo;s how you can do that for the leading edge of 2.0.0:</p>
+<pre><code>svn co http://svn.apache.org/repos/asf/directory/documentation/samples/trunk/apacheds-archetype-testcase
+cd apacheds-archetype-testcase
+mvn install
+</code></pre>
+<p>This will install the archetype onto your local repository. Now you can invoke the archetype.</p>
+<p>h3. Invoking (running) the archetype: generating the testcase project</p>
+<p>Once you checkout the archetype plugin and install it you can use it like so to generate a foo-test project:
+{noformat}
+mvn archetype:generate -DarchetypeGroupId=org.apache.directory.samples<br>
+-DarchetypeArtifactId=apacheds-archetype-testcase<br>
+-DarchetypeVersion=1.5.5-SNAPSHOT<br>
+-DgroupId=com.acme -DartifactId=foo-test -Dpackage=com.acme
+{noformat}
+This will generate the default test case project with the following tree structure:
+{noformat}
+~/foo-test$ tree
+.
+|&ndash; pom.xml
+<code>-- src |-- main |   </code>&ndash; java
+|       <code>-- com |           </code>&ndash; acme
+|               <code>-- Dummy.java</code>&ndash; test
+|&ndash; java
+|   <code>-- com |       </code>&ndash; acme
+|           |&ndash; AdvancedTest.java
+|           |&ndash; AdvancedTestApacheDsFactory.java
+|           <code>-- MinimalTest.java</code>&ndash; resources
+|&ndash; log4j.properties
+|&ndash; sevenSeas_data.ldif
+`&ndash; sevenSeas_schema.ldif</p>
+<p>10 directories, 8 files
+{noformat}</p>
+<ul>
+<li>Dummy.java - this is just a placeholder file to make sure that Maven works properly.</li>
+<li>MinimalTest - a minimal ApacheDS Integration Test. It contains two test methods to demonstrate usage of JNDI and the ApacheDS core API. Add your own test method here.</li>
+<li>AdvancedTest - an advanced ApacheDS Integration Test in case you need a special configuration for your test. It demonstrates how to add a new partition, how to enable LDAPS, how to enable a disabled schema, how to inject a custom schema, and how to inject custom test data.</li>
+<li>AdvancedTestApacheDsFactory - configures ApacheDS for the advanced test</li>
+<li>pom.xml - the Maven Project Object Model (POM) for your new testcase project (can remain as is).</li>
+<li>log4j.properties - Log4j configuration file that controls ApacheDS logging for your convenience; edit this file to control logging output.</li>
+<li>sevenSeas_data.ldif - sample custom test data used by the advanced test.</li>
+<li>sevenSeas_schema.ldif - sample custom schema used by the advanced test.</li>
+</ul>
+<p>Once you do this you can cd into foo-test and just build and test it for fun to see what happens.  This will build, and test the sample test cases (they should pass) that comes packaged with the project you just created. CD into foo-test and run the following command:
+{noformat}
+mvn test
+{noformat}
+Now you can customize the MinimalTest.java or AdvancedTest.java file to isolate your bug. Open the classes with your favorite editor and goto town.  However if you want to pull this project into your IDE and edit it there you can use Maven&rsquo;s IDEA, Eclipse and Netbeans integration to create IDE project descriptors for them.  Then you can import this project into your IDE.  Here&rsquo;s how:</p>
+<p>h4. For IDEA</p>
+<p>{noformat}
+mvn idea:idea
+{noformat}</p>
+<p>h4. For Eclipse</p>
+<p>{noformat}
+mvn eclipse:eclipse
+{noformat}</p>
+<p>h4. For Netbeans</p>
+<p>See this page: [http://maven.apache.org/guides/mini/guide-ide-netbeans/guide-ide-netbeans.html].</p>
+<p>h3. Note about version</p>
+<p>Note that this archetype is specific for ApacheDS 1.5.5.</p>
+<p>h2. Why a Maven Archetype for Testing?</p>
+<h1 id="easy-and-fast-to-start-integration-testing-apacheds">Easy and fast to start integration testing ApacheDS.</h1>
+<h1 id="we-developers-of-apacheds-can-use-it-ourselves">We (developers of ApacheDS) can use it ourselves.</h1>
+<h1 id="we-want-users-of-apacheds-to-help-us-help-them">We want users of ApacheDS to help us help them.</h1>
+<h1 id="users-need-to-customize-a-project-with-perhaps-additional-dependencies">Users need to customize a project with perhaps additional dependencies.</h1>
+<h1 id="users-can-add-many-test-cases-to-the-project">Users can add many test cases to the project.</h1>
+<h1 id="tests-isolating-custom-bugs-can-be-incorporated-into-our-community-test-suite-for-apacheds">Tests isolating custom bugs can be incorporated into our community test suite for ApacheDS.</h1>
+
+
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="0-community.html">0 - Community</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="0-community.html">0 - Community</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="0.2-building-trunks.html">0.2 - Building Trunks</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

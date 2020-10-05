@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>4.2 - Schema Manager &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/brown.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/api-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+             
+                ApacheDS
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+            
+                <strong>LDAP API</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>LDAP API </h5>
+                <ul>
+                    <li><a href="/api/">Home</a></li>
+                    <li><a href="/api/news.html">News</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/api/downloads-1.html">Version 1.0.3</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/downloads-2.html">Version 2.0.1</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Getting Started</h5>
+                <ul>
+                    <li><a href="/api/vision.html">Vision</a></li>
+                    <li><a href="/api/java-api.html">Java API</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/api/five-minutes-tutorial.html">Five minute tutorial</a></li>
+                    <li><a href="/api/user-guide.html">User Guide</a></li>
+                    <li><a href="/api/migration-guide.html">API 1 to 2 migration</a></li>
+                    <li><a href="/api/gen-docs/latest/apidocs/">JavaDocs</a></li>
+                    <li><a href="/api/gen-docs/latest2/apidocs/">JavaDocs 2</a></li>
+                    <li><a href="/api/gen-docs/latest/xref/">Cross-Reference</a></li>
+                    <li><a href="/api/gen-docs/latest2/xref/">Cross-Reference 2</a></li>
+                    
+                    <li><a href="/api/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/api/internal-design-guide.html">Internal Guide</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="4.1-schema.html">4.1 - Schema</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="4-schema-management.html">4 - Schema Management</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="5-ldap-security.html">5 - LDAP Security</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+            
+	<h1 id="42---schema-manager">4.2 - Schema Manager</h1>
+<p>The API and the ApacheDS server components must to keep schema elements available to interrogate and use. This is done through what we call a <strong>SchemaManager</strong>. It hides the internal structure of the schema objects from the users.</p>
+<h2 id="contents">Contents</h2>
+<ul>
+<li><a href="4.2.1-schema-objects.html">SchemaObjects</a>
+<ul>
+<li><a href="4.2.1.1-attribute-types.html">AttributeTypes</a></li>
+<li><a href="4.2.1.2-object-classes.html">ObjectClasses</a></li>
+<li><a href="4.2.1.3-syntaxes.html">Syntaxes</a></li>
+<li><a href="4.2.1.4-matching-rules.html">MatchingRules</a></li>
+<li><a href="4.2.1.5-dit-content-rules.html">DITContentRules</a></li>
+<li><a href="4.2.1.6-dit-structure-rules.html">DITStructureRules</a></li>
+<li><a href="4.2.1.7-matching-rule-uses.html">MatchingRuleUses</a></li>
+<li><a href="4.2.1.8-name-forms.html">NameForms</a></li>
+<li><a href="4.2.1.9-apacheds-schema-elements.html">ApacheDS Schema Elements</a></li>
+</ul>
+</li>
+<li><a href="4.2.2-registries.html">Registries</a></li>
+<li><a href="4.2.43-schema-loader.html">SchemaLoader</a></li>
+</ul>
+<h2 id="introduction">Introduction</h2>
+<p>The <strong>SchemaManager</strong> stores all the Schema elements (<strong><a href="">AttributeTypes (e)</a></strong>, <strong><a href="">ObjectClasses (e)</a></strong>, &hellip; Internally, we store these elements into what is call a <strong>Registries</strong>.  Registries are hives where each Schema Object is stored. Each schema element has a dedicated <strong>Registry</strong> associated with it. Think of it as a Map which returns a reference to a specific Schema Element according to its name or OID.</p>
+<pre><code>Note : 
+Each Schema Element is properly defined by one of its names or &lt;b&gt;OID&lt;/b&gt;. The &lt;b&gt;OID&lt;/b&gt; must be unique across all schema elements, 
+when the name can be used in different schema element (for instance, the &lt;b&gt;audio&lt;/b&gt; &lt;b&gt;AttributeType&lt;/b&gt; or &lt;b&gt;ObjectClass&lt;/b&gt;)
+</code></pre>
+<p>From the user point of view, the <strong>SchemaManager</strong> is seen as a representation of the available LDAP schema elements. It can of course be extended, or modified, by adding or removing schema elements. For historic reasons, the schema elements are gathered into what we call a <strong>schema</strong>. Usually, this is what you load into a <strong>schemaManager</strong></p>
+<p>The server has one instance of a <strong>SchemaManager</strong>, which is used internally, and a users aren&rsquo;t allowed to control it. On the client side, we can load a <strong>SchemaManager</strong> either from the server (which will be a duplicated instance), or from existing schema files. We can even create a brand new <strong>SchemaManager</strong> and fill it with anything needed.</p>
+<h2 id="the-various-pieces-of-the-puzzle">The various pieces of the puzzle&hellip;</h2>
+<p>Creating a <strong>SchemaManager</strong> results in a complex structure being created, and involves a lot of other helper class. We will separate the description into three groups:</p>
+<ul>
+<li>The elements stored in the <strong>SchemaManager</strong></li>
+<li>The containers in which those <strong>SchemaObject</strong> instances are stored, called <strong>Registries</strong></li>
+<li>The classes used to initialize the <strong>SchemaManager</strong>, called the <strong>SchemaLoader</strong> (whch comes in various flavors)</li>
+</ul>
+<h2 id="getting-a-schemamanager">Getting a SchemaManager</h2>
+<p>The very first thing we do to access the schema elements is to gain access to the <strong>SchemaManager</strong>. This can be done in many ways:</p>
+<ul>
+<li>you can create one from scratch, and load it with the elements you want</li>
+<li>you can use a default <strong>SchemaManager</strong>, with some default schema elements</li>
+<li>you can create a <strong>SchemaManager</strong>, and load the schema elements from a destination</li>
+<li>last, not least - and probably the most interesting possibility -, you can connect to a LDAP server and load the schema from it.</li>
+</ul>
+<p>We will show how to proceed in each of these four use cases.</p>
+<h2 id="using-a-schemamanager">Using a SchemaManager</h2>
+<p>Let&rsquo;s first assume you have an instance of a <strong>SchemaManager</strong> (we will see later how to get such an instance).</p>
+
+
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="4.1-schema.html">4.1 - Schema</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="4-schema-management.html">4 - Schema Management</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="5-ldap-security.html">5 - LDAP Security</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>1.2 - Newtork Layer &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/green.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/server-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+            
+                <strong>ApacheDS</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+             
+                LDAP API
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>ApacheDS 2.0</h5>
+                <ul>
+                    <li><a href="/apacheds/">Home</a></li>
+                    <li><a href="/apacheds/news.html">News</a></li>
+                    <li><a href="/apacheds/features.html">Features</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/apacheds/downloads.html">ApacheDS 2.0.0.AM26</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/apacheds/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/apacheds/basic-user-guide.html">Basic User Guide </a></li>
+                    <li><a href="/apacheds/advanced-user-guide.html">Advanced User Guide</a></li>
+                    <li><a href="/apacheds/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/apacheds/kerberos-user-guide.html">Kerberos User Guide</a></li>
+                    <li><a href="/apacheds/configuration/ads-2.0-configuration.html">Configuration</a></li>
+                    <li><a href="/apacheds/gen-docs/latest/apidocs">JavaDocs</a></li>
+                    <li><a href="/apacheds/gen-docs/latest/xref">Cross-Reference</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="1.1-architecture-overview.html">1.1 - Architecture Overview</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="1-architecture.html">1 - Architecture</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="1.3-directory-service.html">1.3 - DirectoryService</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+            
+	<h1 id="12---network-layer">1.2 - Network Layer</h1>
+<p>This layer is the part the user connects to when he wants to obtain some data from the server. This is not a mandatory part of the server : we don&rsquo;t need to use it when the server is embedded.</p>
+<p>We offer more than just LDAP protocol, the server also include various protocols :</p>
+<ul>
+<li>Kerberos</li>
+<li>NTP</li>
+<li>DHCP</li>
+<li>DNS</li>
+<li>ChangePassword</li>
+</ul>
+<p>Not all of them are implemented in the current version, but at least the Kerberos server is available. The other protocols have been developed as a proof of concept : as they are all depending upon a storage database, we have used the LDAP server as a storage.</p>
+<p>It&rsquo;s perfectly possible to imagine more protocols being implemented in the near future&hellip;</p>
+<h2 id="server-startup">Server startup</h2>
+<p>This chapter title is a bit misleading. We don&rsquo;t start a server, we start a <em>DirectoryService</em>, then we start various servers on top of it.
+The <em>DirectoryService</em> is the part responsible for the management of data (retrieval, storage, etc). All the servers can access this storage if needed.</p>
+<p>So when the <em>DirectoryService</em> has been started and is operational, we can start the various servers, which will accept incoming requests from remote peers.</p>
+<h3 id="transports">Transports</h3>
+<p>We allow connection through the definition of <em>transports</em>. A <em>Transport</em> is a <strong>TCP</strong> or an <strong>UDP</strong> socket capable of absorbing a request and to send a response. Depending on the type of server, we may declare one or more <strong>TCP</strong> <em>Transports</em>, or a <strong>TCP</strong> and a <strong>UDP</strong> <em>Transports</em>, or an <strong>UDP</strong> <em>Transport</em> only.</p>
+<h3 id="ldap-server">Ldap Server</h3>
+<p>The LDAP server needs one or two <strong>TCP</strong> <em>Transport</em>. We have the standard <em>LDAP</em> port (defaulting to <em>10389</em> for <em>ApacheDS</em>, but the well know port is usually 389), and one can also declare the <em>LDAPS</em> port (defaulting to <em>10636</em> for <em>ApacheDS</em>, but the well know port is usually 636).</p>
+<DIV class="warning" markdown="1">
+Note that *LDAPS* is considered as deprecated.
+</DIV>
+<h3 id="kerberos-server">Kerberos Server</h3>
+<p>The Kerberos Server uses one <strong>TCP</strong> <em>Transport</em> (defaulting to <em>60088</em>, but the well know port is 88 ) and one <strong>UDP</strong> _transport (same value for both ports). The idea is that the communication starts on <strong>TCP</strong> and continues on <strong>UDP</strong>.</p>
+<h3 id="changepassword-server">ChangePassword Server</h3>
+<p>The ChangePassword Server uses one <strong>TCP</strong> <em>Transport</em> and one <strong>UDP</strong> transport, too. The default value is <em>60464</em>, but the well known port is <em>464</em>.</p>
+<h3 id="http-server">Http Server</h3>
+<p>We have a HttpServer running too, it&rsquo;s used for management. The declared ports are both <strong>TCP</strong> port, one is for HTTP and its default value is <em>8080</em>, the other one is for HTTPS and its default value is <em>8443</em>.</p>
+
+
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="1.1-architecture-overview.html">1.1 - Architecture Overview</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="1-architecture.html">1 - Architecture</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="1.3-directory-service.html">1.3 - DirectoryService</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

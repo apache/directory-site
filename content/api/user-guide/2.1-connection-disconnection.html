@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>2.1 - Connection and disconnection &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/brown.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/api-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+             
+                ApacheDS
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+            
+                <strong>LDAP API</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>LDAP API </h5>
+                <ul>
+                    <li><a href="/api/">Home</a></li>
+                    <li><a href="/api/news.html">News</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/api/downloads-1.html">Version 1.0.3</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/downloads-2.html">Version 2.0.1</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Getting Started</h5>
+                <ul>
+                    <li><a href="/api/vision.html">Vision</a></li>
+                    <li><a href="/api/java-api.html">Java API</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/api/five-minutes-tutorial.html">Five minute tutorial</a></li>
+                    <li><a href="/api/user-guide.html">User Guide</a></li>
+                    <li><a href="/api/migration-guide.html">API 1 to 2 migration</a></li>
+                    <li><a href="/api/gen-docs/latest/apidocs/">JavaDocs</a></li>
+                    <li><a href="/api/gen-docs/latest2/apidocs/">JavaDocs 2</a></li>
+                    <li><a href="/api/gen-docs/latest/xref/">Cross-Reference</a></li>
+                    <li><a href="/api/gen-docs/latest2/xref/">Cross-Reference 2</a></li>
+                    
+                    <li><a href="/api/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/api/internal-design-guide.html">Internal Guide</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="2-basic-ldap-api-usage.html">2 - Basic LDAP API usage</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="2-basic-ldap-api-usage.html">2 - Basic LDAP API usage</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="2.2-binding-unbinding.html">2.2 - Binding and unbinding</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+            
+	<h1 id="21---connection-and-disconnection">2.1 - Connection and disconnection</h1>
+<p>The <strong>LDAP</strong> is a protocol requires users to be connected, and likely identified (authenticated), before sending requests to the server. This connection can potentially be maintained forever. What makes the <strong>LDAP</strong> protocol different from, say, the <strong>HTTP</strong> protocol is that the connections are issued explicitly. Here we&rsquo;ll see how it&rsquo;s done.</p>
+<h2 id="opening-a-connection">Opening a connection</h2>
+<p>We can open a secure or a standard connection.</p>
+<h3 id="standard-connection">Standard connection</h3>
+<p>We can first establish a standard connection, where the data is sent and received in clear text (encoded in ASN.1 BER, but not encrypted). This example shows how it&rsquo;s done:</p>
+<pre><code>:::Java
+LdapConnection connection = new LdapNetworkConnection( &quot;localhost&quot;, 389 );
+</code></pre>
+<p>Here we created an unsafe connection locally using the 389 port. Which is quite simple to do but not safe because data is not encrypted.</p>
+<h3 id="secure-connection">Secure connection</h3>
+<p>Although the <strong>LDAPS</strong> (<strong>LDAP</strong> over <strong>SSL</strong>) is now considered as deprecated, many people still use it. The big advantage of not using <strong>LDAPS</strong> is that you don&rsquo;t need two different listening ports (one for <strong>LDAP</strong> -389- and another one for <strong>LDAPS</strong> -636- ).</p>
+<p>The only difference with the previous example is that we tell the connection to use <strong>SSL</strong>, by passing <strong><em>true</em></strong> as a third parameter (incidentally, passing <strong><em>false</em></strong> sets an unsafe connection).</p>
+<p>Here is an example</p>
+<pre><code>:::Java
+LdapConnection connection = new LdapNetworkConnection( &quot;localhost&quot;, 636, true );
+</code></pre>
+<h2 id="maintaining-the-connection-opened">Maintaining the connection opened</h2>
+<p>We keep the connection open for a limited period of time, defaulting to 30 seconds. This might be not long enough, so one can change this delay by calling the <em>setTimeOut()</em> method :</p>
+<pre><code>:::Java
+LdapConnection connection = new LdapNetworkConnection( &quot;localhost&quot;, 389 );
+connection.setTimeOut( 0 );
+...
+connection.close();
+</code></pre>
+<blockquote>
+<p><strong>Note:</strong> Setting a value equal or below 0 will keep the connection open forever (assuming the connection is not explicitly closed by the client).</p>
+</blockquote>
+<h2 id="closing-the-connection">Closing the connection</h2>
+<p>Once the connection is no longer needed (remember that holding a connection keeps the session open on the server and a socket is held open between the client and the server), then you must close it. This is done by calling the <em>close()</em> method :</p>
+<pre><code>:::Java
+LdapConnection connection = new LdapNetworkConnection( &quot;localhost&quot;, 389 );
+...
+connection.close();
+</code></pre>
+<h2 id="using-a-pool-of-connections">Using a pool of connections</h2>
+<p>Creating a connection is expensive. If that connection will be reused, or if your application needs multiple connections, you may want to consider using a <em>connection pool</em>.</p>
+<p>This process is slightly more complex given that there are many parameters that can be used to tune the pool.  Here is an example:</p>
+<pre><code>:::Java
+LdapConnectionConfig config = new LdapConnectionConfig();
+config.setLdapHost( hostname );
+config.setLdapPort( port );
+config.setName( adminDn );
+config.setCredentials( adminPassword );
+
+DefaultLdapConnectionFactory factory = new DefaultLdapConnectionFactory( config );
+factory.setTimeOut( connectionTimeout );
+
+// optional, values below are defaults
+GenericObjectPool.Config poolConfig = new GenericObjectPool.Config();
+poolConfig.lifo = true;
+poolConfig.maxActive = 8;
+poolConfig.maxIdle = 8;
+poolConfig.maxWait = -1L;
+poolConfig.minEvictableIdleTimeMillis = 1000L * 60L * 30L;
+poolConfig.minIdle = 0;
+poolConfig.numTestsPerEvictionRun = 3;
+poolConfig.softMinEvictableIdleTimeMillis = -1L;
+poolConfig.testOnBorrow = false;
+poolConfig.testOnReturn = false;
+poolConfig.testWhileIdle = false;
+poolConfig.timeBetweenEvictionRunsMillis = -1L;
+poolConfig.whenExhaustedAction = GenericObjectPool.WHEN_EXHAUSTED_BLOCK;
+
+LdapConnectionPool pool = new LdapConnectionPool(
+    new DefaultPoolableLdapConnectionFactory( factory ), poolConfig ) );
+</code></pre>
+<p>This creates a pool of connections that are pre-authenticated.  If you don&rsquo;t setName and setCredentials, then the pool will contain unauthenticated connections.</p>
+<p>The DefaultPoolableLdapConnectionFactory is sufficient for many cases.  However some operations result in modifications to the connection itself.  For example, when the pool is created, a bind operation will occur with the credentials supplied as part of the config.  If you borrow a connection and perform a bind yourself, that would result in the connection being re-bound as a different user.  The next time that connection gets borrowed, things are likely to break.  If you perform any operation that results in a modification of the connection, you should instead use ValidatingPoolableLdapConnectionFactory:</p>
+<pre><code>:::Java
+...
+LdapConnectionPool pool = new LdapConnectionPool(
+    new ValidatingPoolableLdapConnectionFactory( factory ), poolConfig ) );
+...
+</code></pre>
+<p>A connection pool using this factory will unbind and rebind any connection that was modified while it was borrowed (<em>see the javadoc for more detail</em>).  This will be slower due to the additional operations, but not significantly.</p>
+
+
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="2-basic-ldap-api-usage.html">2 - Basic LDAP API usage</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="2-basic-ldap-api-usage.html">2 - Basic LDAP API usage</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="2.2-binding-unbinding.html">2.2 - Binding and unbinding</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

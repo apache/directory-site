@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>4.1. Authentication &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/green.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/server-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+            
+                <strong>ApacheDS</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+             
+                LDAP API
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>ApacheDS 2.0</h5>
+                <ul>
+                    <li><a href="/apacheds/">Home</a></li>
+                    <li><a href="/apacheds/news.html">News</a></li>
+                    <li><a href="/apacheds/features.html">Features</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/apacheds/downloads.html">ApacheDS 2.0.0.AM26</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/apacheds/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/apacheds/basic-user-guide.html">Basic User Guide </a></li>
+                    <li><a href="/apacheds/advanced-user-guide.html">Advanced User Guide</a></li>
+                    <li><a href="/apacheds/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/apacheds/kerberos-user-guide.html">Kerberos User Guide</a></li>
+                    <li><a href="/apacheds/configuration/ads-2.0-configuration.html">Configuration</a></li>
+                    <li><a href="/apacheds/gen-docs/latest/apidocs">JavaDocs</a></li>
+                    <li><a href="/apacheds/gen-docs/latest/xref">Cross-Reference</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="4-authentication-and-authorization.html">4 - Authentication &amp; Authorization</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="4-authentication-and-authorization.html">4 - Authentication &amp; Authorization</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="4.1.1-simple-authn.html">4.1.1 - Simple authentication</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+            
+	<h1 id="41-authentication">4.1. Authentication</h1>
+<h2 id="chapter-content">Chapter content</h2>
+<ul>
+<li><a href="4.1.1-simple-authn.html">4.1.1 - Simple authentication</a>
+<ul>
+<li><a href="4.1.1.1-anonymous-authn.html">4.1.1.1 - Anonymous Authentication</a></li>
+<li><a href="4.1.1.2-name-password-authn.html">4.1.1.2 - Name/Password Authentication</a></li>
+<li><a href="4.1.1.3-unauthenticated-authn.html">4.1.1.3 - Unauthenticated Authentication</a></li>
+</ul>
+</li>
+<li><a href="4.1.2-sasl-authn.html">4.1.2 - SASL authentication</a>
+<ul>
+<li><a href="4.1.2.1-sasl-plain-text-authn.html">4.1.2.1 - SASL PLAIN text Authentication</a></li>
+<li><a href="4.1.2.2-sasl-cram-md5-authn.html">4.1.2.2 - SASL CRAM-MD5 Authentication</a></li>
+<li><a href="4.1.2.3-sasl-digest-md5-authn.html">4.1.2.3 - SASL DIGEST-MD5 Authentication</a></li>
+<li><a href="4.1.2.4-sasl-gssapi-authn.html">4.1.2.4 - SASL GSSAPI Authentication</a></li>
+<li><a href="4.1.2.5-sasl-external-authn.html">4.1.2.5 - SASL EXTERNAL Authentication</a></li>
+<li><a href="4.1.2.6-sasl-ntlm-authn.html">4.1.2.6 - SASL NTLM Authentication</a></li>
+</ul>
+</li>
+<li><a href="4.1.3-kerberos-authn.html">4.1.3 - Kerberos authentication</a></li>
+<li><a href="4.1.4-certificate-authn.html">4.1.4 - Client authentication through certificates</a></li>
+</ul>
+<p><strong>LDAP</strong> is a connected protocol. That means you should create a session before being able to fetch some data from the server. This session is created through an authentication process.</p>
+<p>There are two different types of authentication on LDAP :</p>
+<ul>
+<li>Simple</li>
+<li>SASL</li>
+</ul>
+<p>We will describe those two kind of authentication, and will also describe how this can be leveraged by some specific authentication mechanisms, like Kerberos or based on certificates.</p>
+<p>Last, not least, the <strong>Anonymous</strong> authentication will be explain in a separate chapter, even if it&rsquo;s a part of the Simple authentication mechanism.</p>
+<h2 id="authentication-and-ldap-session">Authentication and LDAP Session</h2>
+<p>An authentication will result in the creation of a LDAP session, which will exist as long as the authenticated user does not physically disconnect from the server.</p>
+<p>A Session can have his status changed all alog its life : we can switch from an Authenticated state to an Anonymous state, and back to a SASL authenticated state. The session is created the first time the user connects on the server, and its status changes when the user authenticates.</p>
+
+
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="4-authentication-and-authorization.html">4 - Authentication &amp; Authorization</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="4-authentication-and-authorization.html">4 - Authentication &amp; Authorization</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="4.1.1-simple-authn.html">4.1.1 - Simple authentication</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>1.1.5 - Database &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/green.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/server-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+            
+                <strong>ApacheDS</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+             
+                LDAP API
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>ApacheDS 2.0</h5>
+                <ul>
+                    <li><a href="/apacheds/">Home</a></li>
+                    <li><a href="/apacheds/news.html">News</a></li>
+                    <li><a href="/apacheds/features.html">Features</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/apacheds/downloads.html">ApacheDS 2.0.0.AM26</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/apacheds/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/apacheds/basic-user-guide.html">Basic User Guide </a></li>
+                    <li><a href="/apacheds/advanced-user-guide.html">Advanced User Guide</a></li>
+                    <li><a href="/apacheds/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/apacheds/kerberos-user-guide.html">Kerberos User Guide</a></li>
+                    <li><a href="/apacheds/configuration/ads-2.0-configuration.html">Configuration</a></li>
+                    <li><a href="/apacheds/gen-docs/latest/apidocs">JavaDocs</a></li>
+                    <li><a href="/apacheds/gen-docs/latest/xref">Cross-Reference</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="1.1.4-kdc.html">1.1.4 - KDC (Key Distribution Center)</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="1.1-introduction.html">1.1 - Introduction</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="1.1.6-as.html">1.1.6 - AS (Authentication Server)</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+            
+	<h1 id="115---database">1.1.5 - Database</h1>
+<p>This is the place where all the private keys are stored. It is very common to store all the keys in an LDAP server, even more natural when the <strong>Kerberos</strong> server is a part of an existing LDAP server, like *<em>Apache Directory Server</em> !</p>
+<p>When <strong>Apache Directory Server</strong> was started, it was also thought as a repository for <strong>Kerberos</strong> keys, so we just had to develop the logic to manage those keys, and the Kerberos protocol.</p>
+<p>In other words, you have everything embedded in a single server :</p>
+<ul>
+<li>The LDAP server to store the keys and other related information</li>
+<li>The Kerberos protocol</li>
+<li>The Authentication Server</li>
+<li>The Ticket Granting Server</li>
+</ul>
+<p>We will focus on the database in this section.</p>
+<h2 id="storage">Storage</h2>
+<p>We store everthing related to users, hosts and services in the LDAP base, as entries. In order to be able to retrieve them, we have to store them in a known place in the hierarchy. This position is fknown by the kerberos server using the
+<strong>Search Base DN</strong> parameter.</p>
+<p>Everytime the <strong>Kerberos</strong> server received a request for a ticket from a principal, it will do a LDAP search starting from the <strong>Search Base DN</strong>, looking for any entry matching the filter <em>'(krb5PrincipalName=<the principal>)'</em>. This entry should contain the Kerberos keys that will be used to generate the ticket.</p>
+<p>One more requirement : the key as a version which allows a user to keep going with a previous key when he just changed its password (an operation that will change the Kerberos keys).</p>
+<p>So for an LDAP entry to be seen as a valid Kerberos entry, it has to contain a <em>Krb5PrincipalName</em>, a <em>Krb5Key</em> and one more attribute, the <em>Krb5KeyVersionNumber</em>.</p>
+<h2 id="structure">Structure</h2>
+<p>There is an existing <strong>LDAP</strong> schema to manage the keys and other information, named <strong>krb5kdc</strong>. It contains 3 ObjectClasses and 15 AttributeTypes.</p>
+<p>All the ObjectClasses are auxilliary.</p>
+<h3 id="krb5principal">krb5Principal</h3>
+<p>This ObjectClass is used to store a Principal. It contains one mandatory AttributeType, <em>krb5PrincipalName</em>, and two optionnal (<em>cn</em> and <em>krb5PrincipalRealm</em>)</p>
+<h3 id="krb5realm">krb5Realm</h3>
+<p>This ObjectClass describes a Kerberos Realm. It just contains the Realm&rsquo;s name (<em>krb5RealName</em> AttributeType).</p>
+<h2 id="krb5kdcentry">krb5kdcEntry</h2>
+<p>This ObjectClass is used to store all the information needed to manage a Kerberos user or service. It has one mandatory AttributeType, <em>krb5KeyVersioNumber</em>, which is set to 0 for newly crated users or services, and incremented after each modification done on the password (which leads to the generation of new keys).</p>
+<p>Here is a list of optional AttributeTypes the entry can have :</p>
+<table>
+<thead>
+<tr>
+<th>AttributeType</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>krb5ValidStart</td>
+<td>The date at which the keys are valid</td>
+</tr>
+<tr>
+<td>krb5ValidEnd</td>
+<td>The date at which the keys aren&rsquo;t valid any more</td>
+</tr>
+<tr>
+<td>krb5PasswordEnd</td>
+<td>The end of password validity</td>
+</tr>
+<tr>
+<td>krb5MaxLife</td>
+<td>The maximum duration</td>
+</tr>
+<tr>
+<td>krb5MaxRenew</td>
+<td>Th maximum number of renew</td>
+</tr>
+<tr>
+<td>krb5KDCFlags</td>
+<td>The KDC flags</td>
+</tr>
+<tr>
+<td>krb5EncryptionType</td>
+<td>The EncryptionTypes</td>
+</tr>
+<tr>
+<td>krb5Key</td>
+<td>The generated keys</td>
+</tr>
+<tr>
+<td>krb5AccountDisabled</td>
+<td>The account has been disabled</td>
+</tr>
+<tr>
+<td>krb5AccountLockedOut</td>
+<td>The account has been locked out</td>
+</tr>
+<tr>
+<td>krb5AccountExpirationTime</td>
+<td>The account expiration time</td>
+</tr>
+</tbody>
+</table>
+<h2 id="sample">Sample</h2>
+<p>Here is a sample entry, which has the <em>Krb5KdcEntry</em> and  <em>Krb5Principal</em> ObjectClasses set :</p>
+<pre><code>dn: uid=hnelson,ou=users,dc=example,dc=com
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: person
+objectClass: krb5principal
+objectClass: krb5kdcentry
+objectClass: top
+uid: hnelson
+userPassword: secret
+krb5PrincipalName: hnelson@EXAMPLE.COM
+krb5KeyVersionNumber: 0
+cn: Horatio Nelson
+sn: Nelson
+krb5Key: '0x30 0x29 0xA0 0x03 0x02 0x01 0x12 0xA1 0x22 0x04 0x20 0x3D 0x33 0x31 0x8F 0xBE ...'
+krb5Key: '0x30 0x21 0xA0 0x03 0x02 0x01 0x10 0xA1 0x1A 0x04 0x18 0x57 0x07 0xCE 0x29 0x52 ...'
+krb5Key: '0x30 0x19 0xA0 0x03 0x02 0x01 0x17 0xA1 0x12 0x04 0x10 0x87 0x8D 0x80 0x14 0x60 ...'
+krb5Key: '0x30 0x11 0xA0 0x03 0x02 0x01 0x03 0xA1 0x0A 0x04 0x08 0xF4 0xA7 0x13 0x64 0x8A ...'
+krb5Key: '0x30 0x19 0xA0 0x03 0x02 0x01 0x11 0xA1 0x12 0x04 0x10 0xAD 0x21 0x4B 0x38 0xB6 ...'
+</code></pre>
+
+
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="1.1.4-kdc.html">1.1.4 - KDC (Key Distribution Center)</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="1.1-introduction.html">1.1 - Introduction</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="1.1.6-as.html">1.1.6 - AS (Authentication Server)</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

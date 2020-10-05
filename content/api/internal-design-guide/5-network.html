@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>5 - Network &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/brown.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/api-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+             
+                ApacheDS
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+            
+                <strong>LDAP API</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>LDAP API </h5>
+                <ul>
+                    <li><a href="/api/">Home</a></li>
+                    <li><a href="/api/news.html">News</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/api/downloads-1.html">Version 1.0.3</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/downloads-2.html">Version 2.0.1</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Getting Started</h5>
+                <ul>
+                    <li><a href="/api/vision.html">Vision</a></li>
+                    <li><a href="/api/java-api.html">Java API</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/api/five-minutes-tutorial.html">Five minute tutorial</a></li>
+                    <li><a href="/api/user-guide.html">User Guide</a></li>
+                    <li><a href="/api/migration-guide.html">API 1 to 2 migration</a></li>
+                    <li><a href="/api/gen-docs/latest/apidocs/">JavaDocs</a></li>
+                    <li><a href="/api/gen-docs/latest2/apidocs/">JavaDocs 2</a></li>
+                    <li><a href="/api/gen-docs/latest/xref/">Cross-Reference</a></li>
+                    <li><a href="/api/gen-docs/latest2/xref/">Cross-Reference 2</a></li>
+                    
+                    <li><a href="/api/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/api/internal-design-guide.html">Internal Guide</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="4-asn1.html">4 - ASN/1</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="../internal-design-guide.html">Internal Design Guide</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="6-codec.html">6 - Encoding/Decoding</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+            
+	<h1 id="5---network">5 - Network</h1>
+<h1 id="content">Content</h1>
+<ul>
+<li><a href="#class-hierarchy">Class hierarchy</a></li>
+<li><a href="#mina-usage">MINA usage</a></li>
+<li><a href="#initialization">Initialization</a>
+<ul>
+<li><a href="#example-using-a-ldapconnectionconfig">Example : using a LdapConnectionConfig</a></li>
+</ul>
+</li>
+<li><a href="#mina-events-processing">MINA Events processing</a>
+<ul>
+<li><a href="#events-processing">Events processing</a></li>
+<li><a href="#sending-a-message">Sending a message</a></li>
+<li><a href="#receiving-a-message">Receiving a message</a></li>
+<li><a href="#encoding-decoding">Encoding/decoding</a></li>
+</ul>
+</li>
+<li><a href="#ssl-handling">SSL handling</a></li>
+<li><a href="#startts-handling">StartTLS handling</a></li>
+</ul>
+<p>The <strong>Apache LDAP AP</strong> is built on top of <a href="http://mina.apache.org"><strong>Apache MINA</strong></a> which is a <strong>NIO</strong> framework.</p>
+<p>As <strong>MINA</strong> is fully asynchronous, it has some impact on the design of the <strong>LDAP API</strong>. Basically, we send requests, and we don&rsquo;t wait for responses, we get informed when the response is there. Most of the time, the <strong>API</strong> users will want to wait for a response, instead of leveraging the asyncrhonous aspect of the <strong>API</strong>: this is the reason we have a blocking <strong>API</strong>, based on the non-blocking implementation. We will explain the whole thing here.</p>
+<p>NOTE : <strong>LDAP</strong> protocol is based on <strong>TCP</strong>, we are not dealing with <strong>UDP</strong> at all.</p>
+<h2 id="class-hierarchy">Class hierarchy</h2>
+<p>The <strong>LdapConnection</strong> interface and its implementations are the entry point for any code that wants to communicate using the <strong>LDAP</strong> protocol. There are many flavors, but one usually want to instanciate a <strong>LdapNetworkConnection</strong>. Her eis the complete class hierarchy:</p>
+<p><img src="images/ldapconnection.png" alt="LdapConnection hierarchy"></p>
+<p>Creating a new <strong>LdapConnection</strong> is all about calling the appropriate constructor with the required parameters, or to create a <strong>LdapConnectionConfig</strong> and call the <strong>LdapConnection</strong> implementation constructor.</p>
+<p>It&rsquo;s also possible to use a <strong>LdapConnectionFactory</strong> implementation :</p>
+<p><img src="images/ldap-connection-factory.png" alt="LdapConnection factory hierarchy"></p>
+<h2 id="mina-usage">MINA usage</h2>
+<p><strong>MINA</strong> handles all the complexity of managing sockets and transfering messages in and out. An application based on this framework just have to implement a few interfaces :</p>
+<ul>
+<li><em>IoHandler</em> which is the part of the application that receives or sends messages, and manage the connection to the remote peer</li>
+<li><em>ProtocolDecoder</em> and <em>ProtoclEncoder</em> which is responsible for encoding a meassage to a <em>byte[]</em> ready to be sent or to produce a message from a received <em>byte[]</em></li>
+<li><em>ProtocolCodecFactory</em> which is the factory that instanciates the encoder and decoder</li>
+</ul>
+<p>We also have to create a <em>Connector</em>, which is the instance in charge of managing the communication with the remote peer. That implies we properly set the filter chain it uses, especially the <strong>SSL/TLS</strong> part.</p>
+<p>Currently, we have a dedicated *<em>MINA</em> module that covers a part of that, but the <em>Connector</em> creation and initialization is done in the <em>LdapNetworkConnection</em> class - which is a mistake, it should be delegated to a class in the <strong>MINA</strong> module-.</p>
+<h3 id="initialization">Initialization</h3>
+<p>The initialization is done in the <em>LdapnetworkConnection.connect()</em> method :</p>
+<pre><code>:::Java
+public boolean connect() throws LdapException
+ {
+     ...
+
+     // Create the connector if needed
+     if ( connector == null )
+     {
+         createConnector();
+     }
+</code></pre>
+<p>and the private <em>createConnector()</em> method does all the work :</p>
+<pre><code>:::Java
+private void createConnector() throws LdapException
+{
+    // Use only one thread inside the connector
+    connector = new NioSocketConnector( 1 );
+    
+    if ( connectionConfig != null )
+    {
+        ( ( SocketSessionConfig ) connector.getSessionConfig() ).setAll( connectionConfig );
+    }
+    else
+    {
+        ( ( SocketSessionConfig ) connector.getSessionConfig() ).setReuseAddress( true );
+    }
+
+    // Add the codec to the chain
+    connector.getFilterChain().addLast( &quot;ldapCodec&quot;, ldapProtocolFilter );
+
+    // If we use SSL, we have to add the SslFilter to the chain
+    if ( config.isUseSsl() )
+    {
+        addSslFilter();
+    }
+
+    // Inject the protocolHandler
+    connector.setHandler( this );
+}
+</code></pre>
+<p>A few things :</p>
+<ul>
+<li>We use one thread as a default to handle the communication with the server, it&rsquo;s enough as we are only talking to one server anyawy. This is the reason we use &lsquo;1&rsquo; as a parameter to the <em>Connector</em> constructor.</li>
+<li>We may have a SocketSessionConfig instance, as soon as one is passed to the <em>LdapNetworkConnection</em> instance before the first call to the <em>connect</em> method is done. By default, we just set the <em>SO_REUSE</em> flag.</li>
+<li>We add one or two filters to the chain : the <strong>codec</strong> and the <strong>SSL</strong> filter, if needed. The <strong>SSL</strong> filter requires that a <em>LdapConnectionConfig</em> instance is passed to the constructor.</li>
+<li>As we can see, the <em>LdapNetwworkConnection</em> class is the <em>IoHandler</em> implementation.</li>
+</ul>
+<p>This private class should be moved to another class in the <strong>MINA</strong> module.</p>
+<p>Note : We could share the <em>Connector</em> between many <strong>LdapConnections</strong>, using less threads.</p>
+<h4 id="example--using-a-ldapconnectionconfig">Example : using a LdapConnectionConfig</h4>
+<p>Here is an example on how we can create and use a <em>LdapConnectionConfig</em> to set up a secured connection :</p>
+<pre><code>:::Java
+LdapConnectionConfig sslConfig = new LdapConnectionConfig();
+sslConfig.setLdapHost( Network.LOOPBACK_HOSTNAME );
+sslConfig.setUseSsl( true );
+sslConfig.setLdapPort( getLdapServer().getPortSSL() );
+sslConfig.setTrustManagers( new NoVerificationTrustManager() );
+sslConfig.setBinaryAttributeDetector( new SchemaBinaryAttributeDetector(
+        ldapServer.getDirectoryService().getSchemaManager() ) );
+
+try ( LdapNetworkConnection connection = new LdapNetworkConnection( sslConfig ) )
+    {
+        connection.bind( &quot;uid=admin,ou=system&quot;, &quot;secret&quot; );
+        ...
+</code></pre>
+<h3 id="mina-events-processing">MINA Events processing</h3>
+<p>There are many aspects we need to consider when it comes to use <strong>MINA</strong> :</p>
+<ul>
+<li>events processing</li>
+<li>sending a message</li>
+<li>receiving a message</li>
+<li>encoding/decoding</li>
+</ul>
+<h4 id="events-processing">Events processing</h4>
+<p><strong>MINA</strong> is an asynchronous framework, which means it&rsquo;s event based : you will receive events when something &lsquo;happens&rsquo; (like, a message is received, etc). The events have to be processed by the <strong>LDAP API</strong>, and the <strong>IoHandler</strong> interface is listing all the events we have to process. Here they are :</p>
+<ul>
+<li><em>messageReceived</em> : When a message has been fully received from the remote peer</li>
+<li><em>messageSent</em> : When a message has been fully sent to the remote peer</li>
+<li><em>exceptionCaught</em> : If we git an exception from the network layer</li>
+<li><em>inputClosed</em> : When the <em>Input</em> part of a TCP connection has been closed</li>
+<li><em>sessionClosed</em> : When a Session is closed</li>
+<li><em>sessionCreated</em> : When a Session is created</li>
+<li><em>sessionIdle</em> : When a Session is idle</li>
+<li><em>sessionOpened</em> : When a Session is opened</li>
+<li><em>event</em> : when the session receives a specific event</li>
+</ul>
+<p>The <em>session</em> is created when you connect for the first time, it&rsquo;s atcive until it&rsquo;s closed. We are talking about a <strong>TCP</strong> session, not a <strong>LDAP</strong> session.</p>
+<p>So the <em>LdapNetworkConnection</em> class must implement those methods.</p>
+<p>Regarding the <em>messageReceived/messageSent</em> methods, it&rsquo;s important to know that we are talking about <strong>FULL</strong> <strong>LDAP</strong> messages, even if <strong>TCP</strong> does not guarantee that messages can&rsquo;t be fragmented : <strong>MINA</strong> deal with fragmentation.</p>
+<p>Actually, we only implement the <em>messageReceived</em>, <em>exceptionCaught</em>, <em>inputClose</em>, <em>sessionCreated</em> and <em>sessionClosed</em> methods, the other are handled by the <em>IoHandlerAdpater</em> methods (which does nothing with it).</p>
+<h4 id="sending-a-message">Sending a message</h4>
+<p>There are two modes : <strong>Synchronous</strong> and <strong>Asyncrhonous</strong>. The methods are respectively described in the <em>LdapConnection</em> interface and <em>LdapAsyncConnection</em> interface. Actually, <em>synchronous</em> methods are calling <em>asynchronous</em> methods, which returns a <em>Future</em> :</p>
+<pre><code>:::Java
+/**
+ * {@inheritDoc}
+ */
+@Override
+public AddResponse add( AddRequest addRequest ) throws LdapException
+{
+    ...
+
+    AddFuture addFuture = addAsync( addRequest );
+
+    // Get the result from the future
+    try
+    {
+        // Read the response, waiting for it if not available immediately
+        // Get the response, blocking
+        AddResponse addResponse = addFuture.get( timeout, TimeUnit.MILLISECONDS );
+
+        if ( addResponse == null )
+        {
+            // We didn't received anything : this is an error
+            LOG.error( &quot;Add failed : timeout occurred&quot; );
+            throw new LdapException( TIME_OUT_ERROR );
+        }
+
+        if ( addResponse.getLdapResult().getResultCode() == ResultCodeEnum.SUCCESS )
+        {
+            // Everything is fine, return the response
+            LOG.debug( &quot;Add successful : {}&quot;, addResponse );
+        }
+        else
+        {
+            // We have had an error
+            LOG.debug( &quot;Add failed : {}&quot;, addResponse );
+        }
+
+        return addResponse;
+    }
+    catch ( Exception ie )
+    {
+        // Catch all other exceptions
+        // Send an abandon request
+        if ( !addFuture.isCancelled() )
+        {
+            abandon( addRequest.getMessageId() );
+        }
+
+        throw new LdapException( NO_RESPONSE_ERROR, ie );
+    }
+}
+</code></pre>
+<p>You can see we wait until the timeout expired, or until we got the response, calling the <em>addAsync</em> method, getting back a <em>Future</em> and waiting on it.</p>
+<p>This method take a <em>AddRequest</em> but we have other simpler flavors (see the <strong>LDAP API</strong> documentation).</p>
+<pre><code>AddResponse ldapConnection.add( AddResquest )
+    |
+    +-- AddFuture addAsync( AddRequest )
+    |       |
+    |       +-- connect()
+    |       |       |
+    |       |       +-- createConnector()
+    |       |       |       |
+    |       |       |       +-- new NioSocketConnector()
+    |       |       |       |
+    |       |       |       +-- NioSocketConnector.getFilterChain().addLast( &quot;ldapCodec&quot;, ldapProtocolFilter );
+    |       |       |       |
+    |       |       |      [+-- addSslFilter()]
+    |       |       |       |
+    |       |       |       +-- NioSocketConnector.setHandler( this )
+    |       |       |
+    |       |       +-- IoConnector.connect( address )
+    |       |
+    |       +-- checkSession()
+    |       |
+    |       +-- new AddFuture( LdapConnection, ID )
+    |       |
+    |       +-- addToFutureMap( ID, AddFuture )
+    |       |
+    |       +-- writeRequest( AddRequest )
+    |               |
+    |               +-- WriteFuture IoSession.write( request )
+    |               |
+    |               +-- WriteFuture.awaitUninterruptibly( 100 )
+    |
+    +-- AddFuture.get()
+</code></pre>
+<p>Here, we first create a connection if we don&rsquo;t have one yet, and then we try to write the message to the remote server, and wait for the message to be sent. That means sending message is synchronous, while receiving is aysnchronous by default. (NOTE : This may change in the next version.)</p>
+<p>Once the request has been written, we do a <em>get</em> on the returned <em>Future</em>. Either we get an <em>AddResponse</em>, or an error/timeout.</p>
+<h4 id="receiving-a-message">Receiving a message</h4>
+<p>Once the <em>IoSession.write()</em> method is called, we can assume the message has been sent to the remote server (sort of). The response will come as an event : <em>messageReceived()</em>, which is implemented in <em>LdapNetworkConnection</em>.</p>
+<p>Each <strong>LDAP</strong> message has a unique <strong>ID</strong>, and every sent message is associated with a <em>Future</em>. When the message is sent, we store a tuple &lt;<strong>ID</strong>, <strong>Future</strong>&gt; in a map, so when the response arrives, we just have to pull the <em>Future</em> from the map using teh message <strong>ID</strong>. This is what we do in the <em>messageReceived()</em> implementation. The response is enqueued in the <em>Future</em> (we may have more than one, typically for <strong>Search</strong> operations).</p>
+<h4 id="encodingdecoding">Encoding/decoding</h4>
+<p>Messages are encoded and decoded when we send or receive them. This is done by <strong>MINA</strong>, using a callback in the <strong>LDAP API</strong>. That means we configured <strong>MINA</strong> to process <strong>LDAP</strong> messages.</p>
+<p>The codec is inserted in <strong>MINA</strong> chain while connecting :</p>
+<pre><code>:::Java
+/** The Ldap codec protocol filter */
+private IoFilter ldapProtocolFilter = new ProtocolCodecFilter( codec.getProtocolCodecFactory() );
+
+private void createConnector() throws LdapException
+{
+    ...
+
+    // Add the codec to the chain
+    connector.getFilterChain().addLast( &quot;ldapCodec&quot;, ldapProtocolFilter );
+</code></pre>
+<p>So the <em>ProtocolCodecFilter</em> class is responsible for initializing the codec (it&rsquo;s a <strong>MINA</strong> class), and here, we use a factory to inject the encoder and decoder instances. This factory is <em>LdapProtocolCodecFactory</em>.</p>
+<p>This class, which is part of the <em>mina</em> module, instanciate an instance of the statefull <strong>LDAP</strong> encoder and decoder classes, <em>LdapProtocolEncoder</em> and <em>LdapProtocolDecoder</em>, which also belongs to the <em>mina</em> module.</p>
+<p>What is important to remember is that <strong>TCP</strong> is not dealing with <strong>LDAP</strong> messages, but with bytes. The decoder must be able to start decoding a message, even if it does not have all the necessary bytes to decode a full <strong>LDAP</strong> message. It should also be able to decode more than one message if the bytes it received contains more than the bytes necessary to hold a message. All of this is handle by MINA anyway, but we must provide a way for the decoder to keep the current state. Check the <a href="codec.html">codec</a> page for more explainations.</p>
+<h2 id="ssl-handling">SSL Handling</h2>
+<p><strong>LDAPS</strong> is a <strong>LDAP</strong> connection secured with <strong>SSL/TLS</strong> (we still use <strong>SSL</strong> as a name, when actually <strong>TLS</strong> is used, as <strong>SSL</strong> is not anymore safe. The currrent version of the protocol is <strong>TLS V.12</strong>, but <strong>TLS v1.3</strong> has just been released.)</p>
+<p>A <strong>LDAPS</strong> connection is a standard <strong>TCP</strong> connection which has a secured layer installed before it can be used.</p>
+<h2 id="starttls-handling">StartTLS Handling</h2>
+<p>The <strong>StartTLS</strong> extended operation is a bit specific, as it is set over an existing connection, and based on a <strong>LDAP</strong> message being sent to the remote server. The big plus is that it uses the standard <strong>LDAP</strong> port, so there is no need to declare a dedicated port for a secured connection (aka <strong>LDAPS</strong>).</p>
+<p>The logic is the following :</p>
+<pre><code>::: text
+- The client sends a **startTLS** extended operation to the server - assuming the server supports it -
+- The server setup a **TLS** 'listener', configure it, and send back an extended response to inform the client it is ready to proceed further. At this point, the server will not proceed any non-handshake messages received for this **LDAP** session, not will it send any response (they will be enqueued)
+- On reception of this response, the client will add the **SslFilter** into the MINA network chain, configure it, and start the handshake (by sending a **CLIENT HELLO** message). No further message can be sent for this session, beside the handsake messages (they will be enqueued and delivered when teh handshake has been completed successfully)
+- The handshake is performed: messages and responses are send and received, up to teh completion point.
+- When the handshake is completed, the **SslFilter** inform the  connection that it's done by 'sending' (locally) a **SESSION_SECURED* message
+- enqueued messages are flushed on bith the client and server. We are done, the session is secured.
+</code></pre>
+<p>There are many aspect that are tricky here. One of them is to be sure we don&rsquo;t send messages to the remote peer while processing the handshake</p>
+<p>On the server :</p>
+<p>Init : the SSLContext is configured to TLS, regardless of the configuration&hellip;</p>
+<p>SslHandler.handleExtendedOperation
+new SslFilter()
+DefaultIoFilterChain.addFirst()
+DefaultIoFilterChain.register()
+SslFilter.onPreAdd()
+new SslHandler()
+SslHandler.init()
+SSLContext.createSSLEngine()
+[SSLEngine.beginHandshake()]  &laquo;&lt;&mdash;-
+SslFilter.onPostAdd()
+write response</p>
+<p>On the client :</p>
+<p>addSslFilter
+SSLContext.getInstance()
+new SslFilter()
+DefaultIoFilterChain.addFirst()
+DefaultIoFilterChain.register()
+SslFilter.onPreAdd()
+new SslHandler()
+SslHandler.init()
+SSLContext.createSSLEngine()
+SSLEngine.beginHandshake()  &laquo;&lt;&mdash;-
+SslFilter.onPostAdd()</p>
+
+
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="4-asn1.html">4 - ASN/1</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="../internal-design-guide.html">Internal Design Guide</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="6-codec.html">6 - Encoding/Decoding</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

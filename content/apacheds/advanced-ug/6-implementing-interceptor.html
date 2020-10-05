@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>6 - Implementing a simple custom Interceptor for ApacheDS &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/green.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/server-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+            
+                <strong>ApacheDS</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+             
+                LDAP API
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>ApacheDS 2.0</h5>
+                <ul>
+                    <li><a href="/apacheds/">Home</a></li>
+                    <li><a href="/apacheds/news.html">News</a></li>
+                    <li><a href="/apacheds/features.html">Features</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/apacheds/downloads.html">ApacheDS 2.0.0.AM26</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/apacheds/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/apacheds/basic-user-guide.html">Basic User Guide </a></li>
+                    <li><a href="/apacheds/advanced-user-guide.html">Advanced User Guide</a></li>
+                    <li><a href="/apacheds/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/apacheds/kerberos-user-guide.html">Kerberos User Guide</a></li>
+                    <li><a href="/apacheds/configuration/ads-2.0-configuration.html">Configuration</a></li>
+                    <li><a href="/apacheds/gen-docs/latest/apidocs">JavaDocs</a></li>
+                    <li><a href="/apacheds/gen-docs/latest/xref">Cross-Reference</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="5.4-replication.html">5.4 - Replication</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="../advanced-user-guide.html">Advanced User Guide</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="7-embedding-apacheds.html">7 - Embedding ApacheDS in Java</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+            
+	<h1 id="6---implementing-a-simple-custom-interceptor-for-apacheds">6 - Implementing a simple custom Interceptor for ApacheDS</h1>
+<p>This site was updated for ApacheDS 2.0.</p>
+<p>The following is for developers who plan to implement their own interceptors in order to extend or modify the functionality of Apache Directory Server. It contains a simple example as a starting point.</p>
+<h2 id="what-exactly-is-an-interceptor">What exactly is an interceptor?</h2>
+<p>An interceptor filters method calls performed on on the DefaultPartitionNexus just like Servlet filters do. The ApacheDS configuration contains a chain of filters performing several tasks. In order to illustrate this, here is the list of interceptors from the default server configuration of ApacheDS 2.0</p>
+<pre><code>org.apache.directory.server.core.normalization.NormalizationInterceptor
+org.apache.directory.server.core.authn.AuthenticationInterceptor
+org.apache.directory.server.core.referral.ReferralInterceptor
+org.apache.directory.server.core.authz.AciAuthorizationInterceptor
+org.apache.directory.server.core.authz.DefaultAuthorizationInterceptor
+org.apache.directory.server.core.exception.ExceptionInterceptor
+org.apache.directory.server.core.changelog.ChangeLogInterceptor
+org.apache.directory.server.core.operational.OperationalAttributeInterceptor
+org.apache.directory.server.core.schema.SchemaInterceptor
+org.apache.directory.server.core.subtree.SubentryInterceptor
+org.apache.directory.server.core.collective.CollectiveAttributeInterceptor
+org.apache.directory.server.core.event.EventInterceptor
+org.apache.directory.server.core.trigger.TriggerInterceptor
+org.apache.directory.server.core.journal.JournalInterceptor
+</code></pre>
+<p>Interceptors should usually pass the control of current invocation to the next interceptor by calling an appropriate method on NextInterceptor. The flow control is returned when the next interceptor&rsquo;s filter method returns. You can therefore implement pre-, post-, around- invocation handler by how you place the statement.</p>
+<p>Interceptors are a powerful way to extend and modify the server behavior. But be warned. A mistakenly written interceptor may lead to a dis-functional or corrupt server.
+Password hash. A simple interceptor</p>
+<p>In order to demonstrate how to write an interceptor, here is a simple but realistic example. The following requirement should be fulfilled by an interceptor.</p>
+<pre><code>No user password should be stored in the directory in clear text.
+</code></pre>
+<p>To be more concrete:</p>
+<pre><code>If a userpassword is set by an LDAP client in plain text, a message digest algorithm should be applied to the value, and the one-way encrypted value should be stored
+the algorithm should be applied if new entries are created or existing entries are modified (hence modify and add operations will be intercepted)
+If the value given by the client is already provided in hashed form, nothing happens, and the given value is stored in the directory without modification
+</code></pre>
+<h2 id="the-sources">The sources</h2>
+<p>Currently, the sources are checked in here</p>
+<pre><code>http://svn.apache.org/repos/asf/directory/sandbox/szoerner/passwordHashInterceptor
+</code></pre>
+<p>In order to build it, simply check it out and type &ldquo;mvn install&rdquo;.
+Implementing the class PasswordHashInterceptor</p>
+<p>The following UML class diagram depicts the structure of the little example. Classes in white are given by Apache Directory Server as extension points. The two gray classes comprise the example interceptor.</p>
+<p><img src="images/passwordHashInterceptor_UML.png" alt="Password Hash Interceptor UML diagram"></p>
+<p>The class HashTools contains two simple methods w.r.t. hashing. isAlreadyHashed detects whether a value has already been hashed with a known message digest algorithm. applyHashAlgorithm applies a hash algorithm to a sequence of bytes. See the source code and the unit tests of this class for details, it has not that much to do with the interceptor stuff.</p>
+<p>The central class is PasswordHashInterceptor. Every interceptor has to implement the Interceptor interface from package org.apache.directory.server.core.interceptor. PasswordHashInterceptor does so by extended the convenience class BaseInterceptor from the same package.</p>
+<p>The property hashAlgorithm allows to configure the alhorithm used for hashing the passwords. It defaults to MD5 (Message-Digest algorithm 5). The property passwordAttributeName allows configuration of the attribute type which stores the user password. Its value will be hashed if needed. The property defaults to &ldquo;userPassword&rdquo;, which is quite common and used for instance in the inetOrgPerson object class.</p>
+<p>The most interesting methods of the class are add and modify. They intercept the requests ans modify the attribute values, if needed. See below the complete source code of the class.</p>
+<pre><code>package org.apache.directory.samples.interceptor.pwdhash;
+
+import static org.apache.directory.samples.interceptor.pwdhash.HashTools.applyHashAlgorithm;
+import static org.apache.directory.samples.interceptor.pwdhash.HashTools.isAlreadyHashed;
+
+import java.util.List;
+
+import org.apache.directory.server.core.entry.ClonedServerEntry;
+import org.apache.directory.server.core.interceptor.BaseInterceptor;
+import org.apache.directory.server.core.interceptor.NextInterceptor;
+import org.apache.directory.server.core.interceptor.context.AddOperationContext;
+import org.apache.directory.server.core.interceptor.context.ModifyOperationContext;
+import org.apache.directory.shared.ldap.entry.EntryAttribute;
+import org.apache.directory.shared.ldap.entry.Modification;
+import org.apache.directory.shared.ldap.entry.ModificationOperation;
+
+public class PasswordHashInterceptor extends BaseInterceptor {
+
+    private String hashAlgorithm = &quot;MD5&quot;;
+
+    private String passwordAttributeName = &quot;userPassword&quot;;
+
+    public void setHashAlgorithm(String hashAlgorithm) {
+        this.hashAlgorithm = hashAlgorithm;
+    }
+
+    public void setPasswordAttributeName(String passwordAttributeName) {
+        this.passwordAttributeName = passwordAttributeName;
+    }
+
+    /**
+     * Intercepts the add operation in order to replace plain password values
+     * with hashed ones.
+     */
+    @Override
+    public void add(NextInterceptor next, AddOperationContext opContext)
+            throws Exception {
+
+        ClonedServerEntry entry = opContext.getEntry();
+        EntryAttribute attribute = entry.get(passwordAttributeName);
+        if (attribute != null) {
+            hashPasswordIfNeccessary(attribute);
+        }
+
+        super.add(next, opContext);
+    }
+
+    /**
+     * Intercepts the modify operation in order to replace plain password values
+     * with hashed ones.
+     */
+    @Override
+    public void modify(NextInterceptor next, ModifyOperationContext opContext)
+            throws Exception {
+
+        List&lt;Modification&gt; items = opContext.getModItems();
+        for (Modification modification : items) {
+            ModificationOperation operation = modification.getOperation();
+            if (operation == ModificationOperation.ADD_ATTRIBUTE
+                    || operation == ModificationOperation.REPLACE_ATTRIBUTE) {
+                EntryAttribute attribute = modification.getAttribute();
+                if (attribute.getId().equalsIgnoreCase(passwordAttributeName)) {
+                    hashPasswordIfNeccessary(attribute);
+                }
+            }
+        }
+        super.modify(next, opContext);
+    }
+
+    protected void hashPasswordIfNeccessary(EntryAttribute attribute) {
+        try {
+            byte[] password = attribute.getBytes();
+            if (!isAlreadyHashed(password)) {
+                byte[] hashed = applyHashAlgorithm(hashAlgorithm, password);
+                attribute.clear();
+                attribute.add(hashed);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(&quot;Password hash failed&quot;, e);
+        }
+    }
+}
+</code></pre>
+<h2 id="using-the-interceptor">Using the interceptor</h2>
+<p>You may use a custom interceptor both in a standard ApacheDS installation and in a server started embedded.
+Adding it to a standard server installation (server.xml)</p>
+<p>In order to get the interceptor installed in a default installation of ApacheDS 1.5.5., just copy the jar-File resulting from the Maven build, which contains the custom classes, to APACHEDS_INSTALLDIR/lib/ext.</p>
+<p>After that, add the interceptor to the server.xml file in APACHEDS_INSTALLDIR/conf/. Make sure to backup the file before your modifications. Within server.xml find the XML elements which list the interceptors. The easiest way to add a custom interceptor is to add a spring bean (namespace &ldquo;s&rdquo;). You mya set configuration properties to the interceptor as well, if it supports some.</p>
+<p>The following fragment shows the interceptor list with the example interceptor added just behind normalization. For demonstration purposes, the hash algorithm is set to &ldquo;MD5&rdquo; (which is the default of our interceptor anyway).</p>
+<pre><code>...
+&lt;interceptors&gt;
+  &lt;normalizationInterceptor/&gt;
+  &lt;s:bean class=&quot;org.apache.directory.samples.interceptor.pwdhash.PasswordHashInterceptor&quot;&gt; 
+     &lt;s:property name=&quot;hashAlgorithm&quot; value=&quot;MD5&quot; /&gt; 
+  &lt;/s:bean&gt;
+  &lt;authenticationInterceptor/&gt;
+  &lt;referralInterceptor/&gt;
+  &lt;aciAuthorizationInterceptor/&gt;
+  &lt;defaultAuthorizationInterceptor/&gt;
+  &lt;exceptionInterceptor/&gt;
+  &lt;operationalAttributeInterceptor/&gt;
+  ...
+&lt;/interceptors&gt;
+...
+</code></pre>
+<h2 id="embedded-mode">Embedded mode</h2>
+<p>As an alternative, the following Java code starts an ApacheDS embedded in a main method. The list of interceptors is complemented with the example interceptor. We insert it exactly behind the NormalizingInterceptor (the position is a little bit tricky to determine).</p>
+<pre><code>package org.apache.directory.samples.interceptor.pwdhash;
+
+import java.util.List;
+
+import org.apache.directory.server.core.DefaultDirectoryService;
+import org.apache.directory.server.core.DirectoryService;
+import org.apache.directory.server.core.interceptor.Interceptor;
+import org.apache.directory.server.core.normalization.NormalizationInterceptor;
+import org.apache.directory.server.ldap.LdapServer;
+import org.apache.directory.server.protocol.shared.transport.TcpTransport;
+
+/**
+ * Main class which starts an embedded server with the interceptor inserted into
+ * the chain.
+ */
+public class Main {
+
+    public static void main(String[] args) throws Exception {
+
+        DirectoryService directoryService = new DefaultDirectoryService();
+        directoryService.setShutdownHookEnabled(true);
+
+        List&lt;Interceptor&gt; interceptors = directoryService.getInterceptors();
+
+        // Find Normalization interceptor in chain
+        int insertionPosition = -1;
+        for (int pos = 0; pos &lt; interceptors.size(); ++pos) {
+            Interceptor interceptor = interceptors.get(pos);
+            if (interceptor instanceof NormalizationInterceptor) {
+                insertionPosition = pos;
+            }
+        }
+
+        // insert our new interceptor just behind
+        interceptors.add(insertionPosition + 1, new PasswordHashInterceptor());
+        directoryService.setInterceptors(interceptors);
+
+        LdapServer ldapServer = new LdapServer();
+        ldapServer.setDirectoryService(directoryService);
+        ldapServer.setAllowAnonymousAccess(true);
+
+        TcpTransport ldapTransport = new TcpTransport(10389);
+        ldapServer.setTransports(ldapTransport);
+
+        directoryService.startup();
+        ldapServer.start();
+    }
+}
+</code></pre>
+<h2 id="verification">Verification</h2>
+<p>Let&rsquo;s check whether our new interceptor does its job! In order to do so, we use Apache Directory Studio and connect to the server with the interceptor enabled (see above).</p>
+<p>First we create a new entry with the following data, using &ldquo;New Entry &hellip;&rdquo; within Studio.</p>
+<pre><code>dn: cn=Kate Bush,ou=users,ou=system
+objectClass: person
+objectClass: top
+cn: Kate Bush
+sn: Bush
+</code></pre>
+<p>Then we add a new attribute userPassword in the entry editor. For the value, a special editor appears:</p>
+<p><img src="images/passwordHashInterceptor_passwordEditor.png" alt=""></p>
+<p>Select &ldquo;Plaintext&rdquo; as the hash method and enter a new password. We selected &ldquo;secret&rdquo; (see screen shot above). After pressing OK, a modify operation is sent to the server, which will be intercepted by our example class.</p>
+<p><img src="images/passwordHashInterceptor_modificationLog.png" alt=""></p>
+<p>After that, the value for userPassword is not &ldquo;secret&rdquo;, but the MD5 digested value of it.</p>
+<p><img src="images/passwordHashInterceptor_entryEditor.png" alt=""></p>
+<p>The user Kate Bush is still capable of authenticating with the password &ldquo;secret&rdquo;, because Apache Directory Server supports authentication with passwords hashed with this algorithm. You can verify this by connecting with Studio and the using &ldquo;cn=Kate Bush,ou=users,ou=system&rdquo; as bind DN.</p>
+<p>Here it is demonstrated with the help of the ldapsearch command line tool. The result also shows that the userPassword value is hashed with MD5.</p>
+<pre><code>$ ldapsearch -h localhost -p 10389 -D &quot;cn=Kate Bush,ou=users,ou=system&quot; \\
+    -w secret  -b &quot;ou=users,ou=system&quot; -s one &quot;(objectClass=*)&quot;
+version: 1
+dn: cn=Kate Bush,ou=users,ou=system
+objectClass: person
+objectClass: top
+cn: Kate Bush
+sn: Bush
+userPassword: {MD5}Xr4ilOzQ4PCOq3aQ0qbuaQ==
+$
+</code></pre>
+<h2 id="limitations-of-the-example">Limitations of the example</h2>
+<p>This example is intended as a demonstration, on how to write your custom interceptor. Don&rsquo;t consider it bullet proof. It has not been tested under production conditions, etc.</p>
+<p>At least the following limitation should be mentioned</p>
+<pre><code>The default hash algorithm MD5 is considered weak.
+Exception handling is poor. E.g. if someone configures an unsupported hash algorithm, the interceptor fails to create an appropriate LDAP error.
+If a multivalued password attribute is used, the interceptor will simply ignore that fact (does not apply to userPassword as of RFC 2256).
+</code></pre>
+<h2 id="further-reading">Further reading</h2>
+<p>Learn more about interceptors in ApacheDS Architecture Documentation, check out the source code of some implementations of the Interceptor interface, and/or read the javadoc comments.</p>
+
+
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="5.4-replication.html">5.4 - Replication</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="../advanced-user-guide.html">Advanced User Guide</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="7-embedding-apacheds.html">7 - Embedding ApacheDS in Java</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

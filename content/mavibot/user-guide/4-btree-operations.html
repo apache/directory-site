@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>4 - Mavibot B-tree operations &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/turquoise.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/mavibot-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+             
+                ApacheDS
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+             
+                LDAP API
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+            
+                <strong>Mavibot</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>Mavibot 1.0</h5>
+                <ul>
+                    <li><a href="/mavibot/">Home</a></li>
+                    <li><a href="/mavibot/news.html">News</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/mavibot/downloads.html">Version 1.0.0-M8</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/mavibot/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Getting Started</h5>
+                <ul>
+                    <li><a href="/mavibot/vision.html">Vision</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/mavibot/five-minutes-tutorial.html">Five minutes tutorial</a></li>
+                    <li><a href="/mavibot/user-guide.html">User Guide</a></li>
+                    <li><a href="/mavibot/gen-docs/latest/apidocs/">JavaDocs</a></li>
+                    <li><a href="/mavibot/gen-docs/latest/xref/">Cross-Reference</a></li>
+                    
+                    <li><a href="/mavibot/developer-guide.html">Developer Guide</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="3-btree-management.html">3 - Mavibot B-tree management</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="../user-guide.html">User Guide</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="5-btree-informations.html">5 - Mavibot B-tree information</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+            
+	<h1 id="4---mavibot-b-tree-operations">4 - Mavibot B-tree operations</h1>
+<p>We will now list all the possible operations that can be applied on a <strong>B-tree</strong>. But first, let us understand the <em>Cursor</em> interface, as it is used for navigating a <strong>B-tree</strong> using various types of <em>browse</em> operations.</p>
+<h2 id="41-the-cursor-interface">4.1 The Cursor interface</h2>
+<p>All the <em>browse</em> operations will return a <em>Cursor</em> instance. A <em>Cursor</em> allows navigating forward and backward on a <strong>B-tree</strong>. It starts at a specific position, and can be moved to a specific position too. The default position for a <em>Cursor</em> is before the very first element of the <strong>B-tree</strong></p>
+<DIV class="note" markdown="1">
+It is important to understand that a <b>Cursor</b> returns tuples, not keys. A Key may be associated with many values, so a cursor may return many tuples with a given key (each one will have a different value though).
+</DIV>
+<p>Here is the <strong>B-tree</strong> sample we will use for the following examples :</p>
+<p><img src="images/ug-btree-sample.png" alt="Sample B-tree"></p>
+<h3 id="411-cursor-position-management">4.1.1 Cursor position management</h3>
+<h4 id="4111-afterlast">4.1.1.1 afterLast</h4>
+<p>Moves the current position after the last element (last key and last value). The following schema shows the new position of the pointer after having called the <em>afterLast()</em> method :</p>
+<p><img src="images/ug-btree-after-last.png" alt="After Last"></p>
+<p>As we can see, we are not pointing at any key.</p>
+<h4 id="4112-beforefirst">4.1.1.2 beforeFirst</h4>
+<p>Moves the current position before the first element (first key and first value). The following schema shows the new position of the pointer after having called the <em>beforeFirst()</em> method :</p>
+<p><img src="images/ug-btree-before-first.png" alt="Before First"></p>
+<p>In this case also cursor is not stationed at any key.</p>
+<h3 id="412-cursor-operations">4.1.2 Cursor operations</h3>
+<p>When a cursor is used to browse Tuples it may return many tuples with the same key but different value, when used to browse keys a
+single tuple will be returned for each key with the value of the key (when multiple values are present only the first value will be
+returned).</p>
+<h4 id="4121-hasnext">4.1.2.1 hasNext</h4>
+<p>Tells if there is a next available tuple. This will always be true if we are before the first tuple, and always false if we are on the last tuple or after the last tuple. The following picture shows the returned value for calls in various cases :</p>
+<p><img src="images/ug-btree-has-next.png" alt="Has Next"></p>
+<h4 id="4122-hasprev">4.1.2.2 hasPrev</h4>
+<p>Returns true if there is a tuple available before the current tuple. The following picture shows the returned value for calls in various cases :</p>
+<p><img src="images/ug-btree-has-prev.png" alt="Has Next"></p>
+<h4 id="4123-next">4.1.2.3 next</h4>
+<p>Moves to the next value of the current key or to the next key if all the values of the current key have been processed, and return the associated tuple.</p>
+<h4 id="4124-prev">4.1.2.4 prev</h4>
+<p>Moves to the previous value of the current key or to the previous key if all the values of the current key have been processed, and return the associated tuple.</p>
+<h2 id="42-browse-operations">4.2 Browse Operations</h2>
+<p>Now that we know what a <em>Cursor</em> is about, we can describe the various <em>browse</em> operations that can be applied on a <em>B-tree</em>.</p>
+<h3 id="421-btreebrowse">4.2.1 BTree.browse()</h3>
+<p>This method returns a cursor with the position set before the first element of the <strong>B-tree</strong>, for the current revision. It returns a <em>TupleCursor</em> that contain the tuples &lt;key,value&gt; present in the <em>B-tree</em>.</p>
+<p>Assuming you have an existing <em>B-tree</em>, using this method is quite straigthforward. Here is an example with a persisted <em>B-tree</em>  :</p>
+<pre><code>    // Create a RecordManager that will contain the B-tree
+    RecordManager recordManager = new RecordManager( &quot;Test.db&quot; );
+
+    // Create a B-tree to play with
+    BTree&lt;Long, String&gt; btree = recordManager.addBTree( &quot;test&quot;, LongSerializer.INSTANCE, StringSerializer.INSTANCE, true );
+
+    // Inject some data
+    btree.insert( 1L, &quot;1&quot; );
+    btree.insert( 4L, &quot;4&quot; );
+    btree.insert( 2L, &quot;2&quot; );
+    btree.insert( 3L, &quot;3&quot; );
+    btree.insert( 5L, &quot;5&quot; );
+
+    // Create the cursor
+    TupleCursor&lt;Long, String&gt; cursor = btree.browse();
+
+    // Set the cursor at the beginning of the BTree
+    cursor.beforeFirst();
+
+    // Get the tuples
+    // Create the cursor
+    TupleCursor&lt;Long, String&gt; cursor = btree.browse();
+
+    // Move forward
+    while ( cursor.hasNext() )
+    {
+        Tuple&lt;Long, String&gt; tuple = cursor.next();
+        System.out.println( tuple );
+    }
+
+    ...
+</code></pre>
+<p>will produce this output :</p>
+<pre><code>&lt;1,1&gt;
+&lt;2,2&gt;
+&lt;3,3&gt;
+&lt;4,4&gt;
+&lt;5,5&gt;
+</code></pre>
+<h3 id="422-btreebrowse-long-">4.2.2 BTree.browse( long )</h3>
+<p>This method returns a cursor with the position set before the first element of the <strong>B-tree</strong>, for the given revision.</p>
+<p>Here, the big difference is that you can fetch some data from an older revision - assuming this revision is still present, of course -.</p>
+<p>It returns a <em>TupleCursor</em> that contain the tuples &lt;key,value&gt; present in the <em>B-tree</em>.</p>
+<p>You can use the exact same code than for the <em>browse()</em> method, except that you have to pass the version you want to browse.</p>
+<h3 id="423-btreebrowsefrom-k-key-">4.2.3 BTree.browseFrom( K key )</h3>
+<p>This method returns a cursor with the position set before the given key of the <strong>B-tree</strong>. If the key does not exist, the cursor will be set to the closest lower value (or upper value if it&rsquo;s lower than the lowest value)</p>
+<p>It returns a <em>TupleCursor</em> that contain the tuples &lt;key,value&gt; present in the <em>B-tree</em>.</p>
+<p>You can use the exact same code than for the <em>browse()</em> method. Here is an example, where we start after the latest present key :</p>
+<pre><code>    // Inject some data
+    for ( long i = 0; i &lt;= 1000L; i += 2 )
+    {
+        btree.insert( i, Long.toString( i ) );
+    }
+
+    // Create the cursor
+    TupleCursor&lt;Long, String&gt; cursor = btree.browseFrom( 1500L );
+    
+    assertFalse( cursor.hasNext() );
+    assertTrue( cursor.hasPrev() );
+    assertEquals( 1000L, cursor.prev().getKey().longValue() );
+</code></pre>
+<h3 id="424-btreebrowsefrom-long-revision-k-key-">4.2.4 BTree.browseFrom( long revision, K key )</h3>
+<p>This method can be used when one want to browse a <em>B-tree</em> starting from a given key, for a specific revision of a <em>B-tree</em>. The only difference with the <em>BTree.browseFrom( K )</em> method is the <em>B-tree</em> revision which is provided.</p>
+<h2 id="43-contains-operations">4.3 Contains Operations</h2>
+<p>We have a couple of methods that can be used to know if some tuple <em>&lt;Key, Value&gt;</em> is present in a <em>B-tree</em>.</p>
+<h3 id="431-btreecontains-k-key-v-value-">4.3.1 BTree.contains( K key, V value )</h3>
+<p>This method checks if a <em>B-tree</em> contains a tuple <em>&lt;key, value&gt;</em>. As a key might have more than one value, we test the tuple. If one wants to check if a key is present, regardless of the value, the <em>hasKey()</em> method should be used.</p>
+<p>Here is an example where the <em>contains()</em> method is used :</p>
+<pre><code>...
+boolean result = btree.contains( 1L, &quot;V1&quot; );
+...
+</code></pre>
+<p>If the <em>B-tree</em> contains the &lt;1L, &ldquo;V1&quot;&gt; tuple, then the method will return true, false otherwise.</p>
+<h3 id="432-btreecontains-long-revision-k-key-v-value-">4.3.2 BTree.contains( long revision, K key, V value )</h3>
+<p>This is the same method that the previous one, except that it&rsquo;s applied on a specific revision of a <em>B-tree</em>. The first parameter is the revision.</p>
+<h2 id="44-haskey-operations">4.4 HasKey Operations</h2>
+<p>We have some specific methods that check the presence of a key in a <em>B-tree</em>. There are described below.</p>
+<h3 id="441-btreehaskey-k-key-">4.4.1 BTree.hasKey( K key )</h3>
+<p>The <em>hasKey(K key)</em> method check the presence of the given <em>key</em> in the current <em>B-tree</em>. If it&rsquo;s present, this method returns <em>true</em>, otherwise it returns <em>false</em>. Here is an example of usage :</p>
+<pre><code>...
+boolean result = btree.hasKey( 1L );
+...
+</code></pre>
+<h3 id="442-btreehaskey-long-revision-k-key-">4.4.2 BTree.hasKey( long revision, K key )</h3>
+<p>The exact same method, but applied to a given revision of the <em>B-tree</em>.</p>
+<h2 id="45-get-operations">4.5 Get Operations</h2>
+<p>Instead of browsing the <em>B-tree</em>, one can get the values associated with a key in a simple operation. The big difference is that it&rsquo;s not then possible to move forward or backward in the <em>B-tree</em> from the retrieved value.</p>
+<h3 id="451-btreeget-k-key-">4.5.1 BTree.get( K key )</h3>
+<p>This method get the value associated to the given key, if it exists. If the key does not exist, then a <em>KeyNotFoundException</em> is thrown by the method.</p>
+<DIV class="note" markdown="1">
+It's important to understand that, as a <i>B-tree</i> can have multiple values, the <i>get(K)</i> method will <b>NOT</b> return all the values, but the very first one. If one wants to get all the values for a given key, the <i>BTree.getValues(K)</i> has te be used instead.
+</DIV>
+<p>Here is an example :</p>
+<pre><code>...
+try
+{
+    String value = btree.get( 1L ); // Will return &quot;V1&quot;
+    ...
+    // process teh found value
+}
+catch ( KeyNotFoundException knfe )
+{
+    // deal with the exception
+}
+...
+</code></pre>
+<h3 id="452-btreeget-long-revision-k-key-">4.5.2 BTree.get( long revision, K key )</h3>
+<p>Same method than previously, but with a provided <em>B-tree</em> revision.</p>
+<h3 id="453-btreegetvalues-k-key-">4.5.3 BTree.getValues( K key )</h3>
+<p>One should use this method to get all the values assocatied with a key. This method returns  a <em>ValueCursor</em>, which allows the user to browse the various values. The cursor is set before the first value.</p>
+<p>Here is an example that shows how to use this method :</p>
+<pre><code>...
+// The key 1L is associated with {&quot;V1&quot;, &quot;V2&quot;, &quot;V3&quot;}
+ValueCursor&lt;String&gt; values = dupsTree.getValues( 1L);
+
+while ( values.hasNext() )
+{
+    System.out.println( value.next() );
+}
+...
+</code></pre>
+<p>This will produce the following output :</p>
+<pre><code>V1
+V2
+V3
+</code></pre>
+<h2 id="46-insert-operation">4.6 Insert Operation</h2>
+<p>Inserting elements into a <em>B-tree</em> is as simple as to call the <em>insert(K, V)</em> method.</p>
+<DIV class="note" markdown="1">
+It would be interesting to have an <i>insert</i> method that can take more than one value. This might be added in one future version.
+</DIV>
+<p>If the key already exist, the value will be added, or replaced if the value already exist keep in mind that we use a comparator when it comes to check a value existence, and two different values may be seen as equal).</p>
+<p>Here is an exemple :</p>
+<pre><code>...
+// Insert a new key and value into a B-tree
+// The old value will be returned if we already have a &quot;V3&quot; in the B-tree
+String oldValue = btree.insert( 3L, &quot;V3&quot; );
+...
+</code></pre>
+<DIV class="note" markdown="1">
+One can only add one single value if the <i>B-tree</i> does not accept duplicate values. In this case, the <i>insert()</i> method will throw a <i>DuplicateValueNotAllowedException</i> exception.
+</DIV>
+<p>If the <em>B-tree</em> accepts multiple values for a key, one can write such code :</p>
+<pre><code>...
+// Insert a new key and value into a B-tree
+btree.insert( 1L, &quot;V1&quot; );
+btree.insert( 1L, &quot;V2&quot; );
+btree.insert( 1L, &quot;V3&quot; );
+// At this point, the key 1L will be associated with {V1, V2, V3}
+...
+</code></pre>
+<h2 id="47-delete-operations">4.7 Delete Operations</h2>
+<p>The <em>delete()</em> method is used to delete keys and values from a <em>B-tree</em>. We have two methods to do that.</p>
+<h3 id="481-btreedelete-k-key-">4.8.1 BTree.delete( K key )</h3>
+<p>This method removes a given key and all its values from a <em>B-tree</em>. If the key does not exist in the <em>B-tree</em>, a <em>KeyNotFoundException</em> will be thrown.</p>
+<p>This method returns the first tuple with the given key.</p>
+<p>Here is an example :</p>
+<pre><code>...
+// Insert a new key and value into a B-tree
+btree.insert( 1L, &quot;V1&quot; );
+btree.insert( 1L, &quot;V2&quot; );
+btree.insert( 1L, &quot;V3&quot; );
+// At this point, the key 1L will be associated with {V1, V2, V3}
+...
+// Now delete 1L
+btree.delete( 1L );
+
+// Check that the values have been removed
+if ( btree.hasKey( 1L ) == true )
+{
+    // This is an error !
+}
+</code></pre>
+<h3 id="472-btreedelete-k-key-v-value-">4.7.2 BTree.delete( K key, V value )</h3>
+<p>This method can be used to delete one specific value for a given key. If the removed value is the last one, the key will also be removed.</p>
+<p>Here is an example :</p>
+<pre><code>...
+// Insert a new key and value into a B-tree
+btree.insert( 1L, &quot;V1&quot; );
+btree.insert( 1L, &quot;V2&quot; );
+btree.insert( 1L, &quot;V3&quot; );
+// At this point, the key 1L will be associated with {V1, V2, V3}
+...
+// Now delete &lt;1L, &quot;V2&quot;&gt;
+btree.delete( 1L, &quot;V2&quot; );
+
+// The key 1L is still associated with {&quot;V1&quot;, &quot;V3&quot;}
+ValueCursor&lt;String&gt; values = dupsTree.getValues( 1L);
+
+while ( values.hasNext() )
+{
+    System.out.println( value.next() );
+}
+...
+</code></pre>
+<p>This will produce the following output :</p>
+<pre><code>V1
+V3
+</code></pre>
+<h2 id="48-other-b-tree-operations">4.8 Other B-tree operations</h2>
+<p>Beside those important operations we just have described, we have a few other less critical operations you must kown about.</p>
+<h3 id="481-btreeclose">4.8.1 BTree.close()</h3>
+<p>This method will cleanly close the <em>B-tree</em>. Depending on the <em>B-tree</em> type, it will proceed differently while closing the <em>B-tree</em>.</p>
+<ul>
+<li>PersistedBTree : It will close the cache, and close all the pending read transactions. Any write transaction will be complected.</li>
+<li>InMemoryBTree  : it will flush the memory content on disk, and close the journal, if the <em>B-tree</em> is persistent.</li>
+</ul>
+<DIV class="note" markdown="1">
+<b>ALWAYS</B> call the <i>close()</i> method when you are done with a <i>B-tree</i>.
+</DIV>
+<h3 id="483-btreegetrevision">4.8.3 BTree.getRevision()</h3>
+<p>Returns the current <em>B-tree</em> revision.</p>
+
+
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="3-btree-management.html">3 - Mavibot B-tree management</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="../user-guide.html">User Guide</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="5-btree-informations.html">5 - Mavibot B-tree information</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

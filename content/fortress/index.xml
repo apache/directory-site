@@ -1,0 +1,844 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Fortresses on Apache Directory</title>
+    <link>https://directory.apache.org/fortress.html</link>
+    <description>Recent content in Fortresses on Apache Directory</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    
+	<atom:link href="https://directory.apache.org/fortress/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>1 - An Introduction to Role-Based Access Control ANSI INCITS 359-2004</title>
+      <link>https://directory.apache.org/fortress/user-guide/1-intro-rbac.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/user-guide/1-intro-rbac.html</guid>
+      <description>1 - An Introduction to Role-Based Access Control ANSI INCITS 359-2004 Table of content  1.1 - ANSI RBAC Explained 1.2 - What ANSI RBAC is not 1.3 - What ANSI RBAC is 1.4 - Why is ANSI RBAC Important? 1.5 - How to implement ANSI RBAC 1.6 - Where to go for more info  </description>
+    </item>
+    
+    <item>
+      <title>1.1 - ANSI RBAC Explained</title>
+      <link>https://directory.apache.org/fortress/user-guide/1.1-rbac-explained.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/user-guide/1.1-rbac-explained.html</guid>
+      <description>1.1 - ANSI RBAC Explained Misnomers abound as to what constitutes a working Role-Based Access Control (RBAC) system. With ANSI RBAC, Groups are not Roles and resource connections not Sessions. This paper explains what ANSI RBAC is and how it can be applied to existing problem domains. It dispels longstanding myths persistent within the enterprise. Additionally readers receive tips on how to implement their own successful RBAC program and where to go to get a fully compliant ANSI RBAC system that may be used as a reference implementation.</description>
+    </item>
+    
+    <item>
+      <title>1.2 - What ANSI RBAC is not</title>
+      <link>https://directory.apache.org/fortress/user-guide/1.2-what-is-not-rbac.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/user-guide/1.2-what-is-not-rbac.html</guid>
+      <description>1.2 - What ANSI RBAC is not   User Groups (i.e. LDAP groupOfUniqueNames). In RBAC, Roles are many-to-many mappings between User and Permission entities. Furthermore the assignments and grants may be interrogated, added or removed at any time. Roles should fall within a hierarchy which facilitate control over assets, encourages reuse and reduces the number of entitlements that have to be maintained.
+RFC 4519 LDAP: Schema for User Applications June 2006</description>
+    </item>
+    
+    <item>
+      <title>1.3 - What ANSI RBAC is</title>
+      <link>https://directory.apache.org/fortress/user-guide/1.3-what-rbac-is.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/user-guide/1.3-what-rbac-is.html</guid>
+      <description>1.3 - What ANSI RBAC is There is more to RBAC than using a Role object during policy enforcement.
+ ANSI INCITS 359-2001, http://profsandhu.com/journals/tissec/ANSI+INCITS+359-2004.pdf - The ANSI specification describes RBAC and provides functional specifications in Z-notation.   ![ANSI RBAC](images/ANSIRBAC-Spec.png)   RBAC0 - Users, Roles, Permissions (Objects-Operations), Sessions - Form the Core of ANSI RBAC. Role activation and Permissions mapped to Object-&amp;gt;Operation pairing are key facets of the basic ANSI RBAC model.</description>
+    </item>
+    
+    <item>
+      <title>1.4 - Why is ANSI RBAC Important?</title>
+      <link>https://directory.apache.org/fortress/user-guide/1.4-why-rbac-is-important.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/user-guide/1.4-why-rbac-is-important.html</guid>
+      <description>1.4 - Why is ANSI RBAC Important?   Enforces the concept of least privilege. Granting users business functionality doesn&amp;rsquo;t imply entitlements may be used at any time. For example a bank teller shouldn&amp;rsquo;t withdrawal money from customer accounts outside of normal business hours or freelance contractors don&amp;rsquo;t require access to production resources to do their jobs.
+  Enables Regulatory Compliance. Who has been granted authority to the most important resources?</description>
+    </item>
+    
+    <item>
+      <title>1.5 - How to implement ANSI RBAC</title>
+      <link>https://directory.apache.org/fortress/user-guide/1.5-how-to-impl-rbac.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/user-guide/1.5-how-to-impl-rbac.html</guid>
+      <description>1.5 - How to implement ANSI RBAC   Learn using the SPEC
+  Pick a technology stack you are comfortable with based on current knowledge, SLAs, data storage, and support requirements.
+  Design a very simple RBAC data model. Eight objects are all that is needed.
+ User, Role, Permission, Object, Operation, User-Role, Session, Constraints    Design a simple RBAC software model.
+ Top layer called a Manager and contains a stable public API that external apps may call.</description>
+    </item>
+    
+    <item>
+      <title>1.6 - Where to go for more info</title>
+      <link>https://directory.apache.org/fortress/user-guide/1.6-go-for-more.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/user-guide/1.6-go-for-more.html</guid>
+      <description>1.6 - Where to go for more info   Download the ANSI RBAC specification: http://profsandhu.com/journals/tissec/ANSI+INCITS+359-2004.pdf
+  Download working ANSI RBAC reference implementation, like Fortress !
+  </description>
+    </item>
+    
+    <item>
+      <title>2 - Multitenancy</title>
+      <link>https://directory.apache.org/fortress/user-guide/2-multitenancy.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/user-guide/2-multitenancy.html</guid>
+      <description>2 - Multitenancy To setup and use Fortress in multi-tenant fashion follow these instructions:
+ README for Apache Fortress Multitenancy Configuration  More info follows&amp;hellip;
+ 2.1 - Fortress Multitenancy 2.2 - Traditional Multi-Instances architecture 2.3 - Multitenancy under the covers  </description>
+    </item>
+    
+    <item>
+      <title>2.1 - Fortress Multitenancy</title>
+      <link>https://directory.apache.org/fortress/user-guide/2.1-fortress-multitenancy.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/user-guide/2.1-fortress-multitenancy.html</guid>
+      <description>2.1 - Fortress Multitenancy Multitenancy Defined (From Wikipedia)
+Multitenancy refers to a principle in software architecture where a single instance of the software runs on a server, serving multiple client organizations (tenants). Multitenancy is contrasted with a multi-instance architecture where separate software instances (or hardware systems) are set up for different client organizations. With a multitenant architecture, a software application is designed to virtually partition its data and configuration, and each client organization works with a customized virtual application instance.</description>
+    </item>
+    
+    <item>
+      <title>2.2 - Traditional Multi-Instances architecture</title>
+      <link>https://directory.apache.org/fortress/user-guide/2.2-tradi-multi-instances.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/user-guide/2.2-tradi-multi-instances.html</guid>
+      <description>2.2 - Traditional Multi-Instances architecture Multitenancy Defined (From Wikipedia)
+Multitenancy refers to a principle in software architecture where a single instance of the software runs on a server, serving multiple client organizations (tenants). Multitenancy is contrasted with a multi-instance architecture where separate software instances (or hardware systems) are set up for different client organizations. With a multitenant architecture, a software application is designed to virtually partition its data and configuration, and each client organization works with a customized virtual application instance.</description>
+    </item>
+    
+    <item>
+      <title>2.3 - Multitenancy under the covers</title>
+      <link>https://directory.apache.org/fortress/user-guide/2.3-multitenancy-under-covers.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/user-guide/2.3-multitenancy-under-covers.html</guid>
+      <description>2.3 - Multitenancy under the covers Under the covers The Fortress data design allows clients to share a single server instance because each has its own storage area set aside in the back end database. This increases operational efficiency of the hosting service provider’s data center without sacrificing data isolation on behalf of the clients who use it.
+ ![](images/fortressmultitenantldapschema600.png) </description>
+    </item>
+    
+    <item>
+      <title>3 - Fortress Configuration</title>
+      <link>https://directory.apache.org/fortress/user-guide/3-configuration.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/user-guide/3-configuration.html</guid>
+      <description>3.1 - Fortress Configuration In order to use the API, you must configure it. As it will connect to a remote LDAP server. Follow the installation instructions to learn how it&amp;rsquo;s done.
+More info here on how it works:
+ README for Apache Fortress Configuration Subsystem  </description>
+    </item>
+    
+    <item>
+      <title>ApacheDS Installation guide</title>
+      <link>https://directory.apache.org/fortress/installation/apacheds.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/installation/apacheds.html</guid>
+      <description>ApacheDS Installation guide Provide instructions to install an ApacheDS instance and setup for use with Fortress. In this configuration, there is an ApacheDS server running on a machine (ApacheDS Host) and Fortress agent which will be installed on a client machine (Fortress Host). Note that those two hosts can be shared - and this is such a configuration that we are going to use in this document.
+Prerequisites There a few mandatory elements that need to be installed on the ApacheDS Host :</description>
+    </item>
+    
+    <item>
+      <title>Coding Standards</title>
+      <link>https://directory.apache.org/fortress/coding-standards.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/coding-standards.html</guid>
+      <description>Coding Standards Welcome to you fellow developer. You&amp;rsquo;ve maybe been elected committer on the project, or want to contribute some code / patch? This is great news! However, in order to be able to share your &amp;lsquo;vision&amp;rsquo; with your code, some rules must be followed.
+Hey, remember that those rules are not the best nor the worst, they are pretty much what they are for historical reasons, or for technical reasons, however, please, accept them as they are, and avoid religious war (please, oh please, no mail to say &amp;ldquo;WTF ?</description>
+    </item>
+    
+    <item>
+      <title>Developer Guide</title>
+      <link>https://directory.apache.org/fortress/developer-guide.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/developer-guide.html</guid>
+      <description>Building FORTRESS Please read the Developer Infrastructure Information if you haven&#39;t yet before you proceed.   Fortress-core Fortress-realm Fortress-enmasse Fortress-commander   Preparing the release for the vote  Step 0: Building Fortress-xxx Step 1: Tagging and Deploying step 2 : Processing with a dry run Step 3 : Processing with the real release Step 4 : perform the release Step 5 : closing the staging release on nexus Step 6 : Build the Site Step 7 : Sign the packages Step 8 : Publish Source and Binary Distribution Packages   Step 9 : Voting a release  Step 11 : Close the vote Step 12: Deploy Web Reports (JavaDoc and JXR) Step 13: Wait 24 hours Step 14: Update the Links in Web Site Step 15: Wait another 24 hours Step 16: Announce the New Release     Checking out the code You need Git to check out the source code from our source code repository, and [Maven(https://maven.</description>
+    </item>
+    
+    <item>
+      <title>Download Old Versions</title>
+      <link>https://directory.apache.org/fortress/download-old-versions.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/download-old-versions.html</guid>
+      <description>Download Old Versions     Version Download Link Javadoc Date     Apache Fortress 2.0.4 Download Javadoc 13/December/2019   Apache Fortress 2.0.3 Download Javadoc 12/November/2018   Apache Fortress 2.0.2 Download Javadoc 12/September/2018   Apache Fortress 2.0.1 Download Javadoc 20/July/2018   Apache Fortress 2.0.0 Download Javadoc 26/June/2017   Apache Fortress 2.0.0-RC2 Download Javadoc 04/May/2017   Apache Fortress 2.0.0-RC1 Download Javadoc 07/Nov/2016   Apache Fortress 1.</description>
+    </item>
+    
+    <item>
+      <title>Downloads for Archive</title>
+      <link>https://directory.apache.org/fortress/download/download-archive.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/download/download-archive.html</guid>
+      <description>Download Binaries  [if-any logo]  [end] We suggest the following mirror site for your download: Download jar and war files     &amp;nbsp;   [preferred]/&amp;#91;...&amp;#93;/fortress-core-2.0.5.jar    [ASC-SHA256-SHA512]         &amp;nbsp;   [preferred]/&amp;#91;...&amp;#93;/fortress-realm-impl-2.0.5.jar    [ASC-SHA256-SHA512]      &amp;nbsp;   [preferred]/&amp;#91;...&amp;#93;/fortress-realm-proxy-2.0.5.jar    [ASC-SHA256-SHA512]         &amp;nbsp;   [preferred]/&amp;#91;.</description>
+    </item>
+    
+    <item>
+      <title>Downloads for Sources</title>
+      <link>https://directory.apache.org/fortress/download/download-sources.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/download/download-sources.html</guid>
+      <description>Downloads for Archive  [if-any logo]  [end] We suggest the following mirror site for your download: ZIP Archive     &amp;nbsp;   [preferred]/&amp;#91;...&amp;#93;/fortress-core-2.0.5-source-release.zip    [ASC-SHA256-SHA512]         &amp;nbsp;   [preferred]/&amp;#91;...&amp;#93;/fortress-realm-2.0.5-source-release.zip    [ASC-SHA256-SHA512]         &amp;nbsp;   [preferred]/&amp;#91;...&amp;#93;/fortress-rest-2.0.5-source-release.zip    [ASC-SHA256-SHA512]         &amp;nbsp;   [preferred]/&amp;#91;.</description>
+    </item>
+    
+    <item>
+      <title>Fortress Downloads</title>
+      <link>https://directory.apache.org/fortress/downloads.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/downloads.html</guid>
+      <description>Download Fortress Fortress Archive Downloads To Download Apache Fortress:
+ Download Binaries Download Sources  Fortress Maven Dependencies To embed Apache Fortress components into applications via Maven dependencies:
+&amp;lt;!-- 1. Fortress Core API usage: --&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.apache.directory.fortress&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;fortress-core&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;${fortress-version}&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;!-- 2. Fortress Realm API usage: --&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.apache.directory.fortress&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;fortress-realm-impl&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;${fortress.version}&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; &amp;lt;!-- 3. Fortress Web API usage: --&amp;gt; &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.apache.directory.fortress&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;fortress-web&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;${fortress.version}&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt;  Note: Fortress Web is dependent on Fortress Realm is dependent on Fortress Core.</description>
+    </item>
+    
+    <item>
+      <title>Fortress Installation guides</title>
+      <link>https://directory.apache.org/fortress/installation.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/installation.html</guid>
+      <description>Installation guides The Fortress Core requires an LDAP server to store its information. Its other components, Web and Rest, require a Java Servlet container. This page includes some links on getting started.
+Fortress Core Setup with LDAP The Core is used by the other components, Realm, Rest and Web. These are to install ApacheDS or OpenLDAP (pick one), and configure for usage. For rapid deployment, you can skip the APACHEDS and SLAPD quickstarts, and use one for DOCKER instead.</description>
+    </item>
+    
+    <item>
+      <title>Fortress Overview</title>
+      <link>https://directory.apache.org/fortress/overview.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/overview.html</guid>
+      <description>Apache Fortress Overview FORTRESS is a standards-based authorization system, that provides role-based access control, delegated administration and password policy services using an LDAP backend.
+What&amp;rsquo;s in it? Included are the following components:
+ Core - Java Authorization SDK Realm - Java EE security for Apache Tomcat Rest - HTTP protocol wrappers for the APIs using Apache CXF Web - HTML pages and framework for the APIs using Apache Wicket  It&amp;rsquo;s released under terms of the Apache License 2.</description>
+    </item>
+    
+    <item>
+      <title>Guidelines and Tips for first-time users</title>
+      <link>https://directory.apache.org/fortress/installation/apacheds/guidelines.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/installation/apacheds/guidelines.html</guid>
+      <description>Guidelines and Tips for first-time users In the document that follows, when you read [version] or [platform] substitute with current package info. For example - if the downloaded package version is 1.0.0 and platform is &amp;lsquo;Debian Silver i386&amp;rsquo;, the instructions show fortressBuilder-[platform]-[version].jar your file name would be fortressBuilder-Debian-Silver-i386-1.0.0.zip
+Is your target machine windows? Go to README-QUICKSTART-WINDOWS.
+The source code for this project is located here ./src.</description>
+    </item>
+    
+    <item>
+      <title>Guidelines and Tips for first-time users</title>
+      <link>https://directory.apache.org/fortress/installation/linux/guidelines.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/installation/linux/guidelines.html</guid>
+      <description>Guidelines and Tips for first-time users In the document that follows, when you read [version] or [platform] substitute with current package info. For example - if the downloaded package version is 1.0.0 and platform is &amp;lsquo;Debian Silver i386&amp;rsquo;, the instructions show fortressBuilder-[platform]-[version].jar your file name would be fortressBuilder-Debian-Silver-i386-1.0.0.zip
+Is your target machine windows? Go to README-QUICKSTART-WINDOWS.
+The source code for this project is located here ./src.</description>
+    </item>
+    
+    <item>
+      <title>Guidelines and Tips for first-time users</title>
+      <link>https://directory.apache.org/fortress/installation/windows/guidelines.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/installation/windows/guidelines.html</guid>
+      <description>Guidelines and Tips for first-time users   In the document that follows, when you read [version] or [platform] substitute with current package info. For example - if the downloaded package version is 1.0.0 and platform is &amp;lsquo;Windows&amp;rsquo;, the instructions show fortressBuilder-[platform]-[version].jar your file name would be fortressBuilder-Windows-1.0.0.zip
+  Does your target machine OS end with an X? Go to [README-QUICKSTART.html]
+  The source code for this project is located in [FORTRESS_HOME\src folder].</description>
+    </item>
+    
+    <item>
+      <title>History</title>
+      <link>https://directory.apache.org/fortress/history.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/history.html</guid>
+      <description>Fortress History In 2009 a small team of developers[1], who are brothers, began work on the Open Access Manager project. From its onset, the push behind this project was to build a fully functioning access control system that is based on open standards and wholly open source. In particular, Role-Based Access Control (ANSI INCITS 359) was a focal point, although that adherence brought with it a need for expanded coverage into other areas like auditing and administration.</description>
+    </item>
+    
+    <item>
+      <title>Installation guides</title>
+      <link>https://directory.apache.org/fortress/installation/openldap.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/installation/openldap.html</guid>
+      <description>Installation guides </description>
+    </item>
+    
+    <item>
+      <title>Issues</title>
+      <link>https://directory.apache.org/fortress/issues.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/issues.html</guid>
+      <description>Issue tracking Our project uses JIRA, a Java EE based issue tracking and project management application.
+Issues, bugs, and feature requests should be submitted to the following issue tracking system :
+   Directory Sub-Project JIRA key Link to issue tracking system     Fortress FC http://issues.apache.org/jira/browse/FC    .tableBorder, .grid { background-color: #fff; width: 100%; border-collapse: collapse; } .tableBorder td, .grid td { vertical-align: top; padding: 2px; border: 1px solid #ccc; } .</description>
+    </item>
+    
+    <item>
+      <title>News</title>
+      <link>https://directory.apache.org/fortress/news.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/news.html</guid>
+      <description>Fortress News Apache Fortress 2.0.5 Released posted on May 26th, 2020 The Apache Directory Project announces the twelfth release of Fortress - 2.0.5.
+This maintenance release contains the following bug fixes and enhancements:
+ Fortress 2.0.5 Release Notes  Apache Fortress 2.0.4 Released posted on December 13th, 2019 The Apache Directory Project announces the eleventh release of Fortress - 2.0.4.
+This maintenance release contains many bug fixes and enhancements.
+ Fortress 2.</description>
+    </item>
+    
+    <item>
+      <title>Quick start guide for ApacheDS</title>
+      <link>https://directory.apache.org/fortress/installation/apacheds/apacheds.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/installation/apacheds/apacheds.html</guid>
+      <description>These instructions are intended for new users who want to quickly learn how to install and test Apache Fortress and ApacheDS IAM software.
+Follow the steps and ApacheDS will be installed, configured, loaded, and ready to use by Section IV. EnMasse Policy Server demo starts in Section VIII
+Table of contents  System Prerequisites Guidelines and Tips for first-time users Section I - Instructions to extract and configure Fortress Builder Package Section II - Instructions to run the Fortress Ant Build Section III - Instructions to configure ApacheDS and load with seed data Section IV - Instructions to regression test Fortress and ApacheDS Section V - Instructions to run the Fortress Command Line Interpreter (CLI) utility Section VI - Instructions to run Fortress Console Section VII - Instructions to generate and view Javadoc Section VIII - Instructions to install EnMasse Policy Server Demo (CLI) Section IX - Instructions to regression test EnMasse Policy server Section X - More Utilities  </description>
+    </item>
+    
+    <item>
+      <title>Quick start guide for Linux</title>
+      <link>https://directory.apache.org/fortress/installation/linux/linux.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/installation/linux/linux.html</guid>
+      <description>The intent of this document is to help new users with Apache Fortress IAM™ software using one of the the linux QUICKSTART packages located here
+For instructions on how to get Fortress connected to an existing OpenLDAP instance, follow the instructions inside SECTION 6 of this document: [README.txt](link to provide)
+Table of contents  System Prerequisites Guidelines and Tips for first-time users Section I - download Fortress QUICKSTART and prepare the package Section II - compile Fortress source and build distribution packages Section III - install, configure and load OpenLDAP with seed data Section IV - integration test Fortress and OpenLDAP Section V - Commander Web Administration demo Section VI - integration test Commander with Solenium Section VII - connecting to Commander via Web browser Section VIII - Instructions to use Fortress Command Line Interpreter (CLI) Section IX - Instructions to use Fortress Console utility (CLI) Section X - How to generate and view javadoc Section XI - EnMasse REST Policy Server demo Section XII - integration test Fortress, EnMasse and OpenLDAP Section XIII - enable and test the OpenLDAP RBAC Accelerator Overlay Section XIV - misc info about other utilities  </description>
+    </item>
+    
+    <item>
+      <title>Quick start guide for Windows</title>
+      <link>https://directory.apache.org/fortress/installation/windows/windows.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/installation/windows/windows.html</guid>
+      <description>These instructions are intended for new users who want to quickly learn how to use Apache Fortress and OpenLDAP IAM software on Windows platform using QUICKSTART package
+Follow the steps and
+OpenLDAP will be installed, configured, loaded, and ready to use by [Section IV](section-IV.html). Commander Web Admin demo starts in [Section V](section-V.html) EnMasse Policy Server demo starts in [Section XI](section-XI.html)  Table of contents  System Prerequisites Guidelines and Tips for first-time users Section I - Instructions to extract and configure Fortress Builder Package Section II - Instructions to run the Fortress Ant Build Section III - Instructions to run the Builder to Install OpenLDAP, configure and load with seed data Section IV - Instructions to regression test Fortress and OpenLDAP Section V - Instructions to install Commander Web UI Demo Section VI - Instructions to test Commander Web UI Demo Section VII - Instructions to connect to Commander Web Admin Section VIII - Instructions to run the Fortress Command Line Interpreter (CLI) Section IX - Instructions to run Fortress Console (CLI) Section X - Instructions to generate and view Javadoc Section XI - Instructions to install EnMasse Policy Server Demo Section XII - Instructions to regression test EnMasse Policy server Section XIII - More Utilities  </description>
+    </item>
+    
+    <item>
+      <title>Section I - Instructions to download, extract and configure Fortress</title>
+      <link>https://directory.apache.org/fortress/installation/linux/section-I.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/installation/linux/section-I.html</guid>
+      <description>Section I - Instructions to download, extract and configure Fortress Builder Package to Target System   Download one of the linux packages from here: iamfortress.org/download
+  Copy fortressBuilder-[platform]-[version].zip to hard drive on target server env.
+  Extract the zip. The location for archive can vary according to requirements. The location of package will be referred to as FORTRESS_HOME later on. *Enable permission for the binaries to execute. From FORTRESS_HOME root folder, enter the following command from a system prompt:</description>
+    </item>
+    
+    <item>
+      <title>Section I - Instructions to extract and configure Fortress Builder Package</title>
+      <link>https://directory.apache.org/fortress/installation/apacheds/section-I.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/installation/apacheds/section-I.html</guid>
+      <description>Section I - Instructions to extract and configure Fortress Builder Package to Target System Step 1 Obtain copy of directory-fortress-core and copy to hard drive on target server env.
+https://gitbox.apache.org/repos/asf?p=directory-fortress-core.git;a=summary
+Step 2 Extract the zip. The location for archive can vary according to requirements. The location of package will be referred to as FORTRESS_HOME later on.
+Step 3 Edit file named &amp;lsquo;build.properties&amp;rsquo; and insert or change the following LDAP configuration parameters:</description>
+    </item>
+    
+    <item>
+      <title>Section I - Instructions to extract and configure Fortress Builder Package</title>
+      <link>https://directory.apache.org/fortress/installation/windows/section-I.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/installation/windows/section-I.html</guid>
+      <description>Section I - Instructions to extract and configure Fortress Builder Package to Target System Step 1 Copy fortressBuilder-[platform]-[version].zip to hard drive on target server env.
+Step 2 Extract the zip. The location for archive can vary according to requirements. The location of package will be referred to as FORTRESS_HOME later on.</description>
+    </item>
+    
+    <item>
+      <title>Section II - Instructions to run the Fortress Ant Build</title>
+      <link>https://directory.apache.org/fortress/installation/apacheds/section-II.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/installation/apacheds/section-II.html</guid>
+      <description>Section II - Instructions to run the Fortress Ant Build Step 1 From FORTRESS_HOME root folder, edit the b.sh script to point to java home:
+export JAVA_HOME=/opt/jdk1.7.0_10    Step 2 Run the distribution target:
+./b.sh dist    Note: The b.sh batch file referred to here uses Ant package that is local to Fortress quickstart package.
+Step 3 Verify it ran correctly according to Ant:
+BUILD SUCCESSFUL    You may now view the project binaries and documentation located under FORTRESS_HOME/dist.</description>
+    </item>
+    
+    <item>
+      <title>Section II - Instructions to run the Fortress Ant Build</title>
+      <link>https://directory.apache.org/fortress/installation/linux/section-II.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/installation/linux/section-II.html</guid>
+      <description>Section II - Instructions to run the Fortress Ant Build Step 1 From FORTRESS_HOME root folder, edit the b.sh script to point to java home:
+export JAVA_HOME=/opt/jdk1.7.0_10    Step 2 Run the distribution target:
+./b.sh dist    Note: The b.sh batch file referred to here uses Ant package that is local to Fortress quickstart package.
+Step 3 Verify it ran correctly according to Ant:
+BUILD SUCCESSFUL    You may now view the project binaries and documentation located under FORTRESS_HOME/dist.</description>
+    </item>
+    
+    <item>
+      <title>Section II - Instructions to run the Fortress Ant Build</title>
+      <link>https://directory.apache.org/fortress/installation/windows/section-II.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/installation/windows/section-II.html</guid>
+      <description>Section II - Instructions to run the Fortress Ant Build Step 1 From FORTRESS_HOME root folder, edit the b.bat script to point to java home:
+set JAVA_HOME=\Progra~1\Java\jdk1.7.0    Step 2 Run the distribution target:
+b.bat dist    Note: The b.bat file referred to here uses Ant package that is local to Fortress quickstart package.
+Step 3 Verify it ran correctly according to Ant:
+BUILD SUCCESSFUL    You may now view the project binaries and documentation located under FORTRESS_HOME/dist.</description>
+    </item>
+    
+    <item>
+      <title>Section III - Instructions to configure ApacheDS and load with seed data</title>
+      <link>https://directory.apache.org/fortress/installation/apacheds/section-III.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/installation/apacheds/section-III.html</guid>
+      <description>Section III - Instructions to configure ApacheDS and load with seed data Important: This target reloads the ApacheDS configuration and data.  Step 1 Import Fortress ApacheDS schema into ApacheDS server using preferred ldif import tool. Fortress ApacheDS schema located here: FORTRESS_HOME/ldap/schema/apacheds-fortress.ldif
+Screenshot of Apache Directory Studio import of Fortress schema file into ApacheDS:
+  Note: The default for this setting is &amp;lsquo;false&amp;rsquo; or disabled.
+Step 2 The fortress &amp;lsquo;init-apacheds&amp;rsquo; uses LDAPv3 to perform initial operations.</description>
+    </item>
+    
+    <item>
+      <title>Section III - Instructions to run the Builder to Install OpenLDAP</title>
+      <link>https://directory.apache.org/fortress/installation/linux/section-III.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/installation/linux/section-III.html</guid>
+      <description>Section III - Instructions to run the Builder to Install OpenLDAP, configure and load with seed data Important: This target reinstalls and reloads the OpenLDAP server program, configuration and data.  Step 1 The fortress &amp;lsquo;init-slapd&amp;rsquo; uses LDAPv3 to perform initial operations.
+edit build.properties, ensure the following line has been commented out:
+  Note: The default for this setting is &amp;lsquo;false&amp;rsquo; or disabled.
+Step 2 From FORTRESS_HOME root folder, enter the following command from a system prompt: if sudo:</description>
+    </item>
+    
+    <item>
+      <title>Section III - Instructions to run the Builder to Install OpenLDAP</title>
+      <link>https://directory.apache.org/fortress/installation/windows/section-III.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/installation/windows/section-III.html</guid>
+      <description>Section III - Instructions to run the Builder to Install OpenLDAP, configure and load with seed data Important: This target reinstalls and reloads the OpenLDAP server program, configuration and data.  Step 1 From FORTRESS_HOME root folder, edit the build.properties file, setting the 3 properties below to match your environment:
+slapd.exe.drive=C &amp;lt;-- contains the drive letter for openldap server slapd.exe.dir=OpenLDAP &amp;lt;-- contains the folder to load openldap server binaries fortress.home.drive=C &amp;lt;-- contains the drive letter that you extracted fortress&#39; builder package to.</description>
+    </item>
+    
+    <item>
+      <title>Section IV - Instructions to regression test Fortress and ApacheDS</title>
+      <link>https://directory.apache.org/fortress/installation/apacheds/section-IV.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/installation/apacheds/section-IV.html</guid>
+      <description>Section IV - Instructions to regression test Fortress and ApacheDS on target machine (optional) Step 1 From FORTRESS_HOME root folder, enter the following command from a system prompt:
+./b.sh test-full    Note: The Fortress regression tests will run for around 3 minutes.
+Step 2 Verify these tests ran with no ERRORS.
+BUILD SUCCESSFUL    Step 3 To re-run these tests:
+./b.sh test-full  WARNING messages in test output are good as these are negative tests in action.</description>
+    </item>
+    
+    <item>
+      <title>Section IV - Instructions to regression test Fortress and OpenLDAP</title>
+      <link>https://directory.apache.org/fortress/installation/linux/section-IV.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/installation/linux/section-IV.html</guid>
+      <description>Section IV - Instructions to regression test Fortress and OpenLDAP on target machine (optional) Step 1 From FORTRESS_HOME root folder, enter the following command from a system prompt:
+./b.sh test-full    Note: The Fortress regression tests will run for around 3 minutes.
+Step 2 Verify these tests ran with no ERRORS.
+BUILD SUCCESSFUL    Step 3 To re-run these tests:
+./b.sh test-full  WARNING messages in test output are good as these are negative tests in action.</description>
+    </item>
+    
+    <item>
+      <title>Section IV - Instructions to regression test Fortress and OpenLDAP</title>
+      <link>https://directory.apache.org/fortress/installation/windows/section-IV.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/installation/windows/section-IV.html</guid>
+      <description>Section IV - Instructions to regression test Fortress and OpenLDAP on target machine Step 1 From FORTRESS_HOME root folder, enter the following command from a system prompt:
+b test-full    Step 2 Verify these tests ran with no ERRORS.
+BUILD SUCCESSFUL    Step 3 To re-run these tests:
+b test-full  WARNING messages in test output are good as these are negative tests in action.    If you made it this far without junit or ant ERRORS, the Fortress and OpenLDAP IAM system are certified to run on your machine.</description>
+    </item>
+    
+    <item>
+      <title>Section IX - Instructions to regression test EnMasse Policy server</title>
+      <link>https://directory.apache.org/fortress/installation/apacheds/section-IX.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/installation/apacheds/section-IX.html</guid>
+      <description>Section XII - Instructions to regression test EnMasse Policy server on target machine (optional) Step 1 Edit file named &amp;lsquo;build.properties&amp;rsquo; and enable REST protocol here:
+enable.mgr.impl.rest=true  Accept the defaults for other HTTP parameters in build.properties:
+http.user=demouser4 http.pw=gX9JbCTxJW5RiH+otQEX0Ja0RIAoPBQf http.host=localhost http.port=8080  Should look like the following:
+  Step 2 Save and exit the text file editor
+Step 3 From FORTRESS_HOME root folder, enter the following command from a system prompt:</description>
+    </item>
+    
+    <item>
+      <title>Section IX - Instructions to run Fortress Console</title>
+      <link>https://directory.apache.org/fortress/installation/linux/section-IX.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/installation/linux/section-IX.html</guid>
+      <description>Section IX - Instructions to run Fortress Console (optional) For tasks like one-time setup of new users, password resets, searches the Fortress Console application can be used.
+Step 1 From FORTRESS_HOME root folder, enter the following command from a system prompt:
+./b.sh console    Some Console Screenshots&amp;hellip; Main Menu:   Admin Manager Functions Enter choice 1 and follow the screen prompts to edit RBAC data:
+  Review Manager Functions Enter choice 2 and follow the screen prompts to search RBAC data:</description>
+    </item>
+    
+    <item>
+      <title>Section IX - Instructions to run Fortress Console</title>
+      <link>https://directory.apache.org/fortress/installation/windows/section-IX.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/installation/windows/section-IX.html</guid>
+      <description>Section IX - Instructions to run Fortress Console (optional) For tasks like one-time setup of new users, password resets, searches the Fortress Console application can be used.
+Step 1 From FORTRESS_HOME root folder, enter the following command from a system prompt:
+b console    Some Console Screenshots&amp;hellip; Main Menu:   Admin Manager Functions Enter choice 1 and follow the screen prompts to edit RBAC data:
+  Review Manager Functions Enter choice 2 and follow the screen prompts to search RBAC data:</description>
+    </item>
+    
+    <item>
+      <title>Section V - Instructions to install Commander Web UI Demo</title>
+      <link>https://directory.apache.org/fortress/installation/linux/section-V.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/installation/linux/section-V.html</guid>
+      <description>Section V - Instructions to install Commander Web UI Demo (optional) Run the install-commander-demo target:
+./b.sh install-commander-demo  </description>
+    </item>
+    
+    <item>
+      <title>Section V - Instructions to install Commander Web UI Demo (optional)</title>
+      <link>https://directory.apache.org/fortress/installation/windows/section-V.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/installation/windows/section-V.html</guid>
+      <description>Section V - Instructions to install Commander Web UI Demo (optional) Run the install-commander-demo target:
+b install-commander-demo  </description>
+    </item>
+    
+    <item>
+      <title>Section V - Instructions to run the Fortress Command Line Interpreter (CLI) utility</title>
+      <link>https://directory.apache.org/fortress/installation/apacheds/section-V.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/installation/apacheds/section-V.html</guid>
+      <description>Section V - Instructions to run the Fortress Command Line Interpreter (CLI) utility This command line tool provides an interactive session with the user based on a simple command line syntax.
+Step 1 To start the CLI, enter:
+./b.sh cli    Which will bring up the command interpreter:
+  Step 2 enter the command:
+review fuser -u demo    This example will return all users with userId that begins with &amp;lsquo;demo&amp;rsquo;:</description>
+    </item>
+    
+    <item>
+      <title>Section VI - Instructions to automatically test Commander Web UI Demo (optional)</title>
+      <link>https://directory.apache.org/fortress/installation/windows/section-VI.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/installation/windows/section-VI.html</guid>
+      <description>Section VI - Instructions to automatically test Commander Web UI Demo (optional) Run the commander-maven-test target to perform headless test of Commander Web:
+b commander-maven-test  note: Firefox must be preinstalled to target system.</description>
+    </item>
+    
+    <item>
+      <title>Section VI - Instructions to run Fortress Console</title>
+      <link>https://directory.apache.org/fortress/installation/apacheds/section-VI.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/installation/apacheds/section-VI.html</guid>
+      <description>Section VI - Instructions to run Fortress Console (optional) For tasks like one-time setup of new users, password resets, searches the Fortress Console application can be used.
+Step 1 From FORTRESS_HOME root folder, enter the following command from a system prompt:
+./b.sh console    Some Console Screenshots&amp;hellip; Main Menu:   Admin Manager Functions Enter choice 1 and follow the screen prompts to edit RBAC data:
+  Review Manager Functions Enter choice 2 and follow the screen prompts to search RBAC data:</description>
+    </item>
+    
+    <item>
+      <title>Section VI - Instructions to test Commander Web UI Demo</title>
+      <link>https://directory.apache.org/fortress/installation/linux/section-VI.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/installation/linux/section-VI.html</guid>
+      <description>Section VI - Instructions to automatically test Commander Web UI Demo (optional) Run the commander-maven-test target to perform headless test of Commander Web:
+./b.sh commander-maven-test  note: Firefox must be preinstalled to target system.</description>
+    </item>
+    
+    <item>
+      <title>Section VII - Instructions to connect to Commander Web Admin</title>
+      <link>https://directory.apache.org/fortress/installation/linux/section-VII.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/installation/linux/section-VII.html</guid>
+      <description>Section VII - Instructions to connect to Commander Web Admin Open up browser and enter the following URL:
+http://localhost:8080/commander userId: test password: test  Click on links on top or buttons on side of page to navigate between pages</description>
+    </item>
+    
+    <item>
+      <title>Section VII - Instructions to connect to Commander Web Admin</title>
+      <link>https://directory.apache.org/fortress/installation/windows/section-VII.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/installation/windows/section-VII.html</guid>
+      <description>Section VII - Instructions to connect to Commander Web Admin Open up browser and enter the following URL:
+http://localhost:8080/commander userId: test password: test  Click on links on top or bottons on side of page to navigate between pages</description>
+    </item>
+    
+    <item>
+      <title>Section VII - Instructions to generate and view Javadoc</title>
+      <link>https://directory.apache.org/fortress/installation/apacheds/section-VII.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/installation/apacheds/section-VII.html</guid>
+      <description>Section VII - Instructions to generate and view Javadoc (optional) Step 1 Run the javadoc target:
+./b.sh javadoc    Step 2 Navigate to where docs are generated:
+  Step 3 Open &amp;lsquo;index.html&amp;rsquo; using your preferred HTML Browser :
+  Step 4 The javadoc provides coverage of the Fortress APIs and also provides explanations on how RBAC, ARBAC, PW Policies and Audit work.
+Step 5 Good places to start learning about Fortress :</description>
+    </item>
+    
+    <item>
+      <title>Section VIII - Instructions to install EnMasse Policy Server Demo</title>
+      <link>https://directory.apache.org/fortress/installation/apacheds/section-VIII.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/installation/apacheds/section-VIII.html</guid>
+      <description>Section VIII - Instructions to install EnMasse Policy Server Demo (optional) Step 1 Run the install-enmasse-demo target:
+./b.sh install-enmasse-demo  Step 2 Verify it ran correctly according to Ant.
+BUILD SUCCESSFUL    Step 3 After above step completes, Fortress EnMasse will be installed</description>
+    </item>
+    
+    <item>
+      <title>Section VIII - Instructions to run the Fortress Command Line Interpreter</title>
+      <link>https://directory.apache.org/fortress/installation/linux/section-VIII.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/installation/linux/section-VIII.html</guid>
+      <description>Section VIII - Instructions to run the Fortress Command Line Interpreter (CLI) utility (optional) This command line tool provides an interactive session with the user based on a simple command line syntax.
+Step 1 To start the CLI, enter:
+./b.sh cli    Which will bring up the command interpreter:
+  Step 2 enter the command:
+review fuser -u demo    This example will return all users with userId that begins with &amp;lsquo;demo&amp;rsquo;:</description>
+    </item>
+    
+    <item>
+      <title>Section VIII - Instructions to run the Fortress Command Line Interpreter (CLI)</title>
+      <link>https://directory.apache.org/fortress/installation/windows/section-VIII.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/installation/windows/section-VIII.html</guid>
+      <description>Section VIII - Instructions to run the Fortress Command Line Interpreter (CLI) (optional) This command line tool provides an interactive session with the user based on a simple command line syntax.
+Step 1 To start the CLI, enter:
+b cli    Which will bring up the command interpreter:
+  Step 2 enter the command:
+review fuser -u demo    This example will return all users with userId that begins with &amp;lsquo;demo&amp;rsquo;:</description>
+    </item>
+    
+    <item>
+      <title>Section X - Instructions to generate and view Javadoc</title>
+      <link>https://directory.apache.org/fortress/installation/linux/section-X.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/installation/linux/section-X.html</guid>
+      <description>Section X - Instructions to generate and view Javadoc (optional) Step 1 Run the javadoc target:
+./b.sh javadoc    Step 2 Navigate to where docs are generated:
+  Step 3 Open &amp;lsquo;index.html&amp;rsquo; using your preferred HTML Browser :
+  Step 4 The javadoc provides coverage of the Fortress APIs and also provides explanations on how RBAC, ARBAC, PW Policies and Audit work.
+Step 5 Good places to start learning about Fortress :</description>
+    </item>
+    
+    <item>
+      <title>Section X - Instructions to generate and view Javadoc</title>
+      <link>https://directory.apache.org/fortress/installation/windows/section-X.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/installation/windows/section-X.html</guid>
+      <description>Section X - Instructions to generate and view Javadoc (optional) Step 1 Run the javadoc target:
+b javadoc    Step 2 Navigate to where docs are generated :
+(wrong snapshot)
+  Step 3 Open &amp;lsquo;index.html&amp;rsquo; using your preferred HTML Browser :
+  Step 4 The javadoc provides coverage of the Fortress APIs and also provides explanations on how RBAC, ARBAC, PW Policies and Audit work.
+Step 5 Good places to start learning about Fortress :</description>
+    </item>
+    
+    <item>
+      <title>Section X - More Utilities</title>
+      <link>https://directory.apache.org/fortress/installation/apacheds/section-X.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/installation/apacheds/section-X.html</guid>
+      <description>Section X - More Utilities Other execution targets you may find useful:
+ &amp;lsquo;test-samples&amp;rsquo; - contains examples of how the Fortress API&amp;rsquo;s work check out the following javadoc for more info on the samples package: Samples Javadoc &amp;lsquo;admin&amp;rsquo; - provides an XML-centric way to provision RBAC data policies and user accounts. check out the following javadoc for more info on this utility: Fortress Ant admin script utility document &amp;lsquo;encrypt&amp;rsquo; - interface to jacypt encryption utility display all ant targets available:    </description>
+    </item>
+    
+    <item>
+      <title>Section XI - Instructions to install EnMasse Policy Server Demo</title>
+      <link>https://directory.apache.org/fortress/installation/linux/section-XI.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/installation/linux/section-XI.html</guid>
+      <description>Section XI - Instructions to install EnMasse Policy Server Demo (optional) Step 1 Run the install-enmasse-demo target:
+./b.sh install-enmasse-demo  Step 2 Verify it ran correctly according to Ant.
+BUILD SUCCESSFUL    Step 3 After above step completes, Fortress EnMasse will be installed</description>
+    </item>
+    
+    <item>
+      <title>Section XI - Instructions to install EnMasse Policy Server Demo</title>
+      <link>https://directory.apache.org/fortress/installation/windows/section-XI.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/installation/windows/section-XI.html</guid>
+      <description>Section XI - Instructions to install EnMasse Policy Server Demo Step 1 Run the install-enmasse-demo target:
+b install-enmasse-demo  Step 2 Verify it ran correctly according to Ant.
+Step 3 After above step completes, Fortress EnMasse will be installed</description>
+    </item>
+    
+    <item>
+      <title>Section XII - Instructions to regression test EnMasse Policy server</title>
+      <link>https://directory.apache.org/fortress/installation/linux/section-XII.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/installation/linux/section-XII.html</guid>
+      <description>Section XII - Instructions to regression test EnMasse Policy server on target machine (optional) Step 1 Edit file named &amp;lsquo;build.properties&amp;rsquo; and enable REST protocol here:
+enable.mgr.impl.rest=true  Accept the defaults for other HTTP parameters in build.properties:
+http.user=demouser4 http.pw=gX9JbCTxJW5RiH+otQEX0Ja0RIAoPBQf http.host=localhost http.port=8080  Should look like the following:
+  Step 2 Save and exit the text file editor
+Step 3 From FORTRESS_HOME root folder, enter the following command from a system prompt:</description>
+    </item>
+    
+    <item>
+      <title>Section XII - Instructions to regression test EnMasse Policy server</title>
+      <link>https://directory.apache.org/fortress/installation/windows/section-XII.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/installation/windows/section-XII.html</guid>
+      <description>Section XII - Instructions to regression test EnMasse Policy server on target machine (optional) Step 1 Edit file named &amp;lsquo;build.properties&amp;rsquo; and enable REST protocol here:
+enable.mgr.impl.rest=true  Accept the defaults for other HTTP parameters in build.properties:
+http.user=demouser4 http.pw=gX9JbCTxJW5RiH+otQEX0Ja0RIAoPBQf http.host=localhost http.port=8080  Should look like the following:
+  Step 2 Save and exit the text file editor
+Step 3 From FORTRESS_HOME root folder, enter the following command from a system prompt:</description>
+    </item>
+    
+    <item>
+      <title>Section XIII - Instructions to enable RBAC Accelerator Overlay in OpenLDAP</title>
+      <link>https://directory.apache.org/fortress/installation/linux/section-XIII.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/installation/linux/section-XIII.html</guid>
+      <description>Section XIII - Instructions to enable RBAC Accelerator Overlay in OpenLDAP and test Java-side bindings (optional) Step 1 Edit file named &amp;lsquo;build.properties&amp;rsquo; and enable RBAC accelerator by adding:
+rbac.accelerator=true  Step 2 Save and exit the text file editor
+Step 3 Reinstall OpenLDAP by running the init-slapd target described in Section III: Instructions to run the Builder to Install OpenLDAP, configure and load with seed data
+Step 4 Load necessary test data for unit tests:</description>
+    </item>
+    
+    <item>
+      <title>Section XIII - More Utilities</title>
+      <link>https://directory.apache.org/fortress/installation/windows/section-XIII.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/installation/windows/section-XIII.html</guid>
+      <description>Section XIII - More Utilities Other execution targets you may find useful:
+ &amp;lsquo;test-samples&amp;rsquo; - contains examples of how the Fortress API&amp;rsquo;s work check out the following javadoc for more info on the samples package: Samples Javadoc &amp;lsquo;admin&amp;rsquo; - provides an XML-centric way to provision RBAC data policies and user accounts. check out the following javadoc for more info on this utility: Fortress Ant admin script utility document &amp;lsquo;encrypt&amp;rsquo; - interface to jacypt encryption utility &amp;lsquo;start-slapd&amp;rsquo; - Starts OpenLDAP on target machine.</description>
+    </item>
+    
+    <item>
+      <title>Section XIV - More Utilities</title>
+      <link>https://directory.apache.org/fortress/installation/linux/section-XIV.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/installation/linux/section-XIV.html</guid>
+      <description>Section XIV - More Utilities Other execution targets you may find useful:
+ &amp;lsquo;test-samples&amp;rsquo; - contains examples of how the Fortress API&amp;rsquo;s work check out the following javadoc for more info on the samples package: Samples Javadoc &amp;lsquo;admin&amp;rsquo; - provides an XML-centric way to provision RBAC data policies and user accounts. check out the following javadoc for more info on this utility: Fortress Ant admin script utility document &amp;lsquo;encrypt&amp;rsquo; - interface to jacypt encryption utility &amp;lsquo;start-slapd&amp;rsquo; - Starts OpenLDAP on target machine.</description>
+    </item>
+    
+    <item>
+      <title>System Prequesites</title>
+      <link>https://directory.apache.org/fortress/installation/apacheds/prerequisites.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/installation/apacheds/prerequisites.html</guid>
+      <description>System Prerequisites  Internet access to retrieve binary dependencies from online Maven repo. Java SDK Version 7 or beyond installed to target environment Redhat or Ubuntu server machine 1GB RAM 20GB HD ApacheDS pre-installed  NOTE: The Fortress build.xml may run without connection to Internet if:
+ The binary dependencies have previously been downloaded to FORTRESS_HOME/lib folder Local mode has been enabled on target machine. Local mode can be enabled by adding this property to build.</description>
+    </item>
+    
+    <item>
+      <title>System Prequesites</title>
+      <link>https://directory.apache.org/fortress/installation/linux/prerequisites.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/installation/linux/prerequisites.html</guid>
+      <description>System Prerequisites  Internet access to retrieve binary dependencies from online Maven repo. Java SDK Version 7 or beyond installed to target environment Redhat or Ubuntu server machine 1GB RAM 20GB HD  NOTE: The Fortress build.xml may run without connection to Internet if:
+ The binary dependencies have previously been downloaded to FORTRESS_HOME/lib folder Local mode has been enabled on target machine. Local mode can be enabled by adding this property to build.</description>
+    </item>
+    
+    <item>
+      <title>System Prequesites</title>
+      <link>https://directory.apache.org/fortress/installation/windows/prequesites.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/installation/windows/prequesites.html</guid>
+      <description>System Prerequisites The following steps are required&amp;hellip;
+ Internet access to retrieve binary dependencies from online Maven repo. Java SDK Version 7 or beyond installed to target environment  NOTE: The Fortress build.xml may run without connection to Internet if:
+  The binary dependencies are already present in FORTRESS_HOME/lib folder
+  Local mode has been enabled on target machine. Local mode can be enabled by adding this property to build.</description>
+    </item>
+    
+    <item>
+      <title>Testimonials</title>
+      <link>https://directory.apache.org/fortress/testimonials.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/testimonials.html</guid>
+      <description>Testimonials Credits This work was contributed by Yudhi Karunia Surtan of PT. Global Digital Niaga (blibli.com). Thanks to him and his team for their efforts in helping others use Fortress.
+Introduction This document contains an overview for combining a CAS-based SSO module with fortress-based authorization, using a declarative URL filtering mechanism.
+###Detailed description of the project
+I created this solution a few years ago because at the time I was looking for an IAM and SSO solution, and there were no open source solutions that provided everything that I needed.</description>
+    </item>
+    
+    <item>
+      <title>User&#39;s Guide</title>
+      <link>https://directory.apache.org/fortress/user-guide.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/user-guide.html</guid>
+      <description>Fortress User&amp;rsquo;s Guide This guide is primarily for people new to Fortress. It will guide through basic concepts.
+About this guide Learn what RBAC is and how to download, install and configure an Apache Fortress instance using ApacheDS or OpenLDAP as the datastore. Over time we&amp;rsquo;ll add documents covering more advanced topics.
+Table of contents  1 - An Introduction to Role-Based Access Control ANSI INCITS 359-2004  1.1 - ANSI RBAC Explained 1.</description>
+    </item>
+    
+    <item>
+      <title>Vision</title>
+      <link>https://directory.apache.org/fortress/vision.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/vision.html</guid>
+      <description>Architectural Vision Fortress provides an authorization system that builds on existing open source applications.
+  </description>
+    </item>
+    
+    <item>
+      <title>Welcome to Apache Fortress</title>
+      <link>https://directory.apache.org/fortress/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/</guid>
+      <description>Apache Fortress&amp;trade; Access Management SDK and Web Components A standards-based access management system, written in Java, supports ANSI INCITS 359 RBAC and more.    Download Apache
+Fortress 2.0.5    Fortress News Apache Fortress 2.0.5 Released posted on May 26th, 2020 The Apache Directory Project announces the twelfth release of Fortress - 2.0.5.
+This maintenance release contains the following bug fixes and enhancements:
+ Fortress 2.0.5 Release Notes  Apache Fortress 2.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>Developer Guide &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/turquoise.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/fortress-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+             
+                ApacheDS
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+             
+                LDAP API
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+            
+                <strong>Fortress</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>Fortress</h5>
+                <ul>
+                    <li><a href="/fortress/">Home</a></li>
+                    <li><a href="/fortress/history.html">History</a></li>
+                    <li><a href="/fortress/news.html">News</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/fortress/downloads.html">Fortress 2.0.5</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/fortress/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/fortress/overview.html">Overview</a></li>
+                    <li><a href="/fortress/installation.html">Installation Guide</a></li>
+                    <li><a href="/fortress/user-guide.html">Users Guide</a></li>
+                    <li><a href="/fortress/coding-standards.html">Coding Standards</a></li>
+                    <li><a href="/fortress/gen-docs/latest/apidocs/">JavaDocs</a></li>
+                    
+                    <li><a href="/fortress/gen-docs/latest/">Generated Reports</a></li>
+                    <li><a href="/fortress/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/fortress/testimonials.html">Testimonials</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+
+            
+	<h1 id="building-fortress">Building FORTRESS</h1>
+<DIV class="note" markdown="1">
+	Please read <a href="https://www.apache.org/dev/" class="external-link" rel="nofollow">the Developer Infrastructure Information</a> if you haven't yet before you proceed.
+</DIV>
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#fortress-core">Fortress-core</a></li>
+    <li><a href="#fortress-realm">Fortress-realm</a></li>
+    <li><a href="#fortress-enmasse">Fortress-enmasse</a></li>
+    <li><a href="#fortress-commander">Fortress-commander</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#preparing-the-release-for-the-vote">Preparing the release for the vote</a>
+      <ul>
+        <li><a href="#step-0-building-fortress-xxx">Step 0: Building Fortress-xxx</a></li>
+        <li><a href="#step-1-tagging-and-deploying">Step 1: Tagging and Deploying</a></li>
+        <li><a href="#step-2--processing-with-a-dry-run">step 2 : Processing with a dry run</a></li>
+        <li><a href="#step-3--processing-with-the-real-release">Step 3 : Processing with the real release</a></li>
+        <li><a href="#step-4--perform-the-release">Step 4 : perform the release</a></li>
+        <li><a href="#step-5--closing-the-staging-release-on-nexus">Step 5 : closing the staging release on nexus</a></li>
+        <li><a href="#step-6--build-the-site">Step 6 : Build the Site</a></li>
+        <li><a href="#step-7--sign-the-packages">Step 7 : Sign the packages</a></li>
+        <li><a href="#step-8--publish-source-and-binary-distribution-packages">Step 8 : Publish Source and Binary Distribution Packages</a></li>
+      </ul>
+    </li>
+    <li><a href="#step-9--voting-a-release">Step 9 : Voting a release</a>
+      <ul>
+        <li><a href="#step-11--close-the-vote">Step 11 : Close the vote</a></li>
+        <li><a href="#step-12-deploy-web-reports-javadoc-and-jxr">Step 12: Deploy Web Reports (JavaDoc and JXR)</a></li>
+        <li><a href="#step-13-wait-24-hours">Step 13: Wait 24 hours</a></li>
+        <li><a href="#step-14-update-the-links-in-web-site">Step 14: Update the Links in Web Site</a></li>
+        <li><a href="#step-15-wait-another-24-hours">Step 15: Wait another 24 hours</a></li>
+        <li><a href="#step-16-announce-the-new-release">Step 16: Announce the New Release</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+<h1 id="checking-out-the-code">Checking out the code</h1>
+<p>You need Git to check out the source code from our source code repository, and [Maven(https://maven.apache.org/) 3.0 to build the source code.  The following example shows how to get the Fortress projects.</p>
+<h2 id="fortress-core">Fortress-core</h2>
+<pre><code>$ git clone https://gitbox.apache.org/repos/asf/directory-fortress-core.git fortress-core
+$ cd fortress-core
+$ mvn clean install             # Build packages (JARs) for the Fortress core API and other 
+                                # extensions and install them to the local Maven repository.
+$ mvn site                      # Generate reports (JavaDoc and various other reports)
+$ mvn package                   # Generate a tarball
+</code></pre>
+<p>Eclipse users:
+Don&rsquo;t forget to declare a classpath variable named M2_REPO, pointing to <code>~/.m2/repository</code>, otherwise many links to existing jars will be broken.
+You can declare new variables in Eclipse in Windows -&gt; Preferences&hellip; and selecting Java -&gt; Build Path -&gt; Classpath Variables</p>
+<p>If you want to check out the source code of previous releases, you have to select the branch you want to work on :</p>
+<p>$ git clone <a href="https://gitbox.apache.org/repos/asf/directory-fortress-core.git">https://gitbox.apache.org/repos/asf/directory-fortress-core.git</a> fortress-core
+$ git checkout <tag></p>
+<h2 id="fortress-realm">Fortress-realm</h2>
+<pre><code>$ git clone https://gitbox.apache.org/repos/asf/directory-fortress-realm.git fortress-realm
+$ cd fortress-realm
+$ mvn clean install             # Build packages (JARs) for the Fortress realm API and other 
+                                # extensions and install them to the local Maven repository.
+$ mvn site                      # Generate reports (JavaDoc and various other reports)
+$ mvn package                   # Generate a tarball
+</code></pre>
+<p>Eclipse users:
+Don&rsquo;t forget to declare a classpath variable named M2_REPO, pointing to <code>~/.m2/repository</code>, otherwise many links to existing jars will be broken.
+You can declare new variables in Eclipse in Windows -&gt; Preferences&hellip; and selecting Java -&gt; Build Path -&gt; Classpath Variables</p>
+<p>If you want to check out the source code of previous releases, you have to select the branch you want to work on :</p>
+<p>$ git clone <a href="https://gitbox.apache.org/repos/asf/directory-fortress-realm.git">https://gitbox.apache.org/repos/asf/directory-fortress-realm.git</a> fortress-realm
+$ git checkout <tag></p>
+<h2 id="fortress-enmasse">Fortress-enmasse</h2>
+<pre><code>$ git clone https://gitbox.apache.org/repos/asf/directory-fortress-enmasse.git fortress-enmasse
+$ cd fortress-enmasse
+$ mvn clean install             # Build packages (JARs) for the Fortress enmasse API and other 
+                                # extensions and install them to the local Maven repository.
+$ mvn site                      # Generate reports (JavaDoc and various other reports)
+$ mvn package                   # Generate a tarball
+</code></pre>
+<p>Eclipse users:
+Don&rsquo;t forget to declare a classpath variable named M2_REPO, pointing to <code>~/.m2/repository</code>, otherwise many links to existing jars will be broken.
+You can declare new variables in Eclipse in Windows -&gt; Preferences&hellip; and selecting Java -&gt; Build Path -&gt; Classpath Variables</p>
+<p>If you want to check out the source code of previous releases, you have to select the branch you want to work on :</p>
+<p>$ git clone <a href="https://gitbox.apache.org/repos/asf/directory-fortress-enmasse.git">https://gitbox.apache.org/repos/asf/directory-fortress-enmasse.git</a> fortress-enmasse
+$ git checkout <tag></p>
+<h2 id="fortress-commander">Fortress-commander</h2>
+<pre><code>$ git clone https://gitbox.apache.org/repos/asf/directory-fortress-commander.git fortress-commander
+$ cd fortress-commander
+$ mvn clean install             # Build packages (JARs) for the Fortress commander API and other 
+                                # extensions and install them to the local Maven repository.
+$ mvn site                      # Generate reports (JavaDoc and various other reports)
+$ mvn package                   # Generate a tarball
+</code></pre>
+<p>Eclipse users:
+Don&rsquo;t forget to declare a classpath variable named M2_REPO, pointing to <code>~/.m2/repository</code>, otherwise many links to existing jars will be broken.
+You can declare new variables in Eclipse in Windows -&gt; Preferences&hellip; and selecting Java -&gt; Build Path -&gt; Classpath Variables</p>
+<p>If you want to check out the source code of previous releases, you have to select the branch you want to work on :</p>
+<p>$ git clone <a href="https://gitbox.apache.org/repos/asf/directory-fortress-commander.git">https://gitbox.apache.org/repos/asf/directory-fortress-commander.git</a> fortress-commander
+$ git checkout <tag></p>
+<h1 id="coding-convention">Coding Convention</h1>
+<p>The applicable coding standards for Fortress are described in <a href="coding-standards.html">Coding Standards</a></p>
+<h1 id="deploying-snapshots-commiters-only">Deploying Snapshots (Commiters Only)</h1>
+<p>Before running Maven to deploy artifacts, <em>please make sure if your umask is configured correctly</em>.  Unless configured properly, other committers will experience annoying &lsquo;permission denied&rsquo; errors.  If your default shell is <code>bash</code>, please update your umask setting in the <code>~/.bashrc</code> file (create one if it doesn&rsquo;t exist.) by adding the following line:</p>
+<pre><code>umask 002
+</code></pre>
+<p>Please note that you have to edit the correct <code>shrc</code> file.  If you use <code>csh</code>, then you will have to edit <code>~/.cshrc</code> file.</p>
+<p>Now you are ready to deploy the artifacts if you configured your umask correctly.</p>
+<pre><code>$ git clone https://gitbox.apache.org/repos/asf/directory-fortress-core.git fortress-core
+$ cd fortress-core
+$ mvn clean deploy site site:deploy    # Make sure to run 'clean' goal first to prevent side effects from your IDE.
+</code></pre>
+<p>(do the same thing for the <em>enmasse, realm and commander</em> projects)</p>
+<p>Please double-check the mode (i.e. <code>0664</code> or <code>-rw-rw-r--</code>, a.k.a permission code) of the deployed artifacts, otherwise you can waste other people&rsquo;s time significantly.</p>
+<h1 id="releasing-a-point-release-committers-only">Releasing a Point Release (Committers Only)</h1>
+<h2 id="preparing-the-release-for-the-vote">Preparing the release for the vote</h2>
+<p>Before starting be sure to have the java and mvn command in your PATH.
+On linux you can check with the following commands :</p>
+<pre><code>$ type mvn
+mvn is hashed (/opt/apache-maven-3.2.5/bin/mvn)
+$ type java
+java is /usr/bin/java
+</code></pre>
+<h3 id="step-0-building-fortress-xxx">Step 0: Building Fortress-xxx</h3>
+<DIV class="note" markdown="1">
+Here, 'xxx' is one of the four fortress mdules : core, enmasse, realm or comander
+</DIV>
+<h3 id="step-1-tagging-and-deploying">Step 1: Tagging and Deploying</h3>
+<p>First you need to configure maven for using the good username for scp and operation.</p>
+<p>In the <code>~/.m2/settings.xml</code> you need the following lines :</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#008000;font-weight:bold">&lt;settings</span> <span style="color:#b44">xmlns=</span><span style="color:#b44">&#34;http://maven.apache.org/POM/4.0.0&#34;</span>
+  <span style="color:#b44">xmlns:xsi=</span><span style="color:#b44">&#34;http://www.w3.org/2001/XMLSchema-instance&#34;</span>
+  <span style="color:#b44">xsi:schemaLocation=</span><span style="color:#b44">&#34;http://maven.apache.org/POM/4.0.0
+</span><span style="color:#b44">                      http://maven.apache.org/xsd/settings-1.0.0.xsd&#34;</span><span style="color:#008000;font-weight:bold">&gt;</span>
+
+  <span style="color:#080;font-style:italic">&lt;!--</span><span style="color:#080;font-style:italic"> SERVER SETTINGS </span><span style="color:#080;font-style:italic">--&gt;</span>
+  <span style="color:#008000;font-weight:bold">&lt;servers</span><span style="color:#008000;font-weight:bold">&gt;</span>
+    <span style="color:#080;font-style:italic">&lt;!--</span><span style="color:#080;font-style:italic"> To publish a snapshot of some part of Maven </span><span style="color:#080;font-style:italic">--&gt;</span>
+    <span style="color:#008000;font-weight:bold">&lt;server</span><span style="color:#008000;font-weight:bold">&gt;</span>
+      <span style="color:#008000;font-weight:bold">&lt;id</span><span style="color:#008000;font-weight:bold">&gt;</span>apache.snapshots.https<span style="color:#008000;font-weight:bold">&lt;/id&gt;</span>
+      <span style="color:#008000;font-weight:bold">&lt;username</span><span style="color:#008000;font-weight:bold">&gt;</span>elecharny<span style="color:#008000;font-weight:bold">&lt;/username&gt;</span>
+      <span style="color:#008000;font-weight:bold">&lt;password</span><span style="color:#008000;font-weight:bold">&gt;</span>-----Your password here-----<span style="color:#008000;font-weight:bold">&lt;/password&gt;</span>
+    <span style="color:#008000;font-weight:bold">&lt;/server&gt;</span>
+    <span style="color:#080;font-style:italic">&lt;!--</span><span style="color:#080;font-style:italic"> To publish a website of some part of Maven </span><span style="color:#080;font-style:italic">--&gt;</span>
+    <span style="color:#008000;font-weight:bold">&lt;server</span><span style="color:#008000;font-weight:bold">&gt;</span>
+      <span style="color:#008000;font-weight:bold">&lt;id</span><span style="color:#008000;font-weight:bold">&gt;</span>apache.websites<span style="color:#008000;font-weight:bold">&lt;/id&gt;</span>
+      <span style="color:#008000;font-weight:bold">&lt;username</span><span style="color:#008000;font-weight:bold">&gt;</span>elecharny<span style="color:#008000;font-weight:bold">&lt;/username&gt;</span>
+      <span style="color:#008000;font-weight:bold">&lt;filePermissions</span><span style="color:#008000;font-weight:bold">&gt;</span>664<span style="color:#008000;font-weight:bold">&lt;/filePermissions&gt;</span>
+      <span style="color:#008000;font-weight:bold">&lt;directoryPermissions</span><span style="color:#008000;font-weight:bold">&gt;</span>775<span style="color:#008000;font-weight:bold">&lt;/directoryPermissions&gt;</span>
+    <span style="color:#008000;font-weight:bold">&lt;/server&gt;</span>
+    <span style="color:#080;font-style:italic">&lt;!--</span><span style="color:#080;font-style:italic"> To stage a release of some part of Maven </span><span style="color:#080;font-style:italic">--&gt;</span>
+    <span style="color:#008000;font-weight:bold">&lt;server</span><span style="color:#008000;font-weight:bold">&gt;</span>
+      <span style="color:#008000;font-weight:bold">&lt;id</span><span style="color:#008000;font-weight:bold">&gt;</span>apache.releases.https<span style="color:#008000;font-weight:bold">&lt;/id&gt;</span>
+      <span style="color:#008000;font-weight:bold">&lt;username</span><span style="color:#008000;font-weight:bold">&gt;</span>elecharny<span style="color:#008000;font-weight:bold">&lt;/username&gt;</span>
+      <span style="color:#008000;font-weight:bold">&lt;password</span><span style="color:#008000;font-weight:bold">&gt;</span>-----Your password here-----<span style="color:#008000;font-weight:bold">&lt;/password&gt;</span>
+    <span style="color:#008000;font-weight:bold">&lt;/server&gt;</span>
+    <span style="color:#080;font-style:italic">&lt;!--</span><span style="color:#080;font-style:italic"> To stage a website of some part of Maven </span><span style="color:#080;font-style:italic">--&gt;</span>
+    <span style="color:#008000;font-weight:bold">&lt;server</span><span style="color:#008000;font-weight:bold">&gt;</span>
+      <span style="color:#008000;font-weight:bold">&lt;id</span><span style="color:#008000;font-weight:bold">&gt;</span>stagingSite<span style="color:#008000;font-weight:bold">&lt;/id&gt;</span> <span style="color:#080;font-style:italic">&lt;!--</span><span style="color:#080;font-style:italic"> must match hard</span><span style="color:#080;font-style:italic">-</span><span style="color:#080;font-style:italic">coded repository identifier in site:stage</span><span style="color:#080;font-style:italic">-</span><span style="color:#080;font-style:italic">deploy </span><span style="color:#080;font-style:italic">--&gt;</span>
+      <span style="color:#008000;font-weight:bold">&lt;username</span><span style="color:#008000;font-weight:bold">&gt;</span>elecharny<span style="color:#008000;font-weight:bold">&lt;/username&gt;</span>
+      <span style="color:#008000;font-weight:bold">&lt;filePermissions</span><span style="color:#008000;font-weight:bold">&gt;</span>664<span style="color:#008000;font-weight:bold">&lt;/filePermissions&gt;</span>
+      <span style="color:#008000;font-weight:bold">&lt;directoryPermissions</span><span style="color:#008000;font-weight:bold">&gt;</span>775<span style="color:#008000;font-weight:bold">&lt;/directoryPermissions&gt;</span>
+    <span style="color:#008000;font-weight:bold">&lt;/server&gt;</span>
+  <span style="color:#008000;font-weight:bold">&lt;/servers&gt;</span>
+
+  <span style="color:#080;font-style:italic">&lt;!--</span><span style="color:#080;font-style:italic"> PROFILE SETTINGS </span><span style="color:#080;font-style:italic">--&gt;</span>
+  <span style="color:#008000;font-weight:bold">&lt;profiles</span><span style="color:#008000;font-weight:bold">&gt;</span>
+    <span style="color:#008000;font-weight:bold">&lt;profile</span><span style="color:#008000;font-weight:bold">&gt;</span>
+      <span style="color:#008000;font-weight:bold">&lt;id</span><span style="color:#008000;font-weight:bold">&gt;</span>apache-release<span style="color:#008000;font-weight:bold">&lt;/id&gt;</span>
+      <span style="color:#008000;font-weight:bold">&lt;properties</span><span style="color:#008000;font-weight:bold">&gt;</span>
+        <span style="color:#080;font-style:italic">&lt;!--</span><span style="color:#080;font-style:italic"> Configuration for artifacts signature </span><span style="color:#080;font-style:italic">--&gt;</span>
+        <span style="color:#008000;font-weight:bold">&lt;gpg.passphrase</span><span style="color:#008000;font-weight:bold">&gt;</span>-----Your passphrase here-----<span style="color:#008000;font-weight:bold">&lt;/gpg.passphrase&gt;</span>
+      <span style="color:#008000;font-weight:bold">&lt;/properties&gt;</span>
+    <span style="color:#008000;font-weight:bold">&lt;/profile&gt;</span>
+  <span style="color:#008000;font-weight:bold">&lt;/profiles&gt;</span>
+
+<span style="color:#008000;font-weight:bold">&lt;/settings&gt;</span>
+</code></pre></div><h3 id="step-2--processing-with-a-dry-run">step 2 : Processing with a dry run</h3>
+<p>After having checked out the trunk, and built it (see step 0),</p>
+<pre><code>$ git clone https://gitbox.apache.org/repos/asf/directory-fortress-core.git directory-fortress-core
+$ cd directory-fortress-core
+$ mvn clean install
+</code></pre>
+<p>run the following commands :</p>
+<pre><code>$ mvn -Papache-release -DdryRun=true release:prepare    # Dry-run first.
+</code></pre>
+<p>Answer to maven questions :</p>
+<pre><code>&quot;What is the release version for &quot;Apache Fortress Core&quot;? (org.apache.directory.project:fortress-core) 1.0-RC40: :&quot; 
+&lt;either use the default version as suggested, or type in the version you@qot;d like to be used&gt;
+[..]
+</code></pre>
+<p>Then some other questions will be asked, about the next version to use. The default values should be fine :</p>
+<pre><code>What is SCM release tag or label for &quot;Apache Fortress Core&quot;? (org.apache.directory.project:fortress-core) 1.0-RC40: : 
+&lt;Same here : keep 1.0-RC40, or change it if needed&gt;
+What is the new development version for &quot;Apache Fortress Core&quot;? (org.apache.directory.project:fortress-core) 1.0-RC41-SNAPSHOT: : 
+&lt;Same here...&gt;
+</code></pre>
+<DIV class="info" markdown="1">
+**Be Careful**
+<p>Make sure the change made by the release plugin is correct! (pom.xml, tags created)</p>
+</DIV>
+<h3 id="step-3--processing-with-the-real-release">Step 3 : Processing with the real release</h3>
+<p>When the dry run is successful, then you can do in real with the following commands:</p>
+<pre><code>$ mvn -Papache-release release:clean      # Clean up the temporary files created by the dry-run.
+$ mvn -Papache-release release:prepare    # Copy to tags directory.
+</code></pre>
+<p>The first step will clean up the local sources, the second step will release for real. The same questions will be asked as those we had during the dry run step.</p>
+<p>At some point, it will ask for your passphrase (the one you used when you created your PGP key). Type it in.</p>
+<p>Three mails will be generated, and sent to <a href="mailto:commits@directory.apache.org">commits@directory.apache.org</a> :</p>
+<pre><code>git commit: [maven-release-plugin] prepare release 2.0.9
+Git Push Summary
+git commit: [maven-release-plugin] prepare for next development iteration
+
+Repository: directory-fortress-core
+Updated Branches:
+  refs/heads/master 7f1f90d2b -&gt; bb9137136
+
+
+[maven-release-plugin] prepare release 1.0-RC40
+
+
+Project: https://gitbox.apache.org/repos/asf/directory-fortress-core/repo
+Commit: https://gitbox.apache.org/repos/asf/directory-fortress-core/commit/bb913713
+Tree: https://gitbox.apache.org/repos/asf/directory-fortress-core/tree/bb913713
+Diff: https://gitbox.apache.org/repos/asf/directory-fortress-core/diff/bb913713
+  
+Branch: refs/heads/master
+Commit: bb9137136d58f334415825b15f58c3173c923de2
+Parents: 7f1f90d
+Author: Emmanuel Lecharny &lt;elecharny@symas.com&gt;
+Authored: Fri Apr 3 15:35:20 2015 +0200
+Committer: Emmanuel Lecharny &lt;elecharny@symas.com&gt;
+Committed: Fri Apr 3 15:35:20 2015 +0200
+...
+</code></pre>
+<p>The first mail tells you that the SNAPSHOT has been moved to the release version in trunk, the second mails tells you that this version has been tagged, and the last mail tells you that trunk has moved to the next version.</p>
+<h3 id="step-4--perform-the-release">Step 4 : perform the release</h3>
+<p>The last step before launching a vote is to push the potential release to Nexus so that every user can test the created packages. Perform the following actions</p>
+<pre><code>$ mvn -Papache-release release:perform
+...
+[INFO] [INFO] ------------------------------------------------------------------------
+[INFO] [INFO] BUILD SUCCESS
+[INFO] [INFO] ------------------------------------------------------------------------
+[INFO] [INFO] Total time: 01:00 min
+[INFO] [INFO] Finished at: 2015-04-03T15:41:26+02:00
+[INFO] [INFO] Final Memory: 50M/247M
+[INFO] [INFO] ------------------------------------------------------------------------
+[INFO] Cleaning up after release...
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 01:16 min
+[INFO] Finished at: 2015-04-03T15:41:26+02:00
+[INFO] Final Memory: 17M/247M
+[INFO] ------------------------------------------------------------------------
+</code></pre>
+<p>Done !</p>
+<h3 id="step-5--closing-the-staging-release-on-nexus">Step 5 : closing the staging release on nexus</h3>
+<p>Now, you have to close the staged project on nexus. In order to do that you <em>must</em> have exported your PGP key to a PGP public server <a href="https://www.apache.org/dev/openpgp.html">see</a></p>
+<p>Connect to the <a href="https://repository.apache.org">Nexus server</a>, login, and select the FORTRESS staging repository you just created, then click on the &lsquo;close&rsquo; button. You are home&hellip;</p>
+<h3 id="step-6--build-the-site">Step 6 : Build the Site</h3>
+<pre><code>$ cd target/checkout
+$ mvn site
+</code></pre>
+<p>This creates the site.</p>
+<h3 id="step-7--sign-the-packages">Step 7 : Sign the packages</h3>
+<p>Now, you have to sign the binary packages which are in target/checkout/target.</p>
+<DIV class="note" markdown="1">
+Use your PGP key ID (the pub key, 4096R/[XXXXXXX] where [XXXXXXX] is the key ID)
+</DIV>
+<p>You can get the keys by typing :</p>
+<pre><code>gpg --list-keys
+</code></pre>
+<p>You&rsquo;ll get something like :</p>
+<pre><code>$ gpg --list-keys
+/Users/elecharny/.gnupg/pubring.gpg
+-----------------------------------
+pub   2048D/xxxxxxxx 2009-12-03
+uid                  Emmanuel Lecharny &lt;elecharny@nextury.com&gt;
+sub   2048g/yyyyyyyy 2009-12-03
+
+pub   4096R/zzzzzzzz 2010-09-13
+uid                  Emmanuel Lecharny (CODE SIGNING KEY) &lt;elecharny@apache.org&gt;
+sub   4096R/tttttttt 2010-09-13
+...
+</code></pre>
+<p>Take the <zzzzzzzz> part of your 4096 bit key.</p>
+<p>Use a shell script to sign the packages which are stored in target/checkout/target. You will first have to delete the created .asc files :</p>
+<pre><code>$ cd target/checkout/target
+$ rm *.asc
+$ ~/sign.sh 
+PGP Key ID: 
+&lt;your PGP key&gt;
+PGP Key Password: 
+&lt;Your PGP passphrase&gt;
+
+-n Signing: ./fortress-core-1.0-RC40-javadoc.jar ... 
+  - Generated './fortress-core-1.0-RC40-javadoc.jar.md5'
+  - Generated './fortress-core-1.0-RC40-javadoc.jar.sha1'
+  - Generated './fortress-core-1.0-RC40-javadoc.jar.asc'
+-n Signing: ./fortress-core-1.0-RC40-source-release.zip ... 
+  - Generated './fortress-core-1.0-RC40-source-release.zip.md5'
+  - Generated './fortress-core-1.0-RC40-source-release.zip.sha1'
+  - Generated './fortress-core-1.0-RC40-source-release.zip.asc'
+</code></pre>
+<p>-n Signing: ./fortress-core-1.0-RC40-sources.jar &hellip;
+- Generated &lsquo;./fortress-core-1.0-RC40-sources.jar.md5&rsquo;
+- Generated &lsquo;./fortress-core-1.0-RC40-sources.jar.sha1&rsquo;
+- Generated &lsquo;./fortress-core-1.0-RC40-sources.jar.asc&rsquo;
+-n Signing: ./fortress-core-1.0-RC40.jar &hellip;
+- Generated &lsquo;./fortress-core-1.0-RC40.jar.md5&rsquo;
+- Generated &lsquo;./fortress-core-1.0-RC40.jar.sha1&rsquo;
+- Generated &lsquo;./fortress-core-1.0-RC40.jar.asc&rsquo;
+&hellip;</p>
+<p>Here is the sign.sh script you can use :</p>
+<pre><code>#!/bin/sh
+
+echo &quot;PGP Key ID: &quot;
+read DEFAULT_KEY
+
+echo &quot;PGP Key Password: &quot;
+stty -echo
+read PASSWORD
+stty echo
+echo &quot;&quot;
+
+for FILE in $(find . -maxdepth 1 -not '(' -name &quot;sign.sh&quot; -or -name &quot;.*&quot; \
+      -or -name &quot;*.md5&quot; -or -name &quot;*.sha1&quot; -or -name &quot;*.asc&quot; ')' -and -type f) ; do
+    if [ -f &quot;$FILE.asc&quot; ]; then
+        echo &quot;Skipping: $FILE&quot;
+        continue
+    fi
+
+    echo -n &quot;Signing: $FILE ... &quot;
+
+    # MD5
+    if [ ! -f &quot;$FILE.md5&quot; ];
+    then
+        openssl md5 &lt; &quot;$FILE&quot; | cut &quot;-d &quot; -f2 &gt; &quot;$FILE.md5&quot;
+        echo &quot;  - Generated '$FILE.md5'&quot;
+    else
+        echo &quot;  - Skipped '$FILE.md5' (file already existing)&quot;
+    fi
+
+    # SHA1
+    if [ ! -f &quot;$FILE.sha1&quot; ];
+    then
+        gpg -v --default-key &quot;$DEFAULT_KEY&quot; --print-md SHA1 &quot;$FILE&quot; &gt; &quot;$FILE&quot;.sha1
+        echo &quot;  - Generated '$FILE.sha1'&quot;
+    else
+        echo &quot;  - Skipped '$FILE.sha1' (file already existing)&quot;
+    fi
+
+    # ASC
+    if [ ! -f &quot;$FILE.asc&quot; ];
+    then
+        echo &quot;$PASSWORD&quot; | gpg --default-key &quot;$DEFAULT_KEY&quot; --detach-sign --armor --no-tty --yes --passphrase-fd 0 &quot;$FILE&quot;
+        echo &quot;  - Generated '$FILE.asc'&quot;
+    else
+        echo &quot;  - Skipped '$FILE.asc' (file already existing)&quot;
+    fi
+done
+</code></pre>
+<h3 id="step-8--publish-source-and-binary-distribution-packages">Step 8 : Publish Source and Binary Distribution Packages</h3>
+<p>First of all, create a new directory on people.apache.org/public_html to store the pacckages :</p>
+<pre><code>$ ssh people.apache.org
+$ mkdir public_html/fortress-core-&lt;version&gt;
+$ exit
+</code></pre>
+<p>Then copy the packages :</p>
+<pre><code>$ cd target/checkout/target
+$ scp fortress-core-&lt;version&gt;-source-release.zip* people.apache.org:public_html/fortress-core-&lt;version&gt;/
+</code></pre>
+<p>Update your index.html file on people.apach.org/public_html to make the packages visible. Here is an example of possible content :</p>
+<pre><code>&lt;h2&gt;Last Fortress core 1.0.0-RC40 arballs&lt;/h2&gt;
+  &lt;h3&gt;Sources&lt;/h3&gt;
+
+    &lt;img src=&quot;/icons/compressed.gif&quot; alt=&quot;[   ]&quot;&gt;&lt;a href=&quot;fortress-core-1.0-RC40/fortress-core-1.0-RC40-source-release.zip&quot;&gt;fortress-core-1.0-RC40-source-release.zip&lt;/a&gt;&lt;br/&gt;
+    &lt;img src=&quot;/icons/compressed.gif&quot; alt=&quot;[   ]&quot;&gt;&lt;a href=&quot;fortress-core-1.0-RC40/fortress-core-1.0-RC40-source-release.zip.asc&quot;&gt;fortress-core-1.0-RC40-source-release.zip.asc&lt;/a&gt;&lt;br/&gt;
+    &lt;img src=&quot;/icons/compressed.gif&quot; alt=&quot;[   ]&quot;&gt;&lt;a href=&quot;fortress-core-1.0-RC40/fortress-core-1.0-RC40-source-release.zip.md5&quot;&gt;fortress-core-1.0-RC40-source-release.zip.md5&lt;/a&gt;&lt;br/&gt;
+    &lt;img src=&quot;/icons/compressed.gif&quot; alt=&quot;[   ]&quot;&gt;&lt;a href=&quot;fortress-core-1.0-RC40/fortress-core-1.0-RC40-source-release.zip.sha1&quot;&gt;fortress-core-1.0-RC40-source-release.zip.sha1&lt;/a&gt;&lt;br/&gt;
+</code></pre>
+<h2 id="step-9--voting-a-release">Step 9 : Voting a release</h2>
+<p>Once the tarballs have been created, and the binaries available in Nexus, a vote can be launched. Simply send a mail on the <a href="mailto:dev@directory.apache.org">dev@directory.apache.org</a> mailing list describing the new release.</p>
+<p>Here is how you  send a [VOTE] mail on the dev mailing list :</p>
+<pre><code>Hi,
+
+&lt;blah blah blah&gt;
+
+Here is the list of fixed issues :
+ 
+
+   * [FC-83 &lt;https://issues.apache.org/jira/browse/FC-83&gt;] Cleanup core test processing
+   * ...
+
+
+Here's the Jira link for this version if you'd like to review issues in more details:
+
+https://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=10670&amp;styleName=Html&amp;version=12313702
+
+A temporary tag has been created (it can be removed if the vote is not approved)
+
+The newly approved Nexus has been used for the preparation of this release and all final artifacts are stored 
+in a staging repository:
+https://repository.apache.org/content/repositories/orgapachedirectory-1028
+
+
+The distributions are available for download on :
+https://repository.apache.org/content/repositories/orgapachedirectory-1028/org/apache/directory/project/fortress-core/1.0-RC40/
+
+Let us vote :
+[ ] +1 | Release Fortress-core 1.0-RC40
+[ ] +/- | Abstain
+[ ] -1 | Do *NOT* Fortress-core 1.0-RC40
+
+Thanks !
+</code></pre>
+<p>The vote will be open for 72 hours. Once the delay is over, collect the votes, and count the binding +1/-1. If the vote is positive, then we can release.</p>
+<h3 id="step-11--close-the-vote">Step 11 : Close the vote</h3>
+<p>You can officially close the vote now. There are some more steps to fulfill :</p>
+<ul>
+<li>Release the project on <a href="https://repository.apache.org">https://repository.apache.org</a></li>
+<li>Copy the tarballs and heir signature in people.apache.org /www/downloads.apache.org/fortress</li>
+</ul>
+<p>This can be done on people.apache.org :</p>
+<pre><code>$ ssh people.apache.org
+# svn co https://dist.apache.org/repos/dist/release/directory/fortress/ fortress-dist
+# cd fortress-dist
+# mkdir &lt;version&gt;
+# cp ../public_html/fortress-core-&lt;version&gt;/* &lt;version&gt;
+# svn add &lt;version&gt;
+# svn ci &lt;version&gt;
+...
+# exit
+$
+</code></pre>
+<h3 id="step-12-deploy-web-reports-javadoc-and-jxr">Step 12: Deploy Web Reports (JavaDoc and JXR)</h3>
+<p>The javadoc and xref files have been generated in step 6, it&rsquo;s now time to push them into the production site. They are generated in the following directory :</p>
+<pre><code>target/checkout/target/site
+</code></pre>
+<p>We will copy two directories :</p>
+<pre><code>apidocs
+xref
+</code></pre>
+<p><em>Staging or Production?</em></p>
+<DIV class="info" markdown="1">
+Those files will be stored on the production server only !!! And some extra caution ust be taken not to delete them when we will publish the staging site too...
+</DIV>
+<p>First of all, you must checkout the two CMS store for the site : staging and production.</p>
+<pre><code>$ svn co https://svn.apache.org/repos/infra/websites/staging/directory/trunk staging
+...
+$ svn co https://svn.apache.org/repos/infra/websites/production/directory production
+...
+</code></pre>
+<p>Then copy the generated docs :</p>
+<pre><code>$ cp -r ~/apacheds/directory-fortress-core/target/checkout/target/site/apidocs production/directory/content/fortress/gen-docs
+$ cp -r ~/apacheds/directory-fortress-core/target/checkout/target/site/xref production/directory/content/fortress/gen-docs
+$ 
+</code></pre>
+<p>You have to check in those directories :</p>
+<pre><code>$ svn add apidocs
+$ svn add xref
+$ svn ci apidocs xref -m &quot;Injected Fortress &lt;version&gt; javadocs&quot;
+</code></pre>
+<p>Now, you have to update the staging site <em>extpaths.txt</em></p>
+<p>This file list the file on the production site that will not be overriden by the publication of the staging site. It has to be updated</p>
+<pre><code>$ cd ~/apacheds/staging/content/
+$ vi extpaths.txt
+</code></pre>
+<p>The following lines should be present. If not, add them and commit the file  after having added a new line for the newly released version:</p>
+<p>Add the following line :</p>
+<pre><code>...
+# Fortress
+fortress/gen/docs/&lt;the new version&gt;
+...
+</code></pre>
+<h3 id="step-13-wait-24-hours">Step 13: Wait 24 hours</h3>
+<p>We have to wait at least 24 hours for all mirrors to retrieve the uploaded files before making any announcement.  I&rsquo;d recommend you to wait for 48 hours because some mirrors might lag due to various issues.</p>
+<h3 id="step-14-update-the-links-in-web-site">Step 14: Update the Links in Web Site</h3>
+<p>Update the links to new distributions in [Downloads] page.</p>
+<p>There are a few places to modify :</p>
+<ul>
+<li>/lib/path.pm : update the $version_fortress variable with the new version.</li>
+<li>/content/index.mdtext : same here, update the <!-- FORTRESS project --> section, which contains the version.</li>
+<li>/content/fortress/news.mdtext : add the news on top of thise page</li>
+<li>/content/fortress/download-old-versions.mdtext : add a new line on top of the array, which refers to the latest version before the new one</li>
+</ul>
+<p>Commit the changes, and publish the web site, you are done !</p>
+<h3 id="step-15-wait-another-24-hours">Step 15: Wait another 24 hours</h3>
+<p>We need to wait until any changes made in the web site and metadata file(s) go live.</p>
+<h3 id="step-16-announce-the-new-release">Step 16: Announce the New Release</h3>
+<p>An announcement message can be sent to [mailto:announce@apache.org], [mailto:announce@apachenews.org], [mailto:users@directory.apache.org] and [mailto:dev@directory.apache.org].  Please note that announcement messages are rejected unless your from-address ends with <code>@apache.org</code>.  Plus, you shouldn&rsquo;t forget to post a news to the Directory site main page.</p>
+
+
+            
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>1.2 - Some Background. Directories, directory services and LDAP &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/green.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/server-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+            
+                <strong>ApacheDS</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+             
+                LDAP API
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>ApacheDS 2.0</h5>
+                <ul>
+                    <li><a href="/apacheds/">Home</a></li>
+                    <li><a href="/apacheds/news.html">News</a></li>
+                    <li><a href="/apacheds/features.html">Features</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/apacheds/downloads.html">ApacheDS 2.0.0.AM26</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/apacheds/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/apacheds/basic-user-guide.html">Basic User Guide </a></li>
+                    <li><a href="/apacheds/advanced-user-guide.html">Advanced User Guide</a></li>
+                    <li><a href="/apacheds/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/apacheds/kerberos-user-guide.html">Kerberos User Guide</a></li>
+                    <li><a href="/apacheds/configuration/ads-2.0-configuration.html">Configuration</a></li>
+                    <li><a href="/apacheds/gen-docs/latest/apidocs">JavaDocs</a></li>
+                    <li><a href="/apacheds/gen-docs/latest/xref">Cross-Reference</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="1.1-what-apacheds-is.html">1.1 - What Apache Directory Server is</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="1-how-to-begin.html">1 - How to begin</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="1.3-installing-and-starting.html">1.3 - Installing and starting the server</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+            
+	<h1 id="12---some-background-directories-directory-services-and-ldap">1.2 - Some Background. Directories, directory services and LDAP</h1>
+<p>This section provides a brief overview about directories, directory services and LDAP. Furthermore you find links to different resources (books, online resources, &hellip;), which may act as introduction to the topic. If you are already an LDAP expert, you&rsquo;ll probably skip this section.</p>
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#directories-and-directory-services">Directories and directory services</a></li>
+    <li><a href="#ldap----the-lightweight-directory-access-protocol">LDAP &ndash; the Lightweight Directory Access Protocol</a>
+      <ul>
+        <li><a href="#what-is-it-some-history">What is it? Some history.</a></li>
+        <li><a href="#information-model-primer">Information model primer</a></li>
+        <li><a href="#common-applications-of-ldap-based-directories">Common applications of LDAP based directories</a></li>
+        <li><a href="#examples-of-software-components-which-support-ldap">Examples of software components which support LDAP</a></li>
+      </ul>
+    </li>
+    <li><a href="#ldap-resources">LDAP resources</a>
+      <ul>
+        <li><a href="#books">Books</a></li>
+        <li><a href="#articles-forums-blogs-and-other-online-resources">Articles, forums, blogs and other online resources</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+<h2 id="directories-and-directory-services">Directories and directory services</h2>
+<p>Generally speaking, a directory is a collection or list of data. Real world examples are telephone books (public or within organizations), church/land registers and listings of works (e.g. the Koechel-index, which lists all compositions of Mozart). All these examples have the purpose to preserve information and to make it available on demand to whom it may concern.</p>
+<p>Within information technology the term <em>directory</em> is used for a special kind of data storage. It allows the structured storage and efficient retrieval of objects which are often derived from the real world (e.g. persons, IT equipment). Characteristic:</p>
+<ul>
+<li>all data is stored in so called <em>entries</em></li>
+<li>the set of entries within a directory forms a tree (hierarchical database)</li>
+</ul>
+<p>A <em>directory service</em> is a solution which offers users access to the information stored in the directory. A directory assistance (call center agent) is a good real world example for such a service. Within information technologies, such services are normally provided by software components. Directory services provide access to the content of a directory via a well-defined interface. If a network is used, an appropriate protocol has to be defined. LDAP (see below) is such a protocol.</p>
+<p>The real world examples mentioned above may be stored in such a directory, although other types of storage systems can be more appropriate (this depends on circumstance/requirements). At first sight directories compete thereby as data storage with the established relational data bases. However in the most large enterprises and organizations both directory services and relational databases are actually used. Read how Vikas Mahajan describes directories and databases as complementary, not competitive, solutions in his excellent article <a href="http://support.novell.com/techcenter/articles/ana20011101.html">&ldquo;Should I Use a Directory, a Database, or Both?&quot;</a>.</p>
+<h2 id="ldap----the-lightweight-directory-access-protocol">LDAP &ndash; the Lightweight Directory Access Protocol</h2>
+<h3 id="what-is-it-some-history">What is it? Some history.</h3>
+<p>The comprehensive standard <em>X.500</em>, finalized in 1988, builds the foundation for many of today&rsquo;s directory solutions. Within this standard, the client accesses the server via the Directory Access Protocol (<em>DAP</em>), which is OSI protocol stack based. With the Internet boom in the nineties, the accessibility of directories via TCP/IP became more and more important. Hence a TCP/IP-based access method, which in functionality was a subset of DAP, was standardized in 1993: the <em>Lightweight Directory Access Protocol (LDAP)</em>. First LDAP implementations were gateway solutions, they mediated between LDAP clients and X.500 servers.  In 1995 the University of Michigan presented the first native LDAP server; in the meantime the work is continued by the <a href="http://www.openldap.org/">OpenLDAP</a> project. 1996 Netscape followed with the first commercial LDAP server (Netscape Directory Server, foundation of several later LDAP servers). Other examples (among many others) include <a href="http://www.microsoft.com/ad/">Microsoft Active Directory</a> and <a href="http://www.novell.com/products/edirectory/">Novell eDirectory</a>. The figure below shows the development of directory protocols from X.500/DAP to LDAP.</p>
+<p><img src="images/fromX500toLDAP.png" alt="From X500 to LDAP"></p>
+<h3 id="information-model-primer">Information model primer</h3>
+<p>Within the information model of LDAP, data is stored in entries, which build up a hierarchical, tree like structure. Each entry has a unique name (<em>DN</em>, <em>Distinguished Name</em>), which depicts its position within the tree. An entry consists of key/value pairs, the <em>attributes</em>. Some attributes may occur more than once within an entry (single or multi valued, e.g. a person can have more than one telephone number). So called <em>object classes</em> define, which attributes an entry may have, and which of them are required. The classes build up a hierarchy with <em>top</em> as root; there is a parallelism to the object oriented world. top forces only the attribute objectclass, which assigns an entry its object classes. A <em>schema</em> consists object classes and attribute types, and therefore defines, what kind of entries can be stored within the directory. Directory servers ship a schema out-of-the-box, often with elements standardized by RFCs. In addition, most directory solutions allow you to define custom object classes and attributes. But in practice, the pre-defined elements are used. Sometimes they get extended according to special requirements.</p>
+<h3 id="common-applications-of-ldap-based-directories">Common applications of LDAP based directories</h3>
+<p>LDAP operations include entry creation, modification, deletion and search. As a general rule, LDAP directories are optimized for read and search operations, at the cost of write performance. Data, which will be modified often, therefore better suits in a relational database, which offers better support for transactions and referential integrity as well. Directories are rather used if comparatively stable data has to be provided centrally.<br>
+Common examples are network resources (printers, services) and user data  (including credentials and rights for the resources). As a notable feature, many directory products offer replicas, which permit better access times and higher availability especially in geographically dispersed organizations. Not for nothing, the most common LDAP application is the enterprise phone book. That even Microsoft Outlook may be an LDAP client in this case - most average users probably don&rsquo;t know.</p>
+<h3 id="examples-of-software-components-which-support-ldap">Examples of software components which support LDAP</h3>
+<p><img src="images/ldap-tools.png" alt="LDAP tools"></p>
+<p>Very different types of software products may act as LDAP clients, consuming data for authentication, authorization or data presentation etc.</p>
+<ul>
+<li>E-Mail clients (e.g. Mozilla Thunderbird)</li>
+<li>LDAP tools (e.g. Apache Directory Studio)</li>
+<li>Web servers (e.g. Apache Tomcat, Apache HTTP Server)</li>
+<li>Mail servers (e.g. Apache James)</li>
+<li>&hellip;</li>
+</ul>
+<p>Configuration details for several of these programs in conjunction with ApacheDS are described in later sections.</p>
+<h2 id="ldap-resources">LDAP resources</h2>
+<h3 id="books">Books</h3>
+<p>There are several good LDAP books available. Here are two examples which provide sample chapters on their homepages.</p>
+<h4 id="understanding-and-deploying-ldap-directory-services">Understanding and Deploying LDAP Directory Services</h4>
+<p><img src="images/cover_howes_100.gif" alt="cover"></p>
+<p>Understanding and Deploying LDAP Directory Services (2nd Edition) <br/>
+by Timothy A. Howes, Mark C. Smith, Gordon S. Good, Tim Howes <br/>
+Addison-Wesley Professional, 2nd Edition 2003 <br/>
+ISBN: 0-672323-16-8 <br/></p>
+<p><a href="http://awprofessional.com/title/0672323168">Book&rsquo;s Homepage (Howes)</a></p>
+<h4 id="ldap-fuer-java-entwickler">LDAP fuer Java-Entwickler</h4>
+<p><img src="images/cover_zoerner_100.gif" alt="cover"></p>
+<p>LDAP fuer Java-Entwickler &ndash; Einstieg und Integration. <img src="images/de.png" alt="DE"> <br/>
+von Stefan Zoerner <br/>
+Software und Support Verlag, 3. aktualisierte Auflage 2007 <br/>
+ISBN: 978-3-939084-07-5 <br/></p>
+<p><a href="http://www.entwickler-press.de/buecher/ldap/">Webseite zum Buch (Zoerner)</a></p>
+<h3 id="articles-forums-blogs-and-other-online-resources">Articles, forums, blogs and other online resources</h3>
+<h4 id="blogs">Blogs</h4>
+<ul>
+<li><a href="http://blogs.sun.com/roller/page/DirectoryManager">cn=Directory Manager - All about Directory Server</a>, Sun Blog</li>
+</ul>
+<h4 id="articles-and-other-online-resources">Articles and other online resources</h4>
+<ul>
+<li><a href="http://www.redbooks.ibm.com/abstracts/SG244986.html?Open">Understanding LDAP - Design and Implementation</a>, IBM RedBook, July 2006</li>
+<li><a href="http://www.oreillynet.com/pub/a/sysadmin/2006/07/27/demystifying-ldap.html">Demystifying LDAP</a> by Brian K. Jones, O&rsquo;Reilly Network</li>
+<li><a href="http://www.mitlinx.de/ldap/">LDAP verstehen mit linx</a>, by Petra Haberer <img src="images/de.png" alt="DE"></li>
+</ul>
+
+
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="1.1-what-apacheds-is.html">1.1 - What Apache Directory Server is</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="1-how-to-begin.html">1 - How to begin</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="1.3-installing-and-starting.html">1.3 - Installing and starting the server</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

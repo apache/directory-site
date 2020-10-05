@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>7.3 - Serializations &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/turquoise.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/mavibot-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+             
+                ApacheDS
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+             
+                LDAP API
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+            
+                <strong>Mavibot</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>Mavibot 1.0</h5>
+                <ul>
+                    <li><a href="/mavibot/">Home</a></li>
+                    <li><a href="/mavibot/news.html">News</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/mavibot/downloads.html">Version 1.0.0-M8</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/mavibot/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Getting Started</h5>
+                <ul>
+                    <li><a href="/mavibot/vision.html">Vision</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/mavibot/five-minutes-tutorial.html">Five minutes tutorial</a></li>
+                    <li><a href="/mavibot/user-guide.html">User Guide</a></li>
+                    <li><a href="/mavibot/gen-docs/latest/apidocs/">JavaDocs</a></li>
+                    <li><a href="/mavibot/gen-docs/latest/xref/">Cross-Reference</a></li>
+                    
+                    <li><a href="/mavibot/developer-guide.html">Developer Guide</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="7.2-physical-storage.html">7.2 - Physical storage</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="7-btree-internals.html">7 - Mavibot Internals</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="7.4-updates.html">7.4 - Updates</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+            
+	<h1 id="73---serializations">7.3 - Serializations</h1>
+<p>The logical pages are serialized before storing in physical pages. This is a process that should obviously be reversible. In this chapter, we will describe how to serialize a <strong>Leaf</strong> and <strong>Node</strong>.</p>
+<h2 id="leaf-serialization">Leaf serialization</h2>
+<p>A <strong>Leaf</strong> contains some metadata, and a set of keys and values. A key can have many values, and we have as many keys as values. The internal format of a serialized leaf contains:</p>
+<pre>
+    +----------------------------------+
+    | revision (long)                  | 8 bytes
+    +----------------------------------+
+    | nbElems (int)                    | 4 bytes
+    +----------------------------------+
+    | dataSize (int)                   | 4 bytes = sum[0..nbElems]( valueLength, keyLength ) + 8 x nbElems
+    +----------------------------------+
+    | +------------------------------+ |
+    | | valueLength[0] (int)         | | 4 bytes \
+    | +------------------------------+ |           > n+4 bytes
+    | | value[0] (byte[])            | | n bytes /
+    | +------------------------------+ |
+    | | keyLength[0] (int)           | | 4 bytes \
+    | +------------------------------+ |           > n+4 bytes
+    | | key[0] (byte[])              | | n bytes /
+    | +------------------------------+ |
+    ...                              ...
+    | +------------------------------+ |
+    | | valueLength[nbElems-1] (int) | | 4 bytes \
+    | +------------------------------+ |           > n+4 bytes
+    | | value[nbElems-1] (byte[])    | | n bytes /
+    | +------------------------------+ |
+    | | keyLength[nbElems-1] (int)   | | 4 bytes \
+    | +------------------------------+ |           > n+4 bytes
+    | | key[nbElems-1] (byte[])      | | n bytes /
+    | +------------------------------+ |
+    +----------------------------------+
+
+</pre>
+<p>The length of each serialized key and value is stored so that a complete byte[] can be passed to the key or value deserializer (ie, the exact number of bytes needed to be able to deserialize the key or the value).</p>
+<p>The <em>dataSize</em> value is used to know how many bytes needs to be read - thus the number of physical pages to read - in order to get a full page.</p>
+<h2 id="leaf-deserialization">Leaf deserialization</h2>
+<p>When a leaf needs to be deserialized, not all the keys and the values are deserialized at once. It would be too expensive, if the leaf is discarded from memory immediately, when we only need to read one single key and value, hence the keys and values are kept in byte[] form, and will be deserialized on demand.</p>
+<p>Two data structures are used to store a key and a value :</p>
+<ul>
+<li>a <em>KeyHolder</em> for the key</li>
+<li>a <em>ValueHolder</em> for the value</li>
+</ul>
+<h3 id="keyholder">KeyHolder</h3>
+<p>The <em>KeyHolder</em> data structure holds the key in two ways :</p>
+<ul>
+<li>serialized (raw (byte[]))</li>
+<li>deserialized (key)</li>
+</ul>
+<p>The keys are not deserialized immediately after the data was read from disk instead they are deserialized on demand.</p>
+<h3 id="valueholder">ValueHolder</h3>
+<p>Mavibot supports multiple values for a key. The <em>ValueHolder</em> data structure will store a set of values associated with a key. This is a complex data structure when compared with the <em>KeyHolder</em>.</p>
+<p>An array is used as the default container to hold these values. In some cases, the number of values to be stored is really big, and using an array will impact the performance.
+In such cases the array is replaced by a BTree, this helps in improving the retrieval time, and also page copying becomes more efficient.</p>
+<p>When the number of the values stored reaches a threshold, the array is replaced with a BTree, likewise if the number of values stored are is below the threshold then BTree is replaced by an array.
+In order to avoid many array &lt;-&gt; btree transformations (e.g. when continusously adding and deleting a value), the array -&gt; btree threshold is bigger than the btree -&gt; array threshold.</p>
+<pre>
+   0---1---2---...---TH-low--...--TH-high---...
+   >-------------Array----------->>---BTree---... When we add new values.
+                     |////////////|               These values will remain in an array or a BTree until
+                                                  we reach oe of the threshold values.
+   <-----Array-----<<--------BTree------------... When we delete values.
+</pre>
+<p>It&rsquo;s important to note that the values inserted into the sub-BTree will be stored as keys, and all the values of this sub-BTree will contain nulls. The sub-btree Keys will be the values of the key present in the parent-BTree.</p>
+<h4 id="rawdeserialized-values">Raw/deserialized values</h4>
+<p>One key for obtaining good performances is to avoid any useless deserialization. This is easy to implement for the <em>KeyHolder</em>, as we only store one single key. For values, it&rsquo;s slightly more complex, as we may have more than one value. The following rules should be followed :</p>
+<ul>
+<li>don&rsquo;t deserialized until necessary (ie, until one needs to get a value)</li>
+<li>don&rsquo;t serialize until writing (i.e, until the value(s) must be written to disk)</li>
+</ul>
+<p>In fact, a value may be in three different states :</p>
+<ul>
+<li>all the values are serialized (when we just read the page from disk)</li>
+<li>none of the values are serialized (when we just created a ValueHolder with new values)</li>
+<li>somewhere in the middle, when we are modifying a ValueHolder which has been read from the disk</li>
+</ul>
+<p>The third case is the complex one. We should consider two different cases though :</p>
+<ul>
+<li>the values are stored in a sub-BTree : we don&rsquo;t have to deal with this problem, it&rsquo;s up to the sub-btree to deal with it</li>
+<li>the values are stored in an array : we don&rsquo;t want to store half of the values as byte[], and half of the values as java instances. We must pick either one form or the other. In this case, as soon as we have to manipulate values in Java, we must deserialize all the values.</li>
+</ul>
+<h4 id="valueholder-operations">ValueHolder operations</h4>
+<p>The possible operations on a ValueHolder are the following :</p>
+<ul>
+<li>add( value ) : Insert a new value into the ValueHolder. If we reach the upper threshold, then the array is converted into a BTree. In any case, we inject the new value into the array(in the correct order using the comparator present in the serializer) or the BTree.</li>
+</ul>
+<p>As we need to compare values, they must be deserialised, so we need to do it if it&rsquo;s not already done (the values are not deserialiezed when the page is read from the disk). Note that it&rsquo;s not necessary for the sub-btree, as it&rsquo;s up to the sub-btree to deserialize the keys on the fly.</p>
+<p>Thus the <em>add</em> algorithm will be :</p>
+<pre>
+  if the values are not yet deserialized
+    then deserialize all the values
+</pre><blockquote>
+</blockquote>
+
+
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="7.2-physical-storage.html">7.2 - Physical storage</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="7-btree-internals.html">7 - Mavibot Internals</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="7.4-updates.html">7.4 - Updates</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

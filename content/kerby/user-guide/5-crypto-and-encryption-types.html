@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>5 - Kerberos Crypto and Encryption Types &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/orange.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/api-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+             
+                ApacheDS
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+             
+                LDAP API
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+            
+                <strong>Kerby</strong>
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                <h5>Kerby</h5>
+                <ul>
+                    <li><a href="/kerby/">Home</a></li>
+                    <li><a href="/kerby/news.html">News</a></li>
+                    <li><a href="/kerby/features.html">Features</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/kerby/downloads.html">Version 2.0.1</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/kerby/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Getting Started</h5>
+                <ul>
+                    
+                    <li><a href="/kerby/issues.html">Issues</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/kerby/overview.html">Overview</a></li>
+                    
+                    <li><a href="/kerby/kerby-asn1.html">Kerby ASN1</a></li>
+                    <li><a href="/kerby/user-guide.html">User Guide</a></li>
+                    
+                    
+                    
+                    <li><a href="/kerby/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/kerby/tutorials.html">Tutorials</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="4-identity-backend.html">4 - Identity Backend</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="../user-guide.html">User Guide</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="6-network-support.html">6 - Network Support</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+            
+	<h1 id="5---kerberos-crypto-and-encryption-types">5 - Kerberos Crypto and Encryption Types</h1>
+<p>Supported des, des3, rc4, aes, camellia encryption and corresponding checksum types
+Interoperates with MIT Kerberos and Microsoft AD
+Independent of Kerberos code in JRE, but rely on JCE</p>
+<table>
+<thead>
+<tr>
+<th>Encryption Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>des-cbc-crc</td>
+<td>DES cbc mode with CRC-32 (weak)</td>
+</tr>
+<tr>
+<td>des-cbc-md4</td>
+<td>DES cbc mode with RSA-MD4 (weak)</td>
+</tr>
+<tr>
+<td>des-cbc-md5</td>
+<td>DES cbc mode with RSA-MD5 (weak)</td>
+</tr>
+<tr>
+<td>des3-cbc-sha1 des3-hmac-sha1 des3-cbc-sha1-kd</td>
+<td>Triple DES cbc mode with HMAC/sha1</td>
+</tr>
+<tr>
+<td>des-hmac-sha1</td>
+<td>DES with HMAC/sha1 (weak)</td>
+</tr>
+<tr>
+<td>aes256-cts-hmac-sha1-96 aes256-cts AES-256</td>
+<td>CTS mode with 96-bit SHA-1 HMAC</td>
+</tr>
+<tr>
+<td>aes128-cts-hmac-sha1-96 aes128-cts AES-128</td>
+<td>CTS mode with 96-bit SHA-1 HMAC</td>
+</tr>
+<tr>
+<td>arcfour-hmac rc4-hmac arcfour-hmac-md5</td>
+<td>RC4 with HMAC/MD5</td>
+</tr>
+<tr>
+<td>arcfour-hmac-exp rc4-hmac-exp arcfour-hmac-md5-exp</td>
+<td>Exportable RC4 with HMAC/MD5 (weak)</td>
+</tr>
+<tr>
+<td>camellia256-cts-cmac camellia256-cts</td>
+<td>Camellia-256 CTS mode with CMAC</td>
+</tr>
+<tr>
+<td>camellia128-cts-cmac camellia128-cts</td>
+<td>Camellia-128 CTS mode with CMAC</td>
+</tr>
+<tr>
+<td>des</td>
+<td>The DES family: des-cbc-crc, des-cbc-md5, and des-cbc-md4 (weak)</td>
+</tr>
+<tr>
+<td>des3</td>
+<td>The triple DES family: des3-cbc-sha1</td>
+</tr>
+<tr>
+<td>aes</td>
+<td>The AES family: aes256-cts-hmac-sha1-96 and aes128-cts-hmac-sha1-96</td>
+</tr>
+<tr>
+<td>rc4</td>
+<td>The RC4 family: arcfour-hmac</td>
+</tr>
+<tr>
+<td>camellia</td>
+<td>The Camellia family: camellia256-cts-cmac and camellia128-cts-cmac</td>
+</tr>
+</tbody>
+</table>
+
+
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="4-identity-backend.html">4 - Identity Backend</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="../user-guide.html">User Guide</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="6-network-support.html">6 - Network Support</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

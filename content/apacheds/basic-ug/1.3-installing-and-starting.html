@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>1.3 - Installing and starting the server &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/green.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/server-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+            
+                <strong>ApacheDS</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+             
+                LDAP API
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>ApacheDS 2.0</h5>
+                <ul>
+                    <li><a href="/apacheds/">Home</a></li>
+                    <li><a href="/apacheds/news.html">News</a></li>
+                    <li><a href="/apacheds/features.html">Features</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/apacheds/downloads.html">ApacheDS 2.0.0.AM26</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/apacheds/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/apacheds/basic-user-guide.html">Basic User Guide </a></li>
+                    <li><a href="/apacheds/advanced-user-guide.html">Advanced User Guide</a></li>
+                    <li><a href="/apacheds/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/apacheds/kerberos-user-guide.html">Kerberos User Guide</a></li>
+                    <li><a href="/apacheds/configuration/ads-2.0-configuration.html">Configuration</a></li>
+                    <li><a href="/apacheds/gen-docs/latest/apidocs">JavaDocs</a></li>
+                    <li><a href="/apacheds/gen-docs/latest/xref">Cross-Reference</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="1.2-some-background.html">1.2 - Some Background. Directories, directory services and LDAP</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="1-how-to-begin.html">1 - How to begin</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="1.4-basic-configuration-tasks.html">1.4 - Basic configuration tasks</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+            
+	<h1 id="13---installing-and-starting-the-server">1.3 - Installing and starting the server</h1>
+<p>This section describes how ApacheDS can be installed and started on different platforms.</p>
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#prerequisites">Prerequisites</a></li>
+    <li><a href="#download-a-server-installer">Download a server installer</a></li>
+  </ul>
+
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#starting-and-stopping-the-server">Starting and stopping the server</a></li>
+      </ul>
+    </li>
+    <li><a href="#installation-on-mac-os-x">Installation on Mac OS X</a>
+      <ul>
+        <li><a href="#starting-and-stopping-the-server-1">Starting and stopping the server</a></li>
+      </ul>
+    </li>
+    <li><a href="#installation-on-linux">Installation on Linux</a></li>
+  </ul>
+</nav>
+<h2 id="prerequisites">Prerequisites</h2>
+<ul>
+<li><strong>Java 7.0</strong>. We recommend using <a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">Oracle&rsquo;s JDK</a>.</li>
+</ul>
+<p>You can check your java installation with:</p>
+<pre><code>java -version
+</code></pre>
+<p>this should response something like:</p>
+<pre><code>java version &quot;1.7.0_45&quot;
+Java(TM) SE Runtime Environment (build 1.7.0_45-b18)
+Java HotSpot(TM) 64-Bit Server VM (build 24.45-b08, mixed mode)
+</code></pre>
+<ul>
+<li><strong>384 MB RAM</strong> for the JVM. That&rsquo;s the default setting, how to change that is described [here|1.4. Basic configuration tasks#MemoryAllocation]</li>
+</ul>
+<h2 id="download-a-server-installer">Download a server installer</h2>
+<p>We provide native installers for several platforms:</p>
+<ul>
+<li>Windows (exe)</li>
+<li>Mac OS X (dmg)</li>
+<li>Debian package (deb)</li>
+<li>RPM package (rpm)</li>
+<li>Linux Binary (bin)</li>
+</ul>
+<p>Additional we provide an zip and tar.gz archive suitable for any platform.</p>
+<p>You can download them from <a href="https://directory.apache.org/apacheds/downloads.html">here</a>.</p>
+<p>An option for people familiar with tools like Subversion and Maven is to built the server from the sources on their own. This is described <a href="../advanced-ug/0.2-building-trunks.html">here</a>.</p>
+<h1 id="installation-on-windows">Installation on Windows</h1>
+<p>Installing can be easily done using the Windows installer. Its interface and functionality is similar to other wizard based installers.</p>
+<CENTER>
+![Windows Installer](images/Windows_Installer.png)
+</CENTER>
+<p>To install the ApacheDS as Windows service you need <em>Administrator</em> privileges.</p>
+<h3 id="starting-and-stopping-the-server">Starting and stopping the server</h3>
+<p>The server can be started and stopped with Windows Services manager (<em>Control Panel &gt; Administrative Tools &gt; Services</em>). You must be admin to do this.</p>
+<p>From there, you can easily start, stop and restart Apache DS.</p>
+<h2 id="installation-on-mac-os-x">Installation on Mac OS X</h2>
+<p>To install Apache DS on Mac OS X, simply open the downloaded DMG file and then the &ldquo;Apache Directory Server Installer.pkg&rdquo; in it.</p>
+<CENTER>
+![MacOSX installer](images/MacOSX_Installer.png)
+</CENTER>
+<p>From there, you will be guided to install Apache DS on your system.</p>
+<h3 id="starting-and-stopping-the-server-1">Starting and stopping the server</h3>
+<p>On Mac OS X, Apache DS is installed as a <a href="http://developer.apple.com/macosx/launchd.html">launchd</a> service and is loaded at startup time (and upon successful installation).</p>
+<p>You can stop the server by unloading the launchd service with the following command line:</p>
+<pre><code>sudo launchctl unload /Library/LaunchDaemons/org.apache.directory.server.plist
+</code></pre>
+<p>You can start the server by loading the launchd service with the following command line:</p>
+<pre><code>sudo launchctl load /Library/LaunchDaemons/org.apache.directory.server.plist
+</code></pre>
+<p>If you want to disable the automatic startup of the server, just modify the plist file :</p>
+<pre><code>   &lt;key&gt;Disabled&lt;/key&gt;
+   &lt;false/&gt;
+</code></pre>
+<p>should be replaced by</p>
+<pre><code>   &lt;key&gt;Disabled&lt;/key&gt;
+   &lt;true/&gt;
+</code></pre>
+<p>Once the server has been installed, you can start it with :</p>
+<p>sudo launchctl start org.apache.directory.server</p>
+<p>and stop it with :</p>
+<p>sudo launchctl stop org.apache.directory.server</p>
+<h2 id="installation-on-linux">Installation on Linux</h2>
+<p>The installation for different installers is described on the <a href="https://directory.apache.org/apacheds/downloads.html">Apache Directory Server Downloads</a> page.</p>
+
+
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="1.2-some-background.html">1.2 - Some Background. Directories, directory services and LDAP</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="1-how-to-begin.html">1 - How to begin</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="1.4-basic-configuration-tasks.html">1.4 - Basic configuration tasks</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,1439 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Apis on Apache Directory</title>
+    <link>https://directory.apache.org/api.html</link>
+    <description>Recent content in Apis on Apache Directory</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    
+	<atom:link href="https://directory.apache.org/api/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>1 - Introduction</title>
+      <link>https://directory.apache.org/api/internal-design-guide/1-introduction.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/internal-design-guide/1-introduction.html</guid>
+      <description>1 - Introduction This Internal Design Guide teaches developers about the inner logic of the LDAP API. It can be useful to those interested in the project, giving them some clues about how it all works and its design, and also to those who want to extend the LDAP API by adding Controls, Extended Operations, or schema elements like SyntaxCheckers, Comparators, etc.</description>
+    </item>
+    
+    <item>
+      <title>1 - Introduction</title>
+      <link>https://directory.apache.org/api/user-guide/1-introduction.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/1-introduction.html</guid>
+      <description>1 - Introduction This User Guide teaches developers how to use the Apache LDAP API. Throughout these documents, we have interspersed descriptions of features with snippets of code. These code samples are used by our integration tests as well.
+Hopefully there&amp;rsquo;s enough here to get you started &amp;ndash; quickly. If you feel like improving this document or have questions / suggestions, please post to the Apache Directory LDAP API mailing list.</description>
+    </item>
+    
+    <item>
+      <title>1.1 - Java and LDAP</title>
+      <link>https://directory.apache.org/api/user-guide/1.1-java-and-ldap.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/1.1-java-and-ldap.html</guid>
+      <description>1.1 - Java and LDAP Most developers will at some point need to learn how to communicate with an LDAP server. It should be a very simple technology to use but isn&amp;rsquo;t because many aspects are not well known.
+Java is one of the most commonly used languages in the enterprise. Some call it the new Cobol!
+These facts mean it&amp;rsquo;s necessary to communicate over LDAP using Java. This is why a convenient API is necessary, so we created this API to fill the necessary gaps.</description>
+    </item>
+    
+    <item>
+      <title>1.2 - LDAP in a few words</title>
+      <link>https://directory.apache.org/api/user-guide/1.2-ldap-in-a-few-words.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/1.2-ldap-in-a-few-words.html</guid>
+      <description>1.2 - LDAP in a few words LDAP is not a new technlology. It has been around since the 90&amp;rsquo;s to mitigate complexities inherent in X.500 usage. Its name refers to Lightweight Directory Access Protocol. Soon after the first standard was issued, the first full LDAP server was created and X.500 became obsolete.
+We&amp;rsquo;ll use the term LDAP to represent the protocol and LDAP server to represent the server that implements it.</description>
+    </item>
+    
+    <item>
+      <title>1.3 - The Apache LDAP API rational</title>
+      <link>https://directory.apache.org/api/user-guide/1.3-apache-ldap-api-rational.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/1.3-apache-ldap-api-rational.html</guid>
+      <description>1.3 - The Apache LDAP API rationale When contemplating the creation of a new Java API for LDAP, we needed to first consider whether it was really necessary, because there were already a number of libraries that did it. For example:
+ JNDI : the default JDK API Netscape (a.k.a Mozilla) LdapSdk OpenLDAP JLdap  So why is the development of our new LDAP API for Java NOT the NIH syndrome?</description>
+    </item>
+    
+    <item>
+      <title>1.4 - Preparation to code</title>
+      <link>https://directory.apache.org/api/user-guide/1.4-preparation-to-code.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/1.4-preparation-to-code.html</guid>
+      <description>1.4 - Preparation to code The Apache Directory LDAP API requires Java 7 or higher.
+Secondly, you must download the API 1.0 or API 2.0. This package contains the LDAP API plus all of its dependent jars (like commons-lang, slf4j&amp;hellip;).
+If you&amp;rsquo;re using Maven, add the following dependency on api-all.jar :
+:::XML &amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.apache.directory.api&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;api-all&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;${ldap-api-version}&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt;  and all of its dependent jar files will be included automatically. That&amp;rsquo;s it, now you should be ready to code!</description>
+    </item>
+    
+    <item>
+      <title>10 - Entry</title>
+      <link>https://directory.apache.org/api/internal-design-guide/10-entry.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/internal-design-guide/10-entry.html</guid>
+      <description>10 - Entry TODO&amp;hellip;</description>
+    </item>
+    
+    <item>
+      <title>11 - Filter</title>
+      <link>https://directory.apache.org/api/internal-design-guide/11-filter.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/internal-design-guide/11-filter.html</guid>
+      <description>11 - Filter TODO&amp;hellip;</description>
+    </item>
+    
+    <item>
+      <title>12 - Cursor</title>
+      <link>https://directory.apache.org/api/internal-design-guide/12-cursor.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/internal-design-guide/12-cursor.html</guid>
+      <description>12 - Cursor TODO&amp;hellip;</description>
+    </item>
+    
+    <item>
+      <title>13 - Controls</title>
+      <link>https://directory.apache.org/api/internal-design-guide/13-controls.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/internal-design-guide/13-controls.html</guid>
+      <description>13 - Controls Controls are extension to the protocol. They are added in messages, and can contain extra information. A Control contains :
+ an OID, unique to this Control, as an identifier a Criticality flag, which tells if the control can be ignored or not a value, which might be BER encoded  We have 20 Controls declared in the LDAP API, and we can add more.
+Implementation Here is the Control classes and interfaces hierarchy :</description>
+    </item>
+    
+    <item>
+      <title>14 - Extended Operations</title>
+      <link>https://directory.apache.org/api/internal-design-guide/14-extended-operations.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/internal-design-guide/14-extended-operations.html</guid>
+      <description>14 - Extended Operations Extended Operation is a LDAP message which may content a payload. It is generally sent by the clinet, but the server can send a ExtendedResponse as a response to any operation : the Notice of Disconnection.
+Here is the syntax for the extended Operation :
+ExtendedRequest ::= [APPLICATION 23] SEQUENCE { requestName [0] LDAPOID, requestValue [1] OCTET STRING OPTIONAL } ExtendedResponse ::= [APPLICATION 24] SEQUENCE { COMPONENTS OF LDAPResult, responseName [10] LDAPOID OPTIONAL, responseValue [11] OCTET STRING OPTIONAL }  (the payload is the requestValue or responseValue part, which may be BER encoded).</description>
+    </item>
+    
+    <item>
+      <title>15 - LDIF</title>
+      <link>https://directory.apache.org/api/internal-design-guide/15-ldif.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/internal-design-guide/15-ldif.html</guid>
+      <description>15 - LDIF TODO&amp;hellip;</description>
+    </item>
+    
+    <item>
+      <title>16 - DSML</title>
+      <link>https://directory.apache.org/api/internal-design-guide/16-dsml.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/internal-design-guide/16-dsml.html</guid>
+      <description>16 - DSML TODO&amp;hellip;</description>
+    </item>
+    
+    <item>
+      <title>17 - OSGi</title>
+      <link>https://directory.apache.org/api/internal-design-guide/17-osgi.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/internal-design-guide/17-osgi.html</guid>
+      <description>17 - OSGi The LDAP API can either be use as a standalone API, or in an OSGi environment.
+Activators LdapProtocolCodecActivator
+ExtrasBundleActivator This activator loads and initializes extras controls and extended operations :
+DefaultActivator This is the base activator. It instanciates and loads the DefaultLdapCodecService class, which loas the default controls and extended operations</description>
+    </item>
+    
+    <item>
+      <title>2 - Basic LDAP API usage</title>
+      <link>https://directory.apache.org/api/user-guide/2-basic-ldap-api-usage.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/2-basic-ldap-api-usage.html</guid>
+      <description>2 - Basic LDAP API usage (&amp;hellip;) We provide three different sets of methods to send requests to the LDAP server:
+ The first set is the simplest. Its methods don&amp;rsquo;t return a response but may throw a LdapOperationException if the operation was not successful. The second set is for advanced users. It works with dedicated Request and Response objects and allows fine-grained control at the LDAP protocol level. The third set allows users to send asynchronous requests.</description>
+    </item>
+    
+    <item>
+      <title>2 - General Structure</title>
+      <link>https://directory.apache.org/api/internal-design-guide/2-general-structure.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/internal-design-guide/2-general-structure.html</guid>
+      <description>2 - General Structure The Apache LDAP API is split into many modules. Here is their hierarchy :
+  The all module is just a packaging module, gathering all the other modules in one single jar to simplify the work for those who want to use the API. One can import each module speparately, or the all module only. Note that it does not include the tests and integration modules (integ, integ-osgi and distribution)</description>
+    </item>
+    
+    <item>
+      <title>2.1 - Connection and disconnection</title>
+      <link>https://directory.apache.org/api/user-guide/2.1-connection-disconnection.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/2.1-connection-disconnection.html</guid>
+      <description>2.1 - Connection and disconnection The LDAP is a protocol requires users to be connected, and likely identified (authenticated), before sending requests to the server. This connection can potentially be maintained forever. What makes the LDAP protocol different from, say, the HTTP protocol is that the connections are issued explicitly. Here we&amp;rsquo;ll see how it&amp;rsquo;s done.
+Opening a connection We can open a secure or a standard connection.
+Standard connection We can first establish a standard connection, where the data is sent and received in clear text (encoded in ASN.</description>
+    </item>
+    
+    <item>
+      <title>2.10 - The LdapConnectionTemplate</title>
+      <link>https://directory.apache.org/api/user-guide/2.10-ldap-connection-template.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/2.10-ldap-connection-template.html</guid>
+      <description>2.10 - Why use the LdapConnectionTemplate? The LdapConnectionTemplate provides simplified access to the API functions. It does so by
+ Managing Connections Providing Factory Methods For Model Objects Providing CRUD Methods Handling Search Result Iteration Providing Simplified, Password Policy Aware, Authentication/Password Modification Methods Other Useful Methods  Conceptually it uses the Template Method design pattern to do all of the boiler plate work for you. It can give control back as needed for special cases.</description>
+    </item>
+    
+    <item>
+      <title>2.11 - The FilterBuilder</title>
+      <link>https://directory.apache.org/api/user-guide/2.11-filter-builder.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/2.11-filter-builder.html</guid>
+      <description>2.11 - The FilterBuilder(e) This class is a builder for constructing well formed search filters according to RFC 4515. This builder is most convenient when using static imports. For example:
+ import static org.apache.directory.ldap.client.api.search.FilterBuilder.and; import static org.apache.directory.ldap.client.api.search.FilterBuilder.equal; import static org.apache.directory.ldap.client.api.search.FilterBuilder.or; ... String filter = or( and( equal( &amp;quot;givenName&amp;quot;, &amp;quot;kermit&amp;quot; ), equal( &amp;quot;sn&amp;quot;, &amp;quot;the frog&amp;quot; ) ), and( equal( &amp;quot;givenName&amp;quot;, &amp;quot;miss&amp;quot; ), equal( &amp;quot;sn&amp;quot;, &amp;quot;piggy&amp;quot; ) ) ) .toString()  And filter Returns a new FilterBuilder that will combine all of the supplied filters with a logical AND (&amp;amp;).</description>
+    </item>
+    
+    <item>
+      <title>2.2 - Binding and unbinding</title>
+      <link>https://directory.apache.org/api/user-guide/2.2-binding-unbinding.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/2.2-binding-unbinding.html</guid>
+      <description>2.2 - Binding and unbinding In LDAP, if one wants to access the data in the base, the common way to do it is to bind to the server. However, it&amp;rsquo;s important to understand that binding is a different from connecting.
+Creating a connection to an LDAP server opens a socket between the client and the server. You must provide the address and the port in order to do this.</description>
+    </item>
+    
+    <item>
+      <title>2.3 - Searching</title>
+      <link>https://directory.apache.org/api/user-guide/2.3-searching.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/2.3-searching.html</guid>
+      <description>2.3 - Searching (&amp;hellip;) Searching is the most important operation in LDAP. It has to be fast, very fast. On the other hand, as the server does the processing while looking for entries, the client must provide information to get accurate results.
+The idea is to define a search API which is easy to use in the simplest cases, but provides all the capability to send complex search requests.
+Simple search Let&amp;rsquo;s first look at a simple search.</description>
+    </item>
+    
+    <item>
+      <title>2.4 - Adding entries</title>
+      <link>https://directory.apache.org/api/user-guide/2.4-adding.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/2.4-adding.html</guid>
+      <description>2.4 - Adding entries Adding entries is one of the base operations a user can do on an LDAP server. Nevertheless, it&amp;rsquo;s an operation that implies many checks, and frequently the user receives strange error messages. We will see how to add an entry using the LDAP API, and analyze the various error cases that can occur.
+Adding an entry Here is the simplest way to add an entry into the server, assuming that the entry is correct.</description>
+    </item>
+    
+    <item>
+      <title>2.5 - Deleting entries</title>
+      <link>https://directory.apache.org/api/user-guide/2.5-deleting.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/2.5-deleting.html</guid>
+      <description>2.5 - Deleting entries Deleting an entry is pretty easy, it just requires the entry&amp;rsquo;s DN. There is one important thing to understand though, if the entry has children, the operation will fail.
+Simple entry deletion We request a deletion by providing the entry&amp;rsquo;s DN, as in the following example:
+:::Java @Test public void testDeleteLeafNode() throws Exception { assertTrue( session.exists( &amp;quot;cn=child1,cn=parent,ou=system&amp;quot; ) ); try { connection.delete( &amp;quot;cn=child1,cn=parent,ou=system&amp;quot; ); } catch ( LdapException le ) { fail( le.</description>
+    </item>
+    
+    <item>
+      <title>2.6 - Modifying entries</title>
+      <link>https://directory.apache.org/api/user-guide/2.6-modifying.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/2.6-modifying.html</guid>
+      <description>2.6 - Modifying entries There are several ways an entry can be modified. Mainly, it&amp;rsquo;s about adding or deleting an attribute, or modifying the values associated with an existing attribute.
+It&amp;rsquo;s important to understand that many modifications can be applied on a single entry. All those modifications will be applied in an all or none fashion. i.e., if any of the modifications are invalid, none will occur. Also if the server crashes while applying the mods, it&amp;rsquo;s guaranteed that the entry remains consistent.</description>
+    </item>
+    
+    <item>
+      <title>2.7 - Moving an renaming entries</title>
+      <link>https://directory.apache.org/api/user-guide/2.7-moving-renaming.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/2.7-moving-renaming.html</guid>
+      <description>2.7 - Moving an renaming entries LDAP allows you to do more than adding, deleting or modifying entries : you can also move them, or rename them. Here, you are not changing the content of an entry, but its position in the DIT, or its name.
+Actually, changing an entry&amp;rsquo;s name *may have an impact on the entry&amp;rsquo;s content, as the DN always contains elements that are part of the entry.</description>
+    </item>
+    
+    <item>
+      <title>2.8 - Comparing entries</title>
+      <link>https://directory.apache.org/api/user-guide/2.8-comparing.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/2.8-comparing.html</guid>
+      <description>2.8 - Comparing entries (e) </description>
+    </item>
+    
+    <item>
+      <title>2.9 - Exception management</title>
+      <link>https://directory.apache.org/api/user-guide/2.9-exception-management.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/2.9-exception-management.html</guid>
+      <description>2.9 - Exception management (&amp;hellip;) </description>
+    </item>
+    
+    <item>
+      <title>3 - Advanced LDAP API Usage</title>
+      <link>https://directory.apache.org/api/user-guide/3-advanced-ldap-api-usage.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/3-advanced-ldap-api-usage.html</guid>
+      <description>3 - Advanced LDAP API Usage (&amp;hellip;) Contents  Controls Extended operations (e) Referrals (e) Aliases (e) LDIF, DSML (&amp;hellip;) Abandonning an operation (e) Server informations (e)  </description>
+    </item>
+    
+    <item>
+      <title>3 - Building</title>
+      <link>https://directory.apache.org/api/internal-design-guide/3-building.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/internal-design-guide/3-building.html</guid>
+      <description>3 - Building The project is based on Apache Maven (version 3.x), so you&amp;rsquo;ll have to install it first.
+That being said, building the LDAP API is pretty straightforward :
+::: $ mvn clean install Java HotSpot(TM) 64-Bit Server VM warning: ignoring option MaxPermSize=256M; support was removed in 8.0 [INFO] Scanning for projects... [INFO] ------------------------------------------------------------------------ [INFO] Reactor Build Order: [INFO] [INFO] Apache Directory LDAP API [INFO] Apache Directory LDAP API I18n [INFO] Apache Directory LDAP API Utilities .</description>
+    </item>
+    
+    <item>
+      <title>3.1 - Controls</title>
+      <link>https://directory.apache.org/api/user-guide/3.1-controls.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/3.1-controls.html</guid>
+      <description>3.1 - Controls A LDAP Control is an extension to an operation. It tells the server to do something aside the standard operation, or it let the server send back some information to the client. A Control contains three different parts :
+ An identifier, the control OID A flag telling the server what to do if it does not know about the control or if it results in an error (either return an error or ignore the control) A value which is generally BER encoded  There are many controls available, some being standardized, other being server specific.</description>
+    </item>
+    
+    <item>
+      <title>3.2 - Extended Operations</title>
+      <link>https://directory.apache.org/api/user-guide/3.2-extended-operations.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/3.2-extended-operations.html</guid>
+      <description>3.2 - Extended Operations </description>
+    </item>
+    
+    <item>
+      <title>3.3 - Referrals</title>
+      <link>https://directory.apache.org/api/user-guide/3.3-referrals.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/3.3-referrals.html</guid>
+      <description>3.3 - Referrals </description>
+    </item>
+    
+    <item>
+      <title>3.4 - Aliases</title>
+      <link>https://directory.apache.org/api/user-guide/3.4-aliases.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/3.4-aliases.html</guid>
+      <description>3.4 - Aliases </description>
+    </item>
+    
+    <item>
+      <title>3.5 - LDIF and DSML</title>
+      <link>https://directory.apache.org/api/user-guide/3.5-ldif-dsml.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/3.5-ldif-dsml.html</guid>
+      <description>3.5 - LDIF and DSML </description>
+    </item>
+    
+    <item>
+      <title>3.6 - Abandonning an operation</title>
+      <link>https://directory.apache.org/api/user-guide/3.6-abandonning.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/3.6-abandonning.html</guid>
+      <description>3.6 - Abandonning an operation </description>
+    </item>
+    
+    <item>
+      <title>3.7 - Server informations</title>
+      <link>https://directory.apache.org/api/user-guide/3.7-server-informations.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/3.7-server-informations.html</guid>
+      <description>3.7 - Server informations </description>
+    </item>
+    
+    <item>
+      <title>4 - ASN/1</title>
+      <link>https://directory.apache.org/api/internal-design-guide/4-asn1.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/internal-design-guide/4-asn1.html</guid>
+      <description>4 - ASN/1 To be completed&amp;hellip;
+The LDAP protocol is based on an ASN/1 description. We will notexplain in detail what is ASN/1 about, you would rather check This page for a very limited introduction, or if you feel teh need to understand what is ASN/1 in detail, just read the Olivier Dubuisson&amp;rsquo;s book on ASN.1 (This is probably the best reference !)
+Anyway, we use a subset of ASN/1, as what we have to deal with is the BER/DER encoding.</description>
+    </item>
+    
+    <item>
+      <title>4 - Schema Management</title>
+      <link>https://directory.apache.org/api/user-guide/4-schema-management.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/4-schema-management.html</guid>
+      <description>4 - Schema Management Every LDAP server necessarily has a schema that&amp;rsquo;s used to define its accepted data elements along with their rules for usage (syntax).
+An LDAP Schema is a complex combination of many schema elements. Here&amp;rsquo;s we&amp;rsquo;ll define those schema elements and how to organize them. Last, but not least, we&amp;rsquo;ll explain how to leverage the schema on the client side.
+Contents  Schema SchemaManager  SchemaObjects  AttributeTypes ObjectClasses Syntaxes MatchingRules DITContentRules DITStructureRules MatchingRuleUses NameForms ApacheDS Schema Elements   Registries SchemaLoader    </description>
+    </item>
+    
+    <item>
+      <title>4-1 - ASN/1 TLV</title>
+      <link>https://directory.apache.org/api/internal-design-guide/4.1-asn1-tlv.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/internal-design-guide/4.1-asn1-tlv.html</guid>
+      <description>4.1 - ASN/1 TLV What are TLVs ? The acronym TLV stands for Tag, Length and Value. It&amp;rsquo;s a way to encode a piece of information with a type, a length followed by the information itself. Three points must be known:
+ The Value part may contents other TLVs. One can see TLVs as C structures, that can contain sub-structures. The Value may not exist, and in this case the Length will be 0.</description>
+    </item>
+    
+    <item>
+      <title>4.1 - Schema</title>
+      <link>https://directory.apache.org/api/user-guide/4.1-schema.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/4.1-schema.html</guid>
+      <description>4.1 - Schema A Schema is a set of elements that are used by the LDAP Server to describe the data that are stored. The top two elements are ObjectClass and AttributeType. An ObjectClass is a container, describing what an LDAP entry can contain, while an AttributeType describe each singe element stored in this container.
+The key here is that an LDAP entry uses ObjectClasses to list all the possible AttributeTypes that an entry can contain, some of them being mandatory, some other optional.</description>
+    </item>
+    
+    <item>
+      <title>4.2 - Schema Manager</title>
+      <link>https://directory.apache.org/api/user-guide/4.2-schema-manager.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/4.2-schema-manager.html</guid>
+      <description>4.2 - Schema Manager The API and the ApacheDS server components must to keep schema elements available to interrogate and use. This is done through what we call a SchemaManager. It hides the internal structure of the schema objects from the users.
+Contents  SchemaObjects  AttributeTypes ObjectClasses Syntaxes MatchingRules DITContentRules DITStructureRules MatchingRuleUses NameForms ApacheDS Schema Elements   Registries SchemaLoader  Introduction The SchemaManager stores all the Schema elements (AttributeTypes (e), ObjectClasses (e), &amp;hellip; Internally, we store these elements into what is call a Registries.</description>
+    </item>
+    
+    <item>
+      <title>4.2.1 - Schema Objects</title>
+      <link>https://directory.apache.org/api/user-guide/4.2.1-schema-objects.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/4.2.1-schema-objects.html</guid>
+      <description>4.2.1 - Schema Objects Content  AttributeTypes ObjectClasses Syntaxes MatchingRules DITContentRules DITStructureRules MatchingRuleUses NameForms ApacheDS Schema Elements  Introduction LDAP defines 8 different Schema Objects, that are used to define what we can store in a LDAP server, how what we store is organized, and which constraints are applied on those elements.
+In the API, we also define 3 other SchemaObjects, which are necessary to control the values and to compare them.</description>
+    </item>
+    
+    <item>
+      <title>4.2.1.1 - AttributeTypes</title>
+      <link>https://directory.apache.org/api/user-guide/4.2.1.1-attribute-types.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/4.2.1.1-attribute-types.html</guid>
+      <description>4.2.1.1 - AttributeTypes The AttributeType SchemaObject exposes extra parameters. Here is the description as found in RFC 4512 :
+4.1.2. Attribute Types Attribute Type definitions are written according to the ABNF: AttributeTypeDescription = LPAREN WSP numericoid ; object identifier [ SP &amp;quot;NAME&amp;quot; SP qdescrs ] ; short names (descriptors) [ SP &amp;quot;DESC&amp;quot; SP qdstring ] ; description [ SP &amp;quot;OBSOLETE&amp;quot; ] ; not active [ SP &amp;quot;SUP&amp;quot; SP oid ] ; supertype [ SP &amp;quot;EQUALITY&amp;quot; SP oid ] ; equality matching rule [ SP &amp;quot;ORDERING&amp;quot; SP oid ] ; ordering matching rule [ SP &amp;quot;SUBSTR&amp;quot; SP oid ] ; substrings matching rule [ SP &amp;quot;SYNTAX&amp;quot; SP noidlen ] ; value syntax [ SP &amp;quot;SINGLE-VALUE&amp;quot; ] ; single-value [ SP &amp;quot;COLLECTIVE&amp;quot; ] ; collective [ SP &amp;quot;NO-USER-MODIFICATION&amp;quot; ] ; not user modifiable [ SP &amp;quot;USAGE&amp;quot; SP usage ] ; usage extensions WSP RPAREN ; extensions usage = &amp;quot;userApplications&amp;quot; / ; user &amp;quot;directoryOperation&amp;quot; / ; directory operational &amp;quot;distributedOperation&amp;quot; / ; DSA-shared operational &amp;quot;dSAOperation&amp;quot; ; DSA-specific operational  The follwing methods have been added to cover ones not already present within the SchemaObject interface :</description>
+    </item>
+    
+    <item>
+      <title>4.2.1.2 - ObjectClasses</title>
+      <link>https://directory.apache.org/api/user-guide/4.2.1.2-object-classes.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/4.2.1.2-object-classes.html</guid>
+      <description>4.2.1.2 - ObjectClasses The ObjectClass represents the list of mandatory and optional AttributeTypes
+Here is the description as found in RFC 4512 :
+ ObjectClassDescription = LPAREN WSP numericoid ; object identifier [ SP &amp;quot;NAME&amp;quot; SP qdescrs ] ; short names (descriptors) [ SP &amp;quot;DESC&amp;quot; SP qdstring ] ; description [ SP &amp;quot;OBSOLETE&amp;quot; ] ; not active [ SP &amp;quot;SUP&amp;quot; SP oids ] ; superior object classes [ SP kind ] ; kind of class [ SP &amp;quot;MUST&amp;quot; SP oids ] ; attribute types [ SP &amp;quot;MAY&amp;quot; SP oids ] ; attribute types extensions WSP RPAREN kind = &amp;quot;ABSTRACT&amp;quot; / &amp;quot;STRUCTURAL&amp;quot; / &amp;quot;AUXILIARY&amp;quot;  Each ObjectClass as a type (ABSTRACT, STRUCTURAL or AUXILIARY) and may inherit from another ObjectClass</description>
+    </item>
+    
+    <item>
+      <title>4.2.1.3 - Syntaxes</title>
+      <link>https://directory.apache.org/api/user-guide/4.2.1.3-syntaxes.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/4.2.1.3-syntaxes.html</guid>
+      <description>4.2.1.3 - Syntaxes The LdapSyntax class implements the LDAP Syntaxs schema objects. A Syntax defines constraints applied to the AttributeType value. Here is the RFC description of a Syntax :
+ SyntaxDescription = LPAREN WSP numericoid ; object identifier [ SP &amp;quot;DESC&amp;quot; SP qdstring ] ; description extensions WSP RPAREN ; extensions  The important part of the Syntax is its OID which is used in the AttributeType and MatchingRule.</description>
+    </item>
+    
+    <item>
+      <title>4.2.1.4 - MatchingRules</title>
+      <link>https://directory.apache.org/api/user-guide/4.2.1.4-matching-rules.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/4.2.1.4-matching-rules.html</guid>
+      <description>4.2.1.4 - MatchingRules A MatchingRule is used when processing search requests using Filters, or a Compare or during Modify operations. An AttributeType defines up to 3 types of MatchingRules:
+ EQUALITY : for comparisons for equality ORDERING : for comparisons involving the &amp;lt;= or &amp;gt;= operators SUBSTR : for comparisons involving substrings, like &amp;lsquo;xyz&amp;rsquo; or &amp;lsquo;xz&amp;rsquo;  There are a few extra parameters that are defined in the MatchingRule class:</description>
+    </item>
+    
+    <item>
+      <title>4.2.1.5 - DitContentRules</title>
+      <link>https://directory.apache.org/api/user-guide/4.2.1.5-dit-content-rules.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/4.2.1.5-dit-content-rules.html</guid>
+      <description>4.2.1.5 - DitContentRules Not yet supported&amp;hellip;</description>
+    </item>
+    
+    <item>
+      <title>4.2.1.6 - DitStructureRules</title>
+      <link>https://directory.apache.org/api/user-guide/4.2.1.6-dit-structure-rules.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/4.2.1.6-dit-structure-rules.html</guid>
+      <description>4.2.1.6 - DitStructureRules Not yet supported&amp;hellip;</description>
+    </item>
+    
+    <item>
+      <title>4.2.1.7 - MatchingRuleUses</title>
+      <link>https://directory.apache.org/api/user-guide/4.2.1.7-matching-rule-uses.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/4.2.1.7-matching-rule-uses.html</guid>
+      <description>4.2.1.7 - MatchingRuleUses Not yet supported&amp;hellip;</description>
+    </item>
+    
+    <item>
+      <title>4.2.1.8 - NameForms</title>
+      <link>https://directory.apache.org/api/user-guide/4.2.1.8-name-forms.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/4.2.1.8-name-forms.html</guid>
+      <description>4.2.1.8 - NameForms Not yet supported&amp;hellip;</description>
+    </item>
+    
+    <item>
+      <title>4.2.1.9 - ApacheDS Schema Element</title>
+      <link>https://directory.apache.org/api/user-guide/4.2.1.9-apacheds-schema-elements.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/4.2.1.9-apacheds-schema-elements.html</guid>
+      <description>4.2.1.9 - ApacheDS Schema Element We have defined 3 more schema elements that are needed to use the SchemaManager:
+ SyntaxChecker : used to check a value&amp;rsquo;s syntax Normalizer : used to normalize a value before a comparison LdapComparator : used to compare two values for a given syntax  SyntaxChecker This class exposes this method:
+ isValidSyntax(Object): tells if the value is correct  Normalizer This class is used to normalize values into a canonical form.</description>
+    </item>
+    
+    <item>
+      <title>4.2.2 - Registries</title>
+      <link>https://directory.apache.org/api/user-guide/4.2.2-registries.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/4.2.2-registries.html</guid>
+      <description>4.2.2 - Registries The Registries are the place where all SchemaObjects are stored and retrieved from. It contains a registry per SchemaObject, plus a global registry which is used to retreive a SchemaObject from its OID (the OID is unique), and a list of the loaded schemas.
+Basically, it&amp;rsquo;s the data center of the SchemaManager. When you call SchemaManager.getAttributeType( String ), the SchemaManager will look into the AttributeTypeRegistry for the AttributeType instance associated with the name or OID.</description>
+    </item>
+    
+    <item>
+      <title>4.2.3 - SchemaLoader</title>
+      <link>https://directory.apache.org/api/user-guide/4.2.3-schema-loader.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/4.2.3-schema-loader.html</guid>
+      <description>4.2.3 - SchemaLoader The SchemaLoader is a utility class that loads a Schema into the SchemaManager. It comes in many flavors, depending on the source containing the Schema.</description>
+    </item>
+    
+    <item>
+      <title>5 - LDAP Security</title>
+      <link>https://directory.apache.org/api/user-guide/5-ldap-security.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/5-ldap-security.html</guid>
+      <description>5 - LDAP Security LDAP databases store critical information that must be kept secure. The Apache LDAP API can access the data securely while in flight but can&amp;rsquo;t protect it while at rest &amp;ndash; that&amp;rsquo;s for the database system itself to do.
+Generally speaking when it comes to securing a system, we are addressing the three As: Authentication, Authorization and Auditing.
+The only aspect we will focus on is the Authentication part, because the LDAP protocol does not address the other two, when it comes to an API.</description>
+    </item>
+    
+    <item>
+      <title>5 - Network</title>
+      <link>https://directory.apache.org/api/internal-design-guide/5-network.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/internal-design-guide/5-network.html</guid>
+      <description>5 - Network Content  Class hierarchy MINA usage Initialization  Example : using a LdapConnectionConfig   MINA Events processing  Events processing Sending a message Receiving a message Encoding/decoding   SSL handling StartTLS handling  The Apache LDAP AP is built on top of Apache MINA which is a NIO framework.
+As MINA is fully asynchronous, it has some impact on the design of the LDAP API. Basically, we send requests, and we don&amp;rsquo;t wait for responses, we get informed when the response is there.</description>
+    </item>
+    
+    <item>
+      <title>5.1 - LDAPS</title>
+      <link>https://directory.apache.org/api/user-guide/5.1-ldaps.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/5.1-ldaps.html</guid>
+      <description>5.1 - LDAPS LDAP supports SSL, it&amp;rsquo;s called LDAPS, and it uses a dedicated port. As of today, and since 2000, LDAPS is deprecated and StartTLS should be used.
+That being said, many servers accept LDAPS, and the Apache LDAP API supports it.
+How does it work ? The SSL protocol ensures that data is transmitted encrypted, and guarantees that the data received is valid. Noone can capture this data and read it, assuming the ciphers used are of sufficient strength.</description>
+    </item>
+    
+    <item>
+      <title>5.2 - StartTLS</title>
+      <link>https://directory.apache.org/api/user-guide/5.2-start-tls.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/5.2-start-tls.html</guid>
+      <description>5.2 - StartTLS As we have seen in the previous chapter, LDAPS has some drawbacks. There is a better alternative for securing communications between the client and server &amp;ndash; startTLS.
+The idea is to use an existing connection to send a message to the server and request it to be encrypted. We keep going with the current connection, on the same port, but the exchanged data will continue as encrypted.</description>
+    </item>
+    
+    <item>
+      <title>5.3 - SASL Bind</title>
+      <link>https://directory.apache.org/api/user-guide/5.3-sasl-bind.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/5.3-sasl-bind.html</guid>
+      <description>Note: Work in progress&amp;hellip;
+ 5.3 - SASL Bind SASL is defined by RFC 4422 which obsoletes RFC2222. There are also a few RFCs that are related to SASL, they are listed in the next paragraph.
+In any case, as ApacheDS and the Apache LDAP API are based on Java, we depend on the Java SASL impementation. Typically, this is handled by the SunSASL provider, which only support the following mechanisms, as of Java 8 :</description>
+    </item>
+    
+    <item>
+      <title>5.4 - Password Handling</title>
+      <link>https://directory.apache.org/api/user-guide/5.4-password-handling.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/5.4-password-handling.html</guid>
+      <description>5.4 - Password Handling  Note: Contents for this page will be added soon&amp;hellip;
+ </description>
+    </item>
+    
+    <item>
+      <title>5.5 - Certificates</title>
+      <link>https://directory.apache.org/api/user-guide/5.5-certificates.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/5.5-certificates.html</guid>
+      <description>5.5 - Certificates  Note: Contents for this page will be added soon&amp;hellip;
+ </description>
+    </item>
+    
+    <item>
+      <title>5.6 - ACI and ACLs</title>
+      <link>https://directory.apache.org/api/user-guide/5.6-aci-and-acls.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/5.6-aci-and-acls.html</guid>
+      <description>5.6 - ACI and ACLs  Note: Contents for this page will be added soon&amp;hellip;
+ </description>
+    </item>
+    
+    <item>
+      <title>6 - Encoding/Decoding</title>
+      <link>https://directory.apache.org/api/internal-design-guide/6-codec.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/internal-design-guide/6-codec.html</guid>
+      <description>6 - Encoding/Decoding TODO&amp;hellip;</description>
+    </item>
+    
+    <item>
+      <title>6 - LDAP Data Structures</title>
+      <link>https://directory.apache.org/api/user-guide/6-ldap-data-structures.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/6-ldap-data-structures.html</guid>
+      <description>6 - LDAP Data Structures (&amp;hellip;) Contents  6.1 - AdministrativePoint 6.2 - AdministrativeRole 6.3 - Attribute 6.4 - AttributeType 6.5 - Ava 6.6 - Csn 6.7 - Control 6.8 - Cursor 6.9 - Dn 6.10 - DITContentRule 6.11 - DITStructureRule 6.12 - Entry 6.13 - ExprNode 6.14 - LdapComparator 6.15 - LdapResult 6.16 - LdapSyntax 6.17 - LdapUrl 6.18 - LdifControl 6.19 - LdifEntry 6.20 - MatchingRule 6.21 - MatchingRuleUse 6.</description>
+    </item>
+    
+    <item>
+      <title>6.1 - AdministrativePoint</title>
+      <link>https://directory.apache.org/api/user-guide/6.1-administrative-point.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/6.1-administrative-point.html</guid>
+      <description>6.1 - AdministrativePoint These classes are currently only used by the server. It will be available on the client side later on.  An AdministrativePoint is an entry in the DIT which is associated with some AdministrativeArea. In ApacheDS we support 4 different kind of roles:
+ ACI Collective Attributes SubSchema Triggers  We also have three different types of _AdministrativePoint_s:
+ Autonomous AdministrativePoint (AAP) Specific AdministrativePoint (SAP) Inner AdministrativePoint (IAP)  Each of the roles comes in one of 3 &amp;lsquo;flavors&amp;rsquo; (except the SubSchema whch has only 2 flavors).</description>
+    </item>
+    
+    <item>
+      <title>6.10 - DITContentRule</title>
+      <link>https://directory.apache.org/api/user-guide/6.10-dit-content-rule.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/6.10-dit-content-rule.html</guid>
+      <description>6.10 - DITContentRule  Note: Contents for this page will be added soon&amp;hellip;
+ </description>
+    </item>
+    
+    <item>
+      <title>6.11 - DITStructureRule</title>
+      <link>https://directory.apache.org/api/user-guide/6.11-dit-structure-rule.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/6.11-dit-structure-rule.html</guid>
+      <description>6.11 - DITStructureRule  Note: Contents for this page will be added soon&amp;hellip;
+ </description>
+    </item>
+    
+    <item>
+      <title>6.12 - Entry</title>
+      <link>https://directory.apache.org/api/user-guide/6.12-entry.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/6.12-entry.html</guid>
+      <description>6.12 - Entry The Entry class is one of the most important ones in the API. It describes the base element stored into a LDAP server, and it associates a Dn and some Attributes.
+We have two kinds of Entry in the API, depending on the presence of a SchemaManager in the Entry, or not.
+We also provide a few extended classes, like the ImmutableEntry, an immutable version of the Entry.</description>
+    </item>
+    
+    <item>
+      <title>6.13 - ExprNode</title>
+      <link>https://directory.apache.org/api/user-guide/6.13-expr-node.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/6.13-expr-node.html</guid>
+      <description>6.13 - ExprNode  Note: Contents for this page will be added soon&amp;hellip;
+ </description>
+    </item>
+    
+    <item>
+      <title>6.14 - LdapComparator</title>
+      <link>https://directory.apache.org/api/user-guide/6.14-ldap-comparator.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/6.14-ldap-comparator.html</guid>
+      <description>6.14 - LdapComparator  Note: Contents for this page will be added soon&amp;hellip;
+ </description>
+    </item>
+    
+    <item>
+      <title>6.15 - LdapResult</title>
+      <link>https://directory.apache.org/api/user-guide/6.15-ldap-result.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/6.15-ldap-result.html</guid>
+      <description>6.15 - LdapResult  Note: Contents for this page will be added soon&amp;hellip;
+ </description>
+    </item>
+    
+    <item>
+      <title>6.16 - LdapSyntax</title>
+      <link>https://directory.apache.org/api/user-guide/6.16-ldap-syntax.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/6.16-ldap-syntax.html</guid>
+      <description>6.16 - LdapSyntax  Note: Contents for this page will be added soon&amp;hellip;
+ </description>
+    </item>
+    
+    <item>
+      <title>6.17 - LdapUrl</title>
+      <link>https://directory.apache.org/api/user-guide/6.17-ldap-url.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/6.17-ldap-url.html</guid>
+      <description>6.17 - LdapUrl  Note: Contents for this page will be added soon&amp;hellip;
+ </description>
+    </item>
+    
+    <item>
+      <title>6.18 - LdifControl</title>
+      <link>https://directory.apache.org/api/user-guide/6.18-ldif-control.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/6.18-ldif-control.html</guid>
+      <description>6.18 - LdifControl  Note: Contents for this page will be added soon&amp;hellip;
+ </description>
+    </item>
+    
+    <item>
+      <title>6.19 - LdifEntry</title>
+      <link>https://directory.apache.org/api/user-guide/6.19-ldif-entry.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/6.19-ldif-entry.html</guid>
+      <description>6.19 - LdifEntry  Note: Contents for this page will be added soon&amp;hellip;
+ </description>
+    </item>
+    
+    <item>
+      <title>6.2 - AdministrativeRole</title>
+      <link>https://directory.apache.org/api/user-guide/6.2-administrative-role.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/6.2-administrative-role.html</guid>
+      <description>6.2 - AdministrativeRole These classes are currently only used by the server. It will be available on the client side later on.  The AdministrativeRole structure is a enum listing the possible roles we can select for an AdministrativePoint. We currently support 4 different roles:
+ Access Control Collective Attributes SubSchema Triggers  And each of those roles can be combine with their scope:
+ AutonomousArea AccessControlSpecificArea AccessControlInnerArea CollectiveAttributeSpecificArea CollectiveAttributeInnerArea SubSchemaSpecificArea TriggerExecutionSpecificArea TriggerExecutionInnerArea  </description>
+    </item>
+    
+    <item>
+      <title>6.20 - MatchingRule</title>
+      <link>https://directory.apache.org/api/user-guide/6.20-matching-rule.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/6.20-matching-rule.html</guid>
+      <description>6.20 - MatchingRule  Note: Contents for this page will be added soon&amp;hellip;
+ </description>
+    </item>
+    
+    <item>
+      <title>6.21 - MatchingRuleUse</title>
+      <link>https://directory.apache.org/api/user-guide/6.21-matching-rule-use.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/6.21-matching-rule-use.html</guid>
+      <description>6.21 - MatchingRuleUse  Note: Contents for this page will be added soon&amp;hellip;
+ </description>
+    </item>
+    
+    <item>
+      <title>6.22 - Message</title>
+      <link>https://directory.apache.org/api/user-guide/6.22-message.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/6.22-message.html</guid>
+      <description>6.22 - Message  Note: Contents for this page will be added soon&amp;hellip;
+ </description>
+    </item>
+    
+    <item>
+      <title>6.23 - Modification</title>
+      <link>https://directory.apache.org/api/user-guide/6.23-modification.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/6.23-modification.html</guid>
+      <description>6.23 - Modification  Note: Contents for this page will be added soon&amp;hellip;
+ </description>
+    </item>
+    
+    <item>
+      <title>6.24 - NameForm</title>
+      <link>https://directory.apache.org/api/user-guide/6.24-name-form.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/6.24-name-form.html</guid>
+      <description>6.24 - NameForm  Note: Contents for this page will be added soon&amp;hellip;
+ </description>
+    </item>
+    
+    <item>
+      <title>6.25 - Normalizer</title>
+      <link>https://directory.apache.org/api/user-guide/6.25-normalizer.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/6.25-normalizer.html</guid>
+      <description>6.25 - Normalizer  Note: Contents for this page will be added soon&amp;hellip;
+ </description>
+    </item>
+    
+    <item>
+      <title>6.26 - ObjectClass</title>
+      <link>https://directory.apache.org/api/user-guide/6.26-object-class.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/6.26-object-class.html</guid>
+      <description>6.26 - ObjectClass  Note: Contents for this page will be added soon&amp;hellip;
+ </description>
+    </item>
+    
+    <item>
+      <title>6.27 - Oid</title>
+      <link>https://directory.apache.org/api/user-guide/6.27-oid.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/6.27-oid.html</guid>
+      <description>6.27 - Oid Introduction An OID stands for Object IDentifier. It&amp;rsquo;s part of the ASN/1 standard. Basically, it&amp;rsquo;s a hierarchy, named a &amp;lsquo;registration tree&amp;rsquo;. It&amp;rsquo;s a list of &amp;lsquo;arcs&amp;rsquo;, which values start at &amp;lsquo;0&amp;rsquo;, and each arc is separated with a dot ( &amp;lsquo;.&amp;rsquo; ).
+There are three defined root arcs :
+* itu-t (0) * iso (1) * joint-iso-itu-t (2)  There are some places on the internet where one can look at the existing OIDs.</description>
+    </item>
+    
+    <item>
+      <title>6.28 - Rdn</title>
+      <link>https://directory.apache.org/api/user-guide/6.28-rdn.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/6.28-rdn.html</guid>
+      <description>6.28 - Rdn  Note: Contents for this page will be added soon&amp;hellip;
+ </description>
+    </item>
+    
+    <item>
+      <title>6.29 - Referral</title>
+      <link>https://directory.apache.org/api/user-guide/6.29-referral.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/6.29-referral.html</guid>
+      <description>6.29 - Referral  Note: Contents for this page will be added soon&amp;hellip;
+ </description>
+    </item>
+    
+    <item>
+      <title>6.3 - Attribute</title>
+      <link>https://directory.apache.org/api/user-guide/6.3-attribute.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/6.3-attribute.html</guid>
+      <description>6.3 - Attribute The Attribute class is used to store values associated with an AttributeType. An Entry can contain many Attribute{s, but only one of them is mandatory: the ObjectClass Attribute.
+An Attribute can store zero, one or N values, accordingly to its associated AttributeType, which may allow null values, and which also can forbid muli-values.
+The Attribute has a internal AttributeType which is usually defined using its name. This name is case insensitive, and we can also use the AttributeType OID.</description>
+    </item>
+    
+    <item>
+      <title>6.30 - Refinment</title>
+      <link>https://directory.apache.org/api/user-guide/6.30-refinment.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/6.30-refinment.html</guid>
+      <description>6.30 - Refinment  Note: Contents for this page will be added soon&amp;hellip;
+ </description>
+    </item>
+    
+    <item>
+      <title>6.31 - SchemaManager</title>
+      <link>https://directory.apache.org/api/user-guide/6.31-schema-manager.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/6.31-schema-manager.html</guid>
+      <description>6.31 - SchemaManager  Note: Contents for this page will be added soon&amp;hellip;
+ </description>
+    </item>
+    
+    <item>
+      <title>6.32 - Subentry</title>
+      <link>https://directory.apache.org/api/user-guide/6.32-subentry.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/6.32-subentry.html</guid>
+      <description>6.32 - Subentry  Note: Contents for this page will be added soon&amp;hellip;
+ </description>
+    </item>
+    
+    <item>
+      <title>6.33 - SubtreeSpecification</title>
+      <link>https://directory.apache.org/api/user-guide/6.33-subtree-specification.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/6.33-subtree-specification.html</guid>
+      <description>6.33 - SubtreeSpecification  Note: Contents for this page will be added soon&amp;hellip;
+ </description>
+    </item>
+    
+    <item>
+      <title>6.34 - SyntaxChecker</title>
+      <link>https://directory.apache.org/api/user-guide/6.34-syntax-checker.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/6.34-syntax-checker.html</guid>
+      <description>6.34 - SyntaxChecker  Note: Contents for this page will be added soon&amp;hellip;
+ </description>
+    </item>
+    
+    <item>
+      <title>6.35 - Value</title>
+      <link>https://directory.apache.org/api/user-guide/6.35-value.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/6.35-value.html</guid>
+      <description>6.35 - Value The Value class is used to store an attribute&amp;rsquo;s value. Such a value can be either a String or a byte[], depending on the nature of the AttributeType (the default is that the Value is a String). Each value is associated to an AttributeType, and is used in an Entry or a DN.
+We can create a schema aware Value, or just a plain Value. Having a schema aware Value allows further controls to be made on the value injected : its syntax will be checked against the AttributeType syntax.</description>
+    </item>
+    
+    <item>
+      <title>6.4 - AttributeType</title>
+      <link>https://directory.apache.org/api/user-guide/6.4-attribute-type.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/6.4-attribute-type.html</guid>
+      <description>6.4 - AttributeType The AttributeType is one of the most important schema elements. It describes what can be stored into an Entry, its syntax, and the various rules that are to be followed whenever searching for an associated value.
+AttributeType are immutable objects, created from the schema, and never changed. One can add a new AttributeType, or delete itfrom the schema, but once it&amp;rsquo;s added to the schema, it can&amp;rsquo;t be modified.</description>
+    </item>
+    
+    <item>
+      <title>6.5 - Ava</title>
+      <link>https://directory.apache.org/api/user-guide/6.5-ava.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/6.5-ava.html</guid>
+      <description>6.5 - Ava An Ava is used to store an Attribute value associated to an AttributeType.
+It describes a container holding an AttributeType associated with a Value in a Rdn. An example would be:
+:::Java dc=example  where &amp;lsquo;dc&amp;rsquo; is the AttributeType and &amp;lsquo;example&amp;rsquo; its associated value.
+The value can be a binary or a String value, depending on the AttributeType.
+We can create a schema aware Ava, or just a plain Ava.</description>
+    </item>
+    
+    <item>
+      <title>6.6 - Csn</title>
+      <link>https://directory.apache.org/api/user-guide/6.6-csn.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/6.6-csn.html</guid>
+      <description>6.6 - Csn  Note: Contents for this page will be added soon&amp;hellip;
+ </description>
+    </item>
+    
+    <item>
+      <title>6.7 - Control</title>
+      <link>https://directory.apache.org/api/user-guide/6.7-control.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/6.7-control.html</guid>
+      <description>6.7 - Control (&amp;hellip;) A LDAP Control is an extension to an operation. It tells the server to do something aside the standard operation, or it let the server send back some information to the client. A Control contains three different parts :
+ An identifier, the control OID A flag telling the server what to do if it does not know about the control or if it results in an error (either return an error or ignore the control) A value which is generally BER encoded  There are many controls available, some being standardized, other being server specific.</description>
+    </item>
+    
+    <item>
+      <title>6.8 - Cursor</title>
+      <link>https://directory.apache.org/api/user-guide/6.8-cursor.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/6.8-cursor.html</guid>
+      <description>6.8 - Cursor  Note: Contents for this page will be added soon&amp;hellip;
+ </description>
+    </item>
+    
+    <item>
+      <title>6.9 - Dn</title>
+      <link>https://directory.apache.org/api/user-guide/6.9-dn.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/6.9-dn.html</guid>
+      <description>6.9 - Dn  Note: Contents for this page will be added soon&amp;hellip;
+ </description>
+    </item>
+    
+    <item>
+      <title>7 - LDAP Messages</title>
+      <link>https://directory.apache.org/api/internal-design-guide/7-ldap-messages.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/internal-design-guide/7-ldap-messages.html</guid>
+      <description>7 - LDAP Messages TODO&amp;hellip;</description>
+    </item>
+    
+    <item>
+      <title>7 - Requests and Responses</title>
+      <link>https://directory.apache.org/api/user-guide/7-requests-responses.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/7-requests-responses.html</guid>
+      <description>7 - Requests and Responses (&amp;hellip;) Here we will describe all the Java structures used to process LDAP message (Requests and Responses). This can be useful whenever one wants to send a message or process a response, using all possible options.
+Inherited classes All the messages inherit from a few classes that are described here. They gather the common fields used across most message types.
+The Message interface This is the parent of the message hierarchy.</description>
+    </item>
+    
+    <item>
+      <title>7.1 - AbandonRequest</title>
+      <link>https://directory.apache.org/api/user-guide/7.1-abandon-request.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/7.1-abandon-request.html</guid>
+      <description>7.1 AbandonRequest This request is used to tell the server that a given request (sent previously) has been abandoned. The only required parameter is the ID field of a request you want to stop.
+:::Java public interface AbandonRequest extends Request { /** * Gets the id of the request operation to terminate. * * @return the id of the request message to abandon */ int getAbandoned(); /** * Sets the id of the request operation to terminate.</description>
+    </item>
+    
+    <item>
+      <title>7.10 - ExtendedRequest</title>
+      <link>https://directory.apache.org/api/user-guide/7.10-extended-request.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/7.10-extended-request.html</guid>
+      <description>7.10 - ExtendedRequest  Note: Contents for this page will be added soon&amp;hellip;
+ </description>
+    </item>
+    
+    <item>
+      <title>7.11 - ExtendedResponse</title>
+      <link>https://directory.apache.org/api/user-guide/7.11-extended-response.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/7.11-extended-response.html</guid>
+      <description>7.11 - ExtendedResponse  Note: Contents for this page will be added soon&amp;hellip;
+ </description>
+    </item>
+    
+    <item>
+      <title>7.12 - IntermediateResponse</title>
+      <link>https://directory.apache.org/api/user-guide/7.12-intermediate-response.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/7.12-intermediate-response.html</guid>
+      <description>7.12 - IntermediateResponse  Note: Contents for this page will be added soon&amp;hellip;
+ </description>
+    </item>
+    
+    <item>
+      <title>7.13 - ModDnRequest</title>
+      <link>https://directory.apache.org/api/user-guide/7.13-mod-dn-request.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/7.13-mod-dn-request.html</guid>
+      <description>7.13 - ModDnRequest  Note: Contents for this page will be added soon&amp;hellip;
+ </description>
+    </item>
+    
+    <item>
+      <title>7.14 - ModDnResponse</title>
+      <link>https://directory.apache.org/api/user-guide/7.14-mod-dn-response.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/7.14-mod-dn-response.html</guid>
+      <description>7.14 - ModDnResponse  Note: Contents for this page will be added soon&amp;hellip;
+ </description>
+    </item>
+    
+    <item>
+      <title>7.15 - ModifyRequest</title>
+      <link>https://directory.apache.org/api/user-guide/7.15-modify-request.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/7.15-modify-request.html</guid>
+      <description>7.15 - ModifyRequest  Note: Contents for this page will be added soon&amp;hellip;
+ </description>
+    </item>
+    
+    <item>
+      <title>7.16 - ModifyResponse</title>
+      <link>https://directory.apache.org/api/user-guide/7.16-modify-response.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/7.16-modify-response.html</guid>
+      <description>7.16 - ModifyResponse  Note: Contents for this page will be added soon&amp;hellip;
+ </description>
+    </item>
+    
+    <item>
+      <title>7.17 - SearchRequest</title>
+      <link>https://directory.apache.org/api/user-guide/7.17-search-request.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/7.17-search-request.html</guid>
+      <description>7.17 - SearchRequest  Note: Contents for this page will be added soon&amp;hellip;
+ </description>
+    </item>
+    
+    <item>
+      <title>7.18 - SearchResultDone</title>
+      <link>https://directory.apache.org/api/user-guide/7.18-search-result-done.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/7.18-search-result-done.html</guid>
+      <description>7.18 - SearchResultDone  Note: Contents for this page will be added soon&amp;hellip;
+ </description>
+    </item>
+    
+    <item>
+      <title>7.19 - SearchResultEntry</title>
+      <link>https://directory.apache.org/api/user-guide/7.19-search-result-entry.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/7.19-search-result-entry.html</guid>
+      <description>7.19 - SearchResultEntry  Note: Contents for this page will be added soon&amp;hellip;
+ </description>
+    </item>
+    
+    <item>
+      <title>7.2 - AddRequest</title>
+      <link>https://directory.apache.org/api/user-guide/7.2-add-request.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/7.2-add-request.html</guid>
+      <description>7.2 - AddRequest  Note: Contents for this page will be added soon&amp;hellip;
+ </description>
+    </item>
+    
+    <item>
+      <title>7.20 - SearchResultReference</title>
+      <link>https://directory.apache.org/api/user-guide/7.20-search-result-reference.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/7.20-search-result-reference.html</guid>
+      <description>7.20 - SearchResultReference  Note: Contents for this page will be added soon&amp;hellip;
+ </description>
+    </item>
+    
+    <item>
+      <title>7.21 - UnbindRequest</title>
+      <link>https://directory.apache.org/api/user-guide/7.21-unbind-request.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/7.21-unbind-request.html</guid>
+      <description>7.21 - UnbindRequest  Note: Contents for this page will be added soon&amp;hellip;
+ </description>
+    </item>
+    
+    <item>
+      <title>7.3 - AddResponse</title>
+      <link>https://directory.apache.org/api/user-guide/7.3-add-response.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/7.3-add-response.html</guid>
+      <description>7.3 - AddResponse  Note: Contents for this page will be added soon&amp;hellip;
+ </description>
+    </item>
+    
+    <item>
+      <title>7.4 - BindRequest</title>
+      <link>https://directory.apache.org/api/user-guide/7.4-bind-request.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/7.4-bind-request.html</guid>
+      <description>7.4 - BindRequest  Note: Contents for this page will be added soon&amp;hellip;
+ </description>
+    </item>
+    
+    <item>
+      <title>7.5 - BindResponse</title>
+      <link>https://directory.apache.org/api/user-guide/7.5-bind-response.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/7.5-bind-response.html</guid>
+      <description>7.5 - BindResponse  Note: Contents for this page will be added soon&amp;hellip;
+ </description>
+    </item>
+    
+    <item>
+      <title>7.6 - CompareRequest</title>
+      <link>https://directory.apache.org/api/user-guide/7.6-compare-request.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/7.6-compare-request.html</guid>
+      <description>7.6 - CompareRequest  Note: Contents for this page will be added soon&amp;hellip;
+ </description>
+    </item>
+    
+    <item>
+      <title>7.7 - CompareResponse</title>
+      <link>https://directory.apache.org/api/user-guide/7.7-compare-response.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/7.7-compare-response.html</guid>
+      <description>7.7 - CompareResponse  Note: Contents for this page will be added soon&amp;hellip;
+ </description>
+    </item>
+    
+    <item>
+      <title>7.8 - DelRequest</title>
+      <link>https://directory.apache.org/api/user-guide/7.8-del-request.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/7.8-del-request.html</guid>
+      <description>7.8 - DelRequest  Note: Contents for this page will be added soon&amp;hellip;
+ </description>
+    </item>
+    
+    <item>
+      <title>7.9 - DelResponse</title>
+      <link>https://directory.apache.org/api/user-guide/7.9-del-response.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/7.9-del-response.html</guid>
+      <description>7.9 - DelResponse  Note: Contents for this page will be added soon&amp;hellip;
+ </description>
+    </item>
+    
+    <item>
+      <title>8 - LDAP Related RFCs</title>
+      <link>https://directory.apache.org/api/user-guide/8-ldap-rfcs.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide/8-ldap-rfcs.html</guid>
+      <description>8 - LDAP Related RFCs LDAP and X.500 are specified through its many RFCs. Here is the list of available RFCs by category (there are about 100 RFCs available, some now deprecated, other obsolete.
+This page list all the existing RFCs, obsolete or not.
+: Informational
+: Historic
+: Proposed Standard
+: Experimental
+: Best current practice
+X.500 related RFCs Obsolete RFCs    Number Description Obsoleted by Status     RFC1274 The COSINE and Internet X.</description>
+    </item>
+    
+    <item>
+      <title>8 - Schema</title>
+      <link>https://directory.apache.org/api/internal-design-guide/8-schema.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/internal-design-guide/8-schema.html</guid>
+      <description>8 - Schema Schema parsers We use a set of classes to parse schema elements. There are 11 flavors of schema elements, 8 of them being described in a RFC, 3 of them being ApacheDS proprietary:
+ AttributeType DitContentRule DitStructureRule LDAPSyntax MatchingRule MatchingRuleUse NameForm ObjectClass  and
+ LdapComparator Normalizer SyntaxChecker  We need to be able to parse those schema elements because they can be added into the server as a description (ie, a String representing one of those schema elements as defined by the RFC).</description>
+    </item>
+    
+    <item>
+      <title>9 - DN</title>
+      <link>https://directory.apache.org/api/internal-design-guide/9-dn.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/internal-design-guide/9-dn.html</guid>
+      <description>9 - DN a DN, or Distingusished Name is a data structure that TODO&amp;hellip;</description>
+    </item>
+    
+    <item>
+      <title>API 1.0 to 2.0 migration guide</title>
+      <link>https://directory.apache.org/api/migration-guide.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/migration-guide.html</guid>
+      <description>Apache LDAP API 1.0 to 2.0 migration guide Main differences The Apache LDAP API V 2.0 is not very different from the 1.0 version. However, a few classes have been renamed, removed or added.
+Value Those classes/interface were removed :
+ AbstractValue BinaryValue StringValue  They are all replaced by a single class, Value, that is not anymore parametered.
+We now have to use the Value class only. That is not a really big trouble, as everywhere you were using Value*, you just have to remove the *.</description>
+    </item>
+    
+    <item>
+      <title>Coding Standards</title>
+      <link>https://directory.apache.org/api/coding-standards.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/coding-standards.html</guid>
+      <description>Coding Standards Welcome to you fellow developer. You&amp;rsquo;ve maybe been elected committer on the project, or want to contribute some code / patch? This is great news! However, in order to be able to share your &amp;lsquo;vision&amp;rsquo; with your code, some rules must be followed.
+Hey, remember that those rules are not the best nor the worst, they are pretty much what they are for historical reasons, or for technical reasons, however, please, accept them as they are, and avoid religious war (please, oh please, no mail to say &amp;ldquo;WTF ?</description>
+    </item>
+    
+    <item>
+      <title>Download Old Versions</title>
+      <link>https://directory.apache.org/api/download-old-versions.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/download-old-versions.html</guid>
+      <description>Download Old Versions LDAP API 2.0     Version Download Link Javadoc &amp;amp; XRef Date     Apache LDAP API 2.0.0 Download Javadoc, Xref 13/Nov/2019   Apache LDAP API 2.0.0.AM4 Download Javadoc, Xref 09/Jun/2019   Apache LDAP API 2.0.0.AM3 Download Javadoc, Xref 15/May/2019   Apache LDAP API 2.0.0.AM2 Download Javadoc, Xref 03/Sep/2018   Apache LDAP API 2.0.0.AM1 Download Javadoc, Xref 26/Jul/2018     LDAP API 1.</description>
+    </item>
+    
+    <item>
+      <title>Downloads for Archive</title>
+      <link>https://directory.apache.org/api/download/download-archive-1.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/download/download-archive-1.html</guid>
+      <description>Downloads of Archive packages  [if-any logo]  [end] We suggest the following mirror site for your download: LDAP API 1.0 ZIP Archive      &amp;nbsp;   [preferred]/&amp;#91;...&amp;#93;/apache-ldap-api-1.0.3-bin.zip    [ASC-SHA256-SHA512]     TAR.GZ Archive      &amp;nbsp;   [preferred]/&amp;#91;...&amp;#93;/apache-ldap-api-1.0.3-bin.tar.gz    [ASC-SHA256-SHA512]     &amp;nbsp;
+ Other mirrors: [if-any http] [for http][http][end]  [end] [if-any ftp] [for ftp][ftp][end]  [end] [if-any backup] [for backup][backup] (backup)[end]  [end]    We encourage you to verify the integrity of the downloaded file using:  the ASC file (OpenPGP compatible signature) with the KEYS file (code signing keys used to sign the product) the SHA256 or SHA512 files (checksum).</description>
+    </item>
+    
+    <item>
+      <title>Downloads for Archive</title>
+      <link>https://directory.apache.org/api/download/download-archive-2.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/download/download-archive-2.html</guid>
+      <description>Downloads of Archive packages  [if-any logo]  [end] We suggest the following mirror site for your download: LDAP API 2.0 ZIP Archive      &amp;nbsp;   [preferred]/&amp;#91;...&amp;#93;/apache-ldap-api-2.0.1-bin.zip    [ASC-SHA256-SHA512]     TAR.GZ Archive      &amp;nbsp;   [preferred]/&amp;#91;...&amp;#93;/apache-ldap-api-2.0.1-bin.tar.gz    [ASC-SHA256-SHA512]     &amp;nbsp;
+ Other mirrors: [if-any http] [for http][http][end]  [end] [if-any ftp] [for ftp][ftp][end]  [end] [if-any backup] [for backup][backup] (backup)[end]  [end]    We encourage you to verify the integrity of the downloaded file using:  the ASC file (OpenPGP compatible signature) with the KEYS file (code signing keys used to sign the product) the SHA256 or SHA512 files (checksum).</description>
+    </item>
+    
+    <item>
+      <title>Downloads for Sources</title>
+      <link>https://directory.apache.org/api/download/download-sources-1.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/download/download-sources-1.html</guid>
+      <description>Download of source packages  [if-any logo]  [end] We suggest the following mirror site for your download: LDAP API 1.0 ZIP Archive      &amp;nbsp;   [preferred]/&amp;#91;...&amp;#93;/apache-ldap-api-1.0.3-src.zip    [ASC-SHA256-SHA512]     TAR.GZ Archive      &amp;nbsp;   [preferred]/&amp;#91;...&amp;#93;/apache-ldap-api-1.0.3-src.tar.gz    [ASC-SHA256-SHA512]     &amp;nbsp;
+ Other mirrors: [if-any http] [for http][http][end]  [end] [if-any ftp] [for ftp][ftp][end]  [end] [if-any backup] [for backup][backup] (backup)[end]  [end]    We encourage you to verify the integrity of the downloaded file using:  the ASC file (OpenPGP compatible signature) with the KEYS file (code signing keys used to sign the product) the SHA256 or SHA512 files (checksum).</description>
+    </item>
+    
+    <item>
+      <title>Downloads for Sources</title>
+      <link>https://directory.apache.org/api/download/download-sources-2.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/download/download-sources-2.html</guid>
+      <description>Download of source packages  [if-any logo]  [end] We suggest the following mirror site for your download: LDAP API 2.0 ZIP Archive      &amp;nbsp;   [preferred]/&amp;#91;...&amp;#93;/apache-ldap-api-2.0.1-src.zip    [ASC-SHA256-SHA512]     TAR.GZ Archive      &amp;nbsp;   [preferred]/&amp;#91;...&amp;#93;/apache-ldap-api-2.0.1-src.tar.gz    [ASC-SHA256-SHA512]     &amp;nbsp;
+ Other mirrors: [if-any http] [for http][http][end]  [end] [if-any ftp] [for ftp][ftp][end]  [end] [if-any backup] [for backup][backup] (backup)[end]  [end]    We encourage you to verify the integrity of the downloaded file using:  the ASC file (OpenPGP compatible signature) with the KEYS file (code signing keys used to sign the product) the SHA256 or SHA512 files (checksum).</description>
+    </item>
+    
+    <item>
+      <title>Five Minute Tutorial</title>
+      <link>https://directory.apache.org/api/five-minutes-tutorial.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/five-minutes-tutorial.html</guid>
+      <description>Five Minute Tutorial Introduction  Warning: This is a very preliminary tutorial, the user must be informed that the current implementation will evolve a lot in the near future. So will the tutorial, hopefully&amp;hellip;
+ This new API has been created in order to offer a better API than what we currently use, namely JNDI or older API like LdapSDK or jldap. It benefits from some improvements brought by ApacheDS and OpenDS.</description>
+    </item>
+    
+    <item>
+      <title>LDAP API - Vision</title>
+      <link>https://directory.apache.org/api/vision.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/vision.html</guid>
+      <description>Vision When we started to work on replication implementation, we needed a client API in order to communicate using the LDAP protocol with remote LDAP servers. We could have used some existing LDAP API, but as we have already defined a lot of base classes we would have had to convert back and forth, we thought it would be better to build the missing pieces and define our own complete LDAP API.</description>
+    </item>
+    
+    <item>
+      <title>LDAP API Downloads</title>
+      <link>https://directory.apache.org/api/downloads-1.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/downloads-1.html</guid>
+      <description>Downloads LDAP API 1.0 Jar Download The Apache Directory LDAP API is distributed as a jar.
+ Download Archive zip/tar.gz Download Sources  Maven Dependency The Apache Directory LDAP API is also available as a Maven dependency:
+&amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.apache.directory.api&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;api-all&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;${api-version}&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt;  </description>
+    </item>
+    
+    <item>
+      <title>LDAP API Downloads</title>
+      <link>https://directory.apache.org/api/downloads-2.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/downloads-2.html</guid>
+      <description>Downloads LDAP API 2.0 Jar Download The Apache Directory LDAP API is distributed as a jar.
+ Download Archive zip/tar.gz Download Sources  Maven Dependency The Apache Directory LDAP API is also available as a Maven dependency:
+&amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.apache.directory.api&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;api-all&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;${api-version}&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt;  </description>
+    </item>
+    
+    <item>
+      <title>LDAP Java API</title>
+      <link>https://directory.apache.org/api/java-api.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/java-api.html</guid>
+      <description>LDAP Java API This is the Java implementation of a new LDAP API. This effort was initially conducted with the OpenDS team.
+Background There are a few existing Java LDAP API around there. Here is a short list and description.
+   API Version License Description     Apache Directory Client API 1.0 1.0.0 ASL 2.0 The Apache Directory Server CLient API.   Apache Directory Client API 2.</description>
+    </item>
+    
+    <item>
+      <title>LDAP Java API - Developer Guide</title>
+      <link>https://directory.apache.org/api/developer-guide.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/developer-guide.html</guid>
+      <description>Developer Guide This guide is intened to be read by those who participate into the development of the LDAP API. Users of the API are expected to read the User guide.
+Getting the source, Building the trunks To get the source, build the trunks/api and get along with Maven.
+Versioning Scheme The version number of LDAP API has the following form:
+&amp;lt;major.&amp;lt;minor.&amp;lt;micro \[-M&amp;lt;milestone number or -RC&amp;lt;release candidate number]  This scheme has three number components:</description>
+    </item>
+    
+    <item>
+      <title>LDAP Java API - Internal Design Guide</title>
+      <link>https://directory.apache.org/api/internal-design-guide.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/internal-design-guide.html</guid>
+      <description>Internal Design Guide This guide expose the internal structure of the Apache LDAP API : how it is designed, achitectural choices made, implementation decisions, in general it offers an isnsight of the existing code.
+Although it&amp;rsquo;s not exhaustive, it should allow a new commer interested in loking into teh code to have a better understanding on its design, and hopefully help her/him to jump in and add new features/fix bugs.</description>
+    </item>
+    
+    <item>
+      <title>News</title>
+      <link>https://directory.apache.org/api/news.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/news.html</guid>
+      <description>News Apache Directory LDAP API 2.0.1 released posted on March 26th, 2020 The Apache Directory Team is proud to announce the availability of version 2.0.1 of the Apache Directory LDAP API.
+The Apache Directory LDAP API is an ongoing effort to provide an enhanced LDAP API, as a replacement for JNDI and the existing LDAP API (jLdap and Mozilla LDAP API).
+This is a schema aware API, with some convenient ways to access a LDAP server.</description>
+    </item>
+    
+    <item>
+      <title>Users Guide</title>
+      <link>https://directory.apache.org/api/user-guide.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/user-guide.html</guid>
+      <description>Users guide Work in progress Pages with a (e) at the end of the title are empty pages. Pages with a (...) at the end of the title are not yet completed. Other pages are finished (but may be reviewed).  This document is about the LDAP API, developed at the Apache Software Foundation. It&amp;rsquo;s a replacement for outdated Java/LDAP libraries like (jLdap, Mozilla LDAP SDK and JNDI).
+About this guide Getting started.</description>
+    </item>
+    
+    <item>
+      <title>Welcome to Apache Directory LDAP API</title>
+      <link>https://directory.apache.org/api/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/</guid>
+      <description>Apache Directory LDAP API&amp;trade; The modern Java LDAP API The Apache Directory LDAP API is an ongoing effort to provide an enhanced LDAP API, as a replacement for JNDI and the existing LDAP API (jLdap and Mozilla LDAP API). This is a &#34;schema aware&#34; API with some convenient ways to access all types of LDAP servers, not only ApacheDS but any LDAP server. The API is OSGI ready and extensible. New controls, schema elements and network layer could be added or used in the near future.</description>
+    </item>
+    
+  </channel>
+</rss>

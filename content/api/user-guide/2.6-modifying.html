@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>2.6 - Modifying entries &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/brown.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/api-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+             
+                ApacheDS
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+            
+                <strong>LDAP API</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>LDAP API </h5>
+                <ul>
+                    <li><a href="/api/">Home</a></li>
+                    <li><a href="/api/news.html">News</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/api/downloads-1.html">Version 1.0.3</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/downloads-2.html">Version 2.0.1</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Getting Started</h5>
+                <ul>
+                    <li><a href="/api/vision.html">Vision</a></li>
+                    <li><a href="/api/java-api.html">Java API</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/api/five-minutes-tutorial.html">Five minute tutorial</a></li>
+                    <li><a href="/api/user-guide.html">User Guide</a></li>
+                    <li><a href="/api/migration-guide.html">API 1 to 2 migration</a></li>
+                    <li><a href="/api/gen-docs/latest/apidocs/">JavaDocs</a></li>
+                    <li><a href="/api/gen-docs/latest2/apidocs/">JavaDocs 2</a></li>
+                    <li><a href="/api/gen-docs/latest/xref/">Cross-Reference</a></li>
+                    <li><a href="/api/gen-docs/latest2/xref/">Cross-Reference 2</a></li>
+                    
+                    <li><a href="/api/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/api/internal-design-guide.html">Internal Guide</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="2.5-deleting.html">2.5 - Deleting entries</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="2-basic-ldap-api-usage.html">2 - Basic LDAP API usage</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="2.7-moving-renaming.html">2.7 - Moving an renaming entries</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+            
+	<h1 id="26---modifying-entries">2.6 - Modifying entries</h1>
+<p>There are several ways an entry can be modified. Mainly, it&rsquo;s about adding or deleting an attribute, or modifying the values associated with an existing attribute.</p>
+<p>It&rsquo;s important to understand that many modifications can be applied on a single entry. All those modifications will be applied in an all or none fashion. i.e., if any of the modifications are invalid, none will occur. Also if the server crashes while applying the mods, it&rsquo;s guaranteed that the entry remains consistent.</p>
+<h2 id="how-it-works">How it works?</h2>
+<p>Each modification to be applied on an entry is encapsulated into an intermediate class : a <em>Modification</em> instance, which can be created as :</p>
+<pre><code>:::Java
+Modification addedGivenName = new DefaultModification( ModificationOperation.ADD_ATTRIBUTE, &quot;givenName&quot;, &quot;John&quot;, &quot;Peter&quot; );
+</code></pre>
+<p>Here the modification instance represents addition of values &ldquo;John&rdquo; and &ldquo;Peter&rdquo; to the <em>giveName</em> attribute (the <em>givenName</em> attribute can have more than one value).</p>
+<p>There are four different kind of modifications:</p>
+<ul>
+<li>ModificationOperation.ADD_ATTRIBUTE: add an attribute and values to an entry</li>
+<li>ModificationOperation.REMOVE_ATTRIBUTE: remove an attribute and values from an entry</li>
+<li>ModificationOperation.REPLACE_ATTRIBUTE: replace some existing values from an entry</li>
+<li>ModificationOperation.INCREMENT_ATTRIBUTE: increment an Integer value of an attribute</li>
+</ul>
+<h2 id="adding-or-removing-full-attributes">Adding or removing full attributes</h2>
+<p>The following two operations completely add or remove attributes.</p>
+<h3 id="adding-new-attributes">Adding new attributes</h3>
+<p>First of all, let&rsquo;s learn how to add an attribute. First you must know which entry to modify, which means you must know its Dn. Next, you must create the <em>Modification</em> instance which is applied to the entry. Here is the code that is used to add a <em>givenName</em> attribute to an existing entry :</p>
+<pre><code>:::Java
+...
+Modification addedGivenName = new DefaultModification( ModificationOperation.ADD_ATTRIBUTE, &quot;givenName&quot;,
+    &quot;John&quot;, &quot;Peter&quot; );
+
+connection.modify( &quot;uid=Doe,dc=acme,dc=com&quot;, addedGivenName );
+...
+</code></pre>
+<h4 id="adding-more-than-one-attribute">Adding more than one attribute</h4>
+<p>What if you want to apply more than one modification to the entry ?</p>
+<p>Easy : create more than one <em>Modification</em> instance, and add them before calling the <em>modify</em> method :</p>
+<pre><code>:::Java
+...
+Modification addedGivenName = new DefaultModification( ModificationOperation.ADD_ATTRIBUTE, &quot;givenName&quot;,
+    &quot;John&quot;, &quot;Peter&quot; );
+Modification addedInitials = new DefaultModification( ModificationOperation.ADD_ATTRIBUTE, &quot;initials&quot;,
+    &quot;JD&quot; );
+
+connection.modify( &quot;uid=Doe,dc=acme,dc=com&quot;, addedGivenName, addedInitials );
+...
+</code></pre>
+<p>You can add as many <em>Modification</em> instances as needed.</p>
+<h4 id="errors">Errors</h4>
+<p>If you try to add an attribute that already exists, you will get an error, like this one :</p>
+<pre><code>:::Java
+...
+Modification addedGivenName = new DefaultModification( ModificationOperation.ADD_ATTRIBUTE, &quot;givenName&quot;,
+    &quot;John&quot;, &quot;Peter&quot; );
+Modification addedUid = new DefaultModification( ModificationOperation.ADD_ATTRIBUTE, &quot;uid&quot;,
+    &quot;Ted&quot; );
+
+connection.modify( &quot;uid=Doe,dc=acme,dc=com&quot;, addedGivenName, addedUid );
+...
+</code></pre>
+<p>results in :</p>
+<pre><code>:::Java
+org.apache.directory.api.ldap.model.exception.LdapAttributeInUseException: ATTRIBUTE_OR_VALUE_EXISTS: failed for MessageType : MODIFY_REQUEST
+Message ID : 3
+    Modify Request
+        Object : 'uid=Doe,dc=acme,dc=com'
+            Modification[0]
+                Operation :  add
+                Modification
+                    givenName: John
+                    givenName: Peter            
+            Modification[1]
+                Operation :  add
+                Modification
+                    uid: Ted
+org.apache.directory.api.ldap.model.message.ModifyRequestImpl@13532916: ERR_54 Cannot add a value which is already present : admin
+at org.apache.directory.api.ldap.model.message.ResultCodeEnum.processResponse(ResultCodeEnum.java:2064)
+at org.apache.directory.ldap.client.api.LdapNetworkConnection.modify(LdapNetworkConnection.java:2300)
+at org.apache.directory.ldap.client.api.LdapNetworkConnection.modify(LdapNetworkConnection.java:2309)
+...
+</code></pre>
+<p>Here, we&rsquo;ve tried to add the <em>uid</em> attribute that already exists, and the error trace tells us as much.</p>
+<p>Another potential error occurs when adding an attribute type that isn&rsquo;t allowed on that entry. This occurs because the Entry&rsquo;s ObjectClass does not allow such an attribute (per the schema), or because the server forbids modification of that entry, due to the ACIs applied on this entry.</p>
+<p>Last, but not least, and hopefully this is obvious, the entry <em>must</em> exist prior to modification!</p>
+<h3 id="removing-an-attribute">Removing an attribute</h3>
+<p>Removing an attribute is actually a bit simpler than adding one, because the values for the attribute don&rsquo;t need to be specified. Here&rsquo;s an example where the <em>givenName</em> attribute is removed from an entry:</p>
+<pre><code>:::Java
+...
+Modification deletedGivenName = new DefaultModification( ModificationOperation.REMOVE_ATTRIBUTE, &quot;givenName&quot; );
+
+connection.modify( &quot;uid=Doe,dc=acme,dc=com&quot;, adeletedivenName );
+...
+</code></pre>
+<p>Here, we&rsquo;ve created a modification, specifying the <em>givenName</em> attribute must be removed, and we apply the modification request to the entry.</p>
+<p>Again, more than one attribute may be deleted from an entry.  It&rsquo;s a matter of creating more than one <em>Modification</em> instances and applying them to the entry.</p>
+<h4 id="errors-1">Errors</h4>
+<p>If you try to delete an attribute that does not exist in the entry, you will get this error:</p>
+<pre><code>:::Java
+org.apache.directory.api.ldap.model.exception.LdapNoSuchAttributeException: NO_SUCH_ATTRIBUTE: failed for MessageType : MODIFY_REQUEST
+Message ID : 3
+    Modify Request
+        Object : 'uid=admin,ou=system'
+            Modification[0]
+                Operation :  delete
+                Modification
+                    givenName: (null)
+org.apache.directory.api.ldap.model.message.ModifyRequestImpl@fbe6f598: ERR_55 Trying to remove an non-existant attribute: 
+attributetype ( 2.5.4.42 NAME ( 'givenName' 'gn' )
+    DESC 'RFC2256: first name(s) for which the entity is known by'
+    SUP name
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+    USAGE userApplications
+)
+    at org.apache.directory.api.ldap.model.message.ResultCodeEnum.processResponse(ResultCodeEnum.java:2057)
+    at org.apache.directory.ldap.client.api.LdapNetworkConnection.modify(LdapNetworkConnection.java:2300)
+    at org.apache.directory.ldap.client.api.LdapNetworkConnection.modify(LdapNetworkConnection.java:2309)
+    at org.apache.directory.shared.client.api.operations.ClientModifyRequestTest.testModifyRemoveAttribute(ClientModifyRequestTest.java:302)
+</code></pre>
+<p>Here, the entry does not contain the <em>givenName</em> attribute.</p>
+<p>Another potential error is when you trying to remove a mandatory attribute, per the entry&rsquo;s ObjectClass constraints.</p>
+<p>Otherwise, the server might forbid modification of entry due to the ACIs that are applicable to it.</p>
+<p>Again the entry <em>must</em> exist prior to performing the modification!</p>
+<h2 id="adding-removing-or-replacing-attribute-values">Adding, removing or replacing attribute values</h2>
+<p>You can now update an attribute&rsquo;s values themselves, atomically, instead of removing the full attribute, and add it back but with updated values. We use the exact same <em>Modification</em> instance, with the same three <em>ModificationOperation</em>, except that the semantics slightly differ.</p>
+<p>Typically, this is what happens when using one of the three <em>ModificationOperation</em> on an attribute:</p>
+<ul>
+<li>ModificationOperation.ADD_ATTRIBUTE : add values to an attribute. If the Attribute does not exist, it will be added</li>
+<li>ModificationOperation.REMOVE_ATTRIBUTE : remove values from an attribute.</li>
+<li>ModificationOperation.REPLACE_ATTRIBUTE : replace all the values from an attribute by the provided new values</li>
+</ul>
+<h3 id="add-values">Add values</h3>
+<p>Let&rsquo;s see with the addition of values. Here, we will assume we have an entry like:</p>
+<pre><code>dn: uid=jDoe,dc=acme,dc=com
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+uid: jDoe
+userPassword: secret
+sn: John Tom Doe
+cn: Doe
+givenName: John
+</code></pre>
+<p>We will add the &lsquo;Tom&rsquo; given name to the <em>givenName</em> attribute in this entry :</p>
+<pre><code>:::Java
+...
+Modification addedGivenNameValue = new DefaultModification( ModificationOperation.ADD_ATTRIBUTE, &quot;givenName&quot;, &quot;Tom&quot; );
+
+connection.modify( &quot;uid=Doe,dc=acme,dc=com&quot;, addedGivenNameValue );
+...
+</code></pre>
+<p>The entry now has two values for the <em>giveName</em> attribute :</p>
+<pre><code>dn: uid=jDoe,dc=acme,dc=com
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+uid: jDoe
+userPassword: secret
+sn: John Tom Doe
+cn: Doe
+givenName: John
+givenName: Tom
+</code></pre>
+<h4 id="errors-2">Errors</h4>
+<p>Again, such an operation might fail for many reasons. Let&rsquo;s see what are the possible errors:</p>
+<p>First, if the attribute&rsquo;s value already exists. You will get an error like this:</p>
+<pre><code>org.apache.directory.api.ldap.model.exception.LdapAttributeInUseException: ATTRIBUTE_OR_VALUE_EXISTS: failed for MessageType : 
+MODIFY_REQUEST
+Message ID : 5
+    Modify Request
+        Object : 'uid=admin,ou=system'
+            Modification[0]
+                Operation :  add
+                Modification
+                    givenName: John
+org.apache.directory.api.ldap.model.message.ModifyRequestImpl@867e79fe: ERR_54 Cannot add a value which is already present : John
+    at org.apache.directory.api.ldap.model.message.ResultCodeEnum.processResponse(ResultCodeEnum.java:2064)
+    at org.apache.directory.ldap.client.api.LdapNetworkConnection.modify(LdapNetworkConnection.java:2300)
+    at org.apache.directory.ldap.client.api.LdapNetworkConnection.modify(LdapNetworkConnection.java:2309)
+    at org.apache.directory.shared.client.api.operations.ClientModifyRequestTest.testModifyRemoveAttribute(ClientModifyRequestTest.java:303)
+</code></pre>
+<p>Note that depending on the attribute&rsquo;s syntax, you may get this type of error because you entered a value with different casing when the syntax is case-insensitive. Typically, if the attribute contains the value &lsquo;John&rsquo; and you try to add the value &lsquo;JOHN&rsquo;, you will get this error message. Be sure you know what the attribute syntax allows you to do&hellip;</p>
+<p>Second, if the attribute is single valued, it will not be possible to add another value to it. When this happens you&rsquo;ll get the following error message:</p>
+<pre><code>org.apache.directory.api.ldap.model.exception.LdapInvalidAttributeValueException: CONSTRAINT_VIOLATION: failed for MessageType : MODIFY_REQUEST
+Message ID : 3
+    Modify Request
+        Object : 'c=FR,ou=users,ou=system'
+            Modification[0]
+                Operation :  add
+                Modification
+                    c: US
+org.apache.directory.api.ldap.model.message.ModifyRequestImpl@cdf2ed2f: ERR_278 More than one value has been provided for the single-valued attribute: c
+    at org.apache.directory.api.ldap.model.message.ResultCodeEnum.processResponse(ResultCodeEnum.java:2127)
+    at org.apache.directory.ldap.client.api.LdapNetworkConnection.modify(LdapNetworkConnection.java:2300)
+    at org.apache.directory.ldap.client.api.LdapNetworkConnection.modify(LdapNetworkConnection.java:2309)
+    at org.apache.directory.shared.client.api.operations.ClientModifyRequestTest.testModifyRemoveAttribute(ClientModifyRequestTest.java:297)
+</code></pre>
+<p>Third, the ACIs set on the server may not allow updating an entry or its attribute.</p>
+<h3 id="removing-values">Removing values</h3>
+<p>Removing values follow the same pattern.  First select the entry, choose its attribute, and list the values to be removed from it. Here is an exemple:</p>
+<pre><code>:::Java
+...
+Modification removedGivenNameValue = new DefaultModification( ModificationOperation.REMOVE_ATTRIBUTE, &quot;givenName&quot;, &quot;Tom&quot; );
+
+connection.modify( &quot;uid=Doe,dc=acme,dc=com&quot;, removedGivenNameValue );
+...
+</code></pre>
+<p>The value &lsquo;Tom&rsquo; just added should now be removed from the <em>givenName</em> attribute, but the value &lsquo;John&rsquo; should still be present.</p>
+<p>How do we remove the last value of an attribute? It&rsquo;s quite simple.  The attribute itself must be removed from the entry, if this is allowed (see below).</p>
+<h4 id="errors-3">Errors</h4>
+<p>There are more potential erros with this operation. Let&rsquo;s list them all.</p>
+<p>First, the value you want to remove does not exist. You will get such an error:</p>
+<pre><code>org.apache.directory.api.ldap.model.exception.LdapNoSuchAttributeException: NO_SUCH_ATTRIBUTE: failed for MessageType : 
+MODIFY_REQUEST
+Message ID : 5
+    Modify Request
+        Object : 'uid=admin,ou=system'
+            Modification[0]
+                Operation :  delete
+                Modification
+                    givenName: Pete
+org.apache.directory.api.ldap.model.message.ModifyRequestImpl@39800276: ERR_56 Cannot remove an absent value from attribute : attributetype ( 2.5.4.42 NAME ( 'givenName' 'gn' )
+    DESC 'RFC2256: first name(s) for which the entity is known by'
+    SUP name
+    EQUALITY caseIgnoreMatch
+    SUBSTR caseIgnoreSubstringsMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+    USAGE userApplications
+)
+    at org.apache.directory.api.ldap.model.message.ResultCodeEnum.processResponse(ResultCodeEnum.java:2057)
+    at org.apache.directory.ldap.client.api.LdapNetworkConnection.modify(LdapNetworkConnection.java:2300)
+    at org.apache.directory.ldap.client.api.LdapNetworkConnection.modify(LdapNetworkConnection.java:2309)
+    at org.apache.directory.shared.client.api.operations.ClientModifyRequestTest.testModifyRemoveAttributeValue(ClientModifyRequestTest.java:327)
+</code></pre>
+<p>Second, if you try to remove the last value of an attribute which was declared mandatory (in the schema) the following error will occur:</p>
+<pre><code>org.apache.directory.api.ldap.model.exception.LdapSchemaViolationException: OBJECT_CLASS_VIOLATION: failed for MessageType : 
+MODIFY_REQUEST
+Message ID : 3
+    Modify Request
+        Object : 'uid=billyd,ou=users,ou=system'
+            Modification[0]
+                Operation :  delete
+                Modification
+                    sn: billyd
+org.apache.directory.api.ldap.model.message.ModifyRequestImpl@5e80ddb2: ERR_279 Required attributes [sn(2.5.4.4)] not found within entry uid=billyd,ou=users,ou=system
+    at org.apache.directory.api.ldap.model.message.ResultCodeEnum.processResponse(ResultCodeEnum.java:2081)
+    at org.apache.directory.ldap.client.api.LdapNetworkConnection.modify(LdapNetworkConnection.java:2300)
+    at org.apache.directory.ldap.client.api.LdapNetworkConnection.modify(LdapNetworkConnection.java:2309)
+    at org.apache.directory.shared.client.api.operations.ClientModifyRequestTest.testModifyRemoveAttributeValue(ClientModifyRequestTest.java:314)
+</code></pre>
+<p>Here, we tried to remove the <em>sn</em> attribute&rsquo;s last value from an entry where it&rsquo;s a required attribute.</p>
+<p>Third, if you try to remove a value which was used as part of the entry&rsquo;s <em>RDN</em> : which is never allowed. Typically, for the &lsquo;uid=billyd,ou=users,ou=system&rsquo; entry, you can&rsquo;t remove the &lsquo;billyd&rsquo; value from the &lsquo;uid&rsquo; attribute. This is the error that occurs when such a modification is attempted:</p>
+<pre><code>org.apache.directory.api.ldap.model.exception.LdapSchemaViolationException: NOT_ALLOWED_ON_RDN: failed for MessageType : 
+MODIFY_REQUEST
+Message ID : 3
+    Modify Request
+        Object : 'uid=billyd,ou=users,ou=system'
+            Modification[0]
+                Operation :  delete
+                Modification
+                    uid: billyd
+org.apache.directory.api.ldap.model.message.ModifyRequestImpl@4d149d78: ERR_62 Entry uid=billyd,ou=users,ou=system does not have the uid attributeType, which is part of the RDN&quot;;
+    at org.apache.directory.api.ldap.model.message.ResultCodeEnum.processResponse(ResultCodeEnum.java:2081)
+    at org.apache.directory.ldap.client.api.LdapNetworkConnection.modify(LdapNetworkConnection.java:2300)
+    at org.apache.directory.ldap.client.api.LdapNetworkConnection.modify(LdapNetworkConnection.java:2309)
+    at org.apache.directory.shared.client.api.operations.ClientModifyRequestTest.testModifyRemoveAttributeValue(ClientModifyRequestTest.java:314)
+</code></pre>
+<p>There are also classical errors, when ACLs forbid the removal of a value, or the entry doesn&rsquo;t exist.</p>
+<h3 id="replace-values">Replace values</h3>
+<p>Here, what we want to do is to replaces all the values from an attribute with some new values. All in all, this is equivalent to first remove the values, then inject the new values, using modifications, except that in some cases, doing so will not work.</p>
+<p>An example where such an operation is mandatory is when replacing the values of a mandatory attribute with something different: with two successive operations, that would fail. A replace will work.</p>
+<p>What is important here is that the operation simply replace <em>all</em> the existing values* with new ones, removing the previous ones.</p>
+<p>Let&rsquo;s see how it works with a simple example, with an entry containing:</p>
+<pre><code>dn: uid=jDoe,dc=acme,dc=com
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+uid: jDoe
+userPassword: secret
+sn: John Tom Doe
+cn: Doe
+givenName: John
+givenName: Peter
+</code></pre>
+<p>We will try to replace the <em>givenName</em>:</p>
+<pre><code>Modification replaceGn = new DefaultModification( ModificationOperation.REPLACE_ATTRIBUTE, &quot;givenName&quot;,
+    &quot;Jack&quot; );
+
+connection.modify( &quot;uid=jDoe,dc=acme,dc=com&quot;, replaceGn );
+</code></pre>
+<p>The modified entry will have its <em>givenName</em> value replaced by &lsquo;Jack&rsquo;, the two previous values will have been removed.</p>
+<p>There is one corner case with this operation: creating a <em>Modification</em> instance where the attribute has no value, then the attribute will be removed from the entry.</p>
+<h4 id="errors-4">Errors</h4>
+<p>You will get the same errors seen in the two previous operation (ADD and REMOVE) for the very same use cases. Here are some more things to watch out for:</p>
+<ul>
+<li>never inject more than one value in a SINGLE_VALUE attribute</li>
+<li>never remove a value which is used by the RDN</li>
+<li>never delete all the values of a mandatory attribute</li>
+<li>always have the right to modify the entry</li>
+<li>never try to update a non-existent entry</li>
+</ul>
+<h3 id="increment-attribute">Increment attribute</h3>
+<p>This feature will only work with servers supporting the feature. It can be checked by reading the <em>rootDSE</em> <em>supportedFeatures</em> attribute, which should contain the <strong>1.3.6.1.1.14</strong> value.</p>
+<p>The idea is to make it possible to increment an integer attribute in one single operation, instead of reading the entry first, and modify the value in a second operation. That makes the increment operation atomic, and faster as only one operation will be necessary.</p>
+<p>Four methods are available in the <em>ModifyRequest</em> operation:</p>
+<ul>
+<li>ModifyRequest increment( String attribute ): Increment by 1 the attribute value</li>
+<li>ModifyRequest increment( Striung attribute, int ): Increment by N the attribute value</li>
+<li>ModifyRequest increment( Attribute attribute ): Increment by 1 the attribute value</li>
+<li>ModifyRequest increment( Attribute attribute, int ): Increment by N the attribute value</li>
+</ul>
+<p>As you can see, it&rsquo;s possible to increment the value by more than 1 (which is the default).</p>
+<p>Note that if the increment attribute is muklti-valued, then all the values will be incremented.</p>
+
+
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="2.5-deleting.html">2.5 - Deleting entries</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="2-basic-ldap-api-usage.html">2 - Basic LDAP API usage</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="2.7-moving-renaming.html">2.7 - Moving an renaming entries</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

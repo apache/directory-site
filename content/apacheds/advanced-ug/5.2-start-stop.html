@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>5.2 - Starting and Stopping the server &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/green.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/server-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+            
+                <strong>ApacheDS</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+             
+                LDAP API
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>ApacheDS 2.0</h5>
+                <ul>
+                    <li><a href="/apacheds/">Home</a></li>
+                    <li><a href="/apacheds/news.html">News</a></li>
+                    <li><a href="/apacheds/features.html">Features</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/apacheds/downloads.html">ApacheDS 2.0.0.AM26</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/apacheds/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/apacheds/basic-user-guide.html">Basic User Guide </a></li>
+                    <li><a href="/apacheds/advanced-user-guide.html">Advanced User Guide</a></li>
+                    <li><a href="/apacheds/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/apacheds/kerberos-user-guide.html">Kerberos User Guide</a></li>
+                    <li><a href="/apacheds/configuration/ads-2.0-configuration.html">Configuration</a></li>
+                    <li><a href="/apacheds/gen-docs/latest/apidocs">JavaDocs</a></li>
+                    <li><a href="/apacheds/gen-docs/latest/xref">Cross-Reference</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="5.1-layout.html">5.1 - Layout</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="5-administration.html">5 - Administration</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="5.3-logs.html">5.3 - Logs</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+            
+	<h1 id="52---starting-and-stopping-the-server">5.2 - Starting and Stopping the server</h1>
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#521-archive-distribution-ziptargz">5.2.1 Archive Distribution (zip/tar.gz)</a>
+      <ul>
+        <li><a href="#starting-apacheds">Starting ApacheDS</a></li>
+        <li><a href="#stopping-apacheds">Stopping ApacheDS</a></li>
+      </ul>
+    </li>
+    <li><a href="#522-windows-installer-exe">5.2.2 Windows Installer (.exe)</a>
+      <ul>
+        <li><a href="#starting-apacheds-1">Starting ApacheDS</a></li>
+        <li><a href="#stopping-apacheds-1">Stopping ApacheDS</a></li>
+      </ul>
+    </li>
+    <li><a href="#523-linux-binary-bin-debian-deb--fedora-rpm-installers">5.2.3 Linux Binary (.bin), Debian (.deb) & Fedora (.rpm) Installers</a>
+      <ul>
+        <li><a href="#starting-apacheds-2">Starting ApacheDS</a></li>
+        <li><a href="#stopping-apacheds-2">Stopping ApacheDS</a></li>
+      </ul>
+    </li>
+    <li><a href="#524-mac-os-x-installer-pkg">5.2.4 Mac OS X Installer (.pkg)</a>
+      <ul>
+        <li><a href="#starting-apacheds-3">Starting ApacheDS</a></li>
+        <li><a href="#stopping-apacheds-3">Stopping ApacheDS</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+<h2 id="521-archive-distribution-ziptargz">5.2.1 Archive Distribution (zip/tar.gz)</h2>
+<h3 id="starting-apacheds">Starting ApacheDS</h3>
+<h4 id="on-linuxunix-systems">On Linux/Unix Systems</h4>
+<p>In a terminal, first move to the ApacheDS directory of the unarchived distribution and then run the <em><strong>apacheds.sh</strong></em> script in the <em><strong>bin</strong></em> directory:</p>
+<pre><code>$ cd &lt;path-to-apacheds-directory&gt;
+$ sh bin/apache.sh
+</code></pre>
+<h4 id="on-windows">On Windows</h4>
+<p>Double-click the <em><strong>apacheds.bat</strong></em> command in the <em><strong>bin</strong></em> directory or in a terminal, first move to the <em><strong>bin</strong></em> directory of the unarchived distribution and then run the <em><strong>apacheds.bat</strong></em> command:</p>
+<pre><code>$ cd &lt;path-to-apacheds-directory&gt;\bin
+$ apacheds.bat
+</code></pre>
+<h3 id="stopping-apacheds">Stopping ApacheDS</h3>
+<p>ApacheDS can be stopped by hitting <em><strong>CTL+C</strong></em> in the terminal the server was launched with. If the <em><strong>apacheds.bat</strong></em> command was double-clicked, closing the terminal window will also stop ApacheDS.</p>
+<h2 id="522-windows-installer-exe">5.2.2 Windows Installer (.exe)</h2>
+<p>ApacheDS is registered as a service on Windows. Start and Stop operations can be achieved in the <em><strong>Services</strong></em> utility which is accessible via <em><strong>Start</strong></em> &gt; <em><strong>Control Panel</strong></em> &gt; <em><strong>Administration Tools</strong></em> &gt; <em><strong>Services</strong></em>.</p>
+<p>ApacheDS also provides an easier access to the <em><strong>Services</strong></em> utility via <em><strong>Start</strong></em> &gt; <em><strong>All Programs</strong></em> &gt; <em><strong>ApacheDS</strong></em> &gt; <em><strong>Manage ApacheDS</strong></em>.</p>
+<h3 id="starting-apacheds-1">Starting ApacheDS</h3>
+<p>The ApacheDS service can be started right-clicking on the <em><strong>ApacheDS - Default</strong></em> service and selecting <em><strong>Start</strong></em> in the context menu.</p>
+<h3 id="stopping-apacheds-1">Stopping ApacheDS</h3>
+<p>The ApacheDS service can be started right-clicking on the <em><strong>ApacheDS - Default</strong></em> service and selecting <em><strong>Stop</strong></em> in the context menu.</p>
+<h2 id="523-linux-binary-bin-debian-deb--fedora-rpm-installers">5.2.3 Linux Binary (.bin), Debian (.deb) &amp; Fedora (.rpm) Installers</h2>
+<h3 id="starting-apacheds-2">Starting ApacheDS</h3>
+<p>In a terminal, run the following command:</p>
+<pre><code>$ sudo /etc/init.d/apacheds-${version}-default start
+</code></pre>
+<h3 id="stopping-apacheds-2">Stopping ApacheDS</h3>
+<p>In a terminal, run the following command:</p>
+<pre><code>$ sudo /etc/init.d/apacheds-${version}-default stop
+</code></pre>
+<p><strong>NOTE:</strong> The ApacheDS Linux Binary installer lets the user decide the location of the launch script. The commands above refer to the default location and need to be adapted to whatever path was chosen during the installation.</p>
+<h2 id="524-mac-os-x-installer-pkg">5.2.4 Mac OS X Installer (.pkg)</h2>
+<h3 id="starting-apacheds-3">Starting ApacheDS</h3>
+<p>In a terminal, run the following command:</p>
+<pre><code>$ sudo launchctl start org.apache.directory.server
+</code></pre>
+<h3 id="stopping-apacheds-3">Stopping ApacheDS</h3>
+<p>In a terminal, run the following command:</p>
+<pre><code>$ sudo launchctl stop org.apache.directory.server
+</code></pre>
+
+
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="5.1-layout.html">5.1 - Layout</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="5-administration.html">5 - Administration</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="5.3-logs.html">5.3 - Logs</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

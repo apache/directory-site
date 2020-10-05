@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>2.2.3 - MacOSX Instance Layout &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/green.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/server-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+            
+                <strong>ApacheDS</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+             
+                LDAP API
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>ApacheDS 2.0</h5>
+                <ul>
+                    <li><a href="/apacheds/">Home</a></li>
+                    <li><a href="/apacheds/news.html">News</a></li>
+                    <li><a href="/apacheds/features.html">Features</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/apacheds/downloads.html">ApacheDS 2.0.0.AM26</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/apacheds/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/apacheds/basic-user-guide.html">Basic User Guide </a></li>
+                    <li><a href="/apacheds/advanced-user-guide.html">Advanced User Guide</a></li>
+                    <li><a href="/apacheds/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/apacheds/kerberos-user-guide.html">Kerberos User Guide</a></li>
+                    <li><a href="/apacheds/configuration/ads-2.0-configuration.html">Configuration</a></li>
+                    <li><a href="/apacheds/gen-docs/latest/apidocs">JavaDocs</a></li>
+                    <li><a href="/apacheds/gen-docs/latest/xref">Cross-Reference</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="2.2.2-rpm-instance-layout.html">2.2.2 - RPM Instance Layout</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="2.2-instance-layout.html">2.2 Instance Layout</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="2.2.4-windows-instance-layout.html">2.2.4 - Windows Instance Layout</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+            
+	<h1 id="223---macosximagesmacpng-macosx-instance-layout">2.2.3 - <img src="images/mac.png" alt="MacOSX"> MacOSX Instance Layout</h1>
+<p>The Mac OS X installer creates the following layout on yout disk :</p>
+<pre><code> /
+ |
+ +-- usr/
+ |    |
+ |    +-- bin/
+ |    |    |
+ |    |    +-- apacheds    The script that starts the server
+ |    |
+ |    +-- local/
+ |         |
+ |         +-- apacheds-&amp;lt;version&amp;gt;
+ |              |
+ |              +-- bin/
+ |              |    |
+ |              |    +-- wrapper*   The wrapper
+ |              |    |
+ |              |    +-- apacheds*   The ApacheDS server starter
+ |              |
+ |              +-- conf/
+ |              |    |
+ |              |    +-- wrapper.conf
+ |              |
+ |              +-- instances/
+ |              |    | 
+ |              |    +-- default/
+ |              |         | 
+ |              |         +-- run/
+ |              |         | 
+ |              |         +-- partitions/
+ |              |         | 
+ |              |         +-- log/
+ |              |         | 
+ |              |         +-- conf/
+ |              |         |    | 
+ |              |         |    +-- wrapper-instance.conf
+ |              |         |    | 
+ |              |         |    +-- log4j.properties
+ |              |         |    | 
+ |              |         |    +-- config.ldif
+ |              |         | 
+ |              |         +-- cache/
+ |              |         | 
+ |              |         +-- syncrepl-data/
+ |              |
+ |              +-- lib/
+ |              |    |
+ |              |    +-- wrapper-3.2.3.jar
+ |              |    |
+ |              |    +-- libwrapper.jnilib
+ |              |    |
+ |              |    +-- apacheds-wrapper-2.0.0-M20-SNAPSHOT.jar
+ |              |    |
+ |              |    +-- apacheds-service-2.0.0-M20-SNAPSHOT.jar
+ |              |
+ |              +-- LICENSE
+ |              |
+ |              +-- NOTICE
+ +-- Library/
+      |
+      +-- LaunchDaemons/
+           |
+           +-- org.apache.directory.server.plist  The daemon plist
+</code></pre>
+<h2 id="defining-an-instance">Defining an instance</h2>
+<p>The default installation comes with a default instance (aka <em>'default'</em>). It&rsquo;s possible to define more instances, you will have to copy the directory <em>/usr/local/apacheds-&lt;version&gt;/&lt;instances&gt;/default</em> and give it the name of the new instance. Then, be sure to remove everything under the <em>run/</em>, <em>partitions/</em>, <em>log/</em>, <em>syncrepl-data</em> and <em>cache/</em> directories to create a blank new instance. Here, we have created a blank <em>test</em> instance :</p>
+<pre><code> /
+ |
+ +-- usr/
+      |
+      +--local/
+          |
+          +-- apacheds-&lt;version&gt;/
+            |
+            +-- test/   
+                 |
+                 +-- run/
+                 |
+                 +-- partitions/
+                 |
+                 +-- log/
+                 |
+                 +-- cache/
+                 |
+                 +-- conf/
+                      |
+                      +-- wrapper-instance.conf
+                      |
+                      +-- log4j.properties
+                      |
+                      +-- config.ldif
+</code></pre>
+<p>The next step is to be sure that the config.ldif file is modified to not conflict with any other instance of the server : it&rsquo;s just a mater to change the port used by the server.</p>
+<p>You will also have to define a new daemon starter. This is done by copying the <em>Library/LaunchDaemons/org.apache.directory.server.plist</em> file and modifying it :</p>
+<pre><code>$ sudo cp /Library/LaunchDaemons/org.apache.directory.server.plist /Library/LaunchDaemons/org.apache.directory.server.test.plist
+</code></pre>
+<p>Now, update the folliwing lines in this file :</p>
+<pre><code>&lt;plist version=&quot;1.0&quot;&gt;
+    &lt;dict&gt;
+        &lt;key&gt;Disabled&lt;/key&gt;
+        &lt;false/&gt;
+
+        &lt;key&gt;Label&lt;/key&gt;
+        &lt;string&gt;org.apache.directory.server&lt;/string&gt;   /// Change the name
+
+        &lt;key&gt;ProgramArguments&lt;/key&gt;
+        &lt;array&gt;
+            &lt;string&gt;/usr/local/apacheds-2.0.0-M20-SNAPSHOT/bin/apacheds&lt;/string&gt;
+            &lt;string&gt;console&lt;/string&gt;
+            &lt;string&gt;default&lt;/string&gt;   /// change the name to 'test'
+        &lt;/array&gt;
+
+        &lt;key&gt;RunAtLoad&lt;/key&gt;
+        &lt;false/&gt;
+    &lt;/dict&gt;
+&lt;/plist&gt;
+</code></pre>
+<p>to something like :</p>
+<pre><code>&lt;plist version=&quot;1.0&quot;&gt;
+    &lt;dict&gt;
+        &lt;key&gt;Disabled&lt;/key&gt;
+        &lt;false/&gt;
+
+        &lt;key&gt;Label&lt;/key&gt;
+        &lt;string&gt;org.apache.directory.server.test&lt;/string&gt;   /// test
+
+        &lt;key&gt;ProgramArguments&lt;/key&gt;
+        &lt;array&gt;
+            &lt;string&gt;/usr/local/apacheds-2.0.0-M20-SNAPSHOT/bin/apacheds&lt;/string&gt;
+            &lt;string&gt;console&lt;/string&gt;
+            &lt;string&gt;test&lt;/string&gt;   /// test
+        &lt;/array&gt;
+
+        &lt;key&gt;RunAtLoad&lt;/key&gt;
+        &lt;false/&gt;
+    &lt;/dict&gt;
+&lt;/plist&gt;
+</code></pre>
+<p>then load the daemon :</p>
+<pre><code>$ sudo launchctl /Library/LaunchDaemons/org.apache.directory.server.test.plist
+</code></pre>
+<p>and start it :</p>
+<pre><code>$ sudo launchctl start org.apache.directory.server.test
+</code></pre>
+<p>When the newly created instance will be created, the partitions will be created.</p>
+<h2 id="starting-the-server">Starting the server</h2>
+<p>As we can have more than one instance, we have more than one instance in <em>/usr/local/apacheds&lt;version&gt;/&lt;instances&gt;</em> that can be installed. Each one of these instance can be started using the <em>launchctl</em> command applied on each loaded instance (which has a different name). Here, we will start the server which instances is the one we just defined, ie &lsquo;test&rsquo; :</p>
+<pre><code>$ sudo launchctl start org.apache.directory.server.test
+</code></pre>
+<p>The default instance name is org.apache.directory.server, to start it just type :</p>
+<pre><code>$ sudo launchctl start org.apache.directory.server.
+</code></pre>
+<p>All the data for a given instance are stored into this <em>/usr/local/apacheds-&lt;version&gt;/instances/&lt;instance-name&gt;</em> directory.</p>
+<h2 id="stopping-the-server">Stopping the server</h2>
+<p>Stopping the server is done using the same command, with a different parameter :</p>
+<pre><code>$ sudo launchctl stop org.apache.directory.server.test
+</code></pre>
+<p>Again, you must provide the instance name</p>
+<h2 id="logs">Logs</h2>
+<p>You can check what&rsquo;s going on in the <em>apacheds-&lt;version&gt;instances/&lt;instance-name&gt;/log/wrapper.log</em> file, and <em>apacheds-&lt;version&gt;instances/&lt;instance-name&gt;/log/apacheds.log</em> file which is created using the configuration set in <em>apacheds-&lt;version&gt;instances/&lt;instance-name&gt;/conf/log4j.properties</em>.</p>
+<p>Typically, when you start the server, you will get such log :</p>
+<pre><code>$ more wrapper.log
+STATUS | wrapper  | 2015/01/04 07:26:14 | --&gt; Wrapper Started as Console
+STATUS | wrapper  | 2015/01/04 07:26:15 | Launching a JVM...
+INFO   | jvm 1    | 2015/01/04 07:26:15 | Wrapper (Version 3.2.3) http://wrapper.tanukisoftware.org
+INFO   | jvm 1    | 2015/01/04 07:26:15 |   Copyright 1999-2006 Tanuki Software, Inc.  All Rights Reserved.
+INFO   | jvm 1    | 2015/01/04 07:26:15 | 
+INFO   | jvm 1    | 2015/01/04 07:26:18 |            _                     _          ____  ____   
+INFO   | jvm 1    | 2015/01/04 07:26:18 |           / \   _ __    ___  ___| |__   ___|  _ \/ ___|  
+INFO   | jvm 1    | 2015/01/04 07:26:18 |          / _ \ | '_ \ / _` |/ __| '_ \ / _ \ | | \___ \  
+INFO   | jvm 1    | 2015/01/04 07:26:18 |         / ___ \| |_) | (_| | (__| | | |  __/ |_| |___) | 
+INFO   | jvm 1    | 2015/01/04 07:26:18 |        /_/   \_\ .__/ \__,_|\___|_| |_|\___|____/|____/  
+INFO   | jvm 1    | 2015/01/04 07:26:18 |                |_|                                       
+INFO   | jvm 1    | 2015/01/04 07:26:18 | 
+</code></pre>
+<h3 id="log-configuration">Log configuration</h3>
+<p>You can configure the log level and content by changing the content of the <em>/var/lib/apacheds-&lt;version&gt;/&lt;instance&gt;/&lt;conf&gt;/log4j.properties</em> file.</p>
+<p>The default configuration is given below :</p>
+<pre><code>log4j.rootCategory=WARN, R, stdout
+
+log4j.appender.stdout=org.apache.log4j.ConsoleAppender
+log4j.appender.stdout.layout=org.apache.log4j.PatternLayout
+
+log4j.appender.R=org.apache.log4j.RollingFileAppender
+log4j.appender.R.File=${apacheds.log.dir}/apacheds.log
+
+log4j.appender.R.MaxFileSize=1024KB
+# Keep some backup files
+log4j.appender.R.MaxBackupIndex=5
+
+log4j.appender.R.layout=org.apache.log4j.PatternLayout
+log4j.appender.R.layout.ConversionPattern=[%d{HH:mm:ss}] %p [%c] - %m%n
+
+log4j.appender.stdout.layout.ConversionPattern=[%d{HH:mm:ss}] %p [%c] - %m%n
+
+# with these we'll not get innundated when switching to DEBUG
+log4j.logger.jdbm.recman.BaseRecordManager=FATAL
+log4j.logger.org.apache.directory.server.OPERATION_LOG=FATAL
+log4j.logger.org.apache.directory.server.OPERATION_TIME=FATAL
+log4j.logger.org.apache.directory.api.CODEC_LOG=FATAL
+log4j.logger.org.apache.directory.server.ACI_LOG=FATAL
+
+# Replication logs
+log4j.logger.org.apache.directory.server.PROVIDER_LOG=FATAL
+log4j.logger.org.apache.directory.server.CONSUMER_LOG=FATAL
+
+# Search log
+log4j.logger.org.apache.directory.CURSOR_LOG=FATAL
+
+# Other logs
+log4j.logger.org.apache.directory.api=FATAL
+log4j.logger.org.apache.directory.server=FATAL
+log4j.logger.net.sf.ehcache=FATAL
+log4j.logger.org.apache.mina=FATAL
+</code></pre>
+<h3 id="jvm-setting">JVM setting</h3>
+<p>Were you to change the memory you want to use for a given instance, you will have to modify the <em>/usr/local/apacheds-&lt;version&gt;/&lt;instances&gt;/&lt;conf&gt;/wrapper-instance.conf</em> file. Here are the parameter you can configure in this file :</p>
+<pre><code>##
+## In this file you can override parameters specified in the default
+## Apache Directory Server config file which is usually at
+## /opt/apacheds-2.0.0-M20-SNAPSHOT/conf/wrapper.conf
+##
+## See also http://wrapper.tanukisoftware.org/doc/english/properties.html
+## For a list of properties that can be set.
+##
+
+## Override the JRE used
+# wrapper.java.command=&lt;path-to-java-executable&gt;
+
+## Override the JVM memory settings
+## Initial Java Heap Size (in MB)
+# wrapper.java.initmemory=1024
+
+## Maximum Java Heap Size (in MB)
+# wrapper.java.maxmemory=2048
+</code></pre>
+<p>You mainly want to change the memory used by the JVM.</p>
+
+
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="2.2.2-rpm-instance-layout.html">2.2.2 - RPM Instance Layout</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="2.2-instance-layout.html">2.2 Instance Layout</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="2.2.4-windows-instance-layout.html">2.2.4 - Windows Instance Layout</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

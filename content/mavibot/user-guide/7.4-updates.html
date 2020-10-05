@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>7.4 - Updates &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/turquoise.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/mavibot-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+             
+                ApacheDS
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+             
+                LDAP API
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+            
+                <strong>Mavibot</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>Mavibot 1.0</h5>
+                <ul>
+                    <li><a href="/mavibot/">Home</a></li>
+                    <li><a href="/mavibot/news.html">News</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/mavibot/downloads.html">Version 1.0.0-M8</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/mavibot/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Getting Started</h5>
+                <ul>
+                    <li><a href="/mavibot/vision.html">Vision</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/mavibot/five-minutes-tutorial.html">Five minutes tutorial</a></li>
+                    <li><a href="/mavibot/user-guide.html">User Guide</a></li>
+                    <li><a href="/mavibot/gen-docs/latest/apidocs/">JavaDocs</a></li>
+                    <li><a href="/mavibot/gen-docs/latest/xref/">Cross-Reference</a></li>
+                    
+                    <li><a href="/mavibot/developer-guide.html">Developer Guide</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="7.2-physical-storage.html">7.2 - Physical storage</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="7-btree-internals.html">7 - Mavibot Internals</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                &nbsp;
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+            
+	<h1 id="74---updates">7.4 - Updates</h1>
+<p>The update operations on a <strong>b-tree</strong> will modify the internal structure in many ways. We will expsoe the evolution of the <strong>mavibot</strong> file when dealing with the addition of a new <strong>b-tree</strong> and the insertion of a new value into it.</p>
+<p>Note : we don&rsquo;t show what&rsquo;s happening to the <strong>CopiedPages b-tree</strong> here.</p>
+<h2 id="initial-state-before-the-addition-of-a-b-tree">Initial state before the addition of a b-tree</h2>
+<p>Here is the content of the <em>mavibot.db</em> file before we add any <strong>b-tree</strong> into it :</p>
+<p><img src="images/initial-state.png" alt="Initial state"></p>
+<p>As we can see, we just have a <em>RMHeader</em> pointing to the management <em>Btree of Btrees</em> and to the <em>CopiedPages</em> <strong>b-tree</strong>. nothing else.</p>
+<h2 id="addition-of-a-b-tree">Addition of a b-tree</h2>
+<p>Now, here is the file content after adding a new <strong>b-tree</strong> :</p>
+<p><img src="images/btree-test-added.png" alt="B-tree test added"></p>
+<p>Here, the <em>RMHeader</em> is pointing to a new revision of the <em>Btree of Btrees</em>, which itself contains a reference to the <em>test</em> <strong>b-tree</strong> in its first revision. At this point, the old <em>Btree of Btrees</em> header and page can be freed and moved into the <em>free pages list</em>.</p>
+<p>The <em>CopiedPages</em> <strong>b-tree</strong> remains unchanged.</p>
+<h2 id="addition-of-an-element-in-the-test-b-tree">Addition of an element in the test b-tree</h2>
+<p>Let&rsquo;s go a step further : we now add an element to the <em>test</em> <strong>b-tree</strong>. This again will impact the <em>test</em> *<em>b-tree</em>, but also the <em>Btree of Btrees</em> and the <em>RMHeader</em> as shown in teh following picture :</p>
+<p><img src="images/v1-added-in-test.png" alt="V1 added in test b-tree"></p>
+<p>The <em>RMHeader</em> is pointing to the second revision of the <strong>Btree of Btrees</strong> header, and a new revision of the <em>test</em> <strong>b-tree</strong> is stored in the root page of the <strong>Btree of Btrees</strong>. The <em>test</em> <strong>b-tree</strong>, whose header has been copied, now contains the <strong>V1</strong> value, but we still have the first revision of the <em>test</em> <strong>b-tree</strong> present in the file and referenced by the <em>Btree of Btrees</em>, as some thread might be using it at the time of update.</p>
+<p>We will be able to free the pages associated with the revision 1 of the <em>test</em> <strong>b-tree</strong> when no threads are using this revision. The old version of the <em>Btree of Btrees</em> can be freed too.</p>
+<p>The <em>CopiedPages</em> <strong>b-tree</strong> will also be updated to contain the page that has ben copied (here, the <em>test r0</em> root page). The <em>RMHeader</em> will point to the new <em>CopiedPages</em> <strong>b-tree</strong> header.</p>
+<p>(the picture shows the same file twice, one while the first revision is still in use on the left, and another on the right where the first revision has been released)</p>
+<h2 id="cleanup">Cleanup</h2>
+<p>When applying an operation on a btree, we need to first update the <em>RMHeader</em> so that it now points to the current <strong>b-trees</strong>.This is done in one single write of the <em>RMHeader</em>, where we update the pointers to the new <em>Btree of Btrees</em> and <em>CopiedPages</em> headers.</p>
+<p>Post operation, we need to cleanup the pages that are now useless. This can&rsquo;t be done before we have updated the <em>RMHeader</em> because we may lose some pages if we do so. For this reason, we have to keep a reference to the previous headers of those two management btrees (those that are to be freed).</p>
+<p>We have first to clean the copied pages for the two management <strong>b-trees</strong>, and when it&rsquo;s done, we can release the two headers of those <strong>b-trees</strong>.</p>
+<p>Last, not least, we have to rewrite the <em>RMHeader</em> with pointers to the old <strong>b-trees</strong> set to <em>NO_PAGE</em>.</p>
+<h2 id="recovering-from-a-crash">Recovering from a crash</h2>
+<p>This is a mandatory step : we must be able to get a working and clean file when a crash occurs, and it also must be fast. The idea is that at startup, we should always have a clean database, even if we have some lost pages, and we can proceed to a lost page recovery after the startup without impeding the server operations (except the updates).</p>
+<p>There are many places where a crash can occur, and depending on the timing, different operations should take place.</p>
+<h3 id="crash-before-the-recordmanager-header-update">Crash before the RecordManager header update</h3>
+<p>We will not be able to recover the pages that have been created before the <em>RMHeader</em> update. The only possible way would be to check the entire file to revover them as they won&rsquo;t be pointed by no other data structure.</p>
+<p>Otherwise, they are just lost page, they won&rsquo;t create a problem.</p>
+<h3 id="crash-after-the-rmheader-update-and-before-the-cleanup">Crash after the RMHeader update and before the cleanup</h3>
+<p>When we restart the database, if the <em>RMHeader</em> old pointers contains a value different from <em>NO_PAGE</em>, that means we have had a crash.</p>
+<p>As we have a pointer to the old management <strong>b-trees</strong> in the <em>RMHeader</em>, we can reclaim the associated pages. All the old pages can be recovered from this point, as we have a revision for each of these pages. This covers :</p>
+<ul>
+<li>the test <strong>b-tree</strong> and its header</li>
+<li>the <em>Btreeof Btrees</em> and its header</li>
+<li>the <em>CopiedPages</em> <strong>b-tree</strong> and its header</li>
+</ul>
+<p>All those pages are simply attached to the free page list.</p>
+<p>When the cleanup is done, we can update the <em>RMHeader</em> by setting the old pointers to <em>NO_PAGE</em>.</p>
+<h2 id="the-recordmanagerheader">The RecordManagerHeader</h2>
+<p>This page contains 4 pointers, two for each of the <em>Btree of Btrees</em> and the <em>CopiedPages</em> <strong>b-trees</strong>. The rational is that we should always be able to cleanup the file if we get a crash after the update of the <em>RMHeader</em> but before the end of the cleanup.</p>
+<p>When we apply an operation, and before the cleanuo is done, we update the <em>RMHeader</em> to keep a track of the new and old references.</p>
+<p>When the cleanup is done, we can set the old reference to <em>NO_PAGE</em>.</p>
+<p>The <em>NO_PAGE</em> reference is a marker for a successful operation.</p>
+<p>We also keep a pointer to the first free page of a list of free pages (see the next paragaphe).</p>
+<h2 id="free-page-management">Free page management</h2>
+<p>We use a list of <em>free pages</em> which is updated when we free a page or reclaim a new page. It&rsquo;s a simple list where all the pages are linked together.</p>
+<p>Everytime we need a free page, we get it from the the list, and we update the <em>RMHeader</em> to point to the next free page in the list (or <em>NO_PAGE</em> if we don&rsquo;t have any remaining free page). This is a strain because it&rsquo;s expensive to update the <em>RMHeader</em> for each free page we need&hellip;</p>
+<p>ATM, there is no alternative, so we wil continue to update the <em>RMHeader</em> everytime we fecth a free page from the list, or every time we add a free page in the list.</p>
+<p>Freeing a page is just a matter to make this page to point to the first free page, then to make the <em>FreePage</em> pointer to point to the freed page.</p>
+
+
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="7.2-physical-storage.html">7.2 - Physical storage</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="7-btree-internals.html">7 - Mavibot Internals</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                &nbsp;
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

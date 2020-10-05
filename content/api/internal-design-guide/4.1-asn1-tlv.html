@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>4-1 - ASN/1 TLV &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/brown.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/api-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+             
+                ApacheDS
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+            
+                <strong>LDAP API</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>LDAP API </h5>
+                <ul>
+                    <li><a href="/api/">Home</a></li>
+                    <li><a href="/api/news.html">News</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/api/downloads-1.html">Version 1.0.3</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/downloads-2.html">Version 2.0.1</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Getting Started</h5>
+                <ul>
+                    <li><a href="/api/vision.html">Vision</a></li>
+                    <li><a href="/api/java-api.html">Java API</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/api/five-minutes-tutorial.html">Five minute tutorial</a></li>
+                    <li><a href="/api/user-guide.html">User Guide</a></li>
+                    <li><a href="/api/migration-guide.html">API 1 to 2 migration</a></li>
+                    <li><a href="/api/gen-docs/latest/apidocs/">JavaDocs</a></li>
+                    <li><a href="/api/gen-docs/latest2/apidocs/">JavaDocs 2</a></li>
+                    <li><a href="/api/gen-docs/latest/xref/">Cross-Reference</a></li>
+                    <li><a href="/api/gen-docs/latest2/xref/">Cross-Reference 2</a></li>
+                    
+                    <li><a href="/api/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/api/internal-design-guide.html">Internal Guide</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="4-asn1.html">4 - ASN/1</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="../internal-design-guide.html">Internal Design Guide</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="5-network.html">5 - Network</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+            
+	<h1 id="41---asn1-tlv">4.1 - ASN/1 TLV</h1>
+<h2 id="what-are-tlvs-">What are TLVs ?</h2>
+<p>The acronym <strong>TLV</strong> stands for <strong>T</strong>ag, <strong>L</strong>ength and <strong>V</strong>alue. It&rsquo;s a way to encode a piece of information with a type, a length followed by the information itself. Three points must be known:</p>
+<ul>
+<li>The <strong>Value</strong> part may contents other <strong>TLV</strong>s. One can see <strong>TLV</strong>s as C structures, that can contain sub-structures.</li>
+<li>The <strong>Value</strong> may not exist, and in this case the <strong>Length</strong> will be 0.</li>
+<li>The <strong>Length</strong> part may not give the <strong>Value</strong> length: it is called an <em>indefinite Length</em>. In this - not so frequent - case, the <strong>Value</strong> must end with a specific terminator.</li>
+</ul>
+<h3 id="a-quick-sample">A quick sample</h3>
+<p>Let&rsquo;s begin with a simple example, without too many explanations. This is the <strong>PDU</strong> (<strong>P</strong>acket <strong>D</strong>ata <strong>U</strong>nit) of a LDAP <em>BindRequest</em>:</p>
+<p><img src="images/TLVs.png" alt="TLV"></p>
+<p>We can see in this picture that you have what is called a first level <strong>TLV</strong>. It encapsulates other <strong>TLV</strong>s. It&rsquo;s basically a stream of bytes.</p>
+<h3 id="type">Type</h3>
+<p>Each <strong>Type</strong> contains information about the <strong>Value</strong> part of the <strong>TLV</strong>. It tells if the <strong>Value</strong> is a primitive or a constructed one, which type of primitive is the value, gives some contextual information. A <strong>Type</strong> can be coded on more than one byte. The first 3 bits give some contextual information about the <strong>Type</strong>, and the 5 following bits are either a label or the beginning of a multi-bytes label.</p>
+<ul>
+<li>Labels are numbers in [0..30], and they represent a specific <strong>ASN/1</strong> element in the protocol description, like _CompareRequest ::= [APPLICATION 14] _ (here, the label is 14).</li>
+<li>If the label is 31, then more than one byte is used to encode the <strong>Type</strong>. In this case, we use the following bytes to compute the label, where each byte which high bit is one will be followed by another byte.</li>
+</ul>
+<p>We limit the label to 2,097,151 as we encode the <strong>Type</strong> in one Java int :</p>
+<pre><code>:::
+b1 xxx[1-1111], b2 1[111-1111], b3 1[111-1111], b4 0[111-1111]
+-&gt;
+[111-1111][111-1111][111-1111] 
+-&gt;
+0001-1111 1111-1111 1111-1111
+-&gt;
+0x1FFFFF
+-&gt; 
+2,097,151
+</code></pre>
+<p>In <strong>LDAP</strong> or <strong>Kerberos</strong>, no label is higher than 30, so we always use 1 byte <strong>Type</strong>s.</p>
+<p>Other interesting information that we need to grab from a <em>Type</em> are stored in the two first bits (bit 7 and 6), and in the third bit (bit 5). The first two bits describe the class, the third tells if the <strong>TLV</strong> is a <strong>primitive</strong> (b5 = 0) or a <strong>constructed</strong> <strong>TLV</strong> (b5 = 1).</p>
+<h3 id="length">Length</h3>
+<p><strong>Length</strong> gives the number of bytes of the <strong>Value</strong>, and nothing else. So the total length of a <strong>TLV</strong> will be:</p>
+<pre><code>:::
+TLV length = Tag length + Length length + Value length, 
+</code></pre>
+<p>where the <strong>Value</strong> length is stored in the <strong>Length</strong> element.</p>
+<p>The <strong>Length</strong> may be 0, which means that there is no value following.</p>
+<p>How is <strong>Length</strong> encoded? A <strong>Value</strong> may be from 0 to N bytes long, with N &lt; (256 ^ 126) - 1. This limit is purely hypothetic, of course. If we have to deal with huge objects like pictures or movies, their length will not exceed a few MBytes or a few GBytes</p>
+<p>Typically, we will find five kind of <strong>Length</strong>s :</p>
+<ul>
+<li>zero length values;</li>
+<li>values with a length less than 128 bytes</li>
+<li>values with a length between 128 and 256 ^ 4 bytes long (an int will be able to hold 4 bytes);</li>
+<li>values above 256 ^ 4 bytes long</li>
+<li>values which length is not defined by the <strong>Length</strong> element.</li>
+</ul>
+<p>The last type of Length could occurs if the sender does not know the length of the value while it is sending it. <strong>LDAP</strong> protocol does not allow those kind of values, which are dangerous because you need to read the full <strong>Value</strong> to know its length.</p>
+<p>The fourth type could also be ignored (4 GBytes is quite a huge size for an LDAP element &hellip;), so we can decide that we won&rsquo;t accept those <strong>Values</strong>. It seems reasonable.</p>
+<p>As the <strong>Length</strong> can be stored in more than one byte, we have to take care of fragmented <strong>PDU</strong> : we may receive only the first bytes, and have to wait for the rest to be received. The idea is to freeze and start again when we receive some more data.</p>
+<p>In any case, if the first byte is &gt; 0x7F, that means it&rsquo;s a multi-bytes length, and we have to process the following bytesto get the real length. In this case, the first byte contains teh number of expected following bytes. Typically :</p>
+<pre><code>:::
+0x74 -&gt; 116
+0x82 0x02 0x84 : 2 bytes, length = 2 * 16 + 132 -&gt; 164
+0x81 0x84 : 1 byte, length = 132
+</code></pre>
+<h3 id="value">Value</h3>
+<p><strong>Value</strong> carries the &lsquo;meat&rsquo; of a <strong>TLV</strong>. Depending on the <strong>Type</strong>, it&rsquo;s either a primitive value, or a constructed one (which means it contains a <strong>TLV</strong> or a set of <strong>TLV</strong>s). Remember that bit 5 of the <strong>Type</strong> tells if the **Value is <em>primitive</em> ( b5 == 0) or _constructed (b5 == 1).</p>
+<ul>
+<li>If we have a <em>primitive</em> <strong>Value</strong>, we have to read <strong>Length</strong> byte and we are done
+** If we have a <em>constructed</em> <strong>Value</strong>, we have to process it as one or more <strong>TLV</strong>.</li>
+</ul>
+<h2 id="tlv-processing">TLV processing</h2>
+<p>In the <strong>API</strong>, the <strong>TLV</strong> processing is done in the <em>Asn1Decoder</em> class, and more specifically by the <em>decode( ByteBuffer stream, Asn1Container container )</em> method, which takes a ByteBuffer as input, and feed a container as a result.</p>
+<p>The important thing to understand is that this method can be called repetively, until a message is fully decoded, as soon as we feed it with some new <em>ByteBuffer</em>. The <em>Container</em> instance will contain the result, as soon as its state has switched to <strong>PDU_DECODED</strong>.</p>
+<p>While processing a <strong>TLV</strong>, when we are done with the <strong>Value</strong> part, the decoder will check if any action is to be executed. The action is associated to the grammar in use, which is stored in the container. Here is the part that call the action, in the <em>Asn1Decoder.treatTLVDoneState()</em> method :</p>
+<pre><code>:::java
+private boolean treatTLVDoneState( ByteBuffer stream, Asn1Container container ) throws DecoderException
+{
+    // First, we have to execute the associated action
+    container.getGrammar().executeAction( container );
+    ...
+</code></pre>
+<p>So the <em>Container</em> must contain the grammar, and the current state. We may not have any action to execute, either because none is associated with the current transition or because we are at the end of the message.</p>
+<h3 id="tlv-implementation">TLV implementation</h3>
+<p>The <strong>TLV</strong> class stores the <strong>Type</strong>, <strong>Length</strong> and <strong>Value</strong>, plus some extra information, like a unique <em>id</em>, a reference to its parent&rsquo;s <strong>TLV</strong> and the expected length when the included <strong>Value</strong> is a set of <strong>TLV</strong>.</p>
+<p><img src="images/tlv-bervalue.png" alt="TLV/BerValue"></p>
+<p>You won&rsquo;t have tp manipulate <strong>TLV</strong> frequently, except in the actions, where you might fetch its <em>Length</em>* and **Value** content, using _getLength()_ and _getValue().getData()_ methods respectively.</p>
+<h3 id="action">Action</h3>
+<p>This is quite a simple class and hierarchy :</p>
+<p><img src="images/grammar-action.png" alt="GrammarAction"></p>
+<p>As we can see, each <strong>Action</strong> has a name (this is only used for debug purpose) and a <em>action(Asn1Container)</em> method, which does what it needs. The <em>Asn1Container</em> parameter gives access to the data through the <em>Asn1Container.getCurrentTLV().getValue().getData()</em> method, and to the message being processed.</p>
+<p>At this point, an example would be useful.</p>
+<h2 id="example">Example</h2>
+<p>Let say we want to implement a decoder for the following message :</p>
+<pre><code>:::
+EntryChangeNotification ::= SEQUENCE
+{
+    changeType ENUMERATED
+    {
+        add             (1),
+        delete          (2),
+        modify          (4),
+        modDN           (8)
+    },
+    previousDN   LDAPDN OPTIONAL,     -- modifyDN ops. only
+    changeNumber INTEGER OPTIONAL     -- if supported
+}
+</code></pre>
+<p>You don&rsquo;t need to know anything about this message, what is important is how we will decode it.</p>
+<p>The first thing we need to create is an interface and a implementation for the Java object that will represent the <strong>EntryChange</strong> object.</p>
+<p>Here is the interface (note that it&rsquo;s a <em>Control</em>, but it&rsquo;s a irrelevant information here) :</p>
+<pre><code>:::Java
+public interface EntryChange extends Control
+{
+    /** No defined change number */ 
+    int UNDEFINED_CHANGE_NUMBER = -1;
+
+    /** The EntryChange control */
+    String OID = &quot;2.16.840.1.113730.3.4.7&quot;;
+
+
+    /**
+     * @return The ChangeType
+     */
+    ChangeType getChangeType();
+
+
+    /**
+     * Set the ChangeType
+     *
+     * @param changeType Add, Delete; Modify or ModifyDN
+     */
+    void setChangeType( ChangeType changeType );
+
+
+    /**
+     * @return The previous DN
+     */
+    Dn getPreviousDn();
+
+
+    /**
+     * Sets the previous DN
+     * 
+     * @param previousDn The previous DN
+     */
+    void setPreviousDn( Dn previousDn );
+
+
+    /**
+     * @return The change number
+     */
+    long getChangeNumber();
+
+
+    /**
+     * Sets the ChangeNumber
+     * 
+     * @param changeNumber The ChanegNumber
+     */
+    void setChangeNumber( long changeNumber );
+}
+</code></pre>
+<p>What is important is that we declare all the setters and getters for the object fields that matter : <em>changeType</em>, <em>previousDN</em> and <em>changeNumber</em></p>
+<p>The implementation is not really complex :</p>
+<pre><code>:::Java
+/**
+ * A simple implementation of the EntryChange response control.
+ *
+ * @author &lt;a href=&quot;mailto:dev@directory.apache.org&quot;&gt;Apache Directory Project&lt;/a&gt;
+ */
+public class EntryChangeImpl extends AbstractControl implements EntryChange
+{
+    /** The changeType */
+    private ChangeType changeType = ChangeType.ADD;
+
+    private long changeNumber = UNDEFINED_CHANGE_NUMBER;
+
+    /** The previous Dn */
+    private Dn previousDn = null;
+
+
+    /**
+     *
+     * Creates a new instance of EntryChangeControl.
+     *
+     */
+    public EntryChangeImpl()
+    {
+        super( OID );
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public ChangeType getChangeType()
+    {
+        return changeType;
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setChangeType( ChangeType changeType )
+    {
+        this.changeType = changeType;
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Dn getPreviousDn()
+    {
+        return previousDn;
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setPreviousDn( Dn previousDn )
+    {
+        this.previousDn = previousDn;
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public long getChangeNumber()
+    {
+        return changeNumber;
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setChangeNumber( long changeNumber )
+    {
+        this.changeNumber = changeNumber;
+    }
+
+
+    /**
+     * @see Object#hashCode()
+     */
+    @Override
+    public int hashCode()
+    {
+        int h = super.hashCode();
+
+        h = h * 37 + ( int ) changeNumber;
+        h = h * 37 + ( changeType == null ? 0 : changeType.hashCode() );
+        h = h * 37 + ( previousDn == null ? 0 : previousDn.hashCode() );
+
+        return h;
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean equals( Object o )
+    {
+        if ( !super.equals( o ) )
+        {
+            return false;
+        }
+
+        EntryChange otherControl = ( EntryChange ) o;
+
+        return ( changeNumber == otherControl.getChangeNumber() ) &amp;&amp; ( changeType == otherControl.getChangeType() )
+            &amp;&amp; ( previousDn.equals( otherControl.getPreviousDn() ) );
+    }
+
+
+    /**
+     * Return a String representing this EntryChangeControl.
+     */
+    @Override
+    public String toString()
+    {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append( &quot;    Entry Change Control\n&quot; );
+        sb.append( &quot;        oid : &quot; ).append( getOid() ).append( '\n' );
+        sb.append( &quot;        critical : &quot; ).append( isCritical() ).append( '\n' );
+        sb.append( &quot;        changeType   : '&quot; ).append( changeType ).append( &quot;'\n&quot; );
+        sb.append( &quot;        previousDN   : '&quot; ).append( previousDn ).append( &quot;'\n&quot; );
+
+        if ( changeNumber == UNDEFINED_CHANGE_NUMBER )
+        {
+            sb.append( &quot;        changeNumber : '&quot; ).append( &quot;UNDEFINED&quot; ).append( &quot;'\n&quot; );
+        }
+        else
+        {
+            sb.append( &quot;        changeNumber : '&quot; ).append( changeNumber ).append( &quot;'\n&quot; );
+        }
+
+        return sb.toString();
+    }
+}
+</code></pre>
+<p>This is pretty much trivial.</p>
+<p>We now need a _Decorator to manipulate this instance. Here is the code :</p>
+<pre><code>:::Java
+public class EntryChangeDecorator extends ControlDecorator&lt;EntryChange&gt; implements EntryChange
+{
+    /** Default value when no change number is provided */
+    public static final int UNDEFINED_CHANGE_NUMBER = -1;
+
+    /** A temporary storage for the previous Dn */
+    private byte[] previousDnBytes = null;
+
+    /** The entry change global length */
+    private int eccSeqLength;
+
+    /** An instance of this decoder */
+    private static final Asn1Decoder DECODER = new Asn1Decoder();
+
+
+    /**
+     * Creates a new instance of EntryChangeDecoder wrapping a newly created
+     * EntryChange Control object.
+     * 
+     * @param codec The LDAP service instance
+     */
+    public EntryChangeDecorator( LdapApiService codec )
+    {
+        super( codec, new EntryChangeImpl() );
+    }
+
+
+    /**
+     * Creates a new instance of EntryChangeDecorator wrapping the supplied
+     * EntryChange Control.
+     *
+     * @param codec The LDAP service instance
+     * @param control The EntryChange Control to be decorated.
+     */
+    public EntryChangeDecorator( LdapApiService codec, EntryChange control )
+    {
+        super( codec, control );
+    }
+
+
+    /**
+     * Internally used to not have to cast the decorated Control.
+     *
+     * @return the decorated Control.
+     */
+    private EntryChange getEntryChange()
+    {
+        return getDecorated();
+    }
+
+
+    /**
+     * Compute the EntryChangeControl length 
+     * 
+     * &lt;pre&gt;
+     * 0x30 L1 
+     *   | 
+     *   +--&amp;gt; 0x0A 0x0(1-4) [1|2|4|8] (changeType) 
+     *  [+--&amp;gt; 0x04 L2 previousDN] 
+     *  [+--&amp;gt; 0x02 0x0(1-4) [0..2^63-1] (changeNumber)]
+     *  &lt;/pre&gt;
+     *  
+     * @return the control length.
+     */
+    @Override
+    public int computeLength()
+    {
+        int changeTypesLength = 1 + 1 + 1;
+
+        int previousDnLength = 0;
+        int changeNumberLength = 0;
+
+        if ( getPreviousDn() != null )
+        {
+            previousDnBytes = Strings.getBytesUtf8( getPreviousDn().getName() );
+            previousDnLength = 1 + TLV.getNbBytes( previousDnBytes.length ) + previousDnBytes.length;
+        }
+
+        if ( getChangeNumber() != UNDEFINED_CHANGE_NUMBER )
+        {
+            changeNumberLength = 1 + 1 + BerValue.getNbBytes( getChangeNumber() );
+        }
+
+        eccSeqLength = changeTypesLength + previousDnLength + changeNumberLength;
+        valueLength = 1 + TLV.getNbBytes( eccSeqLength ) + eccSeqLength;
+
+        return valueLength;
+    }
+
+
+    /**
+     * Encodes the entry change control.
+     * 
+     * @param buffer The encoded sink
+     * @return A ByteBuffer that contains the encoded PDU
+     * @throws EncoderException If anything goes wrong.
+     */
+    @Override
+    public ByteBuffer encode( ByteBuffer buffer ) throws EncoderException
+    {
+        if ( buffer == null )
+        {
+            throw new EncoderException( I18n.err( I18n.ERR_04023 ) );
+        }
+
+        buffer.put( UniversalTag.SEQUENCE.getValue() );
+        buffer.put( TLV.getBytes( eccSeqLength ) );
+
+        buffer.put( UniversalTag.ENUMERATED.getValue() );
+        buffer.put( ( byte ) 1 );
+        buffer.put( BerValue.getBytes( getChangeType().getValue() ) );
+
+        if ( getPreviousDn() != null )
+        {
+            BerValue.encode( buffer, previousDnBytes );
+        }
+
+        if ( getChangeNumber() != UNDEFINED_CHANGE_NUMBER )
+        {
+            BerValue.encode( buffer, getChangeNumber() );
+        }
+
+        return buffer;
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public byte[] getValue()
+    {
+        if ( value == null )
+        {
+            try
+            {
+                computeLength();
+                ByteBuffer buffer = ByteBuffer.allocate( valueLength );
+
+                buffer.put( UniversalTag.SEQUENCE.getValue() );
+                buffer.put( TLV.getBytes( eccSeqLength ) );
+
+                buffer.put( UniversalTag.ENUMERATED.getValue() );
+                buffer.put( ( byte ) 1 );
+                buffer.put( BerValue.getBytes( getChangeType().getValue() ) );
+
+                if ( getPreviousDn() != null )
+                {
+                    BerValue.encode( buffer, previousDnBytes );
+                }
+
+                if ( getChangeNumber() != UNDEFINED_CHANGE_NUMBER )
+                {
+                    BerValue.encode( buffer, getChangeNumber() );
+                }
+
+                value = buffer.array();
+            }
+            catch ( Exception e )
+            {
+                return null;
+            }
+        }
+
+        return value;
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public ChangeType getChangeType()
+    {
+        return getEntryChange().getChangeType();
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setChangeType( ChangeType changeType )
+    {
+        getEntryChange().setChangeType( changeType );
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Dn getPreviousDn()
+    {
+        return getEntryChange().getPreviousDn();
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setPreviousDn( Dn previousDn )
+    {
+        getEntryChange().setPreviousDn( previousDn );
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public long getChangeNumber()
+    {
+        return getEntryChange().getChangeNumber();
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setChangeNumber( long changeNumber )
+    {
+        getEntryChange().setChangeNumber( changeNumber );
+    }
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Asn1Object decode( byte[] controlBytes ) throws DecoderException
+    {
+        ByteBuffer bb = ByteBuffer.wrap( controlBytes );
+        EntryChangeContainer container = new EntryChangeContainer( getCodecService(), this );
+        DECODER.decode( bb, container );
+        return this;
+    }
+}
+</code></pre>
+
+
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="4-asn1.html">4 - ASN/1</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="../internal-design-guide.html">Internal Design Guide</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="5-network.html">5 - Network</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

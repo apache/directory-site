@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>2.1.2 - Deleting Entries &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/green.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/server-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+            
+                <strong>ApacheDS</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+             
+                LDAP API
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>ApacheDS 2.0</h5>
+                <ul>
+                    <li><a href="/apacheds/">Home</a></li>
+                    <li><a href="/apacheds/news.html">News</a></li>
+                    <li><a href="/apacheds/features.html">Features</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/apacheds/downloads.html">ApacheDS 2.0.0.AM26</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/apacheds/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/apacheds/basic-user-guide.html">Basic User Guide </a></li>
+                    <li><a href="/apacheds/advanced-user-guide.html">Advanced User Guide</a></li>
+                    <li><a href="/apacheds/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/apacheds/kerberos-user-guide.html">Kerberos User Guide</a></li>
+                    <li><a href="/apacheds/configuration/ads-2.0-configuration.html">Configuration</a></li>
+                    <li><a href="/apacheds/gen-docs/latest/apidocs">JavaDocs</a></li>
+                    <li><a href="/apacheds/gen-docs/latest/xref">Cross-Reference</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="2.1.1-adding-entries.html">2.1.1 - Adding Entries</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="2.1-data-modification.html">2.1 - Data modification</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="2.2-searching-data.html">2.2 - Searching Data</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+            
+	<h1 id="212---deleting-entries">2.1.2 - Deleting Entries</h1>
+<p>Deleting entries is quite simple : you just need to provide their <em>DN</em>, and require for the deletion of the associated entry. Although there are a few conditions that must be fulfilled for this operatio to be successful :</p>
+<ul>
+<li>The entry must exist;</li>
+<li>It should not have any children;</li>
+<li>The user requiring the deletion must have enough priviledge to do so</li>
+</ul>
+<p>Assuming those three conditions being fulfilled, you can proceed with the deletion. We will show how it works on the entry we added in the previous chapter.</p>
+<h2 id="using-the-command-line">Using the command line</h2>
+<p>You have to use an authorized user to delete the entry, here, <em>cn=Horatio Nelson,ou=people,o=sevenSeas</em> :</p>
+<p>With an LDIF file (<a href="resources/captain-hook-delete.ldif">Captain hook delete</a>) with an appropriate change entry, this can easily be accomplished, if the bind user is allowed to do so. Here is the content of this <em>LDIF</em> file :</p>
+<pre><code># File captain_hook_delete.ldif
+dn: cn=James Hook,ou=people,o=sevenSeas
+changetype: delete
+</code></pre>
+<p>and here is the command line to use :</p>
+<pre><code>$ ldapdel -h zanzibar -p 10389 -D &quot;cn=Horatio Nelson,ou=people,o=sevenSeas&quot; -w pass \\
+    -a -f captain_hook.ldif
+deleting entry cn=James Hook,ou=people,o=sevenSeas
+$
+</code></pre>
+<h2 id="using-apache-directory-studio">Using Apache Directory Studio</h2>
+<p>With studio, just select the entry you want to delete, and select the &ldquo;Delete&rdquo; menu :</p>
+<p><img src="images/delete-entry.png" alt="Delete entry with studio"></p>
+<p>When deleteed, the <em>log</em> windows should contain this message :</p>
+<pre><code>#!RESULT OK
+#!CONNECTION ldap://localhost:10389
+#!DATE 2012-10-30T14:57:47.399
+dn: cn=James Hook,ou=people,o=SevenSeans
+changetype: delete
+</code></pre>
+<p>Studio allows you to delete entries which have children, but it will first try to delete all the children recursively. There is no such things when you send an LDAP <em>DeleteRequest</em>.</p>
+
+
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="2.1.1-adding-entries.html">2.1.1 - Adding Entries</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="2.1-data-modification.html">2.1 - Data modification</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="2.2-searching-data.html">2.2 - Searching Data</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

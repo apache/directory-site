@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>1.4.1 - Changing the server port for LDAP &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/green.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/server-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+            
+                <strong>ApacheDS</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+             
+                LDAP API
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>ApacheDS 2.0</h5>
+                <ul>
+                    <li><a href="/apacheds/">Home</a></li>
+                    <li><a href="/apacheds/news.html">News</a></li>
+                    <li><a href="/apacheds/features.html">Features</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/apacheds/downloads.html">ApacheDS 2.0.0.AM26</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/apacheds/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/apacheds/basic-user-guide.html">Basic User Guide </a></li>
+                    <li><a href="/apacheds/advanced-user-guide.html">Advanced User Guide</a></li>
+                    <li><a href="/apacheds/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/apacheds/kerberos-user-guide.html">Kerberos User Guide</a></li>
+                    <li><a href="/apacheds/configuration/ads-2.0-configuration.html">Configuration</a></li>
+                    <li><a href="/apacheds/gen-docs/latest/apidocs">JavaDocs</a></li>
+                    <li><a href="/apacheds/gen-docs/latest/xref">Cross-Reference</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="1.4-basic-configuration-tasks.html">1.4 - Basic configuration tasks</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="1.4-basic-configuration-tasks.html">1.4 - Basic configuration tasks</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="1.4.2-changing-admin-password.html">1.4.2 - Changing the admin password</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+            
+	<h1 id="141---changing-the-server-port-for-ldap">1.4.1 - Changing the server port for LDAP</h1>
+<p>This section describes how to change to port for the LDAP protocol. There are two ways to do that : either you use the configuration plugin available in <strong>Apache Directory Studio</strong>, or you update the LDIF partition that contains the configuration.</p>
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#the-task-and-how-to-accomplish-it">The task and how to accomplish it</a>
+      <ul>
+        <li><a href="#using-apache-directory-studio">Using Apache Directory Studio</a></li>
+        <li><a href="#modifying-the-configuration-ldif-partition">Modifying the configuration LDIF partition</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+<h2 id="the-task-and-how-to-accomplish-it">The task and how to accomplish it</h2>
+<p>By default the LDAP server listens on port 10389 (unencrypted or StartTLS) and 10636 (SSL). It is quite common to run LDAP on 389, which is the well-known port for this protocol, but that requires the server to be started with a root user (or with sudo). Of course other options are imaginable as well. Changing the LDAP port is a good example for adjusting the existing Spring configuration as introduced in the last section.</p>
+<DIV class="note" markdown="1">
+Due to traditional Unix security restrictions, ports less than 1024 were "trusted". Thus on a Unix-System, a non-root process must listen on a port greater than 1023.
+</DIV>
+<p>Basically, there are two cases :</p>
+<ul>
+<li>The server is not started</li>
+<li>The server is started</li>
+</ul>
+<p>We will see how to change the port in those two cases.</p>
+<h3 id="using-apache-directory-studio">Using Apache Directory Studio</h3>
+<h4 id="the-server-is-started">The server is started</h4>
+<p>The best solution is to connect on the server using Studio, and to open it&rsquo;s configuration :</p>
+<CENTER>
+![Studio port configuration](images/studio-port-config1.png)
+</CENTER>
+<p>When you select this menu, you will get the main configuration screen, containing the port for LDAP and LDAPS :</p>
+<CENTER>
+![Studio port configuration](images/studio-port-config2.png)
+</CENTER>
+<p>Now, change the values of <em>port</em> to your needs, then save the configuration. You have to restart the server afterwards in order to take this change into effect.</p>
+<h4 id="the-server-is-not-started">The server is not started</h4>
+<p>You can start it and update the configuration, of course. But if you want to configure the server when it&rsquo;s stopped, you will have to load the configuration file, which is on <em>&hellip;/instances/default/conf/config.ldif</em>, when the server has been installed using the default setting.</p>
+<p>Opening this file will open the exact same window :</p>
+<CENTER>
+![Studio port configuration](images/studio-port-config2.png)
+</CENTER>
+<p>You can update the <em>ports</em> and save the file.</p>
+<DIV class="warning" markdown="1">
+	Note that you will requite write access on this file !
+</DIV>
+<h3 id="modifying-the-configuration-ldif-partition">Modifying the configuration LDIF partition</h3>
+<p>All the <strong>ApacheDS</strong> configuration is stored as a LDIF file, and can be modified either using a text editor (although we don&rsquo;t consider this as a safe practice) or using a Modify request on a running server.</p>
+<DIV class="info" markdown="1">
+	Modifying the configuration on a running server will **not** change the listening port of the running server. You will have to relaunch the server in order to get this new configuration to be available.
+</DIV>
+<p>The configuration is stored as a set of LDAP entries, so you can update one of them. In order to modify the entry containing the ports, you have first to find it, and second to send a valid modify request.</p>
+<p>All the <strong>ApacheDS</strong> configuration is stored under the <em>ou=config</em> partition. The ports are stored in some entries under <em>DN: ldap,ou=transports,ads-serverId=ldapServer,ou=servers,ads-directoryServiceId=default,ou=config</em> (obviously, dependning on your installation, this DN might change : the <em>ads-directoryServiceId</em> may have a different name, so is the <em>ads-serverId</em>). In any case, the <em>ou=transports</em> branch contains two entries :</p>
+<p>for LDAP :</p>
+<pre><code>dn: ads-transportid=ldap,ou=transports,ads-serverId=ldapServer,ou=servers,ad
+ s-directoryServiceId=default,ou=config
+ads-systemport: 10389
+ads-enabled: TRUE
+ads-transportnbthreads: 8
+ads-transportaddress: 0.0.0.0
+ads-transportid: ldap
+objectclass: ads-transport
+objectclass: ads-tcpTransport
+objectclass: ads-base
+objectclass: top
+</code></pre>
+<p>and for LDAPS :</p>
+<pre><code>dn: ads-transportid=ldaps,ou=transports,ads-serverId=ldapServer,ou=servers,a
+ ds-directoryServiceId=default,ou=config
+ads-systemport: 10636
+ads-transportenablessl: TRUE
+ads-enabled: TRUE
+ads-transportaddress: 0.0.0.0
+ads-transportid: ldaps
+objectclass: ads-transport
+objectclass: ads-tcpTransport
+objectclass: ads-base
+objectclass: top
+</code></pre>
+<p>You just have to send a ModifyRequest using such a LDIF :</p>
+<pre><code>dn: ads-transportid=ldaps,ou=transports,ads-serverId=ldapServer,ou=servers,ads
+ -directoryServiceId=default,ou=config
+changetype: modify
+replace: ads-systemport
+ads-systemport: 10637
+-
+</code></pre>
+<p>(here, we have modified the LDAPS Port from 10636 to 10637)</p>
+<p>Those modification can be done directly on the <em>config.ldif</em> file, but you won&rsquo;t have any syntax check if you do so.</p>
+
+
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="1.4-basic-configuration-tasks.html">1.4 - Basic configuration tasks</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="1.4-basic-configuration-tasks.html">1.4 - Basic configuration tasks</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="1.4.2-changing-admin-password.html">1.4.2 - Changing the admin password</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

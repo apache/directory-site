@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>ApacheDS Installation guide &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/turquoise.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/fortress-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+             
+                ApacheDS
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+             
+                LDAP API
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+            
+                <strong>Fortress</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>Fortress</h5>
+                <ul>
+                    <li><a href="/fortress/">Home</a></li>
+                    <li><a href="/fortress/history.html">History</a></li>
+                    <li><a href="/fortress/news.html">News</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/fortress/downloads.html">Fortress 2.0.5</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/fortress/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/fortress/overview.html">Overview</a></li>
+                    <li><a href="/fortress/installation.html">Installation Guide</a></li>
+                    <li><a href="/fortress/user-guide.html">Users Guide</a></li>
+                    <li><a href="/fortress/coding-standards.html">Coding Standards</a></li>
+                    <li><a href="/fortress/gen-docs/latest/apidocs/">JavaDocs</a></li>
+                    
+                    <li><a href="/fortress/gen-docs/latest/">Generated Reports</a></li>
+                    <li><a href="/fortress/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/fortress/testimonials.html">Testimonials</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+
+            
+	<h1 id="apacheds-installation-guide">ApacheDS Installation guide</h1>
+<p>Provide instructions to install an <strong>ApacheDS</strong> instance and setup for use with <strong>Fortress</strong>. In this configuration, there is an <strong>ApacheDS</strong> server running on a machine (<strong>ApacheDS Host</strong>) and <strong>Fortress</strong> agent which will be installed on a client machine (<strong>Fortress Host</strong>). Note that those two hosts can be shared - and this is such a configuration that we are going to use in this document.</p>
+<h2 id="prerequisites">Prerequisites</h2>
+<p>There a few mandatory elements that need to be installed on the <strong>ApacheDS Host</strong> :</p>
+<ul>
+<li>Java 7 or greated sdk</li>
+</ul>
+<p>On the <strong>Fortress Host</strong>, you will need those components :</p>
+<ul>
+<li>Java 7 or greated sdk</li>
+<li>Apache Maven 3+</li>
+<li>A web browser</li>
+<li>Git</li>
+<li>Apache Directory Studio</li>
+</ul>
+<h2 id="installing-apacheds">Installing ApacheDS</h2>
+<p>On the <strong>ApacheDS Host</strong> :</p>
+<p>Follow the installation guide on <a href="https://directory.staging.apache.org/apacheds/downloads.html">the ApacheDS download pages</a> (each page has an installation description).</p>
+<p>The base installation will install a server running on port <em>10389</em>, with a default user <em>uid=admin,ou=system</em> and the password <em>secret</em>. Please change those values !!!</p>
+<p>Note that the server requires a Java 7 sdk to run.</p>
+<h2 id="installing-apache-directory-studio">Installing Apache Directory Studio</h2>
+<p>On the <strong>Fortress Host</strong> :</p>
+<p>We will install <strong>Apache Directory Studio</strong> which is a convenient tool when it comes to managing an <strong>LDAP</strong> server. Install using <a href="https://directory.apache.org/studio/downloads.html">the following documentation</a>. Again, each link contains directions on how to install this component.</p>
+<p>Once installed, check the connection to the <strong>ApacheDS</strong> server installed during the previous step. Create a <em>connection</em>, set the <em>hostName</em> and <em>port</em> to be those where you installed the <strong>ApacheDS</strong> server, then check the Network Parameter, ensure no errors.</p>
+<p>Check that the credentials you have set (defaulting to <em>uid=admin,ou=system</em> and <em>secret</em>)  using <em>Simple Authentication</em>, and clicking on <em>Check Authentication</em> : work also.</p>
+<p>The complete description of the steps are found <a href="https://directory.apache.org/studio/users-guide/ldap_browser/gettingstarted_create_connection.html">on this page</a></p>
+<h2 id="installing-fortress-core">Installing Fortress Core</h2>
+<p>Assuming that <strong>Git</strong>, <strong>Java 7</strong> and <strong>Apache Maven</strong> are installed on the <strong>Fortress Host</strong>, and that <strong>ApacheDS</strong> is running on the <strong>ApacheDS Host</strong>, we can now configure and install <strong>Fortress Core</strong> on the <strong>Fortress Host</strong></p>
+<p>The setup will use your specific configuration to create everything needed on the LDAP server to operate <strong>Fortress</strong>. It will also inject specific schema elements into the ldap server; entries that are required for <em>Fortress</em> to work. Once done, the <strong>Fortress</strong> APIs are ready to use.</p>
+<DIV class="info" markdown="1">
+  The setup phase must be performed once per LDAP server instance.  But every machine that uses Fortress, must be configured to point to the same LDAP server (as you would expect) that was initially setup.  This will be explained later on.
+</DIV>
+
+
+            
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

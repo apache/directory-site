@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>4.2.1.9 - ApacheDS Schema Element &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/brown.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/api-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+             
+                ApacheDS
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+            
+                <strong>LDAP API</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>LDAP API </h5>
+                <ul>
+                    <li><a href="/api/">Home</a></li>
+                    <li><a href="/api/news.html">News</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/api/downloads-1.html">Version 1.0.3</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/downloads-2.html">Version 2.0.1</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Getting Started</h5>
+                <ul>
+                    <li><a href="/api/vision.html">Vision</a></li>
+                    <li><a href="/api/java-api.html">Java API</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/api/five-minutes-tutorial.html">Five minute tutorial</a></li>
+                    <li><a href="/api/user-guide.html">User Guide</a></li>
+                    <li><a href="/api/migration-guide.html">API 1 to 2 migration</a></li>
+                    <li><a href="/api/gen-docs/latest/apidocs/">JavaDocs</a></li>
+                    <li><a href="/api/gen-docs/latest2/apidocs/">JavaDocs 2</a></li>
+                    <li><a href="/api/gen-docs/latest/xref/">Cross-Reference</a></li>
+                    <li><a href="/api/gen-docs/latest2/xref/">Cross-Reference 2</a></li>
+                    
+                    <li><a href="/api/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/api/internal-design-guide.html">Internal Guide</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="4.2.1.8-name-forms.html">4.2.1.8 - Name Forms</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="4.2.1-schema-objects.html">4.2.1 - Schema Objects</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="4.2.2-registries.html">4.2.2 - Registries</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+            
+	<h1 id="4219---apacheds-schema-element">4.2.1.9 - ApacheDS Schema Element</h1>
+<p>We have defined 3 more schema elements that are needed to use the <strong>SchemaManager</strong>:</p>
+<ul>
+<li>SyntaxChecker : used to check a value&rsquo;s syntax</li>
+<li>Normalizer : used to normalize a value before a comparison</li>
+<li>LdapComparator : used to compare two values for a given syntax</li>
+</ul>
+<h2 id="syntaxchecker">SyntaxChecker</h2>
+<p>This class exposes this method:</p>
+<ul>
+<li>isValidSyntax(Object): tells if the value is correct</li>
+</ul>
+<h2 id="normalizer">Normalizer</h2>
+<p>This class is used to normalize values into a canonical form. This is a process exposed in [RFC4518|https://tools.ietf.org/html/rfc4518]. Basically, each String is passed trhough a 6-step process:</p>
+<ul>
+<li>Transcode</li>
+<li>Map</li>
+<li>Normalize</li>
+<li>Prohibit</li>
+<li>Check Bidi (Bidirectional)</li>
+<li>Insignificant Character Handling</li>
+</ul>
+<p>This can be done using one of these two methods:</p>
+<ul>
+<li>normalize(String) : normalize a String</li>
+<li>normalize(Value&lt;?&gt;) : normalize a Value, which can be a String or a byte[]</li>
+</ul>
+<p>This class is used internally when comparing two values, but you should not need it.</p>
+<h2 id="ldapcomparator">LdapComparator</h2>
+<p>This class is used to compare two values whenever their syntax are the same. Here is the method that does it:</p>
+<ul>
+<li>equals(Object) : says if a value is equal to another one.</li>
+</ul>
+<p>Note because the <strong>LdapComparator</strong> class implements the <strong>Comparator</strong> interface, one can compare two values using the following method:</p>
+<ul>
+<li>compare( v1, v2 ): compares two values</li>
+</ul>
+
+
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="4.2.1.8-name-forms.html">4.2.1.8 - Name Forms</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="4.2.1-schema-objects.html">4.2.1 - Schema Objects</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="4.2.2-registries.html">4.2.2 - Registries</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

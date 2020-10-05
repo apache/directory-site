@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>7 - Embedding ApacheDS in Java &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/green.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/server-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+            
+                <strong>ApacheDS</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+             
+                LDAP API
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>ApacheDS 2.0</h5>
+                <ul>
+                    <li><a href="/apacheds/">Home</a></li>
+                    <li><a href="/apacheds/news.html">News</a></li>
+                    <li><a href="/apacheds/features.html">Features</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/apacheds/downloads.html">ApacheDS 2.0.0.AM26</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/apacheds/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/apacheds/basic-user-guide.html">Basic User Guide </a></li>
+                    <li><a href="/apacheds/advanced-user-guide.html">Advanced User Guide</a></li>
+                    <li><a href="/apacheds/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/apacheds/kerberos-user-guide.html">Kerberos User Guide</a></li>
+                    <li><a href="/apacheds/configuration/ads-2.0-configuration.html">Configuration</a></li>
+                    <li><a href="/apacheds/gen-docs/latest/apidocs">JavaDocs</a></li>
+                    <li><a href="/apacheds/gen-docs/latest/xref">Cross-Reference</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="6-implementing-interceptor.html">6 - Implementing a simple custom Interceptor for ApacheDS</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="../advanced-user-guide.html">Advanced User Guide</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="8-operational-attributes.html">8 - Operational Attributes</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+            
+	<h1 id="7---embedding-apacheds-in-java">7 - Embedding ApacheDS in Java</h1>
+<h2 id="using-apacheds-for-unit-tests">Using ApacheDS for unit tests</h2>
+<p>The idea is to use ADS as an embedded server for Ldap junit tests.
+We will build an environment in which it will be convenient to test
+Ldap applications.</p>
+<p>We also want to avoid launching the server for every test, as it&rsquo;s
+an expensive operation. We have built ApacheDS so that you can start
+a server, inject some data, launch a test, then revert the data and
+go on to another test. At the end of the tests, the server is stopped.</p>
+<h3 id="prerequicites">Prerequicites</h3>
+<p>We will assume you have <strong>Maven</strong> project and using <strong>JUNIT</strong> for testing</p>
+<h3 id="first-steps">First steps</h3>
+<h4 id="maven">Maven</h4>
+<p>You need to add following dependency to your <code>pom.xml</code>:</p>
+<pre><code>&lt;dependency&gt;
+    &lt;groupId&gt;org.apache.directory.server&lt;/groupId&gt;
+    &lt;artifactId&gt;apacheds-test-framework&lt;/artifactId&gt;
+    &lt;version&gt;2.0.0.AM25&lt;/version&gt;
+    &lt;scope&gt;test&lt;/scope&gt;
+&lt;/dependency&gt;
+</code></pre>
+<p>Please NOTE: you need to exclude <code>org.apache.directory.api:api-ldap-schema-data</code>
+artifact from above dependency in case your project uses <code>org.apache.directory.api:api-all</code></p>
+<h4 id="java">Java</h4>
+<p>Maven set-up was easy enough, let&rsquo;s create our first unit test:</p>
+<h5 id="resources">Resources</h5>
+<p>Lets describe your LDAP structure in external LDIF file</p>
+<p>Create file <code>src/test/resources/users.ldif</code> with following text:</p>
+<pre><code>version: 1
+dn: dc=myorg,dc=com
+objectClass: domain
+objectClass: top
+dc: myorg
+
+dn: ou=Users,dc=myorg,dc=com
+objectClass: organizationalUnit
+objectClass: top
+ou: Users
+
+dn: ou=Groups,dc=myorg,dc=com
+objectClass: organizationalUnit
+objectClass: top
+ou: Groups
+
+dn: cn=Test1 Ldap,ou=Users,dc=myorg,dc=com
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: person
+objectClass: top
+cn: Test1 Ldap
+sn: Ldap
+uid: ldaptest1
+userPassword: 12345
+</code></pre>
+<h5 id="basic-test">Basic test</h5>
+<pre><code>import org.apache.directory.server.core.integ.AbstractLdapTestUnit;
+import org.apache.directory.server.core.integ.FrameworkRunner;
+import org.apache.directory.server.core.annotations.CreateDS;
+import org.apache.directory.server.core.annotations.CreatePartition;
+import org.apache.directory.server.annotations.CreateLdapServer;
+import org.apache.directory.server.annotations.CreateTransport;
+import org.apache.directory.server.core.annotations.ApplyLdifFiles;
+import org.junit.runner.RunWith;
+import org.junit.Test;
+
+@RunWith(FrameworkRunner.class)
+@CreateDS(name = &quot;myDS&quot;,
+    partitions = {
+        @CreatePartition(name = &quot;test&quot;, suffix = &quot;dc=myorg,dc=com&quot;)
+    })
+@CreateLdapServer(transports = { @CreateTransport(protocol = &quot;LDAP&quot;, address = &quot;localhost&quot;)})
+@ApplyLdifFiles({&quot;users.ldif&quot;})
+public class TestLdap extends AbstractLdapTestUnit {
+    @Test
+    public void test() {
+        //do whatever you need with `ldapServer`
+    }
+}
+</code></pre>
+<p>As a result you can access running ApacheDS server at <code>ldap://localhost:&lt;random port&gt;</code>
+inside your test, or access server internals via <code>static ldapServer</code>.</p>
+<h5 id="advanced-usage">Advanced usage</h5>
+<p>Often you need to add LDAP unit tests to already created tests, in this case you might
+not be allowed to <code>extend AbstractLdapTestUnit</code> and/or to <code>@RunWith(FrameworkRunner.class)</code>
+In this case you can use <code>@ClassRule</code>.
+Here is the example:</p>
+<pre><code>import org.apache.directory.server.core.annotations.CreateDS;
+import org.apache.directory.server.core.annotations.CreatePartition;
+import org.apache.directory.server.annotations.CreateLdapServer;
+import org.apache.directory.server.annotations.CreateTransport;
+import org.apache.directory.server.core.annotations.ApplyLdifFiles;
+import org.apache.directory.server.core.integ.CreateLdapServerRule;
+import org.junit.ClassRule;
+import org.junit.Test;
+
+@CreateDS(name = &quot;myDS&quot;,
+    partitions = {
+        @CreatePartition(name = &quot;test&quot;, suffix = &quot;dc=myorg,dc=com&quot;)
+    })
+@CreateLdapServer(transports = { @CreateTransport(protocol = &quot;LDAP&quot;, address = &quot;localhost&quot;)})
+@ApplyLdifFiles({&quot;users.ldif&quot;})
+public class TestLdap {
+    @ClassRule
+    public static CreateLdapServerRule serverRule = new CreateLdapServerRule();
+
+    @Test
+    public void test() {
+        //do whatever you need with `serverRule.getLdapServer()`
+    }
+}
+</code></pre>
+<p>As you can see the code if very much the same, the only difference: you are working with
+<code>serverRule.getLdapServer()</code> and not with <code>ldapServer</code></p>
+
+
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="6-implementing-interceptor.html">6 - Implementing a simple custom Interceptor for ApacheDS</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="../advanced-user-guide.html">Advanced User Guide</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="8-operational-attributes.html">8 - Operational Attributes</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

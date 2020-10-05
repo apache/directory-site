@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>2 - B-tree Flavors &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/turquoise.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/mavibot-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+             
+                ApacheDS
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+             
+                LDAP API
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+            
+                <strong>Mavibot</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>Mavibot 1.0</h5>
+                <ul>
+                    <li><a href="/mavibot/">Home</a></li>
+                    <li><a href="/mavibot/news.html">News</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/mavibot/downloads.html">Version 1.0.0-M8</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/mavibot/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Getting Started</h5>
+                <ul>
+                    <li><a href="/mavibot/vision.html">Vision</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/mavibot/five-minutes-tutorial.html">Five minutes tutorial</a></li>
+                    <li><a href="/mavibot/user-guide.html">User Guide</a></li>
+                    <li><a href="/mavibot/gen-docs/latest/apidocs/">JavaDocs</a></li>
+                    <li><a href="/mavibot/gen-docs/latest/xref/">Cross-Reference</a></li>
+                    
+                    <li><a href="/mavibot/developer-guide.html">Developer Guide</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="1.1-btree-basics.html">1.1 - B-tree Basics</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="../user-guide.html">User Guide</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="2.1-mvcc-btree.html">2.1 - MVCC B-tree</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+            
+	<h1 id="2---b-tree-flavors">2 - B-tree flavors</h1>
+<p>You have many different flavors of <strong>B-trees</strong> :</p>
+<ul>
+<li>B+tree</li>
+<li>B*-tree</li>
+<li>Counted B-tree</li>
+<li>MVCC B-tree</li>
+</ul>
+<h2 id="btree">B+tree</h2>
+<p>This is a <strong>B-tree</strong> which does not store values in the <strong>Nodes</strong>, and a link between <strong>Leaves</strong> is added, to speed up the browsing : no need to go up to the parent&rsquo;s node to get the next value when reaching the end of a leaf. Also the <strong>nodes</strong> don&rsquo;t contain values.</p>
+<h2 id="btree-1">B*tree</h2>
+<p>A slightly different form of <strong>B+tree</strong>, where the number of elements per page is enforced to be at leat 2/3rd of the maximum numbers of elements the page can hold. It speeds up the retrieval of elements a bit, as we have a denser tree.</p>
+<h2 id="counted-b-tree">Counted B-tree</h2>
+<p>Another slightly different implementation of a <strong>B+tree</strong>, where the number of elements stored in the descendants is stored within each key. This allows an easy count of elements on the left and right to any element, at the price of additional piece of information being added on each page.</p>
+<h2 id="mvcc-b-tree">MVCC B-tree</h2>
+<p>This is a new &lsquo;style&rsquo; of <strong>B+tree</strong>, where the structure is exactly the same than a simple <strong>B+tree</strong>, except that we keep old versions alive, until nobody use them. The idea is that a new revision of the <strong>B+tree</strong> is added only when an update is fully done. This has the extremely intersting characteristic that there is no need of locks for read and writes, assuming that writes are not concurrent (they are serialized).</p>
+<p>In other words, you may have many reads at the same time, still being able to update the data.</p>
+<p>It comes with a price though : a lot of pages are copied during every update, as we create a new copy of every modified page, up to the root page.</p>
+<p>We also have to manage old pages that can be removed as they belong to unused versions, which requires some extra work.</p>
+<p><strong>Mavibot</strong> is a Java based implementation of a <strong>MVCC B+tree</strong>.</p>
+
+
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="1.1-btree-basics.html">1.1 - B-tree Basics</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="../user-guide.html">User Guide</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="2.1-mvcc-btree.html">2.1 - MVCC B-tree</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

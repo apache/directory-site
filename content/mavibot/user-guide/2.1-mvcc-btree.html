@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>2 - MVCC B-tree &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/turquoise.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/mavibot-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+             
+                ApacheDS
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+             
+                LDAP API
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+            
+                <strong>Mavibot</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>Mavibot 1.0</h5>
+                <ul>
+                    <li><a href="/mavibot/">Home</a></li>
+                    <li><a href="/mavibot/news.html">News</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/mavibot/downloads.html">Version 1.0.0-M8</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/mavibot/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Getting Started</h5>
+                <ul>
+                    <li><a href="/mavibot/vision.html">Vision</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/mavibot/five-minutes-tutorial.html">Five minutes tutorial</a></li>
+                    <li><a href="/mavibot/user-guide.html">User Guide</a></li>
+                    <li><a href="/mavibot/gen-docs/latest/apidocs/">JavaDocs</a></li>
+                    <li><a href="/mavibot/gen-docs/latest/xref/">Cross-Reference</a></li>
+                    
+                    <li><a href="/mavibot/developer-guide.html">Developer Guide</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="2-btree-types.html">2 - B-tree flavors</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="2-btree-types.html">2 - B-tree flavors</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="3-btree-management.html">3 - Mavibot B-tree management</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+            
+	<h1 id="21---mvcc-b-tree">2.1 - MVCC B-tree</h1>
+<p><strong>MVCC</strong> stands for <strong>M</strong>ulti <strong>V</strong>ersion <strong>C</strong>oncurrency <strong>C</strong>control. It all boils down to allow readers to <strong>ALWAYS</strong> have a consistent version of the data they reached at the time they started to work with them. In other words, when a reader access the database, it will work on a specific version of it, that will never change.</p>
+<p>The drawback is that the data may be accurate at the time the reader started to work with them, but this reader will never see the updated data if a writer has modified them.</p>
+<p>Most of the time, this is a price the users are ready to pay, for at least two reasons :</p>
+<ul>
+<li>udpates are way less frequent that reads, and the users &lsquo;accept&rsquo; the fact that what they get is not necessarily up to date</li>
+<li>there are some mechanisms that workaround this problem, checking afterward that the data represent the latest state of the database, otherwise the operation is retried.</li>
+</ul>
+<p>You can read more about <strong>MVCC</strong> <strong>B-tree</strong> on <a href="https://en.wikipedia.org/wiki/Multiversion_concurrency_control">Wikipedia, MVCC</a></p>
+<h2 id="how-does-it-work-">How does it work ?</h2>
+<p>A <strong>MVCC</strong> <strong>B-Tree</strong> is just a plain standard <strong>B+Tree</strong>, except that we keep a track of more than one version of the <strong>B+Tree</strong>. Actually, we have multiple roots, one per version. This can bee seen in this picture :</p>
+<p><img src="images/R4-node.png" alt="MVCC sample"></p>
+<p>Here, we have 4 different versions, from r1 to r4. Each one of them might be used at the same time by one or many readers. In any case, the writer update only the latest one, creating a new revision doing so. In this exemple, the writer has just created r4 updating r3, adding the element &lsquo;I&rsquo;. As we can see, some pages are shared across the revisions : the leaf contaning the element &lsquo;A&rsquo; (version r3) is also referenced by the revision r4. This is a key : that means a page (<strong>Node</strong> or <strong>Leaf</strong> may be used by many revisions).</p>
+<p>We don&rsquo;t delete old revision until they are not anymore in use. And even so, we don&rsquo;t delete all the associated pages blindly : they may be referenced by newer versions that are still active.</p>
+<h3 id="browsing-the-database">Browsing the Database</h3>
+<p>So we want to fetch some information from a B-Tree. That&rsquo;s just a matter of creating a <em>ReadTransaction</em>, which will grab the latest existing revision for thi <strong>B-Tree</strong> and allow you to browse data from this <strong>B-Tree</strong>. One you are done with the <strong>B-Tree</strong>, you just have to close the <em>ReadTransaction</em> (this is critical, because keeping it opened will pin the revision, forbidding the removal of old pages. Although if you forget to do it, the revision will be released after a period of time). This is a description of the typical code :</p>
+<pre><code>open a ReadTransaction
+get the B-Tree you want to read
+read the B-tree
+...
+close the ReadTransaction
+</code></pre>
+<p>It&rsquo;s important to note that the transaction covers all the access on all the managed <strong>B-Tree</strong>. There is no need to open a new <em>ReadTransaction</em> if you want to fetch some other information from another <strong>B-Tree</strong>. That also mean you can be sure that you have a consistent view of all the database for a given revision.</p>
+<p>You may have many threads reading data from many <strong>B-Trees</strong>, and we will have as many <em>ReadTransaction</em> created for that purpose. As we may keep a <em>readTransaction</em> opened for quite a long period of time, it&rsquo;s likely that at some point, the various Threads will use different versions of the <strong>B-Trees</strong>.</p>
+<h3 id="updating-the-database">Updating the Database</h3>
+<p>This is a bit more complex. Here, you need a <em>WriteTransaction</em>, and there can be only one running across all the application. That means the access to the Database is serialized, when it comes to update it. The direct consequence is that writes are <strong>slow</strong>.</p>
+<p>Again, the typical call is like :</p>
+<pre><code>open a WriteTransaction
+get the B-Tree you want to update
+update the B-tree
+...
+close the WriteTransaction
+</code></pre>
+<p>and again, many <strong>B-Trees</strong> might be updated during this <em>writeTransaction</em>. For a system like a <strong>LDAP</strong> server, this is critical, because updating an entry is impacting many <strong>B-trees</strong>, and we want all of them to be consistent globally : eitehr all the <strong>B-trees</strong> are updated, or none of them.</p>
+<p>It&rsquo;s even more critical to close the <em>writeTransaction</em> because all the other writers are waiting for this transaction to be completed to be able to proceed.</p>
+<p>Let&rsquo;s now describe how an update works, because it&rsquo;s quite convoluted.</p>
+<h4 id="updates-from-the-tranchees">Updates, from the tranchees&hellip;</h4>
+<p>Updating a <strong>B-Tree</strong> is not a simple operation. Actually, we want to guarantee that the operation succeed or fail, but in any case, leave the database in a consistant state. We also want to guarantee that even if a crash occurs in the middle of a write will leave the database in a consistant state. Let&rsquo;s see how it&rsquo;s possible.</p>
+<p>A <strong>B-Tree</strong> is composed of 3 elements :</p>
+<pre><code>* The *BTreeHeader*, which contains the reference on the two other elements
+* The *BTreeInfo*, which contains informations relative to this **B-Tree** (this element is never updated)
+* The *RootPage*, which is the root of the **B-Tree**
+</code></pre>
+<p>Each of these elemenst are stored into <em>Pages</em>, and referenced through the offset of those <em>Pages</em> on disk (the offset is a long, and it&rsquo;s just the position of a page in the database file).</p>
+<p>The very first step is to retrieve the latest <strong>B-Tree</strong> revision. We have a management <strong>B-Tree</strong> that keeps a track of all the active revisions for every <strong>B-Tree</strong> : the <strong>BtreeOfBtrees</strong>, called <strong>BOB</strong>. It stores a reference on each <strong>B-tree</strong>&lsquo;s header for every active revision. The key is a composition of the <strong>B-Tree</strong> name and its revision : *&lt;name, revision&gt; and it reference the <em>BTreeHeader</em>&lsquo;s offset (the position of the <em>BtreeHeader</em>&lsquo;s page). Fo that, we browse the <em>BOB</em> looking for the newest &lt;Name, Revision&gt; couple (actually, we are looking for the first tuple that is lower that &lt;name, infinite&gt;).</p>
+<p>Once we have found the tuple, we know where to fetch the <em>BtreeHeader</em> from. So do we. We can then fetch the <em>RootPage</em>, which is the starting point for any update.</p>
+<p>At this point, the update is either an addition or a removal. That will potentially change the whole structure of the <strong>B-Tree</strong>, or a single page. In any case, we will have a new <em>RootPage</em> pointing to old pages and to newly created pages. Let&rsquo;s see again the previous picture :</p>
+<p><img src="images/R4-node.png" alt="MVCC sample"></p>
+<p>Let&rsquo;s say we are at revision 3, and we want to add an entry &lsquo;I&rsquo; : as we can see, the <em>rootPage</em> is updated, the right <strong>Leaf</strong> is split in two, and the left <strong>Leaf</strong> is unchanged. All in all, we have created 3 new pages, and 2 old pages are now unused and can be reclaimed later. The internal modification of pages is not in the scope of this explaination, so we will leave it for the moment.</p>
+<p>Here is an animated image that shows how it&rsquo;s done :</p>
+<p><img src="images/r3tor4.gif" alt="R3 to R4"></p>
+<p>So now, we have a new <em>BtreeHeader</em>, revision 4. We have to keep a track of it, which means we have to inject it into the <strong>BOB</strong>. As it&rsquo;s a <strong>B-Tree</strong>, we proceed with it the exact same way, except that we always have a reference on the <strong>BOB</strong> <em>BtreeHeader</em> in the transaction context.</p>
+<DIV class="note" markdown="1">
+We will see later on what is the Transaction Context
+</DIV>
+<p>We are almost done. We also have to keep a track of the &lsquo;old&rsquo; pages that were copied. In order to be able to reclaim them, we have to store them somewhere convenient. An &lsquo;old&rsquo; page is not necessarily &lsquo;old&rsquo; for everyone : another thread might have a reader on revision 3, thus might need those &lsquo;old&rsquo; pages. Actually, reclaiming &lsquo;old&rsquo; pages is a bit complex and will be explained later on. Enough said that we want to keep a track of every of those pages in a <strong>B-Tree</strong>, to be able to reclaimn them later.</p>
+<p>We use a specific <strong>B-Tree</strong> for taht : the <strong>CopiedPageBtree</strong>, or <strong>CPB</strong>. The key is different than for the <strong>BOB</strong>, it&rsquo;s a composition of the revision we are creating, and the name of the <strong>B-Tree</strong> being updated : &lt;revision, name&gt;. The value is the offset of the copied page. This way, when the revision is not anymore in use by any reader, we can reclaim the associated pages.</p>
+<p>The <strong>CPB</strong> is a <strong>B-Tree</strong>, so the update process is the one we already have described. There is one big difference though : once the <strong>CPB</strong> has been updated, we can immediately reclaim the copied pages, we won&rsquo;t use them at all (this is because there is only one writer thread, and this is the only one allowed to manipulate this <strong>B-Tree</strong>).</p>
+<p>We are almost done now. At this point, the targetted <strong>B-Tree</strong> has been updated, and the <strong>BOB</strong> and <strong>CPB</strong> have also been updated. But no reader can see those updated versions yet. We need to update the <strong>RecordManagerHeader</strong>, a structure that contain the reference to the current <strong>BOB</strong>. Once we have updated this structure, and wrote it on disk, we can safely make the new <strong>BOB</strong> available for any new readers.</p>
+<h4 id="reclaiming-unused-pages">Reclaiming unused pages</h4>
+<p>As we have seen in the previous paragraph, we always create new pages, we never remove any. This is obviously going to eat a lot of disk space if we don&rsquo;t reclaim unused pages !</p>
+<p>Hopefully, there is a <em>reclaimer</em> thread that is executed when no writerer is running, which role is to check if some old pages can be removed. There are strict conditions for a page to be candidate for removal :</p>
+<pre><code>* It must be presnet in the **CPB**
+* The revision that has copied those pages must not be in use by any reader
+* The revision must be the oldest one
+</code></pre>
+<p>The latest condition is the critical one : it means that if a revision is used for a long period of time, we will not be able to reclaim any pages from this revision nor from any younger revision, even if they are not in use. That may bloat the Database&hellip;</p>
+<p>There are ways to deal with this problem. Typically, if a page is copied twice, then we can reclaim it if it&rsquo;s not referenced. The algorithm is a bit complex though&hellip;</p>
+<p>The easiest solution is simply to forbid long read transactions.</p>
+<h3 id="dealing-with-alive-revisions">Dealing with alive revisions</h3>
+<p>Every time we have a reader starting a <em>readTransaction</em>, we have to keep a track of the current revision, and the number of readers using it. This is done using a specific List of Used Revisions. Every new reader will add a new revision to this list, or increment a counter associated with the existing revision. Everytime a reader close the <em>readTransaction</em>, the counter is decremented. When this counter go down to 0, the revision can be discarded, unless it&rsquo;s the latest one.</p>
+<p>Discarding an old revision is possible only when it&rsquo;s the oldest. That means the list may contain many inactive revisions, with a counter equal to 0. Those inactive revisions will be removed when they will become the oldest revision.</p>
+
+
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="2-btree-types.html">2 - B-tree flavors</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="2-btree-types.html">2 - B-tree flavors</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="3-btree-management.html">3 - Mavibot B-tree management</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

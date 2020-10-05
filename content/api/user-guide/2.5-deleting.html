@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>2.5 - Deleting entries &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/brown.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/api-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+             
+                ApacheDS
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+            
+                <strong>LDAP API</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>LDAP API </h5>
+                <ul>
+                    <li><a href="/api/">Home</a></li>
+                    <li><a href="/api/news.html">News</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/api/downloads-1.html">Version 1.0.3</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/downloads-2.html">Version 2.0.1</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Getting Started</h5>
+                <ul>
+                    <li><a href="/api/vision.html">Vision</a></li>
+                    <li><a href="/api/java-api.html">Java API</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/api/five-minutes-tutorial.html">Five minute tutorial</a></li>
+                    <li><a href="/api/user-guide.html">User Guide</a></li>
+                    <li><a href="/api/migration-guide.html">API 1 to 2 migration</a></li>
+                    <li><a href="/api/gen-docs/latest/apidocs/">JavaDocs</a></li>
+                    <li><a href="/api/gen-docs/latest2/apidocs/">JavaDocs 2</a></li>
+                    <li><a href="/api/gen-docs/latest/xref/">Cross-Reference</a></li>
+                    <li><a href="/api/gen-docs/latest2/xref/">Cross-Reference 2</a></li>
+                    
+                    <li><a href="/api/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/api/internal-design-guide.html">Internal Guide</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="2.4-adding.html">2.4 - Adding entries</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="2-basic-ldap-api-usage.html">2 - Basic LDAP API usage</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="2.6-modifying.html">2.6 - Modifying entries</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+            
+	<h1 id="25---deleting-entries">2.5 - Deleting entries</h1>
+<p>Deleting an entry is pretty easy, it just requires the entry&rsquo;s <em>DN</em>. There is one important thing to understand though, if the entry has children, the operation will fail.</p>
+<h2 id="simple-entry-deletion">Simple entry deletion</h2>
+<p>We request a deletion by providing the entry&rsquo;s <em>DN</em>, as in the following example:</p>
+<pre><code>:::Java
+@Test
+public void testDeleteLeafNode() throws Exception
+{
+    assertTrue( session.exists( &quot;cn=child1,cn=parent,ou=system&quot; ) );
+
+    try 
+    {
+        connection.delete( &quot;cn=child1,cn=parent,ou=system&quot; );
+    }
+    catch ( LdapException le )
+    {
+        fail( le.getMessage() );
+    }
+
+    assertFalse( session.exists( &quot;cn=child1,cn=parent,ou=system&quot; ) );
+}
+</code></pre>
+<p>Trying to delete a parent node would result in an error (NOT_ALLOWED_ON_NON_LEAF) :</p>
+<pre><code>:::Java
+@Test
+public void testDeleteNonLeafFailure() throws Exception
+{
+    assertTrue( session.exists( &quot;cn=parent,ou=system&quot; ) );
+
+    try 
+    {
+        connection.delete( &quot;cn=parent,ou=system&quot; );
+    }
+    catch ( LdapException le )
+    {
+        fail( le.getMessage() );
+    }
+
+    assertTrue( session.exists( &quot;cn=parent,ou=system&quot; ) );
+}
+</code></pre>
+<h2 id="recursive-deletion-of-entries">Recursive deletion of entries</h2>
+<p>Usually, you can&rsquo;t delete an entry and all of its children in one operation. However, some servers accept such requests if you send a delete request and a TreeDelete control. This control is a <a href="http://tools.ietf.org/html/draft-armijo-ldap-treedelete-02">draft</a>, which has been implemented by <strong>Microsoft</strong>, <strong>OpenDS</strong>, <strong>OpenDJ</strong>. It will delete all the children and the entry itself. We don&rsquo;t use a normal <em>delete()</em> method, there is a specific method, <em>deleteTree()</em>. Here is an example :</p>
+<pre><code>:::Java
+@Test
+public void testDeleteWithCascadeControl() throws Exception
+{
+    assertTrue( session.exists( &quot;cn=parent,ou=system&quot; ) );
+
+
+    try
+    {
+        connection.deleteTree( &quot;cn=parent,ou=system&quot; );
+    }
+    catch ( LdapException le )
+    {
+        fail( le.getMessage() );
+    }
+
+    assertFalse( session.exists( &quot;cn=parent,ou=system&quot; ) );
+}
+</code></pre>
+<h2 id="sending-a-deleterequest-with-a-control">Sending a DeleteRequest with a control</h2>
+<p>It&rsquo;s also possible to associate a <strong>[Control]</strong> with the delete request. In order to do that, you have to create a <em>DelRequest</em> instance. In the following example, we will add the Delete Tree control (this make this call equivalent to the <em>deleteTree()</em> method).</p>
+<pre><code>:::Java
+@Test
+public void testDeleteWithControl() throws Exception
+{
+    assertTrue( session.exists( &quot;cn=parent,ou=system&quot; ) );
+
+    if ( connection.isControlSupported( &quot;1.2.840.113556.1.4.805&quot; ) )
+    {
+        DeleteRequest deleteRequest = new DeleteRequestImpl();
+        deleteRequest.setName( new Dn( &quot;cn=parent,ou=system&quot; ) );
+        Control deleteTreeControl = new OpaqueControl( &quot;1.2.840.113556.1.4.805&quot; );
+        deleteRequest.addControl( deleteTreeControl );
+
+        DeleteResponse deleteResponse = connection.delete( deleteRequest );
+
+        assertNotNull( deleteResponse );
+        assertEquals( ResultCodeEnum.SUCCESS, deleteResponse.getLdapResult().getResultCode() );
+        assertFalse( session.exists( &quot;cn=parent,ou=system&quot; ) );
+    }
+}
+</code></pre>
+<h2 id="asynchronous-delete">Asynchronous delete</h2>
+<p>You can also decide to send an asynchronous delete request : the method will return a Future that you can check later. You have to construct a <strong>[DeleteRequest]</strong> instance. Here is an example :</p>
+<pre><code>:::Java
+@Test
+public void testDeleteAsync() throws Exception
+{
+    assertTrue( session.exists( &quot;cn=child,cn=parent,ou=system&quot; ) );
+
+    DeleteRequest deleteRequest = new DeleteRequestImpl();
+    deleteRequest.setName( new Dn( &quot;cn=child,cn=parent,ou=system&quot; ) );
+
+    DeleteFuture deleteFuture = connection.deleteAsync( deleteRequest );
+
+    DeleteResponse deleteResponse = deleteFuture.get( 1000, TimeUnit.MILLISECONDS );
+
+    assertNotNull( deleteResponse );
+    assertEquals( ResultCodeEnum.SUCCESS, deleteResponse.getLdapResult().getResultCode() );
+    assertFalse( session.exists( &quot;cn=child,cn=parent,ou=system&quot; ) );
+}
+</code></pre>
+
+
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="2.4-adding.html">2.4 - Adding entries</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="2-basic-ldap-api-usage.html">2 - Basic LDAP API usage</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="2.6-modifying.html">2.6 - Modifying entries</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

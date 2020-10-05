@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>FAQs &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/blue.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/studio-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+             
+                ApacheDS
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+            
+                <strong>Studio</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+             
+                LDAP API
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>Apache Directory Studio</h5>
+                <ul>
+                    <li><a href="/studio/">Home</a></li>
+                    <li><a href="/studio/news.html">News</a></li>
+                    <li><a href="/studio/screenshots.html">Screenshots</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/studio/downloads.html">Version 2.0.0-M14</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/studio/download-old-versions.html">Older Versions</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/studio/users-guide.html">User's Guide</a></li>
+                    <li><a href="/studio/developers-guide.html">Developer's Guide</a></li>
+                    <li><a href="/studio/faqs.html">FAQs</a></li>
+                </ul>
+
+                <h5>Resources</h5>
+                <ul>
+                    <li><a href="/studio/changelog.html">ChangeLog</a></li>
+                    <li><a href="/studio/testimonials.html">Testimonials</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+
+            
+	<h1 id="faqs">FAQs</h1>
+<nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#how-to-set-the-language-of-studio">How to set the language of Studio?</a></li>
+        <li><a href="#when-browsing-and-expanding-an-entry-studio-only-shows-1000-child-entries">When browsing and expanding an entry, Studio only shows 1000 child entries.</a></li>
+        <li><a href="#how-to-set-the-java-vm-to-use">How to set the Java VM to use?</a></li>
+        <li><a href="#how-to-increase-the-heap-memory">How to increase the heap memory?</a></li>
+        <li><a href="#location-of-apachedirectorystudioini-file">Location of ApacheDirectoryStudio.ini file</a></li>
+        <li><a href="#location-of-apache-directory-studio-settings">Location of Apache Directory Studio settings</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+<h3 id="how-to-set-the-language-of-studio">How to set the language of Studio?</h3>
+<p>Studio currentlly is translated in three languages: English (en), French (fr) and German (de). When starting Studio, the language setting of your operation system is used to determine the language of Studio (On linux, the LC_CTYPE environment variable is used to determinate the default language).</p>
+<p>However it is possible to force another language. Add the following content to the <em>ApacheDirectoryStudio.ini</em> file (before the &ldquo;-vmargs&rdquo; line):</p>
+<pre><code>-nl
+en
+</code></pre>
+<p>Please notice the line break between -nl and the language.</p>
+<h3 id="when-browsing-and-expanding-an-entry-studio-only-shows-1000-child-entries">When browsing and expanding an entry, Studio only shows 1000 child entries.</h3>
+<p>Studio uses a client-side count limit when browsing the DIT. This limit is defined in the connection properties. See
+<a href="./users-guide/ldap_browser/tools_connection_properties.html#tools_connection_properties_browser_options">Connection Properties</a> how to change it.</p>
+<h3 id="how-to-set-the-java-vm-to-use">How to set the Java VM to use?</h3>
+<p>Add the following content to <em>ApacheDirectoryStudio.ini</em> file (before the &ldquo;-vmargs&rdquo; line):</p>
+<pre><code>-vm
+&lt;path to java executable&gt;
+</code></pre>
+<p>Please notice the line break between -vm and the path.</p>
+<p>Studio requires Java 8 or newer.</p>
+<p>MacOS notes:</p>
+<ul>
+<li>You need to install the JDK (Java Development Kit), the JRE is not enough!</li>
+<li>You can find out the Java home directories with <code>/usr/libexec/java_home -V</code>, append <code>/bin/java</code> to the path</li>
+</ul>
+<h3 id="how-to-increase-the-heap-memory">How to increase the heap memory?</h3>
+<p>Add the following content to <em>ApacheDirectoryStudio.ini</em> file:</p>
+<pre><code>-vmargs
+-Xms128m
+-Xmx512m
+</code></pre>
+<p>Please notice the line breaks.</p>
+<h3 id="location-of-apachedirectorystudioini-file">Location of <code>ApacheDirectoryStudio.ini</code> file</h3>
+<ul>
+<li>On Linux: in the installation folder</li>
+<li>On macOS: <code>/Applications/ApacheDirectoryStudio.app/Contents/Eclipse/ApacheDirectoryStudio.ini</code></li>
+<li>On Windows: in the installation folder</li>
+</ul>
+<h3 id="location-of-apache-directory-studio-settings">Location of Apache Directory Studio settings</h3>
+<p>The settings are located per default in your home directory under the directory <em>.ApacheDirectoryStudio</em>.</p>
+<p>The file containing all connections is:</p>
+<pre><code>~/.ApacheDirectoryStudio/.metadata/.plugins/org.apache.directory.studio.connection.core/connections.xml
+</code></pre>
+<p>The file containing all searches and bookmarks is:</p>
+<pre><code>~/.ApacheDirectoryStudio/.metadata/.plugins/org.apache.directory.studio.ldapbrowser.core/browserconnections.xml
+</code></pre>
+<p>The file containing the history of the connection wizard (recently used hosts and bind users) is:</p>
+<pre><code>~/.ApacheDirectoryStudio/.metadata/.plugins/org.apache.directory.studio.connection.ui/dialog_settings.xml
+</code></pre>
+<p>The file containing the history of search settings (recently used DNs, filters, returning attributes) is:</p>
+<pre><code>~/.ApacheDirectoryStudio/.metadata/.plugins/org.apache.directory.studio.ldapbrowser.common/dialog_settings.xml
+</code></pre>
+<p>There are some more <em>dialog_settings.xml</em> files in the other plugins directories.</p>
+<p>Note: the location of the settings directory could be configured by changing the parameter &ldquo;osgi.instance.area.default&rdquo; in configuration/config.ini.</p>
+
+
+            
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

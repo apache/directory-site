@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>Features &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/green.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/server-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+            
+                <strong>ApacheDS</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+             
+                LDAP API
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>ApacheDS 2.0</h5>
+                <ul>
+                    <li><a href="/apacheds/">Home</a></li>
+                    <li><a href="/apacheds/news.html">News</a></li>
+                    <li><a href="/apacheds/features.html">Features</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/apacheds/downloads.html">ApacheDS 2.0.0.AM26</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/apacheds/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/apacheds/basic-user-guide.html">Basic User Guide </a></li>
+                    <li><a href="/apacheds/advanced-user-guide.html">Advanced User Guide</a></li>
+                    <li><a href="/apacheds/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/apacheds/kerberos-user-guide.html">Kerberos User Guide</a></li>
+                    <li><a href="/apacheds/configuration/ads-2.0-configuration.html">Configuration</a></li>
+                    <li><a href="/apacheds/gen-docs/latest/apidocs">JavaDocs</a></li>
+                    <li><a href="/apacheds/gen-docs/latest/xref">Cross-Reference</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+
+            
+	<h1 id="apacheds-features">ApacheDS Features</h1>
+<p>The Apache Directory Server is an embeddable LDAP server implemented in pure Java. It has several features that make it unique among LDAP servers. Some of these featurea are as follows:</p>
+<ul>
+<li>Designed as an LDAP and X.500 platform; plugable components and subsystems make ApacheDS extremely modular and ideal for experiments with various aspects of the LDAP protocol.</li>
+<li>The server&rsquo;s frontend is completely separable from its backend and vice-versa making it very flexible for implementing virtual directories, proxy servers and gateways to X.500 directories.</li>
+<li>Several backends can be implemented and plugged into the server&rsquo;s partition nexus. The server supports a BTree based partition out of the box but any backing store can be used to implement a partition as long as it conforms to interfaces.</li>
+<li>The server exposes aspects of administration via a special system backend. LDAP can be used to manage these concerns through the system naming context at ou=system.</li>
+<li>The server contains a server side JNDI LDAP provider as the facade for the entire backend subsystem. JNDI operations are directly translated by this provider into operations against the nexus and the target partitions storing server entries.</li>
+<li>The server&rsquo;s networking code, MINA (Multipurpose Infrastructure for Network Applications) was designed for pluggable protocol providers, of all sorts and not just LDAP. MINA gives ApacheDS the ability to handle large amounts of concurrency.</li>
+<li>LDAP Stored Procedures and Triggers are scheduled for the next major version of ApacheDS.</li>
+<li>LDAPv3 compatible certified by the OpenGroup</li>
+</ul>
+<h1 id="oid-assignements-scheme">OID assignements Scheme</h1>
+<p><em>OID</em> strings are unique numeric identifiers based off of a hierarchical numeric namespace controlled by a central authority on the Internet: <strong>IANA</strong> (Internet Assigned Numbers Authority).</p>
+<p><strong>IANA</strong> allows companies and organizations to register for a specific OID base called an enterprise number. There can only be one <strong>IANA</strong> Enterprise Number per organization.</p>
+<h2 id="the-asfs-enterprise-number">The ASF&rsquo;s Enterprise Number</h2>
+<p><strong>Apache</strong> has such an enterprise number. You can look at the <strong>IANA</strong> assigned numbers here. Here&rsquo;s the record in this database for the <em>Apache Software Foundation</em>:</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Apache Software Foundation
+
+18060
+  The Apache Software Foundation
+    Alex Karasulu
+      akarasulu@apache.org
+</code></pre></div><p>This means <strong>the ASF</strong> can use the following unique OID base <em>1.3.6.1.4.1.18060</em> for any of it&rsquo;s needs. However we internal here at <strong>the ASF</strong> need some kind of scheme for assigning these numbers internally so we do not have collisions.</p>
+<h2 id="current-assignments">Current Assignments</h2>
+<p>Here&rsquo;s what we&rsquo;ve assigned to date:</p>
+<table>
+<thead>
+<tr>
+<th align="center">Branch Assignement</th>
+<th align="center">Assign To</th>
+<th align="center">Contact Person</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">1.3.6.1.4.1.18060</td>
+<td align="center">ASF</td>
+<td align="center">Alex Karasulu</td>
+</tr>
+<tr>
+<td align="center">1.3.6.1.4.1.18060.0</td>
+<td align="center">Directory</td>
+<td align="center">Alex Karasulu</td>
+</tr>
+<tr>
+<td align="center">1.3.6.1.4.1.18060.1</td>
+<td align="center">Geronimo</td>
+<td align="center">Alan Cabrera</td>
+</tr>
+<tr>
+<td align="center">1.3.6.1.4.1.18060.2</td>
+<td align="center">Apache Infrastructure</td>
+<td align="center">Ben Laurie</td>
+</tr>
+<tr>
+<td align="center">1.3.6.1.4.1.18060.3</td>
+<td align="center">Maven</td>
+<td align="center">Jason Van Zyl</td>
+</tr>
+<tr>
+<td align="center">1.3.6.1.4.1.18060.4</td>
+<td align="center">Tuscany</td>
+<td align="center">Luciano Resende</td>
+</tr>
+<tr>
+<td align="center">1.3.6.1.4.1.18060.5</td>
+<td align="center">Triplesec</td>
+<td align="center">Alex Karasulu</td>
+</tr>
+<tr>
+<td align="center">1.3.6.1.4.1.18060.10</td>
+<td align="center">Hadoop</td>
+<td align="center">Owen O&rsquo;Malley</td>
+</tr>
+<tr>
+<td align="center">1.3.6.1.4.1.18060.11</td>
+<td align="center">Tomcat</td>
+<td align="center">Bernhard Unger</td>
+</tr>
+<tr>
+<td align="center">1.3.6.1.4.1.18060.12</td>
+<td align="center">HTTPd</td>
+<td align="center">Joe Orton</td>
+</tr>
+<tr>
+<td align="center">1.3.6.1.4.1.18060.14</td>
+<td align="center">Synapse</td>
+<td align="center">Hiranya Jayathilaka</td>
+</tr>
+<tr>
+<td align="center">1.3.6.1.4.1.18060.15</td>
+<td align="center">CloudStack</td>
+<td align="center">David Nalley</td>
+</tr>
+<tr>
+<td align="center">1.3.6.1.4.1.18060.16</td>
+<td align="center">Apache Ambari</td>
+<td align="center">Paul Codding</td>
+</tr>
+<tr>
+<td align="center">1.3.6.1.4.1.18060.17</td>
+<td align="center">Apache Fortress</td>
+<td align="center">Shawn McKinney</td>
+</tr>
+<tr>
+<td align="center">1.3.6.1.4.1.18060.18</td>
+<td align="center">Apache Guacamole</td>
+<td align="center">Mike Jumper</td>
+</tr>
+</tbody>
+</table>
+<p>Each contact person is the authority for assigning unique <strong>OID</strong> values and ranges to projects or persons. Contact that person for more assignments.</p>
+<h2 id="making-assignments">Making Assignments</h2>
+<p>Contacts may wonder what scheme is best for making assignments. There is no rule for doing this. However some would recommend assigning the first digit past the enterprise number of an organization to be for identifying a protocol. Obviously we did not do this for <strong>Apache</strong>. The reason for this is because we feel it&rsquo;s better to model the assignments based on the structure of the organization since these are private ranges and need not conform to a global convention.</p>
+<p>However this still does not tell us how contacts should make assignments. I think this is up to you. Perhaps a good example will be how the <strong>Directory</strong> TLP does things which is somewhat specific to their products and the nature of their products.</p>
+<h3 id="assignment-scheme-for-apache-directory">Assignment Scheme For Apache Directory</h3>
+<p>The ninth component in the <strong>OID</strong> could be reserved for subprojects like <strong>ApacheDS</strong> and <strong>Triplesec</strong>. This might be more attractive in TLPs with many subprojects because a single authority or contact can be used for a specific subproject. So here could be one assignment scheme:</p>
+<table>
+<thead>
+<tr>
+<th align="center">Branch Assignement</th>
+<th align="center">Assign To</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">1.3.6.1.4.1.18060.0.0</td>
+<td align="center">ApacheDS</td>
+</tr>
+</tbody>
+</table>
+<p>Here&rsquo;s how the ApacheDS OID is branched off:</p>
+<p>The ninth component in the <strong>OID</strong> could be reserved for subprojects like <strong>ApacheDS</strong> and <strong>Triplesec</strong>. This might be more attractive in TLPs with many subprojects because a single authority or contact can be used for a specific subproject. So here could be one assignment scheme:</p>
+<table>
+<thead>
+<tr>
+<th align="center">Branch Assignement</th>
+<th align="center">Assign To</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">1.3.6.1.4.1.18060.0.0</td>
+<td align="center">ApacheDS LDAP Controls</td>
+</tr>
+<tr>
+<td align="center">1.3.6.1.4.1.18060.0.1</td>
+<td align="center">ApacheDS LDAP Extended Operations</td>
+</tr>
+<tr>
+<td align="center">1.3.6.1.4.1.18060.0.2</td>
+<td align="center">ApacheDS LDAP Supported Features</td>
+</tr>
+<tr>
+<td align="center">1.3.6.1.4.1.18060.0.3</td>
+<td align="center">ApacheDS LDAP Protocol Mechanisms</td>
+</tr>
+<tr>
+<td align="center">1.3.6.1.4.1.18060.0.4</td>
+<td align="center">ApacheDS LDAP Attribute Values</td>
+</tr>
+<tr>
+<td align="center">1.3.6.1.4.1.18060.0.4.X.0</td>
+<td align="center">ApacheDS LDAP Schema syntaxes</td>
+</tr>
+<tr>
+<td align="center">1.3.6.1.4.1.18060.0.4.X.1</td>
+<td align="center">ApacheDS LDAP Schema matchingRules</td>
+</tr>
+<tr>
+<td align="center">1.3.6.1.4.1.18060.0.4.X.2</td>
+<td align="center">ApacheDS LDAP Schema attributeTypes</td>
+</tr>
+<tr>
+<td align="center">1.3.6.1.4.1.18060.0.4.X.3</td>
+<td align="center">ApacheDS LDAP Schema objectClasses</td>
+</tr>
+<tr>
+<td align="center">1.3.6.1.4.1.18060.0.4.X.4</td>
+<td align="center">ApacheDS LDAP Schema dITStructureRules</td>
+</tr>
+<tr>
+<td align="center">1.3.6.1.4.1.18060.0.4.X.5</td>
+<td align="center">ApacheDS LDAP Schema nameForms</td>
+</tr>
+</tbody>
+</table>
+<p>where <strong>X</strong> is a unique number associated with one of the specific <strong>ApacheDS</strong> schema.</p>
+<p>NOTE: <em>dITContentRules</em> do not have their own OID, rather they reference the <strong>OID</strong> of the structural <em>objectClass</em> they influence. The same sort of situation exists for <em>matchingRuleUse</em> which uses the <strong>OID</strong> of the <em>matchingRule</em> it is associated with.</p>
+<p>And here are the schema <strong>OID</strong>s (where the <strong>X</strong> is substituted by the proper number):</p>
+<table>
+<thead>
+<tr>
+<th align="center">Branch Assignement</th>
+<th align="center">Assign To</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">1.3.6.1.4.1.18060.0.4.0</td>
+<td align="center">ApacheDS LDAP Meta Schema</td>
+</tr>
+<tr>
+<td align="center">1.3.6.1.4.1.18060.0.4.1</td>
+<td align="center">ApacheDS LDAP Apache Schema</td>
+</tr>
+<tr>
+<td align="center">1.3.6.1.4.1.18060.0.4.2</td>
+<td align="center">ApacheDS LDAP Apache DNS Schema</td>
+</tr>
+<tr>
+<td align="center">1.3.6.1.4.1.18060.0.4.3</td>
+<td align="center">Apache Directory Documentation Examples Schema</td>
+</tr>
+<tr>
+<td align="center">1.3.6.1.4.1.18060.0.4.4</td>
+<td align="center">Quartz Schema</td>
+</tr>
+<tr>
+<td align="center">1.3.6.1.4.1.18060.0.4.5</td>
+<td align="center">Bean Schema</td>
+</tr>
+</tbody>
+</table>
+<p>(Some of those schema are long gone, but the assignement is still existing)</p>
+<h3 id="oids-for-apacheds-specific-controls">OID&rsquo;s for ApacheDS specific controls</h3>
+<p>Here are the new <strong>OID</strong>s used:</p>
+<table>
+<thead>
+<tr>
+<th align="center">OID</th>
+<th align="center">Control</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">1.3.6.1.4.1.18060.0.0.1</td>
+<td align="center">Cascade Control</td>
+</tr>
+</tbody>
+</table>
+<h3 id="oids-for-the-extended-operations">OID&rsquo;s for the extended operations</h3>
+<p>Here are the new <strong>OID</strong>s used:</p>
+<table>
+<thead>
+<tr>
+<th align="center">OID</th>
+<th align="center">Extended Operation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">1.3.6.1.4.1.18060.0.1.1</td>
+<td align="center">LaunchDiagnosticUiRequest</td>
+</tr>
+<tr>
+<td align="center">1.3.6.1.4.1.18060.0.1.2</td>
+<td align="center">LaunchDiagnosticUiResponse</td>
+</tr>
+<tr>
+<td align="center">1.3.6.1.4.1.18060.0.1.3</td>
+<td align="center">GracefulShutdownRequest</td>
+</tr>
+<tr>
+<td align="center">1.3.6.1.4.1.18060.0.1.4</td>
+<td align="center">GracefulShutdownResponse</td>
+</tr>
+<tr>
+<td align="center">1.3.6.1.4.1.18060.0.1.5</td>
+<td align="center">GracefulDisconnect</td>
+</tr>
+<tr>
+<td align="center">1.3.6.1.4.1.18060.0.1.6</td>
+<td align="center">StoredProcedureRequest</td>
+</tr>
+<tr>
+<td align="center">1.3.6.1.4.1.18060.0.1.7</td>
+<td align="center">StoredProcedureResponse</td>
+</tr>
+</tbody>
+</table>
+
+
+            
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

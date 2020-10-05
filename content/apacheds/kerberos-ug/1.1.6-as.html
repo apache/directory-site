@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>1.1.6 - AS (Authentication Server) &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/green.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/server-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+            
+                <strong>ApacheDS</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+             
+                LDAP API
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>ApacheDS 2.0</h5>
+                <ul>
+                    <li><a href="/apacheds/">Home</a></li>
+                    <li><a href="/apacheds/news.html">News</a></li>
+                    <li><a href="/apacheds/features.html">Features</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/apacheds/downloads.html">ApacheDS 2.0.0.AM26</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/apacheds/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/apacheds/basic-user-guide.html">Basic User Guide </a></li>
+                    <li><a href="/apacheds/advanced-user-guide.html">Advanced User Guide</a></li>
+                    <li><a href="/apacheds/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/apacheds/kerberos-user-guide.html">Kerberos User Guide</a></li>
+                    <li><a href="/apacheds/configuration/ads-2.0-configuration.html">Configuration</a></li>
+                    <li><a href="/apacheds/gen-docs/latest/apidocs">JavaDocs</a></li>
+                    <li><a href="/apacheds/gen-docs/latest/xref">Cross-Reference</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="1.1.5-database.html">1.1.5 - Database</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="1.1-introduction.html">1.1 - Introduction</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="1.1.7-tgs.html">1.1.7 - TGS (Ticket Granting Server)</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+            
+	<h1 id="116---as-authentication-server">1.1.6 - AS (Authentication Server)</h1>
+<p>One of the two server components of a <strong>Kerberos</strong> server is the Authentication Server, which authenticates clients, and issues tickets (<strong>TGT</strong>, or <em>Ticket Granting Ticket</em>) that the user can send to the <strong>TGS</strong> to get a service ticket.</p>
+<DIV class="info" markdown="1">
+The <B>TGT</B>, or <EM>Ticket Granting Ticket</EM>, is a ticket that a client can use to get a service ticket. In fact, the authentication server considers the <B>TGS</B> as just another service, and generates a ticket for the user to access this service.
+</DIV>
+<p>The beauty of the <strong>AS</strong> is that it does not verify that the client issuing a request is a valid client : it just returns a tickat that an attacker won&rsquo;t be able to process if he does not have the client&rsquo;s password.</p>
+<h2 id="exhanges-between-the-client-and-the-as">Exhanges between the client and the AS</h2>
+<p>As we can see, for the client to get a <strong>TGT</strong>, it&rsquo;s just a matter of sending a simple request, which is sent without any encryption whatsoever (some might consider that a BER encoded message is already cryptic enough, though ;-).</p>
+<p>Here is the standard exchange :</p>
+<DIV align="center">
+  <img alt="Kerberos Authentication with no pre-auth" src="images/kerberos-as-no-padata.png">
+</DIV>
+<p>There is still a potential security breach in this scenario : as the server issues a <strong>TGT</strong> to the client, containing the secret key built using the user&rsquo;s password, it is possible to decrypt the ticket using a brute force attack (and this is more likely to happen if the password is weak&hellip;)</p>
+<p>Of course, as each ticket has a limited life time, the ticket won&rsquo;t be valid when the attaker successfully cracked the ticket, but that doesn&rsquo;t matter : the user&rsquo;s password is now known, and a new ticket can be requested safely, giving access to the services.</p>
+<p><strong>Kerberos 5</strong> introduced a mechanism to workaround this issue : the user has to provide a proof that he is who he pretends to be. As we can see, it defeats the premise we made : the <strong>Kerberos</strong> still wants to check the users&hellip;</p>
+<p>Note that it&rsquo;s an option, so if you trust your users&rsquo; password strength, then you don&rsquo;t need to send the server this proof.</p>
+<h3 id="pre-authentication">Pre-Authentication</h3>
+<p>Now, let&rsquo;s see how does a client &lsquo;proves&rsquo; that he is who he pretends to be. The protocol allows the server to ask for some proof, by the means of asking the client to send the server a timestamp encrypted with the user&rsquo;s secret key : if the server can decrypt the timestamp using the client&rsquo;s secret key, then that proves the client&rsquo;s identity, and now  the server can send the <strong>TGT</strong>. This exchange is called PreAuthentication.</p>
+<p>Here is the exchange, when  :</p>
+<DIV align="center">
+  <img alt="Kerberos Authentication with pre-auth" src="images/kerberos-as-padata.png">
+</DIV>
+
+
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="1.1.5-database.html">1.1.5 - Database</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="1.1-introduction.html">1.1 - Introduction</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="1.1.7-tgs.html">1.1.7 - TGS (Ticket Granting Server)</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>6.12 - Entry &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/brown.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/api-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+             
+                ApacheDS
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+            
+                <strong>LDAP API</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>LDAP API </h5>
+                <ul>
+                    <li><a href="/api/">Home</a></li>
+                    <li><a href="/api/news.html">News</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/api/downloads-1.html">Version 1.0.3</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/downloads-2.html">Version 2.0.1</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Getting Started</h5>
+                <ul>
+                    <li><a href="/api/vision.html">Vision</a></li>
+                    <li><a href="/api/java-api.html">Java API</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/api/five-minutes-tutorial.html">Five minute tutorial</a></li>
+                    <li><a href="/api/user-guide.html">User Guide</a></li>
+                    <li><a href="/api/migration-guide.html">API 1 to 2 migration</a></li>
+                    <li><a href="/api/gen-docs/latest/apidocs/">JavaDocs</a></li>
+                    <li><a href="/api/gen-docs/latest2/apidocs/">JavaDocs 2</a></li>
+                    <li><a href="/api/gen-docs/latest/xref/">Cross-Reference</a></li>
+                    <li><a href="/api/gen-docs/latest2/xref/">Cross-Reference 2</a></li>
+                    
+                    <li><a href="/api/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/api/internal-design-guide.html">Internal Guide</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="6.11-dit-structure-rule.html">6.11 - DITStructureRule</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="6-ldap-data-structures.html">6 - LDAP data structures</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="6.13-expr-node.html">6.13 - ExprNode</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+            
+	<h1 id="612---entry">6.12 - Entry</h1>
+<p>The <em>Entry</em> class is one of the most important ones in the <em>API</em>. It describes the base element stored into a <em>LDAP</em> server, and it associates a <em>Dn</em> and some <em>Attributes</em>.</p>
+<p>We have two kinds of <em>Entry</em> in the <em>API</em>, depending on the presence of a <em>SchemaManager</em> in the <em>Entry</em>, or not.</p>
+<p>We also provide a few extended classes, like the <em>ImmutableEntry</em>, an immutable version of the <em>Entry</em>.</p>
+<h2 id="what-an-entry">What an entry?</h2>
+<p>An entry is an object containing a <em>Dn</em> and some <em>Attributes</em>. The following schema shows what&rsquo;s inside an <em>entry</em>:</p>
+<p><img src="images/entry.png" alt=""></p>
+<h2 id="creating-an-entry">Creating an Entry</h2>
+<p>We have many ways to create an <em>Entry</em>. Basically, an <em>Entry</em> has a <em>Dn</em> and some <em>Attributes</em>. It can be schema aware, or not. We provide constructors to allow a user to create the kind of <em>Entry</em> wanted.</p>
+<p>The simplest way to create an <em>Entry</em> is to call the default constructor. The created entry will have no attributes, and no <em>Dn</em>. We can also make it schema aware by passing a <em>SchemaManager</em>. Here is an example:</p>
+<pre><code>:::Java
+Entry entry = new DefaultEntry();
+
+// Now set the DN and some attributes
+Entry entry = new DefaultEntry();
+
+entry.setDn( &quot;dc=example, dc=com&quot; );
+entry.add( &quot;objectClass&quot;, &quot;top&quot;, &quot;domain&quot; );
+entry.add( &quot;dc&quot;, &quot;example&quot; );
+
+// Schema aware entry
+Entry entry2 = new DefaultEntry( schemaManager);
+
+entry2.add( &quot;objectClass&quot;, &quot;top&quot;, &quot;domain&quot; );
+entry2.add( &quot;dc&quot;, &quot;example&quot; );
+</code></pre>
+<p>You can also create an <em>Entry</em> passing a <em>Dn</em>, but no attribute. We can create schema aware entries this way too, passing a <em>SchemaManager</em>.</p>
+<pre><code>:::Java
+Dn dn = new Dn( schemaManager, &quot;DomainComponent=example, dc=COM&quot; );
+Entry entry = new DefaultEntry( &quot;dc=example, dc=com&quot; );
+
+entry.add( &quot;objectClass&quot;, &quot;top&quot;, &quot;domain&quot; );
+entry.add( &quot;dc&quot;, &quot;example&quot; );
+
+Entry entry2 = new DefaultEntry( schemaManager, &quot;dc=example, dc=com&quot; );
+
+entry2.add( &quot;objectClass&quot;, &quot;top&quot;, &quot;domain&quot; );
+entry2.add( &quot;dc&quot;, &quot;example&quot; );
+...
+</code></pre>
+<p>We can also create an entry by copying an existing entry. The created <em>Entry</em> must be schema aware. Here is an example:</p>
+<pre><code>:::Java
+Entry entry = new DefaultEntry( schemaManager, &quot;dc=example, dc=com&quot; );
+
+entry2.add( &quot;objectClass&quot;, &quot;top&quot;, &quot;domain&quot; );
+entry2.add( &quot;dc&quot;, &quot;example&quot; );
+
+Entry entry2 = new DefaultEntry( schemaManager, entry );
+
+assertEquals( entry.getDn(), entry2.getDn() );
+
+entry.clear();
+</code></pre>
+<p>Last, but not least, it&rsquo;s possible to create an <em>Entry</em> using a list of LDIF formated attributes. An example worth ten lines of documentation, so let&rsquo;s see what it means.</p>
+<p>First, we will create a schema agnostic entry:</p>
+<pre><code>:::Java
+Entry entry = new DefaultEntry( 
+    &quot;dc=example, dc=com&quot;,
+    &quot;objectClass: top&quot;,
+    &quot;objectClass: domain&quot;,
+    &quot;dc: example&quot;
+    );
+</code></pre>
+<p>We can also provide a complete LDIF file (except that we can&rsquo;t add the <em>dn</em>):</p>
+<pre><code>:::Java
+String ldif =
+    &quot;objectClass: top\n&quot; +           // The \n is mandatory.
+    &quot;objectClass: domain\n&quot; +
+    &quot;dc: example&quot;;
+
+Entry entry = new DefaultEntry( &quot;dc=example, dc=com&quot;, ldif );
+</code></pre>
+<p>One can also combine LDIF and variables like in this example (note that if you use a variable, the attribute must not be followed by the <em>':'</em> char):</p>
+<pre><code>:::Java
+String domain = &quot;example&quot;;
+
+Entry entry = new DefaultEntry( 
+    &quot;dc=example, dc=com&quot;,
+    &quot;objectClass: top&quot;,
+    &quot;objectClass: domain&quot;,
+    &quot;cc&quot;, domain             // No ':'
+    );
+</code></pre>
+<p>All in all, the following constructors are available :</p>
+<ul>
+<li>DefaultEntry() : Default constructor</li>
+<li>DefaultEntry(SchemaManager) : Default constructor for a schema aware entry</li>
+<li>DefaultEntry(String) : Creates an entry with a DN as a String</li>
+<li>DefaultEntry(SchemaManager, String) : Creates a schema aware entry with a DN as a String</li>
+<li>DefaultEntry(Dn) : Creates an entry with a DN</li>
+<li>DefaultEntry(SchemaManager, Dn) : Creates a schema aware entry with a DN as a String</li>
+<li>DefaultEntry(Dn, Object&hellip;) : Creates an entry with a DN and some attributes</li>
+<li>DefaultEntry(SchemaManager, String, Object&hellip;) : Creates a schema aware entry with a DN as a String, and some attributes</li>
+<li>DefaultEntry(SchemaManager, Dn, Object&hellip;) : Creates a schema aware entry with a DN and some attributes</li>
+<li>DefaultEntry(SchemaManager, Entry) : Creates an entry using a copy of another entry</li>
+</ul>
+<h2 id="modifying-an-entry">Modifying an Entry</h2>
+<p>We have six methods available that modify the <em>Entry</em> content : <em>add</em>, <em>clear</em>, <em>put</em>, <em>remove</em>, <em>removeAttribute</em> and <em>setDn</em>. We will review six four methods in the following paragraphs.</p>
+<h3 id="adding-attributes">Adding Attributes</h3>
+<p>Two methods can be used to add attribute into an <em>Entry</em>. The first one will add a completed <em>Attribute</em>, the second one will add some values into an existing <em>Attribute</em>.</p>
+<p>In any case, we can add either an empty attribute, or an attribute with some values. Those values can be <em>Strings</em>, <em>byte[]</em> or <em>Values</em>. The added attributes can be schema aware, and we can also provide a user provided name for the attribute type.</p>
+<h5 id="add-methods">add() methods</h5>
+<p>The first method makes it possible to add some existing <em>Attribute</em> to an <em>Entry</em>. Let&rsquo;s see how it works:</p>
+<pre><code>:::Java
+Attribute cn = new DefaultAttribute( &quot;cn&quot;, &quot;test&quot; );
+Attribute cn2 = new DefaultAttribute( &quot;cn&quot;, &quot;test2&quot; );
+
+Entry entry = new DefaultEntry( 
+    &quot;dc=example, dc=com&quot;,
+    &quot;objectClass: top&quot;,
+    &quot;objectClass: person&quot;,
+    &quot;sn: test&quot; );
+
+// Add the new attribute
+entry.add( cn );
+
+// Try to add a second value
+entry.add( cn2 );
+</code></pre>
+<p>Otherwise, we can add a new attribute and values into the <em>Entry</em> by passing both parameters. We can also pass an <em>AttributeType</em> to the <em>add()</em> method, making the added attribute schema aware. Note that if the <em>Entry</em> itself is already schema aware, this is not necessary.</p>
+<p>Here are some examples, the first one with a schema aware <em>Entry</em>, the second one with a schema agnostic <em>Entry</em>:</p>
+<p>For a schema aware entry :</p>
+<pre><code>:::Java
+Entry entry = new DefaultEntry( 
+    schemaManager,
+    &quot;dc=example, dc=com&quot;,
+    &quot;objectClass: top&quot;,
+    &quot;objectClass: person&quot;,
+    &quot;sn: test&quot; );
+
+// Add the new attribute
+entry.add( &quot;cn&quot;, &quot;test&quot; );
+
+// Try to add a second value
+entry.add( &quot;cn&quot;, &quot;A  second test   &quot; );
+
+// We can also add a value to an existing Attribute 
+entry.add( &quot;sn&quot;, &quot;Another SN&quot; );
+
+// And even add many values in one shot
+entry.add( &quot;cn&quot;, &quot;value1&quot;, &quot;value2&quot; );
+</code></pre>
+<p>For a schema agnostic entry :</p>
+<pre><code>:::Java
+Entry entry = new DefaultEntry( 
+    &quot;dc=example, dc=com&quot;,
+    &quot;objectClass: top&quot;,
+    &quot;objectClass: person&quot;,
+    &quot;sn: test&quot; );
+
+// Add the new attribute
+entry.add( &quot;cn&quot;, &quot;test&quot; );
+
+// Try to add a second value
+entry.add( &quot;cn&quot;, &quot;A  second  test&quot; );
+</code></pre>
+<p>As you can see, there is no real difference between those two methods, except that we pass the <em>schemaManager</em> into the first one.</p>
+<h5 id="put-methods">put() methods</h5>
+<p>The big difference with the <em>add</em> method is that the attribute is not added, it will replace an existing one. let&rsquo;s see with an example :</p>
+<pre><code>:::Java
+Entry entry = new DefaultEntry( 
+    schemaManager, 
+    &quot;dc=example, dc=com&quot;,
+    &quot;objectClass: top&quot;,
+    &quot;objectClass: person&quot;,
+    &quot;sn: test&quot; );
+
+// Add the new attribute
+entry.put( &quot;cn&quot;, &quot;test&quot; );
+
+// Try to add a second value : the 'cn' attribute will now contain only 'test2'
+entry.put( &quot;cn&quot;, &quot;test2&quot; );
+</code></pre>
+<h3 id="removing-attributes">Removing Attributes</h3>
+<p>We can remove either an attribute having a specific value, or an entire attribute. In order to remove a complete attribute, you just have to provide the attribute&rsquo;s name, and use the <em>removeAttributes</em> method.</p>
+<p>Here are examples for both usages :</p>
+<pre><code>:::Java
+Entry entry = new DefaultEntry( 
+    schemaManager,
+    &quot;dc=example, dc=com&quot;,
+    &quot;objectClass: top&quot;,
+    &quot;objectClass: person&quot;,
+    &quot;sn: test&quot;,
+    &quot;cn: test1&quot;,
+    &quot;cn: test2&quot;,
+    &quot;cn: test3&quot; );
+
+// Remove the &quot;test2&quot; value
+entry.remove( &quot;cn&quot;, &quot;test2&quot; );
+
+// Try to remove the full attribute
+entry.removeAttributes( &quot;cn&quot; );
+</code></pre>
+<h3 id="storing-a-dn">Storing a Dn</h3>
+<p>It&rsquo;s also possible to store a new <em>Dn</em> into the Entry, using the _setDn() method. It will replace an existing <em>Dn</em> This method takes either a <em>Dn</em> instance, or a <em>String</em> representing a valid <em>Dn</em>.</p>
+<h3 id="clearing-the-entry">Clearing the Entry</h3>
+<p>You can remove all the _Attribute_s from the entry, using the <em>clear()</em> method :</p>
+<pre><code>:::Java
+Entry entry = new DefaultEntry( 
+    schemaManager,
+    &quot;dc=example, dc=com&quot;,
+    &quot;objectClass: top&quot;,
+    &quot;objectClass: person&quot;,
+    &quot;sn: test&quot;,
+    &quot;cn: test1&quot;,
+    &quot;cn: test2&quot;,
+    &quot;cn: test3&quot; );
+
+// Remove all the attributes
+entry.clear();
+</code></pre>
+<p>The <em>Dn</em> will still be around though.</p>
+<h2 id="attribute-data-access-methods">Attribute data access methods</h2>
+<p>The <em>API</em> provides convenient methods to access the <em>Entry</em> content, and to check if it contains some attributes or some values. We will show these methods in the paragraphs that follow.</p>
+<h3 id="contains-method">Contains method</h3>
+<p>The <em>contains</em> and <em>containsAttributes</em> methods check that the <em>Entry</em> contains <em>Attributes</em> and <em>values</em>.</p>
+<p>One can check for the existence of a specific value for a given attribute, or even for multiple values for a specific attribute. Let&rsquo;s see the <em>contains</em> method in action:</p>
+<pre><code>:::Java
+Entry entry = new DefaultEntry( 
+    schemaManager,
+    &quot;dc=example, dc=com&quot;,
+    &quot;objectClass: top&quot;,
+    &quot;objectClass: person&quot;,
+    &quot;sn: test&quot;,
+    &quot;cn: test1&quot;,
+    &quot;cn: test2&quot;,
+    &quot;cn: test3&quot; );
+
+// Check that the entry contains the 'cn' and 'sn' Attributes
+boolean contains = entry.containsAttribute( &quot;cn&quot;, &quot;sn&quot; );
+
+// Check that the entry contains 3 given values of the 'cn' Attribute
+contains = entry.contains( &quot;cn&quot;, &quot;test1&quot;, &quot;test2&quot;, &quot;test3&quot; );
+</code></pre>
+<p>Note that if one value does not exist, the _contains() method will return false.</p>
+<h3 id="getattributes-and-get-methods">getAttributes() and get() methods</h3>
+<p>Returns the <em>Attribute</em> having the given name if it exists. The following test demonstrates its usage:</p>
+<pre><code>:::Java
+Entry entry = new DefaultEntry( 
+    schemaManager,
+    &quot;dc=example, dc=com&quot;,
+    &quot;objectClass: top&quot;,
+    &quot;objectClass: person&quot;,
+    &quot;sn: test&quot;,
+    &quot;cn: test1&quot;,
+    &quot;cn: test2&quot;,
+    &quot;cn: test3&quot; );
+
+// Get the 'cn' Attribute
+Attribute cn = entry.get( &quot;cn&quot; );
+
+// Get all the Attributes
+Collection&lt;Attribute&gt; attributes = entry.getAttributes();
+</code></pre>
+<h3 id="getdn">getDn()</h3>
+<p>This method returns the <em>Entry</em>&lsquo;s <em>Dn</em>.</p>
+<h3 id="hasobjectclass-methods">hasObjectClass methods</h3>
+<p>The <em>hasObjectClass()</em> methods are used to discover if an <em>Entry</em> has a specific <em>ObjectClass</em>. This is a convenient method, as it&rsquo;s possible to do the same thing with a <em>contains()</em> call, but with one less parameter (you don&rsquo;t have to provide the <em>&ldquo;ObjectClass&rdquo;</em> as a first parameter).</p>
+<p>Here is an example using the two existing methods:</p>
+<pre><code>:::Java
+Entry entry = new DefaultEntry( 
+    schemaManager,
+    &quot;cn=example, dc=com&quot;, 
+    &quot;objectClass: top&quot;,
+    &quot;objectClass: person&quot;,
+    &quot;cn: example&quot;,
+    &quot;sn: test&quot;
+    );
+
+// Test the presence
+boolean isPresent = entry.hasObjectClass( &quot;person&quot;, &quot; TOP &quot; );
+</code></pre>
+<p>As for the <em>contains()</em> method, it will return true if and only if all the ObjectClasses are present in the <em>entry</em>.</p>
+<p>Obviously, dealing with a schema agnostic <em>Entry</em>, those methods are more strict. You have to use the exact ObjectClasses case sensitive trimmed names (in the previous example, we can use upper cased names, even with spaces around the names).</p>
+<p>Also note that the <em>hasObjectClass</em> method used with <em>AttributeType</em> does not work on a schema agnostic entry.</p>
+<h2 id="miscellaneous-methods">Miscellaneous methods</h2>
+<p>We also have some other methods which can be used on an <em>Entry</em>. Here is a list of those methods.</p>
+<h4 id="clone">clone()</h4>
+<p>Creates a copy of the current <em>Entry</em>. All the <em>Attributes</em> are also cloned.</p>
+<h4 id="iterator">iterator()</h4>
+<p>Allows an iteration over all the <em>Attributes</em>. The following examples shows how this can be used:</p>
+<pre><code>:::Java
+@Test
+Entry entry = new DefaultEntry( 
+    &quot;cn=example, dc=com&quot;, 
+    &quot;objectClass: top&quot;,
+    &quot;objectClass: person&quot;,
+    &quot;cn: example&quot;,
+    &quot;sn: test&quot;
+    );
+
+for ( Attribute attribute : entry )
+{
+    System.out.println( &quot;Attribute : \n&quot; + attribute.toString() );
+}
+</code></pre>
+<p>This produces the following output:</p>
+<pre><code>:::Java
+Attribute : 
+    sn: test
+
+Attribute : 
+    cn: example
+
+Attribute : 
+    objectclass: top
+    objectclass: person
+</code></pre>
+<p>Note that the <em>Attribute</em> order is not guaranteed.</p>
+<h4 id="isschemaaware">isSchemaAware()</h4>
+<p>Tells if the ¨_Entry_ has an associated _SchemaManager_.</p>
+<h4 id="size">size()</h4>
+<p>Returns the number of <em>Attribute</em> stored in the <em>Entry</em>.</p>
+<h4 id="equalsobject">equals(Object)</h4>
+<p>Check if two <em>Entries</em> are equal or not. It&rsquo;s important to understand that depending on whether the entry is schema aware or not, the comparison will be processed differently. Typically, the attribute&rsquo;s name must be equivilent after being trimmed and set to lowercase.  If the entry is not schema aware, and we can&rsquo;t compare an attribute named &lsquo;cn&rsquo; with another one named &lsquo;2.5.4.3&rsquo; in this case (the <em>Entry</em> must be schema aware to allow such comparison). More important, the values <em>must</em> be identical (same casing, same spaces) in this case.
+The attribute&rsquo;s values order is irrelevant.</p>
+<p>Here are one example with a schema agnostic <em>Entry</em>:</p>
+<pre><code>:::Java
+Entry entry = new DefaultEntry( 
+    &quot;dc=example, dc=com&quot;,
+    &quot;objectClass: top&quot;,
+    &quot;objectClass: person&quot;,
+    &quot;sn: test&quot;,
+    &quot;cn: test1&quot;,
+    &quot;cn: test2&quot;,
+    &quot;cn: test3&quot; );
+
+Entry entry2 = new DefaultEntry( 
+    &quot;dc=example, dc=com&quot;,
+    &quot;objectClass: top&quot;,
+    &quot;objectClass: person&quot;,
+    &quot;sn: test&quot;,
+    &quot;cn: test2&quot;,
+    &quot;CN: test1&quot;,
+    &quot;cn: test3&quot; );
+
+// Will return true
+boolean result = entry.equals( entry2 );
+</code></pre>
+<p>and another example with a schema aware <em>Entry</em>:</p>
+<pre><code>:::Java
+Entry entry = new DefaultEntry( 
+    schemaManager,
+    &quot;dc=example, dc=com&quot;,
+    &quot;objectClass: top&quot;,
+    &quot;objectClass: person&quot;,
+    &quot;sn: test&quot;,
+    &quot;cn: test1&quot;,
+    &quot;cn: test2&quot;,
+    &quot;cn: test3&quot; );
+
+Entry entry2 = new DefaultEntry( 
+    schemaManager,
+    &quot;dc=example,dc=com&quot;,
+    &quot;objectClass: TOP&quot;,
+    &quot;objectClass: person&quot;,
+    &quot;sn: Test&quot;,
+    &quot;cn: Test2&quot;,
+    &quot;2.5.4.3: test1&quot;,
+    &quot;CommonName: test3&quot; );
+
+// Will return true
+boolean result = entry.equals( entry2 );
+</code></pre>
+
+
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="6.11-dit-structure-rule.html">6.11 - DITStructureRule</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="6-ldap-data-structures.html">6 - LDAP data structures</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="6.13-expr-node.html">6.13 - ExprNode</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

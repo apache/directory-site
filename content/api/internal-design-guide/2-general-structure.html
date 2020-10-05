@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>2 - General Structure &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/brown.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/api-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+             
+                ApacheDS
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+            
+                <strong>LDAP API</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>LDAP API </h5>
+                <ul>
+                    <li><a href="/api/">Home</a></li>
+                    <li><a href="/api/news.html">News</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/api/downloads-1.html">Version 1.0.3</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/downloads-2.html">Version 2.0.1</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Getting Started</h5>
+                <ul>
+                    <li><a href="/api/vision.html">Vision</a></li>
+                    <li><a href="/api/java-api.html">Java API</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/api/five-minutes-tutorial.html">Five minute tutorial</a></li>
+                    <li><a href="/api/user-guide.html">User Guide</a></li>
+                    <li><a href="/api/migration-guide.html">API 1 to 2 migration</a></li>
+                    <li><a href="/api/gen-docs/latest/apidocs/">JavaDocs</a></li>
+                    <li><a href="/api/gen-docs/latest2/apidocs/">JavaDocs 2</a></li>
+                    <li><a href="/api/gen-docs/latest/xref/">Cross-Reference</a></li>
+                    <li><a href="/api/gen-docs/latest2/xref/">Cross-Reference 2</a></li>
+                    
+                    <li><a href="/api/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/api/internal-design-guide.html">Internal Guide</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="1-introduction.html">1 - Introduction</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="../internal-design-guide.html">Internal Design Guide</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="3-building.html">3 - Building</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+            
+	<h1 id="2---general-structure">2 - General Structure</h1>
+<p>The <strong>Apache LDAP API</strong> is split into many modules. Here is their hierarchy :</p>
+<p><img src="images/ldap-api-modules.png" alt="Modules"></p>
+<ul>
+<li>
+<p>The <strong>all</strong> module is just a packaging module, gathering all the other modules in one single jar to simplify the work for those who want to use the API. One can import each module speparately, or the <strong>all</strong> module only. Note that it does not include the tests and integration modules (<strong>integ</strong>, <strong>integ-osgi</strong> and <strong>distribution</strong>)</p>
+</li>
+<li>
+<p>The <strong>asn1</strong> module contains the code needed to handle <em>ASN/1</em> encoding/decoding.</p>
+</li>
+<li>
+<p>The <strong>distribution</strong> module just create the packages</p>
+</li>
+<li>
+<p>The <strong>dsml</strong> module covers <em>DSML</em> features</p>
+</li>
+<li>
+<p>The <strong>i18n</strong> module contains all the messages, in various languages (english, french and german at the moment)</p>
+</li>
+<li>
+<p>The <strong>integ</strong> module is for integration tests, covering many of the existing modules</p>
+</li>
+<li>
+<p>The <strong>integ-osgi</strong> module covers tests related to <strong>OSGi</strong> integration. It checks that we can instanciate some component within an <strong>OSGi</strong> framework.</p>
+</li>
+<li>
+<p>The <strong>ldap</strong> modules are the meat of the <em>API</em> : they contain all the needed modules related to <em>LDAP</em>, and mainly the <em>model</em> module. Note that the <em>net</em> module should not be part of <strong>ldap</strong>, per se&hellip;</p>
+</li>
+<li>
+<p>The <strong>util</strong> module contains classes that are shared across the various modules.</p>
+</li>
+</ul>
+<p>Anyway, from a developer point of view, that does not tell a lot about the inner struture.</p>
+<p>Clearly, the entry point is the <em>Connection</em> interface and its inherited class, which reside in the <em>api-ldap-client-api</em> module, in <em>/ldap/client/.api</em>. This is the interface - or one of its implementation - that is used to connect to a LDAP server. Here is the full hierarchy :</p>
+<p><img src="images/ldap-connection.png" alt="LdapConnection"></p>
+<p>The user will need a <em>LdapNetworkConnection</em> most of the time, the wrapper is just used by the connection pool. Note that <em>ApacheDS</em> has its own implementation (not represented in this picture), called <em>LdapCoresSessionConnection</em>.</p>
+<p>So, bottom line, if you want to have a look at how the <em>API</em> works, the entry point is the *LdapNetworkConnection class.</p>
+<h2 id="layers">Layers</h2>
+<p>If you consider a <em>LdapConnection</em>, obviously, you will have to connect to a remote server, and you will need a part of the code handling the network. This is done - currently - using <em>Apache MINA</em>, which is an <em>NIO</em> framework. That means all the communication with the remote <em>LDAP</em> server is done asynchroniously.</p>
+<p>We also made so the <em>API</em> to be <em>OSGi</em> compliant. That means some of the parts need to be &lsquo;activated&rsquo;. The idea was to make it possible to extend the <em>API</em> easily by adding component that could be loaded dynamically. So far, it&rsquo;s not a completed work, but still, this is a on-going process.</p>
+<p>The following pitcure shows for 10 000 feet the <em>LDAP API</em> architecture :</p>
+<p><img src="images/architecture.png" alt="LDAP API Architecture"></p>
+
+
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="1-introduction.html">1 - Introduction</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="../internal-design-guide.html">Internal Design Guide</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="3-building.html">3 - Building</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

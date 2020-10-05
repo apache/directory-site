@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>2.3 - KdcServer &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/orange.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/api-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+             
+                ApacheDS
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+             
+                LDAP API
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+            
+                <strong>Kerby</strong>
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                <h5>Kerby</h5>
+                <ul>
+                    <li><a href="/kerby/">Home</a></li>
+                    <li><a href="/kerby/news.html">News</a></li>
+                    <li><a href="/kerby/features.html">Features</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/kerby/downloads.html">Version 2.0.1</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/kerby/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Getting Started</h5>
+                <ul>
+                    
+                    <li><a href="/kerby/issues.html">Issues</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/kerby/overview.html">Overview</a></li>
+                    
+                    <li><a href="/kerby/kerby-asn1.html">Kerby ASN1</a></li>
+                    <li><a href="/kerby/user-guide.html">User Guide</a></li>
+                    
+                    
+                    
+                    <li><a href="/kerby/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/kerby/tutorials.html">Tutorials</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="2.2-kadmin.html">2.2 - Kadmin</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="2-kerberos-library.html">2 - Kerberos library</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="2.4-simplekdcserver.html">2.4 - SimpleKdcServer</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+            
+	<h1 id="23---kdcserver">2.3 - KdcServer</h1>
+<p>Kerberos Server API.</p>
+<h3 id="initiate-kdc-server">Initiate kdc server</h3>
+<ul>
+<li>Initiate a kdc server with prepared confDir.</li>
+</ul>
+<pre>
+KdcServer server = new KdcServer(confDir);
+</pre>
+<h3 id="start-and-set-kdc-server">Start and set kdc server</h3>
+<ul>
+<li>Start kdc server.</li>
+</ul>
+<pre>
+start();
+</pre>
+<ul>
+<li>Set KDC realm for ticket request</li>
+</ul>
+<pre>
+setKdcRealm(realm);
+</pre>
+<ul>
+<li>Set KDC host.</li>
+</ul>
+<pre>
+setKdcHost(kdcHost);
+</pre>
+<ul>
+<li>Set KDC tcp port.</li>
+</ul>
+<pre>
+setKdcTcpPort(kdcTcpPort);
+</pre>
+<ul>
+<li>Set KDC udp port. Only makes sense when allowUdp is set.</li>
+</ul>
+<pre>
+setKdcUdpPort(kdcUdpPort);
+</pre>
+<ul>
+<li>Set to allow TCP or not.</li>
+</ul>
+<pre>
+setAllowTcp(allowTcp);
+</pre>
+<ul>
+<li>Set to allow UDP or not.</li>
+</ul>
+<pre>
+setAllowUdp(allowUdp);
+</pre>
+<ul>
+<li>Allow to debug so have more logs.</li>
+</ul>
+<pre>
+enableDebug();
+</pre>
+<ul>
+<li>Allow to hook customized kdc implementation.</li>
+</ul>
+<pre>
+setInnerKdcImpl(innerKdcImpl);
+</pre>
+<h3 id="stop-kdc-server">Stop kdc server</h3>
+<ul>
+<li>Start kdc server.</li>
+</ul>
+<pre>
+stop();
+</pre>
+
+
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="2.2-kadmin.html">2.2 - Kadmin</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="2-kerberos-library.html">2 - Kerberos library</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="2.4-simplekdcserver.html">2.4 - SimpleKdcServer</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

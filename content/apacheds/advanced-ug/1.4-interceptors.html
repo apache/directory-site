@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>1.4 - Interceptors &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/green.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/server-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+            
+                <strong>ApacheDS</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+             
+                LDAP API
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>ApacheDS 2.0</h5>
+                <ul>
+                    <li><a href="/apacheds/">Home</a></li>
+                    <li><a href="/apacheds/news.html">News</a></li>
+                    <li><a href="/apacheds/features.html">Features</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/apacheds/downloads.html">ApacheDS 2.0.0.AM26</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/apacheds/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/apacheds/basic-user-guide.html">Basic User Guide </a></li>
+                    <li><a href="/apacheds/advanced-user-guide.html">Advanced User Guide</a></li>
+                    <li><a href="/apacheds/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/apacheds/kerberos-user-guide.html">Kerberos User Guide</a></li>
+                    <li><a href="/apacheds/configuration/ads-2.0-configuration.html">Configuration</a></li>
+                    <li><a href="/apacheds/gen-docs/latest/apidocs">JavaDocs</a></li>
+                    <li><a href="/apacheds/gen-docs/latest/xref">Cross-Reference</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="1.3-directory-service.html">1.3 - DirectoryService</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="1-architecture.html">1 - Architecture</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="1.5-backend.html">1.5 - Backend</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+            
+	<h1 id="14---interceptors">1.4 - Interceptors</h1>
+<p><em>Interceptors</em> are functional layers inside the <em>DirectoryService</em>. Each one of them are responsible for a specific task. They are ordered, and this order is not to be changed.</p>
+<p>Each operation received by the <em>DirectoryService</em> will be processed by various interceptors, one after the other, down to the backend, and again when the result comes back to the caller. An <em>interceptor</em> can call the next <em>interceptor</em>, whcih will be determinated by the position it has in the chain of <em>interceptors</em>, or simply return. Note that calling the next <em>interceptor</em> does not require that you know which one will be called.</p>
+<p>Some <em>Interceptors</em> can be disabled, some other can be enabled. It&rsquo;s also possible to add some new one.</p>
+<p>All in all, they will handle operations from a specific functional aspect.</p>
+<h2 id="handled-operations">Handled operations</h2>
+<p>Each <em>Interceptor</em> handles a subset of the possible operations, among those listed in the following table :</p>
+<table>
+<thead>
+<tr>
+<th>Operation</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>add</td>
+<td>Adds an entry in the backend</td>
+</tr>
+<tr>
+<td>bind</td>
+<td>Binds on the DirectoryService</td>
+</tr>
+<tr>
+<td>compare</td>
+<td>Compares the elements with the associated entry in the backend</td>
+</tr>
+<tr>
+<td>delete</td>
+<td>Deletes the entry</td>
+</tr>
+<tr>
+<td>getRooDSE</td>
+<td>Gets back the RootDSE entry</td>
+</tr>
+<tr>
+<td>hasEntry</td>
+<td>Tells if an entry exists</td>
+</tr>
+<tr>
+<td>lookup</td>
+<td>Fetches an entry</td>
+</tr>
+<tr>
+<td>modify</td>
+<td>Modifies an entry</td>
+</tr>
+<tr>
+<td>move</td>
+<td>Moves an entry</td>
+</tr>
+<tr>
+<td>moveAndRename</td>
+<td>Moves and renames an entry</td>
+</tr>
+<tr>
+<td>rename</td>
+<td>Renames an entry</td>
+</tr>
+<tr>
+<td>search</td>
+<td>Searches for entries</td>
+</tr>
+<tr>
+<td>unbind</td>
+<td>Unbinds from the DirectoryService</td>
+</tr>
+</tbody>
+</table>
+<p>It is important to understand that each operation will go through each <em>Interceptor</em> declared to handle the operation, down to the backend.</p>
+<h2 id="existing-interceptors">Existing interceptors</h2>
+<p>The following interceptors are already present in the server, even if they are not enabled.
+In this table, we list all the operations each interceptor is handling, and if the <em>interceptor</em> is enabled by default or not :</p>
+<table>
+<thead>
+<tr>
+<th>Interceptor</th>
+<th>Enabled</th>
+<th>add</th>
+<th>bnd</th>
+<th>cmp</th>
+<th>del</th>
+<th>DSE</th>
+<th>has</th>
+<th>lkp</th>
+<th>mod</th>
+<th>mov</th>
+<th>m&amp;r</th>
+<th>ren</th>
+<th>sea</th>
+<th>ubd</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AciAuthorizationInterceptor</td>
+<td>yes</td>
+<td>X</td>
+<td>-</td>
+<td>X</td>
+<td>X</td>
+<td>-</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>-</td>
+</tr>
+<tr>
+<td>AdministrativePointInterceptor</td>
+<td>yes</td>
+<td>X</td>
+<td>-</td>
+<td>-</td>
+<td>X</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>?</td>
+<td>-</td>
+</tr>
+<tr>
+<td>AuthenticationInterceptor</td>
+<td>yes</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+</tr>
+<tr>
+<td>ChangeLogInterceptor</td>
+<td>yes</td>
+<td></td>
+<td>X</td>
+<td>-</td>
+<td>-</td>
+<td>X</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>-</td>
+</tr>
+<tr>
+<td>CollectiveAttributeInterceptor</td>
+<td>yes</td>
+<td>X</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>X</td>
+<td>X</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>X</td>
+<td>-</td>
+</tr>
+<tr>
+<td>DefaultAuthorizationInterceptor</td>
+<td>yes</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>X</td>
+<td>-</td>
+<td>-</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>-</td>
+</tr>
+<tr>
+<td>DelayInducingInterceptor</td>
+<td>no</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>X</td>
+<td>-</td>
+</tr>
+<tr>
+<td>EventInterceptor</td>
+<td>yes</td>
+<td>X</td>
+<td>-</td>
+<td>-</td>
+<td>X</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>ExceptionInterceptor</td>
+<td>yes</td>
+<td>X</td>
+<td>-</td>
+<td>-</td>
+<td>X</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>JournalInterceptor</td>
+<td>yes</td>
+<td>X</td>
+<td>-</td>
+<td>-</td>
+<td>X</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>KeyDerivationInterceptor</td>
+<td>no</td>
+<td>X</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>X</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>NormalizationInterceptor</td>
+<td>yes</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>-</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>-</td>
+</tr>
+<tr>
+<td>NumberIncrementInterceptor</td>
+<td>yes</td>
+<td>X</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>OperationalAttributeInterceptor</td>
+<td>yes</td>
+<td>X</td>
+<td>-</td>
+<td>-</td>
+<td>X</td>
+<td>-</td>
+<td>-</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>-</td>
+</tr>
+<tr>
+<td>PasswordHashingInterceptor</td>
+<td>no</td>
+<td>X</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>X</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>CryptPasswordHashingInterceptor</td>
+<td>no</td>
+<td>X</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>X</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Md5PasswordHashingInterceptor</td>
+<td>no</td>
+<td>X</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>X</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Pkcs5s2PasswordHashingInterceptor</td>
+<td>no</td>
+<td>X</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>X</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Sha256PasswordHashingInterceptor</td>
+<td>no</td>
+<td>X</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>X</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Sha384PasswordHashingInterceptor</td>
+<td>no</td>
+<td>X</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>X</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Sha512PasswordHashingInterceptor</td>
+<td>no</td>
+<td>X</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>X</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>ShaPasswordHashingInterceptor</td>
+<td>no</td>
+<td>X</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>X</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Smd5PasswordHashingInterceptor</td>
+<td>no</td>
+<td>X</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>X</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Ssha256PasswordHashingInterceptor</td>
+<td>no</td>
+<td>X</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>X</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Ssha384PasswordHashingInterceptor</td>
+<td>no</td>
+<td>X</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>X</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>Ssha512PasswordHashingInterceptor</td>
+<td>no</td>
+<td>X</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>X</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>SshaPasswordHashingInterceptor</td>
+<td>no</td>
+<td>X</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>X</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>ReferralInterceptor</td>
+<td>yes</td>
+<td>X</td>
+<td>-</td>
+<td>-</td>
+<td>X</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>SchemaInterceptor</td>
+<td>yes</td>
+<td>X</td>
+<td>-</td>
+<td>X</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>X</td>
+<td>X</td>
+<td>-</td>
+<td>?</td>
+<td>X</td>
+<td>X</td>
+<td>-</td>
+</tr>
+<tr>
+<td>SubentryInterceptor</td>
+<td>yes</td>
+<td>X</td>
+<td>-</td>
+<td>-</td>
+<td>X</td>
+<td>-</td>
+<td>-</td>
+<td>?</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>-</td>
+</tr>
+<tr>
+<td>TimerInterceptor</td>
+<td>no</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+</tr>
+<tr>
+<td>TriggerInterceptor</td>
+<td>yes</td>
+<td>X</td>
+<td>-</td>
+<td>-</td>
+<td>X</td>
+<td>-</td>
+<td>-</td>
+<td>-</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+<p>The operations that are available are the operations for which we have some implementation in the interceptor class. For instance, the <em>JournalInterceptor</em> class implement the <em>add</em>, <em>delete</em>, <em>modify</em>, <em>move</em>, <em>moveAndRename</em> and <em>rename</em> methods.</p>
+<h2 id="interceptors-order">Interceptors order</h2>
+<p>As we already said, the <em>Interceptors</em> order is significant : why would we proceed an <em>Add</em> operation through all the <em>Interceptors</em> if the user is simply denied the right to add an entry by the <em>AciAuthorizationInterceptor</em> ?</p>
+<p>Currently, the following order is enforced :</p>
+<table>
+<thead>
+<tr>
+<th>Order</th>
+<th>Interceptor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>NormalizationInterceptor</td>
+</tr>
+<tr>
+<td>2</td>
+<td>AuthenticationInterceptor</td>
+</tr>
+<tr>
+<td>3</td>
+<td>ReferralInterceptor</td>
+</tr>
+<tr>
+<td>4</td>
+<td>AciAuthorizationInterceptor</td>
+</tr>
+<tr>
+<td>5</td>
+<td>DefaultAuthorizationInterceptor</td>
+</tr>
+<tr>
+<td>6</td>
+<td>AdministrativePointInterceptor</td>
+</tr>
+<tr>
+<td>7</td>
+<td>ExceptionInterceptor</td>
+</tr>
+<tr>
+<td>8</td>
+<td>SchemaInterceptor</td>
+</tr>
+<tr>
+<td>9</td>
+<td>OperationalAttributeInterceptor</td>
+</tr>
+<tr>
+<td>10</td>
+<td>SubentryInterceptor</td>
+</tr>
+<tr>
+<td>11</td>
+<td>EventInterceptor</td>
+</tr>
+<tr>
+<td>12</td>
+<td>TriggerInterceptor</td>
+</tr>
+<tr>
+<td>13</td>
+<td>ChangeLogInterceptor</td>
+</tr>
+<tr>
+<td>14</td>
+<td>JournalInterceptor</td>
+</tr>
+</tbody>
+</table>
+<h2 id="example">Example</h2>
+<p>Let&rsquo;s consider the <em>search</em> operation. It will be processed successively by the following <em>Interceptors</em>, as it can be deduced by the two previous tables :</p>
+<ul>
+<li>NormalizationInterceptor</li>
+<li>AuthenticationInterceptor</li>
+<li>AciAuthorizationInterceptor</li>
+<li>DefaultAuthorizationInterceptor</li>
+<li>SchemaInterceptor</li>
+<li>OperationalAttributeInterceptor</li>
+<li>SubentryInterceptor</li>
+</ul>
+<p>We can do the same exercise for each operation.</p>
+<h2 id="processing">Processing</h2>
+<p>Basically, an <em>Interceptor</em> receives a request for an operation, does some pre-processing, calls the next <em>Interceptor</em> in the chain, does some post-processing, and returns a result.</p>
+<p>Calling the next <em>Interceptor</em> is as simple as calling the <em>next(OperationContext)</em> method, which will compute the right <em>Interceptor</em>.</p>
+<p>The pre-processing and post-processing are standard Java code, there is nothing special there.</p>
+<p>Each operation is passed into an instance of a specific <em>OperationContext</em>, which contains all what is needed about the operation and the environment.</p>
+
+
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="1.3-directory-service.html">1.3 - DirectoryService</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="1-architecture.html">1 - Architecture</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="1.5-backend.html">1.5 - Backend</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

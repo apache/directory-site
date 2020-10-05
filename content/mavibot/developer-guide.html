@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>Mavibot Developers Guide &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/turquoise.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/mavibot-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+             
+                ApacheDS
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+             
+                LDAP API
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+            
+                <strong>Mavibot</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>Mavibot 1.0</h5>
+                <ul>
+                    <li><a href="/mavibot/">Home</a></li>
+                    <li><a href="/mavibot/news.html">News</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/mavibot/downloads.html">Version 1.0.0-M8</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/mavibot/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Getting Started</h5>
+                <ul>
+                    <li><a href="/mavibot/vision.html">Vision</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/mavibot/five-minutes-tutorial.html">Five minutes tutorial</a></li>
+                    <li><a href="/mavibot/user-guide.html">User Guide</a></li>
+                    <li><a href="/mavibot/gen-docs/latest/apidocs/">JavaDocs</a></li>
+                    <li><a href="/mavibot/gen-docs/latest/xref/">Cross-Reference</a></li>
+                    
+                    <li><a href="/mavibot/developer-guide.html">Developer Guide</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+
+            
+	<h1 id="mavibot-developers-guide">Mavibot Developers Guide</h1>
+<p>We will describe how to get the code, build it, and release it.</p>
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#getting-the-source-building-the-trunks">Getting the source, Building the trunks</a>
+      <ul>
+        <li><a href="#prerequisites-for-building">Prerequisites for building</a></li>
+        <li><a href="#maven">Maven</a></li>
+        <li><a href="#jdk-7">JDK 7</a></li>
+      </ul>
+    </li>
+    <li><a href="#getting-the-code">Getting the code</a></li>
+    <li><a href="#building-the-trunk">Building the trunk</a>
+      <ul>
+        <li><a href="#building-the-trunk-for-real">Building the trunk, for real</a></li>
+      </ul>
+    </li>
+    <li><a href="#eclipse">Eclipse</a>
+      <ul>
+        <li><a href="#building-eclipse-files">Building eclipse files</a></li>
+        <li><a href="#maven-settings">Maven settings</a></li>
+      </ul>
+    </li>
+    <li><a href="#coding-standards">Coding standards</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#test-the-project">Test the Project</a></li>
+    <li><a href="#deploy-a-snapshot">Deploy a Snapshot</a></li>
+    <li><a href="#prepare-the-release">Prepare the Release</a></li>
+    <li><a href="#stage-the-release">Stage the Release</a></li>
+    <li><a href="#build-the-site">Build the Site</a></li>
+    <li><a href="#publish-source-and-binary-distribution-packages">Publish Source and Binary Distribution Packages</a></li>
+    <li><a href="#vote">Vote</a></li>
+    <li><a href="#release">Release</a></li>
+    <li><a href="#deploy-the-javadocs-and-xref">Deploy the Javadocs and XRef</a></li>
+    <li><a href="#update-the-web-site">Update the web site</a></li>
+    <li><a href="#inform-the-world-">Inform the world !</a></li>
+  </ul>
+</nav>
+<h2 id="getting-the-source-building-the-trunks">Getting the source, Building the trunks</h2>
+<h3 id="prerequisites-for-building">Prerequisites for building</h3>
+<p>You must have installed <strong>Maven 3.0.4</strong> and have a <strong>JDK 7</strong> installed on your computer. A working internet connection is also mandatory, unless you have all the needed dependences and plugins loaded locally.</p>
+<DIV class="note" markdown="1">
+If the build hangs or you get an out of memory exception please increase the heap space:
+<ul>
+<li>
+<p>For Linux:</p>
+<p>MAVEN_OPTS=&rdquo;-Xmx1024m&rdquo; mvn clean install</p>
+</li>
+<li>
+<p>For Windows:</p>
+<pre><code>SET MAVEN_OPTS=&quot;-Xmx1024m&quot;
+mvn clean install
+</code></pre>
+</li>
+</ul>
+</DIV>
+<h3 id="maven">Maven</h3>
+<p><a href="http://maven.apache.org/download.html">Download</a> and install Maven 3.0.4.</p>
+<p>Add a MAVEN_HOME environment variable and add MAVEN_HOME/bin to your system path:</p>
+<p>On a Linux box you could add the following to the .bashrc file  (.bashrc is a file you&rsquo;ll find in your home directory)</p>
+<pre><code>...
+export MAVEN_HOME=/opt/maven-3.0.4
+export PATH=$JAVA_HOME:$JAVA_HOME/bin:$MAVEN_HOME/bin:$PATH
+...
+</code></pre>
+<p>Windows users, use Control Panel -&gt; System -&gt; Advanced -&gt; Environment Variables</p>
+<h3 id="jdk-7">JDK 7</h3>
+<DIV class="note" markdown="1">
+We recommend using a version >= 1.7
+</DIV>
+<p>Any newer version should also work.</p>
+<h2 id="getting-the-code">Getting the code</h2>
+<p>To download the sources from trunk, you must have installed a <strong>Subversion</strong> client.</p>
+<p>With readonly access :</p>
+<pre><code>svn co http://svn.apache.org/repos/asf/directory/mavibot/trunk mavibot-trunk
+</code></pre>
+<p>With read/write access (for committers only) :</p>
+<pre><code>svn co https://svn.apache.org/repos/asf/directory/mavibot/trunk mavibot-trunk
+</code></pre>
+<h2 id="building-the-trunk">Building the trunk</h2>
+<p>You may either specify the profile at the command-line, each time you use &lsquo;mvn&rsquo;, or you may configure the profile to always be active.</p>
+<p>To use a profile at the command-line:</p>
+<pre><code># mvn [-P&lt;profile&gt;] [options] [&lt;goal(s)&gt;] [&lt;phase(s)&gt;]
+</code></pre>
+<h3 id="building-the-trunk-for-real">Building the trunk, for real</h3>
+<p>Now, we can compile the projects.</p>
+<p>The command is simple :</p>
+<pre><code>cd mavibot-trunk
+mvn clean install
+</code></pre>
+<p>A lot of plugins will be downloaded. If you are curious, you can then look at .m2/repository to see what has been downloaded on this step.</p>
+<p>Building should finish with these lines:</p>
+<pre><code>[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESSFUL
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 8 minutes 30 seconds
+[INFO] Finished at: Mon Oct 30 23:32:41 CET 2006
+[INFO] Final Memory: 18M/32M
+[INFO] ------------------------------------------------------------------------
+</code></pre>
+<p>That&rsquo;s it, the jars will be find in target/mavibot-1.0.0-M?-<XXXXXX>-setup.jar where XXXXXX is your local system and M? is the milestone release number for the 1.0 branch.</p>
+<h2 id="eclipse">Eclipse</h2>
+<p>We use Eclipse extensively, so these chapters, byt any other idea would be ok too.</p>
+<h3 id="building-eclipse-files">Building eclipse files</h3>
+<p>To build the .project and .classpath files for eclipse, type the following commands :</p>
+<pre><code>cd mavibot-trunk
+mvn eclipse:eclipse
+</code></pre>
+<h3 id="maven-settings">Maven settings</h3>
+<p>Don&rsquo;t forget to declare a classpath variable named M2_REPO, pointing to ~/.m2/repository, otherwise many links to existing jars will be broken.</p>
+<p>You can declare new variables in Eclipse in <em>Windows -&gt; Preferences&hellip;</em> and selecting <em>Java -&gt; Build Path -&gt; Classpath Variables</em></p>
+<h2 id="coding-standards">Coding standards</h2>
+<p>The applicable coding standards for Mavibot are described in <a href="coding-standards.html">Coding Standards</a></p>
+<p>There are some more rules, as we are using <strong>Java 7</strong> now :</p>
+<ul>
+<li>Use generics as much as you can. Generic are a good way to avoid casting, and it enforce the usage of the correct type.</li>
+<li>If you can avoid <em>Iterators</em>, do so. There is this cool construction with a <strong>for( Type t:<collection instance> )</strong> : use it !</li>
+<li>Use <strong>assert</strong>. It&rsquo;s usefull, especially instead of a bunch of <strong>if (<test is wrong>)</strong> then throw Exception* when controlling incoming parameters</li>
+<li>Use the new <em>Enum</em> type !</li>
+</ul>
+<h1 id="releasing-mavibot">Releasing Mavibot</h1>
+<p>Since we are using Nexus for releases the release process is as follows (see also <a href="publishing-maven-artifacts.html">http://www.apache.org/dev/publishing-maven-artifacts.html#staging-maven</a>).</p>
+<h2 id="test-the-project">Test the Project</h2>
+<pre><code>$ mvn release:prepare -DdryRun=true
+</code></pre>
+<p>Be aware that this phase will ask you about the next version, and most important, for the next SCM tag :</p>
+<pre><code>...
+[INFO] Checking dependencies and plugins for snapshots ...
+What is the release version for &quot;ApacheDS Mavibot Parent&quot;? (org.apache.directory.mavibot:mavibot-parent) 1.0.0-M1: : 
+What is the release version for &quot;ApacheDS MVCC BTree implementation&quot;? (org.apache.directory.mavibot:mavibot) 1.0.0-M1: : 
+What is the release version for &quot;Apache Mavibot Distribution&quot;? (org.apache.directory.mavibot:distribution) 1.0.0-M1: : 
+What is SCM release tag or label for &quot;ApacheDS Mavibot Parent&quot;? (org.apache.directory.mavibot:mavibot-parent) 1.0.0-M1: : 
+What is the new development version for &quot;ApacheDS Mavibot Parent&quot;? (org.apache.directory.mavibot:mavibot-parent) 1.0.0-M2-SNAPSHOT: : 
+What is the new development version for &quot;ApacheDS MVCC BTree implementation&quot;? (org.apache.directory.mavibot:mavibot) 1.0.0-M2-SNAPSHOT: : 
+What is the new development version for &quot;Apache Mavibot Distribution&quot;? (org.apache.directory.mavibot:distribution) 1.0.0-M2-SNAPSHOT: : 
+</code></pre>
+<p>Here, we just validated the proposed versions.</p>
+<h2 id="deploy-a-snapshot">Deploy a Snapshot</h2>
+<pre><code>$ mvn deploy
+</code></pre>
+<p>This is useful to verify your settings in ~/.m2/settings.xml (Nexus password and GPG key)</p>
+<h2 id="prepare-the-release">Prepare the Release</h2>
+<pre><code>$ mvn release:clean
+$ mvn release:prepare
+</code></pre>
+<p>This creates a tag here: <a href="http://svn.apache.org/viewvc/directory/mavibot/tags/">http://svn.apache.org/viewvc/directory/mavibot/tags/</a></p>
+<h2 id="stage-the-release">Stage the Release</h2>
+<pre><code>$ mvn release:perform
+</code></pre>
+<p>This deploys the release to a staging repository.</p>
+<p>Go to <a href="https://repository.apache.org/index.html#stagingRepositories">https://repository.apache.org/index.html#stagingRepositories</a> and close the staging repository.</p>
+<h2 id="build-the-site">Build the Site</h2>
+<pre><code>$ cd target/checkout
+$ mvn site
+</code></pre>
+<p>This creates the javadocs and the cross-references.</p>
+<p>Now, you have to sign the binary packages which are in target/checkout/distribution/target.</p>
+<p>Use your PGP key ID (the pub key, 4096R/[XXXXXXX] where [XXXXXXX] is the key ID)</p>
+<p>You can get the keys by typing :</p>
+<pre><code>gpg --list-keys
+</code></pre>
+<h2 id="publish-source-and-binary-distribution-packages">Publish Source and Binary Distribution Packages</h2>
+<p>First of all, create a new directory on people.apache.org/public_html to store the packages :</p>
+<pre><code>$ ssh people.apache.org
+$ mkdir public_html/mavibot-&lt;version&gt;
+$ exit
+</code></pre>
+<p>Then copy the packages :</p>
+<pre><code>$ cd distributions/target
+$ scp mavibot-&lt;version&gt;-* people.apache.org:public_html/mavibot-&lt;version&gt;/
+</code></pre>
+<p>Update your index.html file on people.apache.org/public_html to make the packages visible. Here is an example of possible content :</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-html" data-lang="html">&lt;<span style="color:#008000;font-weight:bold">h2</span>&gt;Mavibot 1.0.0-M1 tarballs&lt;/<span style="color:#008000;font-weight:bold">h2</span>&gt;
+  &lt;<span style="color:#008000;font-weight:bold">img</span> <span style="color:#b44">src</span><span style="color:#666">=</span><span style="color:#b44">&#34;/icons/compressed.gif&#34;</span> <span style="color:#b44">alt</span><span style="color:#666">=</span><span style="color:#b44">&#34;[   ]&#34;</span>&gt;&lt;<span style="color:#008000;font-weight:bold">a</span> <span style="color:#b44">href</span><span style="color:#666">=</span><span style="color:#b44">&#34;mavibot-1.0.0-M1/mavibot-1.0.0-M1-bin.tar.gz&#34;</span>&gt;mavibot-1.0.0-M1-bin.tar.gz&lt;/<span style="color:#008000;font-weight:bold">a</span>&gt;&lt;<span style="color:#008000;font-weight:bold">br</span>/&gt;
+  &lt;<span style="color:#008000;font-weight:bold">img</span> <span style="color:#b44">src</span><span style="color:#666">=</span><span style="color:#b44">&#34;/icons/compressed.gif&#34;</span> <span style="color:#b44">alt</span><span style="color:#666">=</span><span style="color:#b44">&#34;[   ]&#34;</span>&gt;&lt;<span style="color:#008000;font-weight:bold">a</span> <span style="color:#b44">href</span><span style="color:#666">=</span><span style="color:#b44">&#34;mavibot-1.0.0-M1/mavibot-1.0.0-M1-bin.tar.gz.asc&#34;</span>&gt;mavibot-1.0.0-M1-bin.tar.gz.asc&lt;/<span style="color:#008000;font-weight:bold">a</span>&gt;&lt;<span style="color:#008000;font-weight:bold">br</span>/&gt;
+  &lt;<span style="color:#008000;font-weight:bold">img</span> <span style="color:#b44">src</span><span style="color:#666">=</span><span style="color:#b44">&#34;/icons/compressed.gif&#34;</span> <span style="color:#b44">alt</span><span style="color:#666">=</span><span style="color:#b44">&#34;[   ]&#34;</span>&gt;&lt;<span style="color:#008000;font-weight:bold">a</span> <span style="color:#b44">href</span><span style="color:#666">=</span><span style="color:#b44">&#34;mavibot-1.0.0-M1/mavibot-1.0.0-M1-bin.tar.gz.md5&#34;</span>&gt;mavibot-1.0.0-M1-bin.tar.gz.md5&lt;/<span style="color:#008000;font-weight:bold">a</span>&gt;&lt;<span style="color:#008000;font-weight:bold">br</span>/&gt;
+  &lt;<span style="color:#008000;font-weight:bold">img</span> <span style="color:#b44">src</span><span style="color:#666">=</span><span style="color:#b44">&#34;/icons/compressed.gif&#34;</span> <span style="color:#b44">alt</span><span style="color:#666">=</span><span style="color:#b44">&#34;[   ]&#34;</span>&gt;&lt;<span style="color:#008000;font-weight:bold">a</span> <span style="color:#b44">href</span><span style="color:#666">=</span><span style="color:#b44">&#34;mavibot-1.0.0-M1/mavibot-1.0.0-M1-bin.tar.gz.sha1&#34;</span>&gt;mavibot-1.0.0-M1-bin.tar.gz.sha1&lt;/<span style="color:#008000;font-weight:bold">a</span>&gt;&lt;<span style="color:#008000;font-weight:bold">br</span>/&gt;
+  &lt;<span style="color:#008000;font-weight:bold">img</span> <span style="color:#b44">src</span><span style="color:#666">=</span><span style="color:#b44">&#34;/icons/compressed.gif&#34;</span> <span style="color:#b44">alt</span><span style="color:#666">=</span><span style="color:#b44">&#34;[   ]&#34;</span>&gt;&lt;<span style="color:#008000;font-weight:bold">a</span> <span style="color:#b44">href</span><span style="color:#666">=</span><span style="color:#b44">&#34;mavibot-1.0.0-M1/mavibot-1.0.0-M1-bin.zip&#34;</span>&gt;mavibot-1.0.0-M1-bin.zip&lt;/<span style="color:#008000;font-weight:bold">a</span>&gt;&lt;<span style="color:#008000;font-weight:bold">br</span>/&gt;
+  &lt;<span style="color:#008000;font-weight:bold">img</span> <span style="color:#b44">src</span><span style="color:#666">=</span><span style="color:#b44">&#34;/icons/compressed.gif&#34;</span> <span style="color:#b44">alt</span><span style="color:#666">=</span><span style="color:#b44">&#34;[   ]&#34;</span>&gt;&lt;<span style="color:#008000;font-weight:bold">a</span> <span style="color:#b44">href</span><span style="color:#666">=</span><span style="color:#b44">&#34;mavibot-1.0.0-M1/mavibot-1.0.0-M1-bin.zip.asc&#34;</span>&gt;mavibot-1.0.0-M1-bin.zip.asc&lt;/<span style="color:#008000;font-weight:bold">a</span>&gt;&lt;<span style="color:#008000;font-weight:bold">br</span>/&gt;
+  &lt;<span style="color:#008000;font-weight:bold">img</span> <span style="color:#b44">src</span><span style="color:#666">=</span><span style="color:#b44">&#34;/icons/compressed.gif&#34;</span> <span style="color:#b44">alt</span><span style="color:#666">=</span><span style="color:#b44">&#34;[   ]&#34;</span>&gt;&lt;<span style="color:#008000;font-weight:bold">a</span> <span style="color:#b44">href</span><span style="color:#666">=</span><span style="color:#b44">&#34;mavibot-1.0.0-M1/mavibot-1.0.0-M1-bin.zip.md5&#34;</span>&gt;mavibot-1.0.0-M1-bin.zip.md5&lt;/<span style="color:#008000;font-weight:bold">a</span>&gt;&lt;<span style="color:#008000;font-weight:bold">br</span>/&gt;
+  &lt;<span style="color:#008000;font-weight:bold">img</span> <span style="color:#b44">src</span><span style="color:#666">=</span><span style="color:#b44">&#34;/icons/compressed.gif&#34;</span> <span style="color:#b44">alt</span><span style="color:#666">=</span><span style="color:#b44">&#34;[   ]&#34;</span>&gt;&lt;<span style="color:#008000;font-weight:bold">a</span> <span style="color:#b44">href</span><span style="color:#666">=</span><span style="color:#b44">&#34;mavibot-1.0.0-M1/mavibot-1.0.0-M1-bin.zip.sha1&#34;</span>&gt;mavibot-1.0.0-M1-bin.zip.sha1&lt;/<span style="color:#008000;font-weight:bold">a</span>&gt;&lt;<span style="color:#008000;font-weight:bold">br</span>/&gt;
+  &lt;<span style="color:#008000;font-weight:bold">img</span> <span style="color:#b44">src</span><span style="color:#666">=</span><span style="color:#b44">&#34;/icons/compressed.gif&#34;</span> <span style="color:#b44">alt</span><span style="color:#666">=</span><span style="color:#b44">&#34;[   ]&#34;</span>&gt;&lt;<span style="color:#008000;font-weight:bold">a</span> <span style="color:#b44">href</span><span style="color:#666">=</span><span style="color:#b44">&#34;mavibot-1.0.0-M1/mavibot-1.0.0-M1-src.tar.bz2&#34;</span>&gt;mavibot-1.0.0-M1-src.tar.bz2&lt;/<span style="color:#008000;font-weight:bold">a</span>&gt;&lt;<span style="color:#008000;font-weight:bold">br</span>/&gt;
+  &lt;<span style="color:#008000;font-weight:bold">img</span> <span style="color:#b44">src</span><span style="color:#666">=</span><span style="color:#b44">&#34;/icons/compressed.gif&#34;</span> <span style="color:#b44">alt</span><span style="color:#666">=</span><span style="color:#b44">&#34;[   ]&#34;</span>&gt;&lt;<span style="color:#008000;font-weight:bold">a</span> <span style="color:#b44">href</span><span style="color:#666">=</span><span style="color:#b44">&#34;mavibot-1.0.0-M1/mavibot-1.0.0-M1-src.tar.bz2.asc&#34;</span>&gt;mavibot-1.0.0-M1-src.tar.bz2.asc&lt;/<span style="color:#008000;font-weight:bold">a</span>&gt;&lt;<span style="color:#008000;font-weight:bold">br</span>/&gt;
+  &lt;<span style="color:#008000;font-weight:bold">img</span> <span style="color:#b44">src</span><span style="color:#666">=</span><span style="color:#b44">&#34;/icons/compressed.gif&#34;</span> <span style="color:#b44">alt</span><span style="color:#666">=</span><span style="color:#b44">&#34;[   ]&#34;</span>&gt;&lt;<span style="color:#008000;font-weight:bold">a</span> <span style="color:#b44">href</span><span style="color:#666">=</span><span style="color:#b44">&#34;mavibot-1.0.0-M1/mavibot-1.0.0-M1-src.tar.bz2.md5&#34;</span>&gt;mavibot-1.0.0-M1-src.tar.bz2.md5&lt;/<span style="color:#008000;font-weight:bold">a</span>&gt;&lt;<span style="color:#008000;font-weight:bold">br</span>/&gt;
+  &lt;<span style="color:#008000;font-weight:bold">img</span> <span style="color:#b44">src</span><span style="color:#666">=</span><span style="color:#b44">&#34;/icons/compressed.gif&#34;</span> <span style="color:#b44">alt</span><span style="color:#666">=</span><span style="color:#b44">&#34;[   ]&#34;</span>&gt;&lt;<span style="color:#008000;font-weight:bold">a</span> <span style="color:#b44">href</span><span style="color:#666">=</span><span style="color:#b44">&#34;mavibot-1.0.0-M1/mavibot-1.0.0-M1-src.tar.bz2.sha1&#34;</span>&gt;mavibot-1.0.0-M1-src.tar.bz2.sha1&lt;/<span style="color:#008000;font-weight:bold">a</span>&gt;&lt;<span style="color:#008000;font-weight:bold">br</span>/&gt;
+  &lt;<span style="color:#008000;font-weight:bold">img</span> <span style="color:#b44">src</span><span style="color:#666">=</span><span style="color:#b44">&#34;/icons/compressed.gif&#34;</span> <span style="color:#b44">alt</span><span style="color:#666">=</span><span style="color:#b44">&#34;[   ]&#34;</span>&gt;&lt;<span style="color:#008000;font-weight:bold">a</span> <span style="color:#b44">href</span><span style="color:#666">=</span><span style="color:#b44">&#34;mavibot-1.0.0-M1/mavibot-1.0.0-M1-src.tar.gz&#34;</span>&gt;mavibot-1.0.0-M1-src.tar.gz&lt;/<span style="color:#008000;font-weight:bold">a</span>&gt;&lt;<span style="color:#008000;font-weight:bold">br</span>/&gt;
+  &lt;<span style="color:#008000;font-weight:bold">img</span> <span style="color:#b44">src</span><span style="color:#666">=</span><span style="color:#b44">&#34;/icons/compressed.gif&#34;</span> <span style="color:#b44">alt</span><span style="color:#666">=</span><span style="color:#b44">&#34;[   ]&#34;</span>&gt;&lt;<span style="color:#008000;font-weight:bold">a</span> <span style="color:#b44">href</span><span style="color:#666">=</span><span style="color:#b44">&#34;mavibot-1.0.0-M1/mavibot-1.0.0-M1-src.tar.gz.asc&#34;</span>&gt;mavibot-1.0.0-M1-src.tar.gz.asc&lt;/<span style="color:#008000;font-weight:bold">a</span>&gt;&lt;<span style="color:#008000;font-weight:bold">br</span>/&gt;
+  &lt;<span style="color:#008000;font-weight:bold">img</span> <span style="color:#b44">src</span><span style="color:#666">=</span><span style="color:#b44">&#34;/icons/compressed.gif&#34;</span> <span style="color:#b44">alt</span><span style="color:#666">=</span><span style="color:#b44">&#34;[   ]&#34;</span>&gt;&lt;<span style="color:#008000;font-weight:bold">a</span> <span style="color:#b44">href</span><span style="color:#666">=</span><span style="color:#b44">&#34;mavibot-1.0.0-M1/mavibot-1.0.0-M1-src.tar.gz.md5&#34;</span>&gt;mavibot-1.0.0-M1-src.tar.gz.md5&lt;/<span style="color:#008000;font-weight:bold">a</span>&gt;&lt;<span style="color:#008000;font-weight:bold">br</span>/&gt;
+  &lt;<span style="color:#008000;font-weight:bold">img</span> <span style="color:#b44">src</span><span style="color:#666">=</span><span style="color:#b44">&#34;/icons/compressed.gif&#34;</span> <span style="color:#b44">alt</span><span style="color:#666">=</span><span style="color:#b44">&#34;[   ]&#34;</span>&gt;&lt;<span style="color:#008000;font-weight:bold">a</span> <span style="color:#b44">href</span><span style="color:#666">=</span><span style="color:#b44">&#34;mavibot-1.0.0-M1/mavibot-1.0.0-M1-src.tar.gz.sha1&#34;</span>&gt;mavibot-1.0.0-M1-src.tar.gz.sha1&lt;/<span style="color:#008000;font-weight:bold">a</span>&gt;&lt;<span style="color:#008000;font-weight:bold">br</span>/&gt;
+  &lt;<span style="color:#008000;font-weight:bold">img</span> <span style="color:#b44">src</span><span style="color:#666">=</span><span style="color:#b44">&#34;/icons/compressed.gif&#34;</span> <span style="color:#b44">alt</span><span style="color:#666">=</span><span style="color:#b44">&#34;[   ]&#34;</span>&gt;&lt;<span style="color:#008000;font-weight:bold">a</span> <span style="color:#b44">href</span><span style="color:#666">=</span><span style="color:#b44">&#34;mavibot-1.0.0-M1/mavibot-1.0.0-M1-src.zip&#34;</span>&gt;mavibot-1.0.0-M1-src.zip&lt;/<span style="color:#008000;font-weight:bold">a</span>&gt;&lt;<span style="color:#008000;font-weight:bold">br</span>/&gt;
+  &lt;<span style="color:#008000;font-weight:bold">img</span> <span style="color:#b44">src</span><span style="color:#666">=</span><span style="color:#b44">&#34;/icons/compressed.gif&#34;</span> <span style="color:#b44">alt</span><span style="color:#666">=</span><span style="color:#b44">&#34;[   ]&#34;</span>&gt;&lt;<span style="color:#008000;font-weight:bold">a</span> <span style="color:#b44">href</span><span style="color:#666">=</span><span style="color:#b44">&#34;mavibot-1.0.0-M1/mavibot-1.0.0-M1-src.zip.asc&#34;</span>&gt;mavibot-1.0.0-M1-src.zip.asc&lt;/<span style="color:#008000;font-weight:bold">a</span>&gt;&lt;<span style="color:#008000;font-weight:bold">br</span>/&gt;
+  &lt;<span style="color:#008000;font-weight:bold">img</span> <span style="color:#b44">src</span><span style="color:#666">=</span><span style="color:#b44">&#34;/icons/compressed.gif&#34;</span> <span style="color:#b44">alt</span><span style="color:#666">=</span><span style="color:#b44">&#34;[   ]&#34;</span>&gt;&lt;<span style="color:#008000;font-weight:bold">a</span> <span style="color:#b44">href</span><span style="color:#666">=</span><span style="color:#b44">&#34;mavibot-1.0.0-M1/mavibot-1.0.0-M1-src.zip.md5&#34;</span>&gt;mavibot-1.0.0-M1-src.zip.md5&lt;/<span style="color:#008000;font-weight:bold">a</span>&gt;&lt;<span style="color:#008000;font-weight:bold">br</span>/&gt;
+  &lt;<span style="color:#008000;font-weight:bold">img</span> <span style="color:#b44">src</span><span style="color:#666">=</span><span style="color:#b44">&#34;/icons/compressed.gif&#34;</span> <span style="color:#b44">alt</span><span style="color:#666">=</span><span style="color:#b44">&#34;[   ]&#34;</span>&gt;&lt;<span style="color:#008000;font-weight:bold">a</span> <span style="color:#b44">href</span><span style="color:#666">=</span><span style="color:#b44">&#34;mavibot-1.0.0-M1/mavibot-1.0.0-M1-src.zip.sha1&#34;</span>&gt;mavibot-1.0.0-M1-src.zip.sha1&lt;/<span style="color:#008000;font-weight:bold">a</span>&gt;&lt;<span style="color:#008000;font-weight:bold">br</span>/&gt;
+</code></pre></div><h2 id="vote">Vote</h2>
+<p>Start a 72h vote at the dev mailing list.</p>
+<p>Here is an exemple of a mote mail :</p>
+<pre><code>Hi !
+
+This is the first release of Apache Mavibot, the MVCC BTree in Java !
+
+This milestone is the first step toward a complete MVCC implementation,
+it currently does not handle versions at all. Anyway, it's already a in
+memory/On disk full BTree implementation, which is 2 to 3 times faster
+than JDBM.
+
+The next milestones will add the missing features :
+- bulk load support
+- multi-version support with free pages management
+- transaction support
+
+ApacheDS has already been tested with Mavibot 1.0.-M1-SNAPSHOT, and it
+offers pretty good performances compared to JDBM, except when we inject
+a lot of entries in the server.
+
+So let's vote now !
+
+
+The revision :
+
+http://svn.apache.org/r1511750
+
+
+The SVN tag:
+https://svn.apache.org/repos/asf/directory/mavibot/tags/1.0.0-M1/
+
+The source and binary distribution packages:
+http://people.apache.org/~elecharny/
+
+The staging repository:
+https://repository.apache.org/content/repositories/orgapachedirectory-073/
+
+
+Please cast your votes:
+[ ] +1 Release Mavibot 1.0.0-M1
+[ ] 0 abstain
+[ ] -1 Do not release Mavibot 1.0.0-M1
+
+Emmanuel
+</code></pre>
+<h2 id="release">Release</h2>
+<p>If the vote succeeds the Mavibot project can be released.</p>
+<p>Go to <a href="https://repository.apache.org/index.html#stagingRepositories">https://repository.apache.org/index.html#stagingRepositories</a> and release the staging repository so all artifacts are published to Maven central.</p>
+<p>Move the distribution packages (sources and binaries) to the dist SVN repository:</p>
+<pre><code>**https://dist.apache.org/repos/dist/release/directory/mavibot/dist/$(version)**
+</code></pre>
+<p>The best solution would be to checkout the directory in people.apache.org, to copy the packages in the right place, and to check in the changes :</p>
+<pre><code>$ ssh people.apache.org
+# svn co https://dist.apache.org/repos/dist/release/directory/mavibot/dist/ mavibot-dist
+# cd mavibot-dist
+# mkdir &lt;version&gt;
+# cp ../public_html/mavibot-&lt;version&gt;/* &lt;version&gt;
+# svn add &lt;version&gt;
+# svn ci &lt;version&gt; -m &quot;Releasing Mavibor &lt;version&gt;&quot;
+Authentication realm: &lt;https://dist.apache.org:443&gt; ASF Committers
+Password for '&lt;committer&gt;': xyz
+...
+# exit
+$
+</code></pre>
+<p>The packages should now be available on <strong><a href="http://www.us.apache.org/dist/directory/mavibot/dist/">http://www.us.apache.org/dist/directory/mavibot/dist/</a><version></strong></p>
+<h2 id="deploy-the-javadocs-and-xref">Deploy the Javadocs and XRef</h2>
+<p>We now can deploy the generated Javadoc and cross-reference pages. They are generated in the following directory :</p>
+<pre><code>target/checkout/target/site
+</code></pre>
+<p>We will copy two directories :</p>
+<pre><code>apidocs
+xref
+</code></pre>
+<p><em>Staging or Production?</em></p>
+<p>Those files will be stored on the production server only !!! And some extra caution must be taken not to delete them when we will publish the staging site too&hellip;</p>
+<p>First of all, you must checkout the two CMS store for the site : staging and revision.</p>
+<pre><code>$ cd ~/apacheds
+$ svn co https://svn.apache.org/repos/infra/websites/staging/directory/trunk staging
+ ...
+$ svn co https://svn.apache.org/repos/infra/websites/production/directory production
+ ...
+</code></pre>
+<p>Now, you will first add the directory for the newly generated version :</p>
+<pre><code>$ cd ~/apacheds/production/content/mavibot/gen-docs
+$ mkdir &lt;version&gt;
+$ svn add &lt;version&gt;
+</code></pre>
+<p>Then copy the generated docs :</p>
+<pre><code>$ cp -r ~/apacheds/trunks/mavibot/target/checkout/target/site/apidocs ~/apacheds/production/content/mavibot/gen-docs/&lt;version&gt;
+$ cp -r ~/apacheds/trunks/mavibot/target/checkout/target/site/xref ~/apacheds/production/content/mavibot/gen-docs/&lt;version&gt;
+$ 
+</code></pre>
+<p>You have to check in those directories :</p>
+<pre><code>$ svn add &lt;version&gt;/*
+$ svn ci &lt;version&gt; -m &quot;Injected &lt;version&gt; javadocs&quot;
+</code></pre>
+<p>Now, you have to update the staging site :</p>
+<pre><code>extpaths.txt
+</code></pre>
+<p>This file list the file on the production site that will not be overriden by the publication of the staging site. It has to be updated</p>
+<pre><code>$ cd ~/apacheds/staging/content/
+$ vi extpaths.txt
+</code></pre>
+<p>Add the following line :</p>
+<pre><code>...
+# Mavibot
+mavibot/gen-docs/&lt;version&gt;
+...
+</code></pre>
+<p>then save and check in the file</p>
+<p><strong>.htaccess</strong></p>
+<p>We also have to update this file :</p>
+<pre><code>$ cd ~/apacheds/staging/content/mavibot/gen-docs
+$ vi .htaccess
+</code></pre>
+<p>And update the two last lines to refer to the version you&rsquo;ve just released :</p>
+<pre><code>RewriteRule ^latest$ &lt;version&gt;/
+RewriteRule ^latest/(.*)$ &lt;version&gt;/$1
+</code></pre>
+<p>Save and commit the file.</p>
+<h2 id="update-the-web-site">Update the web site</h2>
+<p>You can now update the site, add a news on the front page, and publish the site.</p>
+<p>There are a few places to modify :</p>
+<ul>
+<li>/lib/path.pm : update the $version_mavibot variable with the new version.</li>
+<li>/content/index.mdtext : same here, update the <!-- MAVIBOT project --> section, which contains the version.</li>
+<li>/content/mavibot/news.mdtext : add the news on top of thise page</li>
+<li>/content/mavibot/download-old-versions.mdtext : add a new line on top of the array, which refers to the latest version before the new one</li>
+</ul>
+<p>Commit the changes, and publish the web site, you are done !</p>
+<h2 id="inform-the-world-">Inform the world !</h2>
+<p>After 24h, you can now inform the world about the release.</p>
+<p>Send a mail to the users and dev mailing list, and one to the <a href="mailto:announce@apache.org">announce@apache.org</a> list.</p>
+<p>You are done !</p>
+
+
+            
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

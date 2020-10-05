@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>Section III - Instructions to run the Builder to Install OpenLDAP &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/turquoise.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/fortress-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+             
+                ApacheDS
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+             
+                LDAP API
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+            
+                <strong>Fortress</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>Fortress</h5>
+                <ul>
+                    <li><a href="/fortress/">Home</a></li>
+                    <li><a href="/fortress/history.html">History</a></li>
+                    <li><a href="/fortress/news.html">News</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/fortress/downloads.html">Fortress 2.0.5</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/fortress/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/fortress/overview.html">Overview</a></li>
+                    <li><a href="/fortress/installation.html">Installation Guide</a></li>
+                    <li><a href="/fortress/user-guide.html">Users Guide</a></li>
+                    <li><a href="/fortress/coding-standards.html">Coding Standards</a></li>
+                    <li><a href="/fortress/gen-docs/latest/apidocs/">JavaDocs</a></li>
+                    
+                    <li><a href="/fortress/gen-docs/latest/">Generated Reports</a></li>
+                    <li><a href="/fortress/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/fortress/testimonials.html">Testimonials</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="section-II.html">Section II - Instructions to run the Fortress Ant Build</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="linux.html">Quickstart Linux - Table of contents</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="section-IV.html">Section IV - Instructions to regression test Fortress and OpenLDAP</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+            
+	<h2 id="section-iii---instructions-to-run-the-builder-to-install-openldap-configure-and-load-with-seed-data">Section III - Instructions to run the Builder to Install OpenLDAP, configure and load with seed data</h2>
+<DIV class="note" markdown="1">
+	Important: This target reinstalls and reloads the OpenLDAP server program, configuration and data. 
+</DIV>
+<h3 id="step-1">Step 1</h3>
+<p>The fortress &lsquo;init-slapd&rsquo; uses LDAPv3 to perform initial operations.</p>
+<p>edit build.properties, ensure the following line has been commented out:</p>
+<CENTER>
+  <IMG src="../../images/Screenshot43-edit-disable-rest.png" alt="Screenshot"/>
+</CENTER>
+<p>Note: The default for this setting is &lsquo;false&rsquo; or disabled.</p>
+<h3 id="step-2">Step 2</h3>
+<p>From FORTRESS_HOME root folder, enter the following command from a system prompt:
+if sudo:</p>
+<pre><code>sudo ./b.sh init-slapd 
+</code></pre>
+<CENTER>
+  <IMG src="../../images/Screenshot6-init-slapd.png" alt="Screenshot" width="766" height="86"/>
+</CENTER>
+<p>if not sudo you must run as user that has priv to modify folders in /var and /opt folders:</p>
+<pre><code>su
+
+[enter your pw]
+</code></pre>
+<p>before running the command to kick off the install</p>
+<pre><code>./b.sh init-slapd
+</code></pre>
+<h3 id="step-3">Step 3</h3>
+<p>Verify it ran correctly according to Ant.</p>
+<pre><code>BUILD SUCCESSFUL
+</code></pre>
+<CENTER>
+  <IMG src="../../images/Screenshot7-init-slapd-success.png" alt="Screenshot" width="766" height="101"/>
+</CENTER>
+<h3 id="step-4">Step 4</h3>
+<p>After above step completes, OpenLDAP will be installed, configured and loaded with fortress bootstrap config. This step also runs provisioning scripts which may be tailored according to requirements. Check out the xml load scripts in FORTRESS_HOME/ldap/setup folder.</p>
+<h3 id="step-5">Step 5</h3>
+<p>Point your preferred LDAP browser, ours is Apache Directory Studio, to the installed directory. The configuration parameters you&rsquo;ll need to browse can be found in the generated &lsquo;slapd.conf&rsquo; file.</p>
+<p>To view data stored in default database:</p>
+<pre><code>suffix &quot;dc=openldap,dc=org&quot; 
+rootdn &quot;cn=Manager,dc=openldap,dc=org&quot; 
+rootpw &quot;secret&quot;
+</code></pre>
+<p>The root pw will be encrypted before stored in slapd.conf</p>
+<CENTER>
+  <IMG src="../../images/Screenshot8-ldap-browser.png" alt="Screenshot" width="766" height="439"/>
+</CENTER>
+<p>To view data stored in audit log database:</p>
+<pre><code>suffix &quot;cn=log&quot;
+rootdn &quot;cn=Manager,cn=log&quot;
+rootpw &quot;secret&quot;
+</code></pre>
+<p>The log root pw will be encrypted before stored in slapd.conf</p>
+<CENTER>
+  <IMG src="../../images/Screenshot9-ldap-browser-log.png" alt="Screenshot" width="766" height="374"/>
+</CENTER>
+
+
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="section-II.html">Section II - Instructions to run the Fortress Ant Build</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="linux.html">Quickstart Linux - Table of contents</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="section-IV.html">Section IV - Instructions to regression test Fortress and OpenLDAP</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

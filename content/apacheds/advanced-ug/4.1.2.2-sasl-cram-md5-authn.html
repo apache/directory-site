@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>4.1.2.2 - SASL CRAM-MD5 Authentication &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/green.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/server-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+            
+                <strong>ApacheDS</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+             
+                LDAP API
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>ApacheDS 2.0</h5>
+                <ul>
+                    <li><a href="/apacheds/">Home</a></li>
+                    <li><a href="/apacheds/news.html">News</a></li>
+                    <li><a href="/apacheds/features.html">Features</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/apacheds/downloads.html">ApacheDS 2.0.0.AM26</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/apacheds/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/apacheds/basic-user-guide.html">Basic User Guide </a></li>
+                    <li><a href="/apacheds/advanced-user-guide.html">Advanced User Guide</a></li>
+                    <li><a href="/apacheds/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/apacheds/kerberos-user-guide.html">Kerberos User Guide</a></li>
+                    <li><a href="/apacheds/configuration/ads-2.0-configuration.html">Configuration</a></li>
+                    <li><a href="/apacheds/gen-docs/latest/apidocs">JavaDocs</a></li>
+                    <li><a href="/apacheds/gen-docs/latest/xref">Cross-Reference</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="4.1.2.1-sasl-plain-text-authn.html">4.1.2.1 - SASL PLAIN text Authentication</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="4.1.2-sasl-authn.html">4.1.2 - SASL Authentication</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="4.1.2.3-sasl-digest-md5-authn.html">4.1.2.3 - SASL DIGEST-MD5 Authentication</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+            
+	<h1 id="4122---sasl-cram-md5-authentication">4.1.2.2 - SASL CRAM-MD5 Authentication</h1>
+<p>The <strong>CRAM-MD5</strong> <strong>SASL</strong> mechanism is defined by <a href="http://www.ietf.org/rfc/rfc2195.txt">RFC 2195</a>.</p>
+<p>We will have an exchange between the client, which will send an empty <em>Bind request</em> (i.e., the username and credentials won&rsquo;t be sent the first time), and the server will return a challenge.</p>
+<DIV class="warning" markdown="1">
+It's not recommended to use this mechanism.
+</DIV>
+<h2 id="usage">Usage</h2>
+<p>The client first send a <em>BindRequest</em> with no credentials:</p>
+<pre><code>MessageType : BIND_REQUEST
+Message ID : 1
+    BindRequest
+        Version : '3'
+        Name : 'null'
+        Sasl credentials
+            Mechanism :'CRAM-MD5'
+            Credentials : null
+</code></pre>
+<p>The server will return a <em>BindResponse</em> with a SASL_BIND_IN_PROGRESS status :</p>
+<pre><code>MessageType : BIND_RESPONSE
+Message ID : 1
+    BindResponse
+        Ldap Result
+            Result code : (SASL_BIND_IN_PROGRESS) saslBindInProgress -- new
+            Matched Dn : ''
+            Diagnostic message : ''
+        Server sasl credentials : '0x3C 0x2D 0x37 0x38 0x30 0x39 0x37 0x35 0x33 0x32 0x33 0x38 0x35 0x32 0x31 0x37 0x37 0x37 0x37 0x35 0x30 0x2E 0x31 0x33 0x36 0x35 0x34 0x31 0x31 0x39 0x32 0x37 0x30 0x33 0x30 0x40 0x6C 0x6F 0x63 0x61 0x6C 0x68 0x6F 0x73 0x74 0x3E '
+</code></pre>
+<p>and will accordingly send a new <em>BindRequest</em> with the appropriate credentials which have been hashed with the server&rsquo;s provided challenge token :</p>
+<pre><code>MessageType : BIND_REQUEST
+Message ID : 2
+    BindRequest
+        Version : '3'
+        Name : 'null'
+        Sasl credentials
+            Mechanism :'CRAM-MD5'
+            Credentials : (omitted-for-safety)
+</code></pre>
+<p>In any case, the full exchange aims at transferring the user&rsquo;s credential encrypted instead of passing it in clear text. Once the server receives the password, it will check it against the stored password which must be stored in clear text.</p>
+<p>When the server receives a <strong>SASL PLAIN</strong> bind request, it will look for the first entry which <strong>uid</strong> is equal to the provided value, starting from the server <strong>searchBaseDN</strong> position in the DIT.</p>
+<DIV class="note" markdown="1">
+ApacheDS expect the given name to be stored in the **UID** Attribute. This is not configurable in this version of the server.
+</DIV>
+<DIV class="warning" markdown="1">
+The password must be stored in clear text on the server. This is a serious weakness...
+</DIV>
+
+
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="4.1.2.1-sasl-plain-text-authn.html">4.1.2.1 - SASL PLAIN text Authentication</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="4.1.2-sasl-authn.html">4.1.2 - SASL Authentication</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="4.1.2.3-sasl-digest-md5-authn.html">4.1.2.3 - SASL DIGEST-MD5 Authentication</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

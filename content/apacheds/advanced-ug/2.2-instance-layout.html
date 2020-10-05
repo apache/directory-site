@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>2.3 - Instance Layout &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/green.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/server-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+            
+                <strong>ApacheDS</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+             
+                LDAP API
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>ApacheDS 2.0</h5>
+                <ul>
+                    <li><a href="/apacheds/">Home</a></li>
+                    <li><a href="/apacheds/news.html">News</a></li>
+                    <li><a href="/apacheds/features.html">Features</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/apacheds/downloads.html">ApacheDS 2.0.0.AM26</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/apacheds/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/apacheds/basic-user-guide.html">Basic User Guide </a></li>
+                    <li><a href="/apacheds/advanced-user-guide.html">Advanced User Guide</a></li>
+                    <li><a href="/apacheds/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/apacheds/kerberos-user-guide.html">Kerberos User Guide</a></li>
+                    <li><a href="/apacheds/configuration/ads-2.0-configuration.html">Configuration</a></li>
+                    <li><a href="/apacheds/gen-docs/latest/apidocs">JavaDocs</a></li>
+                    <li><a href="/apacheds/gen-docs/latest/xref">Cross-Reference</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="2.1-config-description.html">2.1 - Configuration Description</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="2-server-config.html">2 - Server Configuration</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="2.2.1-debian-instance-layout.html">2.2.1 - Debian Instance Layout</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+            
+	<h1 id="22---instance-layout">2.2 - Instance Layout</h1>
+<p>Note that the installation will differ with the target OS. We currently support :</p>
+<ul>
+<li><img src="images/debian.png" alt="debian"><a href="2.2.1-debian-instance-layout.html">2.2.1 - Debian instance Layout</a></li>
+<li><img src="images/rpm.png" alt="RPM"><a href="2.2.2-rpm-instance-layout.html">2.2.2 - RPM instance Layout</a></li>
+<li><img src="images/mac.png" alt="MacOSX"><a href="2.2.3-macosx-instance-layout.html">2.2.3 - MacOSX instance Layout</a></li>
+<li><img src="images/windows.png" alt="Windows"><a href="2.2.4-windows-instance-layout.html">2.2.4 - Windows instance Layout</a></li>
+<li><a href="2.2.5-generic-instance-layout.html">2.2.5 - Generic instance Layout</a></li>
+</ul>
+<p>When we start a server, after having installed it, it creates some other directories where the data will be stored. Here is a list of those data :</p>
+<ul>
+<li>the partitions data</li>
+<li>the logs</li>
+<li>the cache files</li>
+<li>the replication data (if setup)</li>
+<li>the run files</li>
+</ul>
+<h2 id="created-directories">Created directories</h2>
+<p>The following directories are created on your disk :</p>
+<PRE>
+installation directory/
+    |
+    +-- conf/
+    |    |
+    |    +-- config.ldif
+    |    |
+    |    +-- wrapper.conf
+    |    |
+    |    +-- log4j.properties
+    |
+    +-- log/
+    |    |
+    |   [+-- journal.ldif]
+    |    |
+    |    +-- <log file>
+    |
+    +-- partitions/
+    |    |
+    |    +-- system/
+    |    |    |
+    |    |    +-- master.db
+    |    |    |
+    |    |    +-- objectclass.db
+    |    |    |
+    |    |    +-- objectclass.lg
+    |    |    |
+    |    |    +-- <index XXX lg and db files>
+    |    |
+    |    +-- schema/
+    |    |    |
+    |    |    :
+    |    |
+    |    +-- <partition XXX>
+    |    |    |
+    |    :    :
+    |
+    +-- run/
+    |
+    +-- cache/
+    |
+    +-- syncrepl-data/
+    |
+    +-- NOTICE
+    |
+    +-- LICENSE
+</PRE><blockquote>
+</blockquote>
+
+
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="2.1-config-description.html">2.1 - Configuration Description</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="2-server-config.html">2 - Server Configuration</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="2.2.1-debian-instance-layout.html">2.2.1 - Debian Instance Layout</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

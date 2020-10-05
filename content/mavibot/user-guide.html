@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <title>Users Guide &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/turquoise.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/mavibot-icon_16x16.png">
+</head>
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+             
+                ApacheDS
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+             
+                LDAP API
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+            
+                <strong>Mavibot</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>Mavibot 1.0</h5>
+                <ul>
+                    <li><a href="/mavibot/">Home</a></li>
+                    <li><a href="/mavibot/news.html">News</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/mavibot/downloads.html">Version 1.0.0-M8</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/mavibot/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Getting Started</h5>
+                <ul>
+                    <li><a href="/mavibot/vision.html">Vision</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/mavibot/five-minutes-tutorial.html">Five minutes tutorial</a></li>
+                    <li><a href="/mavibot/user-guide.html">User Guide</a></li>
+                    <li><a href="/mavibot/gen-docs/latest/apidocs/">JavaDocs</a></li>
+                    <li><a href="/mavibot/gen-docs/latest/xref/">Cross-Reference</a></li>
+                    
+                    <li><a href="/mavibot/developer-guide.html">Developer Guide</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+
+            
+	<h1 id="users-guide">Users guide</h1>
+<DIV class="note" markdown="1">
+**Work in progress**
+</DIV>
+<p>This user guide is about the Mavibot project developed at the Apache Software Foundation. We expect this project to be a replacement for <strong>JDBM</strong> that is currently used in Apache Directory Server, and also to be a reliable <strong>MVCC B-tree</strong> implementation that can be used by any other project.</p>
+<h2 id="about-this-guide">About this guide</h2>
+<p>Getting started. Learn how to use Mavibot.</p>
+<h3 id="audience">Audience</h3>
+<p>This guide is primarily for people new to Mavibot. Only basic features are covered. Learn more about the options you have (and many other things) in the [Advanced User&rsquo;s Guide].</p>
+<h3 id="feedback-welcome">Feedback welcome!</h3>
+<p>We are quite interested to improve the content of this guide. Feel free to provide us feedback:
+!email.png! <a href="mailto:users@directory.apache.org">mailto:users@directory.apache.org</a></p>
+<h3 id="table-of-contents">Table of contents</h3>
+<ul>
+<li><a href="user-guide/1-introduction.html">1 - Introduction</a>
+<ul>
+<li><a href="user-guide/1.1-btree-basics.html">1.1 - B-tree basics</a></li>
+</ul>
+</li>
+<li><a href="user-guide/2-btree-types.html">2 - B-tree Flavors</a>
+<ul>
+<li><a href="user-guide/2.1-mvcc-btree.html">2.1 - MVCC B-tree</a></li>
+</ul>
+</li>
+<li><a href="user-guide/3-btree-management.html">3 - Mavibot B-tree management</a>
+<ul>
+<li>creation</li>
+<li>close</li>
+<li>flush</li>
+<li>load</li>
+</ul>
+</li>
+<li><a href="user-guide/4-btree-operations.html">4 - Mavibot B-tree operations</a>
+<ul>
+<li>Cursor informations</li>
+<li>browse</li>
+<li>contains</li>
+<li>has</li>
+<li>get</li>
+<li>insert</li>
+<li>delete</li>
+<li>other operations</li>
+</ul>
+</li>
+<li><a href="user-guide/5-btree-informations.html">5 - Mavibot B-tree information</a>
+<ul>
+<li>getComparator</li>
+<li>getFile</li>
+<li>getJournal</li>
+<li>getNbElems</li>
+<li>isAllowDuplicates</li>
+<li>isInMemory</li>
+<li>isPersistent</li>
+</ul>
+</li>
+<li><a href="user-guide/6-btree-configuration.html">6 - Mavibot B-tree configuration</a>
+<ul>
+<li>getKeySerializer</li>
+<li>getKeySerializerFQCN</li>
+<li>setKeySerializer</li>
+<li>getName</li>
+<li>setName</li>
+<li>getPageSize</li>
+<li>setPageSize</li>
+<li>getReadTimeOut</li>
+<li>setReadTimeOut</li>
+<li>getValueSerializer</li>
+<li>getValueSerializerFQCN</li>
+<li>setValueSerializer</li>
+<li>getWriteBufferSize</li>
+<li>setWriteBufferSize</li>
+</ul>
+</li>
+<li><a href="user-guide/7-btree-internals.html">7 - Mavibot internals</a>
+<ul>
+<li><a href="user-guide/7.1-logical-structure.html">7.1 - Logical Structure</a></li>
+<li><a href="user-guide/7.2-physical-storage.html">7.2 - Physical Storage</a></li>
+<li><a href="user-guide/7.3-serializations.html">7.3 - Serializations</a></li>
+<li><a href="user-guide/7.4-updates.html">7.4 - Updates</a></li>
+</ul>
+</li>
+</ul>
+
+
+            
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2020, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

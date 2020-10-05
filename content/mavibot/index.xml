@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Mavibots on Apache Directory</title>
+    <link>https://directory.apache.org/mavibot.html</link>
+    <description>Recent content in Mavibots on Apache Directory</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    
+	<atom:link href="https://directory.apache.org/mavibot/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title></title>
+      <link>https://directory.apache.org/mavibot/user-guide/5-btree-informations.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/mavibot/user-guide/5-btree-informations.html</guid>
+      <description>title: 5 - Mavibot B-tree information navUp: ../user-guide.html navUpText: User Guide navNext: 6-btree-configuration.html navNextText: 6 - Mavibot B-tree configuration navPrev: 4-btree-operations.html navPrevText: 4 - Mavibot B-tree operations 5 - Mavibot B-tree information TODO</description>
+    </item>
+    
+    <item>
+      <title>1 - Introduction</title>
+      <link>https://directory.apache.org/mavibot/user-guide/1-introduction.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/mavibot/user-guide/1-introduction.html</guid>
+      <description>1 - Introduction The goal of this guide is to explain the usage and internals of Mavibot to developers.
+We hope it will be enough for you to quickly get started, but in any case, if you feel like improving this document, feel free to post your suggestion(s) to the Apache Directory mailing list : any contribution is welcomed !
+The first two chapters is all about theory, you can skip thema nd jump to chapter 3 if you want to get started quickly.</description>
+    </item>
+    
+    <item>
+      <title>1.1 - B-tree Basics</title>
+      <link>https://directory.apache.org/mavibot/user-guide/1.1-btree-basics.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/mavibot/user-guide/1.1-btree-basics.html</guid>
+      <description>1.1 - B-tree Basics B-tree was invented back in 1971 by Bayer and McCreight (the B does not mean anything known, speculations are that it comes either form the B of Bayer or from Boing they were working for back then). It was an extension to binary search tree, which was just able to store 2 elements per page.
+A B-tree is a &amp;ldquo;tree data structure that keeps data sorted and allows searches, sequential access, insertions, and deletions in logarithmic time.</description>
+    </item>
+    
+    <item>
+      <title>2 - B-tree Flavors</title>
+      <link>https://directory.apache.org/mavibot/user-guide/2-btree-types.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/mavibot/user-guide/2-btree-types.html</guid>
+      <description>2 - B-tree flavors You have many different flavors of B-trees :
+ B+tree B*-tree Counted B-tree MVCC B-tree  B+tree This is a B-tree which does not store values in the Nodes, and a link between Leaves is added, to speed up the browsing : no need to go up to the parent&amp;rsquo;s node to get the next value when reaching the end of a leaf. Also the nodes don&amp;rsquo;t contain values.</description>
+    </item>
+    
+    <item>
+      <title>2 - MVCC B-tree</title>
+      <link>https://directory.apache.org/mavibot/user-guide/2.1-mvcc-btree.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/mavibot/user-guide/2.1-mvcc-btree.html</guid>
+      <description>2.1 - MVCC B-tree MVCC stands for Multi Version Concurrency Ccontrol. It all boils down to allow readers to ALWAYS have a consistent version of the data they reached at the time they started to work with them. In other words, when a reader access the database, it will work on a specific version of it, that will never change.
+The drawback is that the data may be accurate at the time the reader started to work with them, but this reader will never see the updated data if a writer has modified them.</description>
+    </item>
+    
+    <item>
+      <title>3 - Mavibot B-tree management</title>
+      <link>https://directory.apache.org/mavibot/user-guide/3-btree-management.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/mavibot/user-guide/3-btree-management.html</guid>
+      <description>3 - Mavibot B-tree management TODO</description>
+    </item>
+    
+    <item>
+      <title>4 - Mavibot B-tree operations</title>
+      <link>https://directory.apache.org/mavibot/user-guide/4-btree-operations.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/mavibot/user-guide/4-btree-operations.html</guid>
+      <description>4 - Mavibot B-tree operations We will now list all the possible operations that can be applied on a B-tree. But first, let us understand the Cursor interface, as it is used for navigating a B-tree using various types of browse operations.
+4.1 The Cursor interface All the browse operations will return a Cursor instance. A Cursor allows navigating forward and backward on a B-tree. It starts at a specific position, and can be moved to a specific position too.</description>
+    </item>
+    
+    <item>
+      <title>6 - Mavibot B-tree configuration</title>
+      <link>https://directory.apache.org/mavibot/user-guide/6-btree-configuration.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/mavibot/user-guide/6-btree-configuration.html</guid>
+      <description>6 - Mavibot B-tree configuration TODO</description>
+    </item>
+    
+    <item>
+      <title>7 - Mavibot Internals</title>
+      <link>https://directory.apache.org/mavibot/user-guide/7-btree-internals.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/mavibot/user-guide/7-btree-internals.html</guid>
+      <description>7 - Mavibot Internals TODO</description>
+    </item>
+    
+    <item>
+      <title>7.1 - Logical Structure</title>
+      <link>https://directory.apache.org/mavibot/user-guide/7.1-logical-structure.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/mavibot/user-guide/7.1-logical-structure.html</guid>
+      <description>7.1 - Logical Structure Mavibot stores data in one or more BTrees, and defines a few more internal data structures to handle the data and BTrees.
+We can have three different ways to use Mavibot :
+ using in-memory BTrees (IN-MEMORY) using in-memory BTrees stored on disk (PERSISTED) storing the BTrees on disk (so called managed BTrees) (MANAGED)  In Memory BTrees They are BTrees stored in memory : as soon as you quit your program, all the stored data will be lost.</description>
+    </item>
+    
+    <item>
+      <title>7.2 - Physical storage</title>
+      <link>https://directory.apache.org/mavibot/user-guide/7.2-physical-storage.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/mavibot/user-guide/7.2-physical-storage.html</guid>
+      <description>7.2 - Physical storage When associated with a RecordManager, Mavibot stores all the Btrees in one single file, which is split in many physical pages, all having the same size.
+ Note Currently, the choice was to use same size for all the pages, regardless of the data stored into them. The rationnal is to get close to the OS page size (frequently 512 bytes or 4096 bytes). This is not necessarily the best choice though, let&amp;rsquo;s say it&amp;rsquo;s something we might want to change later.</description>
+    </item>
+    
+    <item>
+      <title>7.3 - Serializations</title>
+      <link>https://directory.apache.org/mavibot/user-guide/7.3-serializations.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/mavibot/user-guide/7.3-serializations.html</guid>
+      <description>7.3 - Serializations The logical pages are serialized before storing in physical pages. This is a process that should obviously be reversible. In this chapter, we will describe how to serialize a Leaf and Node.
+Leaf serialization A Leaf contains some metadata, and a set of keys and values. A key can have many values, and we have as many keys as values. The internal format of a serialized leaf contains:</description>
+    </item>
+    
+    <item>
+      <title>7.4 - Updates</title>
+      <link>https://directory.apache.org/mavibot/user-guide/7.4-updates.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/mavibot/user-guide/7.4-updates.html</guid>
+      <description>7.4 - Updates The update operations on a b-tree will modify the internal structure in many ways. We will expsoe the evolution of the mavibot file when dealing with the addition of a new b-tree and the insertion of a new value into it.
+Note : we don&amp;rsquo;t show what&amp;rsquo;s happening to the CopiedPages b-tree here.
+Initial state before the addition of a b-tree Here is the content of the mavibot.</description>
+    </item>
+    
+    <item>
+      <title>Download Old Versions</title>
+      <link>https://directory.apache.org/mavibot/download-old-versions.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/mavibot/download-old-versions.html</guid>
+      <description>Download Old Versions     Version Download Link Javadoc &amp;amp; XRef Date     Apache MAVIBOT 1.0.0-M7 Download Javadoc, Xref 27/mar/2015   Apache MAVIBOT 1.0.0-M6 Download Javadoc, Xref 16/nov/2014   Apache MAVIBOT 1.0.0-M5 Download Javadoc, Xref 04/jul/2014   Apache MAVIBOT 1.0.0-M4 Download Javadoc, Xref 13/mar/2014   Apache MAVIBOT 1.0.0-M3 Download Javadoc, Xref 16/Dec/2013   Apache MAVIBOT 1.0.0-M2 Download Javadoc, Xref 06/Nov/2013   Apache MAVIBOT 1.</description>
+    </item>
+    
+    <item>
+      <title>Downloads for Archive</title>
+      <link>https://directory.apache.org/mavibot/download/download-archive.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/mavibot/download/download-archive.html</guid>
+      <description>Downloads for Archive  [if-any logo]  [end] We suggest the following mirror site for your download: ZIP Archive      &amp;nbsp;   [preferred]/&amp;#91;...&amp;#93;/mavibot-1.0.0-M8-bin.zip    [ASC-SHA-1]     TAR.GZ Archive      &amp;nbsp;   [preferred]/&amp;#91;...&amp;#93;/mavibot-1.0.0-M8-bin.tar.gz    [ASC-SHA-1]     &amp;nbsp;
+ Other mirrors: [if-any http] [for http][http][end]  [end] [if-any ftp] [for ftp][ftp][end]  [end] [if-any backup] [for backup][backup] (backup)[end]  [end]    We encourage you to verify the integrity of the downloaded file using:  the ASC file (OpenPGP compatible signature) with the KEYS file (code signing keys used to sign the product) the SHA256 or SHA512 files (checksum).</description>
+    </item>
+    
+    <item>
+      <title>Downloads for Sources</title>
+      <link>https://directory.apache.org/mavibot/download/download-sources.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/mavibot/download/download-sources.html</guid>
+      <description>Downloads for Archive  [if-any logo]  [end] We suggest the following mirror site for your download: ZIP Archive      &amp;nbsp;   [preferred]/&amp;#91;...&amp;#93;/mavibot-1.0.0-M8-src.zip    [ASC-SHA-1]     TAR.GZ Archive      &amp;nbsp;   [preferred]/&amp;#91;...&amp;#93;/mavibot-1.0.0-M8-src.tar.gz    [ASC-SHA-1]     &amp;nbsp;
+ Other mirrors: [if-any http] [for http][http][end]  [end] [if-any ftp] [for ftp][ftp][end]  [end] [if-any backup] [for backup][backup] (backup)[end]  [end]    We encourage you to verify the integrity of the downloaded file using:  the ASC file (OpenPGP compatible signature) with the KEYS file (code signing keys used to sign the product) the SHA256 or SHA512 files (checksum).</description>
+    </item>
+    
+    <item>
+      <title>Five Minutes Tutorial</title>
+      <link>https://directory.apache.org/mavibot/five-minutes-tutorial.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/mavibot/five-minutes-tutorial.html</guid>
+      <description>Five Minutes Tutorial Let&amp;rsquo;s drop a quick sample first :
+// Create a BTree that stores String indexed by a Long BTree&amp;lt;Long, String&amp;gt; btree = new BTree&amp;lt;Long, String&amp;gt;( &amp;#34;test&amp;#34;, new LongSerializer(), new StringSerializer() ); // Inject some random data in it for ( long i = 0L; i &amp;lt; 10000L; i++ ) { Long key = ( long ) random.nextLong(); String value = Long.toString( key ); btree.insert( key, value ); } // Check that the tree contains all the values try { for ( long i = 0L; i &amp;lt; 100000L; i++ ) { assertEquals( Long.</description>
+    </item>
+    
+    <item>
+      <title>Mavibot Coding Standards</title>
+      <link>https://directory.apache.org/mavibot/coding-standards.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/mavibot/coding-standards.html</guid>
+      <description>Mavibot Coding Standards Welcome to you fellow developer. You&amp;rsquo;ve maybe been elected committer on the project, or want to contribute some code / patch? This is great news! However, in order to be able to share your &amp;lsquo;vision&amp;rsquo; with your code, some rules must be followed.
+Hey, remember that those rules are not the best nor the worst, they are pretty much what they are for historical reasons, or for technical reasons, however, please, accept them as they are, and avoid religious war (please, oh please, no mail to say &amp;ldquo;WTF ?</description>
+    </item>
+    
+    <item>
+      <title>Mavibot Developers Guide</title>
+      <link>https://directory.apache.org/mavibot/developer-guide.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/mavibot/developer-guide.html</guid>
+      <description>Mavibot Developers Guide We will describe how to get the code, build it, and release it.
+ Getting the source, Building the trunks  Prerequisites for building Maven JDK 7   Getting the code Building the trunk  Building the trunk, for real   Eclipse  Building eclipse files Maven settings   Coding standards   Test the Project Deploy a Snapshot Prepare the Release Stage the Release Build the Site Publish Source and Binary Distribution Packages Vote Release Deploy the Javadocs and XRef Update the web site Inform the world !</description>
+    </item>
+    
+    <item>
+      <title>Mavibot Downloads</title>
+      <link>https://directory.apache.org/mavibot/downloads.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/mavibot/downloads.html</guid>
+      <description>Downloads Jar Download The Apache Mavibot package is distributed as a jar.
+ Download Archive zip/tar.gz Download Sources  Maven Dependency The Apache Mavibot package is also available as a Maven dependency:
+&amp;lt;dependency&amp;gt; &amp;lt;groupId&amp;gt;org.apache.directory.mavibot&amp;lt;/groupId&amp;gt; &amp;lt;artifactId&amp;gt;mavibot&amp;lt;/artifactId&amp;gt; &amp;lt;version&amp;gt;${mavibot-version}&amp;lt;/version&amp;gt; &amp;lt;/dependency&amp;gt; </description>
+    </item>
+    
+    <item>
+      <title>News</title>
+      <link>https://directory.apache.org/mavibot/news.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/mavibot/news.html</guid>
+      <description>News Apache Mavibot 1.0.0-M8 released posted on August 16th, 2015 The Apache Directory team is pleased to announce the release of Apache Mavibot 1.0.0-M8 the eighth milestone towards a 1.0 version.
+Mavibot is a Multi Version Concurrency Control (MVCC) BTree in Java. It is expected to be a replacement for JDBM (The current backend for the Apache Directory Server), but could be a good fit for any other project in need of a Java MVCC BTree implementation.</description>
+    </item>
+    
+    <item>
+      <title>Users Guide</title>
+      <link>https://directory.apache.org/mavibot/user-guide.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/mavibot/user-guide.html</guid>
+      <description>Users guide **Work in progress**  This user guide is about the Mavibot project developed at the Apache Software Foundation. We expect this project to be a replacement for JDBM that is currently used in Apache Directory Server, and also to be a reliable MVCC B-tree implementation that can be used by any other project.
+About this guide Getting started. Learn how to use Mavibot.
+Audience This guide is primarily for people new to Mavibot.</description>
+    </item>
+    
+    <item>
+      <title>Vision</title>
+      <link>https://directory.apache.org/mavibot/vision.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/mavibot/vision.html</guid>
+      <description>Vision The Apache Directory Server is using an old package to manage its data : JDBM. This is a simple - but functional - BTree implementation in Java. It support transactions and storage on disk.
+So far, so good. Except that it&amp;rsquo;s kind of slow, and more important, it does not support concurrent reads and writes.
+At some point, we decided to go for another implementation, but for a MVCC BTree.</description>
+    </item>
+    
+    <item>
+      <title>Welcome to Apache Mavibot</title>
+      <link>https://directory.apache.org/mavibot/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/mavibot/</guid>
+      <description>Apache Mavibot&amp;trade; MVCC BTree Java Implementation Mavibot&amp;trade; is a Multi Version Concurrency Control (MVCC) BTree in Java. It is expected to be a replacement for JDBM (The current backend for the Apache Directory Server), but could be a good fit for any other project in need of a Java MVCC BTree implementation.  Download Apache
+Mavibot 1.0.0-M8     News Apache Mavibot 1.0.0-M8 released posted on August 16th, 2015 The Apache Directory team is pleased to announce the release of Apache Mavibot 1.</description>
+    </item>
+    
+  </channel>
+</rss>
