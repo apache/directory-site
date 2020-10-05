@@ -86,7 +86,7 @@ pipeline {
                     // Commit the changes to the target branch
                     env.COMMIT_MESSAGE = "Updated site from ${BRANCH_NAME} (${env.LAST_SHA})"
                     sh """
-                        git add -A
+                        git add content/
                         git commit -m "${env.COMMIT_MESSAGE}" | true
                     """
                     
