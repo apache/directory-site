@@ -1,0 +1,13 @@
+Options +FollowSymLinks
+RewriteEngine On
+
+# Redirect to the latest releases
+RewriteRule ^latest$ https://nightlies.apache.org/directory/api/1.0.2/ [QSA,L]
+RewriteRule ^latest/(.*)$ https://nightlies.apache.org/directory/api/1.0.2/$1 [QSA,L]
+
+RewriteRule ^latest2$ https://nightlies.apache.org/directory/api/2.0.1/ [QSA,L]
+RewriteRule ^latest2/(.*)$ https://nightlies.apache.org/directory/api/2.0.1/$1 [QSA,L]
+
+# Redirect everything else
+RewriteRule ^(.*)$ https://nightlies.apache.org/directory/api/$1 [QSA,L]
+
