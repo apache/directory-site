@@ -1,0 +1,10 @@
+Options +FollowSymLinks
+RewriteEngine On
+
+# Redirect to the latest release
+RewriteRule ^latest$ https://nightlies.apache.org/directory/apacheds/2.0.0.AM26/ [QSA,L]
+RewriteRule ^latest/(.*)$ https://nightlies.apache.org/directory/apacheds/2.0.0.AM26/$1 [QSA,L]
+
+# Redirect everything else
+RewriteRule ^(.*)$ https://nightlies.apache.org/directory/apacheds/$1 [QSA,L]
+

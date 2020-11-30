@@ -1,0 +1,10 @@
+Options +FollowSymLinks
+RewriteEngine On
+
+# Redirect to the latest release
+RewriteRule ^latest$ https://nightlies.apache.org/directory/mavibot/1.0.0-M8/ [QSA,L]
+RewriteRule ^latest/(.*)$ https://nightlies.apache.org/directory/mavibot/1.0.0-M8/$1 [QSA,L]
+
+# Redirect everything else
+RewriteRule ^(.*)$ https://nightlies.apache.org/directory/mavibot/$1 [QSA,L]
+
