@@ -1,0 +1,10 @@
+Options +FollowSymLinks
+RewriteEngine On
+
+# Redirect to the latest release
+RewriteRule ^users-guide/latest$ https://nightlies.apache.org/directory/studio/2.0.0.v20200411-M15/userguide/ [QSA,L]
+RewriteRule ^users-guide/latest/(.*)$ https://nightlies.apache.org/directory/studio/2.0.0.v20200411-M15/userguide/ [QSA,L]
+
+# Redirect everything else; more complex regex because of the changed directory structure and to not break existing urls
+RewriteRule ^users-guide/((.*?)/)(.*)$ https://nightlies.apache.org/directory/studio/$2/userguide/$3 [QSA,L]
+
