@@ -16,14 +16,7 @@
     limitations under the License.
 -->
 <html lang="en">
-<head>
-    <title>{{ .Title }} &mdash; Apache Directory</title>
-
-    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
-    <link href="/css/orange.css" rel="stylesheet" type="text/css"/>
-
-    <link rel="shortcut icon" href="/images/api-icon_16x16.png">
-</head>
+{{ partial "head.html" (dict "context" . "csscolor" "orange") }}
 <body>
 <div id="container">
     {{ partial "header.html" (dict "context" . "project" "kerby") }}
