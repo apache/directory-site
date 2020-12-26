@@ -12,7 +12,7 @@ title: ChangeLog
 * [DIRSTUDIO-1195](https://issues.apache.org/jira/browse/DIRSTUDIO-1195) - LDIF editor, entry editor, search result edtor fail to open with ClassCastException
 * [DIRSTUDIO-1197](https://issues.apache.org/jira/browse/DIRSTUDIO-1197) - Connection Network check fails when using the LDAP API
 * [DIRSTUDIO-1199](https://issues.apache.org/jira/browse/DIRSTUDIO-1199) - 2.0.0-M14 doesn't display objectGUID / objectSid correctly
-* [DIRSTUDIO-1200](https://issues.apache.org/jira/browse/DIRSTUDIO-1200)(https://issues.apache.org/jira/browse/DIRSTUDIO- - LDIF export fails with "Comparison method violates its general contract!"
+* [DIRSTUDIO-1200](https://issues.apache.org/jira/browse/DIRSTUDIO-1200) - LDIF export fails with "Comparison method violates its general contract!"
 * [DIRSTUDIO-1202](https://issues.apache.org/jira/browse/DIRSTUDIO-1202) - Eclipse - No perspective to switch to.
 * [DIRSTUDIO-1203](https://issues.apache.org/jira/browse/DIRSTUDIO-1203) - testConnectFailures fails
 * [DIRSTUDIO-1204](https://issues.apache.org/jira/browse/DIRSTUDIO-1204) - ImageDialog can't read binary data
