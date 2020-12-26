@@ -10,7 +10,7 @@ title: Download Old Versions
 
 | Version| Download Link | Date |
 |:-:|:-:|:-:|
-| ApacheDS 2.0.0-M25 | [Download](https://archive.apache.org/dist/directory/apacheds/dist/2.0.0-AM25/), [Javadoc](https://directory.apache.org/apacheds/gen-docs/2.0.0-AM25/apidocs/), [Xref](http://directory.apache.org/apacheds/gen-docs/2.0.0-AM25/xref/) | 18/Aug/2018 | 
+| ApacheDS 2.0.0-M25 | [Download](https://archive.apache.org/dist/directory/apacheds/dist/2.0.0.AM25/), [Javadoc](https://directory.apache.org/apacheds/gen-docs/2.0.0.AM25/apidocs/), [Xref](http://directory.apache.org/apacheds/gen-docs/2.0.0.AM25/xref/) | 18/Aug/2018 | 
 | ApacheDS 2.0.0-M24 | [Download](https://archive.apache.org/dist/directory/apacheds/dist/2.0.0-M24/), [Javadoc](https://directory.apache.org/apacheds/gen-docs/2.0.0-M24/apidocs/), [Xref](https://directory.apache.org/apacheds/gen-docs/2.0.0-M24/xref/) | 07/Jun/2017 |
 | ApacheDS 2.0.0-M23 | [Download](https://archive.apache.org/dist/directory/apacheds/dist/2.0.0-M23/), [Javadoc](https://directory.apache.org/apacheds/gen-docs/2.0.0-M23/apidocs/), [Xref](https://directory.apache.org/apacheds/gen-docs/2.0.0-M23/xref/) | 22/Jul/2016 |
 | ApacheDS 2.0.0-M22 | [Download](https://archive.apache.org/dist/directory/apacheds/dist/2.0.0-M22/), [Javadoc](https://directory.apache.org/apacheds/gen-docs/2.0.0-M22/apidocs/), [Xref](https://directory.apache.org/apacheds/gen-docs/2.0.0-M22/xref/) | 21/Dec/2015 |
