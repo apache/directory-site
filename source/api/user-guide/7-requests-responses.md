@@ -137,7 +137,7 @@ Here is the Message interface:
 * [7.13 - ModDnRequest](7.13-mod-dn-request.html)
 * [7.14 - ModDnResponse](7.14-mod-dn-response.html)
 * [7.15 - ModifyRequest](7.15-modify-request.html)
-* [7.16 - ModifyResponse](7.16-modify-response..html)
+* [7.16 - ModifyResponse](7.16-modify-response.html)
 * [7.17 - SearchRequest](7.17-search-request.html)
 * [7.18 - SearchResultDone](7.18-search-result-done.html)
 * [7.19 - SearchResultEntry](7.19-search-result-entry.html)

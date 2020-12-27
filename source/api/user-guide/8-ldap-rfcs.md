@@ -1,6 +1,6 @@
 ---
 title: 8 - LDAP Related RFCs
-navPrev: 7-requests-response.html
+navPrev: 7-requests-responses.html
 navPrevText: 7 - Requests and Responses
 navUp: ../user-guide.html
 navUpText: User Guide
