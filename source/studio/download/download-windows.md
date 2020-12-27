@@ -69,64 +69,6 @@ title: Downloads for Windows
     </div>
 </p>
 
-## Windows 32 bit installer
-
-<p>
-    <div class="download">
-        <table width="100%" class="noBorder">
-            <tr>
-                <td>
-                    <a href="[preferred]directory/studio/{{< param version_studio >}}/ApacheDirectoryStudio-{{< param version_studio >}}-win32.win32.x86.exe">
-                        <img src="/images/download.png" width="32" height="32" border="0"/>
-                    </a>
-                </td>
-                <td>&nbsp;</td>
-                <td>
-                    <a href="[preferred]directory/studio/{{< param version_studio >}}/ApacheDirectoryStudio-{{< param version_studio >}}-win32.win32.x86.exe">
-                        <strong>
-                            [preferred]&#91;...&#93;/ApacheDirectoryStudio-{{< param version_studio >}}-win32.win32.x86.exe
-                        </strong>
-                    </a>
-                </td>
-                <td align="right">
-                    [<a href="https://downloads.apache.org/directory/studio/{{< param version_studio >}}/ApacheDirectoryStudio-{{< param version_studio >}}-win32.win32.x86.exe.asc">ASC</a>]
-                    [<a href="https://downloads.apache.org/directory/studio/{{< param version_studio >}}/ApacheDirectoryStudio-{{< param version_studio >}}-win32.win32.x86.exe.sha256">SHA256</a>]
-                    [<a href="https://downloads.apache.org/directory/studio/{{< param version_studio >}}/ApacheDirectoryStudio-{{< param version_studio >}}-win32.win32.x86.exe.sha512">SHA512</a>]
-                </td>
-            </tr>
-        </table>
-    </div>
-</p>
-
-## Windows 32 bit zip archive
-
-<p>
-    <div class="download">
-        <table width="100%" class="noBorder">
-            <tr>
-                <td>
-                    <a href="[preferred]directory/studio/{{< param version_studio >}}/ApacheDirectoryStudio-{{< param version_studio >}}-win32.win32.x86.zip">
-                        <img src="/images/download.png" width="32" height="32" border="0"/>
-                    </a>
-                </td>
-                <td>&nbsp;</td>
-                <td>
-                    <a href="[preferred]directory/studio/{{< param version_studio >}}/ApacheDirectoryStudio-{{< param version_studio >}}-win32.win32.x86.zip">
-                        <strong>
-                            [preferred]&#91;...&#93;/ApacheDirectoryStudio-{{< param version_studio >}}-win32.win32.x86.zip
-                        </strong>
-                    </a>
-                </td>
-                <td align="right">
-                    [<a href="https://downloads.apache.org/directory/studio/{{< param version_studio >}}/ApacheDirectoryStudio-{{< param version_studio >}}-win32.win32.x86.zip.asc">ASC</a>]
-                    [<a href="https://downloads.apache.org/directory/studio/{{< param version_studio >}}/ApacheDirectoryStudio-{{< param version_studio >}}-win32.win32.x86.zip.sha256">SHA512</a>]
-                    [<a href="https://downloads.apache.org/directory/studio/{{< param version_studio >}}/ApacheDirectoryStudio-{{< param version_studio >}}-win32.win32.x86.zip.sha512">SHA512</a>]
-                </td>
-            </tr>
-        </table>
-    </div>
-</p>
-
 <p>&nbsp;</p>
 
 {{< download-change-mirror >}}
