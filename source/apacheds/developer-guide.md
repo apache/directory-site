@@ -531,10 +531,10 @@ You can now update the site, add a news on the front page, and publish the site.
 
 There are a few places to modify :
 
-* /config.toml : update the $version_apacheds variable with the new version.
+* /config.toml : update the version_apacheds variable with the new version.
 * /source/_index.md : same here, update the <!-- ApacheDS project --> section, which contains the version.
 * /source/apacheds/news.md : add the news on top of this page
-* /source/apacheds/download-old-versions.mdtext : add a new line on top of the array, which refers to the latest version before the new one
+* /source/apacheds/download-old-versions.md : add a new line on top of the array, which refers to the latest version before the new one
 
 Commit the changes, and publish the web site, you are done !
 

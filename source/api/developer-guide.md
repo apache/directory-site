@@ -478,10 +478,10 @@ You can now update the site, add a news on the front page, and publish the site.
 
 There are a few places to modify :
 
-* /lib/path.pm : update the $version_api variable with the new version.
-* /content/index.mdtext : same here, update the <!-- LDAP API project --> section, which contains the version.
-* /content/api/news.mdtext : add the news on top of this page
-* /content/api/download-old-versions.mdtext : add a new line on top of the array, which refers to the latest version before the new one
+* /config.toml : update the version_api variable with the new version.
+* /source/_index.md  : same here, update the <!-- LDAP API project --> section, which contains the version.
+* /source/api/news.md : add the news on top of this page
+* /source/api/download-old-versions.md : add a new line on top of the array, which refers to the latest version before the new one
 
 Commit the changes, and publish the web site, you are done !
 

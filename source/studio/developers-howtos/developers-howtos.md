@@ -22,7 +22,7 @@ and various utility plugins.
 
 ## Prerequisites
 
-You can check about what is needed to be able to start coding on [the Developers' guide](../devezlopers-guide.mdtext).
+You can check about what is needed to be able to start coding on [the Developers' guide](../developers-guide.html).
 
 In any case, you need a Java JDK 7, Eclipse Luna-SR2, Maven 3.2.5, subversion 1.8.8. 
 

@@ -549,10 +549,10 @@ Update the links to new distributions in [Downloads] page.
 
 There are a few places to modify :
 
-* /lib/path.pm : update the $version_fortress variable with the new version.
-* /content/index.mdtext : same here, update the <!-- FORTRESS project --> section, which contains the version.
-* /content/fortress/news.mdtext : add the news on top of thise page
-* /content/fortress/download-old-versions.mdtext : add a new line on top of the array, which refers to the latest version before the new one
+* /config.toml: update the version_fortress variable with the new version.
+* /source/_index.md  : same here, update the <!-- FORTRESS project --> section, which contains the version.
+* /source/fortress/news.md : add the news on top of thise page
+* /source/fortress/download-old-versions.md : add a new line on top of the array, which refers to the latest version before the new one
 
 Commit the changes, and publish the web site, you are done !
 
