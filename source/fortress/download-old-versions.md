@@ -8,17 +8,17 @@ title: Download Old Versions
 
 | Version| Download Link | Javadoc | Date |
 |:-:|:-:|:-:|:-:|
-| Apache Fortress 2.0.4 | [Download](https://archive.apache.org/dist/directory/fortress/dist/2.0.4) | [Javadoc](https://directory.apache.org/fortress/gen-docs/2.0.4/apidocs/) |13/December/2019 |
-| Apache Fortress 2.0.3 | [Download](https://archive.apache.org/dist/directory/fortress/dist/2.0.3) | [Javadoc](https://directory.apache.org/fortress/gen-docs/2.0.3/apidocs/) |12/November/2018 |
-| Apache Fortress 2.0.2 | [Download](https://archive.apache.org/dist/directory/fortress/dist/2.0.2) | [Javadoc](https://directory.apache.org/fortress/gen-docs/2.0.2/apidocs/) |12/September/2018 |
-| Apache Fortress 2.0.1 | [Download](https://archive.apache.org/dist/directory/fortress/dist/2.0.1) | [Javadoc](https://directory.apache.org/fortress/gen-docs/2.0.1/apidocs/) |20/July/2018 |
-| Apache Fortress 2.0.0 | [Download](https://archive.apache.org/dist/directory/fortress/dist/2.0.0) | [Javadoc](https://directory.apache.org/fortress/gen-docs/2.0.0/apidocs/) |26/June/2017 |
-| Apache Fortress 2.0.0-RC2 | [Download](https://archive.apache.org/dist/directory/fortress/dist/2.0.0-RC2) | [Javadoc](https://directory.apache.org/fortress/gen-docs/2.0.0-RC2/apidocs/) |04/May/2017 |
-| Apache Fortress 2.0.0-RC1 | [Download](https://archive.apache.org/dist/directory/fortress/dist/2.0.0-RC1) | [Javadoc](https://directory.apache.org/fortress/gen-docs/2.0.0-RC1/apidocs/) |07/Nov/2016 |
-| Apache Fortress 1.0.1 | [Download](https://archive.apache.org/dist/directory/fortress/dist/1.0.1) | [Javadoc](https://directory.apache.org/fortress/gen-docs/1.0.1/apidocs/) |22/Jul/2016 |
-| Apache Fortress 1.0.0 | [Download](https://archive.apache.org/dist/directory/fortress/dist/1.0.0) | [Javadoc](https://directory.apache.org/fortress/gen-docs/1.0.0/apidocs/) |15/Apr/2016 |
-| Apache Fortress 1.0-RC42 | [Download](https://archive.apache.org/dist/directory/fortress/dist/1.0-RC42) | [Javadoc](https://directory.apache.org/fortress/gen-docs/1.0-RC42/apidocs/) |28/Mar/2016 |
-| Apache Fortress 1.0-RC40 | [Download](https://archive.apache.org/dist/directory/fortress/dist/1.0-RC40) | [Javadoc](https://directory.apache.org/fortress/gen-docs/1.0-RC40/apidocs/) |15/Apr/2015 |
+| Apache Fortress 2.0.4 | [Download](https://archive.apache.org/dist/directory/fortress/dist/2.0.4) | [Javadoc](https://svn.apache.org/repos/infra/websites/production/directory/content/fortress/gen-docs/2.0.4/apidocs/index.html) |13/December/2019 |
+| Apache Fortress 2.0.3 | [Download](https://archive.apache.org/dist/directory/fortress/dist/2.0.3) | [Javadoc](https://svn.apache.org/repos/infra/websites/production/directory/content/fortress/gen-docs/2.0.3/apidocs/index.html) |12/November/2018 |
+| Apache Fortress 2.0.2 | [Download](https://archive.apache.org/dist/directory/fortress/dist/2.0.2) | [Javadoc](https://svn.apache.org/repos/infra/websites/production/directory/content/fortress/gen-docs/2.0.2/apidocs/index.html) |12/September/2018 |
+| Apache Fortress 2.0.1 | [Download](https://archive.apache.org/dist/directory/fortress/dist/2.0.1) | [Javadoc](https://svn.apache.org/repos/infra/websites/production/directory/content/fortress/gen-docs/2.0.1/apidocs/index.html) |20/July/2018 |
+| Apache Fortress 2.0.0 | [Download](https://archive.apache.org/dist/directory/fortress/dist/2.0.0) | [Javadoc](https://svn.apache.org/repos/infra/websites/production/directory/content/fortress/gen-docs/2.0.0/apidocs/index.html) |26/June/2017 |
+| Apache Fortress 2.0.0-RC2 | [Download](https://archive.apache.org/dist/directory/fortress/dist/2.0.0-RC2) | [Javadoc](https://svn.apache.org/repos/infra/websites/production/directory/content/fortress/gen-docs/2.0.0-RC2/apidocs/index.html) |04/May/2017 |
+| Apache Fortress 2.0.0-RC1 | [Download](https://archive.apache.org/dist/directory/fortress/dist/2.0.0-RC1) | [Javadoc](https://svn.apache.org/repos/infra/websites/production/directory/content/fortress/gen-docs/2.0.0-RC1/apidocs/index.html) |07/Nov/2016 |
+| Apache Fortress 1.0.1 | [Download](https://archive.apache.org/dist/directory/fortress/dist/1.0.1) | [Javadoc](https://svn.apache.org/repos/infra/websites/production/directory/content/fortress/gen-docs/1.0.1/apidocs/index.html) |22/Jul/2016 |
+| Apache Fortress 1.0.0 | [Download](https://archive.apache.org/dist/directory/fortress/dist/1.0.0) | [Javadoc](https://svn.apache.org/repos/infra/websites/production/directory/content/fortress/gen-docs/1.0.0/apidocs/index.html) |15/Apr/2016 |
+| Apache Fortress 1.0-RC42 | [Download](https://archive.apache.org/dist/directory/fortress/dist/1.0-RC42) | [Javadoc](https://svn.apache.org/repos/infra/websites/production/directory/content/fortress/gen-docs/1.0-RC42/apidocs/index.html) |28/Mar/2016 |
+| Apache Fortress 1.0-RC40 | [Download](https://archive.apache.org/dist/directory/fortress/dist/1.0-RC40) | [Javadoc](https://svn.apache.org/repos/infra/websites/production/directory/content/fortress/gen-docs/1.0-RC40/apidocs/index.html) |15/Apr/2015 |
 
 </CENTER>
 
