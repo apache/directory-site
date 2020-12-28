@@ -286,7 +286,7 @@ So the _ProtocolCodecFilter_ class is responsible for initializing the codec (it
 
 This class, which is part of the _mina_ module, instanciate an instance of the statefull **LDAP** encoder and decoder classes, _LdapProtocolEncoder_ and _LdapProtocolDecoder_, which also belongs to the _mina_ module.
 
-What is important to remember is that **TCP** is not dealing with **LDAP** messages, but with bytes. The decoder must be able to start decoding a message, even if it does not have all the necessary bytes to decode a full **LDAP** message. It should also be able to decode more than one message if the bytes it received contains more than the bytes necessary to hold a message. All of this is handle by MINA anyway, but we must provide a way for the decoder to keep the current state. Check the [codec](codec.html) page for more explainations.
+What is important to remember is that **TCP** is not dealing with **LDAP** messages, but with bytes. The decoder must be able to start decoding a message, even if it does not have all the necessary bytes to decode a full **LDAP** message. It should also be able to decode more than one message if the bytes it received contains more than the bytes necessary to hold a message. All of this is handle by MINA anyway, but we must provide a way for the decoder to keep the current state. Check the [codec](6-codec.html) page for more explainations.
 
 
 ## SSL Handling
