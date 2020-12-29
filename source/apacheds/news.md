@@ -14,8 +14,7 @@ Downloads are available [here](downloads.html)
 This is a major release of ApacheDS. It brings many bug fixes, and is the first version implementing LDAP transactions,
 which are now used internally for atomic operations, but can also be used through an extended operation, to apply many
 operations in one transaction.
-We also have changed the Cache system we were using (ehcache) to use the more efficient and lighter [Caffeine]
-(https://github.com/ben-manes/caffeine/wiki).
+We also have changed the Cache system we were using (ehcache) to use the more efficient and lighter [Caffeine](https://github.com/ben-manes/caffeine/wiki).
 Otherwise, we don't anymore store certificates in the server by default, but use an external keystore.
 
 We can't anymore produce the Mac OSX installer package, we are working on finding a solution for that issue (Apple

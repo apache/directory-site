@@ -127,7 +127,7 @@ There are some more rules, as we are using **Java 7** now :
 
 # Releasing Mavibot
 
-Since we are using Nexus for releases the release process is as follows (see also [http://www.apache.org/dev/publishing-maven-artifacts.html#staging-maven](publishing-maven-artifacts.html)).
+Since we are using Nexus for releases the release process is as follows (see also [http://www.apache.org/dev/publishing-maven-artifacts.html#staging-maven](http://www.apache.org/dev/publishing-maven-artifacts.html#staging-maven)).
 
 ## Test the Project
     

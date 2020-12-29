@@ -10,7 +10,7 @@ Most sources for the Apache Directory projects are managed through Git, some par
 
 If you just want to browse the source code, you can use one of the web interfaces:
 
-* [web interface to Gitbox](https://gitbox.apache.org/repos/asf?a=project_list&s=directory-)
+* [web interface to Gitbox](https://gitbox.apache.org/repos/asf#directory)
 * [web interface to GitHub](https://github.com/apache?q=directory-)
 * [web interface to Subversion](https://svn.apache.org/viewvc/directory)
 
