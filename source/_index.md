@@ -28,7 +28,7 @@ td {font-size: 12px;}
       <!-- ApacheDS project -->
 	    <td style="border-width: 0; border-right: 1px solid silver; padding-right: 15px; width:50%;" valign="top">
         <div class="download-link">
-          <a href="apacheds/downloads.html" class="download_badge_apacheds"><b>Download<br>ApacheDS 2.0.0.AM26</b></a>
+          <a href="apacheds/downloads.html" class="download_badge_apacheds"><b>Download<br>ApacheDS {{< param version_apacheds >}}</b></a>
         </div>
 		    <div class="separator">&nbsp;</div>
 		    ApacheDS is an extensible and embeddable directory server entirely written in Java, which has been certified LDAPv3 compatible by the Open Group. Besides LDAP it supports Kerberos 5 and the Change Password Protocol. It has been designed to introduce triggers, stored procedures, queues and views to the world of LDAP which has lacked these rich constructs. 
@@ -36,7 +36,7 @@ td {font-size: 12px;}
       <!-- Apache Studio project -->
 	    <td witdh="50%" style="border-width: 0; padding-left: 15px; width:50%;" valign="top">
         <div class="download-link">
-          <a href="studio/downloads.html" class="download_badge_studio"><b>Download Apache<br>Directory Studio 2.0.0-M15</b></a>
+          <a href="studio/downloads.html" class="download_badge_studio"><b>Download Apache<br>Directory Studio {{< param version_studio_name >}}</b></a>
         </div>
 		    <div class="separator">&nbsp;</div>
 		    Apache Directory Studio is a complete directory tooling platform intended to be used with any LDAP server however it is particularly designed for use with ApacheDS. It is an Eclipse RCP application, composed of several Eclipse (OSGi) plugins, that can be easily upgraded with additional ones. These plugins can even run within Eclipse itself.  
@@ -46,10 +46,10 @@ td {font-size: 12px;}
       <!-- Apache LDAP API project -->
       <td style="border-width: 0; border-right: 1px solid silver; padding-right: 15px; width:50%;" valign="top">
         <div class="download-link">
-          <a href="api/downloads-1.html" class="download_badge_api"><b>Download Apache<br>LDAP API 1.0.3</b></a>
+          <a href="api/downloads-1.html" class="download_badge_api"><b>Download Apache<br>LDAP API {{< param version_api >}}</b></a>
         </div>
         <div class="download-link">
-          <a href="api/downloads-2.html" class="download_badge_api"><b>Download Apache<br>LDAP API 2.0.1</b></a>
+          <a href="api/downloads-2.html" class="download_badge_api"><b>Download Apache<br>LDAP API {{< param version_api2 >}}</b></a>
         </div>
         <div class="separator">&nbsp;</div>
         The Apache Directory LDAP API is an ongoing effort to provide an enhanced LDAP API, as a replacement for JNDI and the existing LDAP API (jLdap and Mozilla LDAP API).
@@ -59,7 +59,7 @@ td {font-size: 12px;}
       <!-- Apache Mavibot project -->
       <td witdh="50%" style="border-width: 0; padding-left: 15px; width:50%;" valign="top">
         <div class="download-link">
-          <a href="mavibot/downloads.html" class="download_badge_mavibot"><b>Download Apache<br>Mavibot 1.0.0-M8</b></a>
+          <a href="mavibot/downloads.html" class="download_badge_mavibot"><b>Download Apache<br>Mavibot {{< param version_mavibot >}}</b></a>
         </div>
         <div class="separator">&nbsp;</div>
         Mavibot&trade; is a <em>Multi Version Concurrency Control</em> (MVCC) BTree in Java. It is expected to be a replacement for JDBM (The current backend for the Apache Directory Server), but could be a good fit for any other project in need of a Java MVCC BTree implementation. 
@@ -69,7 +69,7 @@ td {font-size: 12px;}
       <!-- Apache Kerby project -->
       <td style="border-width: 0; border-right: 1px solid silver; padding-right: 15px; width:50%;" valign="top">
         <div class="download-link">
-          <a href="kerby/downloads.html" class="download_badge_kerby"><b>Download Apache<br>Kerby 1.1.1</b></a>
+          <a href="kerby/downloads.html" class="download_badge_kerby"><b>Download Apache<br>Kerby {{< param version_kerby >}}</b></a>
         </div>
         <div class="separator">&nbsp;</div>
         Apache Kerby&trade; is a Java Kerberos binding. It provides a rich, intuitive and interoperable implementation, library, KDC and various facilities that integrates PKI, OTP and token (OAuth2) as desired in modern environments such as cloud, Hadoop and mobile.
@@ -77,7 +77,7 @@ td {font-size: 12px;}
       <!-- Apache Fortress project -->
       <td style="border-width: 0; border-right: 1px solid silver; padding-right: 15px; width:50%;" valign="top">
         <div class="download-link">
-          <a href="fortress/downloads.html" class="download_badge_mavibot"><b>Download Apache<br>Fortress 2.0.5</b></a>
+          <a href="fortress/downloads.html" class="download_badge_mavibot"><b>Download Apache<br>Fortress {{< param version_fortress >}}</b></a>
         </div>
         <div class="separator">&nbsp;</div>
         Apache Fortress&trade; is a standards-based authorization system that provides attribute and role-based access control, delegated administration and password policy services using an LDAP backend.
