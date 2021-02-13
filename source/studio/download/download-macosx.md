@@ -78,7 +78,7 @@ title: Downloads for macOS
 Apache Directory Studio requires at least:
 
 * macOS version 10.10 (Yosemite) or later.
-* [Java Development Kit](http://jdk.java.net/) 8 or later.
+* Java 11 or later, we recommend [AdoptOpenJDK](https://adoptopenjdk.net/).
 
 <p>&nbsp;</p>
 

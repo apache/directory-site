@@ -72,7 +72,7 @@ title: Downloads for Linux
 Apache Directory Studio requires at least:
 
 * a recent Linux distribution. It has been tested successfully on Ubuntu and Arch Linux.
-* [Java Development Kit](http://jdk.java.net/) 8 or later.
+* Java 11 or later, we recommend [AdoptOpenJDK](https://adoptopenjdk.net/).
 
 <p>&nbsp;</p>
 

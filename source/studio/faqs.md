@@ -33,12 +33,9 @@ Add the following content to _ApacheDirectoryStudio.ini_ file (before the "-vmar
 
 Please notice the line break between -vm and the path.
 
-Studio requires Java 8 or newer.
+Studio requires Java 11 or newer.
 
-MacOS notes:
-
-* You need to install the JDK (Java Development Kit), the JRE is not enough!
-* You can find out the Java home directories with `/usr/libexec/java_home -V`, append `/bin/java` to the path
+MacOS note: You can find out the Java home directories with `/usr/libexec/java_home -V`, append `/bin/java` to the path
 
 
 ### How to increase the heap memory?

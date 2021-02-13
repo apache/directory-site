@@ -113,7 +113,7 @@ title: Downloads for Windows
 Apache Directory Studio requires at least:
 
 * a recent Windows version.
-* [Java Development Kit](http://jdk.java.net/) 8 or later.
+* Java 11 or later, we recommend [AdoptOpenJDK](https://adoptopenjdk.net/).
 
 <p>&nbsp;</p>
 
