@@ -4,6 +4,40 @@ title: ChangeLog
 
 # ChangeLog
 
+## Apache Directory Studio Version 2.0.0-M16 (February 21th 2021)
+### Bugs
+
+* [DIRSTUDIO-656](https://issues.apache.org/jira/browse/DIRSTUDIO-656) - Export to LDIF leaves out entries when large number of entries exist
+* [DIRSTUDIO-744](https://issues.apache.org/jira/browse/DIRSTUDIO-744) - The strategy used when deleting the last attribute value causes issues in the case when ACLs/ACIs hide and forbid access to other values
+* [DIRSTUDIO-745](https://issues.apache.org/jira/browse/DIRSTUDIO-745) - Quick search icon not showing
+* [DIRSTUDIO-837](https://issues.apache.org/jira/browse/DIRSTUDIO-837) - Quicksearch hinders switching between connections
+* [DIRSTUDIO-947](https://issues.apache.org/jira/browse/DIRSTUDIO-947) - Text Editor section is not available in preferences.
+* [DIRSTUDIO-1119](https://issues.apache.org/jira/browse/DIRSTUDIO-1119) - Group (cn) with over 1000 members crashes
+* [DIRSTUDIO-1125](https://issues.apache.org/jira/browse/DIRSTUDIO-1125) - Accessibility issues
+* [DIRSTUDIO-1135](https://issues.apache.org/jira/browse/DIRSTUDIO-1135) - ACI Source is corrupted on 2nd edit
+* [DIRSTUDIO-1167](https://issues.apache.org/jira/browse/DIRSTUDIO-1167) - Quick Search does not switch target host when changing connections
+* [DIRSTUDIO-1216](https://issues.apache.org/jira/browse/DIRSTUDIO-1216) - Operational attribute "structuralObjectClass" cannot be displayed in entry editor if value contains underscore
+* [DIRSTUDIO-1250](https://issues.apache.org/jira/browse/DIRSTUDIO-1250) - Paged Search (e.g. for Active Directory DC's) will not work in new version
+* [DIRSTUDIO-1251](https://issues.apache.org/jira/browse/DIRSTUDIO-1251) - In error log after ldif import there is no detail about the error
+* [DIRSTUDIO-1252](https://issues.apache.org/jira/browse/DIRSTUDIO-1252) - Incorrect text color for Table Entry Editor view
+* [DIRSTUDIO-1256](https://issues.apache.org/jira/browse/DIRSTUDIO-1256) - Unable to export large numbers of entries with paged search
+* [DIRSTUDIO-1257](https://issues.apache.org/jira/browse/DIRSTUDIO-1257) - Studio will not run on Catalina
+* [DIRSTUDIO-1260](https://issues.apache.org/jira/browse/DIRSTUDIO-1260) - Fails to start on MacOS Big Sur
+* [DIRSTUDIO-1263](https://issues.apache.org/jira/browse/DIRSTUDIO-1263) - export to csv or excel doesn't honor paging settings
+* [DIRSTUDIO-1264](https://issues.apache.org/jira/browse/DIRSTUDIO-1264) - Apache Studio can not be run on MacOS 11.2 (Big Sur)
+
+### Improvements:
+
+* [DIRSTUDIO-345](https://issues.apache.org/jira/browse/DIRSTUDIO-345) - Studio startup could configure suitable version of Java
+* [DIRSTUDIO-854](https://issues.apache.org/jira/browse/DIRSTUDIO-854) - Updated OID mappings
+* [DIRSTUDIO-1206](https://issues.apache.org/jira/browse/DIRSTUDIO-1206) - Directory Studio doesn't support themes
+* [DIRSTUDIO-1258](https://issues.apache.org/jira/browse/DIRSTUDIO-1258) - Can not change theme on MacOS (Big Sur)
+
+### Tasks:
+
+* [DIRSTUDIO-1262](https://issues.apache.org/jira/browse/DIRSTUDIO-1262) - Update to Eclipse 2020-12 and Java 11
+
+
 ## Apache Directory Studio Version 2.0.0-M15 (April 19th 2020)
 ### Bugs
 
