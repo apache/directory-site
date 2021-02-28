@@ -153,42 +153,44 @@
 <h2 id="creating-a-testcase-project-using-the-apacheds-archetype-testcase">Creating a testcase project: using the apacheds-archetype-testcase.</h2>
 <p>We&rsquo;ve created a simple archetype for you to rapidly create a Maven project that fires up ApacheDS in embedded mode within a JUnit testcase. This test case will start up ApacheDS as a server on any available port above 1024 on your machine. You can then use JNDI or the Apache LDAP API going over the wire on that port above 1024. You can also use the ApacheDS core API to access the data directly.</p>
 <p>So you can write client code in your test case immediately. Just add your code, tar gzip the project, and attach it to your JIRA issue on the ApacheDS JIRA here:</p>
-<p>[https://issues.apache.org/jira/browse/DIRSERVER]</p>
+<p><a href="https://issues.apache.org/jira/browse/DIRSERVER">https://issues.apache.org/jira/browse/DIRSERVER</a></p>
 <p>We&rsquo;ll prioritize your bug higher than others and probably fix it rapidly because the problem is isolated thanks to your testcase submission. We will in fact strip out your testcase and add it to our suite of test cases to make sure ApacheDS always passes this integration test you&rsquo;ve provided.</p>
 <h3 id="installing-the-apacheds-archetype-testcase">Installing the apacheds-archetype-testcase</h3>
 <p>To use the archetype you&rsquo;ll need to check it out and install it. Here&rsquo;s how you can do that for the leading edge of 2.0.0:</p>
-<pre><code>svn co http://svn.apache.org/repos/asf/directory/documentation/samples/trunk/apacheds-archetype-testcase
-cd apacheds-archetype-testcase
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">svn co http://svn.apache.org/repos/asf/directory/documentation/samples/trunk/apacheds-archetype-testcase
+<span style="color:#a2f">cd</span> apacheds-archetype-testcase
 mvn install
-</code></pre>
-<p>This will install the archetype onto your local repository. Now you can invoke the archetype.</p>
-<p>h3. Invoking (running) the archetype: generating the testcase project</p>
-<p>Once you checkout the archetype plugin and install it you can use it like so to generate a foo-test project:
-{noformat}
-mvn archetype:generate -DarchetypeGroupId=org.apache.directory.samples<br>
--DarchetypeArtifactId=apacheds-archetype-testcase<br>
--DarchetypeVersion=1.5.5-SNAPSHOT<br>
--DgroupId=com.acme -DartifactId=foo-test -Dpackage=com.acme
-{noformat}
-This will generate the default test case project with the following tree structure:
-{noformat}
-~/foo-test$ tree
+</code></pre></div><p>This will install the archetype onto your local repository. Now you can invoke the archetype.</p>
+<h3 id="invoking-running-the-archetype-generating-the-testcase-project">Invoking (running) the archetype: generating the testcase project</h3>
+<p>Once you checkout the archetype plugin and install it you can use it like so to generate a foo-test project:</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mvn archetype:generate -DarchetypeGroupId<span style="color:#666">=</span>org.apache.directory.samples <span style="color:#b62;font-weight:bold">\
+</span><span style="color:#b62;font-weight:bold"></span>                       -DarchetypeArtifactId<span style="color:#666">=</span>apacheds-archetype-testcase <span style="color:#b62;font-weight:bold">\
+</span><span style="color:#b62;font-weight:bold"></span>                       -DarchetypeVersion<span style="color:#666">=</span>1.5.5-SNAPSHOT <span style="color:#b62;font-weight:bold">\
+</span><span style="color:#b62;font-weight:bold"></span>                       -DgroupId<span style="color:#666">=</span>com.acme -DartifactId<span style="color:#666">=</span>foo-test -Dpackage<span style="color:#666">=</span>com.acme
+</code></pre></div><p>This will generate the default test case project with the following tree structure:</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">~/foo-test$ tree
 .
-|&ndash; pom.xml
-<code>-- src |-- main |   </code>&ndash; java
-|       <code>-- com |           </code>&ndash; acme
-|               <code>-- Dummy.java</code>&ndash; test
-|&ndash; java
-|   <code>-- com |       </code>&ndash; acme
-|           |&ndash; AdvancedTest.java
-|           |&ndash; AdvancedTestApacheDsFactory.java
-|           <code>-- MinimalTest.java</code>&ndash; resources
-|&ndash; log4j.properties
-|&ndash; sevenSeas_data.ldif
-`&ndash; sevenSeas_schema.ldif</p>
-<p>10 directories, 8 files
-{noformat}</p>
-<ul>
+|-- pom.xml
+|-- src
+    |-- main
+    |   |-- java
+    |       |-- com
+    |           |-- acme
+    |               |-- Dummy.java
+    |-- <span style="color:#a2f">test</span>
+        |-- java
+        |    -- com
+        |        -- acme
+        |           |-- AdvancedTest.java
+        |           |-- AdvancedTestApacheDsFactory.java
+        |           |-- MinimalTest.java
+        |-- resources
+            |-- log4j.properties
+            |-- sevenSeas_data.ldif
+            |-- sevenSeas_schema.ldif
+
+<span style="color:#666">10</span> directories, <span style="color:#666">8</span> files
+</code></pre></div><ul>
 <li>Dummy.java - this is just a placeholder file to make sure that Maven works properly.</li>
 <li>MinimalTest - a minimal ApacheDS Integration Test. It contains two test methods to demonstrate usage of JNDI and the ApacheDS core API. Add your own test method here.</li>
 <li>AdvancedTest - an advanced ApacheDS Integration Test in case you need a special configuration for your test. It demonstrates how to add a new partition, how to enable LDAPS, how to enable a disabled schema, how to inject a custom schema, and how to inject custom test data.</li>
@@ -198,30 +200,26 @@ This will generate the default test case project with the following tree structu
 <li>sevenSeas_data.ldif - sample custom test data used by the advanced test.</li>
 <li>sevenSeas_schema.ldif - sample custom schema used by the advanced test.</li>
 </ul>
-<p>Once you do this you can cd into foo-test and just build and test it for fun to see what happens.  This will build, and test the sample test cases (they should pass) that comes packaged with the project you just created. CD into foo-test and run the following command:
-{noformat}
-mvn test
-{noformat}
-Now you can customize the MinimalTest.java or AdvancedTest.java file to isolate your bug. Open the classes with your favorite editor and goto town.  However if you want to pull this project into your IDE and edit it there you can use Maven&rsquo;s IDEA, Eclipse and Netbeans integration to create IDE project descriptors for them.  Then you can import this project into your IDE.  Here&rsquo;s how:</p>
-<p>h4. For IDEA</p>
-<p>{noformat}
-mvn idea:idea
-{noformat}</p>
-<p>h4. For Eclipse</p>
-<p>{noformat}
-mvn eclipse:eclipse
-{noformat}</p>
-<p>h4. For Netbeans</p>
-<p>See this page: [http://maven.apache.org/guides/mini/guide-ide-netbeans/guide-ide-netbeans.html].</p>
-<p>h3. Note about version</p>
+<p>Once you do this you can cd into foo-test and just build and test it for fun to see what happens.  This will build, and test the sample test cases (they should pass) that comes packaged with the project you just created. CD into foo-test and run the following command:</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mvn <span style="color:#a2f">test</span>
+</code></pre></div><p>Now you can customize the MinimalTest.java or AdvancedTest.java file to isolate your bug. Open the classes with your favorite editor and goto town.  However if you want to pull this project into your IDE and edit it there you can use Maven&rsquo;s IDEA, Eclipse and Netbeans integration to create IDE project descriptors for them.  Then you can import this project into your IDE.  Here&rsquo;s how:</p>
+<h4 id="for-idea">For IDEA</h4>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mvn idea:idea
+</code></pre></div><h4 id="for-eclipse">For Eclipse</h4>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mvn eclipse:eclipse
+</code></pre></div><h4 id="for-netbeans">For Netbeans</h4>
+<p>See this page: <a href="http://maven.apache.org/guides/mini/guide-ide-netbeans/guide-ide-netbeans.html">http://maven.apache.org/guides/mini/guide-ide-netbeans/guide-ide-netbeans.html</a>.</p>
+<h3 id="note-about-version">Note about version</h3>
 <p>Note that this archetype is specific for ApacheDS 1.5.5.</p>
-<p>h2. Why a Maven Archetype for Testing?</p>
-<h1 id="easy-and-fast-to-start-integration-testing-apacheds">Easy and fast to start integration testing ApacheDS.</h1>
-<h1 id="we-developers-of-apacheds-can-use-it-ourselves">We (developers of ApacheDS) can use it ourselves.</h1>
-<h1 id="we-want-users-of-apacheds-to-help-us-help-them">We want users of ApacheDS to help us help them.</h1>
-<h1 id="users-need-to-customize-a-project-with-perhaps-additional-dependencies">Users need to customize a project with perhaps additional dependencies.</h1>
-<h1 id="users-can-add-many-test-cases-to-the-project">Users can add many test cases to the project.</h1>
-<h1 id="tests-isolating-custom-bugs-can-be-incorporated-into-our-community-test-suite-for-apacheds">Tests isolating custom bugs can be incorporated into our community test suite for ApacheDS.</h1>
+<h2 id="why-a-maven-archetype-for-testing">Why a Maven Archetype for Testing?</h2>
+<ul>
+<li>Easy and fast to start integration testing ApacheDS.</li>
+<li>We (developers of ApacheDS) can use it ourselves.</li>
+<li>We want users of ApacheDS to help us help them.</li>
+<li>Users need to customize a project with perhaps additional dependencies.</li>
+<li>Users can add many test cases to the project.</li>
+<li>Tests isolating custom bugs can be incorporated into our community test suite for ApacheDS.</li>
+</ul>
 
 
             
