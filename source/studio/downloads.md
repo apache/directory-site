@@ -19,10 +19,14 @@ Please select the download corresponding to your operating system:
 * ![Download](../images/download-windows.png) [Download for Windows](download/download-windows.html)
 
 
-On macOS you can also install Apache Directory Studio via [MacPorts][1]: 
-       
+On macOS you can also install Apache Directory Studio via [MacPorts][1] or [Homebrew][2]:
 
+MacPorts:
 > `# sudo port install directory-studio`
+
+Or Brew:
+
+> `# brew install apache-directory-studio`
 
 ## Plugins for Eclipse
 
@@ -42,3 +46,4 @@ You can download old versions of Apache Directory Studio (or Apache LDAP Studio)
 
 
   [1]: https://www.macports.org/
+  [2]: https://brew.sh/
