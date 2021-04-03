@@ -12,7 +12,7 @@ We will describe how to get the code, build it, and release it.
 
 ### Prerequisites for building
 
-You must have installed **Maven 3.0.4** and have a **JDK 7** installed on your computer. A working internet connection is also mandatory, unless you have all the needed dependences and plugins loaded locally.
+You must have installed **Maven 3.0.4** and have a **JDK 8** installed on your computer. A working internet connection is also mandatory, unless you have all the needed dependences and plugins loaded locally.
 
 <DIV class="note" markdown="1">
 If the build hangs or you get an out of memory exception please increase the heap space:
@@ -43,10 +43,10 @@ On a Linux box you could add the following to the .bashrc file  (.bashrc is a fi
 
 Windows users, use Control Panel -> System -> Advanced -> Environment Variables
 
-### JDK 7
+### JDK 8
 
 <DIV class="note" markdown="1">
-We recommend using a version >= 1.7
+We recommend using a version >= 8
 </DIV>
 
 Any newer version should also work.
@@ -118,7 +118,7 @@ You can declare new variables in Eclipse in _Windows -> Preferences..._ and sele
 
 The applicable coding standards for Mavibot are described in [Coding Standards](coding-standards.html)
 
-There are some more rules, as we are using **Java 7** now :
+There are some more rules, as we are using **Java 8** now :
 
 * Use generics as much as you can. Generic are a good way to avoid casting, and it enforce the usage of the correct type.
 * If you can avoid *Iterators*, do so. There is this cool construction with a **for( Type t:<collection instance> )** : use it !

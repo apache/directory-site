@@ -37,7 +37,7 @@ and an optional label that indicates the maturity of a release:
 
 The applicable coding standards for ADS 2.0 are described in [Coding Standards](coding-standards.html)
 
-There are some more rules, as we are using **Java 6** now :
+There are some more rules, as we are using **Java 8** now :
 
 * Use generics as much as you can. Generic are a good way to avoid casting, and it enforce the usage of the correct type.
 * If you can avoid *Iterators*, do so. There is this cool construction with a **for( Type t:<collection instance> )** : use it !
@@ -48,7 +48,7 @@ There are some more rules, as we are using **Java 6** now :
 
 Here is a guide on how to cut a new release. This is a long process, expect it to last a few hours !
 
-First, you need to have a recent version of Maven (we are using 3.0.4) and a recent version of the JDK (Java 8 is required, due to some checkstye plugin requiring it. Note that the generated code is Java 7 compliant).
+First, you need to have a recent version of Maven (we are using 3.0.4) and a recent version of the JDK (Java 8 is required).
 
 ### Maven Settings
 

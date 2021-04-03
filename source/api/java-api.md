@@ -26,4 +26,4 @@ The [User Guide](user-guide.html) pages gives the list of features the API provi
 
 ## Prerequisite
 
-This API requires **Java 7** or upper.
+This API requires **Java 8** or higher.

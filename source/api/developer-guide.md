@@ -39,7 +39,7 @@ and an optional label that indicates the maturity of a release:
 
 The applicable coding standards for LDAP API 1.0 are described in [Coding Standards](coding-standards.html)
 
-There are some more rules, as we are using **Java 6** now :
+There are some more rules, as we are using **Java 8** now :
 
 * Use generics as much as you can. Generic are a good way to avoid casting, and it enforce the usage of the correct type.
 * If you can avoid *Iterators*, do so. There is this cool construction with a **for( Type t:<collection instance> )** : use it !

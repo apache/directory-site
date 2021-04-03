@@ -10,11 +10,11 @@ Provide instructions to install an **ApacheDS** instance and setup for use with 
 
 There a few mandatory elements that need to be installed on the **ApacheDS Host** :
 
-* Java 7 or greated sdk
+* Java 8 or greated sdk
 
 On the **Fortress Host**, you will need those components :
 
-* Java 7 or greated sdk
+* Java 8 or greated sdk
 * Apache Maven 3+
 * A web browser
 * Git
@@ -28,7 +28,7 @@ Follow the installation guide on [the ApacheDS download pages](https://directory
 
 The base installation will install a server running on port *10389*, with a default user *uid=admin,ou=system* and the password *secret*. Please change those values !!!
 
-Note that the server requires a Java 7 sdk to run.
+Note that the server requires a 8 sdk to run.
 
 ## Installing Apache Directory Studio
 
@@ -44,7 +44,7 @@ The complete description of the steps are found [on this page](https://directory
 
 ## Installing Fortress Core
 
-Assuming that **Git**, **Java 7** and **Apache Maven** are installed on the **Fortress Host**, and that **ApacheDS** is running on the **ApacheDS Host**, we can now configure and install **Fortress Core** on the **Fortress Host**
+Assuming that **Git**, **Java 8** and **Apache Maven** are installed on the **Fortress Host**, and that **ApacheDS** is running on the **ApacheDS Host**, we can now configure and install **Fortress Core** on the **Fortress Host**
 
 The setup will use your specific configuration to create everything needed on the LDAP server to operate **Fortress**. It will also inject specific schema elements into the ldap server; entries that are required for *Fortress* to work. Once done, the **Fortress** APIs are ready to use.
 
