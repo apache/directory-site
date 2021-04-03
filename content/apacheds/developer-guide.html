@@ -152,7 +152,7 @@
 </DIV>
 <h2 id="coding-standards">Coding standards</h2>
 <p>The applicable coding standards for ADS 2.0 are described in <a href="coding-standards.html">Coding Standards</a></p>
-<p>There are some more rules, as we are using <strong>Java 6</strong> now :</p>
+<p>There are some more rules, as we are using <strong>Java 8</strong> now :</p>
 <ul>
 <li>Use generics as much as you can. Generic are a good way to avoid casting, and it enforce the usage of the correct type.</li>
 <li>If you can avoid <em>Iterators</em>, do so. There is this cool construction with a <strong>for( Type t:<collection instance> )</strong> : use it !</li>
@@ -161,7 +161,7 @@
 </ul>
 <h2 id="releasing-apacheds">Releasing ApacheDS</h2>
 <p>Here is a guide on how to cut a new release. This is a long process, expect it to last a few hours !</p>
-<p>First, you need to have a recent version of Maven (we are using 3.0.4) and a recent version of the JDK (Java 8 is required, due to some checkstye plugin requiring it. Note that the generated code is Java 7 compliant).</p>
+<p>First, you need to have a recent version of Maven (we are using 3.0.4) and a recent version of the JDK (Java 8 is required).</p>
 <h3 id="maven-settings">Maven Settings</h3>
 <p>You&rsquo;ll need a settings section for the <strong>Nexus</strong> and <strong>people.apache.org</strong> servers with a password or a path to the SSH key used. Here&rsquo;s what my <strong>settings.xml</strong> file in <strong>~/.m2</strong> looks like:</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#008000;font-weight:bold">&lt;settings</span><span style="color:#008000;font-weight:bold">&gt;</span>

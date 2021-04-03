@@ -134,11 +134,11 @@
 <h2 id="prerequisites">Prerequisites</h2>
 <p>There a few mandatory elements that need to be installed on the <strong>ApacheDS Host</strong> :</p>
 <ul>
-<li>Java 7 or greated sdk</li>
+<li>Java 8 or greated sdk</li>
 </ul>
 <p>On the <strong>Fortress Host</strong>, you will need those components :</p>
 <ul>
-<li>Java 7 or greated sdk</li>
+<li>Java 8 or greated sdk</li>
 <li>Apache Maven 3+</li>
 <li>A web browser</li>
 <li>Git</li>
@@ -148,7 +148,7 @@
 <p>On the <strong>ApacheDS Host</strong> :</p>
 <p>Follow the installation guide on <a href="https://directory.staging.apache.org/apacheds/downloads.html">the ApacheDS download pages</a> (each page has an installation description).</p>
 <p>The base installation will install a server running on port <em>10389</em>, with a default user <em>uid=admin,ou=system</em> and the password <em>secret</em>. Please change those values !!!</p>
-<p>Note that the server requires a Java 7 sdk to run.</p>
+<p>Note that the server requires a 8 sdk to run.</p>
 <h2 id="installing-apache-directory-studio">Installing Apache Directory Studio</h2>
 <p>On the <strong>Fortress Host</strong> :</p>
 <p>We will install <strong>Apache Directory Studio</strong> which is a convenient tool when it comes to managing an <strong>LDAP</strong> server. Install using <a href="https://directory.apache.org/studio/downloads.html">the following documentation</a>. Again, each link contains directions on how to install this component.</p>
@@ -156,7 +156,7 @@
 <p>Check that the credentials you have set (defaulting to <em>uid=admin,ou=system</em> and <em>secret</em>)  using <em>Simple Authentication</em>, and clicking on <em>Check Authentication</em> : work also.</p>
 <p>The complete description of the steps are found <a href="https://directory.apache.org/studio/users-guide/ldap_browser/gettingstarted_create_connection.html">on this page</a></p>
 <h2 id="installing-fortress-core">Installing Fortress Core</h2>
-<p>Assuming that <strong>Git</strong>, <strong>Java 7</strong> and <strong>Apache Maven</strong> are installed on the <strong>Fortress Host</strong>, and that <strong>ApacheDS</strong> is running on the <strong>ApacheDS Host</strong>, we can now configure and install <strong>Fortress Core</strong> on the <strong>Fortress Host</strong></p>
+<p>Assuming that <strong>Git</strong>, <strong>Java 8</strong> and <strong>Apache Maven</strong> are installed on the <strong>Fortress Host</strong>, and that <strong>ApacheDS</strong> is running on the <strong>ApacheDS Host</strong>, we can now configure and install <strong>Fortress Core</strong> on the <strong>Fortress Host</strong></p>
 <p>The setup will use your specific configuration to create everything needed on the LDAP server to operate <strong>Fortress</strong>. It will also inject specific schema elements into the ldap server; entries that are required for <em>Fortress</em> to work. Once done, the <strong>Fortress</strong> APIs are ready to use.</p>
 <DIV class="info" markdown="1">
   The setup phase must be performed once per LDAP server instance.  But every machine that uses Fortress, must be configured to point to the same LDAP server (as you would expect) that was initially setup.  This will be explained later on.

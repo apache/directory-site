@@ -136,7 +136,7 @@
       <ul>
         <li><a href="#prerequisites-for-building">Prerequisites for building</a></li>
         <li><a href="#maven">Maven</a></li>
-        <li><a href="#jdk-7">JDK 7</a></li>
+        <li><a href="#jdk-8">JDK 8</a></li>
       </ul>
     </li>
     <li><a href="#getting-the-code">Getting the code</a></li>
@@ -170,7 +170,7 @@
 </nav>
 <h2 id="getting-the-source-building-the-trunks">Getting the source, Building the trunks</h2>
 <h3 id="prerequisites-for-building">Prerequisites for building</h3>
-<p>You must have installed <strong>Maven 3.0.4</strong> and have a <strong>JDK 7</strong> installed on your computer. A working internet connection is also mandatory, unless you have all the needed dependences and plugins loaded locally.</p>
+<p>You must have installed <strong>Maven 3.0.4</strong> and have a <strong>JDK 8</strong> installed on your computer. A working internet connection is also mandatory, unless you have all the needed dependences and plugins loaded locally.</p>
 <DIV class="note" markdown="1">
 If the build hangs or you get an out of memory exception please increase the heap space:
 <ul>
@@ -196,9 +196,9 @@ export PATH=$JAVA_HOME:$JAVA_HOME/bin:$MAVEN_HOME/bin:$PATH
 ...
 </code></pre>
 <p>Windows users, use Control Panel -&gt; System -&gt; Advanced -&gt; Environment Variables</p>
-<h3 id="jdk-7">JDK 7</h3>
+<h3 id="jdk-8">JDK 8</h3>
 <DIV class="note" markdown="1">
-We recommend using a version >= 1.7
+We recommend using a version >= 8
 </DIV>
 <p>Any newer version should also work.</p>
 <h2 id="getting-the-code">Getting the code</h2>
@@ -243,7 +243,7 @@ mvn eclipse:eclipse
 <p>You can declare new variables in Eclipse in <em>Windows -&gt; Preferences&hellip;</em> and selecting <em>Java -&gt; Build Path -&gt; Classpath Variables</em></p>
 <h2 id="coding-standards">Coding standards</h2>
 <p>The applicable coding standards for Mavibot are described in <a href="coding-standards.html">Coding Standards</a></p>
-<p>There are some more rules, as we are using <strong>Java 7</strong> now :</p>
+<p>There are some more rules, as we are using <strong>Java 8</strong> now :</p>
 <ul>
 <li>Use generics as much as you can. Generic are a good way to avoid casting, and it enforce the usage of the correct type.</li>
 <li>If you can avoid <em>Iterators</em>, do so. There is this cool construction with a <strong>for( Type t:<collection instance> )</strong> : use it !</li>
