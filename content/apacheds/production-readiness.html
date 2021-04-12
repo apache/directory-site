@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>1.4.2 - Changing the admin password &mdash; Apache Directory</title>
+    <title>Production Readiness &mdash; Apache Directory</title>
 
     <link href="/css/common.css" rel="stylesheet" type="text/css"/>
     <link href="/css/green.css" rel="stylesheet" type="text/css"/>
@@ -124,84 +124,25 @@
         </div>
         <div id="rightColumn">
             
-    <div class="nav">
-        <div class="nav_prev">
-            
-                
-                <a href="1.4.1-changing-server-port.html">1.4.1 - Changing the server port for LDAP</a>
-            
-        </div>
-        <div class="nav_up">
-            
-                
-                <a href="1.4-basic-configuration-tasks.html">1.4 - Basic configuration tasks</a>
-            
-        </div>
-        <div class="nav_next">
-            
-                
-                <a href="1.4.3-adding-partition.html">1.4.3 - Adding your own partition</a>
-            
-        </div>
-        <div class="clearfix"></div>
-    </div>
-
 
             
-	<h1 id="142---changing-the-admin-password">1.4.2 - Changing the admin password</h1>
-<p>This section describes the steps necessary to change the administrator password. Follow the instructions provided here step by step.</p>
-<nav id="TableOfContents">
-  <ul>
-    <li><a href="#step-one-changing-the-value-in-the-system-partition">Step one: Changing the value in the system partition</a></li>
-    <li><a href="#step-two-verification">Step two: Verification</a></li>
-    <li><a href="#resources">Resources</a></li>
-  </ul>
-</nav>
-<h2 id="step-one-changing-the-value-in-the-system-partition">Step one: Changing the value in the system partition</h2>
-<p>While the server is up and running, change the value of the <em>userPassword</em> attribute of the admin (uid=admin,ou=system) via LDAP. There are several ways to accomplish this task. In the following, we use the Eclipse based Apache Directory Studio.</p>
-<p>A new LDAP connection with this tool is created via &ldquo;New Connection &hellip;&rdquo; from the <em>Connections</em> view. Enter your connection data in the first step &hellip;</p>
-<p><img src="images/NewLDAPConnection1.png" alt="New LDAP connection"></p>
-<p>&hellip; and in the next step, enter the admin DN <em>uid=admin,ou=system</em> and the current password (default is &ldquo;secret&rdquo;). Saving the password is not necessary, we will change it anyway.</p>
-<p><img src="images/NewLDAPConnection2.png" alt="New LDAP connection"></p>
-<p>Click <em>Finish</em> to establish the connection.</p>
-<p>Afterwards, modify the value of the <em>userPassword</em> attribute of the entry <em>uid=admin,ou=system</em>. Navigate to the entry in the DIT (<em>LDAP Browser</em> view), and double click the attribute in the <em>Entry Editor</em> view:</p>
-<p><img src="images/entryEditor.png" alt="Entry Editor"></p>
-<p>The Password Editor dialog shows up; enter the new password. You can optionally select a hash algorithm like <em>SHA</em>. In this case, the password will be stored one-way encrypted in the attribute value &ndash; not a bad idea.</p>
-<p><img src="images/passwordEditor.png" alt="Password Editor"></p>
-<p>Pressing <em>OK</em> stores the new value. Close the connection and shutdown the server.</p>
-<h2 id="step-two-verification">Step two: Verification</h2>
-<p>Verify that you can login as admin with the new password. With Apache Directory Studio, you can change the properties of the existing connection profile via a right click in the <em>Connections</em> view and a selection of the <em>Properties</em> menu item. The following dialog appears:</p>
-<p><img src="images/connectionProperties.png" alt="Connection Properties"></p>
-<p>Enter the new password and press <em>OK</em>. Establishing a connection should now work.</p>
-<h2 id="resources">Resources</h2>
+	<h1 id="production-readiness">Production Readiness</h1>
+<p>Due to some critical issues related to data corruption, we are not considering Apache Directory Server to be production ready. This is a well known issue, which is quite complicated to fix. We had added some repair command to work around the problem, but this is is just a workaround, and we know it won&rsquo;t fix all the data corruptions.</p>
+<p>Would you decide to use Apache Directory Server in production, we would strongly suggest two things:</p>
 <ul>
-<li><a href="https://directory.apache.org/studio/">Apache Directory Studio</a>: The tool used in steps 1 and 2</li>
+<li>first avoid updates as much as possible. If you load data once, and use the server in read only mode, you should be safe</li>
+<li>otherwise, be sure to have backups. This is the only safe way to get back to your feet if you have a serious data corruption that can&rsquo;t be solved by the &lsquo;repair&rsquo; command.</li>
 </ul>
+<p>The same kind of problem has hit OpenLDAP a while back, when they were using BDB as their default database. The smart move they did was to develop LMDB which is not only superior in all aspects, but also is guaranteed to be bullet proof by design against data corruption.</p>
+<p>We have started moving in the exact same direction with Apache Mavibot, but the work is not completed yet (although we could have a version that works with Mavibot soon enough, but without dead data removal).</p>
+<p>Long story short, we are working on solving this issue, it&rsquo;s complicated, it&rsquo;s time consuming, and it will take a while.</p>
+<p>OTOH, Apache Directory Server was designed from day one to be almost fully compatible with OpenLDAP. That means you can develop and test your solution using Apache Directory Server, and move the schema and data to OpenDLAP once ready, on your production server.</p>
+<p>We believe Apache Directory server brings great value for testing purposes, development and education, until we fix this data corruption issue.</p>
+<p>Also keep in mind this is all a volunteer effort, and we only can do as much as we can. More volunteers would help, of course.</p>
+<p>In the mean time, we thank you for your support - and bug reports -, this is quite an adventure to work on such a 500 000+ SLOC code base.</p>
 
 
             
-    <div class="nav">
-        <div class="nav_prev">
-            
-                
-                <a href="1.4.1-changing-server-port.html">1.4.1 - Changing the server port for LDAP</a>
-            
-        </div>
-        <div class="nav_up">
-            
-                
-                <a href="1.4-basic-configuration-tasks.html">1.4 - Basic configuration tasks</a>
-            
-        </div>
-        <div class="nav_next">
-            
-                
-                <a href="1.4.3-adding-partition.html">1.4.3 - Adding your own partition</a>
-            
-        </div>
-        <div class="clearfix"></div>
-    </div>
-
 
         </div>
         <div id="endContent"></div>
