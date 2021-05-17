@@ -5,46 +5,46 @@ title: Testimonials
 # Testimonials
 
 ## Credits
-This work was contributed by Yudhi Karunia Surtan of PT. Global Digital Niaga (blibli.com).  Thanks to him and his team for their efforts in helping others use Fortress.
+This work was contributed by **Yudhi Karunia Surtan** of PT. Global Digital Niaga [blibli.com](blibli.com).  Thanks to him and his team for their efforts in helping others use Fortress.
 
 ## Introduction
 
-This document contains an overview for combining a CAS-based SSO module with fortress-based authorization, using a declarative URL filtering mechanism. 
+This document contains an overview for combining a CAS-based **SSO** module with fortress-based authorization, using a declarative URL filtering mechanism. 
 
 ### Detailed description of the project
 
-I created this solution a few years ago because at the time I was looking for an IAM and SSO solution, and there were no open source solutions that provided everything that I needed.
+I created this solution a few years ago because at the time I was looking for an **IAM** and **SSO** solution, and there were no open source solutions that provided everything that I needed.
 
 Basically, the idea was, I needed a framework where the developer didn't have to programmatically add authorization calls to their code, or use annotations, or any other kind of *if condition* statement. With this solution, I can have a declarative mechanism that is still capable of making advanced dynamic authorization decisions, even if the user hasn't been logged in before or has any of the proper roles activated to their session.  I can do this because I control the authorization and it has been centralized in the server, and that server can activate whatever user roles needed to to allow access to the runtime environment.
 
-I searched all available open source solutions and finally decided to combine Apereo CAS and Apache Fortress into a single solution. Apereo CAS does the authentication and Apache Fortress will handle authorization.
+I searched all available open source solutions and finally decided to combine [Apereo CAS](https://www.apereo.org/projects/cas) and **Apache Fortress** into a single solution. [Apereo CAS](https://www.apereo.org/projects/cas) does the authentication and Apache Fortress will handle authorization.
 
-I went this route because Apereo CAS is very good way to handle the Single Sign-On and Single Sign-Out problems, but it lacks authorization capabilities, because there aren't standardized solutions in that space yet. Apache Fortress is good at authorization because it uses standard RBAC. However, Apache Fortress doesn't have an SSO solution yet. That is why I think both should be combined because they complement each other.  Unfortunately, there aren't yet good documentation resources available to combine these which is why I created this one, so other developers can follow my team's lead and make their life easier by providing good security for their webapps.
+I went this route because [Apereo CAS](https://www.apereo.org/projects/cas) is very good way to handle the *Single Sign-On* and *Single Sign-Out* problems, but it lacks authorization capabilities, because there aren't standardized solutions in that space yet. *Apache Fortress* is good at authorization because it uses standard **RBAC**. However, *Apache Fortress* doesn't have an **SSO** solution yet. That is why I think both should be combined because they complement each other.  Unfortunately, there aren't yet good documentation resources available to combine these which is why I created this one, so other developers can follow my team's lead and make their life easier by providing good security for their webapps.
 
 The solution I present to you here has operated successfully inside production environments since 2015 and so it's quite mature.  I write this how-to document to explain how it works.  It's intended as a guide for you to follow as well.
 
 Here are the technology stacks used within my extended framework:
 
- * Apereo CAS -> 4.2.x
- * Apache Fortress Enmasse (rest) -> 1.0.0
- * Apache Fortress Proxy -> 1.0.0
- * Apache Ignite -> 1.7.0
+ * [Apereo CAS](https://www.apereo.org/projects/cas) -> 4.2.x
+ * *Apache Fortress Enmasse* (rest) -> 1.0.0
+ * *Apache Fortress Proxy* -> 1.0.0
+ * [Apache Ignite](https://ignite.apache.org/) -> 1.7.0
  * Spring Framework -> 4.2.x-RELEASE
 
 There are two areas of development focus.  One to handle the server side and the other for the client.  The client is shared with my dev team for managing security within their web applications.
 
- 1. CAS Server side development: Includes creating own implementation for AbstractUsernamePasswordAuthenticationHandler and implemening an Apache Ignite Service Registry for CAS
- 2. CAS Client side development: Includes create own implementation for WebExpressionVoter and CasAuthenticationProvider
+ 1. **CAS** Server side development: Includes creating own implementation for *AbstractUsernamePasswordAuthenticationHandler* and implemening an [Apache Ignite](https://ignite.apache.org/) Service Registry for **CAS**
+ 2. **CAS** Client side development: Includes create own implementation for *WebExpressionVoter* and *CasAuthenticationProvider*
 
 ## Code Descriptions
 
-The following sections contain code and xml snippets describing how the CAS and Fortress integration was accomplished.
+The following sections contain code and xml snippets describing how the **CAS** and **Fortress** integration was accomplished.
 
 ### Server side development:
 
 #### 1. The Authentication Handler
 
- The interesting part for this solution is how to maintain both the Apereo CAS and Apache Fortress sessions. Luckily, CAS is using a token for maintaining their session and that token is also designed to have some extended attributes included with it.  Using this knowledge, we can modify the profile given by CAS Server to the client. Let's have a look what I've done with combining the Apereo CAS and Apache Fortress sessions in the code that follows.
+ The interesting part for this solution is how to maintain both the [Apereo CAS](https://www.apereo.org/projects/cas) and Apache Fortress sessions. Luckily, **CAS** is using a token for maintaining their session and that token is also designed to have some extended attributes included with it.  Using this knowledge, we can modify the profile given by **CAS** Server to the client. Let's have a look what I've done with combining the [Apereo CAS](https://www.apereo.org/projects/cas) and *Apache Fortress* sessions in the code that follows.
 
     :::Java
 
@@ -148,11 +148,11 @@ The following sections contain code and xml snippets describing how the CAS and 
     }
 
 
- In the above source code you can see how I construct a new principal by creating a new attribute map with values contained withing the Apache Fortress Session xml.
+ In the above source code you can see how I construct a new principal by creating a new attribute map with values contained withing the *Apache Fortress* Session xml.
 
 #### 2. The Attribute Populator
 
- In order to populate fortress and pass it on to the client we need to override the casServiceValidationSuccess.jsp file, located at WEB-INF/view/jsp/protocol/2.0/, since its default view won't populating the necessary attributes. Here is how I was able to accomplish that:
+ In order to populate fortress and pass it on to the client we need to override the *casServiceValidationSuccess.jsp* file, located at *WEB-INF/view/jsp/protocol/2.0/*, since its default view won't populating the necessary attributes. Here is how I was able to accomplish that:
 
     :::XML
     
@@ -183,17 +183,17 @@ The following sections contain code and xml snippets describing how the CAS and 
         </cas:authenticationSuccess>
     </cas:serviceResponse>
 
-One thing that I love about CAS, even if you correctly extracted the attribute at this page (or maybe you just got hacked at this page), CAS is able to protect the returned attributes by changing the services registry configuration. see the HTTPSandIMAPS-10000001.json file. I’ve put ReturnAllAttributeReleasePolicy type for debuging all the attributes returned, you can change it later to make your application more secure as well.
+One thing that I love about **CAS**, even if you correctly extracted the attribute at this page (or maybe you just got hacked at this page), **CAS** is able to protect the returned attributes by changing the services registry configuration. see the *HTTPSandIMAPS-10000001.json* file. I’ve put *ReturnAllAttributeReleasePolicy* type for debuging all the attributes returned, you can change it later to make your application more secure as well.
 
 #### 3. Apache Ignite For Ticket Replication
 
- To have a production readiness we need to somehow manage a high availability requirement, so we're not just using a single cas server. That is why we needed to have a centralized or distributed ticket repository, to allow cas to scale. To scale the ticket repository, I chose Apache Ignite for distributing the tickets. To Implement is very simple, and is also written about in Apereo CAS documentation.
+ To have a production readiness we need to somehow manage a high availability requirement, so we're not just using a single **CAS** server. That is why we needed to have a centralized or distributed ticket repository, to allow **CAS** to scale. To scale the ticket repository, I chose [Apache Ignite](https://ignite.apache.org/) for distributing the tickets. To Implement is very simple, and is also written about in [Apereo CAS](https://www.apereo.org/projects/cas) documentation.
 
 ### Client side development:
 
 #### 1. The Spring Voter
 
- Spring is a great framework, they allow you to add your own interceptors to use your own implementation. WebExpressionVoter is the class you need to extend in order to override the normal spring decision mechanism.  Usually you will use xml + regex for registering the condition. However, xml + regex is not the approach I wanted for my development team. See below code snippet, to understand what I did to make this more dynamic.
+ **Spring** is a great framework, they allow you to add your own interceptors to use your own implementation. *WebExpressionVoter* is the class you need to extend in order to override the normal spring decision mechanism.  Usually you will use xml + regex for registering the condition. However, xml + regex is not the approach I wanted for my development team. See below code snippet, to understand what I did to make this more dynamic.
 
     :::Java
       @Override
@@ -259,7 +259,7 @@ One thing that I love about CAS, even if you correctly extracted the attribute a
 
 ##### 2. UserDetail Populator
 
- Spring uses the implementation of AbstractCasAssertionUserDetailsService to populate user details following successful authentication, you can see the example at IamUserDetails code, here is the snipet of that class:
+ Spring uses the implementation of *AbstractCasAssertionUserDetailsService* to populate user details following successful authentication, you can see the example at *IamUserDetails* code, here is the snipet of that class:
 
     :::Java
     @Override
@@ -302,7 +302,7 @@ One thing that I love about CAS, even if you correctly extracted the attribute a
 
 ##### 3. Network Might Be a Problem
 
- Since this is running inside a production environment, we needed to consider that sometimes there might be a trouble over our network that causes problems and requires retries. That is why it's important to allow a little delay time in our application.  Here's an example of how allow a small delay, in order to allow temorary network glitches and slowdowns to work themselves out.
+ Since this is running inside a production environment, we needed to consider that sometimes there might be a trouble over our network that causes problems and requires retries. That is why it's important to allow a little delay time in our application.  Here's an example of how allow a small delay, in order to allow temporary network glitches and slowdowns to work themselves out.
 
     :::Java
     /*
@@ -356,17 +356,17 @@ One thing that I love about CAS, even if you correctly extracted the attribute a
 
 ### Descriptions of authentication flow
 
- The CAS authentication flow will be the same, no changes are required in terms of that authentication flow. Furthermore, you can see that flow at Apereo CAS 4.2.x documentation page.
+ The **CAS** authentication flow will be the same, no changes are required in terms of that authentication flow. Furthermore, you can see that flow at [Apereo CAS](https://www.apereo.org/projects/cas) 4.2.x documentation page.
 
- The main difference now is we don't put the ticket registry inside an in-memory database, we put it inside an Apache Ignite cache, so when other nodes are there it can replicate the ticket between them which increases efficiencies.
+ The main difference now is we don't put the ticket registry inside an in-memory database, we put it inside an [Apache Ignite](https://ignite.apache.org/) cache, so when other nodes are there it can replicate the ticket between them which increases efficiencies.
 
 ### Descriptions of authorization flow
 
- Spring Security usually has the authorization role configuration inside your spring context xml file or using annotations in source. This is the only difference between plain spring security and that using my extended framework solution.  We put the configuration inside of Fortress. Everytime the user changes the URL, it will check the user has access to that specific URL and not through the extended voter class. If the user is authorized then the app will give them the correct page, otherwise it will route to 40X http error status page.
+ **Spring Security** usually has the authorization role configuration inside your spring *context xml* file or using annotations in source. This is the only difference between plain spring security and that using my extended framework solution.  We put the configuration inside of **Fortress**. Everytime the user changes the URL, it will check the user has access to that specific URL and not through the extended voter class. If the user is authorized then the app will give them the correct page, otherwise it will route to 40X http error status page.
 
 ### Instructions to test
 
- For testing this example, you need to understand that Apache Fortress configuration is necessary to find fortress.properties on the classpath so it might be good if you put that configuration file at the same classpath, for instance, if you are using tomcat remove all the fortress.properties inside the classes directory and put it on $TOMCAT_HOME/lib/ folder. Make sure get Apache Fortress running at the first step. Here are the detailed instructions for testing this example:
+ For testing this example, you need to understand that **Apache Fortress** configuration is necessary to find *fortress.properties* on the classpath so it might be good if you put that configuration file at the same classpath, for instance, if you are using **Apache Tomcat** remove all the *fortress.properties* inside the classes directory and put it on *$TOMCAT_HOME/lib/* folder. Make sure get **Apache Fortress** running at the first step. Here are the detailed instructions for testing this example:
 
 #### Server Section
 
@@ -376,7 +376,7 @@ One thing that I love about CAS, even if you correctly extracted the attribute a
  * https://github.com/apache/directory-fortress-enmasse
  * https://github.com/apache/directory-fortress-commander
 
- and configure your Apache Fortress properly.
+ and configure your **Apache Fortress** properly.
 
 ##### 2. Clone the project from link at *Where to download* section below, change the configuration properly inside *cas-fortress-servers/src/main/resources* folder and package it using:
 
@@ -384,18 +384,18 @@ One thing that I love about CAS, even if you correctly extracted the attribute a
     :::Maven
     mvn clean package.
 
- Copy the war file from cas-fortress-server/target into the web-container deploy directory.
+ Copy the war file from *cas-fortress-server/target* into the *web-container* deploy directory.
 
-##### 3. Start your web-container and you get cas fortress integrated.
+##### 3. Start your web-container and you get CAS fortress integrated.
 
 #### Client Section
 
- * Simply put the war file inside the web-container deploy directory.
+ * Simply put the war file inside the *web-container* deploy directory.
  * Open and login to your commander(fortress-web)
- * Create a user with role ROLE_USER (you can change to what ever role). The role need to align with spring-security.xml for this statement <intercept-url pattern="/**" access="hasRole('ROLE_USER')" />. This is the mandatory role, with this role we are seperate between the anonymous role and authenticate one.
- * Create a permission object containing your restricted url, for instance http://localhost:8080/cas-fortress-client/profile and http://localhost:8080/cas-fortress-client/catalog.
+ * Create a user with role *ROLE_USER* (you can change to what ever role). The role need to align with spring-security.xml for this statement *&gt;intercept-url pattern="/\*\*" access="hasRole('ROLE_USER')" /&lt;*. This is the mandatory role, with this role we are seperate between the anonymous role and authenticate one.
+ * Create a permission object containing your restricted url, for instance *http://localhost:8080/cas-fortress-client/profile* and *http://localhost:8080/cas-fortress-client/catalog*.
  * Map the permission object and role at permission tab at your commander. Currently we only support get for both of the url.
- * Start your web-container and play with your cas-fortress-client later on.
+ * Start your web-container and play with your *cas-fortress-client* later on.
 
 ### Where to download
 
@@ -403,4 +403,4 @@ One thing that I love about CAS, even if you correctly extracted the attribute a
 
 ## Next Steps
 
- Next should be implementing ARBAC solution. Since I don't allow people to create conditional statements inside their application code to check for roles, buttons or page elements that should be not accessible for specific users will appear on their pages, even they can't perform that particular action.  This causes some confusion in terms or usability for my users. With ARBAC I believe I can do a whitelist for the page attributes and increase the usability for the user.
+ Next should be implementing **ARBAC** solution. Since I don't allow people to create conditional statements inside their application code to check for roles, buttons or page elements that should be not accessible for specific users will appear on their pages, even they can't perform that particular action.  This causes some confusion in terms or usability for my users. With ARBAC I believe I can do a whitelist for the page attributes and increase the usability for the user.
