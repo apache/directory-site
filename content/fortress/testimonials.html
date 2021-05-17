@@ -134,7 +134,7 @@
 <p>This work was contributed by Yudhi Karunia Surtan of PT. Global Digital Niaga (blibli.com).  Thanks to him and his team for their efforts in helping others use Fortress.</p>
 <h2 id="introduction">Introduction</h2>
 <p>This document contains an overview for combining a CAS-based SSO module with fortress-based authorization, using a declarative URL filtering mechanism.</p>
-<p>###Detailed description of the project</p>
+<h3 id="detailed-description-of-the-project">Detailed description of the project</h3>
 <p>I created this solution a few years ago because at the time I was looking for an IAM and SSO solution, and there were no open source solutions that provided everything that I needed.</p>
 <p>Basically, the idea was, I needed a framework where the developer didn&rsquo;t have to programmatically add authorization calls to their code, or use annotations, or any other kind of <em>if condition</em> statement. With this solution, I can have a declarative mechanism that is still capable of making advanced dynamic authorization decisions, even if the user hasn&rsquo;t been logged in before or has any of the proper roles activated to their session.  I can do this because I control the authorization and it has been centralized in the server, and that server can activate whatever user roles needed to to allow access to the runtime environment.</p>
 <p>I searched all available open source solutions and finally decided to combine Apereo CAS and Apache Fortress into a single solution. Apereo CAS does the authentication and Apache Fortress will handle authorization.</p>
@@ -155,8 +155,8 @@
 </ol>
 <h2 id="code-descriptions">Code Descriptions</h2>
 <p>The following sections contain code and xml snippets describing how the CAS and Fortress integration was accomplished.</p>
-<p>###Server side development:</p>
-<p>####1. The Authentication Handler</p>
+<h3 id="server-side-development">Server side development:</h3>
+<h4 id="1-the-authentication-handler">1. The Authentication Handler</h4>
 <p>The interesting part for this solution is how to maintain both the Apereo CAS and Apache Fortress sessions. Luckily, CAS is using a token for maintaining their session and that token is also designed to have some extended attributes included with it.  Using this knowledge, we can modify the profile given by CAS Server to the client. Let&rsquo;s have a look what I&rsquo;ve done with combining the Apereo CAS and Apache Fortress sessions in the code that follows.</p>
 <pre><code>:::Java
 
@@ -292,10 +292,10 @@ public class IamAuthenticationHandler extends AbstractUsernamePasswordAuthentica
 &lt;/cas:serviceResponse&gt;
 </code></pre>
 <p>One thing that I love about CAS, even if you correctly extracted the attribute at this page (or maybe you just got hacked at this page), CAS is able to protect the returned attributes by changing the services registry configuration. see the HTTPSandIMAPS-10000001.json file. I’ve put ReturnAllAttributeReleasePolicy type for debuging all the attributes returned, you can change it later to make your application more secure as well.</p>
-<p>####3. Apache Ignite For Ticket Replication</p>
+<h4 id="3-apache-ignite-for-ticket-replication">3. Apache Ignite For Ticket Replication</h4>
 <p>To have a production readiness we need to somehow manage a high availability requirement, so we&rsquo;re not just using a single cas server. That is why we needed to have a centralized or distributed ticket repository, to allow cas to scale. To scale the ticket repository, I chose Apache Ignite for distributing the tickets. To Implement is very simple, and is also written about in Apereo CAS documentation.</p>
-<p>###Client side development:</p>
-<p>####1. The Spring Voter</p>
+<h3 id="client-side-development">Client side development:</h3>
+<h4 id="1-the-spring-voter">1. The Spring Voter</h4>
 <p>Spring is a great framework, they allow you to add your own interceptors to use your own implementation. WebExpressionVoter is the class you need to extend in order to override the normal spring decision mechanism.  Usually you will use xml + regex for registering the condition. However, xml + regex is not the approach I wanted for my development team. See below code snippet, to understand what I did to make this more dynamic.</p>
 <pre><code>:::Java
   @Override
@@ -358,7 +358,7 @@ public class IamAuthenticationHandler extends AbstractUsernamePasswordAuthentica
   }
 </code></pre>
 <p>Yep, I&rsquo;m calling fortress to check if the user is allowed to access fortress permissions or not.</p>
-<p>#####2. UserDetail Populator</p>
+<h5 id="2-userdetail-populator">2. UserDetail Populator</h5>
 <p>Spring uses the implementation of AbstractCasAssertionUserDetailsService to populate user details following successful authentication, you can see the example at IamUserDetails code, here is the snipet of that class:</p>
 <pre><code>:::Java
 @Override
@@ -398,7 +398,7 @@ public class IamAuthenticationHandler extends AbstractUsernamePasswordAuthentica
   }
 </code></pre>
 <p>You can change the implementation later for your needs.</p>
-<p>#####3. Network Might Be a Problem</p>
+<h5 id="3-network-might-be-a-problem">3. Network Might Be a Problem</h5>
 <p>Since this is running inside a production environment, we needed to consider that sometimes there might be a trouble over our network that causes problems and requires retries. That is why it&rsquo;s important to allow a little delay time in our application.  Here&rsquo;s an example of how allow a small delay, in order to allow temorary network glitches and slowdowns to work themselves out.</p>
 <pre><code>:::Java
 /*
@@ -450,28 +450,28 @@ public class GdnCasAuthenticationProvider extends CasAuthenticationProvider {
 
 }
 </code></pre>
-<p>###Descriptions of authentication flow</p>
+<h3 id="descriptions-of-authentication-flow">Descriptions of authentication flow</h3>
 <p>The CAS authentication flow will be the same, no changes are required in terms of that authentication flow. Furthermore, you can see that flow at Apereo CAS 4.2.x documentation page.</p>
 <p>The main difference now is we don&rsquo;t put the ticket registry inside an in-memory database, we put it inside an Apache Ignite cache, so when other nodes are there it can replicate the ticket between them which increases efficiencies.</p>
-<p>###Descriptions of authorization flow</p>
+<h3 id="descriptions-of-authorization-flow">Descriptions of authorization flow</h3>
 <p>Spring Security usually has the authorization role configuration inside your spring context xml file or using annotations in source. This is the only difference between plain spring security and that using my extended framework solution.  We put the configuration inside of Fortress. Everytime the user changes the URL, it will check the user has access to that specific URL and not through the extended voter class. If the user is authorized then the app will give them the correct page, otherwise it will route to 40X http error status page.</p>
-<p>###Instructions to test</p>
+<h3 id="instructions-to-test">Instructions to test</h3>
 <p>For testing this example, you need to understand that Apache Fortress configuration is necessary to find fortress.properties on the classpath so it might be good if you put that configuration file at the same classpath, for instance, if you are using tomcat remove all the fortress.properties inside the classes directory and put it on $TOMCAT_HOME/lib/ folder. Make sure get Apache Fortress running at the first step. Here are the detailed instructions for testing this example:</p>
-<p>####Server Section</p>
-<p>#####1. Read and find the instructions at:</p>
+<h4 id="server-section">Server Section</h4>
+<h5 id="1-read-and-find-the-instructions-at">1. Read and find the instructions at:</h5>
 <ul>
 <li><a href="https://github.com/apache/directory-fortress-core">https://github.com/apache/directory-fortress-core</a></li>
 <li><a href="https://github.com/apache/directory-fortress-enmasse">https://github.com/apache/directory-fortress-enmasse</a></li>
 <li><a href="https://github.com/apache/directory-fortress-commander">https://github.com/apache/directory-fortress-commander</a></li>
 </ul>
 <p>and configure your Apache Fortress properly.</p>
-<p>#####2. Clone the project from link at <em>Where to download</em> section below, change the configuration properly inside *cas-fortress-servers/src/main/resourcesz8 folder and package it using</p>
+<h5 id="2-clone-the-project-from-link-at-where-to-download-section-below-change-the-configuration-properly-inside-cas-fortress-serverssrcmainresources-folder-and-package-it-using">2. Clone the project from link at <em>Where to download</em> section below, change the configuration properly inside <em>cas-fortress-servers/src/main/resources</em> folder and package it using:</h5>
 <pre><code>:::Maven
- mvn clean package.
+mvn clean package.
 </code></pre>
 <p>Copy the war file from cas-fortress-server/target into the web-container deploy directory.</p>
-<p>#####3. Start your web-container and you get cas fortress integrated.</p>
-<p>####Client Section</p>
+<h5 id="3-start-your-web-container-and-you-get-cas-fortress-integrated">3. Start your web-container and you get cas fortress integrated.</h5>
+<h4 id="client-section">Client Section</h4>
 <ul>
 <li>Simply put the war file inside the web-container deploy directory.</li>
 <li>Open and login to your commander(fortress-web)</li>
@@ -480,11 +480,11 @@ public class GdnCasAuthenticationProvider extends CasAuthenticationProvider {
 <li>Map the permission object and role at permission tab at your commander. Currently we only support get for both of the url.</li>
 <li>Start your web-container and play with your cas-fortress-client later on.</li>
 </ul>
-<p>###Where to download</p>
+<h3 id="where-to-download">Where to download</h3>
 <ul>
 <li><a href="https://github.com/bliblidotcom/cas-fortress-example">https://github.com/bliblidotcom/cas-fortress-example</a></li>
 </ul>
-<p>##Next Steps</p>
+<h2 id="next-steps">Next Steps</h2>
 <p>Next should be implementing ARBAC solution. Since I don&rsquo;t allow people to create conditional statements inside their application code to check for roles, buttons or page elements that should be not accessible for specific users will appear on their pages, even they can&rsquo;t perform that particular action.  This causes some confusion in terms or usability for my users. With ARBAC I believe I can do a whitelist for the page attributes and increase the usability for the user.</p>
 
 
