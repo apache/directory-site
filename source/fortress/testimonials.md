@@ -46,7 +46,7 @@ The following sections contain code and xml snippets describing how the **CAS** 
 
  The interesting part for this solution is how to maintain both the [Apereo CAS](https://www.apereo.org/projects/cas) and Apache Fortress sessions. Luckily, **CAS** is using a token for maintaining their session and that token is also designed to have some extended attributes included with it.  Using this knowledge, we can modify the profile given by **CAS** Server to the client. Let's have a look what I've done with combining the [Apereo CAS](https://www.apereo.org/projects/cas) and *Apache Fortress* sessions in the code that follows.
 
-    :::Java
+```Java
 
     /*
      * Copyright 2017 to PT. Global Digital Niaga(Blibli.com)
@@ -146,6 +146,7 @@ The following sections contain code and xml snippets describing how the **CAS** 
       }
     
     }
+```
 
 
  In the above source code you can see how I construct a new principal by creating a new attribute map with values contained withing the *Apache Fortress* Session xml.
@@ -154,7 +155,7 @@ The following sections contain code and xml snippets describing how the **CAS** 
 
  In order to populate fortress and pass it on to the client we need to override the *casServiceValidationSuccess.jsp* file, located at *WEB-INF/view/jsp/protocol/2.0/*, since its default view won't populating the necessary attributes. Here is how I was able to accomplish that:
 
-    :::XML
+```XML
     
     <%@ page session="false" contentType="application/xml; charset=UTF-8" %>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -182,6 +183,7 @@ The following sections contain code and xml snippets describing how the **CAS** 
             </c:if>
         </cas:authenticationSuccess>
     </cas:serviceResponse>
+```
 
 One thing that I love about **CAS**, even if you correctly extracted the attribute at this page (or maybe you just got hacked at this page), **CAS** is able to protect the returned attributes by changing the services registry configuration. see the *HTTPSandIMAPS-10000001.json* file. I’ve put *ReturnAllAttributeReleasePolicy* type for debuging all the attributes returned, you can change it later to make your application more secure as well.
 
@@ -195,7 +197,7 @@ One thing that I love about **CAS**, even if you correctly extracted the attribu
 
  **Spring** is a great framework, they allow you to add your own interceptors to use your own implementation. *WebExpressionVoter* is the class you need to extend in order to override the normal spring decision mechanism.  Usually you will use xml + regex for registering the condition. However, xml + regex is not the approach I wanted for my development team. See below code snippet, to understand what I did to make this more dynamic.
 
-    :::Java
+```Java
       @Override
       @SuppressWarnings("static-access")
       public int vote(Authentication authentication, FilterInvocation fi,
@@ -254,6 +256,7 @@ One thing that I love about **CAS**, even if you correctly extracted the attribu
           return super.ACCESS_DENIED;
         }
       }
+```
 
  Yep, I'm calling fortress to check if the user is allowed to access fortress permissions or not.
 
@@ -261,7 +264,7 @@ One thing that I love about **CAS**, even if you correctly extracted the attribu
 
  Spring uses the implementation of *AbstractCasAssertionUserDetailsService* to populate user details following successful authentication, you can see the example at *IamUserDetails* code, here is the snipet of that class:
 
-    :::Java
+```Java
     @Override
       protected UserDetails loadUserDetails(final Assertion assertion) {
         List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
@@ -297,6 +300,7 @@ One thing that I love about **CAS**, even if you correctly extracted the attribu
         return new User(assertion.getPrincipal().getName().toLowerCase().trim(), NON_EXISTENT_PASSWORD_VALUE, enabled,
             accountNonExpired, credentialsNonExpired, accountNonLocked, grantedAuthorities);
       }
+```
 
  You can change the implementation later for your needs.
 
@@ -304,7 +308,7 @@ One thing that I love about **CAS**, even if you correctly extracted the attribu
 
  Since this is running inside a production environment, we needed to consider that sometimes there might be a trouble over our network that causes problems and requires retries. That is why it's important to allow a little delay time in our application.  Here's an example of how allow a small delay, in order to allow temporary network glitches and slowdowns to work themselves out.
 
-    :::Java
+```Java
     /*
      * Copyright 2017 to PT. Global Digital Niaga(Blibli.com)
      * 
@@ -353,6 +357,7 @@ One thing that I love about **CAS**, even if you correctly extracted the attribu
       }
     
     }
+```
 
 ### Descriptions of authentication flow
 
@@ -381,8 +386,9 @@ One thing that I love about **CAS**, even if you correctly extracted the attribu
 ##### 2. Clone the project from link at *Where to download* section below, change the configuration properly inside *cas-fortress-servers/src/main/resources* folder and package it using:
 
 
-    :::Maven
+``` Maven
     mvn clean package.
+```
 
  Copy the war file from *cas-fortress-server/target* into the *web-container* deploy directory.
 
