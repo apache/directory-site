@@ -59,7 +59,7 @@ Currently, we have a dedicated **MINA* module that covers a part of that, but th
 
 The initialization is done in the _LdapnetworkConnection.connect()_ method :
 
-    :::Java
+```Java
     public boolean connect() throws LdapException
      {
          ...
@@ -69,10 +69,11 @@ The initialization is done in the _LdapnetworkConnection.connect()_ method :
          {
              createConnector();
          }
+```
 
 and the private _createConnector()_ method does all the work :
 
-    :::Java
+```Java
     private void createConnector() throws LdapException
     {
         // Use only one thread inside the connector
@@ -99,6 +100,7 @@ and the private _createConnector()_ method does all the work :
         // Inject the protocolHandler
         connector.setHandler( this );
     }
+```
 
 A few things :
 
@@ -115,7 +117,7 @@ Note : We could share the _Connector_ between many **LdapConnections**, using le
 
 Here is an example on how we can create and use a _LdapConnectionConfig_ to set up a secured connection :
 
-    :::Java
+```Java
     LdapConnectionConfig sslConfig = new LdapConnectionConfig();
     sslConfig.setLdapHost( Network.LOOPBACK_HOSTNAME );
     sslConfig.setUseSsl( true );
@@ -128,7 +130,7 @@ Here is an example on how we can create and use a _LdapConnectionConfig_ to set 
         {
             connection.bind( "uid=admin,ou=system", "secret" );
             ...
-
+```
 
 ### MINA Events processing
 
@@ -165,7 +167,7 @@ Actually, we only implement the _messageReceived_, _exceptionCaught_, _inputClos
 
 There are two modes : **Synchronous** and **Asyncrhonous**. The methods are respectively described in the _LdapConnection_ interface and _LdapAsyncConnection_ interface. Actually, _synchronous_ methods are calling _asynchronous_ methods, which returns a _Future_ :
 
-    :::Java
+```Java
     /**
      * {@inheritDoc}
      */
@@ -215,13 +217,14 @@ There are two modes : **Synchronous** and **Asyncrhonous**. The methods are resp
             throw new LdapException( NO_RESPONSE_ERROR, ie );
         }
     }
+```
 
 You can see we wait until the timeout expired, or until we got the response, calling the _addAsync_ method, getting back a _Future_ and waiting on it.
 
 This method take a _AddRequest_ but we have other simpler flavors (see the **LDAP API** documentation).
 
 
-    
+ ```Text   
     AddResponse ldapConnection.add( AddResquest )
         |
         +-- AddFuture addAsync( AddRequest )
@@ -253,6 +256,7 @@ This method take a _AddRequest_ but we have other simpler flavors (see the **LDA
         |               +-- WriteFuture.awaitUninterruptibly( 100 )
         |
         +-- AddFuture.get()
+```
 
 Here, we first create a connection if we don't have one yet, and then we try to write the message to the remote server, and wait for the message to be sent. That means sending message is synchronous, while receiving is aysnchronous by default. (NOTE : This may change in the next version.)
 
@@ -271,7 +275,7 @@ Messages are encoded and decoded when we send or receive them. This is done by *
 
 The codec is inserted in **MINA** chain while connecting :
 
-    :::Java
+```Java
     /** The Ldap codec protocol filter */
     private IoFilter ldapProtocolFilter = new ProtocolCodecFilter( codec.getProtocolCodecFactory() );
 
@@ -281,6 +285,7 @@ The codec is inserted in **MINA** chain while connecting :
 
         // Add the codec to the chain
         connector.getFilterChain().addLast( "ldapCodec", ldapProtocolFilter );
+```
 
 So the _ProtocolCodecFilter_ class is responsible for initializing the codec (it's a **MINA** class), and here, we use a factory to inject the encoder and decoder instances. This factory is _LdapProtocolCodecFactory_.
 
@@ -301,21 +306,23 @@ The **StartTLS** extended operation is a bit specific, as it is set over an exis
 
 The logic is the following :
 
-    ::: text
+```Text
     - The client sends a **startTLS** extended operation to the server - assuming the server supports it -
     - The server setup a **TLS** 'listener', configure it, and send back an extended response to inform the client it is ready to proceed further. At this point, the server will not proceed any non-handshake messages received for this **LDAP** session, not will it send any response (they will be enqueued)
     - On reception of this response, the client will add the **SslFilter** into the MINA network chain, configure it, and start the handshake (by sending a **CLIENT HELLO** message). No further message can be sent for this session, beside the handsake messages (they will be enqueued and delivered when teh handshake has been completed successfully)
     - The handshake is performed: messages and responses are send and received, up to teh completion point.
     - When the handshake is completed, the **SslFilter** inform the  connection that it's done by 'sending' (locally) a **SESSION_SECURED* message
     - enqueued messages are flushed on bith the client and server. We are done, the session is secured.
+```
 
 There are many aspect that are tricky here. One of them is to be sure we don't send messages to the remote peer while processing the handshake
 
 
 On the server :
 
-Init : the SSLContext is configured to TLS, regardless of the configuration...
+Init: the SSLContext is configured to TLS, regardless of the configuration...
 
+```Java
 SslHandler.handleExtendedOperation
   new SslFilter()
     DefaultIoFilterChain.addFirst()
@@ -327,9 +334,11 @@ SslHandler.handleExtendedOperation
             [SSLEngine.beginHandshake()]  <<<----
         SslFilter.onPostAdd()
   write response
+```
 
 On the client :
 
+```Java
 addSslFilter
   SSLContext.getInstance()
   new SslFilter()
@@ -341,3 +350,4 @@ addSslFilter
           SSLContext.createSSLEngine()
           SSLEngine.beginHandshake()  <<<----
         SslFilter.onPostAdd()
+```
