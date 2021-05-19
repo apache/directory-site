@@ -25,7 +25,7 @@ This is the parent of the message hierarchy. Every message has a few characteris
 
 Here is the Message interface:
 
-    :::Java
+```Java
     /**
      * Root interface for all LDAP message type interfaces.
      * 
@@ -119,6 +119,7 @@ Here is the Message interface:
          */
         Message setMessageId( int messageId );
     }
+```
 
 ## Contents
 
