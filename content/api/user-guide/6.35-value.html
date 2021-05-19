@@ -168,41 +168,129 @@
 <li>using a static factory (useful for deserialization)</li>
 </ul>
 <p>You can create the value passing it an <em>AttributeType</em>, or without it. Here are the possible constructors:</p>
-<CENTER>
-| With an AttributeType | Without an attributeType | Description |
-|---|---|---|
-| Value( AttributeType, byte[] upValue ) | Value( byte[] upValue ) | Creates a Value with a binary content |
-| Value( AttributeType, String upValue ) | Value( String upValue ) | Creates a Value with a String content |
-| Value( AttributeType, Value ) | - | Create a new Value from an existing one, applying the SchemaManager on it |
-</CENTER>
+<table>
+<thead>
+<tr>
+<th align="center">With an AttributeType</th>
+<th align="center">Without an attributeType</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">Value( AttributeType, byte[] upValue )</td>
+<td align="center">Value( byte[] upValue )</td>
+<td align="center">Creates a Value with a binary content</td>
+</tr>
+<tr>
+<td align="center">Value( AttributeType, String upValue )</td>
+<td align="center">Value( String upValue )</td>
+<td align="center">Creates a Value with a String content</td>
+</tr>
+<tr>
+<td align="center">Value( AttributeType, Value )</td>
+<td align="center">-</td>
+<td align="center">Create a new Value from an existing one, applying the SchemaManager on it</td>
+</tr>
+</tbody>
+</table>
 <p>The third constructor is quite specific, as <em>Value</em> is immutable, and it allows you to associate a SchemaManager to a <em>Value</em> instance (creating a new <em>Value</em> in the process). The new <em>Value</em> instance will be schema aware.</p>
 <h2 id="operations-on-a-value">Operations on a Value</h2>
 <p>There are ways to consult the content of the <em>Value</em>, and its status. Here is the list of common operations:</p>
-<CENTER>
-| Operation | Description |
-|---|---|
-| clone() | Clone the current Value, creating a new instance |
-| compareTo( byte[] ) | Compare the content of the current value to the given byte[] |
-| compareTo( String ) | Compare the content of the current value to the given String | 
-| compareTo( Value ) | Compare the content of the current value to the given Value |
-| deserialize( byte[], int ) | Create a Value deserializing it from the byte[], starting at a given position | 
-| equals( Object ) | Tells if the current Value is equal to the provided object |
-| getAttributeType() | Get back the AttributeType associated with this value, if any |
-| getBytes() | Get the byte[] representation of this Value |
-| getValue() | Get the Value as a String, if the Value is Human Readable |
-| hashCode() | Compute the Value hashcode |
-| isHumanReadable() | Tells if the Value is Humane Readable (ie, a String) |
-| isInstanceOf( AttributeType ) | Tells if the Value is an instance of a given AttributeType, or of one of its parent |
-| isNull() | Tells if the contained value is null |
-| isSchemaAware() | Tells if teh Value is schema aware |
-| isValid( SyntaxChecker ) | Check the contained value |
-| length() | Returns the contained value's length (number of chars for a String, number of bytes for a byte[]) |
-| readExternal( ObjectInput ) | Read a new Value from a stream of bytes |
-| serialize( byte[], int ) | Write the Value into a stream of bytes |
-| toString() | Returns a String representation of the Value instance  |
-| writeExternal( ObjectOutput ) | Write the Value into a stream |
-| 
-</CENTER>
+<table>
+<thead>
+<tr>
+<th align="center">Operation</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">clone()</td>
+<td align="center">Clone the current Value, creating a new instance</td>
+</tr>
+<tr>
+<td align="center">compareTo( byte[] )</td>
+<td align="center">Compare the content of the current value to the given byte[]</td>
+</tr>
+<tr>
+<td align="center">compareTo( String )</td>
+<td align="center">Compare the content of the current value to the given String</td>
+</tr>
+<tr>
+<td align="center">compareTo( Value )</td>
+<td align="center">Compare the content of the current value to the given Value</td>
+</tr>
+<tr>
+<td align="center">deserialize( byte[], int )</td>
+<td align="center">Create a Value deserializing it from the byte[], starting at a given position</td>
+</tr>
+<tr>
+<td align="center">equals( Object )</td>
+<td align="center">Tells if the current Value is equal to the provided object</td>
+</tr>
+<tr>
+<td align="center">getAttributeType()</td>
+<td align="center">Get back the AttributeType associated with this value, if any</td>
+</tr>
+<tr>
+<td align="center">getBytes()</td>
+<td align="center">Get the byte[] representation of this Value</td>
+</tr>
+<tr>
+<td align="center">getValue()</td>
+<td align="center">Get the Value as a String, if the Value is Human Readable</td>
+</tr>
+<tr>
+<td align="center">hashCode()</td>
+<td align="center">Compute the Value hashcode</td>
+</tr>
+<tr>
+<td align="center">isHumanReadable()</td>
+<td align="center">Tells if the Value is Humane Readable (ie, a String)</td>
+</tr>
+<tr>
+<td align="center">isInstanceOf( AttributeType )</td>
+<td align="center">Tells if the Value is an instance of a given AttributeType, or of one of its parent</td>
+</tr>
+<tr>
+<td align="center">isNull()</td>
+<td align="center">Tells if the contained value is null</td>
+</tr>
+<tr>
+<td align="center">isSchemaAware()</td>
+<td align="center">Tells if teh Value is schema aware</td>
+</tr>
+<tr>
+<td align="center">isValid( SyntaxChecker )</td>
+<td align="center">Check the contained value</td>
+</tr>
+<tr>
+<td align="center">length()</td>
+<td align="center">Returns the contained value&rsquo;s length (number of chars for a String, number of bytes for a byte[])</td>
+</tr>
+<tr>
+<td align="center">readExternal( ObjectInput )</td>
+<td align="center">Read a new Value from a stream of bytes</td>
+</tr>
+<tr>
+<td align="center">serialize( byte[], int )</td>
+<td align="center">Write the Value into a stream of bytes</td>
+</tr>
+<tr>
+<td align="center">toString()</td>
+<td align="center">Returns a String representation of the Value instance</td>
+</tr>
+<tr>
+<td align="center">writeExternal( ObjectOutput )</td>
+<td align="center">Write the Value into a stream</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
 
 
             
