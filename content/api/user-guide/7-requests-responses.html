@@ -166,102 +166,100 @@
 * Controls : The list of controls you add to a request or that get added by the response
 </code></pre>
 <p>Here is the Message interface:</p>
-<pre><code>:::Java
-/**
- * Root interface for all LDAP message type interfaces.
- * 
- * @author &lt;a href=&quot;mailto:dev@directory.apache.org&quot;&gt;Apache Directory Project&lt;/a&gt;
- */
-public interface Message
-{
-    /**
-     * Gets the LDAP message type code associated with this Message. Each
-     * request and response type has a unique message type code defined by the
-     * protocol in &lt;a href=&quot;http://www.faqs.org/rfcs/rfc2251.html&quot;&gt;RFC 2251&lt;/a&gt;.
-     * 
-     * @return the message type code.
-     */
-    MessageTypeEnum getType();
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    <span style="color:#080;font-style:italic">/**
+</span><span style="color:#080;font-style:italic">     * Root interface for all LDAP message type interfaces.
+</span><span style="color:#080;font-style:italic">     * 
+</span><span style="color:#080;font-style:italic">     * @author &lt;a href=&#34;mailto:dev@directory.apache.org&#34;&gt;Apache Directory Project&lt;/a&gt;
+</span><span style="color:#080;font-style:italic">     */</span>
+    <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">interface</span> <span style="color:#00f">Message</span>
+    <span style="color:#666">{</span>
+        <span style="color:#080;font-style:italic">/**
+</span><span style="color:#080;font-style:italic">         * Gets the LDAP message type code associated with this Message. Each
+</span><span style="color:#080;font-style:italic">         * request and response type has a unique message type code defined by the
+</span><span style="color:#080;font-style:italic">         * protocol in &lt;a href=&#34;http://www.faqs.org/rfcs/rfc2251.html&#34;&gt;RFC 2251&lt;/a&gt;.
+</span><span style="color:#080;font-style:italic">         * 
+</span><span style="color:#080;font-style:italic">         * @return the message type code.
+</span><span style="color:#080;font-style:italic">         */</span>
+        MessageTypeEnum <span style="color:#00a000">getType</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
 
 
-    /**
-     * Gets the controls associated with this message mapped by OID.
-     * 
-     * @return Map of OID strings to Control object instances.
-     */
-    Map&lt;String, Control&gt; getControls();
+        <span style="color:#080;font-style:italic">/**
+</span><span style="color:#080;font-style:italic">         * Gets the controls associated with this message mapped by OID.
+</span><span style="color:#080;font-style:italic">         * 
+</span><span style="color:#080;font-style:italic">         * @return Map of OID strings to Control object instances.
+</span><span style="color:#080;font-style:italic">         */</span>
+        Map<span style="color:#666">&lt;</span>String<span style="color:#666">,</span> Control<span style="color:#666">&gt;</span> <span style="color:#00a000">getControls</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
 
 
-    /**
-     * Gets the control associated with the given OID.
-     * 
-     * @param oid The Cntrol's OID we are looking for
-     * @return The Control object instance with the OID.
-     */
-    Control getControl( String oid );
+        <span style="color:#080;font-style:italic">/**
+</span><span style="color:#080;font-style:italic">         * Gets the control associated with the given OID.
+</span><span style="color:#080;font-style:italic">         * 
+</span><span style="color:#080;font-style:italic">         * @param oid The Cntrol&#39;s OID we are looking for
+</span><span style="color:#080;font-style:italic">         * @return The Control object instance with the OID.
+</span><span style="color:#080;font-style:italic">         */</span>
+        Control <span style="color:#00a000">getControl</span><span style="color:#666">(</span> String oid <span style="color:#666">)</span><span style="color:#666">;</span>
 
 
-    /**
-     * Checks whether or not this message has the specified control.
-     *
-     * @param oid the OID of the control
-     * @return true if this message has the control, false if it does not
-     */
-    boolean hasControl( String oid );
+        <span style="color:#080;font-style:italic">/**
+</span><span style="color:#080;font-style:italic">         * Checks whether or not this message has the specified control.
+</span><span style="color:#080;font-style:italic">         *
+</span><span style="color:#080;font-style:italic">         * @param oid the OID of the control
+</span><span style="color:#080;font-style:italic">         * @return true if this message has the control, false if it does not
+</span><span style="color:#080;font-style:italic">         */</span>
+        <span style="color:#0b0;font-weight:bold">boolean</span> <span style="color:#00a000">hasControl</span><span style="color:#666">(</span> String oid <span style="color:#666">)</span><span style="color:#666">;</span>
 
 
-    /**
-     * Adds a control to this Message.
-     * 
-     * @param control the control to add.
-     * @return A Message reference
-     * @throws org.apache.directory.shared.ldap.model.exception.MessageException if controls cannot be added to this Message or the control is
-     *             not known etc.
-     */
-    Message addControl( Control control ) throws MessageException;
+        <span style="color:#080;font-style:italic">/**
+</span><span style="color:#080;font-style:italic">         * Adds a control to this Message.
+</span><span style="color:#080;font-style:italic">         * 
+</span><span style="color:#080;font-style:italic">         * @param control the control to add.
+</span><span style="color:#080;font-style:italic">         * @return A Message reference
+</span><span style="color:#080;font-style:italic">         * @throws org.apache.directory.shared.ldap.model.exception.MessageException if controls cannot be added to this Message or the control is
+</span><span style="color:#080;font-style:italic">         *             not known etc.
+</span><span style="color:#080;font-style:italic">         */</span>
+        Message <span style="color:#00a000">addControl</span><span style="color:#666">(</span> Control control <span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> MessageException<span style="color:#666">;</span>
 
 
-    /**
-     * Adds an array of controls to this Message.
-     * 
-     * @param controls the controls to add.
-     * @return A Message reference
-     * @throws MessageException if controls cannot be added to this Message or they are not known etc.
-     */
-    Message addAllControls( Control[] controls ) throws MessageException;
+        <span style="color:#080;font-style:italic">/**
+</span><span style="color:#080;font-style:italic">         * Adds an array of controls to this Message.
+</span><span style="color:#080;font-style:italic">         * 
+</span><span style="color:#080;font-style:italic">         * @param controls the controls to add.
+</span><span style="color:#080;font-style:italic">         * @return A Message reference
+</span><span style="color:#080;font-style:italic">         * @throws MessageException if controls cannot be added to this Message or they are not known etc.
+</span><span style="color:#080;font-style:italic">         */</span>
+        Message <span style="color:#00a000">addAllControls</span><span style="color:#666">(</span> Control<span style="color:#666">[</span><span style="color:#666">]</span> controls <span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> MessageException<span style="color:#666">;</span>
 
 
-    /**
-     * Deletes a control removing it from this Message.
-     * 
-     * @param control the control to remove.
-     * @return A Message reference
-     * @throws MessageException if controls cannot be added to this Message or the control is
-     *             not known etc.
-     */
-    Message removeControl( Control control ) throws MessageException;
+        <span style="color:#080;font-style:italic">/**
+</span><span style="color:#080;font-style:italic">         * Deletes a control removing it from this Message.
+</span><span style="color:#080;font-style:italic">         * 
+</span><span style="color:#080;font-style:italic">         * @param control the control to remove.
+</span><span style="color:#080;font-style:italic">         * @return A Message reference
+</span><span style="color:#080;font-style:italic">         * @throws MessageException if controls cannot be added to this Message or the control is
+</span><span style="color:#080;font-style:italic">         *             not known etc.
+</span><span style="color:#080;font-style:italic">         */</span>
+        Message <span style="color:#00a000">removeControl</span><span style="color:#666">(</span> Control control <span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> MessageException<span style="color:#666">;</span>
 
 
-    /**
-     * Gets the session unique message sequence id for this message. Requests
-     * and their responses if any have the same message id. Clients at the
-     * initialization of a session start with the first message's id set to 1
-     * and increment it with each transaction.
-     * 
-     * @return the session unique message id.
-     */
-    int getMessageId();
+        <span style="color:#080;font-style:italic">/**
+</span><span style="color:#080;font-style:italic">         * Gets the session unique message sequence id for this message. Requests
+</span><span style="color:#080;font-style:italic">         * and their responses if any have the same message id. Clients at the
+</span><span style="color:#080;font-style:italic">         * initialization of a session start with the first message&#39;s id set to 1
+</span><span style="color:#080;font-style:italic">         * and increment it with each transaction.
+</span><span style="color:#080;font-style:italic">         * 
+</span><span style="color:#080;font-style:italic">         * @return the session unique message id.
+</span><span style="color:#080;font-style:italic">         */</span>
+        <span style="color:#0b0;font-weight:bold">int</span> <span style="color:#00a000">getMessageId</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
 
 
-    /**
-     * Sets the Message ID for this request
-     * @param messageId The message Id
-     * @return A Message reference
-     */
-    Message setMessageId( int messageId );
-}
-</code></pre>
-<h2 id="contents">Contents</h2>
+        <span style="color:#080;font-style:italic">/**
+</span><span style="color:#080;font-style:italic">         * Sets the Message ID for this request
+</span><span style="color:#080;font-style:italic">         * @param messageId The message Id
+</span><span style="color:#080;font-style:italic">         * @return A Message reference
+</span><span style="color:#080;font-style:italic">         */</span>
+        Message <span style="color:#00a000">setMessageId</span><span style="color:#666">(</span> <span style="color:#0b0;font-weight:bold">int</span> messageId <span style="color:#666">)</span><span style="color:#666">;</span>
+    <span style="color:#666">}</span>
+</code></pre></div><h2 id="contents">Contents</h2>
 <ul>
 <li><a href="7.1-abandon-request.html">7.1 - AbandonRequest</a></li>
 <li><a href="7.2-add-request.html">7.2 - AddRequest</a></li>

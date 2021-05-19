@@ -159,10 +159,8 @@
 	<h1 id="65---ava">6.5 - Ava</h1>
 <p>An <em>Ava</em> is used to store an <em>Attribute</em> value associated to an <em>AttributeType</em>.</p>
 <p>It describes a container holding an <em>AttributeType</em> associated with a <em>Value</em> in a <em>Rdn</em>. An example would be:</p>
-<pre><code>:::Java
-dc=example
-</code></pre>
-<p>where &lsquo;dc&rsquo; is the <em>AttributeType</em> and &lsquo;example&rsquo; its associated value.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Text" data-lang="Text">    dc=example
+</code></pre></div><p>where &lsquo;dc&rsquo; is the <em>AttributeType</em> and &lsquo;example&rsquo; its associated value.</p>
 <p>The value can be a binary or a String value, depending on the <em>AttributeType</em>.</p>
 <p>We can create a schema aware <em>Ava</em>, or just a plain <em>Ava</em>. Having a schema aware <em>Ava</em> allows further controls to be made on the value we inject.  Is syntax will be checked against the <em>AttributeType</em> syntax.</p>
 <p>Most of the time, one will not need to create or manipulate an <em>Ava</em>, as it&rsquo;s an internal element of a <em>Rdn</em>.</p>
@@ -172,30 +170,24 @@ dc=example
 <p>As for the <em>Dn</em> and <em>Rdn</em> classes, we have to hold two representations of its internal <em>AttributeType</em> and <em>Value</em>.  The User Provided form, and the escaped form (which are used inside filters). If the <em>AVA</em> is schema aware, the escaped form will be computed, otherwise we store the user provided form. Let&rsquo;s see some examples.</p>
 <h3 id="schema-aware-ava">Schema Aware Ava</h3>
 <p>Here we will create an <em>AVA</em> and check that the user provided values are preserved. The <em>getName()</em> and <em>getString()</em> methods will give back this user provided form, in a form that allows it to be used in a Filter.</p>
-<pre><code>:::Java
-Ava atav = new Ava( schemaManager, &quot; CommonName &quot;, &quot; This is    a TEST &quot; );
-System.out.println( &quot;toString     : '&quot; + atav.toString() + &quot;'&quot; );
-System.out.println( &quot;Escaped      : '&quot; + atav.getEscaped() + &quot;'&quot; );
-System.out.println( &quot;UserProvided : '&quot; + atav.getName() + &quot;'&quot; );
-</code></pre>
-<p>will produce :</p>
-<pre><code>:::Java
-toString     : ' CommonName =\ This is    a TEST\ '
-Escaped      : ' CommonName =\ This is    a TEST\ '
-UserProvided : ' CommonName =\ This is    a TEST\ '
-</code></pre>
-<p><em>{+}Not Schema Aware{+}</em></p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    Ava atav <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> Ava<span style="color:#666">(</span> schemaManager<span style="color:#666">,</span> <span style="color:#b44">&#34; CommonName &#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34; This is    a TEST &#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+    System<span style="color:#666">.</span><span style="color:#b44">out</span><span style="color:#666">.</span><span style="color:#b44">println</span><span style="color:#666">(</span> <span style="color:#b44">&#34;toString     : &#39;&#34;</span> <span style="color:#666">+</span> atav<span style="color:#666">.</span><span style="color:#b44">toString</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">+</span> <span style="color:#b44">&#34;&#39;&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+    System<span style="color:#666">.</span><span style="color:#b44">out</span><span style="color:#666">.</span><span style="color:#b44">println</span><span style="color:#666">(</span> <span style="color:#b44">&#34;Escaped      : &#39;&#34;</span> <span style="color:#666">+</span> atav<span style="color:#666">.</span><span style="color:#b44">getEscaped</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">+</span> <span style="color:#b44">&#34;&#39;&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+    System<span style="color:#666">.</span><span style="color:#b44">out</span><span style="color:#666">.</span><span style="color:#b44">println</span><span style="color:#666">(</span> <span style="color:#b44">&#34;UserProvided : &#39;&#34;</span> <span style="color:#666">+</span> atav<span style="color:#666">.</span><span style="color:#b44">getName</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">+</span> <span style="color:#b44">&#34;&#39;&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+</code></pre></div><p>will produce :</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Text" data-lang="Text">    toString     : &#39; CommonName =\ This is    a TEST\ &#39;
+    Escaped      : &#39; CommonName =\ This is    a TEST\ &#39;
+    UserProvided : &#39; CommonName =\ This is    a TEST\ &#39;
+</code></pre></div><h3 id="not-schema-aware">Not Schema Aware</h3>
 <p>The biggest difference in this case is that the <em>AttributeType</em> will not be replaced by its <em>Oid</em>, but instead by a lowercase form of the provided ID. We also escape the leading and trailing spaces in the value.</p>
-<p>{code}
-public void testAvaSimpleNorm() throws LdapException
-{
-Ava atav = new Ava( null, &quot; CommonName &ldquo;, &quot; This is    a TEST &quot; );
-assertEquals( &quot; CommonName = This is    a TEST &ldquo;, atav.toString() );
-assertEquals( &ldquo;commonname=\ This is    a TEST\ &ldquo;, atav.getNormName() );
-assertEquals( &quot; CommonName = This is    a TEST &ldquo;, atav.getUpName() );
-}
-{code}</p>
-
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java"><span style="color:#a2f;font-weight:bold">public</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">testAvaSimpleNorm</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> LdapException
+<span style="color:#666">{</span>
+    Ava atav <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> Ava<span style="color:#666">(</span> <span style="color:#a2f;font-weight:bold">null</span><span style="color:#666">,</span> <span style="color:#b44">&#34; CommonName &#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34; This is    a TEST &#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+    assertEquals<span style="color:#666">(</span> <span style="color:#b44">&#34; CommonName = This is    a TEST &#34;</span><span style="color:#666">,</span> atav<span style="color:#666">.</span><span style="color:#b44">toString</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+    assertEquals<span style="color:#666">(</span> <span style="color:#b44">&#34;commonname=\\ This is    a TEST\\ &#34;</span><span style="color:#666">,</span> atav<span style="color:#666">.</span><span style="color:#b44">getNormName</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+    assertEquals<span style="color:#666">(</span> <span style="color:#b44">&#34; CommonName = This is    a TEST &#34;</span><span style="color:#666">,</span> atav<span style="color:#666">.</span><span style="color:#b44">getUpName</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+<span style="color:#666">}</span>
+</code></pre></div>
 
             
     <div class="nav">

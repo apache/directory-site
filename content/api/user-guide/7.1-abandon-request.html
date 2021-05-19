@@ -158,27 +158,25 @@
             
 	<h1 id="71-abandonrequest">7.1 AbandonRequest</h1>
 <p>This request is used to tell the server that a given request (sent previously) has been abandoned. The only required parameter is the <em>ID</em> field of a request you want to stop.</p>
-<pre><code>:::Java
-public interface AbandonRequest extends Request
-{
-    /**
-     * Gets the id of the request operation to terminate.
-     * 
-     * @return the id of the request message to abandon
-     */
-    int getAbandoned();
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">interface</span> <span style="color:#00f">AbandonRequest</span> <span style="color:#a2f;font-weight:bold">extends</span> Request
+    <span style="color:#666">{</span>
+        <span style="color:#080;font-style:italic">/**
+</span><span style="color:#080;font-style:italic">         * Gets the id of the request operation to terminate.
+</span><span style="color:#080;font-style:italic">         * 
+</span><span style="color:#080;font-style:italic">         * @return the id of the request message to abandon
+</span><span style="color:#080;font-style:italic">         */</span>
+        <span style="color:#0b0;font-weight:bold">int</span> <span style="color:#00a000">getAbandoned</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
 
 
-    /**
-     * Sets the id of the request operation to terminate.
-     * 
-     * @param requestId the sequence id of the request message to abandon
-     * @return The AbandonRequest instance
-     */
-    AbandonRequest setAbandoned( int requestId );
-}
-</code></pre>
-<p>There are two existing implementations that can used:</p>
+        <span style="color:#080;font-style:italic">/**
+</span><span style="color:#080;font-style:italic">         * Sets the id of the request operation to terminate.
+</span><span style="color:#080;font-style:italic">         * 
+</span><span style="color:#080;font-style:italic">         * @param requestId the sequence id of the request message to abandon
+</span><span style="color:#080;font-style:italic">         * @return The AbandonRequest instance
+</span><span style="color:#080;font-style:italic">         */</span>
+        AbandonRequest <span style="color:#00a000">setAbandoned</span><span style="color:#666">(</span> <span style="color:#0b0;font-weight:bold">int</span> requestId <span style="color:#666">)</span><span style="color:#666">;</span>
+    <span style="color:#666">}</span>
+</code></pre></div><p>There are two existing implementations that can used:</p>
 <ul>
 <li><em>AbandonRequestImpl</em> : The default implementation.</li>
 <li><em>AbandonRequestDsml</em> : An implementation used when you want to generate a DSML request</li>
@@ -186,23 +184,18 @@ public interface AbandonRequest extends Request
 <p>The <em>AbandonRequest</em> message does not have a response, the abandonned request will just be stopped.</p>
 <h2 id="usage">Usage</h2>
 <p>It&rsquo;s pretty easy to do. You just to inject the ID of the request you want to abandon:</p>
-<pre><code>:::Java
-connection.abandon( messageId );
-</code></pre>
-<p>This will interrupt the request whose ID equals <em>messageId</em>.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    connection<span style="color:#666">.</span><span style="color:#b44">abandon</span><span style="color:#666">(</span> messageId <span style="color:#666">)</span><span style="color:#666">;</span>
+</code></pre></div><p>This will interrupt the request whose ID equals <em>messageId</em>.</p>
 <h3 id="adding-some-controls">Adding some controls</h3>
-<p>You can add a control in the <em>AbandonRequest</em>, once you create an instance of _AbandonRequestImpl:</p>
-<pre><code>:::Java
-AbandonRequest abandonRequest = new AbandonRequestImpl( messageId );
+<p>You can add a control in the <em>AbandonRequest</em>, once you create an instance of <em>AbandonRequestImpl</em>:</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    AbandonRequest abandonRequest <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> AbandonRequestImpl<span style="color:#666">(</span> messageId <span style="color:#666">)</span><span style="color:#666">;</span>
 
-// Add your control 
-abandonRequest.addControl( control );
+    <span style="color:#080;font-style:italic">// Add your control 
+</span><span style="color:#080;font-style:italic"></span>    abandonRequest<span style="color:#666">.</span><span style="color:#b44">addControl</span><span style="color:#666">(</span> control <span style="color:#666">)</span><span style="color:#666">;</span>
 
-// Send the request
-connection.abandon( abandonRequest );
-</code></pre>
-<p>_</p>
-
+    <span style="color:#080;font-style:italic">// Send the request
+</span><span style="color:#080;font-style:italic"></span>    connection<span style="color:#666">.</span><span style="color:#b44">abandon</span><span style="color:#666">(</span> abandonRequest <span style="color:#666">)</span><span style="color:#666">;</span>
+</code></pre></div>
 
             
     <div class="nav">

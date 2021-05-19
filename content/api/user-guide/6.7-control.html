@@ -355,93 +355,87 @@
 </table>
 <h2 id="how-to-use-controls">How to use controls</h2>
 <p>It&rsquo;s quite simple. You just have to instanciate the control you want to use, set its value, and add it to the request you will send to the server. Here is an example with the <em>ManageDsaIT</em> control :</p>
-<pre><code>:::Java
-AddRequest addRequest = new AddRequestImpl();       // Create the request
-ManageDsaIT manageDSAIT = new ManageDsaITImpl();    // Instanciate the control
-manageDSAIT.setCritical( true );                    // Set a value
-addRequest.addControl( manageDSAIT );               // Add the control to the request
-...
-</code></pre>
-<p>and that&rsquo;s it !</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    AddRequest addRequest <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> AddRequestImpl<span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>       <span style="color:#080;font-style:italic">// Create the request
+</span><span style="color:#080;font-style:italic"></span>    ManageDsaIT manageDSAIT <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> ManageDsaITImpl<span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>    <span style="color:#080;font-style:italic">// Instanciate the control
+</span><span style="color:#080;font-style:italic"></span>    manageDSAIT<span style="color:#666">.</span><span style="color:#b44">setCritical</span><span style="color:#666">(</span> <span style="color:#a2f;font-weight:bold">true</span> <span style="color:#666">)</span><span style="color:#666">;</span>                    <span style="color:#080;font-style:italic">// Set a value
+</span><span style="color:#080;font-style:italic"></span>    addRequest<span style="color:#666">.</span><span style="color:#b44">addControl</span><span style="color:#666">(</span> manageDSAIT <span style="color:#666">)</span><span style="color:#666">;</span>               <span style="color:#080;font-style:italic">// Add the control to the request
+</span><span style="color:#080;font-style:italic"></span>    <span style="color:#666">.</span><span style="color:#666">.</span><span style="color:#666">.</span>
+</code></pre></div><p>and that&rsquo;s it !</p>
 <p>Note that you have to create an instance of teh operation you want to send to the server, if yu want to add a control to it.</p>
 <p>On the client side, you may want to check if there is a control and read it if so. This is a bit more complex, because you need to know which kind of control you are expecting. We will see with a more complex control, the <em>Paged Search</em> control (which allows the user to get a specific number of enries at each call). Here, we will fetch 4 entries in one go, until all the entries have been read, and as we have 10 entries to read, we will send 3 <em>SearchRequest</em>, teh first two will return 4 entries and the last one only 2.</p>
-<pre><code>:::Java
-try ( LdapConnection connection = new LdapNetworkConnection( &quot;MyServer&quot;, 389 ) )
-{
-    connection.bind( &quot;cn=user,ou=system&quot;, &quot;secret&quot; );
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    <span style="color:#a2f;font-weight:bold">try</span> <span style="color:#666">(</span> LdapConnection connection <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> LdapNetworkConnection<span style="color:#666">(</span> <span style="color:#b44">&#34;MyServer&#34;</span><span style="color:#666">,</span> 389 <span style="color:#666">)</span> <span style="color:#666">)</span>
+    <span style="color:#666">{</span>
+        connection<span style="color:#666">.</span><span style="color:#b44">bind</span><span style="color:#666">(</span> <span style="color:#b44">&#34;cn=user,ou=system&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;secret&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
 
-    // Create the control, and tell it we want 4 entries for every call
-    PagedResults pagedControl = new PagedResultsImpl();
-    pagedControl.setSize( 4 );
-
-    // Read all the elements
-    List&lt;Entry&gt; results = new ArrayList&lt;&gt;();
-
-    // Create the SearchRequest
-    SearchRequest searchRequest = new SearchRequestImpl();
-    searchRequest.setBase( new Dn( &quot;dc=users,ou=system&quot; ) );
-    searchRequest.setFilter( &quot;(cn=*)&quot; );
-    searchRequest.setScope( SearchScope.SUBTREE );
-
-    while ( true )
-    {
-        // Add the PagedSearch control to the SearchRequest
-        searchRequest.addControl( pagedControl );
-            
-        // Do the search now
-        try ( SearchCursor cursor = connection.search( searchRequest ) )
-        {
-            // Loop on all the entries we got back (Should be 4, or less)
-            while ( cursor.next() )
-            {
-                Entry result = cursor.getEntry();
-                results.add( result );
-            }
-
-            // Check if we have reached the size limit
-            if ( cursor.getSearchResultDone().getLdapResult().getResultCode() == ResultCodeEnum.SIZE_LIMIT_EXCEEDED )
-            {
-                break;
-            }
+        <span style="color:#080;font-style:italic">// Create the control, and tell it we want 4 entries for every call
+</span><span style="color:#080;font-style:italic"></span>        PagedResults pagedControl <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> PagedResultsImpl<span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
+        pagedControl<span style="color:#666">.</span><span style="color:#b44">setSize</span><span style="color:#666">(</span> 4 <span style="color:#666">)</span><span style="color:#666">;</span>
     
-            // Now check the returned controls
-            Map&lt;String, Control&gt; controls =  cursor.getSearchResultDone().getControls();
+        <span style="color:#080;font-style:italic">// Read all the elements
+</span><span style="color:#080;font-style:italic"></span>        List<span style="color:#666">&lt;</span>Entry<span style="color:#666">&gt;</span> results <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> ArrayList<span style="color:#666">&lt;</span><span style="color:#666">&gt;</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
 
-            // We should get a PagedResult response
-            PagedResults responseControl = ( PagedResults ) controls.get( PagedResults.OID );
+        <span style="color:#080;font-style:italic">// Create the SearchRequest
+</span><span style="color:#080;font-style:italic"></span>        SearchRequest searchRequest <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> SearchRequestImpl<span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
+        searchRequest<span style="color:#666">.</span><span style="color:#b44">setBase</span><span style="color:#666">(</span> <span style="color:#a2f;font-weight:bold">new</span> Dn<span style="color:#666">(</span> <span style="color:#b44">&#34;dc=users,ou=system&#34;</span> <span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+        searchRequest<span style="color:#666">.</span><span style="color:#b44">setFilter</span><span style="color:#666">(</span> <span style="color:#b44">&#34;(cn=*)&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+        searchRequest<span style="color:#666">.</span><span style="color:#b44">setScope</span><span style="color:#666">(</span> SearchScope<span style="color:#666">.</span><span style="color:#b44">SUBTREE</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+    
+        <span style="color:#a2f;font-weight:bold">while</span> <span style="color:#666">(</span> <span style="color:#a2f;font-weight:bold">true</span> <span style="color:#666">)</span>
+        <span style="color:#666">{</span>
+            <span style="color:#080;font-style:italic">// Add the PagedSearch control to the SearchRequest
+</span><span style="color:#080;font-style:italic"></span>            searchRequest<span style="color:#666">.</span><span style="color:#b44">addControl</span><span style="color:#666">(</span> pagedControl <span style="color:#666">)</span><span style="color:#666">;</span>
+                
+            <span style="color:#080;font-style:italic">// Do the search now
+</span><span style="color:#080;font-style:italic"></span>            <span style="color:#a2f;font-weight:bold">try</span> <span style="color:#666">(</span> SearchCursor cursor <span style="color:#666">=</span> connection<span style="color:#666">.</span><span style="color:#b44">search</span><span style="color:#666">(</span> searchRequest <span style="color:#666">)</span> <span style="color:#666">)</span>
+            <span style="color:#666">{</span>
+                <span style="color:#080;font-style:italic">// Loop on all the entries we got back (Should be 4, or less)
+</span><span style="color:#080;font-style:italic"></span>                <span style="color:#a2f;font-weight:bold">while</span> <span style="color:#666">(</span> cursor<span style="color:#666">.</span><span style="color:#b44">next</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span>
+                <span style="color:#666">{</span>
+                    Entry result <span style="color:#666">=</span> cursor<span style="color:#666">.</span><span style="color:#b44">getEntry</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
+                    results<span style="color:#666">.</span><span style="color:#b44">add</span><span style="color:#666">(</span> result <span style="color:#666">)</span><span style="color:#666">;</span>
+                <span style="color:#666">}</span>
 
-            if ( responseControl != null )
-            {
-                // check if this is over, ie the cookie is empty
-                byte[] cookie = responseControl.getCookie();
-            
-                if ( Strings.isEmpty( cookie ) )
-                {
-                    // Ok, we are done
-                    break;
-                }
+                <span style="color:#080;font-style:italic">// Check if we have reached the size limit
+</span><span style="color:#080;font-style:italic"></span>                <span style="color:#a2f;font-weight:bold">if</span> <span style="color:#666">(</span> cursor<span style="color:#666">.</span><span style="color:#b44">getSearchResultDone</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">.</span><span style="color:#b44">getLdapResult</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">.</span><span style="color:#b44">getResultCode</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">=</span><span style="color:#666">=</span> ResultCodeEnum<span style="color:#666">.</span><span style="color:#b44">SIZE_LIMIT_EXCEEDED</span> <span style="color:#666">)</span>
+                <span style="color:#666">{</span>
+                    <span style="color:#a2f;font-weight:bold">break</span><span style="color:#666">;</span>
+                <span style="color:#666">}</span>
+        
+                <span style="color:#080;font-style:italic">// Now check the returned controls
+</span><span style="color:#080;font-style:italic"></span>                Map<span style="color:#666">&lt;</span>String<span style="color:#666">,</span> Control<span style="color:#666">&gt;</span> controls <span style="color:#666">=</span>  cursor<span style="color:#666">.</span><span style="color:#b44">getSearchResultDone</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">.</span><span style="color:#b44">getControls</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
 
-                // Prepare the next iteration, sending a bad cookie
-                pagedControl.setCookie( cookie );
-            }
-            else
-            {
-                break;
-            }
-        }
-    }
+                <span style="color:#080;font-style:italic">// We should get a PagedResult response
+</span><span style="color:#080;font-style:italic"></span>                PagedResults responseControl <span style="color:#666">=</span> <span style="color:#666">(</span> PagedResults <span style="color:#666">)</span> controls<span style="color:#666">.</span><span style="color:#b44">get</span><span style="color:#666">(</span> PagedResults<span style="color:#666">.</span><span style="color:#b44">OID</span> <span style="color:#666">)</span><span style="color:#666">;</span>
 
-    // At this point, we should have read 10 entries
-}
-</code></pre>
-<p>This sounds like a bit complex, but actually, this control is complex. What we are interested in is the way we get the control returned by the server. In this case, the control we are interested in is attached to the <em>SearchResultDone</em> response, which is the last result we have when reading the cursor. As we may have more than one control, the response conains a <em>Map</em> of controls, ot of which we should be able to retreive the <em>PagedSearch</em> control from its <em>OID</em>. This is what does this piece of code :</p>
-<pre><code>:::Java
-            ...
-            // We should get a PagedResult response
-            PagedResults responseControl = ( PagedResults ) controls.get( PagedResults.OID );
-            ...
-</code></pre>
-<p>If it&rsquo;s not null, we can proceed with the control.</p>
+                <span style="color:#a2f;font-weight:bold">if</span> <span style="color:#666">(</span> responseControl <span style="color:#666">!</span><span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">null</span> <span style="color:#666">)</span>
+                <span style="color:#666">{</span>
+                    <span style="color:#080;font-style:italic">// check if this is over, ie the cookie is empty
+</span><span style="color:#080;font-style:italic"></span>                    <span style="color:#0b0;font-weight:bold">byte</span><span style="color:#666">[</span><span style="color:#666">]</span> cookie <span style="color:#666">=</span> responseControl<span style="color:#666">.</span><span style="color:#b44">getCookie</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
+                
+                    <span style="color:#a2f;font-weight:bold">if</span> <span style="color:#666">(</span> Strings<span style="color:#666">.</span><span style="color:#b44">isEmpty</span><span style="color:#666">(</span> cookie <span style="color:#666">)</span> <span style="color:#666">)</span>
+                    <span style="color:#666">{</span>
+                        <span style="color:#080;font-style:italic">// Ok, we are done
+</span><span style="color:#080;font-style:italic"></span>                        <span style="color:#a2f;font-weight:bold">break</span><span style="color:#666">;</span>
+                    <span style="color:#666">}</span>
+
+                    <span style="color:#080;font-style:italic">// Prepare the next iteration, sending a bad cookie
+</span><span style="color:#080;font-style:italic"></span>                    pagedControl<span style="color:#666">.</span><span style="color:#b44">setCookie</span><span style="color:#666">(</span> cookie <span style="color:#666">)</span><span style="color:#666">;</span>
+                <span style="color:#666">}</span>
+                <span style="color:#a2f;font-weight:bold">else</span>
+                <span style="color:#666">{</span>
+                    <span style="color:#a2f;font-weight:bold">break</span><span style="color:#666">;</span>
+                <span style="color:#666">}</span>
+            <span style="color:#666">}</span>
+        <span style="color:#666">}</span>
+
+        <span style="color:#080;font-style:italic">// At this point, we should have read 10 entries
+</span><span style="color:#080;font-style:italic"></span>    <span style="color:#666">}</span>
+</code></pre></div><p>This sounds like a bit complex, but actually, this control is complex. What we are interested in is the way we get the control returned by the server. In this case, the control we are interested in is attached to the <em>SearchResultDone</em> response, which is the last result we have when reading the cursor. As we may have more than one control, the response conains a <em>Map</em> of controls, ot of which we should be able to retreive the <em>PagedSearch</em> control from its <em>OID</em>. This is what does this piece of code :</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">                <span style="color:#666">.</span><span style="color:#666">.</span><span style="color:#666">.</span>
+                <span style="color:#080;font-style:italic">// We should get a PagedResult response
+</span><span style="color:#080;font-style:italic"></span>                PagedResults responseControl <span style="color:#666">=</span> <span style="color:#666">(</span> PagedResults <span style="color:#666">)</span> controls<span style="color:#666">.</span><span style="color:#b44">get</span><span style="color:#666">(</span> PagedResults<span style="color:#666">.</span><span style="color:#b44">OID</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+                <span style="color:#666">.</span><span style="color:#666">.</span><span style="color:#666">.</span>
+</code></pre></div><p>If it&rsquo;s not null, we can proceed with the control.</p>
 <p>Side note : in this piece of code, we don&rsquo;t close the connection nor the cursor, because they are <em>Closeable</em> : They will be close when we exit the <em>try</em> scope. This is a feature added in <em>Java 7</em>, called <em>try with resources</em></p>
 <h2 id="managed-controls-detail">Managed Controls detail</h2>
 <h3 id="addirsync">AdDirSync</h3>
@@ -452,21 +446,19 @@ try ( LdapConnection connection = new LdapNetworkConnection( &quot;MyServer&quot
 <li>ASN.1 description :</li>
 </ul>
 <p>Sent to the server :</p>
-<pre><code>realReplControlValue ::= SEQUENCE {
-    flags                 integer
-    maxBytes              integer
-    cookie                OCTET STRING
-}
-</code></pre>
-<p>This control is only valid when send with a <em>SearchRequest</em>.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Text" data-lang="Text">    realReplControlValue ::= SEQUENCE {
+        flags                 integer
+        maxBytes              integer
+        cookie                OCTET STRING
+    }
+</code></pre></div><p>This control is only valid when send with a <em>SearchRequest</em>.</p>
 <p>Received from the server :</p>
-<pre><code>realReplControlValue ::= SEQUENCE {
-    flag                  integer
-    maxReturnLength       integer
-    cookie                OCTET STRING
-}
-</code></pre>
-<p>The cookie read from this control has to be injected in the control sent to the server for the next search.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Text" data-lang="Text">    realReplControlValue ::= SEQUENCE {
+        flag                  integer
+        maxReturnLength       integer
+        cookie                OCTET STRING
+    }
+</code></pre></div><p>The cookie read from this control has to be injected in the control sent to the server for the next search.</p>
 <h3 id="adpolicyhints">AdPolicyHints</h3>
 <ul>
 <li>OID : 1.2.840.113556.1.4.223</li>
@@ -495,44 +487,40 @@ try ( LdapConnection connection = new LdapNetworkConnection( &quot;MyServer&quot
 <p>It&rsquo;s used to get access to special objects, like <em>referrals</em> or <em>subentries</em> as normal objects. Let&rsquo;s see what that means for <em>referrals</em>.</p>
 <p>A  <em>Referral</em> is a special object which once returned to the client, will automatically will redirect the client to another part of teh <em>DIT</em> (or to another <em>LDAP</em> server). So to speak, the end user does not see the <em>referral</em>, but the reffered entry. The question is : how do we set a <em>referral</em>, or how do we modify it ? We use the <em>ManageDsaIT</em> control.</p>
 <p>Let say we have such an entry, which is actually a referal :</p>
-<pre><code>dn: uid=entryRef,ou=users,dc=acme,dc=com
-objectClass: extensibleObject
-objectClass: referral
-objectClass: top
-uid: entryref&quot;
-ref: ldap://localhost:10389/uid=entry,ou=users,dc=acme,dc=com
-ref: ldap://trust:10389/uid=entry,ou=users,dc=trust,dc=com
-</code></pre>
-<p>A client searchingg for <em>uid=entryRef,ou=users,dc=acme,dc=com</em> will be redirected to <em>uid=entry,ou=users,dc=acme,dc=com</em> on the local server or on <em>uid=entry,ou=users,dc=trust,dc=com</em> on the <em>trust</em> server (it&rsquo;s up to the client to decide which entry to fetch).</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Text" data-lang="Text">    dn: uid=entryRef,ou=users,dc=acme,dc=com
+    objectClass: extensibleObject
+    objectClass: referral
+    objectClass: top
+    uid: entryref
+    ref: ldap://localhost:10389/uid=entry,ou=users,dc=acme,dc=com
+    ref: ldap://trust:10389/uid=entry,ou=users,dc=trust,dc=com
+</code></pre></div><p>A client searchingg for <em>uid=entryRef,ou=users,dc=acme,dc=com</em> will be redirected to <em>uid=entry,ou=users,dc=acme,dc=com</em> on the local server or on <em>uid=entry,ou=users,dc=trust,dc=com</em> on the <em>trust</em> server (it&rsquo;s up to the client to decide which entry to fetch).</p>
 <p>If we want to modify this referral, we need to add the <em>ManageDsaIT</em> control :</p>
-<pre><code>:::Java
-try ( LdapConnection connection = new LdapNetworkConnection( &quot;MyServer&quot;, 389 ) )
-{
-    connection.bind( &quot;cn=user,ou=system&quot;, &quot;secret&quot; );
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    <span style="color:#a2f;font-weight:bold">try</span> <span style="color:#666">(</span> LdapConnection connection <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> LdapNetworkConnection<span style="color:#666">(</span> <span style="color:#b44">&#34;MyServer&#34;</span><span style="color:#666">,</span> 389 <span style="color:#666">)</span> <span style="color:#666">)</span>
+    <span style="color:#666">{</span>
+        connection<span style="color:#666">.</span><span style="color:#b44">bind</span><span style="color:#666">(</span> <span style="color:#b44">&#34;cn=user,ou=system&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;secret&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
 
-    // modify the referral 
-    ModifyRequest modifyRequest = new ModifyRequestImpl();
-    modifyRequest.setName( new Dn( &quot;uid=entryRef,ou=users,dc=acme,dc=com&quot; ) );
-    modifyRequest.add( &quot;ref&quot;, &quot;ldap://subsidiary:10389/uid=entry,ou=users,dc=subsidiary,dc=com&quot; );
+        <span style="color:#080;font-style:italic">// modify the referral 
+</span><span style="color:#080;font-style:italic"></span>        ModifyRequest modifyRequest <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> ModifyRequestImpl<span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
+        modifyRequest<span style="color:#666">.</span><span style="color:#b44">setName</span><span style="color:#666">(</span> <span style="color:#a2f;font-weight:bold">new</span> Dn<span style="color:#666">(</span> <span style="color:#b44">&#34;uid=entryRef,ou=users,dc=acme,dc=com&#34;</span> <span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+        modifyRequest<span style="color:#666">.</span><span style="color:#b44">add</span><span style="color:#666">(</span> <span style="color:#b44">&#34;ref&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;ldap://subsidiary:10389/uid=entry,ou=users,dc=subsidiary,dc=com&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
 
-    // Add the control
-    modifyRequest.addControl( new ManageDsaITImpl() );
+        <span style="color:#080;font-style:italic">// Add the control
+</span><span style="color:#080;font-style:italic"></span>        modifyRequest<span style="color:#666">.</span><span style="color:#b44">addControl</span><span style="color:#666">(</span> <span style="color:#a2f;font-weight:bold">new</span> ManageDsaITImpl<span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
 
-    // And apply the modification
-    connection.modify( modifyRequest );
-}
-</code></pre>
-<p>Now, if we fetch the entry (still using the control), it will looks like :</p>
-<pre><code>dn: uid=entryRef,ou=users,dc=acme,dc=com
-objectClass: extensibleObject
-objectClass: referral
-objectClass: top
-uid: entryref&quot;
-ref: ldap://localhost:10389/uid=entry,ou=users,dc=acme,dc=com
-ref: ldap://trust:10389/uid=entry,ou=users,dc=trust,dc=com
-ref: ldap://subsidiary:10389/uid=entry,ou=users,dc=subsidiary,dc=com
-</code></pre>
-<p>As you can see, a third <em>ref</em> value has been added.</p>
+        <span style="color:#080;font-style:italic">// And apply the modification
+</span><span style="color:#080;font-style:italic"></span>        connection<span style="color:#666">.</span><span style="color:#b44">modify</span><span style="color:#666">(</span> modifyRequest <span style="color:#666">)</span><span style="color:#666">;</span>
+    <span style="color:#666">}</span>
+</code></pre></div><p>Now, if we fetch the entry (still using the control), it will looks like :</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Text" data-lang="Text">    dn: uid=entryRef,ou=users,dc=acme,dc=com
+    objectClass: extensibleObject
+    objectClass: referral
+    objectClass: top
+    uid: entryref
+    ref: ldap://localhost:10389/uid=entry,ou=users,dc=acme,dc=com
+    ref: ldap://trust:10389/uid=entry,ou=users,dc=trust,dc=com
+    ref: ldap://subsidiary:10389/uid=entry,ou=users,dc=subsidiary,dc=com
+</code></pre></div><p>As you can see, a third <em>ref</em> value has been added.</p>
 <h3 id="pagedresults">PagedResults</h3>
 <ul>
 <li>OID : <em>1.2.840.113556.1.4.319</em></li>
