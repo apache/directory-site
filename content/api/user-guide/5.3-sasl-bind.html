@@ -188,13 +188,11 @@
 </ul>
 <p>It&rsquo;s just about using an instance of a class extending the <em>SaslRequest</em> interface.</p>
 <p>Here is an example of a <em>SASL</em> bind, where we assume we have an entry which <em>uid</em> is &ldquo;hnelson&rdquo;, and a <em>userPassword</em> which is &ldquo;secret&rdquo; (note that the password must be in clear text in the server) :</p>
-<pre><code>:::java
-    LdapNetworkConnection connection = new LdapNetworkConnection( Network.LOOPBACK_HOSTNAME, getLdapServer().getPort() );
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">        LdapNetworkConnection connection <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> LdapNetworkConnection<span style="color:#666">(</span> Network<span style="color:#666">.</span><span style="color:#b44">LOOPBACK_HOSTNAME</span><span style="color:#666">,</span> getLdapServer<span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">.</span><span style="color:#b44">getPort</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
 
-    BindResponse resp = connection.bindSaslCramMd5( &quot;hnelson&quot;, &quot;secret&quot; );
-    assertEquals( ResultCodeEnum.SUCCESS, resp.getLdapResult().getResultCode() );
-</code></pre>
-<h2 id="rfcs">RFCs</h2>
+        BindResponse resp <span style="color:#666">=</span> connection<span style="color:#666">.</span><span style="color:#b44">bindSaslCramMd5</span><span style="color:#666">(</span> <span style="color:#b44">&#34;hnelson&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;secret&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+        assertEquals<span style="color:#666">(</span> ResultCodeEnum<span style="color:#666">.</span><span style="color:#b44">SUCCESS</span><span style="color:#666">,</span> resp<span style="color:#666">.</span><span style="color:#b44">getLdapResult</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">.</span><span style="color:#b44">getResultCode</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+</code></pre></div><h2 id="rfcs">RFCs</h2>
 <p>Here are the list of RFCs related to <em>SASL</em>:</p>
 <p><img src="../../images/icons/information.gif" alt=""> : Informational</p>
 <p><img src="../../images/icons/lightbulb.gif" alt=""> : Historic</p>
