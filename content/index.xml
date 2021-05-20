@@ -611,7 +611,7 @@ Implementation Here is the Control classes and interfaces hierarchy :</descripti
       <guid>https://directory.apache.org/api/internal-design-guide/14-extended-operations.html</guid>
       <description>14 - Extended Operations Extended Operation is a LDAP message which may content a payload. It is generally sent by the clinet, but the server can send a ExtendedResponse as a response to any operation : the Notice of Disconnection.
 Here is the syntax for the extended Operation :
-ExtendedRequest ::= [APPLICATION 23] SEQUENCE { requestName [0] LDAPOID, requestValue [1] OCTET STRING OPTIONAL } ExtendedResponse ::= [APPLICATION 24] SEQUENCE { COMPONENTS OF LDAPResult, responseName [10] LDAPOID OPTIONAL, responseValue [11] OCTET STRING OPTIONAL }  (the payload is the requestValue or responseValue part, which may be BER encoded).</description>
+ExtendedRequest ::= [APPLICATION 23] SEQUENCE { requestName [0] LDAPOID, requestValue [1] OCTET STRING OPTIONAL } ExtendedResponse ::= [APPLICATION 24] SEQUENCE { COMPONENTS OF LDAPResult, responseName [10] LDAPOID OPTIONAL, responseValue [11] OCTET STRING OPTIONAL } (the payload is the requestValue or responseValue part, which may be BER encoded).</description>
     </item>
     
     <item>
@@ -1074,7 +1074,7 @@ Kdc server
       <guid>https://directory.apache.org/api/user-guide/2.5-deleting.html</guid>
       <description>2.5 - Deleting entries Deleting an entry is pretty easy, it just requires the entry&amp;rsquo;s DN. There is one important thing to understand though, if the entry has children, the operation will fail.
 Simple entry deletion We request a deletion by providing the entry&amp;rsquo;s DN, as in the following example:
-:::Java @Test public void testDeleteLeafNode() throws Exception { assertTrue( session.exists( &amp;quot;cn=child1,cn=parent,ou=system&amp;quot; ) ); try { connection.delete( &amp;quot;cn=child1,cn=parent,ou=system&amp;quot; ); } catch ( LdapException le ) { fail( le.</description>
+@Test public void testDeleteLeafNode() throws Exception { assertTrue( session.exists( &amp;#34;cn=child1,cn=parent,ou=system&amp;#34; ) ); try { connection.delete( &amp;#34;cn=child1,cn=parent,ou=system&amp;#34; ); } catch ( LdapException le ) { fail( le.</description>
     </item>
     
     <item>
@@ -1171,7 +1171,7 @@ Table of content  3.1 - Authentication options 3.2 - Basic authorization 3.3 - H
       <guid>https://directory.apache.org/api/internal-design-guide/3-building.html</guid>
       <description>3 - Building The project is based on Apache Maven (version 3.x), so you&amp;rsquo;ll have to install it first.
 That being said, building the LDAP API is pretty straightforward :
-::: $ mvn clean install Java HotSpot(TM) 64-Bit Server VM warning: ignoring option MaxPermSize=256M; support was removed in 8.0 [INFO] Scanning for projects... [INFO] ------------------------------------------------------------------------ [INFO] Reactor Build Order: [INFO] [INFO] Apache Directory LDAP API [INFO] Apache Directory LDAP API I18n [INFO] Apache Directory LDAP API Utilities .</description>
+$ mvn clean install Java HotSpot(TM) 64-Bit Server VM warning: ignoring option MaxPermSize=256M; support was removed in 8.0 [INFO] Scanning for projects... [INFO] ------------------------------------------------------------------------ [INFO] Reactor Build Order: [INFO] [INFO] Apache Directory LDAP API [INFO] Apache Directory LDAP API I18n [INFO] Apache Directory LDAP API Utilities .</description>
     </item>
     
     <item>

@@ -161,102 +161,94 @@
 <h2 id="adding-an-entry">Adding an entry</h2>
 <p>Here is the simplest way to add an entry into the server, assuming that the entry is correct. In order to add an entry, you must provide the location where the entry is stored (its <em>Dn</em>) and the list of its <em>Attributes</em> contained within it.</p>
 <p>Here are two examples where the entry is injected using <strong>LDIF</strong>:</p>
-<pre><code>:::Java
-@Test
-public void testAddLdif1() throws Exception
-{
-    connection.add(
-        new DefaultEntry(
-            &quot;cn=testadd,ou=system&quot;, // The Dn
-            &quot;ObjectClass: top&quot;,
-            &quot;ObjectClass: person&quot;,
-            &quot;cn: testadd_cn&quot;,
-            &quot;sn: testadd_sn&quot; ) );
-    
-    assertTrue( connection.exists( &quot;cn=testadd,ou=system&quot; ) );
-}
-</code></pre>
-<p>In this basic example, we are adding a new entry, created using some <strong>LDIF</strong> formatted parameters, the first one being the entry&rsquo;s <em>Dn</em>.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    <span style="color:#a2f">@Test</span>
+    <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">testAddLdif1</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> Exception
+    <span style="color:#666">{</span>
+        connection<span style="color:#666">.</span><span style="color:#b44">add</span><span style="color:#666">(</span>
+            <span style="color:#a2f;font-weight:bold">new</span> DefaultEntry<span style="color:#666">(</span>
+                <span style="color:#b44">&#34;cn=testadd,ou=system&#34;</span><span style="color:#666">,</span> <span style="color:#080;font-style:italic">// The Dn
+</span><span style="color:#080;font-style:italic"></span>                <span style="color:#b44">&#34;ObjectClass: top&#34;</span><span style="color:#666">,</span>
+                <span style="color:#b44">&#34;ObjectClass: person&#34;</span><span style="color:#666">,</span>
+                <span style="color:#b44">&#34;cn: testadd_cn&#34;</span><span style="color:#666">,</span>
+                <span style="color:#b44">&#34;sn: testadd_sn&#34;</span> <span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+        
+        assertTrue<span style="color:#666">(</span> connection<span style="color:#666">.</span><span style="color:#b44">exists</span><span style="color:#666">(</span> <span style="color:#b44">&#34;cn=testadd,ou=system&#34;</span> <span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+    <span style="color:#666">}</span>
+</code></pre></div><p>In this basic example, we are adding a new entry, created using some <strong>LDIF</strong> formatted parameters, the first one being the entry&rsquo;s <em>Dn</em>.</p>
 <p>Note that it is possible to use some variables in the <strong>LDIF</strong> instead of pure text. Here is the same example, resulting to the same entry being added:</p>
-<pre><code>:::Java
-@Test
-public void testAddLdif2() throws Exception
-{
-    String cn = &quot;testadd_cn&quot;;
-    String sn = &quot;testadd_sn&quot;;
-    
-    connection.add(
-        new DefaultEntry(
-            &quot;cn=testadd,ou=system&quot;, // The Dn
-            &quot;ObjectClass: top&quot;,
-            &quot;ObjectClass: person&quot;,
-            &quot;cn&quot;, cn, // Note : there is no ':' when using a variable
-            &quot;sn&quot;, sn ) );
-    
-    assertTrue( connection.exists( &quot;cn=testadd,ou=system&quot; ) );
-}
-</code></pre>
-<p>Down the line, what is important is that the <em>add()</em> operation is taking a full <strong><a href="6.12-entry.html">Entry</a></strong>.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    <span style="color:#a2f">@Test</span>
+    <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">testAddLdif2</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> Exception
+    <span style="color:#666">{</span>
+        String cn <span style="color:#666">=</span> <span style="color:#b44">&#34;testadd_cn&#34;</span><span style="color:#666">;</span>
+        String sn <span style="color:#666">=</span> <span style="color:#b44">&#34;testadd_sn&#34;</span><span style="color:#666">;</span>
+        
+        connection<span style="color:#666">.</span><span style="color:#b44">add</span><span style="color:#666">(</span>
+            <span style="color:#a2f;font-weight:bold">new</span> DefaultEntry<span style="color:#666">(</span>
+                <span style="color:#b44">&#34;cn=testadd,ou=system&#34;</span><span style="color:#666">,</span> <span style="color:#080;font-style:italic">// The Dn
+</span><span style="color:#080;font-style:italic"></span>                <span style="color:#b44">&#34;ObjectClass: top&#34;</span><span style="color:#666">,</span>
+                <span style="color:#b44">&#34;ObjectClass: person&#34;</span><span style="color:#666">,</span>
+                <span style="color:#b44">&#34;cn&#34;</span><span style="color:#666">,</span> cn<span style="color:#666">,</span> <span style="color:#080;font-style:italic">// Note : there is no &#39;:&#39; when using a variable
+</span><span style="color:#080;font-style:italic"></span>                <span style="color:#b44">&#34;sn&#34;</span><span style="color:#666">,</span> sn <span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+        
+        assertTrue<span style="color:#666">(</span> connection<span style="color:#666">.</span><span style="color:#b44">exists</span><span style="color:#666">(</span> <span style="color:#b44">&#34;cn=testadd,ou=system&#34;</span> <span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+    <span style="color:#666">}</span>
+</code></pre></div><p>Down the line, what is important is that the <em>add()</em> operation is taking a full <strong><a href="6.12-entry.html">Entry</a></strong>.</p>
 <p>We can also create the <strong><a href="6.12-entry.html">Entry</a></strong> in a different way, which is shown in the following paragraphs.</p>
 <h2 id="sending-an-_addrequest_">Sending an <em>AddRequest</em></h2>
 <p>When more control is needed we ask the server to add an entry by sending an <strong><a href="">AddRequest</a></strong>, which allows a <strong><a href="">Control</a></strong> to be included in the request.</p>
 <p>Here is an example (note that the control is just injected to demonstrate the feature, it doesn&rsquo;t really do anything special in this example):</p>
-<pre><code>:::java
-@Test
-public void testAddWithControl() throws Exception
-{
-    assertFalse( connection.exists( &quot;cn=testadd,ou=system&quot; ) );
-    
-    Entry entry = new DefaultEntry(
-        &quot;cn=testadd,ou=system&quot;,
-        &quot;ObjectClass : top&quot;,
-        &quot;ObjectClass : person&quot;,
-        &quot;cn: testadd_sn&quot;,
-        &quot;sn: testadd_sn&quot; );
-    
-    AddRequest addRequest = new AddRequestImpl();
-    addRequest.setEntry( entry );
-    addRequest.addControl( new ManageDsaITImpl() );
-    
-    AddResponse response = connection.add( addRequest );
-    
-    assertNotNull( response );
-    assertEquals( ResultCodeEnum.SUCCESS, response.getLdapResult().getResultCode() );
-    
-    assertTrue( connection.exists( &quot;cn=testadd,ou=system&quot; ) );
-}
-</code></pre>
-<h3 id="asynchronous-addition">Asynchronous addition</h3>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">    <span style="color:#a2f">@Test</span>
+    <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">testAddWithControl</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> Exception
+    <span style="color:#666">{</span>
+        assertFalse<span style="color:#666">(</span> connection<span style="color:#666">.</span><span style="color:#b44">exists</span><span style="color:#666">(</span> <span style="color:#b44">&#34;cn=testadd,ou=system&#34;</span> <span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+        
+        Entry entry <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> DefaultEntry<span style="color:#666">(</span>
+            <span style="color:#b44">&#34;cn=testadd,ou=system&#34;</span><span style="color:#666">,</span>
+            <span style="color:#b44">&#34;ObjectClass : top&#34;</span><span style="color:#666">,</span>
+            <span style="color:#b44">&#34;ObjectClass : person&#34;</span><span style="color:#666">,</span>
+            <span style="color:#b44">&#34;cn: testadd_sn&#34;</span><span style="color:#666">,</span>
+            <span style="color:#b44">&#34;sn: testadd_sn&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+        
+        AddRequest addRequest <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> AddRequestImpl<span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
+        addRequest<span style="color:#666">.</span><span style="color:#b44">setEntry</span><span style="color:#666">(</span> entry <span style="color:#666">)</span><span style="color:#666">;</span>
+        addRequest<span style="color:#666">.</span><span style="color:#b44">addControl</span><span style="color:#666">(</span> <span style="color:#a2f;font-weight:bold">new</span> ManageDsaITImpl<span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+        
+        AddResponse response <span style="color:#666">=</span> connection<span style="color:#666">.</span><span style="color:#b44">add</span><span style="color:#666">(</span> addRequest <span style="color:#666">)</span><span style="color:#666">;</span>
+        
+        assertNotNull<span style="color:#666">(</span> response <span style="color:#666">)</span><span style="color:#666">;</span>
+        assertEquals<span style="color:#666">(</span> ResultCodeEnum<span style="color:#666">.</span><span style="color:#b44">SUCCESS</span><span style="color:#666">,</span> response<span style="color:#666">.</span><span style="color:#b44">getLdapResult</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">.</span><span style="color:#b44">getResultCode</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+        
+        assertTrue<span style="color:#666">(</span> connection<span style="color:#666">.</span><span style="color:#b44">exists</span><span style="color:#666">(</span> <span style="color:#b44">&#34;cn=testadd,ou=system&#34;</span> <span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+    <span style="color:#666">}</span>
+</code></pre></div><h3 id="asynchronous-addition">Asynchronous addition</h3>
 <p>Sometimes we need to add an entry, but not check the result immediately. It&rsquo;s just a matter of calling the <em>addAsync()</em> method, which returns a <em>Future</em> that can be checked somewhere else in the code:</p>
-<pre><code>:::java
-@Test
-public void testAddAsyncLdif() throws Exception
-{
-    assertFalse( connection.exists( &quot;cn=testAsyncAdd,ou=system&quot; ) );
-    
-    Entry entry = new DefaultEntry(
-        &quot;cn=testAsyncAdd,ou=system&quot;,
-        &quot;ObjectClass: top&quot;,
-        &quot;ObjectClass: person&quot;,
-        &quot;cn: testAsyncAdd_cn&quot;,
-        &quot;sn: testAsyncAdd_sn&quot; );
-    
-    AddRequest addRequest = new AddRequestImpl();
-    addRequest.setEntry( entry );
-    
-    AddFuture addFuture = connection.addAsync( addRequest );
-    
-    // Here, we can do something else before checking that the entry has been added
-    
-    AddResponse addResponse = addFuture.get( 1000, TimeUnit.MILLISECONDS );
-    
-    assertNotNull( addResponse );
-    assertEquals( ResultCodeEnum.SUCCESS, addResponse.getLdapResult().getResultCode() );
-    
-    assertTrue( connection.exists( &quot;cn=testAsyncAdd,ou=system&quot; ) );
-}
-</code></pre>
-<h2 id="do-dont">Do, Don&rsquo;t</h2>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">    <span style="color:#a2f">@Test</span>
+    <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">testAddAsyncLdif</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> Exception
+    <span style="color:#666">{</span>
+        assertFalse<span style="color:#666">(</span> connection<span style="color:#666">.</span><span style="color:#b44">exists</span><span style="color:#666">(</span> <span style="color:#b44">&#34;cn=testAsyncAdd,ou=system&#34;</span> <span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+        
+        Entry entry <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> DefaultEntry<span style="color:#666">(</span>
+            <span style="color:#b44">&#34;cn=testAsyncAdd,ou=system&#34;</span><span style="color:#666">,</span>
+            <span style="color:#b44">&#34;ObjectClass: top&#34;</span><span style="color:#666">,</span>
+            <span style="color:#b44">&#34;ObjectClass: person&#34;</span><span style="color:#666">,</span>
+            <span style="color:#b44">&#34;cn: testAsyncAdd_cn&#34;</span><span style="color:#666">,</span>
+            <span style="color:#b44">&#34;sn: testAsyncAdd_sn&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+        
+        AddRequest addRequest <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> AddRequestImpl<span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
+        addRequest<span style="color:#666">.</span><span style="color:#b44">setEntry</span><span style="color:#666">(</span> entry <span style="color:#666">)</span><span style="color:#666">;</span>
+        
+        AddFuture addFuture <span style="color:#666">=</span> connection<span style="color:#666">.</span><span style="color:#b44">addAsync</span><span style="color:#666">(</span> addRequest <span style="color:#666">)</span><span style="color:#666">;</span>
+        
+        <span style="color:#080;font-style:italic">// Here, we can do something else before checking that the entry has been added
+</span><span style="color:#080;font-style:italic"></span>        
+        AddResponse addResponse <span style="color:#666">=</span> addFuture<span style="color:#666">.</span><span style="color:#b44">get</span><span style="color:#666">(</span> 1000<span style="color:#666">,</span> TimeUnit<span style="color:#666">.</span><span style="color:#b44">MILLISECONDS</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+        
+        assertNotNull<span style="color:#666">(</span> addResponse <span style="color:#666">)</span><span style="color:#666">;</span>
+        assertEquals<span style="color:#666">(</span> ResultCodeEnum<span style="color:#666">.</span><span style="color:#b44">SUCCESS</span><span style="color:#666">,</span> addResponse<span style="color:#666">.</span><span style="color:#b44">getLdapResult</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">.</span><span style="color:#b44">getResultCode</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+        
+        assertTrue<span style="color:#666">(</span> connection<span style="color:#666">.</span><span style="color:#b44">exists</span><span style="color:#666">(</span> <span style="color:#b44">&#34;cn=testAsyncAdd,ou=system&#34;</span> <span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+    <span style="color:#666">}</span>
+</code></pre></div><h2 id="do-dont">Do, Don&rsquo;t</h2>
 <p>Successfully adding an entry assumes that the entry was correct, i.e. the attributes and values are compatible with the LDAP schema. There are many things checked by the server. Here is a list of constraints that you should respect in order to get your entry injected:</p>
 <ul>
 <li>The entry must have at least one <strong>Structural</strong> <em>ObjectClass</em></li>

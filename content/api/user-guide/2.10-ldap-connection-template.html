@@ -169,202 +169,176 @@
 <p>Conceptually it uses the Template Method design pattern to do all of the boiler plate work for you.  It can give control back as needed for special cases.</p>
 <h2 id="managing-connections">Managing Connections</h2>
 <p>The connection template manages connections through a connection pool.  The connection pool must be supplied to the constructor:</p>
-<pre><code>:::Java
-LdapConnectionConfig config = new LdapConnectionConfig();
-config.setLdapHost( hostname );
-config.setLdapPort( port );
-config.setName( adminDn );
-config.setCredentials( adminPassword );
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    LdapConnectionConfig config <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> LdapConnectionConfig<span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
+    config<span style="color:#666">.</span><span style="color:#b44">setLdapHost</span><span style="color:#666">(</span> hostname <span style="color:#666">)</span><span style="color:#666">;</span>
+    config<span style="color:#666">.</span><span style="color:#b44">setLdapPort</span><span style="color:#666">(</span> port <span style="color:#666">)</span><span style="color:#666">;</span>
+    config<span style="color:#666">.</span><span style="color:#b44">setName</span><span style="color:#666">(</span> adminDn <span style="color:#666">)</span><span style="color:#666">;</span>
+    config<span style="color:#666">.</span><span style="color:#b44">setCredentials</span><span style="color:#666">(</span> adminPassword <span style="color:#666">)</span><span style="color:#666">;</span>
 
-DefaultLdapConnectionFactory factory = new DefaultLdapConnectionFactory( config );
-factory.setTimeOut( connectionTimeout );
+    DefaultLdapConnectionFactory factory <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> DefaultLdapConnectionFactory<span style="color:#666">(</span> config <span style="color:#666">)</span><span style="color:#666">;</span>
+    factory<span style="color:#666">.</span><span style="color:#b44">setTimeOut</span><span style="color:#666">(</span> connectionTimeout <span style="color:#666">)</span><span style="color:#666">;</span>
 
-// optional, values below are defaults
-GenericObjectPool.Config poolConfig = new GenericObjectPool.Config();
-poolConfig.lifo = true;
-poolConfig.maxActive = 8;
-poolConfig.maxIdle = 8;
-poolConfig.maxWait = -1L;
-poolConfig.minEvictableIdleTimeMillis = 1000L * 60L * 30L;
-poolConfig.minIdle = 0;
-poolConfig.numTestsPerEvictionRun = 3;
-poolConfig.softMinEvictableIdleTimeMillis = -1L;
-poolConfig.testOnBorrow = false;
-poolConfig.testOnReturn = false;
-poolConfig.testWhileIdle = false;
-poolConfig.timeBetweenEvictionRunsMillis = -1L;
-poolConfig.whenExhaustedAction = GenericObjectPool.WHEN_EXHAUSTED_BLOCK;
+    <span style="color:#080;font-style:italic">// optional, values below are defaults
+</span><span style="color:#080;font-style:italic"></span>    GenericObjectPool<span style="color:#666">.</span><span style="color:#b44">Config</span> poolConfig <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> GenericObjectPool<span style="color:#666">.</span><span style="color:#b44">Config</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
+    poolConfig<span style="color:#666">.</span><span style="color:#b44">lifo</span> <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">true</span><span style="color:#666">;</span>
+    poolConfig<span style="color:#666">.</span><span style="color:#b44">maxActive</span> <span style="color:#666">=</span> 8<span style="color:#666">;</span>
+    poolConfig<span style="color:#666">.</span><span style="color:#b44">maxIdle</span> <span style="color:#666">=</span> 8<span style="color:#666">;</span>
+    poolConfig<span style="color:#666">.</span><span style="color:#b44">maxWait</span> <span style="color:#666">=</span> <span style="color:#666">-</span>1L<span style="color:#666">;</span>
+    poolConfig<span style="color:#666">.</span><span style="color:#b44">minEvictableIdleTimeMillis</span> <span style="color:#666">=</span> 1000L <span style="color:#666">*</span> 60L <span style="color:#666">*</span> 30L<span style="color:#666">;</span>
+    poolConfig<span style="color:#666">.</span><span style="color:#b44">minIdle</span> <span style="color:#666">=</span> 0<span style="color:#666">;</span>
+    poolConfig<span style="color:#666">.</span><span style="color:#b44">numTestsPerEvictionRun</span> <span style="color:#666">=</span> 3<span style="color:#666">;</span>
+    poolConfig<span style="color:#666">.</span><span style="color:#b44">softMinEvictableIdleTimeMillis</span> <span style="color:#666">=</span> <span style="color:#666">-</span>1L<span style="color:#666">;</span>
+    poolConfig<span style="color:#666">.</span><span style="color:#b44">testOnBorrow</span> <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">false</span><span style="color:#666">;</span>
+    poolConfig<span style="color:#666">.</span><span style="color:#b44">testOnReturn</span> <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">false</span><span style="color:#666">;</span>
+    poolConfig<span style="color:#666">.</span><span style="color:#b44">testWhileIdle</span> <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">false</span><span style="color:#666">;</span>
+    poolConfig<span style="color:#666">.</span><span style="color:#b44">timeBetweenEvictionRunsMillis</span> <span style="color:#666">=</span> <span style="color:#666">-</span>1L<span style="color:#666">;</span>
+    poolConfig<span style="color:#666">.</span><span style="color:#b44">whenExhaustedAction</span> <span style="color:#666">=</span> GenericObjectPool<span style="color:#666">.</span><span style="color:#b44">WHEN_EXHAUSTED_BLOCK</span><span style="color:#666">;</span>
 
-// could use DefaultPoolableLdapConnectionFactory instead
-// see javadoc for ValidatingPoolableLdapConnectionFactory
-// for an explanation
-LdapConnectionTemplate ldapConnectionTemplate = 
-    new LdapConnectionTemplate( new LdapConnectionPool(
-        new ValidatingPoolableLdapConnectionFactory( factory ), poolConfig ) );
-</code></pre>
-<p>This may look complicated, but most of the parameters are optional and it&rsquo;s an easy way for you to manage connections in a safe and efficient manner.</p>
+    <span style="color:#080;font-style:italic">// could use DefaultPoolableLdapConnectionFactory instead
+</span><span style="color:#080;font-style:italic"></span>    <span style="color:#080;font-style:italic">// see javadoc for ValidatingPoolableLdapConnectionFactory
+</span><span style="color:#080;font-style:italic"></span>    <span style="color:#080;font-style:italic">// for an explanation
+</span><span style="color:#080;font-style:italic"></span>    LdapConnectionTemplate ldapConnectionTemplate <span style="color:#666">=</span> 
+        <span style="color:#a2f;font-weight:bold">new</span> LdapConnectionTemplate<span style="color:#666">(</span> <span style="color:#a2f;font-weight:bold">new</span> LdapConnectionPool<span style="color:#666">(</span>
+            <span style="color:#a2f;font-weight:bold">new</span> ValidatingPoolableLdapConnectionFactory<span style="color:#666">(</span> factory <span style="color:#666">)</span><span style="color:#666">,</span> poolConfig <span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+</code></pre></div><p>This may look complicated, but most of the parameters are optional and it&rsquo;s an easy way for you to manage connections in a safe and efficient manner.</p>
 <h2 id="providing-factory-methods-for-model-objects">Providing Factory Methods For Model Objects</h2>
 <p>The connection template implements an interface called the ModelFactory.  Any implementation of this factory can be injected into the template once it is constructed.  By default, it uses ModelFactoryImpl which in turn constructs the standard Apache LDAP API model objects.  This abstraction frees you from having to be concerned with implementation details while still giving you the power to override the default behavior as you see fit.</p>
-<pre><code>:::Java
-ModelFactory modelFactory = new MyCustomModelFactory();
-ldapConnectionTemplate.setModelFactory( modelFactory );
-</code></pre>
-<h2 id="providing-crud-methods">Providing CRUD Methods</h2>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    ModelFactory modelFactory <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> MyCustomModelFactory<span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
+    ldapConnectionTemplate<span style="color:#666">.</span><span style="color:#b44">setModelFactory</span><span style="color:#666">(</span> modelFactory <span style="color:#666">)</span><span style="color:#666">;</span>
+</code></pre></div><h2 id="providing-crud-methods">Providing CRUD Methods</h2>
 <p>The standard CRUD methods are provided (<em>though in this case Add, Lookup, Modify, Delete</em>) with a couple useful overloads.  Add, Delete, and Modify all provide at least 2 approaches.  The first is creating your own XxxRequest objects and supplying that to the method.  These request objects can be created using the ModelFactory methods provided by LdapConnectionTemplate.  The second, more elegant solution, is to use the DN and RequestBuilder approach.  This approach will generate the request for you from the internal ModelFactory and provide it to a callback for you to fill in the details.  This has the added benefit of translating any LdapException&rsquo;s that may occur (usually due to model implementation setter methods) to LdapRuntimeException, to remove the <em><strong>need</strong></em> for try/catch blocks.  Now for some examples:</p>
 <p>Add provides the standard approaches of supplying your own AddRequest and using RequestBuilder, as well as a third shortcut approach where you supply all the attributes instead of a RequestBuilder:</p>
-<pre><code>:::Java
-// using RequestBuilder
-AddResponse response = ldapConnectionTemplate.add( 
-    ldapConnectionTemplate.newDn( &quot;uid=kermitthefrog,ou=muppets,dc=muppets,dc=org&quot; ),
-    new RequestBuilder&lt;AddRequest&gt;() {
-        @Override
-        public void buildRequest( AddRequest request ) throws LdapException {
-            request.getEntry()
-                .add( &quot;objectClass&quot;, &quot;top&quot;, &quot;person&quot;, &quot;organizationalPerson&quot;, &quot;inetOrgPerson&quot; )
-                .add( &quot;cn&quot;, &quot;Kermit The Frog&quot; )
-                .add( &quot;givenName&quot;, &quot;Kermit&quot; )
-                .add( &quot;sn&quot;, &quot;The Frog&quot; )
-                .add( &quot;mail&quot;, &quot;kermitthefrog@muppets.org&quot; )
-                .add( &quot;uid&quot;, &quot;kermitthefrog&quot; );
-        }
-    } );
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    <span style="color:#080;font-style:italic">// using RequestBuilder
+</span><span style="color:#080;font-style:italic"></span>    AddResponse response <span style="color:#666">=</span> ldapConnectionTemplate<span style="color:#666">.</span><span style="color:#b44">add</span><span style="color:#666">(</span> 
+        ldapConnectionTemplate<span style="color:#666">.</span><span style="color:#b44">newDn</span><span style="color:#666">(</span> <span style="color:#b44">&#34;uid=kermitthefrog,ou=muppets,dc=muppets,dc=org&#34;</span> <span style="color:#666">)</span><span style="color:#666">,</span>
+        <span style="color:#a2f;font-weight:bold">new</span> RequestBuilder<span style="color:#666">&lt;</span>AddRequest<span style="color:#666">&gt;</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">{</span>
+            <span style="color:#a2f">@Override</span>
+            <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">buildRequest</span><span style="color:#666">(</span> AddRequest request <span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> LdapException <span style="color:#666">{</span>
+                request<span style="color:#666">.</span><span style="color:#b44">getEntry</span><span style="color:#666">(</span><span style="color:#666">)</span>
+                    <span style="color:#666">.</span><span style="color:#b44">add</span><span style="color:#666">(</span> <span style="color:#b44">&#34;objectClass&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;top&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;person&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;organizationalPerson&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;inetOrgPerson&#34;</span> <span style="color:#666">)</span>
+                    <span style="color:#666">.</span><span style="color:#b44">add</span><span style="color:#666">(</span> <span style="color:#b44">&#34;cn&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;Kermit The Frog&#34;</span> <span style="color:#666">)</span>
+                    <span style="color:#666">.</span><span style="color:#b44">add</span><span style="color:#666">(</span> <span style="color:#b44">&#34;givenName&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;Kermit&#34;</span> <span style="color:#666">)</span>
+                    <span style="color:#666">.</span><span style="color:#b44">add</span><span style="color:#666">(</span> <span style="color:#b44">&#34;sn&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;The Frog&#34;</span> <span style="color:#666">)</span>
+                    <span style="color:#666">.</span><span style="color:#b44">add</span><span style="color:#666">(</span> <span style="color:#b44">&#34;mail&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;kermitthefrog@muppets.org&#34;</span> <span style="color:#666">)</span>
+                    <span style="color:#666">.</span><span style="color:#b44">add</span><span style="color:#666">(</span> <span style="color:#b44">&#34;uid&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;kermitthefrog&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+            <span style="color:#666">}</span>
+        <span style="color:#666">}</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+    
+    <span style="color:#080;font-style:italic">// using Attributes list
+</span><span style="color:#080;font-style:italic"></span>    AddResponse response <span style="color:#666">=</span> ldapConnectionTemplate<span style="color:#666">.</span><span style="color:#b44">add</span><span style="color:#666">(</span> 
+        ldapConnectionTemplate<span style="color:#666">.</span><span style="color:#b44">newDn</span><span style="color:#666">(</span> <span style="color:#b44">&#34;uid=misspiggy,ou=muppets,dc=muppets,dc=org&#34;</span> <span style="color:#666">)</span><span style="color:#666">,</span>
+        ldapConnectionTemplate<span style="color:#666">.</span><span style="color:#b44">newAttribute</span><span style="color:#666">(</span> <span style="color:#b44">&#34;objectClass&#34;</span><span style="color:#666">,</span> 
+            <span style="color:#b44">&#34;top&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;person&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;organizationalPerson&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;inetOrgPerson&#34;</span> <span style="color:#666">)</span><span style="color:#666">,</span>
+        ldapConnectionTemplate<span style="color:#666">.</span><span style="color:#b44">newAttribute</span><span style="color:#666">(</span> <span style="color:#b44">&#34;cn&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;Miss Piggy&#34;</span> <span style="color:#666">)</span><span style="color:#666">,</span>
+        ldapConnectionTemplate<span style="color:#666">.</span><span style="color:#b44">newAttribute</span><span style="color:#666">(</span> <span style="color:#b44">&#34;givenName&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;Miss&#34;</span> <span style="color:#666">)</span><span style="color:#666">,</span>
+        ldapConnectionTemplate<span style="color:#666">.</span><span style="color:#b44">newAttribute</span><span style="color:#666">(</span> <span style="color:#b44">&#34;sn&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;Piggy&#34;</span> <span style="color:#666">)</span><span style="color:#666">,</span>
+        ldapConnectionTemplate<span style="color:#666">.</span><span style="color:#b44">newAttribute</span><span style="color:#666">(</span> <span style="color:#b44">&#34;mail&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;misspiggy@muppets.org&#34;</span> <span style="color:#666">)</span><span style="color:#666">,</span>
+        ldapConnectionTemplate<span style="color:#666">.</span><span style="color:#b44">newAttribute</span><span style="color:#666">(</span> <span style="color:#b44">&#34;uid&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;misspiggy&#34;</span> <span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+</code></pre></div><p>Modify simply supplies the 2 standard approaches:</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    <span style="color:#080;font-style:italic">// using RequestBuilder
+</span><span style="color:#080;font-style:italic"></span>    ModifyResponse response <span style="color:#666">=</span> ldapConnectionTemplate<span style="color:#666">.</span><span style="color:#b44">modify</span><span style="color:#666">(</span> 
+        ldapConnectionTemplate<span style="color:#666">.</span><span style="color:#b44">newDn</span><span style="color:#666">(</span> <span style="color:#b44">&#34;uid=misspiggy,ou=muppets,dc=muppets,dc=org&#34;</span> <span style="color:#666">)</span><span style="color:#666">,</span>
+        <span style="color:#a2f;font-weight:bold">new</span> RequestBuilder<span style="color:#666">&lt;</span>ModifyRequest<span style="color:#666">&gt;</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">{</span>
+            <span style="color:#a2f">@Override</span>
+            <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">buildRequest</span><span style="color:#666">(</span> ModifyRequest request <span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> LdapException <span style="color:#666">{</span>
+                request<span style="color:#666">.</span><span style="color:#b44">replace</span><span style="color:#666">(</span> <span style="color:#b44">&#34;sn&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;The Frog&#34;</span> <span style="color:#666">)</span>
+                    <span style="color:#666">.</span><span style="color:#b44">replace</span><span style="color:#666">(</span> <span style="color:#b44">&#34;cn&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;Miss The Frog&#34;</span> <span style="color:#666">)</span>
+                    <span style="color:#666">.</span><span style="color:#b44">replace</span><span style="color:#666">(</span> <span style="color:#b44">&#34;mail&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;missthefrog@muppets.org&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+            <span style="color:#666">}</span>
+        <span style="color:#666">}</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+</code></pre></div><p>Delete provides the 2 standard approaches plus an additional DN-only option as that is most likely enough:</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    <span style="color:#080;font-style:italic">// using DN only
+</span><span style="color:#080;font-style:italic"></span>    DeleteResponse response <span style="color:#666">=</span> ldapConnectionTemplate<span style="color:#666">.</span><span style="color:#b44">delete</span><span style="color:#666">(</span> 
+        ldapConnectionTemplate<span style="color:#666">.</span><span style="color:#b44">newDn</span><span style="color:#666">(</span> <span style="color:#b44">&#34;uid=misspiggy,ou=muppets,dc=muppets,dc=org&#34;</span> <span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+</code></pre></div><p>Lookup is a different story in that it is an accessor (instead of mutator) so its interface must provide a way of handling the expected response data.  To that end, we supply an EntryMapper.  EntryMapper defines how a returned ldap entry should be interpreted.  This is typically used to construct a domain object:</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    <span style="color:#080;font-style:italic">// using a previously defined EntryMapper
+</span><span style="color:#080;font-style:italic"></span>    Muppet kermit <span style="color:#666">=</span> ldapConnectionTemplate<span style="color:#666">.</span><span style="color:#b44">lookup</span><span style="color:#666">(</span> 
+        ldapConnectionTemplate<span style="color:#666">.</span><span style="color:#b44">newDn</span><span style="color:#666">(</span> <span style="color:#b44">&#34;uid=kermitthefrog,ou=muppets,dc=muppets,dc=org&#34;</span> <span style="color:#666">)</span><span style="color:#666">,</span>
+        muppetEntryMapper <span style="color:#666">)</span><span style="color:#666">;</span>
 
-// using Attributes list
-AddResponse response = ldapConnectionTemplate.add( 
-    ldapConnectionTemplate.newDn( &quot;uid=misspiggy,ou=muppets,dc=muppets,dc=org&quot; ),
-    ldapConnectionTemplate.newAttribute( &quot;objectClass&quot;, 
-        &quot;top&quot;, &quot;person&quot;, &quot;organizationalPerson&quot;, &quot;inetOrgPerson&quot; ),
-    ldapConnectionTemplate.newAttribute( &quot;cn&quot;, &quot;Miss Piggy&quot; ),
-    ldapConnectionTemplate.newAttribute( &quot;givenName&quot;, &quot;Miss&quot; ),
-    ldapConnectionTemplate.newAttribute( &quot;sn&quot;, &quot;Piggy&quot; ),
-    ldapConnectionTemplate.newAttribute( &quot;mail&quot;, &quot;misspiggy@muppets.org&quot; ),
-    ldapConnectionTemplate.newAttribute( &quot;uid&quot;, &quot;misspiggy&quot; ) );
-</code></pre>
-<p>Modify simply supplies the 2 standard approaches:</p>
-<pre><code>:::Java
-// using RequestBuilder
-ModifyResponse response = ldapConnectionTemplate.modify( 
-    ldapConnectionTemplate.newDn( &quot;uid=misspiggy,ou=muppets,dc=muppets,dc=org&quot; ),
-    new RequestBuilder&lt;ModifyRequest&gt;() {
-        @Override
-        public void buildRequest( ModifyRequest request ) throws LdapException {
-            request.replace( &quot;sn&quot;, &quot;The Frog&quot; )
-                .replace( &quot;cn&quot;, &quot;Miss The Frog&quot; )
-                .replace( &quot;mail&quot;, &quot;missthefrog@muppets.org&quot; );
-        }
-    } );
-</code></pre>
-<p>Delete provides the 2 standard approaches plus an additional DN-only option as that is most likely enough:</p>
-<pre><code>:::Java
-// using DN only
-DeleteResponse response = ldapConnectionTemplate.delete( 
-    ldapConnectionTemplate.newDn( &quot;uid=misspiggy,ou=muppets,dc=muppets,dc=org&quot; ) );
-</code></pre>
-<p>Lookup is a different story in that it is an accessor (instead of mutator) so its interface must provide a way of handling the expected response data.  To that end, we supply an EntryMapper.  EntryMapper defines how a returned ldap entry should be interpreted.  This is typically used to construct a domain object:</p>
-<pre><code>:::Java
-// using a previously defined EntryMapper
-Muppet kermit = ldapConnectionTemplate.lookup( 
-    ldapConnectionTemplate.newDn( &quot;uid=kermitthefrog,ou=muppets,dc=muppets,dc=org&quot; ),
-    muppetEntryMapper );
-
-// using an inline defined EntityMapper 
-String email = ldapConnectionTemplate.lookup(
-    ldapConnectionTemplate.newDn( &quot;uid=kermitthefrog,ou=muppets,dc=muppets,dc=org&quot; ),
-    new String[] { &quot;mail&quot; }, // attribute list
-    new EntryMapper&lt;String&gt;() {
-        @Override
-        public String map( Entry entry ) throws LdapException {
-            return entry.get( &quot;mail&quot; ).getString();
-        }
-    } );
-</code></pre>
-<p>More information on EntryMapper can be found in the <a href="#handling-search-result-iteration">Handling Search Result Iteration</a> section.</p>
+    <span style="color:#080;font-style:italic">// using an inline defined EntityMapper 
+</span><span style="color:#080;font-style:italic"></span>    String email <span style="color:#666">=</span> ldapConnectionTemplate<span style="color:#666">.</span><span style="color:#b44">lookup</span><span style="color:#666">(</span>
+        ldapConnectionTemplate<span style="color:#666">.</span><span style="color:#b44">newDn</span><span style="color:#666">(</span> <span style="color:#b44">&#34;uid=kermitthefrog,ou=muppets,dc=muppets,dc=org&#34;</span> <span style="color:#666">)</span><span style="color:#666">,</span>
+        <span style="color:#a2f;font-weight:bold">new</span> String<span style="color:#666">[</span><span style="color:#666">]</span> <span style="color:#666">{</span> <span style="color:#b44">&#34;mail&#34;</span> <span style="color:#666">}</span><span style="color:#666">,</span> <span style="color:#080;font-style:italic">// attribute list
+</span><span style="color:#080;font-style:italic"></span>        <span style="color:#a2f;font-weight:bold">new</span> EntryMapper<span style="color:#666">&lt;</span>String<span style="color:#666">&gt;</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">{</span>
+            <span style="color:#a2f">@Override</span>
+            <span style="color:#a2f;font-weight:bold">public</span> String <span style="color:#00a000">map</span><span style="color:#666">(</span> Entry entry <span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> LdapException <span style="color:#666">{</span>
+                <span style="color:#a2f;font-weight:bold">return</span> entry<span style="color:#666">.</span><span style="color:#b44">get</span><span style="color:#666">(</span> <span style="color:#b44">&#34;mail&#34;</span> <span style="color:#666">)</span><span style="color:#666">.</span><span style="color:#b44">getString</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
+            <span style="color:#666">}</span>
+        <span style="color:#666">}</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+</code></pre></div><p>More information on EntryMapper can be found in the <a href="#handling-search-result-iteration">Handling Search Result Iteration</a> section.</p>
 <h2 id="handling-search-result-iteration">Handling Search Result Iteration</h2>
 <p>Searching usually contains a lot of boilerplate code for building requests and iterating through its responses.  This template does the work for you. It iterates over the entire result set, feeds each entry through an EntryMapper, and assembles the results into a list tht is returned to the caller.  All you have to do is provide the EntryMapper for mapping a single entry to a domain object.  EntryMapper itself is a very simple interface with one method.  As you saw before in the lookup documentation, they are typically defined as static members of your service classes:</p>
-<pre><code>:::Java
-// typically mappers are reused, so define a static member
-private static final EntryMapper&lt;Muppet&gt; muppetEntryMapper =
-    new EntryMapper&lt;Muppet&gt;() {
-        @Override
-        public Muppet map( Entry entry ) throws LdapException {
-            return new Muppet.Builder()
-                .setId( entry.getDn() )
-                .setFirstName( entry.get( &quot;givenName&quot; ).getString() )
-                .setLastName( entry.get( &quot;sn&quot; ).getString() )
-                .setEmailAddress( entry.get( &quot;mail&quot; ).getString() )
-                .build();
-        }
-    };
-</code></pre>
-<p>And now your searches become much simpler:</p>
-<pre><code>:::Java
-List&lt;Muppet&gt; allTheMuppets = ldapConnectionTemplate.search( 
-    &quot;ou=muppets,dc=muppets,dc=org&quot;, 
-    &quot;(objectClass=inetOrgPerson)&quot;, 
-    SearchScope.ONELEVEL,
-    muppetEntryMapper );
-</code></pre>
-<p>Now that is just plain <em><strong>SIMPLE</strong></em>.  The search method has many overloads to simplify usages for the most common LDAP operations.  There is also a searchFirst method which provides all the same overloads and is designed to return the first matching result:</p>
-<pre><code>:::Java
-Muppet kermit = ldapConnectionTemplate.searchFirst( 
-    &quot;ou=muppets,dc=muppets,dc=org&quot;, 
-    &quot;(mail=kermitthefrog@muppets.org)&quot;, 
-    SearchScope.ONELEVEL,
-    muppetEntryMapper );
-</code></pre>
-<p>It is also natural to pair the search function with the FilterBuilder:</p>
-<pre><code>:::Java
-import static org.apache.directory.ldap.client.api.search.FilterBuilder.equal;
-import static org.apache.directory.ldap.client.api.search.FilterBuilder.or;
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    <span style="color:#080;font-style:italic">// typically mappers are reused, so define a static member
+</span><span style="color:#080;font-style:italic"></span>    <span style="color:#a2f;font-weight:bold">private</span> <span style="color:#a2f;font-weight:bold">static</span> <span style="color:#a2f;font-weight:bold">final</span> EntryMapper<span style="color:#666">&lt;</span>Muppet<span style="color:#666">&gt;</span> muppetEntryMapper <span style="color:#666">=</span>
+        <span style="color:#a2f;font-weight:bold">new</span> EntryMapper<span style="color:#666">&lt;</span>Muppet<span style="color:#666">&gt;</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">{</span>
+            <span style="color:#a2f">@Override</span>
+            <span style="color:#a2f;font-weight:bold">public</span> Muppet <span style="color:#00a000">map</span><span style="color:#666">(</span> Entry entry <span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> LdapException <span style="color:#666">{</span>
+                <span style="color:#a2f;font-weight:bold">return</span> <span style="color:#a2f;font-weight:bold">new</span> Muppet<span style="color:#666">.</span><span style="color:#b44">Builder</span><span style="color:#666">(</span><span style="color:#666">)</span>
+                    <span style="color:#666">.</span><span style="color:#b44">setId</span><span style="color:#666">(</span> entry<span style="color:#666">.</span><span style="color:#b44">getDn</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span>
+                    <span style="color:#666">.</span><span style="color:#b44">setFirstName</span><span style="color:#666">(</span> entry<span style="color:#666">.</span><span style="color:#b44">get</span><span style="color:#666">(</span> <span style="color:#b44">&#34;givenName&#34;</span> <span style="color:#666">)</span><span style="color:#666">.</span><span style="color:#b44">getString</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span>
+                    <span style="color:#666">.</span><span style="color:#b44">setLastName</span><span style="color:#666">(</span> entry<span style="color:#666">.</span><span style="color:#b44">get</span><span style="color:#666">(</span> <span style="color:#b44">&#34;sn&#34;</span> <span style="color:#666">)</span><span style="color:#666">.</span><span style="color:#b44">getString</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span>
+                    <span style="color:#666">.</span><span style="color:#b44">setEmailAddress</span><span style="color:#666">(</span> entry<span style="color:#666">.</span><span style="color:#b44">get</span><span style="color:#666">(</span> <span style="color:#b44">&#34;mail&#34;</span> <span style="color:#666">)</span><span style="color:#666">.</span><span style="color:#b44">getString</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span>
+                    <span style="color:#666">.</span><span style="color:#b44">build</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
+            <span style="color:#666">}</span>
+        <span style="color:#666">}</span><span style="color:#666">;</span>
+</code></pre></div><p>And now your searches become much simpler:</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    List<span style="color:#666">&lt;</span>Muppet<span style="color:#666">&gt;</span> allTheMuppets <span style="color:#666">=</span> ldapConnectionTemplate<span style="color:#666">.</span><span style="color:#b44">search</span><span style="color:#666">(</span> 
+        <span style="color:#b44">&#34;ou=muppets,dc=muppets,dc=org&#34;</span><span style="color:#666">,</span> 
+        <span style="color:#b44">&#34;(objectClass=inetOrgPerson)&#34;</span><span style="color:#666">,</span> 
+        SearchScope<span style="color:#666">.</span><span style="color:#b44">ONELEVEL</span><span style="color:#666">,</span>
+        muppetEntryMapper <span style="color:#666">)</span><span style="color:#666">;</span>
+</code></pre></div><p>Now that is just plain <em><strong>SIMPLE</strong></em>.  The search method has many overloads to simplify usages for the most common LDAP operations.  There is also a searchFirst method which provides all the same overloads and is designed to return the first matching result:</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    Muppet kermit <span style="color:#666">=</span> ldapConnectionTemplate<span style="color:#666">.</span><span style="color:#b44">searchFirst</span><span style="color:#666">(</span> 
+        <span style="color:#b44">&#34;ou=muppets,dc=muppets,dc=org&#34;</span><span style="color:#666">,</span> 
+        <span style="color:#b44">&#34;(mail=kermitthefrog@muppets.org)&#34;</span><span style="color:#666">,</span> 
+        SearchScope<span style="color:#666">.</span><span style="color:#b44">ONELEVEL</span><span style="color:#666">,</span>
+        muppetEntryMapper <span style="color:#666">)</span><span style="color:#666">;</span>
+</code></pre></div><p>It is also natural to pair the search function with the FilterBuilder:</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    <span style="color:#a2f;font-weight:bold">import static</span> <span style="color:#00f;font-weight:bold">org.apache.directory.ldap.client.api.search.FilterBuilder.equal</span><span style="color:#666">;</span>
+    <span style="color:#a2f;font-weight:bold">import static</span> <span style="color:#00f;font-weight:bold">org.apache.directory.ldap.client.api.search.FilterBuilder.or</span><span style="color:#666">;</span>
 
-...
+    <span style="color:#666">.</span><span style="color:#666">.</span><span style="color:#666">.</span>
 
-    Muppet kermit = ldapConnectionTemplate.search( 
-       &quot;ou=muppets,dc=muppets,dc=org&quot;, 
-        or(
-            equal( &quot;mail&quot;, &quot;kermitthefrog@muppets.org&quot; ), 
-            equal( &quot;mail&quot;, &quot;misspiggy@muppets.org&quot; ) ), 
-        SearchScope.ONELEVEL,
-        muppetEntryMapper );
-</code></pre>
-<p>This has the added benefit of ensuring that your search filter has been property encoded per <a href="https://tools.ietf.org/html/rfc4515.html#section-3">RFC4515 section 3</a>.  For more information, see <a href="/api/user-guide/2.11-filter-builder.html">Filter Builder</a>.</p>
+        Muppet kermit <span style="color:#666">=</span> ldapConnectionTemplate<span style="color:#666">.</span><span style="color:#b44">search</span><span style="color:#666">(</span> 
+           <span style="color:#b44">&#34;ou=muppets,dc=muppets,dc=org&#34;</span><span style="color:#666">,</span> 
+            or<span style="color:#666">(</span>
+                equal<span style="color:#666">(</span> <span style="color:#b44">&#34;mail&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;kermitthefrog@muppets.org&#34;</span> <span style="color:#666">)</span><span style="color:#666">,</span> 
+                equal<span style="color:#666">(</span> <span style="color:#b44">&#34;mail&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;misspiggy@muppets.org&#34;</span> <span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">,</span> 
+            SearchScope<span style="color:#666">.</span><span style="color:#b44">ONELEVEL</span><span style="color:#666">,</span>
+            muppetEntryMapper <span style="color:#666">)</span><span style="color:#666">;</span>
+</code></pre></div><p>This has the added benefit of ensuring that your search filter has been property encoded per <a href="https://tools.ietf.org/html/rfc4515.html#section-3">RFC4515 section 3</a>.  For more information, see <a href="/api/user-guide/2.11-filter-builder.html">Filter Builder</a>.</p>
 <h2 id="providing-simplified-password-policy-aware-authenticationpassword-modification-methods">Providing Simplified, Password Policy Aware, Authentication/Password Modification Methods</h2>
 <p>One of the most common usages of LDAP is as an identity provider.  As such, the most common operation is authentication, and password management.  If your LDAP server supports the <a href="http://tools.ietf.org/html/draft-behera-ldap-password-policy-10">password policy control</a> then the authenticate method is very handy:</p>
-<pre><code>:::Java
-// throws PasswordException if authentication fails
-PasswordWarning warning = ldapConnectionTemplate.authenticate( 
-    ldapConnectionTemplate.newDn( &quot;uid=&quot; + uid + &quot;, ou=people, dc=example, dc=com&quot; ),
-    password );
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    <span style="color:#080;font-style:italic">// throws PasswordException if authentication fails
+</span><span style="color:#080;font-style:italic"></span>    PasswordWarning warning <span style="color:#666">=</span> ldapConnectionTemplate<span style="color:#666">.</span><span style="color:#b44">authenticate</span><span style="color:#666">(</span> 
+        ldapConnectionTemplate<span style="color:#666">.</span><span style="color:#b44">newDn</span><span style="color:#666">(</span> <span style="color:#b44">&#34;uid=&#34;</span> <span style="color:#666">+</span> uid <span style="color:#666">+</span> <span style="color:#b44">&#34;, ou=people, dc=example, dc=com&#34;</span> <span style="color:#666">)</span><span style="color:#666">,</span>
+        password <span style="color:#666">)</span><span style="color:#666">;</span>
 
-// or if you authenticate using an attribute not in the dn
-PasswordWarning warning = ldapConnectionTemplate.authenticate( 
-    &quot;ou=people,dc=example,dc=com&quot;,
-    &quot;(mail=kermitthefrog@muppets.com)&quot;,
-    SearchScope.ONELEVEL,
-    &quot;set4now&quot;.toCharArray() );
-</code></pre>
-<p>In this case, if authentication failed, a PasswordException is thrown.  If authentication was successful, any warnings will be returned in the PasswordWarning object, or null will be returned if there are no warnings.</p>
+    <span style="color:#080;font-style:italic">// or if you authenticate using an attribute not in the dn
+</span><span style="color:#080;font-style:italic"></span>    PasswordWarning warning <span style="color:#666">=</span> ldapConnectionTemplate<span style="color:#666">.</span><span style="color:#b44">authenticate</span><span style="color:#666">(</span> 
+        <span style="color:#b44">&#34;ou=people,dc=example,dc=com&#34;</span><span style="color:#666">,</span>
+        <span style="color:#b44">&#34;(mail=kermitthefrog@muppets.com)&#34;</span><span style="color:#666">,</span>
+        SearchScope<span style="color:#666">.</span><span style="color:#b44">ONELEVEL</span><span style="color:#666">,</span>
+        <span style="color:#b44">&#34;set4now&#34;</span><span style="color:#666">.</span><span style="color:#b44">toCharArray</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+</code></pre></div><p>In this case, if authentication failed, a PasswordException is thrown.  If authentication was successful, any warnings will be returned in the PasswordWarning object, or null will be returned if there are no warnings.</p>
 <p>Modifying a password is simple as well:</p>
-<pre><code>:::Java
-// using administrator account to modify a users password
-ldapConnectionTemplate.modifyPassword( userDn, password );
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    <span style="color:#080;font-style:italic">// using administrator account to modify a users password
+</span><span style="color:#080;font-style:italic"></span>    ldapConnectionTemplate<span style="color:#666">.</span><span style="color:#b44">modifyPassword</span><span style="color:#666">(</span> userDn<span style="color:#666">,</span> password <span style="color:#666">)</span><span style="color:#666">;</span>
 
-// or user account modifying their own password
-ldapConnectionTemplate.modifyPassword( userDn, oldPassword, newPassword );
+    <span style="color:#080;font-style:italic">// or user account modifying their own password
+</span><span style="color:#080;font-style:italic"></span>    ldapConnectionTemplate<span style="color:#666">.</span><span style="color:#b44">modifyPassword</span><span style="color:#666">(</span> userDn<span style="color:#666">,</span> oldPassword<span style="color:#666">,</span> newPassword <span style="color:#666">)</span><span style="color:#666">;</span>
 
-// or if you want want more control
-ldapConnectionTemplate.modifyPassword( userDn, oldPassword, newPassword, asAdmin );
-</code></pre>
-<p>If you modify the password as an administrator, then the oldPassword is not required, and if your password policy is set to, the password reset flag will be set causing a PasswordWarning to be returned the next time authenticate was called for that user.</p>
+    <span style="color:#080;font-style:italic">// or if you want want more control
+</span><span style="color:#080;font-style:italic"></span>    ldapConnectionTemplate<span style="color:#666">.</span><span style="color:#b44">modifyPassword</span><span style="color:#666">(</span> userDn<span style="color:#666">,</span> oldPassword<span style="color:#666">,</span> newPassword<span style="color:#666">,</span> asAdmin <span style="color:#666">)</span><span style="color:#666">;</span>
+</code></pre></div><p>If you modify the password as an administrator, then the oldPassword is not required, and if your password policy is set to, the password reset flag will be set causing a PasswordWarning to be returned the next time authenticate was called for that user.</p>
 <h2 id="other-useful-methods">Other Useful Methods</h2>
 <p>The template provides a method that checks the response and throws an exception if the request was unsuccessful.  It was designed to be chained:</p>
-<pre><code>:::Java
-// using DN only
-DeleteResponse response = ldapConnectionTemplate.responseOrException( 
-    ldapConnectionTemplate.delete( 
-        ldapConnectionTemplate.newDn( &quot;uid=misspiggy,ou=muppets,dc=muppets,dc=org&quot; ) ) );
-</code></pre>
-
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    <span style="color:#080;font-style:italic">// using DN only
+</span><span style="color:#080;font-style:italic"></span>    DeleteResponse response <span style="color:#666">=</span> ldapConnectionTemplate<span style="color:#666">.</span><span style="color:#b44">responseOrException</span><span style="color:#666">(</span> 
+        ldapConnectionTemplate<span style="color:#666">.</span><span style="color:#b44">delete</span><span style="color:#666">(</span> 
+            ldapConnectionTemplate<span style="color:#666">.</span><span style="color:#b44">newDn</span><span style="color:#666">(</span> <span style="color:#b44">&#34;uid=misspiggy,ou=muppets,dc=muppets,dc=org&#34;</span> <span style="color:#666">)</span> <span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+</code></pre></div>
 
             
     <div class="nav">

@@ -138,41 +138,33 @@
 <p>IDEA users can import <a href="settings.jar">this file</a> to enfore the code formating.</p>
 <h2 id="headers">Headers</h2>
 <p>First, you <strong>must</strong> (and this rule accept no exception) use this header in top of all source file, or each file in which you can have comments :</p>
-<pre><code>:::java
-/*
- *  Licensed to the Apache Software Foundation (ASF) under one
- *  or more contributor license agreements.  See the NOTICE file
- *  distributed with this work for additional information
- *  regarding copyright ownership.  The ASF licenses this file
- *  to you under the Apache License, Version 2.0 (the
- *  &quot;License&quot;); you may not use this file except in compliance
- *  with the License.  You may obtain a copy of the License at
- *
- *    http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing,
- *  software distributed under the License is distributed on an
- *  &quot;AS IS&quot; BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- *  KIND, either express or implied.  See the License for the
- *  specific language governing permissions and limitations
- *  under the License.
- *
- */
-</code></pre>
-<h3 id="classinterface-headers">Class/Interface headers</h3>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">	<span style="color:#080;font-style:italic">/*
+</span><span style="color:#080;font-style:italic">	 *  Licensed to the Apache Software Foundation (ASF) under one
+</span><span style="color:#080;font-style:italic">	 *  or more contributor license agreements.  See the NOTICE file
+</span><span style="color:#080;font-style:italic">	 *  distributed with this work for additional information
+</span><span style="color:#080;font-style:italic">	 *  regarding copyright ownership.  The ASF licenses this file
+</span><span style="color:#080;font-style:italic">	 *  to you under the Apache License, Version 2.0 (the
+</span><span style="color:#080;font-style:italic">	 *  &#34;License&#34;); you may not use this file except in compliance
+</span><span style="color:#080;font-style:italic">	 *  with the License.  You may obtain a copy of the License at
+</span><span style="color:#080;font-style:italic">	 *
+</span><span style="color:#080;font-style:italic">	 *    http://www.apache.org/licenses/LICENSE-2.0
+</span><span style="color:#080;font-style:italic">	 *
+</span><span style="color:#080;font-style:italic">	 *  Unless required by applicable law or agreed to in writing,
+</span><span style="color:#080;font-style:italic">	 *  software distributed under the License is distributed on an
+</span><span style="color:#080;font-style:italic">	 *  &#34;AS IS&#34; BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+</span><span style="color:#080;font-style:italic">	 *  KIND, either express or implied.  See the License for the
+</span><span style="color:#080;font-style:italic">	 *  specific language governing permissions and limitations
+</span><span style="color:#080;font-style:italic">	 *  under the License.
+</span><span style="color:#080;font-style:italic">	 *
+</span><span style="color:#080;font-style:italic">	 */</span>
+</code></pre></div><h3 id="classinterface-headers">Class/Interface headers</h3>
 <p>Each <strong>Class</strong> or <em>Interface</em> should have an header which must contains :</p>
 <ul>
-<li>
-<p>A descrption of this class/interface</p>
-</li>
-<li>
-<p>an <em>author</em> tag which should be :</p>
-<pre><code>  :::java
-  @author &lt;a href=&quot;mailto:dev@directory.apache.org&quot;&gt;Apache Directory Project&lt;/a&gt;
-</code></pre>
-</li>
+<li>A descrption of this class/interface</li>
+<li>an <em>author</em> tag which should be :</li>
 </ul>
-<DIV class="note" markdown="1">
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">		<span style="color:#a2f">@author</span> <span style="color:#666">&lt;</span>a href<span style="color:#666">=</span><span style="color:#b44">&#34;mailto:dev@directory.apache.org&#34;</span><span style="color:#666">&gt;</span>Apache Directory Project<span style="color:#666">&lt;</span><span style="color:#666">/</span>a<span style="color:#666">&gt;</span>
+</code></pre></div><DIV class="note" markdown="1">
 Thanks to avoid to put your name. The code is not yours, and much more important, but putting ypur name and e-mail, you will intimidate other developper ("Oh, no, I won't mess with this code, it has been developped by XXXX \!") and second, you will receive mail in three years even if you have stopped all commitment on the project (and those who have sent you an e-mail will think that the project's memeber are not responsive...)
 </DIV>
 <p>If you use <strong>html</strong> tags, remember to escape &lsquo;&lt;&rsquo; and &lsquo;&gt;&rsquo; characters&hellip;</p>
@@ -228,17 +220,15 @@ Thanks to avoid to put your name. The code is not yours, and much more important
 <li>&lsquo;{&rsquo; and &lsquo;}&rsquo; must be on the same column</li>
 </ul>
 <p>This is a code example :</p>
-<pre><code>:::java    
-...
-int result = myMethod( param1, param2 )
-
-if ( result &gt; 0 )
-{
-    // do something
-}
-...
-</code></pre>
-<h2 id="imports">Imports</h2>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">	<span style="color:#666">.</span><span style="color:#666">.</span><span style="color:#666">.</span>
+    <span style="color:#0b0;font-weight:bold">int</span> result <span style="color:#666">=</span> myMethod<span style="color:#666">(</span> param1<span style="color:#666">,</span> param2 <span style="color:#666">)</span>
+    
+    <span style="color:#a2f;font-weight:bold">if</span> <span style="color:#666">(</span> result <span style="color:#666">&gt;</span> 0 <span style="color:#666">)</span>
+    <span style="color:#666">{</span>
+        <span style="color:#080;font-style:italic">// do something
+</span><span style="color:#080;font-style:italic"></span>    <span style="color:#666">}</span>
+    <span style="color:#666">.</span><span style="color:#666">.</span><span style="color:#666">.</span>
+</code></pre></div><h2 id="imports">Imports</h2>
 <p>Always declare all the classes you import, do not use <strong>x.y.*</strong></p>
 <h2 id="what-else-">What else ?</h2>
 <p>Well, this was a very short introduction about coding rules. Use commen sense, look at what you see around you when adding some code, ask people about format, if you have a question.</p>

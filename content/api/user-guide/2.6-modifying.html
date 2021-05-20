@@ -161,10 +161,8 @@
 <p>It&rsquo;s important to understand that many modifications can be applied on a single entry. All those modifications will be applied in an all or none fashion. i.e., if any of the modifications are invalid, none will occur. Also if the server crashes while applying the mods, it&rsquo;s guaranteed that the entry remains consistent.</p>
 <h2 id="how-it-works">How it works?</h2>
 <p>Each modification to be applied on an entry is encapsulated into an intermediate class : a <em>Modification</em> instance, which can be created as :</p>
-<pre><code>:::Java
-Modification addedGivenName = new DefaultModification( ModificationOperation.ADD_ATTRIBUTE, &quot;givenName&quot;, &quot;John&quot;, &quot;Peter&quot; );
-</code></pre>
-<p>Here the modification instance represents addition of values &ldquo;John&rdquo; and &ldquo;Peter&rdquo; to the <em>giveName</em> attribute (the <em>givenName</em> attribute can have more than one value).</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    Modification addedGivenName <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> DefaultModification<span style="color:#666">(</span> ModificationOperation<span style="color:#666">.</span><span style="color:#b44">ADD_ATTRIBUTE</span><span style="color:#666">,</span> <span style="color:#b44">&#34;givenName&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;John&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;Peter&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+</code></pre></div><p>Here the modification instance represents addition of values &ldquo;John&rdquo; and &ldquo;Peter&rdquo; to the <em>giveName</em> attribute (the <em>givenName</em> attribute can have more than one value).</p>
 <p>There are four different kind of modifications:</p>
 <ul>
 <li>ModificationOperation.ADD_ATTRIBUTE: add an attribute and values to an entry</li>
@@ -176,101 +174,89 @@ Modification addedGivenName = new DefaultModification( ModificationOperation.ADD
 <p>The following two operations completely add or remove attributes.</p>
 <h3 id="adding-new-attributes">Adding new attributes</h3>
 <p>First of all, let&rsquo;s learn how to add an attribute. First you must know which entry to modify, which means you must know its Dn. Next, you must create the <em>Modification</em> instance which is applied to the entry. Here is the code that is used to add a <em>givenName</em> attribute to an existing entry :</p>
-<pre><code>:::Java
-...
-Modification addedGivenName = new DefaultModification( ModificationOperation.ADD_ATTRIBUTE, &quot;givenName&quot;,
-    &quot;John&quot;, &quot;Peter&quot; );
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    <span style="color:#666">.</span><span style="color:#666">.</span><span style="color:#666">.</span>
+    Modification addedGivenName <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> DefaultModification<span style="color:#666">(</span> ModificationOperation<span style="color:#666">.</span><span style="color:#b44">ADD_ATTRIBUTE</span><span style="color:#666">,</span> <span style="color:#b44">&#34;givenName&#34;</span><span style="color:#666">,</span>
+        <span style="color:#b44">&#34;John&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;Peter&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
 
-connection.modify( &quot;uid=Doe,dc=acme,dc=com&quot;, addedGivenName );
-...
-</code></pre>
-<h4 id="adding-more-than-one-attribute">Adding more than one attribute</h4>
+    connection<span style="color:#666">.</span><span style="color:#b44">modify</span><span style="color:#666">(</span> <span style="color:#b44">&#34;uid=Doe,dc=acme,dc=com&#34;</span><span style="color:#666">,</span> addedGivenName <span style="color:#666">)</span><span style="color:#666">;</span>
+    <span style="color:#666">.</span><span style="color:#666">.</span><span style="color:#666">.</span>
+</code></pre></div><h4 id="adding-more-than-one-attribute">Adding more than one attribute</h4>
 <p>What if you want to apply more than one modification to the entry ?</p>
 <p>Easy : create more than one <em>Modification</em> instance, and add them before calling the <em>modify</em> method :</p>
-<pre><code>:::Java
-...
-Modification addedGivenName = new DefaultModification( ModificationOperation.ADD_ATTRIBUTE, &quot;givenName&quot;,
-    &quot;John&quot;, &quot;Peter&quot; );
-Modification addedInitials = new DefaultModification( ModificationOperation.ADD_ATTRIBUTE, &quot;initials&quot;,
-    &quot;JD&quot; );
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    <span style="color:#666">.</span><span style="color:#666">.</span><span style="color:#666">.</span>
+    Modification addedGivenName <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> DefaultModification<span style="color:#666">(</span> ModificationOperation<span style="color:#666">.</span><span style="color:#b44">ADD_ATTRIBUTE</span><span style="color:#666">,</span> <span style="color:#b44">&#34;givenName&#34;</span><span style="color:#666">,</span>
+        <span style="color:#b44">&#34;John&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;Peter&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+    Modification addedInitials <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> DefaultModification<span style="color:#666">(</span> ModificationOperation<span style="color:#666">.</span><span style="color:#b44">ADD_ATTRIBUTE</span><span style="color:#666">,</span> <span style="color:#b44">&#34;initials&#34;</span><span style="color:#666">,</span>
+        <span style="color:#b44">&#34;JD&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
 
-connection.modify( &quot;uid=Doe,dc=acme,dc=com&quot;, addedGivenName, addedInitials );
-...
-</code></pre>
-<p>You can add as many <em>Modification</em> instances as needed.</p>
+    connection<span style="color:#666">.</span><span style="color:#b44">modify</span><span style="color:#666">(</span> <span style="color:#b44">&#34;uid=Doe,dc=acme,dc=com&#34;</span><span style="color:#666">,</span> addedGivenName<span style="color:#666">,</span> addedInitials <span style="color:#666">)</span><span style="color:#666">;</span>
+    <span style="color:#666">.</span><span style="color:#666">.</span><span style="color:#666">.</span>
+</code></pre></div><p>You can add as many <em>Modification</em> instances as needed.</p>
 <h4 id="errors">Errors</h4>
 <p>If you try to add an attribute that already exists, you will get an error, like this one :</p>
-<pre><code>:::Java
-...
-Modification addedGivenName = new DefaultModification( ModificationOperation.ADD_ATTRIBUTE, &quot;givenName&quot;,
-    &quot;John&quot;, &quot;Peter&quot; );
-Modification addedUid = new DefaultModification( ModificationOperation.ADD_ATTRIBUTE, &quot;uid&quot;,
-    &quot;Ted&quot; );
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    <span style="color:#666">.</span><span style="color:#666">.</span><span style="color:#666">.</span>
+    Modification addedGivenName <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> DefaultModification<span style="color:#666">(</span> ModificationOperation<span style="color:#666">.</span><span style="color:#b44">ADD_ATTRIBUTE</span><span style="color:#666">,</span> <span style="color:#b44">&#34;givenName&#34;</span><span style="color:#666">,</span>
+        <span style="color:#b44">&#34;John&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;Peter&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+    Modification addedUid <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> DefaultModification<span style="color:#666">(</span> ModificationOperation<span style="color:#666">.</span><span style="color:#b44">ADD_ATTRIBUTE</span><span style="color:#666">,</span> <span style="color:#b44">&#34;uid&#34;</span><span style="color:#666">,</span>
+        <span style="color:#b44">&#34;Ted&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
 
-connection.modify( &quot;uid=Doe,dc=acme,dc=com&quot;, addedGivenName, addedUid );
-...
-</code></pre>
-<p>results in :</p>
-<pre><code>:::Java
-org.apache.directory.api.ldap.model.exception.LdapAttributeInUseException: ATTRIBUTE_OR_VALUE_EXISTS: failed for MessageType : MODIFY_REQUEST
-Message ID : 3
-    Modify Request
-        Object : 'uid=Doe,dc=acme,dc=com'
-            Modification[0]
-                Operation :  add
-                Modification
-                    givenName: John
-                    givenName: Peter            
-            Modification[1]
-                Operation :  add
-                Modification
-                    uid: Ted
-org.apache.directory.api.ldap.model.message.ModifyRequestImpl@13532916: ERR_54 Cannot add a value which is already present : admin
-at org.apache.directory.api.ldap.model.message.ResultCodeEnum.processResponse(ResultCodeEnum.java:2064)
-at org.apache.directory.ldap.client.api.LdapNetworkConnection.modify(LdapNetworkConnection.java:2300)
-at org.apache.directory.ldap.client.api.LdapNetworkConnection.modify(LdapNetworkConnection.java:2309)
-...
-</code></pre>
-<p>Here, we&rsquo;ve tried to add the <em>uid</em> attribute that already exists, and the error trace tells us as much.</p>
+    connection<span style="color:#666">.</span><span style="color:#b44">modify</span><span style="color:#666">(</span> <span style="color:#b44">&#34;uid=Doe,dc=acme,dc=com&#34;</span><span style="color:#666">,</span> addedGivenName<span style="color:#666">,</span> addedUid <span style="color:#666">)</span><span style="color:#666">;</span>
+    <span style="color:#666">.</span><span style="color:#666">.</span><span style="color:#666">.</span>
+</code></pre></div><p>results in :</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    org<span style="color:#666">.</span><span style="color:#b44">apache</span><span style="color:#666">.</span><span style="color:#b44">directory</span><span style="color:#666">.</span><span style="color:#b44">api</span><span style="color:#666">.</span><span style="color:#b44">ldap</span><span style="color:#666">.</span><span style="color:#b44">model</span><span style="color:#666">.</span><span style="color:#b44">exception</span><span style="color:#666">.</span><span style="color:#b44">LdapAttributeInUseException</span><span style="color:#666">:</span> ATTRIBUTE_OR_VALUE_EXISTS<span style="color:#666">:</span> failed <span style="color:#a2f;font-weight:bold">for</span> MessageType <span style="color:#666">:</span> MODIFY_REQUEST
+    Message ID <span style="color:#666">:</span> 3
+        Modify Request
+            Object <span style="color:#666">:</span> <span style="">&#39;</span>uid<span style="color:#666">=</span>Doe<span style="color:#666">,</span>dc<span style="color:#666">=</span>acme<span style="color:#666">,</span>dc<span style="color:#666">=</span>com<span style="">&#39;</span>
+                Modification<span style="color:#666">[</span>0<span style="color:#666">]</span>
+                    Operation <span style="color:#666">:</span>  add
+                    Modification
+                        givenName<span style="color:#666">:</span> John
+                        givenName<span style="color:#666">:</span> Peter            
+                Modification<span style="color:#666">[</span>1<span style="color:#666">]</span>
+                    Operation <span style="color:#666">:</span>  add
+                    Modification
+                        uid<span style="color:#666">:</span> Ted
+    org<span style="color:#666">.</span><span style="color:#b44">apache</span><span style="color:#666">.</span><span style="color:#b44">directory</span><span style="color:#666">.</span><span style="color:#b44">api</span><span style="color:#666">.</span><span style="color:#b44">ldap</span><span style="color:#666">.</span><span style="color:#b44">model</span><span style="color:#666">.</span><span style="color:#b44">message</span><span style="color:#666">.</span><span style="color:#b44">ModifyRequestImpl</span><span style="color:#a2f">@13532916</span><span style="color:#666">:</span> ERR_54 Cannot add a value which is already present <span style="color:#666">:</span> admin
+    at org<span style="color:#666">.</span><span style="color:#b44">apache</span><span style="color:#666">.</span><span style="color:#b44">directory</span><span style="color:#666">.</span><span style="color:#b44">api</span><span style="color:#666">.</span><span style="color:#b44">ldap</span><span style="color:#666">.</span><span style="color:#b44">model</span><span style="color:#666">.</span><span style="color:#b44">message</span><span style="color:#666">.</span><span style="color:#b44">ResultCodeEnum</span><span style="color:#666">.</span><span style="color:#b44">processResponse</span><span style="color:#666">(</span>ResultCodeEnum<span style="color:#666">.</span><span style="color:#b44">java</span><span style="color:#666">:</span>2064<span style="color:#666">)</span>
+    at org<span style="color:#666">.</span><span style="color:#b44">apache</span><span style="color:#666">.</span><span style="color:#b44">directory</span><span style="color:#666">.</span><span style="color:#b44">ldap</span><span style="color:#666">.</span><span style="color:#b44">client</span><span style="color:#666">.</span><span style="color:#b44">api</span><span style="color:#666">.</span><span style="color:#b44">LdapNetworkConnection</span><span style="color:#666">.</span><span style="color:#b44">modify</span><span style="color:#666">(</span>LdapNetworkConnection<span style="color:#666">.</span><span style="color:#b44">java</span><span style="color:#666">:</span>2300<span style="color:#666">)</span>
+    at org<span style="color:#666">.</span><span style="color:#b44">apache</span><span style="color:#666">.</span><span style="color:#b44">directory</span><span style="color:#666">.</span><span style="color:#b44">ldap</span><span style="color:#666">.</span><span style="color:#b44">client</span><span style="color:#666">.</span><span style="color:#b44">api</span><span style="color:#666">.</span><span style="color:#b44">LdapNetworkConnection</span><span style="color:#666">.</span><span style="color:#b44">modify</span><span style="color:#666">(</span>LdapNetworkConnection<span style="color:#666">.</span><span style="color:#b44">java</span><span style="color:#666">:</span>2309<span style="color:#666">)</span>
+    <span style="color:#666">.</span><span style="color:#666">.</span><span style="color:#666">.</span>
+</code></pre></div><p>Here, we&rsquo;ve tried to add the <em>uid</em> attribute that already exists, and the error trace tells us as much.</p>
 <p>Another potential error occurs when adding an attribute type that isn&rsquo;t allowed on that entry. This occurs because the Entry&rsquo;s ObjectClass does not allow such an attribute (per the schema), or because the server forbids modification of that entry, due to the ACIs applied on this entry.</p>
 <p>Last, but not least, and hopefully this is obvious, the entry <em>must</em> exist prior to modification!</p>
 <h3 id="removing-an-attribute">Removing an attribute</h3>
 <p>Removing an attribute is actually a bit simpler than adding one, because the values for the attribute don&rsquo;t need to be specified. Here&rsquo;s an example where the <em>givenName</em> attribute is removed from an entry:</p>
-<pre><code>:::Java
-...
-Modification deletedGivenName = new DefaultModification( ModificationOperation.REMOVE_ATTRIBUTE, &quot;givenName&quot; );
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    <span style="color:#666">.</span><span style="color:#666">.</span><span style="color:#666">.</span>
+    Modification deletedGivenName <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> DefaultModification<span style="color:#666">(</span> ModificationOperation<span style="color:#666">.</span><span style="color:#b44">REMOVE_ATTRIBUTE</span><span style="color:#666">,</span> <span style="color:#b44">&#34;givenName&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
 
-connection.modify( &quot;uid=Doe,dc=acme,dc=com&quot;, adeletedivenName );
-...
-</code></pre>
-<p>Here, we&rsquo;ve created a modification, specifying the <em>givenName</em> attribute must be removed, and we apply the modification request to the entry.</p>
+    connection<span style="color:#666">.</span><span style="color:#b44">modify</span><span style="color:#666">(</span> <span style="color:#b44">&#34;uid=Doe,dc=acme,dc=com&#34;</span><span style="color:#666">,</span> adeletedivenName <span style="color:#666">)</span><span style="color:#666">;</span>
+    <span style="color:#666">.</span><span style="color:#666">.</span><span style="color:#666">.</span>
+</code></pre></div><p>Here, we&rsquo;ve created a modification, specifying the <em>givenName</em> attribute must be removed, and we apply the modification request to the entry.</p>
 <p>Again, more than one attribute may be deleted from an entry.  It&rsquo;s a matter of creating more than one <em>Modification</em> instances and applying them to the entry.</p>
 <h4 id="errors-1">Errors</h4>
 <p>If you try to delete an attribute that does not exist in the entry, you will get this error:</p>
-<pre><code>:::Java
-org.apache.directory.api.ldap.model.exception.LdapNoSuchAttributeException: NO_SUCH_ATTRIBUTE: failed for MessageType : MODIFY_REQUEST
-Message ID : 3
-    Modify Request
-        Object : 'uid=admin,ou=system'
-            Modification[0]
-                Operation :  delete
-                Modification
-                    givenName: (null)
-org.apache.directory.api.ldap.model.message.ModifyRequestImpl@fbe6f598: ERR_55 Trying to remove an non-existant attribute: 
-attributetype ( 2.5.4.42 NAME ( 'givenName' 'gn' )
-    DESC 'RFC2256: first name(s) for which the entity is known by'
-    SUP name
-    EQUALITY caseIgnoreMatch
-    SUBSTR caseIgnoreSubstringsMatch
-    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
-    USAGE userApplications
-)
-    at org.apache.directory.api.ldap.model.message.ResultCodeEnum.processResponse(ResultCodeEnum.java:2057)
-    at org.apache.directory.ldap.client.api.LdapNetworkConnection.modify(LdapNetworkConnection.java:2300)
-    at org.apache.directory.ldap.client.api.LdapNetworkConnection.modify(LdapNetworkConnection.java:2309)
-    at org.apache.directory.shared.client.api.operations.ClientModifyRequestTest.testModifyRemoveAttribute(ClientModifyRequestTest.java:302)
-</code></pre>
-<p>Here, the entry does not contain the <em>givenName</em> attribute.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    org<span style="color:#666">.</span><span style="color:#b44">apache</span><span style="color:#666">.</span><span style="color:#b44">directory</span><span style="color:#666">.</span><span style="color:#b44">api</span><span style="color:#666">.</span><span style="color:#b44">ldap</span><span style="color:#666">.</span><span style="color:#b44">model</span><span style="color:#666">.</span><span style="color:#b44">exception</span><span style="color:#666">.</span><span style="color:#b44">LdapNoSuchAttributeException</span><span style="color:#666">:</span> NO_SUCH_ATTRIBUTE<span style="color:#666">:</span> failed <span style="color:#a2f;font-weight:bold">for</span> MessageType <span style="color:#666">:</span> MODIFY_REQUEST
+    Message ID <span style="color:#666">:</span> 3
+        Modify Request
+            Object <span style="color:#666">:</span> <span style="">&#39;</span>uid<span style="color:#666">=</span>admin<span style="color:#666">,</span>ou<span style="color:#666">=</span>system<span style="">&#39;</span>
+                Modification<span style="color:#666">[</span>0<span style="color:#666">]</span>
+                    Operation <span style="color:#666">:</span>  delete
+                    Modification
+                        givenName<span style="color:#666">:</span> <span style="color:#666">(</span><span style="color:#a2f;font-weight:bold">null</span><span style="color:#666">)</span>
+    org<span style="color:#666">.</span><span style="color:#b44">apache</span><span style="color:#666">.</span><span style="color:#b44">directory</span><span style="color:#666">.</span><span style="color:#b44">api</span><span style="color:#666">.</span><span style="color:#b44">ldap</span><span style="color:#666">.</span><span style="color:#b44">model</span><span style="color:#666">.</span><span style="color:#b44">message</span><span style="color:#666">.</span><span style="color:#b44">ModifyRequestImpl</span><span style="color:#a2f">@fbe6f598</span><span style="color:#666">:</span> ERR_55 Trying to remove an non<span style="color:#666">-</span>existant attribute<span style="color:#666">:</span> 
+    attributetype <span style="color:#666">(</span> 2<span style="color:#666">.</span><span style="color:#b44">5</span><span style="color:#666">.</span><span style="color:#b44">4</span><span style="color:#666">.</span><span style="color:#b44">42</span> <span style="color:#00a000">NAME</span> <span style="color:#666">(</span> <span style="">&#39;</span>givenName<span style="color:#b44">&#39; &#39;</span>gn<span style="">&#39;</span> <span style="color:#666">)</span>
+        DESC <span style="">&#39;</span>RFC2256<span style="color:#666">:</span> first <span style="color:#00a000">name</span><span style="color:#666">(</span>s<span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">for</span> which the entity is known by<span style="">&#39;</span>
+        SUP name
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1<span style="color:#666">.</span><span style="color:#b44">3</span><span style="color:#666">.</span><span style="color:#b44">6</span><span style="color:#666">.</span><span style="color:#b44">1</span><span style="color:#666">.</span><span style="color:#b44">4</span><span style="color:#666">.</span><span style="color:#b44">1</span><span style="color:#666">.</span><span style="color:#b44">1466</span><span style="color:#666">.</span><span style="color:#b44">115</span><span style="color:#666">.</span><span style="color:#b44">121</span><span style="color:#666">.</span><span style="color:#b44">1</span><span style="color:#666">.</span><span style="color:#b44">15</span>
+        USAGE userApplications
+    <span style="color:#666">)</span>
+        at org<span style="color:#666">.</span><span style="color:#b44">apache</span><span style="color:#666">.</span><span style="color:#b44">directory</span><span style="color:#666">.</span><span style="color:#b44">api</span><span style="color:#666">.</span><span style="color:#b44">ldap</span><span style="color:#666">.</span><span style="color:#b44">model</span><span style="color:#666">.</span><span style="color:#b44">message</span><span style="color:#666">.</span><span style="color:#b44">ResultCodeEnum</span><span style="color:#666">.</span><span style="color:#b44">processResponse</span><span style="color:#666">(</span>ResultCodeEnum<span style="color:#666">.</span><span style="color:#b44">java</span><span style="color:#666">:</span>2057<span style="color:#666">)</span>
+        at org<span style="color:#666">.</span><span style="color:#b44">apache</span><span style="color:#666">.</span><span style="color:#b44">directory</span><span style="color:#666">.</span><span style="color:#b44">ldap</span><span style="color:#666">.</span><span style="color:#b44">client</span><span style="color:#666">.</span><span style="color:#b44">api</span><span style="color:#666">.</span><span style="color:#b44">LdapNetworkConnection</span><span style="color:#666">.</span><span style="color:#b44">modify</span><span style="color:#666">(</span>LdapNetworkConnection<span style="color:#666">.</span><span style="color:#b44">java</span><span style="color:#666">:</span>2300<span style="color:#666">)</span>
+        at org<span style="color:#666">.</span><span style="color:#b44">apache</span><span style="color:#666">.</span><span style="color:#b44">directory</span><span style="color:#666">.</span><span style="color:#b44">ldap</span><span style="color:#666">.</span><span style="color:#b44">client</span><span style="color:#666">.</span><span style="color:#b44">api</span><span style="color:#666">.</span><span style="color:#b44">LdapNetworkConnection</span><span style="color:#666">.</span><span style="color:#b44">modify</span><span style="color:#666">(</span>LdapNetworkConnection<span style="color:#666">.</span><span style="color:#b44">java</span><span style="color:#666">:</span>2309<span style="color:#666">)</span>
+        at org<span style="color:#666">.</span><span style="color:#b44">apache</span><span style="color:#666">.</span><span style="color:#b44">directory</span><span style="color:#666">.</span><span style="color:#b44">shared</span><span style="color:#666">.</span><span style="color:#b44">client</span><span style="color:#666">.</span><span style="color:#b44">api</span><span style="color:#666">.</span><span style="color:#b44">operations</span><span style="color:#666">.</span><span style="color:#b44">ClientModifyRequestTest</span><span style="color:#666">.</span><span style="color:#b44">testModifyRemoveAttribute</span><span style="color:#666">(</span>ClientModifyRequestTest<span style="color:#666">.</span><span style="color:#b44">java</span><span style="color:#666">:</span>302<span style="color:#666">)</span>
+</code></pre></div><p>Here, the entry does not contain the <em>givenName</em> attribute.</p>
 <p>Another potential error is when you trying to remove a mandatory attribute, per the entry&rsquo;s ObjectClass constraints.</p>
 <p>Otherwise, the server might forbid modification of entry due to the ACIs that are applicable to it.</p>
 <p>Again the entry <em>must</em> exist prior to performing the modification!</p>
@@ -284,164 +270,151 @@ attributetype ( 2.5.4.42 NAME ( 'givenName' 'gn' )
 </ul>
 <h3 id="add-values">Add values</h3>
 <p>Let&rsquo;s see with the addition of values. Here, we will assume we have an entry like:</p>
-<pre><code>dn: uid=jDoe,dc=acme,dc=com
-objectClass: person
-objectClass: organizationalPerson
-objectClass: inetOrgPerson
-uid: jDoe
-userPassword: secret
-sn: John Tom Doe
-cn: Doe
-givenName: John
-</code></pre>
-<p>We will add the &lsquo;Tom&rsquo; given name to the <em>givenName</em> attribute in this entry :</p>
-<pre><code>:::Java
-...
-Modification addedGivenNameValue = new DefaultModification( ModificationOperation.ADD_ATTRIBUTE, &quot;givenName&quot;, &quot;Tom&quot; );
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Text" data-lang="Text">    dn: uid=jDoe,dc=acme,dc=com
+    objectClass: person
+    objectClass: organizationalPerson
+    objectClass: inetOrgPerson
+    uid: jDoe
+    userPassword: secret
+    sn: John Tom Doe
+    cn: Doe
+    givenName: John
+</code></pre></div><p>We will add the &lsquo;Tom&rsquo; given name to the <em>givenName</em> attribute in this entry :</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    <span style="color:#666">.</span><span style="color:#666">.</span><span style="color:#666">.</span>
+    Modification addedGivenNameValue <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> DefaultModification<span style="color:#666">(</span> ModificationOperation<span style="color:#666">.</span><span style="color:#b44">ADD_ATTRIBUTE</span><span style="color:#666">,</span> <span style="color:#b44">&#34;givenName&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;Tom&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
 
-connection.modify( &quot;uid=Doe,dc=acme,dc=com&quot;, addedGivenNameValue );
-...
-</code></pre>
-<p>The entry now has two values for the <em>giveName</em> attribute :</p>
-<pre><code>dn: uid=jDoe,dc=acme,dc=com
-objectClass: person
-objectClass: organizationalPerson
-objectClass: inetOrgPerson
-uid: jDoe
-userPassword: secret
-sn: John Tom Doe
-cn: Doe
-givenName: John
-givenName: Tom
-</code></pre>
-<h4 id="errors-2">Errors</h4>
+    connection<span style="color:#666">.</span><span style="color:#b44">modify</span><span style="color:#666">(</span> <span style="color:#b44">&#34;uid=Doe,dc=acme,dc=com&#34;</span><span style="color:#666">,</span> addedGivenNameValue <span style="color:#666">)</span><span style="color:#666">;</span>
+    <span style="color:#666">.</span><span style="color:#666">.</span><span style="color:#666">.</span>
+</code></pre></div><p>The entry now has two values for the <em>giveName</em> attribute :</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Text" data-lang="Text">    dn: uid=jDoe,dc=acme,dc=com
+    objectClass: person
+    objectClass: organizationalPerson
+    objectClass: inetOrgPerson
+    uid: jDoe
+    userPassword: secret
+    sn: John Tom Doe
+    cn: Doe
+    givenName: John
+    givenName: Tom
+</code></pre></div><h4 id="errors-2">Errors</h4>
 <p>Again, such an operation might fail for many reasons. Let&rsquo;s see what are the possible errors:</p>
 <p>First, if the attribute&rsquo;s value already exists. You will get an error like this:</p>
-<pre><code>org.apache.directory.api.ldap.model.exception.LdapAttributeInUseException: ATTRIBUTE_OR_VALUE_EXISTS: failed for MessageType : 
-MODIFY_REQUEST
-Message ID : 5
-    Modify Request
-        Object : 'uid=admin,ou=system'
-            Modification[0]
-                Operation :  add
-                Modification
-                    givenName: John
-org.apache.directory.api.ldap.model.message.ModifyRequestImpl@867e79fe: ERR_54 Cannot add a value which is already present : John
-    at org.apache.directory.api.ldap.model.message.ResultCodeEnum.processResponse(ResultCodeEnum.java:2064)
-    at org.apache.directory.ldap.client.api.LdapNetworkConnection.modify(LdapNetworkConnection.java:2300)
-    at org.apache.directory.ldap.client.api.LdapNetworkConnection.modify(LdapNetworkConnection.java:2309)
-    at org.apache.directory.shared.client.api.operations.ClientModifyRequestTest.testModifyRemoveAttribute(ClientModifyRequestTest.java:303)
-</code></pre>
-<p>Note that depending on the attribute&rsquo;s syntax, you may get this type of error because you entered a value with different casing when the syntax is case-insensitive. Typically, if the attribute contains the value &lsquo;John&rsquo; and you try to add the value &lsquo;JOHN&rsquo;, you will get this error message. Be sure you know what the attribute syntax allows you to do&hellip;</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Text" data-lang="Text">    org.apache.directory.api.ldap.model.exception.LdapAttributeInUseException: ATTRIBUTE_OR_VALUE_EXISTS: failed for MessageType : 
+    MODIFY_REQUEST
+    Message ID : 5
+        Modify Request
+            Object : &#39;uid=admin,ou=system&#39;
+                Modification[0]
+                    Operation :  add
+                    Modification
+                        givenName: John
+    org.apache.directory.api.ldap.model.message.ModifyRequestImpl@867e79fe: ERR_54 Cannot add a value which is already present : John
+        at org.apache.directory.api.ldap.model.message.ResultCodeEnum.processResponse(ResultCodeEnum.java:2064)
+        at org.apache.directory.ldap.client.api.LdapNetworkConnection.modify(LdapNetworkConnection.java:2300)
+        at org.apache.directory.ldap.client.api.LdapNetworkConnection.modify(LdapNetworkConnection.java:2309)
+        at org.apache.directory.shared.client.api.operations.ClientModifyRequestTest.testModifyRemoveAttribute(ClientModifyRequestTest.java:303)
+</code></pre></div><p>Note that depending on the attribute&rsquo;s syntax, you may get this type of error because you entered a value with different casing when the syntax is case-insensitive. Typically, if the attribute contains the value &lsquo;John&rsquo; and you try to add the value &lsquo;JOHN&rsquo;, you will get this error message. Be sure you know what the attribute syntax allows you to do&hellip;</p>
 <p>Second, if the attribute is single valued, it will not be possible to add another value to it. When this happens you&rsquo;ll get the following error message:</p>
-<pre><code>org.apache.directory.api.ldap.model.exception.LdapInvalidAttributeValueException: CONSTRAINT_VIOLATION: failed for MessageType : MODIFY_REQUEST
-Message ID : 3
-    Modify Request
-        Object : 'c=FR,ou=users,ou=system'
-            Modification[0]
-                Operation :  add
-                Modification
-                    c: US
-org.apache.directory.api.ldap.model.message.ModifyRequestImpl@cdf2ed2f: ERR_278 More than one value has been provided for the single-valued attribute: c
-    at org.apache.directory.api.ldap.model.message.ResultCodeEnum.processResponse(ResultCodeEnum.java:2127)
-    at org.apache.directory.ldap.client.api.LdapNetworkConnection.modify(LdapNetworkConnection.java:2300)
-    at org.apache.directory.ldap.client.api.LdapNetworkConnection.modify(LdapNetworkConnection.java:2309)
-    at org.apache.directory.shared.client.api.operations.ClientModifyRequestTest.testModifyRemoveAttribute(ClientModifyRequestTest.java:297)
-</code></pre>
-<p>Third, the ACIs set on the server may not allow updating an entry or its attribute.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Text" data-lang="Text">    org.apache.directory.api.ldap.model.exception.LdapInvalidAttributeValueException: CONSTRAINT_VIOLATION: failed for MessageType : MODIFY_REQUEST
+    Message ID : 3
+        Modify Request
+            Object : &#39;c=FR,ou=users,ou=system&#39;
+                Modification[0]
+                    Operation :  add
+                    Modification
+                        c: US
+    org.apache.directory.api.ldap.model.message.ModifyRequestImpl@cdf2ed2f: ERR_278 More than one value has been provided for the single-valued attribute: c
+        at org.apache.directory.api.ldap.model.message.ResultCodeEnum.processResponse(ResultCodeEnum.java:2127)
+        at org.apache.directory.ldap.client.api.LdapNetworkConnection.modify(LdapNetworkConnection.java:2300)
+        at org.apache.directory.ldap.client.api.LdapNetworkConnection.modify(LdapNetworkConnection.java:2309)
+        at org.apache.directory.shared.client.api.operations.ClientModifyRequestTest.testModifyRemoveAttribute(ClientModifyRequestTest.java:297)
+</code></pre></div><p>Third, the ACIs set on the server may not allow updating an entry or its attribute.</p>
 <h3 id="removing-values">Removing values</h3>
 <p>Removing values follow the same pattern.  First select the entry, choose its attribute, and list the values to be removed from it. Here is an exemple:</p>
-<pre><code>:::Java
-...
-Modification removedGivenNameValue = new DefaultModification( ModificationOperation.REMOVE_ATTRIBUTE, &quot;givenName&quot;, &quot;Tom&quot; );
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    <span style="color:#666">.</span><span style="color:#666">.</span><span style="color:#666">.</span>
+    Modification removedGivenNameValue <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> DefaultModification<span style="color:#666">(</span> ModificationOperation<span style="color:#666">.</span><span style="color:#b44">REMOVE_ATTRIBUTE</span><span style="color:#666">,</span> <span style="color:#b44">&#34;givenName&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;Tom&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
 
-connection.modify( &quot;uid=Doe,dc=acme,dc=com&quot;, removedGivenNameValue );
-...
-</code></pre>
-<p>The value &lsquo;Tom&rsquo; just added should now be removed from the <em>givenName</em> attribute, but the value &lsquo;John&rsquo; should still be present.</p>
+    connection<span style="color:#666">.</span><span style="color:#b44">modify</span><span style="color:#666">(</span> <span style="color:#b44">&#34;uid=Doe,dc=acme,dc=com&#34;</span><span style="color:#666">,</span> removedGivenNameValue <span style="color:#666">)</span><span style="color:#666">;</span>
+    <span style="color:#666">.</span><span style="color:#666">.</span><span style="color:#666">.</span>
+</code></pre></div><p>The value &lsquo;Tom&rsquo; just added should now be removed from the <em>givenName</em> attribute, but the value &lsquo;John&rsquo; should still be present.</p>
 <p>How do we remove the last value of an attribute? It&rsquo;s quite simple.  The attribute itself must be removed from the entry, if this is allowed (see below).</p>
 <h4 id="errors-3">Errors</h4>
 <p>There are more potential erros with this operation. Let&rsquo;s list them all.</p>
 <p>First, the value you want to remove does not exist. You will get such an error:</p>
-<pre><code>org.apache.directory.api.ldap.model.exception.LdapNoSuchAttributeException: NO_SUCH_ATTRIBUTE: failed for MessageType : 
-MODIFY_REQUEST
-Message ID : 5
-    Modify Request
-        Object : 'uid=admin,ou=system'
-            Modification[0]
-                Operation :  delete
-                Modification
-                    givenName: Pete
-org.apache.directory.api.ldap.model.message.ModifyRequestImpl@39800276: ERR_56 Cannot remove an absent value from attribute : attributetype ( 2.5.4.42 NAME ( 'givenName' 'gn' )
-    DESC 'RFC2256: first name(s) for which the entity is known by'
-    SUP name
-    EQUALITY caseIgnoreMatch
-    SUBSTR caseIgnoreSubstringsMatch
-    SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
-    USAGE userApplications
-)
-    at org.apache.directory.api.ldap.model.message.ResultCodeEnum.processResponse(ResultCodeEnum.java:2057)
-    at org.apache.directory.ldap.client.api.LdapNetworkConnection.modify(LdapNetworkConnection.java:2300)
-    at org.apache.directory.ldap.client.api.LdapNetworkConnection.modify(LdapNetworkConnection.java:2309)
-    at org.apache.directory.shared.client.api.operations.ClientModifyRequestTest.testModifyRemoveAttributeValue(ClientModifyRequestTest.java:327)
-</code></pre>
-<p>Second, if you try to remove the last value of an attribute which was declared mandatory (in the schema) the following error will occur:</p>
-<pre><code>org.apache.directory.api.ldap.model.exception.LdapSchemaViolationException: OBJECT_CLASS_VIOLATION: failed for MessageType : 
-MODIFY_REQUEST
-Message ID : 3
-    Modify Request
-        Object : 'uid=billyd,ou=users,ou=system'
-            Modification[0]
-                Operation :  delete
-                Modification
-                    sn: billyd
-org.apache.directory.api.ldap.model.message.ModifyRequestImpl@5e80ddb2: ERR_279 Required attributes [sn(2.5.4.4)] not found within entry uid=billyd,ou=users,ou=system
-    at org.apache.directory.api.ldap.model.message.ResultCodeEnum.processResponse(ResultCodeEnum.java:2081)
-    at org.apache.directory.ldap.client.api.LdapNetworkConnection.modify(LdapNetworkConnection.java:2300)
-    at org.apache.directory.ldap.client.api.LdapNetworkConnection.modify(LdapNetworkConnection.java:2309)
-    at org.apache.directory.shared.client.api.operations.ClientModifyRequestTest.testModifyRemoveAttributeValue(ClientModifyRequestTest.java:314)
-</code></pre>
-<p>Here, we tried to remove the <em>sn</em> attribute&rsquo;s last value from an entry where it&rsquo;s a required attribute.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Text" data-lang="Text">    org.apache.directory.api.ldap.model.exception.LdapNoSuchAttributeException: NO_SUCH_ATTRIBUTE: failed for MessageType : 
+    MODIFY_REQUEST
+    Message ID : 5
+        Modify Request
+            Object : &#39;uid=admin,ou=system&#39;
+                Modification[0]
+                    Operation :  delete
+                    Modification
+                        givenName: Pete
+    org.apache.directory.api.ldap.model.message.ModifyRequestImpl@39800276: ERR_56 Cannot remove an absent value from attribute : attributetype ( 2.5.4.42 NAME ( &#39;givenName&#39; &#39;gn&#39; )
+        DESC &#39;RFC2256: first name(s) for which the entity is known by&#39;
+        SUP name
+        EQUALITY caseIgnoreMatch
+        SUBSTR caseIgnoreSubstringsMatch
+        SYNTAX 1.3.6.1.4.1.1466.115.121.1.15
+        USAGE userApplications
+    )
+        at org.apache.directory.api.ldap.model.message.ResultCodeEnum.processResponse(ResultCodeEnum.java:2057)
+        at org.apache.directory.ldap.client.api.LdapNetworkConnection.modify(LdapNetworkConnection.java:2300)
+        at org.apache.directory.ldap.client.api.LdapNetworkConnection.modify(LdapNetworkConnection.java:2309)
+        at org.apache.directory.shared.client.api.operations.ClientModifyRequestTest.testModifyRemoveAttributeValue(ClientModifyRequestTest.java:327)
+</code></pre></div><p>Second, if you try to remove the last value of an attribute which was declared mandatory (in the schema) the following error will occur:</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Text" data-lang="Text">    org.apache.directory.api.ldap.model.exception.LdapSchemaViolationException: OBJECT_CLASS_VIOLATION: failed for MessageType : 
+    MODIFY_REQUEST
+    Message ID : 3
+        Modify Request
+            Object : &#39;uid=billyd,ou=users,ou=system&#39;
+                Modification[0]
+                    Operation :  delete
+                    Modification
+                        sn: billyd
+    org.apache.directory.api.ldap.model.message.ModifyRequestImpl@5e80ddb2: ERR_279 Required attributes [sn(2.5.4.4)] not found within entry uid=billyd,ou=users,ou=system
+        at org.apache.directory.api.ldap.model.message.ResultCodeEnum.processResponse(ResultCodeEnum.java:2081)
+        at org.apache.directory.ldap.client.api.LdapNetworkConnection.modify(LdapNetworkConnection.java:2300)
+        at org.apache.directory.ldap.client.api.LdapNetworkConnection.modify(LdapNetworkConnection.java:2309)
+        at org.apache.directory.shared.client.api.operations.ClientModifyRequestTest.testModifyRemoveAttributeValue(ClientModifyRequestTest.java:314)
+</code></pre></div><p>Here, we tried to remove the <em>sn</em> attribute&rsquo;s last value from an entry where it&rsquo;s a required attribute.</p>
 <p>Third, if you try to remove a value which was used as part of the entry&rsquo;s <em>RDN</em> : which is never allowed. Typically, for the &lsquo;uid=billyd,ou=users,ou=system&rsquo; entry, you can&rsquo;t remove the &lsquo;billyd&rsquo; value from the &lsquo;uid&rsquo; attribute. This is the error that occurs when such a modification is attempted:</p>
-<pre><code>org.apache.directory.api.ldap.model.exception.LdapSchemaViolationException: NOT_ALLOWED_ON_RDN: failed for MessageType : 
-MODIFY_REQUEST
-Message ID : 3
-    Modify Request
-        Object : 'uid=billyd,ou=users,ou=system'
-            Modification[0]
-                Operation :  delete
-                Modification
-                    uid: billyd
-org.apache.directory.api.ldap.model.message.ModifyRequestImpl@4d149d78: ERR_62 Entry uid=billyd,ou=users,ou=system does not have the uid attributeType, which is part of the RDN&quot;;
-    at org.apache.directory.api.ldap.model.message.ResultCodeEnum.processResponse(ResultCodeEnum.java:2081)
-    at org.apache.directory.ldap.client.api.LdapNetworkConnection.modify(LdapNetworkConnection.java:2300)
-    at org.apache.directory.ldap.client.api.LdapNetworkConnection.modify(LdapNetworkConnection.java:2309)
-    at org.apache.directory.shared.client.api.operations.ClientModifyRequestTest.testModifyRemoveAttributeValue(ClientModifyRequestTest.java:314)
-</code></pre>
-<p>There are also classical errors, when ACLs forbid the removal of a value, or the entry doesn&rsquo;t exist.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Text" data-lang="Text">    org.apache.directory.api.ldap.model.exception.LdapSchemaViolationException: NOT_ALLOWED_ON_RDN: failed for MessageType : 
+    MODIFY_REQUEST
+    Message ID : 3
+        Modify Request
+            Object : &#39;uid=billyd,ou=users,ou=system&#39;
+                Modification[0]
+                    Operation :  delete
+                    Modification
+                        uid: billyd
+    org.apache.directory.api.ldap.model.message.ModifyRequestImpl@4d149d78: ERR_62 Entry uid=billyd,ou=users,ou=system does not have the uid attributeType, which is part of the RDN&#34;;
+        at org.apache.directory.api.ldap.model.message.ResultCodeEnum.processResponse(ResultCodeEnum.java:2081)
+        at org.apache.directory.ldap.client.api.LdapNetworkConnection.modify(LdapNetworkConnection.java:2300)
+        at org.apache.directory.ldap.client.api.LdapNetworkConnection.modify(LdapNetworkConnection.java:2309)
+        at org.apache.directory.shared.client.api.operations.ClientModifyRequestTest.testModifyRemoveAttributeValue(ClientModifyRequestTest.java:314)
+</code></pre></div><p>There are also classical errors, when ACLs forbid the removal of a value, or the entry doesn&rsquo;t exist.</p>
 <h3 id="replace-values">Replace values</h3>
 <p>Here, what we want to do is to replaces all the values from an attribute with some new values. All in all, this is equivalent to first remove the values, then inject the new values, using modifications, except that in some cases, doing so will not work.</p>
 <p>An example where such an operation is mandatory is when replacing the values of a mandatory attribute with something different: with two successive operations, that would fail. A replace will work.</p>
 <p>What is important here is that the operation simply replace <em>all</em> the existing values* with new ones, removing the previous ones.</p>
 <p>Let&rsquo;s see how it works with a simple example, with an entry containing:</p>
-<pre><code>dn: uid=jDoe,dc=acme,dc=com
-objectClass: person
-objectClass: organizationalPerson
-objectClass: inetOrgPerson
-uid: jDoe
-userPassword: secret
-sn: John Tom Doe
-cn: Doe
-givenName: John
-givenName: Peter
-</code></pre>
-<p>We will try to replace the <em>givenName</em>:</p>
-<pre><code>Modification replaceGn = new DefaultModification( ModificationOperation.REPLACE_ATTRIBUTE, &quot;givenName&quot;,
-    &quot;Jack&quot; );
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Text" data-lang="Text">    dn: uid=jDoe,dc=acme,dc=com
+    objectClass: person
+    objectClass: organizationalPerson
+    objectClass: inetOrgPerson
+    uid: jDoe
+    userPassword: secret
+    sn: John Tom Doe
+    cn: Doe
+    givenName: John
+    givenName: Peter
+</code></pre></div><p>We will try to replace the <em>givenName</em>:</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    Modification replaceGn <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> DefaultModification<span style="color:#666">(</span> ModificationOperation<span style="color:#666">.</span><span style="color:#b44">REPLACE_ATTRIBUTE</span><span style="color:#666">,</span> <span style="color:#b44">&#34;givenName&#34;</span><span style="color:#666">,</span>
+        <span style="color:#b44">&#34;Jack&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
 
-connection.modify( &quot;uid=jDoe,dc=acme,dc=com&quot;, replaceGn );
-</code></pre>
-<p>The modified entry will have its <em>givenName</em> value replaced by &lsquo;Jack&rsquo;, the two previous values will have been removed.</p>
+    connection<span style="color:#666">.</span><span style="color:#b44">modify</span><span style="color:#666">(</span> <span style="color:#b44">&#34;uid=jDoe,dc=acme,dc=com&#34;</span><span style="color:#666">,</span> replaceGn <span style="color:#666">)</span><span style="color:#666">;</span>
+</code></pre></div><p>The modified entry will have its <em>givenName</em> value replaced by &lsquo;Jack&rsquo;, the two previous values will have been removed.</p>
 <p>There is one corner case with this operation: creating a <em>Modification</em> instance where the attribute has no value, then the attribute will be removed from the entry.</p>
 <h4 id="errors-4">Errors</h4>
 <p>You will get the same errors seen in the two previous operation (ADD and REMOVE) for the very same use cases. Here are some more things to watch out for:</p>

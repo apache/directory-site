@@ -180,35 +180,29 @@
 <p>The first one is the easiest, but depending on the server&rsquo;s configuration, will be accepted or rejected (not all servers allow anonymous binds)</p>
 <p>Most of the time, the <em>bind</em> operation will not return anything. You either get bound, or will receive an <em>LdapException</em> if an error occurs.</p>
 <p>Issuing an anonymous bind is simple, you neither provide a user nor a password:</p>
-<pre><code>:::Java
-@Test
-public void testAnonymousBindRequest() throws Exception
-{
-    connection.bind();
-}
-</code></pre>
-<p>Issuing a user/password bind is slightly more complex, because those credentials must be included:</p>
-<pre><code>:::Java
-@Test
-public void testSimpleBindRequest() throws Exception
-{
-    connection.bind( &quot;uid=admin,ou=system&quot;, &quot;secret&quot; );
-}
-</code></pre>
-<blockquote>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    <span style="color:#a2f">@Test</span>
+    <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">testAnonymousBindRequest</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> Exception
+    <span style="color:#666">{</span>
+        connection<span style="color:#666">.</span><span style="color:#b44">bind</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
+    <span style="color:#666">}</span>
+</code></pre></div><p>Issuing a user/password bind is slightly more complex, because those credentials must be included:</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    <span style="color:#a2f">@Test</span>
+    <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">testSimpleBindRequest</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> Exception
+    <span style="color:#666">{</span>
+        connection<span style="color:#666">.</span><span style="color:#b44">bind</span><span style="color:#666">(</span> <span style="color:#b44">&#34;uid=admin,ou=system&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;secret&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+    <span style="color:#666">}</span>
+</code></pre></div><blockquote>
 <p><strong>Note</strong> It&rsquo;s important to note that the user&rsquo;s name is a <em><a href="6.9-dn.html">Dn</a></em>, not a simple name like &lsquo;John Doe&rdquo;</p>
 </blockquote>
 <p>Last, not least, there is a quite unknown feature in <strong>LDAP</strong> bind that allows you to issue a Bind request without providing a password. It&rsquo;s equivalent to an anonymous bind, except that the server can log the user&rsquo;s name, thus being able to trace what the user does. Servers might forbid such bind, and this will be the case if the server disallow anonymous binds.</p>
 <p>Note that this kind of bind will be supported only if the server allows anonymous binds. It&rsquo;s not supported by <em>ApacheDS</em>.</p>
-<pre><code>:::Java
-@Test
-public void testSimpleBindRequest() throws Exception
-{
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    <span style="color:#a2f">@Test</span>
+    <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">testSimpleBindRequest</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> Exception
+    <span style="color:#666">{</span>
 
-    connection.bind( &quot;uid=admin,ou=system&quot; );
-}
-</code></pre>
-<h3 id="sasl-binding">SASL Binding</h3>
+        connection<span style="color:#666">.</span><span style="color:#b44">bind</span><span style="color:#666">(</span> <span style="color:#b44">&#34;uid=admin,ou=system&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+    <span style="color:#666">}</span>
+</code></pre></div><h3 id="sasl-binding">SASL Binding</h3>
 <p>There are various <strong>SASL</strong> mechanisms that can be used to bind to a <strong>LDAP</strong> server. The <strong>Apache LDAP API</strong> support the following 5 mechanisms:</p>
 <h4 id="plain">PLAIN</h4>
 <p>To be completed&hellip;</p>
@@ -220,67 +214,60 @@ public void testSimpleBindRequest() throws Exception
 <p>To be completed&hellip;</p>
 <h4 id="gssapi">GSSAPI</h4>
 <p>First, non-trivial <strong>Kerberos</strong> authentication requires configuration. Creating a <strong>Kerberos</strong> configuration is not well documented elsewhere, so we include here sample code. One approach is to create a <strong>JAAS</strong> configuration file. Here’s what such a file might contain:</p>
-<pre><code>myapp {
- com.sun.security.auth.module.Krb5LoginModule required debug=true useKeyTab=true principal=&quot;host/ilab2.myorg.org@MYORG.ORG&quot; refreshKrb5Config=true keyTab=&quot;/etc/krb5.keytab&quot;;
-};
-</code></pre>
-<p>See online documentation for <em>Krb5LoginModule</em> for possible options. This example uses the host’s principal, stored in <em>/etc/krb5.keytab</em>. What goes after <strong>@</strong> is the <strong>Kerberos</strong> domain name.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Text" data-lang="Text">    myapp {
+     com.sun.security.auth.module.Krb5LoginModule required debug=true useKeyTab=true principal=&#34;host/ilab2.myorg.org@MYORG.ORG&#34; refreshKrb5Config=true keyTab=&#34;/etc/krb5.keytab&#34;;
+    };
+</code></pre></div><p>See online documentation for <em>Krb5LoginModule</em> for possible options. This example uses the host’s principal, stored in <em>/etc/krb5.keytab</em>. What goes after <strong>@</strong> is the <strong>Kerberos</strong> domain name.</p>
 <p>Note that if you specify a credential cache, the cache must be in a file. Many operating systems now put the user’s credentials in <strong>KEYRING</strong> or <strong>KCM</strong>. That worn’t work with Java.</p>
 <p><em>“myapp”</em> is the name supplied as the login context name. See the code below.</p>
 <p>When you run the program, you must tell java where the configuration file is. e.g. <em>“java -Djava.security.auth.login.config=jaas.config”</em>.</p>
 <p>Here is code to connect to ldap with this configuration. We assume that <em>ldapNetworkConnection</em> has already been opened using connect.</p>
-<pre><code>:::Java
-saslGssApiRequest = new SaslGssApiRequest();
-saslGssApiRequest.setLoginModuleConfiguration(Configuration.getConfiguration());
-saslGssApiRequest.setLoginContextName( &quot;myapp&quot;);
-saslGssApiRequest.setMutualAuthentication( true );
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    saslGssApiRequest <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> SaslGssApiRequest<span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
+    saslGssApiRequest<span style="color:#666">.</span><span style="color:#b44">setLoginModuleConfiguration</span><span style="color:#666">(</span>Configuration<span style="color:#666">.</span><span style="color:#b44">getConfiguration</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">)</span><span style="color:#666">;</span>
+    saslGssApiRequest<span style="color:#666">.</span><span style="color:#b44">setLoginContextName</span><span style="color:#666">(</span> <span style="color:#b44">&#34;myapp&#34;</span><span style="color:#666">)</span><span style="color:#666">;</span>
+    saslGssApiRequest<span style="color:#666">.</span><span style="color:#b44">setMutualAuthentication</span><span style="color:#666">(</span> <span style="color:#a2f;font-weight:bold">true</span> <span style="color:#666">)</span><span style="color:#666">;</span>
 
-try  {
-        BindResponse br = ldapNetworkConnection.bind( saslGssApiRequest );
-        ldapNetworkConnection.startTls();
-} catch ( LdapException e ) {
-        e.printStackTrace();
-}
-</code></pre>
-<p>At this point you can do operations such as search. Note that the argument to <em>setLoginContextName</em> must match the name in the configuration file. This sample uses mutual authentication. It is possible that some <strong>LDAP</strong> servers might not support that. If so you can set it to false. You may not need <em>startTls</em> if the connection is already secure.</p>
+    <span style="color:#a2f;font-weight:bold">try</span>  <span style="color:#666">{</span>
+            BindResponse br <span style="color:#666">=</span> ldapNetworkConnection<span style="color:#666">.</span><span style="color:#b44">bind</span><span style="color:#666">(</span> saslGssApiRequest <span style="color:#666">)</span><span style="color:#666">;</span>
+            ldapNetworkConnection<span style="color:#666">.</span><span style="color:#b44">startTls</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
+    <span style="color:#666">}</span> <span style="color:#a2f;font-weight:bold">catch</span> <span style="color:#666">(</span> LdapException e <span style="color:#666">)</span> <span style="color:#666">{</span>
+            e<span style="color:#666">.</span><span style="color:#b44">printStackTrace</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
+    <span style="color:#666">}</span>
+</code></pre></div><p>At this point you can do operations such as search. Note that the argument to <em>setLoginContextName</em> must match the name in the configuration file. This sample uses mutual authentication. It is possible that some <strong>LDAP</strong> servers might not support that. If so you can set it to false. You may not need <em>startTls</em> if the connection is already secure.</p>
 <p>Sometimes it is more convenient to supply the configuration information programmatically. Here is an example that sets the same options as the config file</p>
-<pre><code>:::Java
-class KerberosConfiguration extends Configuration {
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    <span style="color:#a2f;font-weight:bold">class</span> <span style="color:#00f">KerberosConfiguration</span> <span style="color:#a2f;font-weight:bold">extends</span> Configuration <span style="color:#666">{</span>
 
-    @Override
-    public AppConfigurationEntry[] getAppConfigurationEntry(String name) {
-        Map&lt;String, String&gt; options = new HashMap&lt;String, String&gt;();
-        options.put(&quot;useKeyTab&quot;, &quot;true&quot;);
-        try {
-            options.put(&quot;principal&quot;, &quot;host/&quot; + InetAddress.getLocalHost().getCanonicalHostName() + “@MYORG.ORG”);
-        } catch (Exception e){
-            System.out.println(&quot;Can't find our hostname &quot; + e);
-        }
-        options.put(&quot;refreshKrb5Config&quot;, &quot;true&quot;);
-        options.put(&quot;keyTab&quot;, &quot;/etc/krb5.keytab&quot;);
-        options.put(&quot;debug&quot;, &quot;true&quot;);
+        <span style="color:#a2f">@Override</span>
+        <span style="color:#a2f;font-weight:bold">public</span> AppConfigurationEntry<span style="color:#666">[</span><span style="color:#666">]</span> <span style="color:#00a000">getAppConfigurationEntry</span><span style="color:#666">(</span>String name<span style="color:#666">)</span> <span style="color:#666">{</span>
+            Map<span style="color:#666">&lt;</span>String<span style="color:#666">,</span> String<span style="color:#666">&gt;</span> options <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> HashMap<span style="color:#666">&lt;</span>String<span style="color:#666">,</span> String<span style="color:#666">&gt;</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
+            options<span style="color:#666">.</span><span style="color:#b44">put</span><span style="color:#666">(</span><span style="color:#b44">&#34;useKeyTab&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;true&#34;</span><span style="color:#666">)</span><span style="color:#666">;</span>
+            <span style="color:#a2f;font-weight:bold">try</span> <span style="color:#666">{</span>
+                options<span style="color:#666">.</span><span style="color:#b44">put</span><span style="color:#666">(</span><span style="color:#b44">&#34;principal&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;host/&#34;</span> <span style="color:#666">+</span> InetAddress<span style="color:#666">.</span><span style="color:#b44">getLocalHost</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">.</span><span style="color:#b44">getCanonicalHostName</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">+</span> <span style="">“</span><span style="color:#a2f">@MYORG.ORG</span><span style="">”</span><span style="color:#666">)</span><span style="color:#666">;</span>
+            <span style="color:#666">}</span> <span style="color:#a2f;font-weight:bold">catch</span> <span style="color:#666">(</span>Exception e<span style="color:#666">)</span><span style="color:#666">{</span>
+                System<span style="color:#666">.</span><span style="color:#b44">out</span><span style="color:#666">.</span><span style="color:#b44">println</span><span style="color:#666">(</span><span style="color:#b44">&#34;Can&#39;t find our hostname &#34;</span> <span style="color:#666">+</span> e<span style="color:#666">)</span><span style="color:#666">;</span>
+            <span style="color:#666">}</span>
+            options<span style="color:#666">.</span><span style="color:#b44">put</span><span style="color:#666">(</span><span style="color:#b44">&#34;refreshKrb5Config&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;true&#34;</span><span style="color:#666">)</span><span style="color:#666">;</span>
+            options<span style="color:#666">.</span><span style="color:#b44">put</span><span style="color:#666">(</span><span style="color:#b44">&#34;keyTab&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;/etc/krb5.keytab&#34;</span><span style="color:#666">)</span><span style="color:#666">;</span>
+            options<span style="color:#666">.</span><span style="color:#b44">put</span><span style="color:#666">(</span><span style="color:#b44">&#34;debug&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;true&#34;</span><span style="color:#666">)</span><span style="color:#666">;</span>
 
-        return new AppConfigurationEntry[]{
-            new AppConfigurationEntry(&quot;com.sun.security.auth.module.Krb5LoginModule&quot;,
-                                      AppConfigurationEntry.LoginModuleControlFlag.REQUIRED,
-                                      options),};
-    }
-}
-</code></pre>
-<p>Here is how it is used:</p>
-<pre><code>:::Java
-saslGssApiRequest = new SaslGssApiRequest();
-saslGssApiRequest.setLoginModuleConfiguration(new KerberosConfiguration());
-saslGssApiRequest.setMutualAuthentication( true );
+            <span style="color:#a2f;font-weight:bold">return</span> <span style="color:#a2f;font-weight:bold">new</span> AppConfigurationEntry<span style="color:#666">[</span><span style="color:#666">]</span><span style="color:#666">{</span>
+                <span style="color:#a2f;font-weight:bold">new</span> AppConfigurationEntry<span style="color:#666">(</span><span style="color:#b44">&#34;com.sun.security.auth.module.Krb5LoginModule&#34;</span><span style="color:#666">,</span>
+                                          AppConfigurationEntry<span style="color:#666">.</span><span style="color:#b44">LoginModuleControlFlag</span><span style="color:#666">.</span><span style="color:#b44">REQUIRED</span><span style="color:#666">,</span>
+                                          options<span style="color:#666">)</span><span style="color:#666">,</span><span style="color:#666">}</span><span style="color:#666">;</span>
+        <span style="color:#666">}</span>
+    <span style="color:#666">}</span>
+</code></pre></div><p>Here is how it is used:</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    saslGssApiRequest <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> SaslGssApiRequest<span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
+    saslGssApiRequest<span style="color:#666">.</span><span style="color:#b44">setLoginModuleConfiguration</span><span style="color:#666">(</span><span style="color:#a2f;font-weight:bold">new</span> KerberosConfiguration<span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">)</span><span style="color:#666">;</span>
+    saslGssApiRequest<span style="color:#666">.</span><span style="color:#b44">setMutualAuthentication</span><span style="color:#666">(</span> <span style="color:#a2f;font-weight:bold">true</span> <span style="color:#666">)</span><span style="color:#666">;</span>
 
-try  {
-        BindResponse br = ldapNetworkConnection.bind( saslGssApiRequest );
-        ldapNetworkConnection.startTls();
-} catch ( LdapException e ) {
-        e.printStackTrace();
-}
-</code></pre>
-<p>Note that it is not necessary to set the login context name, since it is only needed to process the configuration file.’</p>
+    <span style="color:#a2f;font-weight:bold">try</span>  <span style="color:#666">{</span>
+            BindResponse br <span style="color:#666">=</span> ldapNetworkConnection<span style="color:#666">.</span><span style="color:#b44">bind</span><span style="color:#666">(</span> saslGssApiRequest <span style="color:#666">)</span><span style="color:#666">;</span>
+            ldapNetworkConnection<span style="color:#666">.</span><span style="color:#b44">startTls</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
+    <span style="color:#666">}</span> <span style="color:#a2f;font-weight:bold">catch</span> <span style="color:#666">(</span> LdapException e <span style="color:#666">)</span> <span style="color:#666">{</span>
+            e<span style="color:#666">.</span><span style="color:#b44">printStackTrace</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
+    <span style="color:#666">}</span>
+</code></pre></div><p>Note that it is not necessary to set the login context name, since it is only needed to process the configuration file.’</p>
 <p>Warnings:</p>
 <ul>
 <li>
@@ -300,39 +287,35 @@ This is not an issue if your authentication comes from key tables or prompts the
 </ul>
 <h2 id="rebinding">Rebinding</h2>
 <p>It&rsquo;s possible to issue a <strong>Bind</strong> on an already bound connection and the existing LDAP session will be terminated, and replaced by a new LDAP session. In any case, the connection is not dropped when doing so. Note that if the connection was encrypted, it remains encrypted.</p>
-<pre><code>:::Java
-@Test
-public void testRebind() throws Exception
-{
-    connection.bind( &quot;uid=admin,ou=system&quot;, &quot;secret&quot; );
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    <span style="color:#a2f">@Test</span>
+    <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">testRebind</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> Exception
+    <span style="color:#666">{</span>
+        connection<span style="color:#666">.</span><span style="color:#b44">bind</span><span style="color:#666">(</span> <span style="color:#b44">&#34;uid=admin,ou=system&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;secret&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
 
-    // Now, rebind
-    connection.bind( &quot;cn=john doe,dc=example,dc=com&quot;, &quot;secret&quot; );
+        <span style="color:#080;font-style:italic">// Now, rebind
+</span><span style="color:#080;font-style:italic"></span>        connection<span style="color:#666">.</span><span style="color:#b44">bind</span><span style="color:#666">(</span> <span style="color:#b44">&#34;cn=john doe,dc=example,dc=com&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;secret&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
 
-    assertTrue( connection.isConnected() );
-    assertTrue( connection.isAuthenticated() );
-}
-</code></pre>
-<p>If you issue a <em>bind</em> on the same connection with some different credentials, then the existing session will be terminated on the server, and a new one will be created. All the pending requests for the initial session will be lost.</p>
+        assertTrue<span style="color:#666">(</span> connection<span style="color:#666">.</span><span style="color:#b44">isConnected</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+        assertTrue<span style="color:#666">(</span> connection<span style="color:#666">.</span><span style="color:#b44">isAuthenticated</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+    <span style="color:#666">}</span>
+</code></pre></div><p>If you issue a <em>bind</em> on the same connection with some different credentials, then the existing session will be terminated on the server, and a new one will be created. All the pending requests for the initial session will be lost.</p>
 <h2 id="unbinding">Unbinding</h2>
 <p>This is a trivial operation : you just send an <strong>UnbindRequest</strong> to the server, which will invalidate your session.</p>
 <p>It&rsquo;s important to know that when you issue an <strong>Unbind</strong>, the connection is dropped. It&rsquo;s done like this:</p>
-<pre><code>:::Java
-@Test
-public void testUnbind() throws Exception
-{
-    connection.bind( &quot;uid=admin,ou=system&quot;, &quot;secret&quot; );
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    <span style="color:#a2f">@Test</span>
+    <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">testUnbind</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> Exception
+    <span style="color:#666">{</span>
+        connection<span style="color:#666">.</span><span style="color:#b44">bind</span><span style="color:#666">(</span> <span style="color:#b44">&#34;uid=admin,ou=system&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;secret&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
 
-    // Now, unbind
-    connection.unBind();
-    assertFalse( connection.isConnected() );
-    assertFalse( connection.isAuthenticated() );
+        <span style="color:#080;font-style:italic">// Now, unbind
+</span><span style="color:#080;font-style:italic"></span>        connection<span style="color:#666">.</span><span style="color:#b44">unBind</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
+        assertFalse<span style="color:#666">(</span> connection<span style="color:#666">.</span><span style="color:#b44">isConnected</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+        assertFalse<span style="color:#666">(</span> connection<span style="color:#666">.</span><span style="color:#b44">isAuthenticated</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
 
-    // And Bind again.
-    connection.bind( &quot;uid=admin,ou=system&quot;, &quot;secret&quot; );
-}
-</code></pre>
-<p>Last, but not least, if you close the connection, the session also terminates.</p>
+        <span style="color:#080;font-style:italic">// And Bind again.
+</span><span style="color:#080;font-style:italic"></span>        connection<span style="color:#666">.</span><span style="color:#b44">bind</span><span style="color:#666">(</span> <span style="color:#b44">&#34;uid=admin,ou=system&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;secret&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+    <span style="color:#666">}</span>
+</code></pre></div><p>Last, but not least, if you close the connection, the session also terminates.</p>
 
 
             

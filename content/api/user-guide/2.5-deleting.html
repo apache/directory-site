@@ -160,108 +160,98 @@
 <p>Deleting an entry is pretty easy, it just requires the entry&rsquo;s <em>DN</em>. There is one important thing to understand though, if the entry has children, the operation will fail.</p>
 <h2 id="simple-entry-deletion">Simple entry deletion</h2>
 <p>We request a deletion by providing the entry&rsquo;s <em>DN</em>, as in the following example:</p>
-<pre><code>:::Java
-@Test
-public void testDeleteLeafNode() throws Exception
-{
-    assertTrue( session.exists( &quot;cn=child1,cn=parent,ou=system&quot; ) );
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    <span style="color:#a2f">@Test</span>
+    <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">testDeleteLeafNode</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> Exception
+    <span style="color:#666">{</span>
+        assertTrue<span style="color:#666">(</span> session<span style="color:#666">.</span><span style="color:#b44">exists</span><span style="color:#666">(</span> <span style="color:#b44">&#34;cn=child1,cn=parent,ou=system&#34;</span> <span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
 
-    try 
-    {
-        connection.delete( &quot;cn=child1,cn=parent,ou=system&quot; );
-    }
-    catch ( LdapException le )
-    {
-        fail( le.getMessage() );
-    }
+        <span style="color:#a2f;font-weight:bold">try</span> 
+        <span style="color:#666">{</span>
+            connection<span style="color:#666">.</span><span style="color:#b44">delete</span><span style="color:#666">(</span> <span style="color:#b44">&#34;cn=child1,cn=parent,ou=system&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+        <span style="color:#666">}</span>
+        <span style="color:#a2f;font-weight:bold">catch</span> <span style="color:#666">(</span> LdapException le <span style="color:#666">)</span>
+        <span style="color:#666">{</span>
+            fail<span style="color:#666">(</span> le<span style="color:#666">.</span><span style="color:#b44">getMessage</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+        <span style="color:#666">}</span>
 
-    assertFalse( session.exists( &quot;cn=child1,cn=parent,ou=system&quot; ) );
-}
-</code></pre>
-<p>Trying to delete a parent node would result in an error (NOT_ALLOWED_ON_NON_LEAF) :</p>
-<pre><code>:::Java
-@Test
-public void testDeleteNonLeafFailure() throws Exception
-{
-    assertTrue( session.exists( &quot;cn=parent,ou=system&quot; ) );
+        assertFalse<span style="color:#666">(</span> session<span style="color:#666">.</span><span style="color:#b44">exists</span><span style="color:#666">(</span> <span style="color:#b44">&#34;cn=child1,cn=parent,ou=system&#34;</span> <span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+    <span style="color:#666">}</span>
+</code></pre></div><p>Trying to delete a parent node would result in an error (NOT_ALLOWED_ON_NON_LEAF) :</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    <span style="color:#a2f">@Test</span>
+    <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">testDeleteNonLeafFailure</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> Exception
+    <span style="color:#666">{</span>
+        assertTrue<span style="color:#666">(</span> session<span style="color:#666">.</span><span style="color:#b44">exists</span><span style="color:#666">(</span> <span style="color:#b44">&#34;cn=parent,ou=system&#34;</span> <span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
 
-    try 
-    {
-        connection.delete( &quot;cn=parent,ou=system&quot; );
-    }
-    catch ( LdapException le )
-    {
-        fail( le.getMessage() );
-    }
+        <span style="color:#a2f;font-weight:bold">try</span> 
+        <span style="color:#666">{</span>
+            connection<span style="color:#666">.</span><span style="color:#b44">delete</span><span style="color:#666">(</span> <span style="color:#b44">&#34;cn=parent,ou=system&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+        <span style="color:#666">}</span>
+        <span style="color:#a2f;font-weight:bold">catch</span> <span style="color:#666">(</span> LdapException le <span style="color:#666">)</span>
+        <span style="color:#666">{</span>
+            fail<span style="color:#666">(</span> le<span style="color:#666">.</span><span style="color:#b44">getMessage</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+        <span style="color:#666">}</span>
 
-    assertTrue( session.exists( &quot;cn=parent,ou=system&quot; ) );
-}
-</code></pre>
-<h2 id="recursive-deletion-of-entries">Recursive deletion of entries</h2>
+        assertTrue<span style="color:#666">(</span> session<span style="color:#666">.</span><span style="color:#b44">exists</span><span style="color:#666">(</span> <span style="color:#b44">&#34;cn=parent,ou=system&#34;</span> <span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+    <span style="color:#666">}</span>
+</code></pre></div><h2 id="recursive-deletion-of-entries">Recursive deletion of entries</h2>
 <p>Usually, you can&rsquo;t delete an entry and all of its children in one operation. However, some servers accept such requests if you send a delete request and a TreeDelete control. This control is a <a href="http://tools.ietf.org/html/draft-armijo-ldap-treedelete-02">draft</a>, which has been implemented by <strong>Microsoft</strong>, <strong>OpenDS</strong>, <strong>OpenDJ</strong>. It will delete all the children and the entry itself. We don&rsquo;t use a normal <em>delete()</em> method, there is a specific method, <em>deleteTree()</em>. Here is an example :</p>
-<pre><code>:::Java
-@Test
-public void testDeleteWithCascadeControl() throws Exception
-{
-    assertTrue( session.exists( &quot;cn=parent,ou=system&quot; ) );
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    <span style="color:#a2f">@Test</span>
+    <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">testDeleteWithCascadeControl</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> Exception
+    <span style="color:#666">{</span>
+        assertTrue<span style="color:#666">(</span> session<span style="color:#666">.</span><span style="color:#b44">exists</span><span style="color:#666">(</span> <span style="color:#b44">&#34;cn=parent,ou=system&#34;</span> <span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
 
 
-    try
-    {
-        connection.deleteTree( &quot;cn=parent,ou=system&quot; );
-    }
-    catch ( LdapException le )
-    {
-        fail( le.getMessage() );
-    }
+        <span style="color:#a2f;font-weight:bold">try</span>
+        <span style="color:#666">{</span>
+            connection<span style="color:#666">.</span><span style="color:#b44">deleteTree</span><span style="color:#666">(</span> <span style="color:#b44">&#34;cn=parent,ou=system&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+        <span style="color:#666">}</span>
+        <span style="color:#a2f;font-weight:bold">catch</span> <span style="color:#666">(</span> LdapException le <span style="color:#666">)</span>
+        <span style="color:#666">{</span>
+            fail<span style="color:#666">(</span> le<span style="color:#666">.</span><span style="color:#b44">getMessage</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+        <span style="color:#666">}</span>
 
-    assertFalse( session.exists( &quot;cn=parent,ou=system&quot; ) );
-}
-</code></pre>
-<h2 id="sending-a-deleterequest-with-a-control">Sending a DeleteRequest with a control</h2>
+        assertFalse<span style="color:#666">(</span> session<span style="color:#666">.</span><span style="color:#b44">exists</span><span style="color:#666">(</span> <span style="color:#b44">&#34;cn=parent,ou=system&#34;</span> <span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+    <span style="color:#666">}</span>
+</code></pre></div><h2 id="sending-a-deleterequest-with-a-control">Sending a DeleteRequest with a control</h2>
 <p>It&rsquo;s also possible to associate a <strong>[Control]</strong> with the delete request. In order to do that, you have to create a <em>DelRequest</em> instance. In the following example, we will add the Delete Tree control (this make this call equivalent to the <em>deleteTree()</em> method).</p>
-<pre><code>:::Java
-@Test
-public void testDeleteWithControl() throws Exception
-{
-    assertTrue( session.exists( &quot;cn=parent,ou=system&quot; ) );
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    <span style="color:#a2f">@Test</span>
+    <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">testDeleteWithControl</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> Exception
+    <span style="color:#666">{</span>
+        assertTrue<span style="color:#666">(</span> session<span style="color:#666">.</span><span style="color:#b44">exists</span><span style="color:#666">(</span> <span style="color:#b44">&#34;cn=parent,ou=system&#34;</span> <span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
 
-    if ( connection.isControlSupported( &quot;1.2.840.113556.1.4.805&quot; ) )
-    {
-        DeleteRequest deleteRequest = new DeleteRequestImpl();
-        deleteRequest.setName( new Dn( &quot;cn=parent,ou=system&quot; ) );
-        Control deleteTreeControl = new OpaqueControl( &quot;1.2.840.113556.1.4.805&quot; );
-        deleteRequest.addControl( deleteTreeControl );
-
-        DeleteResponse deleteResponse = connection.delete( deleteRequest );
-
-        assertNotNull( deleteResponse );
-        assertEquals( ResultCodeEnum.SUCCESS, deleteResponse.getLdapResult().getResultCode() );
-        assertFalse( session.exists( &quot;cn=parent,ou=system&quot; ) );
-    }
-}
-</code></pre>
-<h2 id="asynchronous-delete">Asynchronous delete</h2>
+        <span style="color:#a2f;font-weight:bold">if</span> <span style="color:#666">(</span> connection<span style="color:#666">.</span><span style="color:#b44">isControlSupported</span><span style="color:#666">(</span> <span style="color:#b44">&#34;1.2.840.113556.1.4.805&#34;</span> <span style="color:#666">)</span> <span style="color:#666">)</span>
+        <span style="color:#666">{</span>
+            DeleteRequest deleteRequest <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> DeleteRequestImpl<span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
+            deleteRequest<span style="color:#666">.</span><span style="color:#b44">setName</span><span style="color:#666">(</span> <span style="color:#a2f;font-weight:bold">new</span> Dn<span style="color:#666">(</span> <span style="color:#b44">&#34;cn=parent,ou=system&#34;</span> <span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+            Control deleteTreeControl <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> OpaqueControl<span style="color:#666">(</span> <span style="color:#b44">&#34;1.2.840.113556.1.4.805&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+            deleteRequest<span style="color:#666">.</span><span style="color:#b44">addControl</span><span style="color:#666">(</span> deleteTreeControl <span style="color:#666">)</span><span style="color:#666">;</span>
+    
+            DeleteResponse deleteResponse <span style="color:#666">=</span> connection<span style="color:#666">.</span><span style="color:#b44">delete</span><span style="color:#666">(</span> deleteRequest <span style="color:#666">)</span><span style="color:#666">;</span>
+    
+            assertNotNull<span style="color:#666">(</span> deleteResponse <span style="color:#666">)</span><span style="color:#666">;</span>
+            assertEquals<span style="color:#666">(</span> ResultCodeEnum<span style="color:#666">.</span><span style="color:#b44">SUCCESS</span><span style="color:#666">,</span> deleteResponse<span style="color:#666">.</span><span style="color:#b44">getLdapResult</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">.</span><span style="color:#b44">getResultCode</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+            assertFalse<span style="color:#666">(</span> session<span style="color:#666">.</span><span style="color:#b44">exists</span><span style="color:#666">(</span> <span style="color:#b44">&#34;cn=parent,ou=system&#34;</span> <span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+        <span style="color:#666">}</span>
+    <span style="color:#666">}</span>
+</code></pre></div><h2 id="asynchronous-delete">Asynchronous delete</h2>
 <p>You can also decide to send an asynchronous delete request : the method will return a Future that you can check later. You have to construct a <strong>[DeleteRequest]</strong> instance. Here is an example :</p>
-<pre><code>:::Java
-@Test
-public void testDeleteAsync() throws Exception
-{
-    assertTrue( session.exists( &quot;cn=child,cn=parent,ou=system&quot; ) );
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    <span style="color:#a2f">@Test</span>
+    <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">testDeleteAsync</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> Exception
+    <span style="color:#666">{</span>
+        assertTrue<span style="color:#666">(</span> session<span style="color:#666">.</span><span style="color:#b44">exists</span><span style="color:#666">(</span> <span style="color:#b44">&#34;cn=child,cn=parent,ou=system&#34;</span> <span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
 
-    DeleteRequest deleteRequest = new DeleteRequestImpl();
-    deleteRequest.setName( new Dn( &quot;cn=child,cn=parent,ou=system&quot; ) );
+        DeleteRequest deleteRequest <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> DeleteRequestImpl<span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
+        deleteRequest<span style="color:#666">.</span><span style="color:#b44">setName</span><span style="color:#666">(</span> <span style="color:#a2f;font-weight:bold">new</span> Dn<span style="color:#666">(</span> <span style="color:#b44">&#34;cn=child,cn=parent,ou=system&#34;</span> <span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
 
-    DeleteFuture deleteFuture = connection.deleteAsync( deleteRequest );
+        DeleteFuture deleteFuture <span style="color:#666">=</span> connection<span style="color:#666">.</span><span style="color:#b44">deleteAsync</span><span style="color:#666">(</span> deleteRequest <span style="color:#666">)</span><span style="color:#666">;</span>
 
-    DeleteResponse deleteResponse = deleteFuture.get( 1000, TimeUnit.MILLISECONDS );
+        DeleteResponse deleteResponse <span style="color:#666">=</span> deleteFuture<span style="color:#666">.</span><span style="color:#b44">get</span><span style="color:#666">(</span> 1000<span style="color:#666">,</span> TimeUnit<span style="color:#666">.</span><span style="color:#b44">MILLISECONDS</span> <span style="color:#666">)</span><span style="color:#666">;</span>
 
-    assertNotNull( deleteResponse );
-    assertEquals( ResultCodeEnum.SUCCESS, deleteResponse.getLdapResult().getResultCode() );
-    assertFalse( session.exists( &quot;cn=child,cn=parent,ou=system&quot; ) );
-}
-</code></pre>
-
+        assertNotNull<span style="color:#666">(</span> deleteResponse <span style="color:#666">)</span><span style="color:#666">;</span>
+        assertEquals<span style="color:#666">(</span> ResultCodeEnum<span style="color:#666">.</span><span style="color:#b44">SUCCESS</span><span style="color:#666">,</span> deleteResponse<span style="color:#666">.</span><span style="color:#b44">getLdapResult</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">.</span><span style="color:#b44">getResultCode</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+        assertFalse<span style="color:#666">(</span> session<span style="color:#666">.</span><span style="color:#b44">exists</span><span style="color:#666">(</span> <span style="color:#b44">&#34;cn=child,cn=parent,ou=system&#34;</span> <span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+    <span style="color:#666">}</span>
+</code></pre></div>
 
             
     <div class="nav">

@@ -170,10 +170,8 @@
 <p>An encoded ASN/1 message is a tuple contianing two or three elements : a <strong>T</strong>ype, a <strong>L</strong>ength and optionally - ie if the length is not 0 - a <strong>V</strong>alue. This tuple is called a <strong>TLV</strong>. Every message is a <strong>TLV</strong>.</p>
 <p>But a message can be have complex structure, so a <strong>TLV</strong> itself can encapsulate some <strong>TLV</strong>s. Actually the <strong>V</strong> part can be a list of <strong>TLV</strong>s. This is recursive&hellip;</p>
 <p>A typical encoded message can therefore represented this way :</p>
-<pre><code>:::
-[TL [TLV] [TL [TLV] [TLV]]]
-</code></pre>
-<p>Here, the message <strong>TLV</strong> value is a set of two <strong>TLV</strong>s, teh second one being itself a composition of 2 <strong>TLV</strong>s.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Text" data-lang="Text">    [TL [TLV] [TL [TLV] [TLV]]]
+</code></pre></div><p>Here, the message <strong>TLV</strong> value is a set of two <strong>TLV</strong>s, teh second one being itself a composition of 2 <strong>TLV</strong>s.</p>
 <p>The <strong>T</strong> describe the type of value, the <strong>L</strong> gives the length of this value (can be 0) and of course the <strong>V</strong> is the value, which can itself be a <strong>TLV</strong>.</p>
 <h3 id="encoderdecoder">Encoder/Decoder</h3>
 <p>There are two aspects we have to deal with :</p>
