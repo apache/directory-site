@@ -22,7 +22,7 @@ IDEA users can import [this file](settings.jar) to enfore the code formating.
 First, you **must** (and this rule accept no exception) use this header in top of all source file, or each file in which you can have comments :
 
 
-	:::java
+```Java
 	/*
 	 *  Licensed to the Apache Software Foundation (ASF) under one
 	 *  or more contributor license agreements.  See the NOTICE file
@@ -42,6 +42,7 @@ First, you **must** (and this rule accept no exception) use this header in top o
 	 *  under the License.
 	 *
 	 */
+```
 
 ### Class/Interface headers
 
@@ -50,8 +51,9 @@ Each **Class** or *Interface* should have an header which must contains :
 * A descrption of this class/interface
 * an *author* tag which should be :
 
-		:::java
+```Java
 		@author <a href="mailto:dev@directory.apache.org">Apache Directory Project</a>
+```
 
 <DIV class="note" markdown="1">
 Thanks to avoid to put your name. The code is not yours, and much more important, but putting ypur name and e-mail, you will intimidate other developper ("Oh, no, I won't mess with this code, it has been developped by XXXX \!") and second, you will receive mail in three years even if you have stopped all commitment on the project (and those who have sent you an e-mail will think that the project's memeber are not responsive...)
@@ -131,7 +133,7 @@ Some general rules :
 
 This is a code example :
 
-	:::java    
+```Java    
 	...
     int result = myMethod( param1, param2 )
     
@@ -140,7 +142,7 @@ This is a code example :
         // do something
     }
     ...
-
+```
 
 ## Imports
 

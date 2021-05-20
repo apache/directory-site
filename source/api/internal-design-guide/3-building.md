@@ -14,7 +14,7 @@ The project is based on **Apache Maven** (version 3.x), so you'll have to instal
 
 That being said, building the **LDAP API** is pretty straightforward :
 
-    :::
+```Text
     $ mvn clean install
     Java HotSpot(TM) 64-Bit Server VM warning: ignoring option MaxPermSize=256M; support was removed in 8.0
     [INFO] Scanning for projects...
@@ -35,7 +35,7 @@ That being said, building the **LDAP API** is pretty straightforward :
     [INFO] Building Apache Directory LDAP API 2.0.0.AM1-SNAPSHOT
     [INFO] ------------------------------------------------------------------------
     ...
-
+```
 
 It takes around 1 min to build it all (a bit longer the first time, as some dependencies wil have to be pulled from the net).
 

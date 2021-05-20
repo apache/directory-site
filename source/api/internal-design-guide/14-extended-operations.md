@@ -14,7 +14,7 @@ navNextText: 15 - LDIF
 
 Here is the syntax for the extended Operation :
 
-    
+```Text   
     ExtendedRequest ::= [APPLICATION 23] SEQUENCE {
         requestName      [0] LDAPOID,
         requestValue     [1] OCTET STRING OPTIONAL }
@@ -23,6 +23,7 @@ Here is the syntax for the extended Operation :
         COMPONENTS OF LDAPResult,
         responseName     [10] LDAPOID OPTIONAL,
         responseValue    [11] OCTET STRING OPTIONAL }
+```
 
 (the payload is the _requestValue_ or _responseValue_ part, which may be **BER** encoded).
 
@@ -51,7 +52,7 @@ When the _requestValue_ part is present, it has to be encoded (when the client s
 The payload is decoded on the fly when the request/response is processed during the _extendedRequest_/_extendedResponse_ is being decoded. The _StoreExtendedRequestValue_/_StoreExtendedResponseValue_ will store the _byte[]_ - if any - and depending on the operation, the specific request/response will decode the value. Here is the _action_ method for the _StoreExtendedRequestValue_ class :
 
 
-    :::Java
+```Java
     public void action( LdapMessageContainer<ExtendedRequestDecorator<?>> container ) throws DecoderException
     {
         // We can allocate the ExtendedRequest Object
@@ -70,12 +71,13 @@ The payload is decoded on the fly when the request/response is processed during 
         {
             extendedRequest.setRequestValue( tlv.getValue().getData() );
         }
+```
 
 Each implementaion may have a _setRequestValue_/_setResponseValue_ methd, overloading the parentclass. In this case, the value is decoded by the method.
 
 Here is an example of _setRequestValue_ implementation (for the _PasswordModifyRequest_ class) :
 
-    :::Java
+```Java
     public void setRequestValue( byte[] requestValue )
     {
         PasswordModifyRequestDecoder decoder = new PasswordModifyRequestDecoder();
@@ -100,6 +102,7 @@ Here is an example of _setRequestValue_ implementation (for the _PasswordModifyR
             throw new RuntimeException( e );
         }
     }
+```
 
 As we can see, the decoder is invoked if the _requestValue_ bytes is not null. It instanciate a _PasswordModifyRequest_.
 
@@ -117,7 +120,7 @@ Encoding is done through a _Decorator_. Each extended operation has a dedicated 
 
 If there is a payload to encode, this is done by calling the _getRequestValue()_/_getResponseValue()_ method in the decorator. Here is an example :
 
-    :::Java
+```Java
     public byte[] getRequestValue()
     {
         if ( requestValue == null )
@@ -135,7 +138,7 @@ If there is a payload to encode, this is done by calling the _getRequestValue()_
 
         return requestValue;
     }
-
+```
 
 The _encodeInternal_ method is in charge of encoding teh paylod.
 
@@ -143,7 +146,7 @@ If the _getRequestValue_/getResponseValue_ method is absent, that leans there is
 
 Internally, we compute the length of the needed **PDU** accordingly to the data we have to encode, allocate a _ByteBuffer_ to hold the encoded data, and store teh encoded data into it :
 
-    :::Java
+```Java
     /**
      * Encodes the PasswordModifyRequest extended operation.
      * 
@@ -183,12 +186,12 @@ Internally, we compute the length of the needed **PDU** accordingly to the data 
 
         return bb;
     }
-
+```
 
 and the _computeLength_ method is :
 
 
-    :::Java
+```Java
     /**
      * Compute the PasswordModifyRequest extended operation length
      * <pre>
@@ -223,7 +226,7 @@ and the _computeLength_ method is :
 
         return 1 + TLV.getNbBytes( requestLength ) + requestLength;
     }
-
+```
 
 ## Adding a new Extended operation
 
@@ -234,7 +237,7 @@ The _startTransactionResponse_ has no _responseName_ and a _responseValue_ conta
 
 We first need to declare an interface and implementation for each of those two operations. Those four elements are declared in the _<coec-api>_ module (in _/ldap/extras/codec-api_), and in the _org.apache.directory.api.ldap.extras.extended.startTransaction_ package, beside the other extended operations :
 
-    :::Java
+```Java
     package org.apache.directory.api.ldap.extras.extended.startTransaction;
 
 
@@ -259,13 +262,14 @@ We first need to declare an interface and implementation for each of those two o
         /** The OID for the Transaction extended operation request. */
         String EXTENSION_OID = "1.3.6.1.1.21.1";
     }
+```
 
 The request interface defines noting but the _OID_, as we don't have any payload.
 
 Here is the implementation :
 
 
-    :::Java
+```Java
     package org.apache.directory.api.ldap.extras.extended.startTransaction;
 
 
@@ -324,12 +328,13 @@ Here is the implementation :
             return ( StartTransactionResponse ) getResponse();
         }
     }
+```
 
 We just implement the method that returns the associated response.
 
 Now for the response, which has an opaque value, here is the interface :
 
-    :::Java
+```Java
     package org.apache.directory.api.ldap.extras.extended.startTransaction;
 
 
@@ -362,12 +367,13 @@ Now for the response, which has an opaque value, here is the interface :
          */
         byte[] getTransactionId();
     }
+```
 
 As the response value is opaque, we return it as a _byte[]_.
 
 Here is the implementation :
 
-    :::Java
+```Java
     package org.apache.directory.api.ldap.extras.extended.startTransaction;
 
 
@@ -543,6 +549,7 @@ Here is the implementation :
             this.transactionId = Strings.copy( transactionId );
         }
     }
+```
 
 There is nothing special in this implementation, we just make it so the _transactionId_ bytes are copied to be sure they can't be altered from the outside. Basically, the payload is transfered pristine into the instance.
 
@@ -550,7 +557,7 @@ Now that we have the interfaces and implementations, we need to add the decorato
 
 Here is the factory code, declared in the _<extra-codec>_ module :
 
-    :::Java
+```Java
     package org.apache.directory.api.ldap.extras.extended.ads_impl.startTransaction;
 
 
@@ -650,13 +657,13 @@ Here is the factory code, declared in the _<extra-codec>_ module :
             return new StartTransactionResponseDecorator( codec, null );
         }
     }
-
+```
 
 The decorator are very simple : they just encapsulate the requets or response instance. It's because encoding or decoding is non existant for this operation. Decorators are declared in the _<extra-codec>_ module.
 
 Here is teh code for both those decorators :
 
-    :::Java
+```Java
     package org.apache.directory.api.ldap.extras.extended.ads_impl.startTransaction;
 
 
@@ -700,11 +707,11 @@ Here is teh code for both those decorators :
             return ( StartTransactionResponse ) startTransactionRequest.getResultResponse();
         }
     }
-
+```
 
 and for the response :
 
-    :::Java
+```Java
     package org.apache.directory.api.ldap.extras.extended.ads_impl.startTransaction;
 
 
@@ -756,7 +763,7 @@ and for the response :
             return startTransactionResponse.getTransactionId();
         }
     }
-
+```
 
 The last step is to declare the extended operation in the **LDAP API** initialization and **OSGi**. There are two places we have to declare the factory :
 
@@ -766,7 +773,7 @@ The last step is to declare the extended operation in the **LDAP API** initializ
 
 Here is the added code in the _CodecFactoryUtil_ class :
 
-    :::Java
+```Java
     ...
     import org.apache.directory.api.ldap.extras.extended.ads_impl.startTls.StartTlsFactory;
     import org.apache.directory.api.ldap.extras.extended.ads_impl.startTransaction.StartTransactionFactory;
@@ -795,13 +802,14 @@ Here is the added code in the _CodecFactoryUtil_ class :
             ...
         }
     }
+```
 
 We just need to instanciate the factory, and to add it to the map of supported extended operations.
 
 
 And the added code for the _ExtrasBundleActivator_ class :
 
-    :::Java
+```Java
     ...
     import org.apache.directory.api.ldap.extras.extended.ads_impl.startTls.StartTlsFactory;
     import org.apache.directory.api.ldap.extras.extended.ads_impl.startTransaction.StartTransactionFactory;
@@ -848,13 +856,14 @@ And the added code for the _ExtrasBundleActivator_ class :
             ...
         }
     }
+```
 
 We also have to export the package for it to be visible when using **OSGi**. This is done by modifying some _pom.xml_ files.
 
 
 _<ldap/extras/codec>_ module _pom.xml_ file :
 
-    :::XML
+```XML
     ...
     <configuration>
       <manifestLocation>META-INF</manifestLocation>
@@ -875,11 +884,11 @@ _<ldap/extras/codec>_ module _pom.xml_ file :
           org.apache.directory.api.ldap.extras.extended.startTransaction;version=${project.version},
           ...
         </Import-Package>
-
+```
 
 _<ldap/extras/codec-api>_ module _pom.xml_ file :
 
-    :::XML
+```XML
     ...
     <configuration>
       <manifestLocation>META-INF</manifestLocation>
@@ -891,6 +900,7 @@ _<ldap/extras/codec-api>_ module _pom.xml_ file :
           org.apache.directory.api.ldap.extras.extended.startTransaction;version=${project.version};-noimport:=true,
           ...
         </Export-Package>
+```
 
 # A more complex example
 
@@ -898,7 +908,8 @@ Wealso have to add the _EndTransactionRequest_ and _endTransactionResponse_ exte
 
 The _EndTransactionResponse_ value follows this ASN.1 description :
 
-    
+
+```Text 
     txnEndRes ::= SEQUENCE {
         messageID MessageID OPTIONAL,
              -- msgid associated with non-success resultCode
@@ -908,6 +919,7 @@ The _EndTransactionResponse_ value follows this ASN.1 description :
              controls  Controls
         } OPTIONAL
     }
+```
 
 Here, [RFC 5805](https://tools.ietf.org/html/rfc5805) gives some information about the semantic of this grammar :
 
@@ -917,13 +929,15 @@ Here, [RFC 5805](https://tools.ietf.org/html/rfc5805) gives some information abo
 
 _Controls_ is a list of _Control_ as defined in [RFC 4511](https://tools.ietf.org/html/rfc4511#section-4.1.11), with the following ASN.1 description :
 
-    
+
+```Text    
     Controls ::= SEQUENCE OF control Control
 
     Control ::= SEQUENCE {
              controlType             LDAPOID,
              criticality             BOOLEAN DEFAULT FALSE,
              controlValue            OCTET STRING OPTIONAL }
+```
 
 So we may have many _updateControls_ and for each one of them, one to many _controls_. We will need to define a state machine to decode those two ASN/1 description.
 
@@ -975,7 +989,7 @@ We can see we don't have any state associated with the _Control_ decoding : it's
 
 Here is the _enum_ :
 
-    :::Java
+```Java
     package org.apache.directory.api.ldap.extras.extended.ads_impl.endTransaction;
 
 
@@ -1060,6 +1074,7 @@ Here is the _enum_ :
             return START_STATE;
         }
     }
+```
 
 We can now define transitions between states, accordingly to the grammar semantic :
 
@@ -1086,7 +1101,7 @@ Each state may have many transitions going to many different states, but each tr
 
 Here is an example of transition :
 
-    :::Java
+```Java
     /**
      * Transition from Sequence to messageId
      *
@@ -1130,5 +1145,6 @@ Here is an example of transition :
                     }
                 }
             } );
+```
 
 In this example, we have a transition from a **END_TRANSACTION_SEQUENCE_STATE** state to a **FAILED_MESSAGE_ID** state, which is triggered by an **INTEGER** tag. The executed action is created immediately, but it could have been a separated class.

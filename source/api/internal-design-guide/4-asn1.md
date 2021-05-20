@@ -37,8 +37,9 @@ But a message can be have complex structure, so a **TLV** itself can encapsulate
 
 A typical encoded message can therefore represented this way : 
     
-    :::
+```Text
     [TL [TLV] [TL [TLV] [TLV]]]
+```
 
 Here, the message **TLV** value is a set of two **TLV**s, teh second one being itself a composition of 2 **TLV**s.
 
