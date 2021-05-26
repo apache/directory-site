@@ -3,6 +3,39 @@ title: News
 ---
 
 # News 
+<h2 class="news">Apache Directory LDAP API 2.0.2 released <em>posted on May 25th, 2021</em></h2>
+
+The Apache Directory Team is proud to announce the availability of version 2.0.2 of the Apache Directory LDAP API.
+
+The Apache Directory LDAP API is an ongoing effort to provide an enhanced LDAP API, as a replacement for JNDI and the existing LDAP API (jLdap and Mozilla LDAP API).
+
+This is a schema aware API, with some convenient ways to access a LDAP server. This API is not only targeting the Apache Directory Server, but should work pristine with any LDAP server.
+
+It's also an extensible API : new Controls, schema elements and network layer could be added or used in the near future. It's also OSGi capable.
+
+This is a bug fix and maintenance release:
+
+**Bugs:**
+
+* [DIRAPI-358](https://issues.apache.org/jira/browse/DIRAPI-358) - File Descriptor leak on connection failure with LdapConnectionTemplate
+* [DIRAPI-364](https://issues.apache.org/jira/browse/DIRAPI-364) - Internal Error in response when using authRequest
+* [DIRAPI-365](https://issues.apache.org/jira/browse/DIRAPI-365) - unable to use # pound hash sign in LDAP filters
+* [DIRAPI-366](https://issues.apache.org/jira/browse/DIRAPI-366) - NPE for reading Root DSE with Oracle Unified Directory
+* [DIRAPI-368](https://issues.apache.org/jira/browse/DIRAPI-368) - StackOverflowError when working with entries with thousands of attributes or values
+* [DIRAPI-370](https://issues.apache.org/jira/browse/DIRAPI-370) - LdifReader does not preserve user provided attribute name
+* [DIRAPI-371](https://issues.apache.org/jira/browse/DIRAPI-371) - Misleading Javadoc in Dn.add()
+
+**Improvement:**
+
+* [DIRAPI-359](https://issues.apache.org/jira/browse/DIRAPI-359) - Propagate exceptions that are caught during the response handling
+
+**Wish:**
+
+* [DIRAPI-372](https://issues.apache.org/jira/browse/DIRAPI-372) - Publish new Version on Maven Central to get rid of vulnerable dependency
+
+Downloads are available [here](downloads-2.html) and the User's Guide is [there](user-guide.html)
+
+
 <h2 class="news">Apache Directory LDAP API 2.0.1 released <em>posted on March 26th, 2020</em></h2>
 
 The Apache Directory Team is proud to announce the availability of version 2.0.1 of the Apache Directory LDAP API.

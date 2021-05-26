@@ -405,70 +405,36 @@ We will copy two directories :
     apidocs
     xref
 
-*Staging or Production?*
+They are uploaded to https://nightlies.apache.org/ via WebDAV protocol.
 
-<DIV class="info" markdown="1">
-Those files will be stored on the production server only !!! And some extra caution ust be taken not to delete them when we will publish the staging site too...
-</DIV>
+First create the folders for the version:
 
-First of all, you must checkout the two CMS store for the site : staging and production.
+    $ curl -u yourasfid -X MKCOL 'https://nightlies.apache.org/directory/api/2.0.2/'
+    $ curl -u yourasfid -X MKCOL 'https://nightlies.apache.org/directory/api/2.0.2/apidocs'
+    $ curl -u yourasfid -X MKCOL 'https://nightlies.apache.org/directory/api/2.0.2/xref'
 
-    
-    $ cd ~/apacheds
-    $ svn co https://svn.apache.org/repos/infra/websites/staging/directory/trunk staging
-    ...
-    $ svn co https://svn.apache.org/repos/infra/websites/production/directory production
-    ...
+I used [Rclone](https://rclone.org/) to copy folders via WebDAV.
 
-Now, you will first add the directory for the newly generated version :
+After intallation run `rclone config` and configure the `nightlies` connection:
 
-    
-    $ cd ~/apacheds/production/content/api/gen-docs
-    $ mkdir <version>
-    $ svn add <version>
+    $ rclone config
+    name: nightlies
+    type: webdav
+    url: https://nightlies.apache.org
+    vendor: other
+    user: yourasfid
+    pass: yourasfpassword (will be stored encrypted)
 
-Then copy the generated docs :
+Then copy the directories:
 
-    
-    $ cp -r ~/apacheds/trunks/api/target/checkout/target/site/apidocs ~/apacheds/production/content/api/gen-docs/<version>
-    $ cp -r ~/apacheds/trunks/api/target/checkout/target/site/xref ~/apacheds/production/content/api/gen-docs/<version>
-    $ 
+    cd target/checkout/target/site
+    rclone copy --progress apidocs nightlies:/directory/api/2.0.2/apidocs
+    rclone copy --progress xref nightlies:/directory/api/2.0.2/xref
 
-You have to check in those directories :
+Finally update the links in the `static/api/gen-docs/.htaccess` of the directory-site repo:
 
-    
-    $ svn add <version>/*
-    $ svn ci <version> -m "Injected <version> javadocs"
-
-Now, you have to update the staging site <em>extpaths.txt</em>
-
-This file list the file on the production site that will not be overriden by the publication of the staging site. It has to be updated
-
-    
-    $ cd ~/apacheds/staging/content/
-    $ vi extpaths.txt
-
-Add the following line :
-
-    
-    ...
-    # API
-    api/gen-docs/<version>
-    ...
-
-then save and check in the file <em>extpaths.txt</em>
-
-We also have to update the <em>.htaccess</em> file :
-
-    
-    $ cd ~/apacheds/staging/content/api/gen-docs
-    $ vi .htaccess
-
-And update the two last lines to refer to the version you've just released :
-
-    
-    RewriteRule ^latest$ <version>/
-    RewriteRule ^latest/(.*)$ <version>/$1
+    RewriteRule ^latest2$ https://nightlies.apache.org/directory/api/2.0.2/ [QSA,L]
+    RewriteRule ^latest2/(.*)$ https://nightlies.apache.org/directory/api/2.0.2/$1 [QSA,L]
 
 Save and commit the file.
 
@@ -478,12 +444,15 @@ You can now update the site, add a news on the front page, and publish the site.
 
 There are a few places to modify :
 
-* /config.toml : update the version_api variable with the new version.
-* /source/_index.md  : same here, update the <!-- LDAP API project --> section, which contains the version.
+* /config.toml : update the `version_api2` variable with the new version.
 * /source/api/news.md : add the news on top of this page
 * /source/api/download-old-versions.md : add a new line on top of the array, which refers to the latest version before the new one
 
 Commit the changes, and publish the web site, you are done !
+
+### Update Apache Reporter
+
+Add release to https://reporter.apache.org/addrelease.html?directory
 
 ### Inform the world !
 
