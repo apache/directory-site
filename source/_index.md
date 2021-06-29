@@ -46,10 +46,10 @@ td {font-size: 12px;}
       <!-- Apache LDAP API project -->
       <td style="border-width: 0; border-right: 1px solid silver; padding-right: 15px; width:50%;" valign="top">
         <div class="download-link">
-          <a href="api/downloads-1.html" class="download_badge_api"><b>Download Apache<br>LDAP API {{< param version_api >}}</b></a>
+          <a href="api/downloads-2.html" class="download_badge_api"><b>Download Apache<br>LDAP API {{< param version_api2 >}}</b></a>
         </div>
         <div class="download-link">
-          <a href="api/downloads-2.html" class="download_badge_api"><b>Download Apache<br>LDAP API {{< param version_api2 >}}</b></a>
+          <a href="api/downloads-1.html" class="download_badge_api"><b>Download Apache<br>LDAP API {{< param version_api >}}</b></a>
         </div>
         <div class="separator">&nbsp;</div>
         The Apache Directory LDAP API is an ongoing effort to provide an enhanced LDAP API, as a replacement for JNDI and the existing LDAP API (jLdap and Mozilla LDAP API).

@@ -14,10 +14,10 @@ slug: index
       The API is OSGI ready and extensible. New controls, schema elements and network layer could be added or used in the near future.
     </div>
     <div class="download-link">
-      <a href="/api/downloads-1.html" class="download_badge"><b>Download Apache<br>LDAP API {{< param version_api >}}</b></a>
+      <a href="/api/downloads-2.html" class="download_badge"><b>Download Apache<br>LDAP API {{< param version_api2 >}}</b></a>
     </div>
     <div class="download-link">
-      <a href="/api/downloads-2.html" class="download_badge"><b>Download Apache<br>LDAP API {{< param version_api2 >}}</b></a>
+      <a href="/api/downloads-1.html" class="download_badge"><b>Download Apache<br>LDAP API {{< param version_api >}}</b></a>
     </div>
   </div>
   <div class="right">
