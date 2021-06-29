@@ -3,6 +3,31 @@ title: News
 ---
 
 # News 
+
+<h2 class="news">Apache Directory LDAP API 2.1.0 released <em>posted on June 29th, 2021</em></h2>
+
+The Apache Directory Team is proud to announce the availability of version 2.1.0 of the Apache Directory LDAP API.
+
+The Apache Directory LDAP API is an ongoing effort to provide an enhanced LDAP API, as a replacement for JNDI and the existing LDAP API (jLdap and Mozilla LDAP API).
+
+This is a schema aware API, with some convenient ways to access a LDAP server. This API is not only targeting the Apache Directory Server, but should work pristine with any LDAP server.
+
+It's also an extensible API : new Controls, schema elements and network layer could be added or used in the near future. It's also OSGi capable.
+
+This is a security enhancement release:
+
+
+**Improvement:**
+
+* [DIRAPI-373]https://issues.apache.org/jira/browse/DIRAPI-373) - Implement SASL integrity and confidentiality layer
+* [DIRAPI-374]https://issues.apache.org/jira/browse/DIRAPI-374) - Consistify LdapConnectionConfig useTls and useSsl flags
+* [DIRAPI-375]https://issues.apache.org/jira/browse/DIRAPI-375) - Add TLSv1.3 to default protocols
+* [DIRAPI-376]https://issues.apache.org/jira/browse/DIRAPI-376) - Change getRootDse() to return all user and operational attibutes
+* [DIRAPI-377]https://issues.apache.org/jira/browse/DIRAPI-377) - Add LDAP Relax Rules Control
+
+Downloads are available [here](downloads-2.html) and the User's Guide is [there](user-guide.html)
+
+
 <h2 class="news">Apache Directory LDAP API 2.0.2 released <em>posted on May 25th, 2021</em></h2>
 
 The Apache Directory Team is proud to announce the availability of version 2.0.2 of the Apache Directory LDAP API.

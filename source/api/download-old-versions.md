@@ -10,6 +10,7 @@ title: Download Old Versions
 
 | Version| Download Link | Javadoc & XRef |  Date |
 |:-:|:-:|:-:|:-:|
+| Apache LDAP API 2.0.2 | [Download](https://archive.apache.org/dist/directory/api/dist/2.0.2) | [Javadoc](https://svn.apache.org/repos/infra/websites/production/directory/content/api/gen-docs/2.0.2/apidocs/index.html), [Xref](https://svn.apache.org/repos/infra/websites/production/directory/content/api/gen-docs/2.0.2/xref/index.html) |25/May/2021 |
 | Apache LDAP API 2.0.1 | [Download](https://archive.apache.org/dist/directory/api/dist/2.0.1) | [Javadoc](https://svn.apache.org/repos/infra/websites/production/directory/content/api/gen-docs/2.0.1/apidocs/index.html), [Xref](https://svn.apache.org/repos/infra/websites/production/directory/content/api/gen-docs/2.0.1/xref/index.html) |26/Mar/2020 |
 | Apache LDAP API 2.0.0 | [Download](https://archive.apache.org/dist/directory/api/dist/2.0.0) | [Javadoc](https://svn.apache.org/repos/infra/websites/production/directory/content/api/gen-docs/2.0.0/apidocs/index.html), [Xref](https://svn.apache.org/repos/infra/websites/production/directory/content/api/gen-docs/2.0.0/xref/index.html) |13/Nov/2019 |
 | Apache LDAP API 2.0.0.AM4 | [Download](https://archive.apache.org/dist/directory/api/dist/2.0.0.AM4) | [Javadoc](https://svn.apache.org/repos/infra/websites/production/directory/content/api/gen-docs/2.0.0.AM4/apidocs/index.html), [Xref](https://svn.apache.org/repos/infra/websites/production/directory/content/api/gen-docs/2.0.0.AM4/xref/index.html) |09/Jun/2019 |
