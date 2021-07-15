@@ -8,6 +8,7 @@ title: Download Old Versions
 
 | Version| Download Link | Javadoc | Date |
 |:-:|:-:|:-:|:-:|
+| Apache Fortress 2.0.5 | [Download](https://archive.apache.org/dist/directory/fortress/dist/2.0.5) | [Javadoc](https://svn.apache.org/repos/infra/websites/production/directory/content/fortress/gen-docs/2.0.5/apidocs/index.html) |26/May/2020 |
 | Apache Fortress 2.0.4 | [Download](https://archive.apache.org/dist/directory/fortress/dist/2.0.4) | [Javadoc](https://svn.apache.org/repos/infra/websites/production/directory/content/fortress/gen-docs/2.0.4/apidocs/index.html) |13/December/2019 |
 | Apache Fortress 2.0.3 | [Download](https://archive.apache.org/dist/directory/fortress/dist/2.0.3) | [Javadoc](https://svn.apache.org/repos/infra/websites/production/directory/content/fortress/gen-docs/2.0.3/apidocs/index.html) |12/November/2018 |
 | Apache Fortress 2.0.2 | [Download](https://archive.apache.org/dist/directory/fortress/dist/2.0.2) | [Javadoc](https://svn.apache.org/repos/infra/websites/production/directory/content/fortress/gen-docs/2.0.2/apidocs/index.html) |12/September/2018 |

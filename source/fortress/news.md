@@ -4,6 +4,15 @@ title: News
 
 # Fortress News
 
+<h2 class="news">Apache Fortress 2.0.6 Released <em>posted on July 15th, 2021</em></h2>
+
+The Apache Directory Project announces the thirteenth release of Fortress - 2.0.6.
+
+This release includes migration to Apache LDAP API 2.x, Apache Log4j2, and many other fixes and improvements.
+
+The Release notes:
+
+* <a href="https://issues.apache.org/jira/projects/FC/versions/12349361">Fortress 2.0.6 Release Notes</a>
 
 <h2 class="news">Apache Fortress 2.0.5 Released <em>posted on May 26th, 2020</em></h2>
 
