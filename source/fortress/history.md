@@ -11,7 +11,7 @@ foundation would sponsor the project and it would be released under a BSD-style 
 That first release, back in 2011, included just the fortress core and realm components, but development of the web interface (commander) and rest server (enmasse) was already underway.  A few more years saw many more release
 s and the eventual completion of the others rounding out the entire product line into what's available today.
 
-Eventually, it was understood that nights and weekends of a few developers isn't enough and so for the fortress concept to survive, it had to be carried into a larger field.  In 2014 the Fortress project moved from its Op
+Eventually, it was understood that nights and weekends of a few developers aren't enough and so for the fortress concept to survive, it had to be carried into a large field.  In 2014 the Fortress project moved from its Op
 enLDAP foundation home into the ASF as a subproject of the Apache Directory.
 
 This new home proved worthy as help from the Apache Directory project, along with its community has brought many improvements.
