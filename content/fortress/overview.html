@@ -135,7 +135,7 @@
 <p>Included are the following components:</p>
 <ul>
 <li>Core  - Java Authorization SDK</li>
-<li>Realm - Java EE security for Apache Tomcat</li>
+<li>Realm - Security provider for Apache Tomcat</li>
 <li>Rest  - HTTP protocol wrappers for the APIs using Apache CXF</li>
 <li>Web   - HTML pages and framework for the APIs using Apache Wicket</li>
 </ul>
@@ -178,31 +178,31 @@
 <h3 id="temporal-constraints">Temporal Constraints</h3>
 <p>The Fortress Temporal model allows Users and Roles to carry time and date Constraints which govern when activations may occur. Role constraints are checked on every call into Fortress.  The user constraint applied only at session creation.</p>
 <h3 id="ansi-rbac-policy-enhanced-incits-494-2012">ANSI RBAC Policy-Enhanced (INCITS-494-2012)</h3>
-<p>One day.</p>
+<p>Not yet but does check attributes during the user-role activation phase as described in this LDAPCon presentation: <a href="https://ldapcon.org/2019/wp-content/events/PGRNSN.htm">Towards an Attribute-Based Role-Based Access Control System</a></p>
 <h2 id="what-services-are-available">What services are available?</h2>
 <p>Over one hundred services divided across the Manager components.</p>
 <p>A description of these managers follow along with their associated javadoc links that describe the apis&hellip;</p>
-<p>###RBAC Managers</p>
+<h3 id="rbac-managers">RBAC Managers</h3>
 <ul>
 <li><a href="https://directory.apache.org/fortress/gen-docs/latest/apidocs/org/apache/directory/fortress/core/AccessMgr.html">AccessMgr.html</a> - Performs runtime access control operations on objects that are provisioned RBAC entities that reside in LDAP directory.</li>
 <li><a href="https://directory.apache.org/fortress/gen-docs/latest/apidocs/org/apache/directory/fortress/core/AdminMgr.html">AdminMgr.html</a> - Performs administrative functions to provision Fortress RBAC entities into the LDAP directory.</li>
 <li><a href="https://directory.apache.org/fortress/gen-docs/latest/apidocs/org/apache/directory/fortress/core/ReviewMgr.html">ReviewMgr.html</a> - The review functions on RBAC entities in LDAP.</li>
 </ul>
-<p>###ARBAC Managers</p>
+<h3 id="arbac-managers">ARBAC Managers</h3>
 <ul>
 <li><a href="https://directory.apache.org/fortress/gen-docs/latest/apidocs/org/apache/directory/fortress/core/DelAccessMgr.html">DelAccessMgr.html</a> - Runtime delegated access control operations on objects that are provisioned Fortress ARBAC entities that reside in LDAP.</li>
 <li><a href="https://directory.apache.org/fortress/gen-docs/latest/apidocs/org/apache/directory/fortress/core/DelAdminMgr.html">DelAdminMgr.html</a> - Policy administration of Fortress ARBAC entities in LDAP.</li>
 <li><a href="https://directory.apache.org/fortress/gen-docs/latest/apidocs/org/apache/directory/fortress/core/DelReviewMgr.html">DelReviewMgr.html</a> - Policy review ops of ARBAC entities in LDAP.</li>
 </ul>
-<p>###PW Policies Manager</p>
+<h3 id="pw-policies-manager">PW Policies Manager</h3>
 <ul>
 <li><a href="https://directory.apache.org/fortress/gen-docs/latest/apidocs/org/apache/directory/fortress/core/PwPolicyMgr.html">PwPolicyMgr.html</a> - Used to perform admin and review functions on the PWPOLICIES data sets.</li>
 </ul>
-<p>###Audit Manager</p>
+<h3 id="audit-manager">Audit Manager</h3>
 <ul>
 <li><a href="https://directory.apache.org/fortress/gen-docs/latest/apidocs/org/apache/directory/fortress/core/AuditMgr.html">AuditMgr.html</a> - Methods used to search OpenLDAP&rsquo;s slapd access log for fortress events.</li>
 </ul>
-<p>###Config Manager</p>
+<h3 id="config-manager">Config Manager</h3>
 <ul>
 <li><a href="https://directory.apache.org/fortress/gen-docs/latest/apidocs/org/apache/directory/fortress/core/ConfigMgr.html">ConfigMgr.html</a> - CRUD methods used to manage properties stored within LDAP.</li>
 </ul>
