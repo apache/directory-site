@@ -11,7 +11,7 @@ FORTRESS is a standards-based authorization system, that provides role-based acc
 Included are the following components:
 
 * Core  - Java Authorization SDK
-* Realm - Java EE security for Apache Tomcat
+* Realm - Security provider for Apache Tomcat
 * Rest  - HTTP protocol wrappers for the APIs using Apache CXF
 * Web   - HTML pages and framework for the APIs using Apache Wicket
 
@@ -78,7 +78,7 @@ The Fortress Temporal model allows Users and Roles to carry time and date Constr
 
 ### ANSI RBAC Policy-Enhanced (INCITS-494-2012)
 
-One day.
+Not yet but does check attributes during the user-role activation phase as described in this LDAPCon presentation: [Towards an Attribute-Based Role-Based Access Control System](https://ldapcon.org/2019/wp-content/events/PGRNSN.htm)
 
 ## What services are available?
 
@@ -86,27 +86,27 @@ Over one hundred services divided across the Manager components.
 
 A description of these managers follow along with their associated javadoc links that describe the apis...
 
-###RBAC Managers
+### RBAC Managers
 
 * [AccessMgr.html](https://directory.apache.org/fortress/gen-docs/latest/apidocs/org/apache/directory/fortress/core/AccessMgr.html) - Performs runtime access control operations on objects that are provisioned RBAC entities that reside in LDAP directory.
 * [AdminMgr.html](https://directory.apache.org/fortress/gen-docs/latest/apidocs/org/apache/directory/fortress/core/AdminMgr.html) - Performs administrative functions to provision Fortress RBAC entities into the LDAP directory.
 * [ReviewMgr.html](https://directory.apache.org/fortress/gen-docs/latest/apidocs/org/apache/directory/fortress/core/ReviewMgr.html) - The review functions on RBAC entities in LDAP.
 
-###ARBAC Managers
+### ARBAC Managers
 
 * [DelAccessMgr.html](https://directory.apache.org/fortress/gen-docs/latest/apidocs/org/apache/directory/fortress/core/DelAccessMgr.html) - Runtime delegated access control operations on objects that are provisioned Fortress ARBAC entities that reside in LDAP.
 * [DelAdminMgr.html](https://directory.apache.org/fortress/gen-docs/latest/apidocs/org/apache/directory/fortress/core/DelAdminMgr.html) - Policy administration of Fortress ARBAC entities in LDAP.
 * [DelReviewMgr.html](https://directory.apache.org/fortress/gen-docs/latest/apidocs/org/apache/directory/fortress/core/DelReviewMgr.html) - Policy review ops of ARBAC entities in LDAP.
 
-###PW Policies Manager
+### PW Policies Manager
 
 * [PwPolicyMgr.html](https://directory.apache.org/fortress/gen-docs/latest/apidocs/org/apache/directory/fortress/core/PwPolicyMgr.html) - Used to perform admin and review functions on the PWPOLICIES data sets.
 
-###Audit Manager
+### Audit Manager
 
 * [AuditMgr.html](https://directory.apache.org/fortress/gen-docs/latest/apidocs/org/apache/directory/fortress/core/AuditMgr.html) - Methods used to search OpenLDAP's slapd access log for fortress events.
 
-###Config Manager
+### Config Manager
 
 * [ConfigMgr.html](https://directory.apache.org/fortress/gen-docs/latest/apidocs/org/apache/directory/fortress/core/ConfigMgr.html) - CRUD methods used to manage properties stored within LDAP.
 

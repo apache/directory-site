@@ -7,9 +7,9 @@ slug: index
 <div class="hero clearfix">
   <div class="top">
     <h1>Apache Fortress&trade;</h1>
-    <h2>Access Management SDK and Web Components</h2>
+    <h2>Authorization SDK and Web Components</h2>
     <div class="description">
-       <b>A standards-based access management system, written in Java, supports ANSI INCITS 359 RBAC and more. </b> 
+       <b>A standards-based authorization platform, written in Java, supports ANSI INCITS 359 RBAC and more. </b> 
 <br><br>
     </div>
   </div>
