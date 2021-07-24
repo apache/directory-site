@@ -11,4 +11,5 @@ title: Security Advisories
 
 ## Apache Directory Studio
 
+ * [CVE-2021-33900](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-33900)
  * [CVE-2015-5349](https://nvd.nist.gov/vuln/detail/CVE-2015-5349)
