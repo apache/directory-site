@@ -4,6 +4,35 @@ title: ChangeLog
 
 # ChangeLog
 
+## Apache Directory Studio Version 2.0.0-M17 (July 24th 2021)
+
+### Bugs
+
+* [DIRSTUDIO-761](https://issues.apache.org/jira/browse/DIRSTUDIO-761) - GSSAPI Authentication fails when using ADS LDAP Client API
+* [DIRSTUDIO-1219](https://issues.apache.org/jira/browse/DIRSTUDIO-1219) - Directory Studio doesn't StartTLS before authenticating
+* [DIRSTUDIO-1220](https://issues.apache.org/jira/browse/DIRSTUDIO-1220) - Directory Studio doesn't use the SASL confidentiality layer after negotiating its use
+* [DIRSTUDIO-1265](https://issues.apache.org/jira/browse/DIRSTUDIO-1265) - Object is not removed from cache when it's deleted
+* [DIRSTUDIO-1267](https://issues.apache.org/jira/browse/DIRSTUDIO-1267) - Cannot create an entry with mandatory binary attribute
+* [DIRSTUDIO-1269](https://issues.apache.org/jira/browse/DIRSTUDIO-1269) - SOCKS proxy is not working
+* [DIRSTUDIO-1271](https://issues.apache.org/jira/browse/DIRSTUDIO-1271) - Oracle OUD 11.1.2.3 does not list any Naming Contexts in ldapbrowser with M16, previous releases are OK.
+* [DIRSTUDIO-1273](https://issues.apache.org/jira/browse/DIRSTUDIO-1273) - Search Logs/Modification Logs not showing up in MacOS
+* [DIRSTUDIO-1275](https://issues.apache.org/jira/browse/DIRSTUDIO-1275) - I updated on my mac to m16. Now only the proxy servers show the directory tree.
+* [DIRSTUDIO-1276](https://issues.apache.org/jira/browse/DIRSTUDIO-1276) - Illegal reflective access by org.apache.directory.studio.connection.core.io.api.LdifSearchLogger
+
+### Improvements:
+
+* [DIRSTUDIO-1279](https://issues.apache.org/jira/browse/DIRSTUDIO-1279) - Show SSL/TLS connection info and certificates
+
+### Tests:
+
+* [DIRSTUDIO-1274](https://issues.apache.org/jira/browse/DIRSTUDIO-1274) - Rework integration tests
+
+### Tasks:
+
+* [DIRSTUDIO-1189](https://issues.apache.org/jira/browse/DIRSTUDIO-1189) - dom4j illegal reflective access with Java 11
+* [DIRSTUDIO-1272](https://issues.apache.org/jira/browse/DIRSTUDIO-1272) - Remove Network Connections preferences page (socks proxy settings)
+
+
 ## Apache Directory Studio Version 2.0.0-M16 (February 21th 2021)
 ### Bugs
 
