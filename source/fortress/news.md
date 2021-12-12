@@ -12,7 +12,7 @@ This emergency release includes an upgrade to the latest Log4j library, v2.15.0.
 
 It also includes dependency upgrades for Web and Rest deployments to be up-to-date per the latest OWASP vulnerability scans and a couple of other bug fixes.
 
-If using Apache Fortress in any of your deployments, it is high recommended moving to this release, or following the other mitigation procedures surrounding this CVE.
+If using Apache Fortress in any of your deployments, it is highly recommended moving to this release. Or, following the other mitigation procedures surrounding this CVE.
 
 Contact us on our mailing list if you have any questions.
 
