@@ -4,6 +4,16 @@ title: News
 
 # Fortress News
 
+<h2 class="news">Apache Fortress 2.0.7 Released <em>posted on Dec 12th, 2021</em></h2>
+
+The Apache Directory Project announces the release of Fortress - 2.0.7.
+
+This release includes upgrades to latest Log4j2 2.15.0 in response to CVE-2021-44228 critical vulnerability. It also includes dependency upgrades for Web and Rest deployments to be up-to-date per the latest OWASP vulnerability scans and a couple of bug fixes.
+
+The Release notes:
+
+* <a href="https://issues.apache.org/jira/projects/FC/versions/12350941">Fortress 2.0.7 Release Notes</a>
+
 <h2 class="news">Apache Fortress 2.0.6 Released <em>posted on July 15th, 2021</em></h2>
 
 The Apache Directory Project announces the thirteenth release of Fortress - 2.0.6.
