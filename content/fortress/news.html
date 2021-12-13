@@ -132,16 +132,20 @@
 	<h1 id="fortress-news">Fortress News</h1>
 <h2 class="news">Apache Fortress 2.0.7 Released <em>posted on Dec 12th, 2021</em></h2>
 <p>The Apache Directory Project announces the release of Fortress - 2.0.7.</p>
-<p>This emergency release includes an upgrade to the latest Log4j-core library. This is our response to <a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=2021-44228">CVE-2021-44228</a>.</p>
-<p>It also includes other dependency upgrades (to latest Spring Security, Apache CXF and Apache Wicket) for Web and Rest dependencies to be up-to-date per the latest OWASP vulnerability scans and a couple of other misc bug fixes.</p>
+<p>Included in 2.0.7:</p>
+<ul>
+<li>Upgrades to the latest Log4j-core library 2.15.0. This is our response to <a href="http://cve.mitre.org/cgi-bin/cvename.cgi?name=2021-44228">CVE-2021-44228</a>.</li>
+<li>Other dependency upgrades (to latest Spring Security, Apache CXF and Apache Wicket) for Web and Rest dependencies to be up-to-date and clears up a few other CVE&rsquo;s associated with those libraries.</li>
+<li>A couple of misc bug fixes to the Core.</li>
+</ul>
 <p>More info about the Log4Shell vulnerability and Apache Fortress:</p>
 <ul>
-<li>If using the Apache Fortress Core 2.0.6, no need to upgrade.  It does pull in the Apache Log4j-core lib, but only as a test dependency.</li>
-<li>Dependent apps of the Apache Fortress Core 2.0.6 do not need to upgrade because it does not pull in the Log4j-core lib as a compile or runtime dependency.</li>
-<li>Apache Fortress 2.0.6 Web (Commander) and Rest (Enmasse) deployments are affected.  Upgrade immediately, or follow the mitigation procedures as described by the Apache Log4J project.</li>
-<li>Previous versions of Apache Fortress, before 2.0.6, did not use Apache Log4j and aren&rsquo;t affected.</li>
-<li>Contact us on our mailing list if you have any questions.</li>
+<li>If using the Apache Fortress Core 2.0.6, no need to upgrade. It uses the Apache Log4j-core lib, but only as a test dependency.</li>
+<li>Dependent apps of the Apache Fortress Core 2.0.6 don’t need to upgrade.  It doesn&rsquo;t pull in the Log4j-core lib, either as a compile or runtime dependency.</li>
+<li>Apache Fortress 2.0.6 Web (Commander) and Rest (Enmasse) deployments are affected. Upgrade immediately, or follow the mitigation procedures as described by the Apache Log4J project.</li>
+<li>Previous versions of Apache Fortress, before 2.0.6, did not use Apache Log4j and aren’t affected.</li>
 </ul>
+<p>Contact us on our mailing list if you have any questions.</p>
 <p>The Release notes:</p>
 <ul>
 <li><a href="https://issues.apache.org/jira/projects/FC/versions/12350941">Fortress 2.0.7 Release Notes</a></li>
