@@ -14,10 +14,10 @@ Included in 2.0.7:
 - A couple of misc bug fixes to the Core.
 
 More info about the Log4Shell vulnerability and Apache Fortress:
-- If using the Apache Fortress Core 2.0.6, no need to upgrade. It uses the Apache Log4j-core lib, but only as a test dependency.
-- Dependent apps of the Apache Fortress Core 2.0.6 don’t need to upgrade.  It doesn't pull in the Log4j-core lib, either as a compile or runtime dependency.
+- We migrated to use the Apache Log4J-Core in the previous release, 2.0.6. Versions of Apache Fortress before 2.0.6 aren’t affected.
+- If using the Apache Fortress Core 2.0.6, no need to upgrade. It uses the Apache Log4j-core lib only for testing.
+- Apps using or dependent of Apache Fortress Core 2.0.6 don’t need to upgrade.  It doesn't pull in the Log4j-core lib, either as a compile or runtime dependency.
 - Apache Fortress 2.0.6 Web (Commander) and Rest (Enmasse) deployments are affected. Upgrade immediately, or follow the mitigation procedures as described by the Apache Log4J project.
-- Previous versions of Apache Fortress, before 2.0.6, did not use Apache Log4j and aren’t affected.
 
 Contact us on our mailing list if you have any questions.
 
