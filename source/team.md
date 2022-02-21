@@ -15,6 +15,7 @@ title: Team
 | Jiajia Li | plusplusjiajia | PMC |||| 
 | Kai Zheng | drankye | PMC |||| 
 | Kiran Ayyagari | kayyagari | PMC ||||
+| Lothar Haeger | lhaeger | PMC | ![Lothar Haeger](images/team/lhaeger.png) |||
 | Lucas Theisen | lucastheisen | PMC ||||
 | Noel J. Bergman | noel | PMC ||||
 | Pierre Smits | pierresmits | PMC | ![Pierre Smits](images/team/pierresmits.png) | [![Website](images/team/website.png)](http://www.orrtiz.com) ||
