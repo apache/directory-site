@@ -15,7 +15,6 @@ title: Team
 | Jiajia Li | plusplusjiajia | PMC |||| 
 | Kai Zheng | drankye | PMC |||| 
 | Kiran Ayyagari | kayyagari | PMC ||||
-| Lothar Haeger | lhaeger | PMC | ![Lothar Haeger](images/team/lhaeger.png) |||
 | Lucas Theisen | lucastheisen | PMC ||||
 | Noel J. Bergman | noel | PMC ||||
 | Pierre Smits | pierresmits | PMC | ![Pierre Smits](images/team/pierresmits.png) | [![Website](images/team/website.png)](http://www.orrtiz.com) ||
@@ -44,7 +43,7 @@ title: Team
 | Jan Sindberg | sindberg | Committer ||||
 | John E. Conlon | jconlon | Committer ||||
 | Lin Chen | hazel | Committer |||| 
-| Lothar Haeger | lhaeger | Committer ||||
+| Lothar Haeger | lhaeger | Committer | ![Lothar Haeger](images/team/lhaeger.png) |||
 | Martin Alderson | malderson | Committer |||| 
 | Richerd Feezel| rmf | Committer ||||
 | Selcuk Aya | saya | Committer ||||
