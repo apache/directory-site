@@ -20,8 +20,8 @@ title: Team
 | Pierre Smits | pierresmits | PMC | ![Pierre Smits](images/team/pierresmits.png) | [![Website](images/team/website.png)](http://www.orrtiz.com) ||
 | Pierre-Arnaud Marcelot | pamarcelot | PMC | ![Pierre-Arnaud Marcelot](images/team/pamarcelot.jpg) | [![Website](images/team/website.png)](http://www.pajbam.com)|[![Blog](images/team/blog.png)](http://www.pajbam.com) |
 | Radovan Semancik| semancik | Committer ||||
-| Shawn McKinney | smckinney | PMC | ![Shawn McKinney](images/team/smckinney.jpg) | [![Website](images/team/website.png)](http://symas.com/)|[![Blog](images/team/blog.png)](https://iamfortress.net/) |
-| Stefan Seelmann | seelmann | PMC chair | ![Stefan Seelmann](images/team/seelmann.jpg) | [![Website](images/team/website.png)](http://www.stefan-seelmann.de) | [![Blog](images/team/blog.png)](http://www.stefan-seelmann.de) |
+| Shawn McKinney | smckinney | PMC chair | ![Shawn McKinney](images/team/smckinney.jpg) | [![Website](images/team/website.png)](http://symas.com/)|[![Blog](images/team/blog.png)](https://iamfortress.net/) |
+| Stefan Seelmann | seelmann | PMC | ![Stefan Seelmann](images/team/seelmann.jpg) | [![Website](images/team/website.png)](http://www.stefan-seelmann.de) | [![Blog](images/team/blog.png)](http://www.stefan-seelmann.de) |
 | Stefan Zoerner | szoerner | PMC | ![Stefan Zoerner](images/team/szoerner.jpg) |||
 
 # The Apache Directory Project Committers
@@ -43,7 +43,7 @@ title: Team
 | Jan Sindberg | sindberg | Committer ||||
 | John E. Conlon | jconlon | Committer ||||
 | Lin Chen | hazel | Committer |||| 
-| Lothar Haeger | lhaeger | Committer | ![Lothar Haeger](images/team/lhaeger.png) |||
+| Lothar Haeger | lhaeger | Committer | ![Lothar Haeger](images/team/lhaeger.jpeg) |||
 | Martin Alderson | malderson | Committer |||| 
 | Richerd Feezel| rmf | Committer ||||
 | Selcuk Aya | saya | Committer ||||
