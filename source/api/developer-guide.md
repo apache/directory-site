@@ -409,9 +409,9 @@ They are uploaded to https://nightlies.apache.org/ via WebDAV protocol.
 
 First create the folders for the version:
 
-    $ curl -u yourasfid -X MKCOL 'https://nightlies.apache.org/directory/api/2.0.2/'
-    $ curl -u yourasfid -X MKCOL 'https://nightlies.apache.org/directory/api/2.0.2/apidocs'
-    $ curl -u yourasfid -X MKCOL 'https://nightlies.apache.org/directory/api/2.0.2/xref'
+    $ curl -u <your asf id> -X MKCOL 'https://nightlies.apache.org/directory/api/2.0.2/'
+    $ curl -u <your asf id> -X MKCOL 'https://nightlies.apache.org/directory/api/2.0.2/apidocs'
+    $ curl -u <your asf id> -X MKCOL 'https://nightlies.apache.org/directory/api/2.0.2/xref'
 
 I used [Rclone](https://rclone.org/) to copy folders via WebDAV.
 
