@@ -444,9 +444,9 @@ xref
 </code></pre>
 <p>They are uploaded to <a href="https://nightlies.apache.org/">https://nightlies.apache.org/</a> via WebDAV protocol.</p>
 <p>First create the folders for the version:</p>
-<pre><code>$ curl -u yourasfid -X MKCOL 'https://nightlies.apache.org/directory/api/2.0.2/'
-$ curl -u yourasfid -X MKCOL 'https://nightlies.apache.org/directory/api/2.0.2/apidocs'
-$ curl -u yourasfid -X MKCOL 'https://nightlies.apache.org/directory/api/2.0.2/xref'
+<pre><code>$ curl -u &lt;your asf id&gt; -X MKCOL 'https://nightlies.apache.org/directory/api/2.0.2/'
+$ curl -u &lt;your asf id&gt; -X MKCOL 'https://nightlies.apache.org/directory/api/2.0.2/apidocs'
+$ curl -u &lt;your asf id&gt; -X MKCOL 'https://nightlies.apache.org/directory/api/2.0.2/xref'
 </code></pre>
 <p>I used <a href="https://rclone.org/">Rclone</a> to copy folders via WebDAV.</p>
 <p>After intallation run <code>rclone config</code> and configure the <code>nightlies</code> connection:</p>

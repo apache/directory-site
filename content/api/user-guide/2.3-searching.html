@@ -166,37 +166,54 @@
     <span style="color:#666">{</span>
         EntryCursor cursor <span style="color:#666">=</span> connection<span style="color:#666">.</span><span style="color:#b44">search</span><span style="color:#666">(</span> <span style="color:#b44">&#34;ou=system&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;(objectclass=*)&#34;</span><span style="color:#666">,</span> SearchScope<span style="color:#666">.</span><span style="color:#b44">ONELEVEL</span> <span style="color:#666">)</span><span style="color:#666">;</span>
 
-        <span style="color:#a2f;font-weight:bold">for</span> <span style="color:#666">(</span> Entry entry <span style="color:#666">:</span> cursor <span style="color:#666">)</span>
+        <span style="color:#a2f;font-weight:bold">try</span>
         <span style="color:#666">{</span>
-            assertNotNull<span style="color:#666">(</span> entry <span style="color:#666">)</span><span style="color:#666">;</span>
-            System<span style="color:#666">.</span><span style="color:#b44">out</span><span style="color:#666">.</span><span style="color:#b44">println</span><span style="color:#666">(</span> entry <span style="color:#666">)</span><span style="color:#666">;</span>
+            <span style="color:#a2f;font-weight:bold">for</span> <span style="color:#666">(</span> Entry entry <span style="color:#666">:</span> cursor <span style="color:#666">)</span>
+            <span style="color:#666">{</span>
+                assertNotNull<span style="color:#666">(</span> entry <span style="color:#666">)</span><span style="color:#666">;</span>
+                System<span style="color:#666">.</span><span style="color:#b44">out</span><span style="color:#666">.</span><span style="color:#b44">println</span><span style="color:#666">(</span> entry <span style="color:#666">)</span><span style="color:#666">;</span>
+            <span style="color:#666">}</span>
         <span style="color:#666">}</span>
-
-        cursor<span style="color:#666">.</span><span style="color:#b44">close</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
+        <span style="color:#a2f;font-weight:bold">finally</span>
+        <span style="color:#666">{</span>
+            cursor<span style="color:#666">.</span><span style="color:#b44">close</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
+        <span style="color:#666">}</span>
     <span style="color:#666">}</span>
 </code></pre></div><p>In this example, the <em>connection</em> has been previously created. We search for all entries starting at <em>ou=system</em> along with its children, which have an <em>ObjectClass</em> attribute (all the entries have such an attribute, so we should get back all the entries). The scope (<em>ONELEVEL</em>) searches one level under the starting base.</p>
 <p>A cursor of entries is returned, which can be iterated over. Every call to the <em>getEntry()</em> method returns the next entry in the LDAP result set.</p>
 <p>That&rsquo;s pretty much it!</p>
 <p>But this is not really enough, there are many possible options.</p>
 <blockquote>
-<p><strong>Note</strong> Don&rsquo;t forget to close the cursor, otherwise the associated data remains in memory forever (causing a memory leak)! Best practice is to use try-with-resources statement.</p>
+<p><strong>Note</strong> Don&rsquo;t forget to close the cursor, otherwise the associated data remains in memory forever (causing a memory leak)! Best practice is to use try-with-resources statement, like in this better example of code:</p>
 </blockquote>
-<h3 id="searching-using-a-dn">Searching using a DN</h3>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">    <span style="color:#a2f">@Test</span>
+    <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">testSearch</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> Exception
+    <span style="color:#666">{</span>
+        <span style="color:#a2f;font-weight:bold">try</span> <span style="color:#666">(</span> EntryCursor cursor <span style="color:#666">=</span> connection<span style="color:#666">.</span><span style="color:#b44">search</span><span style="color:#666">(</span> <span style="color:#b44">&#34;ou=system&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;(objectclass=*)&#34;</span><span style="color:#666">,</span> SearchScope<span style="color:#666">.</span><span style="color:#b44">ONELEVEL</span> <span style="color:#666">)</span> <span style="color:#666">)</span>
+        <span style="color:#666">{</span>
+
+            <span style="color:#a2f;font-weight:bold">for</span> <span style="color:#666">(</span> Entry entry <span style="color:#666">:</span> cursor <span style="color:#666">)</span>
+            <span style="color:#666">{</span>
+                assertNotNull<span style="color:#666">(</span> entry <span style="color:#666">)</span><span style="color:#666">;</span>
+                System<span style="color:#666">.</span><span style="color:#b44">out</span><span style="color:#666">.</span><span style="color:#b44">println</span><span style="color:#666">(</span> entry <span style="color:#666">)</span><span style="color:#666">;</span>
+            <span style="color:#666">}</span>
+        <span style="color:#666">}</span>
+    <span style="color:#666">}</span>
+</code></pre></div><h3 id="searching-using-a-dn">Searching using a DN</h3>
 <p>In the previous sample, we used a String to define the starting point of the search. Sometimes it&rsquo;s convenient to start a search with a DN (i.e. because you got the DN from another operation). In this case, no need to transform the DN into a String before doing your search, simply use the DN!</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">    <span style="color:#a2f">@Test</span>
     <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">testSearchWithDn</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> Exception
     <span style="color:#666">{</span>
         Dn systemDn <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> Dn<span style="color:#666">(</span> <span style="color:#b44">&#34;ou=system&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
 
-        EntryCursor cursor <span style="color:#666">=</span> connection<span style="color:#666">.</span><span style="color:#b44">search</span><span style="color:#666">(</span> systemDn<span style="color:#666">,</span> <span style="color:#b44">&#34;(objectclass=*)&#34;</span><span style="color:#666">,</span> SearchScope<span style="color:#666">.</span><span style="color:#b44">ONELEVEL</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-
-        <span style="color:#a2f;font-weight:bold">for</span> <span style="color:#666">(</span> Entry entry <span style="color:#666">:</span> cursor <span style="color:#666">)</span>
+        <span style="color:#a2f;font-weight:bold">try</span> <span style="color:#666">(</span> EntryCursor cursor <span style="color:#666">=</span> connection<span style="color:#666">.</span><span style="color:#b44">search</span><span style="color:#666">(</span> systemDn<span style="color:#666">,</span> <span style="color:#b44">&#34;(objectclass=*)&#34;</span><span style="color:#666">,</span> SearchScope<span style="color:#666">.</span><span style="color:#b44">ONELEVEL</span> <span style="color:#666">)</span> <span style="color:#666">)</span>
         <span style="color:#666">{</span>
-            assertNotNull<span style="color:#666">(</span> entry <span style="color:#666">)</span><span style="color:#666">;</span>
-            System<span style="color:#666">.</span><span style="color:#b44">out</span><span style="color:#666">.</span><span style="color:#b44">println</span><span style="color:#666">(</span> entry <span style="color:#666">)</span><span style="color:#666">;</span>
+            <span style="color:#a2f;font-weight:bold">for</span> <span style="color:#666">(</span> Entry entry <span style="color:#666">:</span> cursor <span style="color:#666">)</span>
+            <span style="color:#666">{</span>
+                assertNotNull<span style="color:#666">(</span> entry <span style="color:#666">)</span><span style="color:#666">;</span>
+                System<span style="color:#666">.</span><span style="color:#b44">out</span><span style="color:#666">.</span><span style="color:#b44">println</span><span style="color:#666">(</span> entry <span style="color:#666">)</span><span style="color:#666">;</span>
+            <span style="color:#666">}</span>
         <span style="color:#666">}</span>
-
-        cursor<span style="color:#666">.</span><span style="color:#b44">close</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
     <span style="color:#666">}</span>
 </code></pre></div><p>This is it!</p>
 <h3 id="scope">Scope</h3>
@@ -261,17 +278,18 @@
         req<span style="color:#666">.</span><span style="color:#b44">setFilter</span><span style="color:#666">(</span> <span style="color:#b44">&#34;(cn=user1)&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
 
         <span style="color:#080;font-style:italic">// Process the request
-</span><span style="color:#080;font-style:italic"></span>        SearchCursor searchCursor <span style="color:#666">=</span> connection<span style="color:#666">.</span><span style="color:#b44">search</span><span style="color:#666">(</span> req <span style="color:#666">)</span><span style="color:#666">;</span>
-
-        <span style="color:#a2f;font-weight:bold">while</span> <span style="color:#666">(</span> searchCursor<span style="color:#666">.</span><span style="color:#b44">next</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span>
+</span><span style="color:#080;font-style:italic"></span>        <span style="color:#a2f;font-weight:bold">try</span> <span style="color:#666">(</span> SearchCursor searchCursor <span style="color:#666">=</span> connection<span style="color:#666">.</span><span style="color:#b44">search</span><span style="color:#666">(</span> req <span style="color:#666">)</span> <span style="color:#666">)</span> 
         <span style="color:#666">{</span>
-            Response response <span style="color:#666">=</span> searchCursor<span style="color:#666">.</span><span style="color:#b44">get</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
-
-            <span style="color:#080;font-style:italic">// process the SearchResultEntry
-</span><span style="color:#080;font-style:italic"></span>            <span style="color:#a2f;font-weight:bold">if</span> <span style="color:#666">(</span> response <span style="color:#a2f;font-weight:bold">instanceof</span> SearchResultEntry <span style="color:#666">)</span>
+            <span style="color:#a2f;font-weight:bold">while</span> <span style="color:#666">(</span> searchCursor<span style="color:#666">.</span><span style="color:#b44">next</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span>
             <span style="color:#666">{</span>
-                Entry resultEntry <span style="color:#666">=</span> <span style="color:#666">(</span> <span style="color:#666">(</span> SearchResultEntry <span style="color:#666">)</span> response <span style="color:#666">)</span><span style="color:#666">.</span><span style="color:#b44">getEntry</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
-                System<span style="color:#666">.</span><span style="color:#b44">out</span><span style="color:#666">.</span><span style="color:#b44">println</span><span style="color:#666">(</span> resultEntry <span style="color:#666">)</span><span style="color:#666">;</span>
+                Response response <span style="color:#666">=</span> searchCursor<span style="color:#666">.</span><span style="color:#b44">get</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
+
+                <span style="color:#080;font-style:italic">// process the SearchResultEntry
+</span><span style="color:#080;font-style:italic"></span>                <span style="color:#a2f;font-weight:bold">if</span> <span style="color:#666">(</span> response <span style="color:#a2f;font-weight:bold">instanceof</span> SearchResultEntry <span style="color:#666">)</span>
+                <span style="color:#666">{</span>
+                    Entry resultEntry <span style="color:#666">=</span> <span style="color:#666">(</span> <span style="color:#666">(</span> SearchResultEntry <span style="color:#666">)</span> response <span style="color:#666">)</span><span style="color:#666">.</span><span style="color:#b44">getEntry</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
+                    System<span style="color:#666">.</span><span style="color:#b44">out</span><span style="color:#666">.</span><span style="color:#b44">println</span><span style="color:#666">(</span> resultEntry <span style="color:#666">)</span><span style="color:#666">;</span>
+                <span style="color:#666">}</span>
             <span style="color:#666">}</span>
         <span style="color:#666">}</span>
     <span style="color:#666">}</span>
