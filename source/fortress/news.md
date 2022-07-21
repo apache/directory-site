@@ -9,11 +9,11 @@ title: News
 The Apache Directory Project announces the release of Fortress - 2.0.8.
 
 Included in 2.0.8:
-- Fortress Web using Wicket version 9.  (requires >= Java 11)
-- Use latest dependencies for Spring, Log4j, Apache CXF and more.
+- Fortress Web upgrade to Apache Wicket version 9. (requires >= Java 11)
+- Use latest dependencies for Spring, Log4j, Apache CXF and more
 - Support Symas OpenLDAP 2.5 builds
 - Update OpenLDAP and ApacheDS Docker Images
-- Other bug fixes
+- Fix performance problem with large groups
 
 The Release notes:
 
@@ -25,7 +25,7 @@ The Apache Directory Project announces the release of Fortress - 2.0.7.
 
 The Release notes:
 
-* <a href="https://issues.apache.org/jira/projects/FC/versions/12350941">Fortress 2.0.7 Release Notes</a>
+* <a href="https://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12315921&version=12350941">Fortress 2.0.7 Release Notes</a>
 
 <h2 class="news">Apache Fortress 2.0.6 Released <em>posted on July 15th, 2021</em></h2>
 
@@ -35,7 +35,7 @@ This release includes migration to Apache LDAP API 2.x, Apache Log4j2, and many 
 
 The Release notes:
 
-* <a href="https://issues.apache.org/jira/projects/FC/versions/12349361">Fortress 2.0.6 Release Notes</a>
+* <a href="https://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12315921&version=12349361">Fortress 2.0.6 Release Notes</a>
 
 <h2 class="news">Apache Fortress 2.0.5 Released <em>posted on May 26th, 2020</em></h2>
 
