@@ -4,22 +4,24 @@ title: News
 
 # Fortress News
 
+<h2 class="news">Apache Fortress 2.0.8 Released <em>posted on July 22nd, 2022</em></h2>
+
+The Apache Directory Project announces the release of Fortress - 2.0.8.
+
+Included in 2.0.8:
+- Fortress Web using Wicket version 9.  (requires >= Java 11)
+- Use latest dependencies for Spring, Log4j, Apache CXF and more.
+- Support Symas OpenLDAP 2.5 builds
+- Update OpenLDAP and ApacheDS Docker Images
+- Other bug fixes
+
+The Release notes:
+
+* <a href="https://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12315921&version=12351048">Fortress 2.0.8 Release Notes</a>
+
 <h2 class="news">Apache Fortress 2.0.7 Released <em>posted on Dec 12th, 2021</em></h2>
 
 The Apache Directory Project announces the release of Fortress - 2.0.7.
-
-Included in 2.0.7:
-- Upgrades to the latest Log4j-core library 2.15.0. This is our response to [CVE-2021-44228](http://cve.mitre.org/cgi-bin/cvename.cgi?name=2021-44228).
-- Other dependency upgrades (to latest Spring Security, Apache CXF and Apache Wicket) for Web and Rest dependencies to be up-to-date and clears up a few other CVE's associated with those libraries.
-- A couple of misc bug fixes to the Core.
-
-More info about the Log4Shell vulnerability and Apache Fortress:
-- We migrated to use the Apache Log4J-Core in the previous release, 2.0.6. Versions of Apache Fortress before 2.0.6 aren’t affected.
-- If using the Apache Fortress Core 2.0.6, no need to upgrade. It uses the Apache Log4j-core lib only for testing.
-- Apps using or dependent of Apache Fortress Core 2.0.6 don’t need to upgrade.  It doesn't pull in the Log4j-core lib, either as a compile or runtime dependency.
-- Apache Fortress 2.0.6 Web (Commander) and Rest (Enmasse) deployments are affected. Upgrade immediately, or follow the mitigation procedures as described by the Apache Log4J project.
-
-Contact us on our mailing list if you have any questions.
 
 The Release notes:
 
