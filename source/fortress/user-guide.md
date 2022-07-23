@@ -25,10 +25,12 @@ Learn what RBAC is and how to download, install and configure an Apache Fortress
     * [2.3 - Multitenancy under the covers](user-guide/2.3-multitenancy-under-covers.html)
     * [2.4 - Apache Fortress Core Multitenancy Configuration](https://github.com/apache/directory-fortress-core/blob/master/README-MULTITENANCY.md)
     * [2.5 - Apache Fortress Web Multitenancy Configuration](https://github.com/apache/directory-fortress-commander/blob/master/README-MULTITENANCY.md)
-* [3 - Fortress Configuration](user-guide/3-configuration.html)
+* [3 - Configuration](user-guide/3-configuration.html)
 * 4 - Install
     * [4.1 - Apache Fortress Core & ApacheDS QUICKSTART](https://github.com/apache/directory-fortress-core/blob/master/README-QUICKSTART-APACHEDS.md)
     * [4.2 - Apache Fortress Core & ApacheDS QUICKSTART on DOCKER](https://github.com/apache/directory-fortress-core/blob/master/README-QUICKSTART-DOCKER-APACHEDS.md)
     * [4.3 - Apache Fortress Core & OpenLDAP QUICKSTART](https://github.com/apache/directory-fortress-core/blob/master/README-QUICKSTART-SLAPD.md)
     * [4.4 - Apache Fortress Core & OpenLDAP QUICKSTART on DOCKER](https://github.com/apache/directory-fortress-core/blob/master/README-QUICKSTART-DOCKER-SLAPD.md)
     * [4.5 - Apache Fortress Web & Tomcat QUICKSTART](https://github.com/apache/directory-fortress-commander/blob/master/README-QUICKSTART.md)
+* [5 - Security](security.html)
+* [6 - Load Testing](https://github.com/apache/directory-fortress-core/blob/master/README-LOAD-TESTING.md)
