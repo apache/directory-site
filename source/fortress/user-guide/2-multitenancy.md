@@ -8,12 +8,7 @@ navNext: 2.1-fortress-multitenancy.html
 navNextText: 2.1 - Fortress Multitenancy
 ---
 
-# 2 - Multitenancy
-
-To setup and use Fortress in multi-tenant fashion follow these instructions:
-* [README for Apache Fortress Multitenancy Configuration](https://github.com/apache/directory-fortress-core/blob/master/README-MULTITENANCY.md)
-
-More info follows...
+# Multitenancy
 
 * [2.1 - Fortress Multitenancy](2.1-fortress-multitenancy.html)
 * [2.2 - Traditional Multi-Instances architecture](2.2-tradi-multi-instances.html)

@@ -1,12 +1,10 @@
 ---
 title: 3 - Fortress Configuration
-navPrev: 2.3-multitenancy-under-covers.html
-navPrevText: 2.3 - Multitenancy under the covers
 navUp: ../user-guide.html
 navUpText: User Guide
 ---
 
-# 3.1 - Fortress Configuration
+# Fortress Configuration
 
 In order to use the API, you must configure it. As it will connect to a remote LDAP server. Follow the installation instructions to learn how it's done.
 
