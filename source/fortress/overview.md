@@ -10,35 +10,19 @@ FORTRESS is a standards-based authorization system, that provides role-based acc
 
 Included are the following components:
 
-* Core  - Java Authorization SDK
+* Core  - Java APIs for access control, administration and review
 * Realm - Security provider for Apache Tomcat
-* Rest  - HTTP protocol wrappers for the APIs using Apache CXF
-* Web   - HTML pages and framework for the APIs using Apache Wicket
+* Rest  - HTTP protocol wrappers for the APIs
+* Web   - HTML pages for policy admin and review
 
 It's released under terms of the Apache License 2.0. 
 
 ## How Does It Work?
 
-Fortress is a Role-Based Access Control security system.  It uses a directory server to store the information about users, roles, permissions, etc.  Out-of-the-box it supports either ApacheDS or OpenLDAP servers but works with any LDAPv3 compliant system.
-
-To learn how to install, setup and configure with either of the supported servers, check out the quickstarts:
-
-* [QUICKSTARTS](installation.html)
-
-## Other Guides
+It uses a directory server to store the information about users, roles, permissions, etc.  Out-of-the-box it supports either ApacheDS or OpenLDAP servers but works with any LDAPv3 compliant system.
 
 ### API usage
 Probably the best place to start is the javadoc.  To understand how RBAC works, look at the interfaces like AccessMgr, AdminMgr and ReviewMgr.  For ARBAC add 'Del' to the name - for delegated.  DelAdminMgr, DelAccessMgr, etc.  For password policies, PwPolicyMgr.
-
-### Configuration
-Next is to understand how the runtime works.  As you might expect, Fortress requires a large number of parameters that bind it to a runtime environment.  For example the LDAP server's coordinates, hostname, port, suffix, service account credentials and more.  The configuration subsystem pulls these parameters from a variety of locations.
-
-* [README-CONFIG.md](https://github.com/apache/directory-fortress-core/blob/master/README-CONFIG.md) - How the Fortress Config subsystem works
-
-### Multitenancy
-The Fortress APIs and data storage is fully multitenant.  To understand how that works.
-
-* [README-MULTITENANCY.md](https://github.com/apache/directory-fortress-core/blob/master/README-MULTITENANCY.md) - How Fortress Multitenancy works
 
 ## What technologies at play?
 
