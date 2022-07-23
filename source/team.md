@@ -19,7 +19,7 @@ title: Team
 | Noel J. Bergman | noel | PMC ||||
 | Pierre Smits | pierresmits | PMC | ![Pierre Smits](images/team/pierresmits.png) | [![Website](images/team/website.png)](http://www.orrtiz.com) ||
 | Pierre-Arnaud Marcelot | pamarcelot | PMC | ![Pierre-Arnaud Marcelot](images/team/pamarcelot.jpg) | [![Website](images/team/website.png)](http://www.pajbam.com)|[![Blog](images/team/blog.png)](http://www.pajbam.com) |
-| Radovan Semancik| semancik | Committer ||||
+| Radovan Semancik| semancik | PMC ||||
 | Shawn McKinney | smckinney | PMC chair | ![Shawn McKinney](images/team/smckinney.jpg) | [![Website](images/team/website.png)](http://symas.com/)|[![Blog](images/team/blog.png)](https://iamfortress.net/) |
 | Stefan Seelmann | seelmann | PMC | ![Stefan Seelmann](images/team/seelmann.jpg) | [![Website](images/team/website.png)](http://www.stefan-seelmann.de) | [![Blog](images/team/blog.png)](http://www.stefan-seelmann.de) |
 | Stefan Zoerner | szoerner | PMC | ![Stefan Zoerner](images/team/szoerner.jpg) |||
@@ -34,7 +34,7 @@ title: Team
 | Andrea Gariboldi | agariboldi | Committer ||||
 | Antoine Levy Lambert| antoine | Committer ||||
 | Berin Loritsch | bloritsch | Committer ||||
-| Brian Burch | brianb2 | Committer ||||
+| Brian Demers | bdemers | Committer |||[![Blog](images/team/blog.png)](https://blog.bdemers.io/)|
 | Christopher Harm | charm | Committer ||||
 | David Jencks | djencks | Committer ||||
 | Gerard Gagliano | gg | Committer ||||
@@ -60,6 +60,7 @@ To be continued ...
 | Name | Position | Photo | WebSite | Blog |
 |---|---|:-:|:-:|:-:|
 | Brett Porter | PMC ||||
+| Brian Burch | Committer ||||
 | Ersin Er | PMC ||||
 | Felix Knecht  | PMC ||||
 | G. Richard Scott | Committer ||||
