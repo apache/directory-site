@@ -7,9 +7,9 @@ slug: index
 <div class="hero clearfix">
   <div class="top">
     <h1>Apache Fortress&trade;</h1>
-    <h2>Authorization APIs and Web Components</h2>
+    <h2>Access Control System using an LDAP backend</h2>
     <div class="description">
-       <b>Role-Based Access Controls using an LDAP backend</b> 
+       <b>Java APIs and Web Components</b> 
 <br><br>
     </div>
   </div>
