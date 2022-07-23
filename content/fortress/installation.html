@@ -132,7 +132,7 @@
 	<h1 id="installation-guides">Installation guides</h1>
 <p>The Fortress Core requires an LDAP server to store its information.  Its other components, Web and Rest, require a Java Servlet container.  This page includes some links on getting started.</p>
 <h2 id="fortress-core-setup-with-ldap">Fortress Core Setup with LDAP</h2>
-<p>The Core is used by the other components, Realm, Rest and Web.  These are to install ApacheDS or OpenLDAP (pick one), and configure for usage.  For rapid deployment, you can skip the APACHEDS and SLAPD quickstarts, and use one for DOCKER instead.</p>
+<p>The Core is used by the other components, Realm, Rest and Web.  These are to install ApacheDS or OpenLDAP (pick one), and configure for usage.  For rapid deployment, use DOCKER containers.</p>
 <h3 id="fortress-core--apacheds">Fortress Core &amp; ApacheDS</h3>
 <ul>
 <li><a href="https://github.com/apache/directory-fortress-core/blob/master/README-QUICKSTART-DOCKER-APACHEDS.md">README-QUICKSTART-DOCKER-APACHEDS.md</a> - Install Core for use with APACHEDS running inside DOCKER</li>
@@ -143,15 +143,12 @@
 <li><a href="https://github.com/apache/directory-fortress-core/blob/master/README-QUICKSTART-DOCKER-SLAPD.md">README-QUICKSTART-DOCKER-SLAPD.md</a> - Install Core for use with OPENLDAP running inside DOCKER</li>
 <li><a href="https://github.com/apache/directory-fortress-core/blob/master/README-QUICKSTART-SLAPD.md">README-QUICKSTART-SLAPD.md</a> - Install Core for use with OPENLDAP</li>
 </ul>
-<h2 id="fortress-web-and-rest-setup-with-tomcat">Fortress Web and Rest Setup with Tomcat</h2>
-<p>Apache Tomcat is used for the Fortress Rest and Web deployment testing.</p>
 <h3 id="fortress-realm--tomcat">Fortress Realm &amp; Tomcat</h3>
 <p>The Realm plugs into Tomcat and provides JavaEE security support.</p>
 <ul>
 <li><a href="https://github.com/apache/directory-fortress-realm/blob/master/REALM-HOST-SETUP.md">REALM-HOST-SETUP.md</a> - Configure Tomcat Global Security using Realm</li>
 <li><a href="https://github.com/apache/directory-fortress-realm/blob/master/REALM-CONTEXT-SETUP.md">REALM-CONTEXT-SETUP.md</a> - Configure Tomcat Local Security using Realm</li>
 </ul>
-<p>Next, pull either Fortress Web or Rest binaries from Maven, run inside Tomcat instance.</p>
 <h3 id="fortress-rest--tomcat">Fortress Rest &amp; Tomcat</h3>
 <ul>
 <li><a href="https://github.com/apache/directory-fortress-enmasse/blob/master/README-QUICKSTART.md">README-QUICKSTART.md</a> - Install Fortress Rest to Tomcat</li>

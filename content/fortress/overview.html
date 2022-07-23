@@ -134,31 +134,16 @@
 <h2 id="whats-in-it">What&rsquo;s in it?</h2>
 <p>Included are the following components:</p>
 <ul>
-<li>Core  - Java Authorization SDK</li>
+<li>Core  - Java APIs for access control, administration and review</li>
 <li>Realm - Security provider for Apache Tomcat</li>
-<li>Rest  - HTTP protocol wrappers for the APIs using Apache CXF</li>
-<li>Web   - HTML pages and framework for the APIs using Apache Wicket</li>
+<li>Rest  - HTTP protocol wrappers for the APIs</li>
+<li>Web   - HTML pages for policy admin and review</li>
 </ul>
 <p>It&rsquo;s released under terms of the Apache License 2.0.</p>
 <h2 id="how-does-it-work">How Does It Work?</h2>
-<p>Fortress is a Role-Based Access Control security system.  It uses a directory server to store the information about users, roles, permissions, etc.  Out-of-the-box it supports either ApacheDS or OpenLDAP servers but works with any LDAPv3 compliant system.</p>
-<p>To learn how to install, setup and configure with either of the supported servers, check out the quickstarts:</p>
-<ul>
-<li><a href="installation.html">QUICKSTARTS</a></li>
-</ul>
-<h2 id="other-guides">Other Guides</h2>
+<p>It uses a directory server to store the information about users, roles, permissions, etc.  Out-of-the-box it supports either ApacheDS or OpenLDAP servers but works with any LDAPv3 compliant system.</p>
 <h3 id="api-usage">API usage</h3>
 <p>Probably the best place to start is the javadoc.  To understand how RBAC works, look at the interfaces like AccessMgr, AdminMgr and ReviewMgr.  For ARBAC add &lsquo;Del&rsquo; to the name - for delegated.  DelAdminMgr, DelAccessMgr, etc.  For password policies, PwPolicyMgr.</p>
-<h3 id="configuration">Configuration</h3>
-<p>Next is to understand how the runtime works.  As you might expect, Fortress requires a large number of parameters that bind it to a runtime environment.  For example the LDAP server&rsquo;s coordinates, hostname, port, suffix, service account credentials and more.  The configuration subsystem pulls these parameters from a variety of locations.</p>
-<ul>
-<li><a href="https://github.com/apache/directory-fortress-core/blob/master/README-CONFIG.md">README-CONFIG.md</a> - How the Fortress Config subsystem works</li>
-</ul>
-<h3 id="multitenancy">Multitenancy</h3>
-<p>The Fortress APIs and data storage is fully multitenant.  To understand how that works.</p>
-<ul>
-<li><a href="https://github.com/apache/directory-fortress-core/blob/master/README-MULTITENANCY.md">README-MULTITENANCY.md</a> - How Fortress Multitenancy works</li>
-</ul>
 <h2 id="what-technologies-at-play">What technologies at play?</h2>
 <p>Fortress products run on open system hardware and software platforms supporting LDAPv3, HTTP &amp; Java.</p>
 <h2 id="what-standards-apply">What standards apply?</h2>
