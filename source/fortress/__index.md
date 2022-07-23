@@ -17,7 +17,7 @@ slug: index
       <a href="/fortress/downloads.html" class="download_badge"><b>Download Apache<br>Fortress {{< param version_fortress >}}</b></a>
     </div-->
   <div class="bottom">
-    <img src="../images/fortress-system-architecture.png" style="width: 50%; height: 50%" border="0"/>
+    <img src="../images/fortress-system-architecture.png" style="width: 40%; height: 40%" border="0"/>
   </div>
 </div>
 
