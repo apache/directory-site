@@ -132,15 +132,17 @@
             
 	<h1 id="fortress-load-testing">Fortress Load Testing</h1>
 <p>Fortress uses Apache Jmeter, driven by the Apache Maven Jmeter plugin.
-Typical tests insert millions of entries and processing authentication and authorization requests.</p>
-<p>Uses cases supported:</p>
+Typical tests insert millions of entries and process authentication and authorization requests at very high throughput rates.
+For production deployments, it&rsquo;s not unusual to run tests for many days, even weeks, to verify that the environment can handle the expected loads, over time, without degradation or faults.</p>
+<p>How fast/long can it run? Take it for a test drive in your env and find out.</p>
+<h2 id="use-cases-supported">Use cases supported:</h2>
 <ul>
 <li>Add User</li>
 <li>Update User</li>
 <li>Delete User</li>
 <li>Check User</li>
 </ul>
-<p>Instructions to run load tests:</p>
+<h3 id="instructions-to-run-the-load-tests">Instructions to run the Load Tests</h3>
 <h4 id="1-load-the-security-policy">1. Load the security policy</h4>
 <p>Use the <a href="http://fortress-a:1313/fortress/load-utility.html">Fortress Load Utility</a> to load a <a href="https://github.com/apache/directory-fortress-core/blob/master/ldap/setup/JmeterTestPolicy.xml">Jmeter Test Policy</a>:</p>
 <pre><code>mvn install -Dload.file=./ldap/setup/JmeterTestPolicy.xml

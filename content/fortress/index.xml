@@ -158,7 +158,7 @@ Hey, remember that those rules are not the best nor the worst, they are pretty m
       
       <guid>https://directory.apache.org/fortress/cli.html</guid>
       <description>Fortress Command Line Interface Used for ad-hoc administration, review and testing of policy data.
-Use cases supported  Create, Read, Update, Delete policies Testing of policies  Instructions to run the Apache Fortress Command Line Interpreter (CLI) The CLI is useful for ad-hoc policy administration in runtime environments.
+Use cases supported  Create, Read, Update, Delete policies Testing of policies  Instructions to run the Fortress Command Line Interpreter (CLI) The CLI is useful for ad-hoc policy administration in runtime environments.
 1. From FORTRESS_HOME enter the following command: mvn -Pcli test 2. Which starts the Fortress command line interpreter: CommandLineInterpreter:176 - Startup to interactive mode success.</description>
     </item>
     
@@ -319,11 +319,8 @@ Issues, bugs, and feature requests should be submitted to the following issue tr
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://directory.apache.org/fortress/load-testing.html</guid>
-      <description>Fortress Load Testing Fortress uses Apache Jmeter, driven by the Apache Maven Jmeter plugin. Typical tests insert millions of entries and processing authentication and authorization requests.
-Uses cases supported:
- Add User Update User Delete User Check User  Instructions to run load tests:
-1. Load the security policy Use the Fortress Load Utility to load a Jmeter Test Policy:
-mvn install -Dload.file=./ldap/setup/JmeterTestPolicy.xml 2. Find the .jmx files Next, edit one of the following jmeter config files to enable a corresponding test case:</description>
+      <description>Fortress Load Testing Fortress uses Apache Jmeter, driven by the Apache Maven Jmeter plugin. Typical tests insert millions of entries and process authentication and authorization requests at very high throughput rates. For production deployments, it&amp;rsquo;s not unusual to run tests for many days, even weeks, to verify that the environment can handle the expected loads, over time, without degradation or faults.
+How fast/long can it run? Take it for a test drive in your env and find out.</description>
     </item>
     
     <item>
@@ -333,8 +330,7 @@ mvn install -Dload.file=./ldap/setup/JmeterTestPolicy.xml 2. Find the .jmx files
       
       <guid>https://directory.apache.org/fortress/load-utility.html</guid>
       <description>Fortress Load Utility The Load utility is useful to create base policy configurations that need to be rerun many times in different test and production environments. It uses Apache Ant to process the data and call the corresponding API. For samples look here: sample load scripts.
-1. Create a load file using examples like the RoleEngineeringSample. The XML tags mappings and the precendence of operations are documented here: FortressAntTask.
-&amp;lt;!--Every script starts with this line.</description>
+Use cases supported:  Create, Update, Delete policies  Instructions to run the Load Utility 1. Create a load file using examples like the RoleEngineeringSample.</description>
     </item>
     
     <item>
@@ -885,7 +881,7 @@ Table of contents  An Introduction to Role-Based Access Control ANSI INCITS 359-
       
       <guid>https://directory.apache.org/fortress/user-guide-advanced.html</guid>
       <description>About this guide Advanced topics when deploying Fortress.
-Table of contents  Command Line Interface Load Utility Configuration Security Exception Handling Load Testing Multitenancy Setup  Fortress Core Fortress Web Fortress Rest    </description>
+Table of contents  Command Line Interface Configuration Exception Handling Load Testing Load Utility Multitenancy Setup  Fortress Core Fortress Web Fortress Rest   Security  </description>
     </item>
     
     <item>
