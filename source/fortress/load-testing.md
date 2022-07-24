@@ -5,16 +5,19 @@ title: Load Testing
 # Fortress Load Testing
 
 Fortress uses Apache Jmeter, driven by the Apache Maven Jmeter plugin.
-Typical tests insert millions of entries and processing authentication and authorization requests.
+Typical tests insert millions of entries and process authentication and authorization requests at very high throughput rates.
+For production deployments, it's not unusual to run tests for many days, even weeks, to verify that the environment can handle the expected loads, over time, without degradation or faults.
 
-Uses cases supported:
+How fast/long can it run? Take it for a test drive in your env and find out.
+
+## Use cases supported:
 
 * Add User
 * Update User
 * Delete User
 * Check User 
 
-Instructions to run load tests:
+### Instructions to run the Load Tests
 
 #### 1. Load the security policy
 

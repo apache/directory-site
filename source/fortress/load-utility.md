@@ -8,6 +8,12 @@ The Load utility is useful to create base policy configurations that need to be 
 It uses Apache Ant to process the data and call the corresponding API.
 For samples look here: [sample load scripts](https://github.com/apache/directory-fortress-core/tree/master/ldap/setup).
 
+## Use cases supported:
+
+* Create, Update, Delete policies
+
+### Instructions to run the Load Utility
+
 #### 1. Create a load file using examples like the [RoleEngineeringSample](https://github.com/apache/directory-fortress-core/blob/master/ldap/setup/RoleEngineeringSample.xml).
 
 The XML tags mappings and the precendence of operations are documented here: [FortressAntTask](https://directory.apache.org/fortress/gen-docs/latest/apidocs/org/apache/directory/fortress/core/ant/FortressAntTask.html).

@@ -11,7 +11,7 @@ Used for ad-hoc administration, review and testing of policy data.
 * Create, Read, Update, Delete policies
 * Testing of policies
 
-## Instructions to run the Apache Fortress Command Line Interpreter (CLI)
+### Instructions to run the Fortress Command Line Interpreter (CLI)
 
 The CLI is useful for ad-hoc policy administration in runtime environments.
 
