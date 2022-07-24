@@ -134,16 +134,136 @@
 <p>Fortress uses Apache Jmeter, driven by the Apache Maven Jmeter plugin.
 Typical tests insert millions of entries and processing authentication and authorization requests.</p>
 <p>Uses cases supported:</p>
-<ol>
+<ul>
 <li>Add User</li>
 <li>Update User</li>
 <li>Delete User</li>
 <li>Check User</li>
-</ol>
-<p>For more information on how to setup and run the tests:</p>
-<ul>
-<li><a href="https://github.com/apache/directory-fortress-core/blob/master/README-LOAD-TESTING.md">Load Testing</a>.</li>
 </ul>
+<p>Instructions to run load tests:</p>
+<h4 id="1-load-the-security-policy">1. Load the security policy</h4>
+<p>Use the <a href="http://fortress-a:1313/fortress/load-utility.html">Fortress Load Utility</a> to load a <a href="https://github.com/apache/directory-fortress-core/blob/master/ldap/setup/JmeterTestPolicy.xml">Jmeter Test Policy</a>:</p>
+<pre><code>mvn install -Dload.file=./ldap/setup/JmeterTestPolicy.xml
+</code></pre><h4 id="2-find-the-jmx-files">2. Find the .jmx files</h4>
+<p>Next, edit one of the following jmeter config files to enable a corresponding test case:</p>
+<p>A. Add User:
+<a href="https://github.com/apache/directory-fortress-core/blob/master/src/test/jmeter/ftAddUser.jmx">ftAddUser.jmx</a></p>
+<p>B. Del User:
+<a href="https://github.com/apache/directory-fortress-core/blob/master/src/test/jmeter/ftDelUser.jmx">ftDelUser.jmx</a></p>
+<p>C. Check User:
+<a href="https://github.com/apache/directory-fortress-core/blob/master/src/test/jmeter/ftCheckUser.jmx">ftCheckUser.jmx</a></p>
+<h4 id="3-understanding-the-jmeter-parameters">3. Understanding the jmeter parameters</h4>
+<p>These settings affect the length, duration, and the number of threads:</p>
+<ul>
+<li><strong>LoopController.continue_forever</strong>: boolean value, if <em>false</em>, test duration is controlled by numbers of <em>loops</em> and <em>threads</em>.</li>
+<li><strong>LoopController.loops</strong>: integer value, contains the number of iterations each thread performs the test function.</li>
+<li><strong>ThreadGroup.num_threads</strong>: integer value, contains the number of threads to use in the test.</li>
+<li><strong>ThreadGroup.ramp_time</strong>: integer value, number of seconds for starting threads.  A rule of thumb, set to same as num_threads.</li>
+</ul>
+<p>For example:</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#008000;font-weight:bold">&lt;ThreadGroup</span> <span style="color:#b44">guiclass=</span><span style="color:#b44">&#34;ThreadGroupGui&#34;</span> <span style="color:#b44">testclass=</span><span style="color:#b44">&#34;ThreadGroup&#34;</span> <span style="color:#b44">testname=</span><span style="color:#b44">&#34;Fortress CreateSession&#34;</span> <span style="color:#b44">enabled=</span><span style="color:#b44">&#34;true&#34;</span><span style="color:#008000;font-weight:bold">&gt;</span>
+ ...
+ <span style="color:#008000;font-weight:bold">&lt;elementProp</span> <span style="color:#b44">name=</span><span style="color:#b44">&#34;ThreadGroup.main_controller&#34;</span> <span style="">.</span><span style="">.</span><span style="">.</span><span style="color:#008000;font-weight:bold">&gt;</span>
+     <span style="color:#008000;font-weight:bold">&lt;boolProp</span> <span style="color:#b44">name=</span><span style="color:#b44">&#34;LoopController.continue_forever&#34;</span><span style="color:#008000;font-weight:bold">&gt;</span>false<span style="color:#008000;font-weight:bold">&lt;/boolProp&gt;</span>
+     <span style="color:#008000;font-weight:bold">&lt;stringProp</span> <span style="color:#b44">name=</span><span style="color:#b44">&#34;LoopController.loops&#34;</span><span style="color:#008000;font-weight:bold">&gt;</span>1000<span style="color:#008000;font-weight:bold">&lt;/stringProp&gt;</span>
+ <span style="color:#008000;font-weight:bold">&lt;/elementProp&gt;</span>
+ <span style="color:#008000;font-weight:bold">&lt;stringProp</span> <span style="color:#b44">name=</span><span style="color:#b44">&#34;ThreadGroup.num_threads&#34;</span><span style="color:#008000;font-weight:bold">&gt;</span>10<span style="color:#008000;font-weight:bold">&lt;/stringProp&gt;</span>
+ <span style="color:#008000;font-weight:bold">&lt;stringProp</span> <span style="color:#b44">name=</span><span style="color:#b44">&#34;ThreadGroup.ramp_time&#34;</span><span style="color:#008000;font-weight:bold">&gt;</span>10<span style="color:#008000;font-weight:bold">&lt;/stringProp&gt;</span>
+ ...
+<span style="color:#008000;font-weight:bold">&lt;/ThreadGroup&gt;</span>
+</code></pre></div><p>This test will start ten threads in ten seconds.  Each thread executes the <em>createSession</em> function 1000 times before terminating.</p>
+<h4 id="4-run-the-tests">4. Run the tests</h4>
+<p>From <strong>FORTRESS_HOME</strong> folder, enter the following command from a system prompt:</p>
+<p>A. Add Users:</p>
+<p>Will add user entry.  Optionally will perform an update and/or role assignment.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mvn verify -Ploadtest -Dtype<span style="color:#666">=</span>ftAddUser -Dqualifier<span style="color:#666">=</span>A1 -Dverify<span style="color:#666">=</span><span style="color:#a2f">true</span> -Dsleep<span style="color:#666">=</span><span style="color:#666">30</span> -Dupdate<span style="color:#666">=</span><span style="color:#a2f">true</span> -Dou<span style="color:#666">=</span>loadtestu -Drole<span style="color:#666">=</span>jmeterrole
+</code></pre></div><p>This test adds users.  It uses runtime arguments to define behavior:</p>
+<ul>
+<li>
+<p>hostname=foo     &lt;&ndash; optional field useful for distributing the load across servers in a multi-master env, it will override what&rsquo;s in fortress.properties</p>
+</li>
+<li>
+<p>qualifier=A1     &lt;&ndash; this is used to construct userid: hostname + qualifier + counter</p>
+</li>
+<li>
+<p>verify=true      &lt;&ndash; will read after operation to verify success</p>
+</li>
+<li>
+<p>update=true      &lt;&ndash; will edit user&rsquo;s description if set to true</p>
+</li>
+<li>
+<p>sleep=30         &lt;&ndash; sleep this many millisecones after each op</p>
+</li>
+<li>
+<p>ou=loadtestu     &lt;&ndash; this is a required attribute on user entry and must exist in user ou tree prior to test</p>
+</li>
+<li>
+<p>role=jmeterrole  &lt;&ndash; this is an optional attribute on user entry</p>
+</li>
+<li>
+<p>All but hostname may also be set as properties in <a href="src/test/jmeter/ftAddUser.jmx">add config</a> or <a href="src/test/jmeter/ftDelUser.jmx">del config</a> files.</p>
+</li>
+</ul>
+<p>B. Delete Users:</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mvn verify -Ploadtest -Dtype<span style="color:#666">=</span>ftDelUser -Dqualifier<span style="color:#666">=</span>A1 -Dverify<span style="color:#666">=</span><span style="color:#a2f">true</span> -Dsleep<span style="color:#666">=</span><span style="color:#666">30</span>
+</code></pre></div><ul>
+<li>Same properties as add except for &lsquo;ou&rsquo;, which is not used for delete ops</li>
+</ul>
+<p>C. Check Users:</p>
+<p>Will perform a createSession.  Optionally reads the entry and/or permission checks.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mvn verify -Ploadtest -Dtype<span style="color:#666">=</span>ftCheckUser -Dqualifier<span style="color:#666">=</span>A1 -Dverify<span style="color:#666">=</span><span style="color:#a2f">true</span> -Dsize<span style="color:#666">=</span><span style="color:#666">20</span> -Dperm<span style="color:#666">=</span>jmeterobject.oper
+</code></pre></div><p>This test performs createSession on users.  It uses runtime arguments to define behavior:</p>
+<ul>
+<li>size=20                  &lt;&ndash; defines the number of users in the test set</li>
+<li>Dperm=jmeterobject.oper  &lt;&ndash; this is an optional property, will perform permission checks if set</li>
+</ul>
+<h4 id="5-understanding-the-tests">5. Understanding the tests</h4>
+<p>A. Qualifier property.</p>
+<p>The add test generates userids based on: hostname + qualifier + counter.  The counter is global across all threads, so if you enable 20 threads * 100 loops, with a qualifier = &lsquo;A1&rsquo;, 2,000 users will be added:</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mvn verify -Ploadtest -Dtype<span style="color:#666">=</span>ftAddUser -Dqualifier<span style="color:#666">=</span>A1
+</code></pre></div><p>hostname-A1-1
+hostname-A1-2
+hostname-A1-3
+&hellip;
+hostname-A1-1000</p>
+<p>If you run the test a second time (before a delete run) there will be duplicates because it tries to add users with same userids again.  This is the idea of the &lsquo;qualifier&rsquo;.  Change its value to ensure the uids remain unique across test runs.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mvn verify -Ploadtest -Dtype<span style="color:#666">=</span>ftAddUser -Dqualifier<span style="color:#666">=</span>A2
+</code></pre></div><p>Or, you can run a delete before the next add:</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mvn verify -Ploadtest -Dtype<span style="color:#666">=</span>ftDelUser -Dqualifier<span style="color:#666">=</span>A1
+</code></pre></div><p>Just make sure the thread and loop counts in ftDelUser.jmx are the same as ftAddUser.jmx</p>
+<p>B. Verify</p>
+<p>If set to true, after every operation, a read of the entry will be performed.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mvn verify -Ploadtest -Dtype<span style="color:#666">=</span>ftAddUser -Dqualifier<span style="color:#666">=</span>A1 -Dverify<span style="color:#666">=</span><span style="color:#a2f">true</span>
+</code></pre></div><p>C. Update</p>
+<p>If set to true, after every add, an update will be performed on user&rsquo;s description field.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mvn verify -Ploadtest -Dtype<span style="color:#666">=</span>ftAddUser -Dqualifier<span style="color:#666">=</span>A1 -Dupdate<span style="color:#666">=</span><span style="color:#a2f">true</span>
+</code></pre></div><p>D. Role</p>
+<p>If &lsquo;role&rsquo; set as property, it will be assigned after the user has been added.  The role itself must already exist before being used in assignment to user.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mvn verify -Ploadtest -Dtype<span style="color:#666">=</span>ftAddUser -Dqualifier<span style="color:#666">=</span>A1 -Drole<span style="color:#666">=</span>jmeterrole
+</code></pre></div><p>E. Perm</p>
+<p>This applies only to the CheckUser test.  If set, it will be used as permission in checkAccess call 10 times.  For example:</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mvn verify -Ploadtest -Dtype<span style="color:#666">=</span>ftCheckUser -Dperm<span style="color:#666">=</span>jmeterobject.oper
+</code></pre></div><p>Will call checkAccess:</p>
+<p>obj: jmeterobject op oper1
+obj: jmeterobject op oper2
+obj: jmeterobject op oper3
+&hellip;
+obj: jmeterobject op oper10</p>
+<p>These assignments must already exist before running this test.</p>
+<h4 id="6-troubleshooting">6. Troubleshooting</h4>
+<p>A. View the results</p>
+<ul>
+<li>target/jmeter/results/[DATE]-ftAddUser.jtl</li>
+<li>target/jmeter/results/[DATE]ftDelUser.jmx.jtl</li>
+<li>target/jmeter/results/[DATE]ftCheckUser.jtl</li>
+</ul>
+<p>B. View the logs</p>
+<ul>
+<li>target/jmeter/logs/ftAddUser.jmx.log</li>
+<li>target/jmeter/logs/ftDelUser.jmx.log</li>
+<li>target/jmeter/logs/ftCheckUser.jmx.log</li>
+</ul>
+<hr>
 
 
             

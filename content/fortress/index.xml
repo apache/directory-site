@@ -152,6 +152,17 @@ Hey, remember that those rules are not the best nor the worst, they are pretty m
     </item>
     
     <item>
+      <title>Command Line Inteface</title>
+      <link>https://directory.apache.org/fortress/cli.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/cli.html</guid>
+      <description>Fortress Command Line Interface Used for ad-hoc administration, review and testing of policy data.
+Use cases supported  Create, Read, Update, Delete policies Testing of policies  Instructions to run the Apache Fortress Command Line Interpreter (CLI) The CLI is useful for ad-hoc policy administration in runtime environments.
+1. From FORTRESS_HOME enter the following command: mvn -Pcli test 2. Which starts the Fortress command line interpreter: CommandLineInterpreter:176 - Startup to interactive mode success.</description>
+    </item>
+    
+    <item>
       <title>Contact Us</title>
       <link>https://directory.apache.org/fortress/contact.html</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -194,6 +205,17 @@ Hey, remember that those rules are not the best nor the worst, they are pretty m
       
       <guid>https://directory.apache.org/fortress/download/download-sources.html</guid>
       <description>Downloads for Archive  [if-any logo]  [end] We suggest the following mirror site for your download: ZIP Archive     &amp;nbsp;   [preferred]/&amp;#91;...&amp;#93;/fortress-core-2.0.8-source-release.zip    [ASC-SHA256-SHA512]         &amp;nbsp;   [preferred]/&amp;#91;...&amp;#93;/fortress-realm-2.0.8-source-release.zip    [ASC-SHA256-SHA512]         &amp;nbsp;   [preferred]/&amp;#91;...&amp;#93;/fortress-rest-2.0.8-source-release.zip    [ASC-SHA256-SHA512]         &amp;nbsp;   [preferred]/&amp;#91;.</description>
+    </item>
+    
+    <item>
+      <title>Exception Handing</title>
+      <link>https://directory.apache.org/fortress/exception-handling.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/exception-handling.html</guid>
+      <description>Fortress Exception Handling Fortress communicates errors to the user through checked exceptions. At the highest level, is the SecurityException
+The SecurityException is declared to be thrown by all APIs within Fortress Manager interfaces. The original exception thrown may be of this type or one of its extensions
+ AuthorizationException in the event user fails administrative permission check. CfgException in the event the runtime cfg system fails. CreateException in the event DAO cannot create entity.</description>
     </item>
     
     <item>
@@ -299,8 +321,20 @@ Issues, bugs, and feature requests should be submitted to the following issue tr
       <guid>https://directory.apache.org/fortress/load-testing.html</guid>
       <description>Fortress Load Testing Fortress uses Apache Jmeter, driven by the Apache Maven Jmeter plugin. Typical tests insert millions of entries and processing authentication and authorization requests.
 Uses cases supported:
- Add User Update User Delete User Check User  For more information on how to setup and run the tests:
- Load Testing.  </description>
+ Add User Update User Delete User Check User  Instructions to run load tests:
+1. Load the security policy Use the Fortress Load Utility to load a Jmeter Test Policy:
+mvn install -Dload.file=./ldap/setup/JmeterTestPolicy.xml 2. Find the .jmx files Next, edit one of the following jmeter config files to enable a corresponding test case:</description>
+    </item>
+    
+    <item>
+      <title>Load Utility</title>
+      <link>https://directory.apache.org/fortress/load-utility.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/load-utility.html</guid>
+      <description>Fortress Load Utility The Load utility is useful to create base policy configurations that need to be rerun many times in different test and production environments. It uses Apache Ant to process the data and call the corresponding API. For samples look here: sample load scripts.
+1. Create a load file using examples like the RoleEngineeringSample. The XML tags and the precendence of operations is documented here: FortressAntTask.
+&amp;lt;!--Every script starts with this line.</description>
     </item>
     
     <item>
@@ -841,7 +875,7 @@ Detailed description of the project I created this solution a few years ago beca
       
       <guid>https://directory.apache.org/fortress/user-guide.html</guid>
       <description>Fortress User&amp;rsquo;s Guide This guide is primarily for people new to Fortress.
-Table of contents  1 - An Introduction to Role-Based Access Control ANSI INCITS 359-2004  1.1 - ANSI RBAC Explained 1.2 - What ANSI RBAC is not 1.3 - What ANSI RBAC is 1.4 - Why is ANSI RBAC Important? 1.5 - How to implement ANSI RBAC 1.6 - Where to go for more info   2 - Multitenancy Overview  2.</description>
+Table of contents  An Introduction to Role-Based Access Control ANSI INCITS 359-2004  1.1 - ANSI RBAC Explained 1.2 - What ANSI RBAC is not 1.3 - What ANSI RBAC is 1.4 - Why is ANSI RBAC Important? 1.5 - How to implement ANSI RBAC 1.6 - Where to go for more info   Multitenancy Overview  2.</description>
     </item>
     
     <item>
@@ -851,7 +885,7 @@ Table of contents  1 - An Introduction to Role-Based Access Control ANSI INCITS 
       
       <guid>https://directory.apache.org/fortress/user-guide-advanced.html</guid>
       <description>About this guide Advanced topics when deploying Fortress.
-Table of contents  Configuration Security Load Testing Multitenancy Setup  Fortress Core Fortress Web Fortress Rest    </description>
+Table of contents  Command Line Interface Load Utility Configuration Security Exception Handling Load Testing Multitenancy Setup  Fortress Core Fortress Web Fortress Rest    </description>
     </item>
     
     <item>
