@@ -19,4 +19,3 @@ This guide is primarily for people new to Fortress.
   * [2.1 - Fortress Multitenancy](user-guide/2.1-fortress-multitenancy.html)
   * [2.2 - Traditional Multi-Instances architecture](user-guide/2.2-tradi-multi-instances.html)
   * [2.3 - Multitenancy under the covers](user-guide/2.3-multitenancy-under-covers.html)
-* [Command Line Interface](cli.html)
