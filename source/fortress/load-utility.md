@@ -10,7 +10,7 @@ For samples look here: [sample load scripts](https://github.com/apache/directory
 
 #### 1. Create a load file using examples like the [RoleEngineeringSample](https://github.com/apache/directory-fortress-core/blob/master/ldap/setup/RoleEngineeringSample.xml).
 
-The XML tags and the precendence of operations is documented here: [FortressAntTask](https://directory.apache.org/fortress/gen-docs/latest/apidocs/org/apache/directory/fortress/core/ant/FortressAntTask.html).
+The XML tags mappings and the precendence of operations are documented here: [FortressAntTask](https://directory.apache.org/fortress/gen-docs/latest/apidocs/org/apache/directory/fortress/core/ant/FortressAntTask.html).
 
 ```xml
 <!-- Every script starts with this line. The name is arbitrary: -->
