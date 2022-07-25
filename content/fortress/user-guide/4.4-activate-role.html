@@ -155,18 +155,24 @@
 	<h1 id="44---add-active-role">4.4 - Add Active Role</h1>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">addActiveRole</span><span style="color:#666">(</span>Session session<span style="color:#666">,</span> UserRole role<span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> SecurityException
 </code></pre></div><p>This function adds a role as an active role of a session whose owner is a given user.</p>
-<p>The function is valid if and only if:
-the user is a member of the USERS data set
-the role is a member of the ROLES data set
-the role inclusion does not violate Dynamic Separation of Duty Relationships
-the session is a valid Fortress session
-the user is authorized to that role
-the session is owned by that user.</p>
-<p>Parameters:
-session - object contains the user&rsquo;s returned RBAC session from the createSession method.
-role - object contains the role name, UserRole.name, to be activated into session.
-Throws:
-SecurityException - is thrown if user is not allowed to activate or runtime error occurs with system.</p>
+<p>The function is valid if and only if:</p>
+<ul>
+<li>the user is a member of the USERS data set</li>
+<li>the role is a member of the ROLES data set</li>
+<li>the role inclusion does not violate Dynamic Separation of Duty Relationships</li>
+<li>the session is a valid Fortress session</li>
+<li>the user is authorized to that role</li>
+<li>the session is owned by that user</li>
+</ul>
+<p>Parameters:</p>
+<ul>
+<li>session - object contains the user&rsquo;s returned RBAC session from the createSession method.</li>
+<li>role - object contains the role name, UserRole.name, to be activated into session.</li>
+</ul>
+<p>Throws:</p>
+<ul>
+<li>SecurityException - is thrown if user is not allowed to activate or runtime error occurs with system.</li>
+</ul>
 <h2 id="addactiverole">addActiveRole</h2>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a2f">@test</span>
 <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">static</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">testAddActiveRole</span><span style="color:#666">(</span> Session session<span style="color:#666">,</span> String roleName <span style="color:#666">)</span>

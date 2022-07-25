@@ -155,17 +155,28 @@
 	<h1 id="42---check-access">4.2 - Check Access</h1>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#0b0;font-weight:bold">boolean</span> <span style="color:#00a000">checkAccess</span><span style="color:#666">(</span>Session session<span style="color:#666">,</span> Permission perm<span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> SecurityException
 </code></pre></div><p>Perform user RBAC authorization. This function returns a Boolean value meaning whether the subject of a given session is allowed
-not to perform a given operation on a given object. The function is valid if and only if the session is a valid Fortress session,
-the object is a member of the OBJS data set, and the operation is a member of the OPS data set. The session&rsquo;s subject has the permission
-to perform the operation on that object if and only if that permission is assigned to (at least) one of the session&rsquo;s active roles.
+not to perform a given operation on a given object.</p>
+<p>The function is valid if and only if:</p>
+<ul>
+<li>the session is a valid Fortress session</li>
+<li>the object is a member of the OBJS data set</li>
+<li>the operation is a member of the OPS data set.</li>
+</ul>
+<p>The session&rsquo;s subject has the permission to perform the operation on that object if and only if that permission is assigned to (at least) one of the session&rsquo;s active roles.
 This implementation will verify the roles or userId correspond to the subject&rsquo;s active roles are registered in the object&rsquo;s access control list.</p>
-<p>Parameters:
-perm - must contain the object, Permission.objName, and operation, Permission.opName, of permission User is trying to access.
-session - This object must be instantiated by calling createSession(org.apache.directory.fortress.core.model.User, boolean) method before passing into the method. No variables need to be set by client after returned from createSession.
-Returns:
-True if user has access, false otherwise.
-Throws:
-SecurityException - in the event of data validation failure, security policy violation or DAO error.</p>
+<p>Parameters:</p>
+<ul>
+<li>perm - must contain the object, Permission.objName, and operation, Permission.opName, of permission User is trying to access.</li>
+<li>session - This object must be instantiated by calling createSession(org.apache.directory.fortress.core.model.User, boolean) method before passing into the method. No variables need to be set by client after returned from createSession.</li>
+</ul>
+<p>Returns:</p>
+<ul>
+<li>True if user has access, False otherwise.</li>
+</ul>
+<p>Throws:</p>
+<ul>
+<li>SecurityException - in the event of data validation failure, security policy violation or DAO error.</li>
+</ul>
 <h2 id="checkaccess">checkAccess</h2>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a2f">@test</span>
 <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">static</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">testCheckAccess</span><span style="color:#666">(</span> Session session<span style="color:#666">,</span> String objectName<span style="color:#666">,</span> String operationName <span style="color:#666">)</span>

@@ -154,12 +154,23 @@
             
 	<h1 id="45---drop-active-role">4.5 - Drop Active Role</h1>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">dropActiveRole</span><span style="color:#666">(</span>Session session<span style="color:#666">,</span> UserRole role<span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> SecurityException
-</code></pre></div><p>This function deletes a role from the active role set of a session owned by a given user. The function is valid if and only if the user is a member of the USERS data set, the session object contains a valid Fortress session, the session is owned by the user, and the role is an active role of that session.</p>
-<p>Parameters:
-session - object contains the user&rsquo;s returned RBAC session from the createSession method.
-role - object contains the role name, UserRole.name, to be deactivated.
-Throws:
-SecurityException - is thrown if user is not allowed to deactivate or runtime error occurs with system.</p>
+</code></pre></div><p>This function deletes a role from the active role set of a session owned by a given user.</p>
+<p>The function is valid if and only if:</p>
+<ul>
+<li>the user is a member of the USERS data set</li>
+<li>the session object contains a valid Fortress session</li>
+<li>the session is owned by the user</li>
+<li>the role is an active role of that session</li>
+</ul>
+<p>Parameters:</p>
+<ul>
+<li>session - object contains the user&rsquo;s returned RBAC session from the createSession method.</li>
+<li>role - object contains the role name, UserRole.name, to be deactivated.</li>
+</ul>
+<p>Throws:</p>
+<ul>
+<li>SecurityException - is thrown if user is not allowed to deactivate or runtime error occurs with system.</li>
+</ul>
 <h2 id="dropactiverole">dropActiveRole</h2>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a2f">@test</span>
 <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">static</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">testDropActiveRole</span><span style="color:#666">(</span> Session session<span style="color:#666">,</span> String roleName <span style="color:#666">)</span>

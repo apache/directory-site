@@ -153,13 +153,20 @@
             
 	<h1 id="46---authorized-roles">4.6 - Authorized Roles</h1>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Set<span style="color:#666">&lt;</span>String<span style="color:#666">&gt;</span> <span style="color:#00a000">authorizedRoles</span><span style="color:#666">(</span>Session session<span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> SecurityException
-</code></pre></div><p>This function returns the authorized roles associated with a session based on hierarchical relationships. The function is valid if and only if the session is a valid Fortress session.</p>
-<p>Parameters:
-session - object contains the user&rsquo;s returned RBAC session from the createSession method.
-Returns:
-Set<String> containing all roles active in user&rsquo;s session. This will contain inherited roles.
-Throws:
-SecurityException - is thrown if session invalid or system. error.</p>
+</code></pre></div><p>This function returns the authorized roles associated with a session based on hierarchical relationships.</p>
+<p>The function is valid if and only if the session is a valid Fortress session.</p>
+<p>Parameters:</p>
+<ul>
+<li>session - object contains the user&rsquo;s returned RBAC session from the createSession method.</li>
+</ul>
+<p>Returns:</p>
+<ul>
+<li>Set<String> containing all roles active in user&rsquo;s session. This will contain inherited roles.</li>
+</ul>
+<p>Throws:</p>
+<ul>
+<li>SecurityException - is thrown if session invalid or system. error.</li>
+</ul>
 <h2 id="authorizedroles">authorizedRoles</h2>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a2f">@test</span>
 <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">static</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">testAuthorizedRoles</span><span style="color:#666">(</span> Session session <span style="color:#666">)</span>

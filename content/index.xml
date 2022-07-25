@@ -1540,7 +1540,8 @@ A minimal /etc/krb5.conf file looks as follows (make sure the port and host name
       
       <guid>https://directory.apache.org/fortress/user-guide/4.1-create-session.html</guid>
       <description>4.1 - CreateSession Session createSession(User user, boolean isTrusted) throws SecurityException Perform user authentication and role activations in one method. This method must be called once per user prior to calling other methods within this class. The successful result is Session that contains target user&amp;rsquo;s RBAC roles. In addition to checking user password validity it will apply configured password policy checks.
-Parameters: user - Contains User.userId, User.password (optional if isTrusted is &amp;lsquo;true&amp;rsquo;), optional User.</description>
+Parameters:
+ user - Contains User.userId, User.password (optional if isTrusted is &amp;lsquo;true&amp;rsquo;), optional User.</description>
     </item>
     
     <item>
@@ -1733,7 +1734,9 @@ Chapter content  4.2.1 - Introduction 4.2.2 - Definitions 4.2.3 - Enabling acces
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://directory.apache.org/fortress/user-guide/4.2-check-access.html</guid>
-      <description>4.2 - Check Access boolean checkAccess(Session session, Permission perm) throws SecurityException Perform user RBAC authorization. This function returns a Boolean value meaning whether the subject of a given session is allowed not to perform a given operation on a given object. The function is valid if and only if the session is a valid Fortress session, the object is a member of the OBJS data set, and the operation is a member of the OPS data set.</description>
+      <description>4.2 - Check Access boolean checkAccess(Session session, Permission perm) throws SecurityException Perform user RBAC authorization. This function returns a Boolean value meaning whether the subject of a given session is allowed not to perform a given operation on a given object.
+The function is valid if and only if:
+ the session is a valid Fortress session the object is a member of the OBJS data set the operation is a member of the OPS data set.</description>
     </item>
     
     <item>
@@ -2104,8 +2107,10 @@ Partition and Access Control Area Setup For this example we presume you have set
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://directory.apache.org/fortress/user-guide/4.3-session-permissions.html</guid>
-      <description>4.3 - Session Permissions List&amp;lt;Permission&amp;gt; sessionPermissions( Session session ) throws SecurityException This function returns the permissions of the session, i.e., the permissions assigned to its authorized roles. The function is valid if and only if the session is a valid Fortress session.
-Parameters: session - This object must be instantiated by calling createSession(org.apache.directory.fortress.core.model.User, boolean) method before passing into the method. No variables need to be set by client after returned from createSession.</description>
+      <description>4.3 - Session Permissions List&amp;lt;Permission&amp;gt; sessionPermissions( Session session ) throws SecurityException This function returns the permissions of the session, i.e., the permissions assigned to its authorized roles.
+The function is valid if and only if the session is a valid Fortress session.
+Parameters:
+ session - This object must be instantiated by calling createSession(org.apache.directory.fortress.core.model.User, boolean) method before passing into the method. No variables need to be set by client after returned from createSession.</description>
     </item>
     
     <item>
@@ -2126,7 +2131,8 @@ Enforcing a strict password policy is extremely punitive to users. It may leads 
       
       <guid>https://directory.apache.org/fortress/user-guide/4.4-activate-role.html</guid>
       <description>4.4 - Add Active Role void addActiveRole(Session session, UserRole role) throws SecurityException This function adds a role as an active role of a session whose owner is a given user.
-The function is valid if and only if: the user is a member of the USERS data set the role is a member of the ROLES data set the role inclusion does not violate Dynamic Separation of Duty Relationships the session is a valid Fortress session the user is authorized to that role the session is owned by that user.</description>
+The function is valid if and only if:
+ the user is a member of the USERS data set the role is a member of the ROLES data set the role inclusion does not violate Dynamic Separation of Duty Relationships the session is a valid Fortress session the user is authorized to that role the session is owned by that user  Parameters:</description>
     </item>
     
     <item>
@@ -2135,7 +2141,9 @@ The function is valid if and only if: the user is a member of the USERS data set
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://directory.apache.org/fortress/user-guide/4.5-deactivate-role.html</guid>
-      <description>4.5 - Drop Active Role void dropActiveRole(Session session, UserRole role) throws SecurityException This function deletes a role from the active role set of a session owned by a given user. The function is valid if and only if the user is a member of the USERS data set, the session object contains a valid Fortress session, the session is owned by the user, and the role is an active role of that session.</description>
+      <description>4.5 - Drop Active Role void dropActiveRole(Session session, UserRole role) throws SecurityException This function deletes a role from the active role set of a session owned by a given user.
+The function is valid if and only if:
+ the user is a member of the USERS data set the session object contains a valid Fortress session the session is owned by the user the role is an active role of that session  Parameters:</description>
     </item>
     
     <item>
@@ -2144,8 +2152,11 @@ The function is valid if and only if: the user is a member of the USERS data set
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://directory.apache.org/fortress/user-guide/4.6-authorized-roles.html</guid>
-      <description>4.6 - Authorized Roles Set&amp;lt;String&amp;gt; authorizedRoles(Session session) throws SecurityException This function returns the authorized roles associated with a session based on hierarchical relationships. The function is valid if and only if the session is a valid Fortress session.
-Parameters: session - object contains the user&amp;rsquo;s returned RBAC session from the createSession method. Returns: Set containing all roles active in user&amp;rsquo;s session. This will contain inherited roles. Throws: SecurityException - is thrown if session invalid or system.</description>
+      <description>4.6 - Authorized Roles Set&amp;lt;String&amp;gt; authorizedRoles(Session session) throws SecurityException This function returns the authorized roles associated with a session based on hierarchical relationships.
+The function is valid if and only if the session is a valid Fortress session.
+Parameters:
+ session - object contains the user&amp;rsquo;s returned RBAC session from the createSession method.  Returns:
+ Set containing all roles active in user&amp;rsquo;s session. This will contain inherited roles.  Throws:</description>
     </item>
     
     <item>
