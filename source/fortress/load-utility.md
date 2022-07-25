@@ -33,9 +33,9 @@ The XML tags mappings and the precendence of operations are documented here: [Fo
             <!-- Now, the load data. The tags and operation precedence is defined in FortressAntTask  -->            
             <!-- These users will be added  -->            
             <adduser>
-                <user userId="johndoe" password="password" description="User has both Buyer and Seller Roles Assigned" cn="Jon Doe" sn="Doe" ou="u1" />
-                <user userId="ssmith" password="password" description="User has Buyer Role Assigned" cn="Steve Smith" sn="Smith" ou="u1" />
-                <user userId="rtaylor" password="password" description="User has Seller Role Assigned" cn="Ricky Taylor" sn="Taylor" ou="u1" />
+                <user userId="johndoe" password="password" description="Assigned Buyer and Seller Roles" cn="Jon Doe" sn="Doe" ou="u1" />
+                <user userId="ssmith" password="password" description="Buyer Role Assigned" cn="Steve Smith" sn="Smith" ou="u1" />
+                <user userId="rtaylor" password="password" description="Seller Role Assigned" cn="Ricky Taylor" sn="Taylor" ou="u1" />
             </adduser>
 
             <!-- These roles will be added  -->
@@ -61,7 +61,8 @@ The XML tags mappings and the precendence of operations are documented here: [Fo
 
             <!-- Establish dynamic separation of duties constraints by making these roles mutually exclusive for activation  -->            
             <addsdset>
-                <sdset name="BuySel" setmembers="Buyers,Sellers" cardinality="2" setType="DYNAMIC" description="User can only be activate one role of this set"/>
+                <sdset name="BuySel" setmembers="Buyers,Sellers" cardinality="2" setType="DYNAMIC" 
+                       description="User can only be activate one role of this set"/>
             </addsdset>
 
             <!-- These permission objects are added  -->            
