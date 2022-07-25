@@ -1,7 +1,11 @@
 ---
 title: 3 - Fortress Configuration
+navPrev: 2.3-multitenancy-under-covers.html
+navPrevText: 2.3 - Multitenancy under the covers
 navUp: ../user-guide.html
 navUpText: User Guide
+navNext: 4-fortress-code-samples.html
+navNextText: 4 - Fortress Code Samples
 ---
 
 # Fortress Configuration

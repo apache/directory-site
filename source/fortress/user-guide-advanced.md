@@ -9,7 +9,6 @@ Advanced topics when deploying Fortress.
 ## Table of contents
 
 * [Command Line Interface](cli.html)
-* [Configuration](user-guide/3-configuration.html)
 * [Exception Handling](exception-handling.html)
 * [Load Testing](load-testing.html)
 * [Load Utility](load-utility.html)
