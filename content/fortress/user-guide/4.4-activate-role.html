@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>3 - Fortress Configuration &mdash; Apache Directory</title>
+    <title>4.4 - Add Active Role &mdash; Apache Directory</title>
 
     <link href="/css/common.css" rel="stylesheet" type="text/css"/>
     <link href="/css/turquoise.css" rel="stylesheet" type="text/css"/>
@@ -132,19 +132,19 @@
         <div class="nav_prev">
             
                 
-                <a href="2.3-multitenancy-under-covers.html">2.3 - Multitenancy under the covers</a>
+                <a href="4.3-session-permissions.html">4.3 - Session Permissions</a>
             
         </div>
         <div class="nav_up">
             
                 
-                <a href="../user-guide.html">User Guide</a>
+                <a href="4-fortress-code-samples.html">4 - Fortress Code Samples</a>
             
         </div>
         <div class="nav_next">
             
                 
-                <a href="4-fortress-code-samples.html">4 - Fortress Code Samples</a>
+                <a href="4.5-deactivate-role.html">4.5 - Drop Active Role</a>
             
         </div>
         <div class="clearfix"></div>
@@ -152,32 +152,59 @@
 
 
             
-	<h1 id="fortress-configuration">Fortress Configuration</h1>
-<p>In order to use the API, you must configure it. As it will connect to a remote LDAP server. Follow the installation instructions to learn how it&rsquo;s done.</p>
-<p>More info here on how it works:</p>
-<ul>
-<li><a href="https://github.com/apache/directory-fortress-core/blob/master/README-CONFIG.md">README for Apache Fortress Configuration Subsystem</a></li>
-</ul>
-
+	<h1 id="44---add-active-role">4.4 - Add Active Role</h1>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">addActiveRole</span><span style="color:#666">(</span>Session session<span style="color:#666">,</span> UserRole role<span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> SecurityException
+</code></pre></div><p>This function adds a role as an active role of a session whose owner is a given user.</p>
+<p>The function is valid if and only if:
+the user is a member of the USERS data set
+the role is a member of the ROLES data set
+the role inclusion does not violate Dynamic Separation of Duty Relationships
+the session is a valid Fortress session
+the user is authorized to that role
+the session is owned by that user.</p>
+<p>Parameters:
+session - object contains the user&rsquo;s returned RBAC session from the createSession method.
+role - object contains the role name, UserRole.name, to be activated into session.
+Throws:
+SecurityException - is thrown if user is not allowed to activate or runtime error occurs with system.</p>
+<h2 id="addactiverole">addActiveRole</h2>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a2f">@test</span>
+<span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">static</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">testAddActiveRole</span><span style="color:#666">(</span> Session session<span style="color:#666">,</span> String roleName <span style="color:#666">)</span>
+<span style="color:#666">{</span>
+    String szLocation <span style="color:#666">=</span> <span style="color:#b44">&#34;.testAddActiveRole&#34;</span><span style="color:#666">;</span>
+    <span style="color:#a2f;font-weight:bold">try</span>
+    <span style="color:#666">{</span>
+        <span style="color:#080;font-style:italic">// Instantiate the AccessMgr implementation.
+</span><span style="color:#080;font-style:italic"></span>        AccessMgr accessMgr <span style="color:#666">=</span> AccessMgrFactory<span style="color:#666">.</span><span style="color:#b44">createInstance</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
+        UserRole userRole <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> UserRole<span style="color:#666">(</span> session<span style="color:#666">.</span><span style="color:#b44">getUserId</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">,</span> roleName <span style="color:#666">)</span><span style="color:#666">;</span>
+        accessMgr<span style="color:#666">.</span><span style="color:#b44">addActiveRole</span><span style="color:#666">(</span> session<span style="color:#666">,</span> userRole <span style="color:#666">)</span><span style="color:#666">;</span>
+    <span style="color:#666">}</span>
+    <span style="color:#a2f;font-weight:bold">catch</span> <span style="color:#666">(</span> SecurityException ex <span style="color:#666">)</span>
+    <span style="color:#666">{</span>
+        LOG<span style="color:#666">.</span><span style="color:#b44">error</span><span style="color:#666">(</span> szLocation <span style="color:#666">+</span> <span style="color:#b44">&#34; caught SecurityException rc=&#34;</span> <span style="color:#666">+</span> ex<span style="color:#666">.</span><span style="color:#b44">getErrorId</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">+</span> <span style="color:#b44">&#34;, msg=&#34;</span> <span style="color:#666">+</span> ex<span style="color:#666">.</span><span style="color:#b44">getMessage</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">,</span> ex <span style="color:#666">)</span><span style="color:#666">;</span>
+        fail<span style="color:#666">(</span> ex<span style="color:#666">.</span><span style="color:#b44">getMessage</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+    <span style="color:#666">}</span>
+<span style="color:#666">}</span>
+</code></pre></div>
 
             
     <div class="nav">
         <div class="nav_prev">
             
                 
-                <a href="2.3-multitenancy-under-covers.html">2.3 - Multitenancy under the covers</a>
+                <a href="4.3-session-permissions.html">4.3 - Session Permissions</a>
             
         </div>
         <div class="nav_up">
             
                 
-                <a href="../user-guide.html">User Guide</a>
+                <a href="4-fortress-code-samples.html">4 - Fortress Code Samples</a>
             
         </div>
         <div class="nav_next">
             
                 
-                <a href="4-fortress-code-samples.html">4 - Fortress Code Samples</a>
+                <a href="4.5-deactivate-role.html">4.5 - Drop Active Role</a>
             
         </div>
         <div class="clearfix"></div>

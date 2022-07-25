@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>4.6 - Authorized Roles &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/turquoise.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/server-icon_16x16.png" />
+</head>
+
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+             
+                ApacheDS
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+             
+                LDAP API
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+            
+                <strong>Fortress</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>Fortress</h5>
+                <ul>
+                    <li><a href="/fortress/">Home</a></li>
+                    <li><a href="/fortress/history.html">History</a></li>
+                    <li><a href="/fortress/news.html">News</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/fortress/downloads.html">Fortress 2.0.8</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/fortress/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/fortress/overview.html">Overview</a></li>
+                    <li><a href="/fortress/installation.html">Installation Guide</a></li>
+                    <li><a href="/fortress/gen-docs/latest/apidocs/">JavaDocs</a></li>
+                    <li><a href="/fortress/user-guide.html">Users Guide</a></li>
+                    <li><a href="/fortress/user-guide-advanced.html">Advanced Users Guide</a></li>
+                    <li><a href="/fortress/coding-standards.html">Coding Standards</a></li>
+                    <li><a href="/fortress/testimonials.html">Testimonials</a></li>
+                    <li><a href="/fortress/developer-guide.html">Developer Guide</a></li>
+                    
+                    
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="4.5-deactivate-role.html">4.5 - Drop Active Role</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="4-fortress-code-samples.html">4 - Fortress Code Samples</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                &nbsp;
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+            
+	<h1 id="46---authorized-roles">4.6 - Authorized Roles</h1>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Set<span style="color:#666">&lt;</span>String<span style="color:#666">&gt;</span> <span style="color:#00a000">authorizedRoles</span><span style="color:#666">(</span>Session session<span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> SecurityException
+</code></pre></div><p>This function returns the authorized roles associated with a session based on hierarchical relationships. The function is valid if and only if the session is a valid Fortress session.</p>
+<p>Parameters:
+session - object contains the user&rsquo;s returned RBAC session from the createSession method.
+Returns:
+Set<String> containing all roles active in user&rsquo;s session. This will contain inherited roles.
+Throws:
+SecurityException - is thrown if session invalid or system. error.</p>
+<h2 id="authorizedroles">authorizedRoles</h2>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a2f">@test</span>
+<span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">static</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">testAuthorizedRoles</span><span style="color:#666">(</span> Session session <span style="color:#666">)</span>
+<span style="color:#666">{</span>
+    String szLocation <span style="color:#666">=</span> <span style="color:#b44">&#34;.testAuthorizedRoles&#34;</span><span style="color:#666">;</span>
+    <span style="color:#a2f;font-weight:bold">try</span>
+    <span style="color:#666">{</span>
+        <span style="color:#080;font-style:italic">// Instantiate the AccessMgr implementation.
+</span><span style="color:#080;font-style:italic"></span>        AccessMgr accessMgr <span style="color:#666">=</span> AccessMgrFactory<span style="color:#666">.</span><span style="color:#b44">createInstance</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
+        
+        <span style="color:#080;font-style:italic">// Using Session object returned from createSession
+</span><span style="color:#080;font-style:italic"></span>        Set<span style="color:#666">&lt;</span>String<span style="color:#666">&gt;</span> roles <span style="color:#666">=</span> accessMgr<span style="color:#666">.</span><span style="color:#b44">authorizedRoles</span><span style="color:#666">(</span> session <span style="color:#666">)</span><span style="color:#666">;</span>
+        assertNotNull<span style="color:#666">(</span> roles <span style="color:#666">)</span><span style="color:#666">;</span>
+        <span style="color:#a2f;font-weight:bold">for</span> <span style="color:#666">(</span> String roleName <span style="color:#666">:</span> roles  <span style="color:#666">)</span>
+        <span style="color:#666">{</span>
+            LOG<span style="color:#666">.</span><span style="color:#b44">info</span><span style="color:#666">(</span> szLocation <span style="color:#666">+</span> <span style="color:#b44">&#34;user [&#34;</span> <span style="color:#666">+</span> session<span style="color:#666">.</span><span style="color:#b44">getUserId</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">+</span> <span style="color:#b44">&#34;] role [&#34;</span> <span style="color:#666">+</span> roleName <span style="color:#666">+</span> <span style="color:#b44">&#34;]&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+        <span style="color:#666">}</span>
+    <span style="color:#666">}</span>
+    <span style="color:#a2f;font-weight:bold">catch</span> <span style="color:#666">(</span> SecurityException ex <span style="color:#666">)</span>
+    <span style="color:#666">{</span>
+        LOG<span style="color:#666">.</span><span style="color:#b44">error</span><span style="color:#666">(</span> szLocation <span style="color:#666">+</span> <span style="color:#b44">&#34; caught SecurityException rc=&#34;</span> <span style="color:#666">+</span> ex<span style="color:#666">.</span><span style="color:#b44">getErrorId</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">+</span> <span style="color:#b44">&#34;, msg=&#34;</span> <span style="color:#666">+</span> ex<span style="color:#666">.</span><span style="color:#b44">getMessage</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">,</span> ex <span style="color:#666">)</span><span style="color:#666">;</span>
+        fail<span style="color:#666">(</span> ex<span style="color:#666">.</span><span style="color:#b44">getMessage</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+    <span style="color:#666">}</span>
+<span style="color:#666">}</span>
+</code></pre></div>
+
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="4.5-deactivate-role.html">4.5 - Drop Active Role</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="4-fortress-code-samples.html">4 - Fortress Code Samples</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                &nbsp;
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2022, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>
