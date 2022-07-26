@@ -18,3 +18,5 @@ navNextText: 4.1 - Example Creating RBAC Session
 * [4.4 - Add Active Role](4.4-activate-role.html)
 * [4.5 - Drop Active Role](4.5-deactivate-role.html)
 * [4.6 - Get Authorized Roles](4.6-authorized-roles.html)
+* [4.7 - Add Role](4.7-add-role.html)
+* [4.8 - Del Role](4.8-delete-role.html)

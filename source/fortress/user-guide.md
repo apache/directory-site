@@ -27,3 +27,5 @@ This guide is primarily for people new to Fortress.
   * [4.4 - Add Active Role](user-guide/4.4-activate-role.html)
   * [4.5 - Drop Active Role](user-guide/4.5-deactivate-role.html)
   * [4.6 - Authorized Roles](user-guide/4.6-authorized-roles.html)
+  * [4.7 - Add Role](user-guide/4.7-add-role.html)
+  * [4.8 - Delete Role](user-guide/4.8-delete-role.html)
