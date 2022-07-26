@@ -1454,7 +1454,7 @@ Anyway, we use a subset of ASN/1, as what we have to deal with is the BER/DER en
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://directory.apache.org/fortress/user-guide/4-fortress-code-samples.html</guid>
-      <description>4 - Apache Fortress Code Samples Table of content  4.1 - Create Session 4.2 - Check Access 4.3 - Session Permissions 4.4 - Add Active Role 4.5 - Drop Active Role 4.6 - Get Authorized Roles 4.7 - Add Role 4.8 - Delete Role  </description>
+      <description>4 - Apache Fortress Code Samples Table of content  4.1 - Create Session 4.2 - Check Access 4.3 - Session Permissions 4.4 - Add Active Role 4.5 - Drop Active Role 4.6 - Get Authorized Roles 4.7 - Add Role 4.8 - Delete Role 4.9 - Add User 4.10 - Delete User  </description>
     </item>
     
     <item>
@@ -1706,6 +1706,15 @@ Usage MessageType : BIND_REQUEST Message ID : 1 BindRequest Version : &amp;lsquo
       <guid>https://directory.apache.org/apacheds/advanced-ug/4.1.4-certificate-authn.html</guid>
       <description>4.1.4 - Client authentication through certificates To be compoleted&amp;hellip;
 At the moment, the server does not support this feature.</description>
+    </item>
+    
+    <item>
+      <title>4.10 - Delete User</title>
+      <link>https://directory.apache.org/fortress/user-guide/4.10-delete-user.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/user-guide/4.10-delete-user.html</guid>
+      <description>void deleteUser(User user) throws SecurityException 4.10 - Delete User This command deletes an existing user from the RBAC database. The command is valid if and only if the user to be deleted is a member of the USERS data set. The USERS and UA data sets and the assigned_users function are updated. This method performs a &amp;ldquo;hard&amp;rdquo; delete. It completely removes all data associated with this user from the directory. User entity must exist in directory prior to making this call else exception will be thrown.</description>
     </item>
     
     <item>
@@ -2182,6 +2191,17 @@ required parameters:
 required parameters:
  Role#name - contains the name to use for the Role to be deleted.  Parameters:
  role - Must contain Role#name for Role to delete.</description>
+    </item>
+    
+    <item>
+      <title>4.9 - Add User</title>
+      <link>https://directory.apache.org/fortress/user-guide/4.9-add-user.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/user-guide/4.9-add-user.html</guid>
+      <description>4.9 - Add User User addUser(User user) throws SecurityException This command creates a new RBAC user. The command is valid only if the new user is not already a member of the USERS data set. The USER data set is updated. The new user does not own any session at the time of its creation.
+required parameters:
+ User#userId - maps to INetOrgPerson uid User#password - used when password authentication is required User#ou - contains the name of an already existing User OU node  optional parameters:</description>
     </item>
     
     <item>

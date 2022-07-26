@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>4.7 - Add Role &mdash; Apache Directory</title>
+    <title>4.9 - Add User &mdash; Apache Directory</title>
 
     <link href="/css/common.css" rel="stylesheet" type="text/css"/>
     <link href="/css/turquoise.css" rel="stylesheet" type="text/css"/>
@@ -132,7 +132,7 @@
         <div class="nav_prev">
             
                 
-                <a href="4.6-authorized-roles.html">4.6 - Authorized Roles</a>
+                <a href="4.8-delete-role.html">4.8 - Delete Role</a>
             
         </div>
         <div class="nav_up">
@@ -144,7 +144,7 @@
         <div class="nav_next">
             
                 
-                <a href="4.8-delete-role.html">4.8 - Delete Role</a>
+                <a href="4.10-delete-user.html">4.10 - Delete User</a>
             
         </div>
         <div class="clearfix"></div>
@@ -152,61 +152,76 @@
 
 
             
-	<h1 id="47---add-role">4.7 - Add Role</h1>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Role <span style="color:#00a000">addRole</span><span style="color:#666">(</span>Role role<span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> SecurityException
-</code></pre></div><p>This command creates a new role.
-The command is valid if and only if the new role is not already a member of the ROLES data set.
-The ROLES data set is updated. Initially, no user or permission is assigned to the new role.</p>
+	<h1 id="49---add-user">4.9 - Add User</h1>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">User <span style="color:#00a000">addUser</span><span style="color:#666">(</span>User user<span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> SecurityException
+</code></pre></div><p>This command creates a new RBAC user. The command is valid only if the new user is not already a member of the USERS data set.
+The USER data set is updated. The new user does not own any session at the time of its creation.</p>
 <p>required parameters:</p>
 <ul>
-<li>Role#name - contains the name to use for the Role to be created.</li>
+<li>User#userId - maps to INetOrgPerson uid</li>
+<li>User#password - used when password authentication is required</li>
+<li>User#ou - contains the name of an already existing User OU node</li>
 </ul>
 <p>optional parameters:</p>
 <ul>
-<li>Role#description - maps to description attribute on organizationalRole object class</li>
-<li>Role#beginTime - HHMM - determines begin hour role may be activated into user&rsquo;s RBAC session</li>
-<li>Role#endTime - HHMM - determines end hour role may be activated into user&rsquo;s RBAC session.</li>
-<li>Role#beginDate - YYYYMMDD - determines date when role may be activated into user&rsquo;s RBAC session</li>
-<li>Role#endDate - YYYYMMDD - indicates latest date role may be activated into user&rsquo;s RBAC session</li>
-<li>Role#beginLockDate - YYYYMMDD - determines beginning of enforced inactive status</li>
-<li>Role#endLockDate - YYYYMMDD - determines end of enforced inactive status</li>
-<li>Role#dayMask - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day role may be activated into user&rsquo;s RBAC session</li>
+<li>User#pwPolicy - contains the name of an already existing OpenLDAP password policy node</li>
+<li>User#cn - maps to INetOrgPerson common name attribute</li>
+<li>User#sn - maps to INetOrgPerson surname attribute</li>
+<li>User#description - maps to INetOrgPerson description attribute</li>
+<li>User#title - maps to INetOrgPerson title attribute</li>
+<li>User#employeeType - maps to INetOrgPerson employeeType attribute</li>
+<li>User#phones * - multivalued attribute maps to organizationalPerson telephoneNumber attribute</li>
+<li>User#mobiles * - multivalued attribute maps to INetOrgPerson mobile attribute</li>
+<li>User#emails * - multivalued attribute maps to INetOrgPerson mail attribute</li>
+<li>User#address * - multivalued attribute maps to organizationalPerson postalAddress, st, l, postalCode, postOfficeBox attributes</li>
+<li>User#beginTime - HHMM - determines begin hour user may activate session</li>
+<li>User#endTime - HHMM - determines end hour user may activate session.</li>
+<li>User#beginDate - YYYYMMDD - determines date when user may sign on</li>
+<li>User#endDate - YYYYMMDD - indicates latest date user may sign on</li>
+<li>User#beginLockDate - YYYYMMDD - determines beginning of enforced inactive status</li>
+<li>User#endLockDate - YYYYMMDD - determines end of enforced inactive status</li>
+<li>User#dayMask - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day of user may sign on</li>
+<li>User#timeout - number (in minutes) of session inactivity time allowed</li>
+<li>User#props * - multivalued attribute contains property key and values are separated with a &lsquo;:'. e.g. mykey1:myvalue1</li>
+<li>User#roles * - multivalued attribute contains the name of already existing role to assign to user</li>
+<li>User#adminRoles * - multivalued attribute contains the name of already existing adminRole to assign to user</li>
 </ul>
 <p>Parameters:</p>
 <ul>
-<li>role - must contains Role#name (required) and optional Role#description.</li>
+<li>user - User entity must contain User#userId and User#ou (required) and optional User#description,User#roles and many others.</li>
 </ul>
 <p>Returns:</p>
 <ul>
-<li>copy of the added Role</li>
+<li>Returns entity containing user data that was added.</li>
 </ul>
 <p>Throws:</p>
 <ul>
 <li>SecurityException - thrown in the event of data validation or system error.</li>
 </ul>
-<h2 id="addrole">addRole</h2>
+<h2 id="adduser">addUser</h2>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a2f">@test</span>
-<span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">static</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">testCreateRole</span><span style="color:#666">(</span><span style="color:#666">)</span>
+<span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">static</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">testCreateUser</span><span style="color:#666">(</span>String userId<span style="color:#666">,</span> String password<span style="color:#666">,</span> String userOu<span style="color:#666">)</span>
 <span style="color:#666">{</span>
-    String szLocation <span style="color:#666">=</span> <span style="color:#b44">&#34;.testCreateRole&#34;</span><span style="color:#666">;</span>
+    String szLocation <span style="color:#666">=</span> <span style="color:#b44">&#34;.testCreateUser&#34;</span><span style="color:#666">;</span>
     <span style="color:#a2f;font-weight:bold">try</span>
     <span style="color:#666">{</span>
-        <span style="color:#080;font-style:italic">// Instantiate the AdminMgr implementation which is used to provision RBAC policies.
+        <span style="color:#080;font-style:italic">// Instantiate the AdminMgr implementation.  All AdminMgr APIs can throw a SecurityException in the event
+</span><span style="color:#080;font-style:italic"></span>        <span style="color:#080;font-style:italic">// of rule violation or system error.
 </span><span style="color:#080;font-style:italic"></span>        AdminMgr adminMgr <span style="color:#666">=</span> AdminMgrFactory<span style="color:#666">.</span><span style="color:#b44">createInstance</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
-        
-        <span style="color:#080;font-style:italic">// At its simplest a Role contains only a name.
-</span><span style="color:#080;font-style:italic"></span>        Role inRole <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> Role<span style="color:#666">(</span><span style="color:#b44">&#34;myRoleName&#34;</span><span style="color:#666">)</span><span style="color:#666">;</span>
-        
-        <span style="color:#080;font-style:italic">// Call the API to actually add the Role to ldap.
-</span><span style="color:#080;font-style:italic"></span>        adminMgr<span style="color:#666">.</span><span style="color:#b44">addRole</span><span style="color:#666">(</span>inRole<span style="color:#666">)</span><span style="color:#666">;</span>
-        
-        <span style="color:#080;font-style:italic">// Instantiate the ReviewMgr implementation which is used to interrogate RBAC policy information.
+        User inUser <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> User<span style="color:#666">(</span>userId<span style="color:#666">,</span> password<span style="color:#666">)</span><span style="color:#666">;</span>
+        <span style="color:#080;font-style:italic">// ou is required attribute:
+</span><span style="color:#080;font-style:italic"></span>        inUser<span style="color:#666">.</span><span style="color:#b44">setOu</span><span style="color:#666">(</span>userOu<span style="color:#666">)</span><span style="color:#666">;</span>
+        <span style="color:#080;font-style:italic">// Now call the add API.  The API will return User entity with associated LDAP dn if creation was successful.
+</span><span style="color:#080;font-style:italic"></span>        User outUser <span style="color:#666">=</span> adminMgr<span style="color:#666">.</span><span style="color:#b44">addUser</span><span style="color:#666">(</span>inUser<span style="color:#666">)</span><span style="color:#666">;</span>
+        assertNotNull<span style="color:#666">(</span>outUser<span style="color:#666">)</span><span style="color:#666">;</span>
+
+        <span style="color:#080;font-style:italic">// Instantiate the ReviewMgr implementation which is used to interrogate policy information.
 </span><span style="color:#080;font-style:italic"></span>        ReviewMgr reviewMgr <span style="color:#666">=</span> ReviewMgrFactory<span style="color:#666">.</span><span style="color:#b44">createInstance</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
-        
-        <span style="color:#080;font-style:italic">// now read the newly created Role entity back:
-</span><span style="color:#080;font-style:italic"></span>        Role outRole <span style="color:#666">=</span> reviewMgr<span style="color:#666">.</span><span style="color:#b44">readRole</span><span style="color:#666">(</span>inRole<span style="color:#666">)</span><span style="color:#666">;</span>
-        assertTrue<span style="color:#666">(</span>szLocation <span style="color:#666">+</span> <span style="color:#b44">&#34; failed read&#34;</span><span style="color:#666">,</span> inRole<span style="color:#666">.</span><span style="color:#b44">equals</span><span style="color:#666">(</span>outRole<span style="color:#666">)</span><span style="color:#666">)</span><span style="color:#666">;</span>
-        LOG<span style="color:#666">.</span><span style="color:#b44">info</span><span style="color:#666">(</span>szLocation <span style="color:#666">+</span> <span style="color:#b44">&#34; [&#34;</span> <span style="color:#666">+</span> outRole<span style="color:#666">.</span><span style="color:#b44">getName</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">+</span> <span style="color:#b44">&#34;] success&#34;</span><span style="color:#666">)</span><span style="color:#666">;</span>
+
+        <span style="color:#080;font-style:italic">// now read the newly created User entity back:
+</span><span style="color:#080;font-style:italic"></span>        User outUser2 <span style="color:#666">=</span> reviewMgr<span style="color:#666">.</span><span style="color:#b44">readUser</span><span style="color:#666">(</span>inUser<span style="color:#666">)</span><span style="color:#666">;</span>
+        assertTrue<span style="color:#666">(</span>szLocation <span style="color:#666">+</span> <span style="color:#b44">&#34; failed read&#34;</span><span style="color:#666">,</span> inUser<span style="color:#666">.</span><span style="color:#b44">equals</span><span style="color:#666">(</span>outUser2<span style="color:#666">)</span><span style="color:#666">)</span><span style="color:#666">;</span>
+        LOG<span style="color:#666">.</span><span style="color:#b44">info</span><span style="color:#666">(</span>szLocation <span style="color:#666">+</span> <span style="color:#b44">&#34; user [&#34;</span> <span style="color:#666">+</span> outUser2<span style="color:#666">.</span><span style="color:#b44">getUserId</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">+</span> <span style="color:#b44">&#34;] success&#34;</span><span style="color:#666">)</span><span style="color:#666">;</span>
     <span style="color:#666">}</span>
     <span style="color:#a2f;font-weight:bold">catch</span> <span style="color:#666">(</span>SecurityException ex<span style="color:#666">)</span>
     <span style="color:#666">{</span>
@@ -221,7 +236,7 @@ The ROLES data set is updated. Initially, no user or permission is assigned to t
         <div class="nav_prev">
             
                 
-                <a href="4.6-authorized-roles.html">4.6 - Authorized Roles</a>
+                <a href="4.8-delete-role.html">4.8 - Delete Role</a>
             
         </div>
         <div class="nav_up">
@@ -233,7 +248,7 @@ The ROLES data set is updated. Initially, no user or permission is assigned to t
         <div class="nav_next">
             
                 
-                <a href="4.8-delete-role.html">4.8 - Delete Role</a>
+                <a href="4.10-delete-user.html">4.10 - Delete User</a>
             
         </div>
         <div class="clearfix"></div>

@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>4.7 - Add Role &mdash; Apache Directory</title>
+    <title>4.10 - Delete User &mdash; Apache Directory</title>
 
     <link href="/css/common.css" rel="stylesheet" type="text/css"/>
     <link href="/css/turquoise.css" rel="stylesheet" type="text/css"/>
@@ -132,7 +132,7 @@
         <div class="nav_prev">
             
                 
-                <a href="4.6-authorized-roles.html">4.6 - Authorized Roles</a>
+                <a href="4.9-add-user.html">4.9 - Add User</a>
             
         </div>
         <div class="nav_up">
@@ -143,8 +143,7 @@
         </div>
         <div class="nav_next">
             
-                
-                <a href="4.8-delete-role.html">4.8 - Delete Role</a>
+                &nbsp;
             
         </div>
         <div class="clearfix"></div>
@@ -152,61 +151,53 @@
 
 
             
-	<h1 id="47---add-role">4.7 - Add Role</h1>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Role <span style="color:#00a000">addRole</span><span style="color:#666">(</span>Role role<span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> SecurityException
-</code></pre></div><p>This command creates a new role.
-The command is valid if and only if the new role is not already a member of the ROLES data set.
-The ROLES data set is updated. Initially, no user or permission is assigned to the new role.</p>
+	<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">deleteUser</span><span style="color:#666">(</span>User user<span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> SecurityException
+</code></pre></div><h1 id="410---delete-user">4.10 - Delete User</h1>
+<p>This command deletes an existing user from the RBAC database.
+The command is valid if and only if the user to be deleted is a member of the USERS data set.
+The USERS and UA data sets and the assigned_users function are updated. This method performs a &ldquo;hard&rdquo; delete.
+It completely removes all data associated with this user from the directory.
+User entity must exist in directory prior to making this call else exception will be thrown.</p>
 <p>required parameters:</p>
 <ul>
-<li>Role#name - contains the name to use for the Role to be created.</li>
-</ul>
-<p>optional parameters:</p>
-<ul>
-<li>Role#description - maps to description attribute on organizationalRole object class</li>
-<li>Role#beginTime - HHMM - determines begin hour role may be activated into user&rsquo;s RBAC session</li>
-<li>Role#endTime - HHMM - determines end hour role may be activated into user&rsquo;s RBAC session.</li>
-<li>Role#beginDate - YYYYMMDD - determines date when role may be activated into user&rsquo;s RBAC session</li>
-<li>Role#endDate - YYYYMMDD - indicates latest date role may be activated into user&rsquo;s RBAC session</li>
-<li>Role#beginLockDate - YYYYMMDD - determines beginning of enforced inactive status</li>
-<li>Role#endLockDate - YYYYMMDD - determines end of enforced inactive status</li>
-<li>Role#dayMask - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day role may be activated into user&rsquo;s RBAC session</li>
+<li>User#userId - maps to INetOrgPerson uid</li>
 </ul>
 <p>Parameters:</p>
 <ul>
-<li>role - must contains Role#name (required) and optional Role#description.</li>
-</ul>
-<p>Returns:</p>
-<ul>
-<li>copy of the added Role</li>
+<li>user - Contains the User#userId of the User targeted for deletion.</li>
 </ul>
 <p>Throws:</p>
 <ul>
 <li>SecurityException - thrown in the event of data validation or system error.</li>
 </ul>
-<h2 id="addrole">addRole</h2>
+<h2 id="deleteuser">deleteUser</h2>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a2f">@test</span>
-<span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">static</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">testCreateRole</span><span style="color:#666">(</span><span style="color:#666">)</span>
+<span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">static</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">testDeleteUser</span><span style="color:#666">(</span>String userId<span style="color:#666">)</span>
 <span style="color:#666">{</span>
-    String szLocation <span style="color:#666">=</span> <span style="color:#b44">&#34;.testCreateRole&#34;</span><span style="color:#666">;</span>
+    String szLocation <span style="color:#666">=</span> <span style="color:#b44">&#34;.testDeleteUser&#34;</span><span style="color:#666">;</span>
+
     <span style="color:#a2f;font-weight:bold">try</span>
     <span style="color:#666">{</span>
         <span style="color:#080;font-style:italic">// Instantiate the AdminMgr implementation which is used to provision RBAC policies.
 </span><span style="color:#080;font-style:italic"></span>        AdminMgr adminMgr <span style="color:#666">=</span> AdminMgrFactory<span style="color:#666">.</span><span style="color:#b44">createInstance</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
-        
-        <span style="color:#080;font-style:italic">// At its simplest a Role contains only a name.
-</span><span style="color:#080;font-style:italic"></span>        Role inRole <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> Role<span style="color:#666">(</span><span style="color:#b44">&#34;myRoleName&#34;</span><span style="color:#666">)</span><span style="color:#666">;</span>
-        
-        <span style="color:#080;font-style:italic">// Call the API to actually add the Role to ldap.
-</span><span style="color:#080;font-style:italic"></span>        adminMgr<span style="color:#666">.</span><span style="color:#b44">addRole</span><span style="color:#666">(</span>inRole<span style="color:#666">)</span><span style="color:#666">;</span>
-        
-        <span style="color:#080;font-style:italic">// Instantiate the ReviewMgr implementation which is used to interrogate RBAC policy information.
+        User inUser <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> User<span style="color:#666">(</span>userId<span style="color:#666">)</span><span style="color:#666">;</span>
+        adminMgr<span style="color:#666">.</span><span style="color:#b44">deleteUser</span><span style="color:#666">(</span>inUser<span style="color:#666">)</span><span style="color:#666">;</span>
+
+        <span style="color:#080;font-style:italic">// now read it back:
+</span><span style="color:#080;font-style:italic"></span>        <span style="color:#080;font-style:italic">// Instantiate the ReviewMgr implementation which is used to interrogate policy information.
 </span><span style="color:#080;font-style:italic"></span>        ReviewMgr reviewMgr <span style="color:#666">=</span> ReviewMgrFactory<span style="color:#666">.</span><span style="color:#b44">createInstance</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
-        
-        <span style="color:#080;font-style:italic">// now read the newly created Role entity back:
-</span><span style="color:#080;font-style:italic"></span>        Role outRole <span style="color:#666">=</span> reviewMgr<span style="color:#666">.</span><span style="color:#b44">readRole</span><span style="color:#666">(</span>inRole<span style="color:#666">)</span><span style="color:#666">;</span>
-        assertTrue<span style="color:#666">(</span>szLocation <span style="color:#666">+</span> <span style="color:#b44">&#34; failed read&#34;</span><span style="color:#666">,</span> inRole<span style="color:#666">.</span><span style="color:#b44">equals</span><span style="color:#666">(</span>outRole<span style="color:#666">)</span><span style="color:#666">)</span><span style="color:#666">;</span>
-        LOG<span style="color:#666">.</span><span style="color:#b44">info</span><span style="color:#666">(</span>szLocation <span style="color:#666">+</span> <span style="color:#b44">&#34; [&#34;</span> <span style="color:#666">+</span> outRole<span style="color:#666">.</span><span style="color:#b44">getName</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">+</span> <span style="color:#b44">&#34;] success&#34;</span><span style="color:#666">)</span><span style="color:#666">;</span>
+        <span style="color:#a2f;font-weight:bold">try</span>
+        <span style="color:#666">{</span>
+            <span style="color:#080;font-style:italic">// this should fail because User was deleted above:
+</span><span style="color:#080;font-style:italic"></span>            reviewMgr<span style="color:#666">.</span><span style="color:#b44">readUser</span><span style="color:#666">(</span>inUser<span style="color:#666">)</span><span style="color:#666">;</span>
+            fail<span style="color:#666">(</span>szLocation <span style="color:#666">+</span> <span style="color:#b44">&#34; user [&#34;</span> <span style="color:#666">+</span> inUser<span style="color:#666">.</span><span style="color:#b44">getUserId</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">+</span> <span style="color:#b44">&#34;] delete failed&#34;</span><span style="color:#666">)</span><span style="color:#666">;</span>
+        <span style="color:#666">}</span>
+        <span style="color:#a2f;font-weight:bold">catch</span> <span style="color:#666">(</span>SecurityException se<span style="color:#666">)</span>
+        <span style="color:#666">{</span>
+            assertTrue<span style="color:#666">(</span>szLocation <span style="color:#666">+</span> <span style="color:#b44">&#34; excep id check&#34;</span><span style="color:#666">,</span> se<span style="color:#666">.</span><span style="color:#b44">getErrorId</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">=</span><span style="color:#666">=</span> GlobalErrIds<span style="color:#666">.</span><span style="color:#b44">USER_NOT_FOUND</span><span style="color:#666">)</span><span style="color:#666">;</span>
+            <span style="color:#080;font-style:italic">// pass
+</span><span style="color:#080;font-style:italic"></span>        <span style="color:#666">}</span>
+        LOG<span style="color:#666">.</span><span style="color:#b44">info</span><span style="color:#666">(</span>szLocation <span style="color:#666">+</span> <span style="color:#b44">&#34; user [&#34;</span> <span style="color:#666">+</span> inUser<span style="color:#666">.</span><span style="color:#b44">getUserId</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">+</span> <span style="color:#b44">&#34;] success&#34;</span><span style="color:#666">)</span><span style="color:#666">;</span>
     <span style="color:#666">}</span>
     <span style="color:#a2f;font-weight:bold">catch</span> <span style="color:#666">(</span>SecurityException ex<span style="color:#666">)</span>
     <span style="color:#666">{</span>
@@ -221,7 +212,7 @@ The ROLES data set is updated. Initially, no user or permission is assigned to t
         <div class="nav_prev">
             
                 
-                <a href="4.6-authorized-roles.html">4.6 - Authorized Roles</a>
+                <a href="4.9-add-user.html">4.9 - Add User</a>
             
         </div>
         <div class="nav_up">
@@ -232,8 +223,7 @@ The ROLES data set is updated. Initially, no user or permission is assigned to t
         </div>
         <div class="nav_next">
             
-                
-                <a href="4.8-delete-role.html">4.8 - Delete Role</a>
+                &nbsp;
             
         </div>
         <div class="clearfix"></div>
