@@ -1454,7 +1454,7 @@ Anyway, we use a subset of ASN/1, as what we have to deal with is the BER/DER en
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://directory.apache.org/fortress/user-guide/4-fortress-code-samples.html</guid>
-      <description>4 - Apache Fortress Code Samples Table of content  4.1 - Create Session 4.2 - Check Access 4.3 - Session Permissions 4.4 - Add Active Role 4.5 - Drop Active Role 4.6 - Get Authorized Roles 4.7 - Add Role 4.8 - Del Role  </description>
+      <description>4 - Apache Fortress Code Samples Table of content  4.1 - Create Session 4.2 - Check Access 4.3 - Session Permissions 4.4 - Add Active Role 4.5 - Drop Active Role 4.6 - Get Authorized Roles 4.7 - Add Role 4.8 - Delete Role  </description>
     </item>
     
     <item>
@@ -2110,7 +2110,9 @@ Partition and Access Control Area Setup For this example we presume you have set
       <description>4.3 - Session Permissions List&amp;lt;Permission&amp;gt; sessionPermissions( Session session ) throws SecurityException This function returns the permissions of the session, i.e., the permissions assigned to its authorized roles.
 The function is valid if and only if the session is a valid Fortress session.
 Parameters:
- session - This object must be instantiated by calling createSession(org.apache.directory.fortress.core.model.User, boolean) method before passing into the method. No variables need to be set by client after returned from createSession.</description>
+ session - object contains the user&amp;rsquo;s returned RBAC session from the createSession method.  Returns:
+ List containing permissions active for user&amp;rsquo;s session.  Throws:
+ SecurityException - is thrown if runtime error occurs with system.</description>
     </item>
     
     <item>
