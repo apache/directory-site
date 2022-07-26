@@ -137,7 +137,7 @@ More info here on how it works:
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://directory.apache.org/fortress/user-guide/4-fortress-code-samples.html</guid>
-      <description>4 - Apache Fortress Code Samples Table of content  4.1 - Create Session 4.2 - Check Access 4.3 - Session Permissions 4.4 - Add Active Role 4.5 - Drop Active Role 4.6 - Get Authorized Roles  </description>
+      <description>4 - Apache Fortress Code Samples Table of content  4.1 - Create Session 4.2 - Check Access 4.3 - Session Permissions 4.4 - Add Active Role 4.5 - Drop Active Role 4.6 - Get Authorized Roles 4.7 - Add Role 4.8 - Del Role  </description>
     </item>
     
     <item>
@@ -207,6 +207,29 @@ The function is valid if and only if the session is a valid Fortress session.
 Parameters:
  session - object contains the user&amp;rsquo;s returned RBAC session from the createSession method.  Returns:
  Set containing all roles active in user&amp;rsquo;s session. This will contain inherited roles.  Throws:</description>
+    </item>
+    
+    <item>
+      <title>4.7 - Add Role</title>
+      <link>https://directory.apache.org/fortress/user-guide/4.7-add-role.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/user-guide/4.7-add-role.html</guid>
+      <description>4.7 - Add Role Role addRole(Role role) throws SecurityException This command creates a new role. The command is valid if and only if the new role is not already a member of the ROLES data set. The ROLES data set is updated. Initially, no user or permission is assigned to the new role.
+required parameters:
+ Role#name - contains the name to use for the Role to be created.  optional parameters:</description>
+    </item>
+    
+    <item>
+      <title>4.8 - Delete Role</title>
+      <link>https://directory.apache.org/fortress/user-guide/4.8-delete-role.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/user-guide/4.8-delete-role.html</guid>
+      <description>4.8 - Delete Role void deleteRole(Role role) throws SecurityException This command deletes an existing role from the RBAC database. The command is valid if and only if the role to be deleted is a member of the ROLES data set. This command will also deassign role from all users.
+required parameters:
+ Role#name - contains the name to use for the Role to be deleted.  Parameters:
+ role - Must contain Role#name for Role to delete.</description>
     </item>
     
     <item>

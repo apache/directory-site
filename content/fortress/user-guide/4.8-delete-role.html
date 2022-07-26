@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>4 - Fortress Code Samples &mdash; Apache Directory</title>
+    <title>4.8 - Delete Role &mdash; Apache Directory</title>
 
     <link href="/css/common.css" rel="stylesheet" type="text/css"/>
     <link href="/css/turquoise.css" rel="stylesheet" type="text/css"/>
@@ -132,19 +132,18 @@
         <div class="nav_prev">
             
                 
-                <a href="3-configuration.html">3 - Fortress Configuration</a>
+                <a href="4.7-add-role.html">4.7 - Add Role</a>
             
         </div>
         <div class="nav_up">
             
                 
-                <a href="../user-guide.html">User Guide</a>
+                <a href="4-fortress-code-samples.html">4 - Fortress Code Samples</a>
             
         </div>
         <div class="nav_next">
             
-                
-                <a href="4.1-create-session.html">4.1 - Example Creating RBAC Session</a>
+                &nbsp;
             
         </div>
         <div class="clearfix"></div>
@@ -152,38 +151,64 @@
 
 
             
-	<h1 id="4---apache-fortress-code-samples">4 - Apache Fortress Code Samples</h1>
-<h2 id="table-of-content">Table of content</h2>
+	<h1 id="48---delete-role">4.8 - Delete Role</h1>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">deleteRole</span><span style="color:#666">(</span>Role role<span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> SecurityException
+</code></pre></div><p>This command deletes an existing role from the RBAC database.
+The command is valid if and only if the role to be deleted is a member of the ROLES data set.
+This command will also deassign role from all users.</p>
+<p>required parameters:</p>
 <ul>
-<li><a href="4.1-create-session.html">4.1 - Create Session</a></li>
-<li><a href="4.2-check-access.html">4.2 - Check Access</a></li>
-<li><a href="4.3-session-permissions.html">4.3 - Session Permissions</a></li>
-<li><a href="4.4-activate-role.html">4.4 - Add Active Role</a></li>
-<li><a href="4.5-deactivate-role.html">4.5 - Drop Active Role</a></li>
-<li><a href="4.6-authorized-roles.html">4.6 - Get Authorized Roles</a></li>
-<li><a href="4.7-add-role.html">4.7 - Add Role</a></li>
-<li><a href="4.8-delete-role.html">4.8 - Del Role</a></li>
+<li>Role#name - contains the name to use for the Role to be deleted.</li>
 </ul>
-
+<p>Parameters:</p>
+<ul>
+<li>role - Must contain Role#name for Role to delete.</li>
+</ul>
+<p>Throws:</p>
+<ul>
+<li>SecurityException - thrown in the event of data validation or system error.</li>
+</ul>
+<h2 id="deleterole">deleteRole</h2>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a2f">@test</span>
+<span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">static</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">testDeleteRole</span><span style="color:#666">(</span><span style="color:#666">)</span>
+<span style="color:#666">{</span>
+    String szLocation <span style="color:#666">=</span> <span style="color:#b44">&#34;.testDeleteRole&#34;</span><span style="color:#666">;</span>
+    <span style="color:#a2f;font-weight:bold">try</span>
+    <span style="color:#666">{</span>
+        <span style="color:#080;font-style:italic">// Instantiate the AdminMgr implementation which is used to provision RBAC policies.
+</span><span style="color:#080;font-style:italic"></span>        AdminMgr adminMgr <span style="color:#666">=</span> AdminMgrFactory<span style="color:#666">.</span><span style="color:#b44">createInstance</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
+        
+        <span style="color:#080;font-style:italic">// At its simplest a Role contains only a name.
+</span><span style="color:#080;font-style:italic"></span>        Role inRole <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> Role<span style="color:#666">(</span><span style="color:#b44">&#34;myRoleName&#34;</span><span style="color:#666">)</span><span style="color:#666">;</span>
+        
+        <span style="color:#080;font-style:italic">// Call the API to remove the Role from ldap.
+</span><span style="color:#080;font-style:italic"></span>        adminMgr<span style="color:#666">.</span><span style="color:#b44">deleteRole</span><span style="color:#666">(</span>inRole<span style="color:#666">)</span><span style="color:#666">;</span>
+    <span style="color:#666">}</span>
+    <span style="color:#a2f;font-weight:bold">catch</span> <span style="color:#666">(</span>SecurityException ex<span style="color:#666">)</span>
+    <span style="color:#666">{</span>
+        LOG<span style="color:#666">.</span><span style="color:#b44">error</span><span style="color:#666">(</span>szLocation <span style="color:#666">+</span> <span style="color:#b44">&#34; caught SecurityException rc=&#34;</span> <span style="color:#666">+</span> ex<span style="color:#666">.</span><span style="color:#b44">getErrorId</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">+</span> <span style="color:#b44">&#34;, msg=&#34;</span> <span style="color:#666">+</span> ex<span style="color:#666">.</span><span style="color:#b44">getMessage</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">,</span> ex<span style="color:#666">)</span><span style="color:#666">;</span>
+        fail<span style="color:#666">(</span>ex<span style="color:#666">.</span><span style="color:#b44">getMessage</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">)</span><span style="color:#666">;</span>
+    <span style="color:#666">}</span>
+<span style="color:#666">}</span>
+</code></pre></div>
 
             
     <div class="nav">
         <div class="nav_prev">
             
                 
-                <a href="3-configuration.html">3 - Fortress Configuration</a>
+                <a href="4.7-add-role.html">4.7 - Add Role</a>
             
         </div>
         <div class="nav_up">
             
                 
-                <a href="../user-guide.html">User Guide</a>
+                <a href="4-fortress-code-samples.html">4 - Fortress Code Samples</a>
             
         </div>
         <div class="nav_next">
             
-                
-                <a href="4.1-create-session.html">4.1 - Example Creating RBAC Session</a>
+                &nbsp;
             
         </div>
         <div class="clearfix"></div>
