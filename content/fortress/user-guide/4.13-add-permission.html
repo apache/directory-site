@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>4.12 - Delete Permission Object &mdash; Apache Directory</title>
+    <title>4.13 - Add Permission &mdash; Apache Directory</title>
 
     <link href="/css/common.css" rel="stylesheet" type="text/css"/>
     <link href="/css/turquoise.css" rel="stylesheet" type="text/css"/>
@@ -132,7 +132,7 @@
         <div class="nav_prev">
             
                 
-                <a href="4.11-add-permobj.html">4.11 - Add Permission Object</a>
+                <a href="4.12-delete-permobj.html">4.12 - Delete Permission Object</a>
             
         </div>
         <div class="nav_up">
@@ -144,7 +144,7 @@
         <div class="nav_next">
             
                 
-                <a href="4.13-add-permission.html">4.13 - Add Permission</a>
+                <a href="4.14-delete-permission.html">4.14 - Delete Permission</a>
             
         </div>
         <div class="clearfix"></div>
@@ -152,57 +152,68 @@
 
 
             
-	<h1 id="48---delete-permission-object">4.8 - Delete Permission Object</h1>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">deletePermObj</span><span style="color:#666">(</span>PermObj pObj<span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> SecurityException
-</code></pre></div><p>This method will remove permission object to perms container in directory.
-This method will also remove in associated permission objects that are attached to this object.</p>
+	<h1 id="413---add-permission">4.13 - Add Permission</h1>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Permission <span style="color:#00a000">addPermission</span><span style="color:#666">(</span>Permission perm<span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> SecurityException
+</code></pre></div><p>This method will add permission operation to an existing permission object.
+The perm operation entity may have Role or User associations.
+The target Permission} must not exist prior to calling.
+A Fortress Permission instance exists in a hierarchical, one-many relationship between its parent: (PermObj-&gt;Permission).</p>
 <p>required parameters:</p>
 <ul>
-<li>PermObj#objName - contains the name of existing object targeted for removal</li>
+<li>Permission#objName - contains the name of existing object being targeted for the permission add</li>
+<li>Permission#opName - contains the name of new permission operation being added</li>
+</ul>
+<p>optional parameters:</p>
+<ul>
+<li>Permission#roles * - multi occurring attribute contains RBAC Roles that permission operation is being granted to</li>
+<li>Permission#users * - multi occurring attribute contains Users that permission operation is being granted to</li>
+<li>Permission#props * - multi-occurring property key and values are separated with a &lsquo;:'. e.g. mykey1:myvalue1</li>
+<li>Permission#type - any safe text</li>
 </ul>
 <p>Parameters:</p>
 <ul>
-<li>pObj - must contain the PermObj#objName of object targeted for removal.</li>
+<li>perm - must contain the object, org.apache.directory.fortress.core.model.Permission#objName, and operation, Permission#opName, that identifies target along with optional other attributes.</li>
+</ul>
+<p>Returns:</p>
+<ul>
+<li>copy of Permission entity</li>
 </ul>
 <p>Throws:</p>
 <ul>
 <li>SecurityException - thrown in the event of perm object data or system error.</li>
 </ul>
-<h2 id="deletepermobj">deletePermObj</h2>
+<h2 id="addpermission">addPermission</h2>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.AdminMgr</span><span style="color:#666">;</span>
 <span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.AdminMgrFactory</span><span style="color:#666">;</span>
 <span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.GlobalErrIds</span><span style="color:#666">;</span>
 <span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.ReviewMgr</span><span style="color:#666">;</span>
 <span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.ReviewMgrFactory</span><span style="color:#666">;</span>
-<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.model.PermObj</span><span style="color:#666">;</span>
+<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.model.Permission</span><span style="color:#666">;</span>
 <span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.SecurityException</span><span style="color:#666">;</span>
 
 <span style="color:#a2f">@test</span>
-<span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">static</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">testDelPermObjects</span><span style="color:#666">(</span>String objName<span style="color:#666">)</span>
+<span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">static</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">testAddPermission</span><span style="color:#666">(</span>String objName<span style="color:#666">,</span> String operation<span style="color:#666">)</span>
 <span style="color:#666">{</span>
-    String szLocation <span style="color:#666">=</span> <span style="color:#b44">&#34;.testDelPermObjects&#34;</span><span style="color:#666">;</span>
-
+    String szLocation <span style="color:#666">=</span> <span style="color:#b44">&#34;.testAddPermissions&#34;</span><span style="color:#666">;</span>
     <span style="color:#a2f;font-weight:bold">try</span>
     <span style="color:#666">{</span>
-        <span style="color:#080;font-style:italic">// Instantiate the AdminMgr implementation which is used to provision RBAC policies.
-</span><span style="color:#080;font-style:italic"></span>        AdminMgr adminMgr <span style="color:#666">=</span> AdminMgrFactory<span style="color:#666">.</span><span style="color:#b44">createInstance</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
-        <span style="color:#080;font-style:italic">// this will remove the object along with any operations associated with it:
-</span><span style="color:#080;font-style:italic"></span>        adminMgr<span style="color:#666">.</span><span style="color:#b44">deletePermObj</span><span style="color:#666">(</span><span style="color:#a2f;font-weight:bold">new</span> PermObj<span style="color:#666">(</span>deletePermObj<span style="color:#666">)</span><span style="color:#666">)</span><span style="color:#666">;</span>
+        AdminMgr adminMgr <span style="color:#666">=</span> AdminMgrFactory<span style="color:#666">.</span><span style="color:#b44">createInstance</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
+        <span style="color:#080;font-style:italic">// The Permission entity is associated with PermObj (name) entity and is uniquely identified by Operation name:
+</span><span style="color:#080;font-style:italic"></span>        Permission inPerm <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> Permission<span style="color:#666">(</span>objName<span style="color:#666">,</span> operation<span style="color:#666">)</span><span style="color:#666">;</span>
+
+        <span style="color:#080;font-style:italic">// The Permission entity will be a child node of specified PermObject entity.
+</span><span style="color:#080;font-style:italic"></span>        adminMgr<span style="color:#666">.</span><span style="color:#b44">addPermission</span><span style="color:#666">(</span>inPerm<span style="color:#666">)</span><span style="color:#666">;</span>
 
         <span style="color:#080;font-style:italic">// Instantiate the ReviewMgr implementation which is used to interrogate policy information.
 </span><span style="color:#080;font-style:italic"></span>        ReviewMgr reviewMgr <span style="color:#666">=</span> ReviewMgrFactory<span style="color:#666">.</span><span style="color:#b44">createInstance</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
-        <span style="color:#a2f;font-weight:bold">try</span>
-        <span style="color:#666">{</span>
-            <span style="color:#080;font-style:italic">// this should fail:
-</span><span style="color:#080;font-style:italic"></span>            reviewMgr<span style="color:#666">.</span><span style="color:#b44">readPermObj</span><span style="color:#666">(</span><span style="color:#a2f;font-weight:bold">new</span> PermObj<span style="color:#666">(</span>objName<span style="color:#666">)</span><span style="color:#666">)</span><span style="color:#666">;</span>
-            fail<span style="color:#666">(</span>szLocation <span style="color:#666">+</span> <span style="color:#b44">&#34; permission object delete failed&#34;</span><span style="color:#666">)</span><span style="color:#666">;</span>
-        <span style="color:#666">}</span>
-        <span style="color:#a2f;font-weight:bold">catch</span> <span style="color:#666">(</span>SecurityException se<span style="color:#666">)</span>
-        <span style="color:#666">{</span>
-            assertTrue<span style="color:#666">(</span>szLocation <span style="color:#666">+</span> <span style="color:#b44">&#34; excep id check&#34;</span><span style="color:#666">,</span> se<span style="color:#666">.</span><span style="color:#b44">getErrorId</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">=</span><span style="color:#666">=</span> GlobalErrIds<span style="color:#666">.</span><span style="color:#b44">PERM_OBJ_NOT_FOUND</span><span style="color:#666">)</span><span style="color:#666">;</span>
-            <span style="color:#080;font-style:italic">// pass
-</span><span style="color:#080;font-style:italic"></span>        <span style="color:#666">}</span>
-        LOG<span style="color:#666">.</span><span style="color:#b44">info</span><span style="color:#666">(</span>szLocation <span style="color:#666">+</span> <span style="color:#b44">&#34; delete permission object [&#34;</span> <span style="color:#666">+</span> objName <span style="color:#666">+</span> <span style="color:#b44">&#34;] success&#34;</span><span style="color:#666">)</span><span style="color:#666">;</span>
+
+        <span style="color:#080;font-style:italic">// now read the newly created Permission entity back.
+</span><span style="color:#080;font-style:italic"></span>        Permission outPerm <span style="color:#666">=</span> reviewMgr<span style="color:#666">.</span><span style="color:#b44">readPermission</span><span style="color:#666">(</span>inPerm<span style="color:#666">)</span><span style="color:#666">;</span>
+
+        <span style="color:#080;font-style:italic">// Do some validations.
+</span><span style="color:#080;font-style:italic"></span>        assertNotNull<span style="color:#666">(</span>outPerm<span style="color:#666">)</span><span style="color:#666">;</span>
+        assertTrue<span style="color:#666">(</span>szLocation <span style="color:#666">+</span> <span style="color:#b44">&#34; failed permission check&#34;</span><span style="color:#666">,</span> outPerm<span style="color:#666">.</span><span style="color:#b44">equals</span><span style="color:#666">(</span>inPerm<span style="color:#666">)</span><span style="color:#666">)</span><span style="color:#666">;</span>
+        LOG<span style="color:#666">.</span><span style="color:#b44">info</span><span style="color:#666">(</span>szLocation <span style="color:#666">+</span> <span style="color:#b44">&#34; permission object [&#34;</span> <span style="color:#666">+</span> outPerm<span style="color:#666">.</span><span style="color:#b44">getObjName</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">+</span> <span style="color:#b44">&#34;] operation name [&#34;</span> <span style="color:#666">+</span> outPerm<span style="color:#666">.</span><span style="color:#b44">getOpName</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">+</span> <span style="color:#b44">&#34;] success&#34;</span><span style="color:#666">)</span><span style="color:#666">;</span>
     <span style="color:#666">}</span>
     <span style="color:#a2f;font-weight:bold">catch</span> <span style="color:#666">(</span>SecurityException ex<span style="color:#666">)</span>
     <span style="color:#666">{</span>
@@ -217,7 +228,7 @@ This method will also remove in associated permission objects that are attached 
         <div class="nav_prev">
             
                 
-                <a href="4.11-add-permobj.html">4.11 - Add Permission Object</a>
+                <a href="4.12-delete-permobj.html">4.12 - Delete Permission Object</a>
             
         </div>
         <div class="nav_up">
@@ -229,7 +240,7 @@ This method will also remove in associated permission objects that are attached 
         <div class="nav_next">
             
                 
-                <a href="4.13-add-permission.html">4.13 - Add Permission</a>
+                <a href="4.14-delete-permission.html">4.14 - Delete Permission</a>
             
         </div>
         <div class="clearfix"></div>

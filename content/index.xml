@@ -1454,7 +1454,7 @@ Anyway, we use a subset of ASN/1, as what we have to deal with is the BER/DER en
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://directory.apache.org/fortress/user-guide/4-fortress-code-samples.html</guid>
-      <description>4 - Apache Fortress Code Samples Table of content  4.1 - Create Session 4.2 - Check Access 4.3 - Session Permissions 4.4 - Add Active Role 4.5 - Drop Active Role 4.6 - Get Authorized Roles 4.7 - Add Role 4.8 - Delete Role 4.9 - Add User 4.10 - Delete User 4.11 - Add Permission Object 4.12 - Delete Permission Object  </description>
+      <description>4 - Apache Fortress Code Samples Table of content  4.1 - Create Session 4.2 - Check Access 4.3 - Session Permissions 4.4 - Add Active Role 4.5 - Drop Active Role 4.6 - Get Authorized Roles 4.7 - Add Role 4.8 - Delete Role 4.9 - Add User 4.10 - Delete User 4.11 - Add Permission Object 4.12 - Delete Permission Object 4.13 - Add Permission 4.14 - Delete Permission  </description>
     </item>
     
     <item>
@@ -1739,6 +1739,29 @@ required parameters:
  PermObj#objName - contains the name of existing object targeted for removal  Parameters:
  pObj - must contain the PermObj#objName of object targeted for removal.  Throws:
  SecurityException - thrown in the event of perm object data or system error.</description>
+    </item>
+    
+    <item>
+      <title>4.13 - Add Permission</title>
+      <link>https://directory.apache.org/fortress/user-guide/4.13-add-permission.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/user-guide/4.13-add-permission.html</guid>
+      <description>4.13 - Add Permission Permission addPermission(Permission perm) throws SecurityException This method will add permission operation to an existing permission object. The perm operation entity may have Role or User associations. The target Permission} must not exist prior to calling. A Fortress Permission instance exists in a hierarchical, one-many relationship between its parent: (PermObj-&amp;gt;Permission).
+required parameters:
+ Permission#objName - contains the name of existing object being targeted for the permission add Permission#opName - contains the name of new permission operation being added  optional parameters:</description>
+    </item>
+    
+    <item>
+      <title>4.14 - Delete Permission</title>
+      <link>https://directory.apache.org/fortress/user-guide/4.14-delete-permission.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/user-guide/4.14-delete-permission.html</guid>
+      <description>4.14 - Delete Permission void deletePermission(Permission perm) throws SecurityException This method will remove permission operation entity from permission object. A Fortress permission is (object-&amp;gt;operation). The perm operation must exist before making this call.
+required parameters:
+ Permission#objName - contains the name of existing object being targeted for the permission delete Permission#opName - contains the name of existing permission operation being removed  Parameters:
+ perm - must contain the object, Permission#objName, and operation, Permission#opName, that identifies target.</description>
     </item>
     
     <item>
