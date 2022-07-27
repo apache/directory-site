@@ -143,7 +143,8 @@
         </div>
         <div class="nav_next">
             
-                &nbsp;
+                
+                <a href="4.11-add-permobj.html">4.11 - Add Permission Object</a>
             
         </div>
         <div class="clearfix"></div>
@@ -151,9 +152,9 @@
 
 
             
-	<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">deleteUser</span><span style="color:#666">(</span>User user<span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> SecurityException
-</code></pre></div><h1 id="410---delete-user">4.10 - Delete User</h1>
-<p>This command deletes an existing user from the RBAC database.
+	<h1 id="410---delete-user">4.10 - Delete User</h1>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">deleteUser</span><span style="color:#666">(</span>User user<span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> SecurityException
+</code></pre></div><p>This command deletes an existing user from the RBAC database.
 The command is valid if and only if the user to be deleted is a member of the USERS data set.
 The USERS and UA data sets and the assigned_users function are updated. This method performs a &ldquo;hard&rdquo; delete.
 It completely removes all data associated with this user from the directory.
@@ -171,7 +172,15 @@ User entity must exist in directory prior to making this call else exception wil
 <li>SecurityException - thrown in the event of data validation or system error.</li>
 </ul>
 <h2 id="deleteuser">deleteUser</h2>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a2f">@test</span>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.GlobalErrIds</span><span style="color:#666">;</span>
+<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.SecurityException</span><span style="color:#666">;</span>
+<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.AdminMgr</span><span style="color:#666">;</span>
+<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.AdminMgrFactory</span><span style="color:#666">;</span>
+<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.ReviewMgr</span><span style="color:#666">;</span>
+<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.ReviewMgrFactory</span><span style="color:#666">;</span>
+<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.model.User</span><span style="color:#666">;</span>
+
+<span style="color:#a2f">@test</span>
 <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">static</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">testDeleteUser</span><span style="color:#666">(</span>String userId<span style="color:#666">)</span>
 <span style="color:#666">{</span>
     String szLocation <span style="color:#666">=</span> <span style="color:#b44">&#34;.testDeleteUser&#34;</span><span style="color:#666">;</span>
@@ -223,7 +232,8 @@ User entity must exist in directory prior to making this call else exception wil
         </div>
         <div class="nav_next">
             
-                &nbsp;
+                
+                <a href="4.11-add-permobj.html">4.11 - Add Permission Object</a>
             
         </div>
         <div class="clearfix"></div>

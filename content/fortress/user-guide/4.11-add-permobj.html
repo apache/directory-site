@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>4.7 - Add Role &mdash; Apache Directory</title>
+    <title>4.11 - Add Permission Object &mdash; Apache Directory</title>
 
     <link href="/css/common.css" rel="stylesheet" type="text/css"/>
     <link href="/css/turquoise.css" rel="stylesheet" type="text/css"/>
@@ -132,7 +132,7 @@
         <div class="nav_prev">
             
                 
-                <a href="4.6-authorized-roles.html">4.6 - Authorized Roles</a>
+                <a href="4.10-delete-user.html">4.10 - Delete User</a>
             
         </div>
         <div class="nav_up">
@@ -144,7 +144,7 @@
         <div class="nav_next">
             
                 
-                <a href="4.8-delete-role.html">4.8 - Delete Role</a>
+                <a href="4.12-delete-permobj.html">4.12 - Delete Permission Object</a>
             
         </div>
         <div class="clearfix"></div>
@@ -152,69 +152,65 @@
 
 
             
-	<h1 id="47---add-role">4.7 - Add Role</h1>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Role <span style="color:#00a000">addRole</span><span style="color:#666">(</span>Role role<span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> SecurityException
-</code></pre></div><p>This command creates a new role.
-The command is valid if and only if the new role is not already a member of the ROLES data set.
-The ROLES data set is updated. Initially, no user or permission is assigned to the new role.</p>
+	<h1 id="411---add-permission-object">4.11 - Add Permission Object</h1>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">PermObj <span style="color:#00a000">addPermObj</span><span style="color:#666">(</span>PermObj pObj<span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> SecurityException
+</code></pre></div><p>This method will add permission object to perms container in directory.
+The perm object must not exist before making this call.
+A PermObj instance exists in a hierarchical, one-many relationship between itself and children as stored in ldap tree: (PermObj-&gt;Permission}).</p>
 <p>required parameters:</p>
 <ul>
-<li>Role#name - contains the name to use for the Role to be created.</li>
+<li>PermObj#objName - contains the name of new object being added</li>
+<li>PermObj#ou - contains the name of an existing PERMS OrgUnit this object is associated with</li>
 </ul>
 <p>optional parameters:</p>
 <ul>
-<li>Role#description - maps to description attribute on organizationalRole object class</li>
-<li>Role#beginTime - HHMM - determines begin hour role may be activated into user&rsquo;s RBAC session</li>
-<li>Role#endTime - HHMM - determines end hour role may be activated into user&rsquo;s RBAC session.</li>
-<li>Role#beginDate - YYYYMMDD - determines date when role may be activated into user&rsquo;s RBAC session</li>
-<li>Role#endDate - YYYYMMDD - indicates latest date role may be activated into user&rsquo;s RBAC session</li>
-<li>Role#beginLockDate - YYYYMMDD - determines beginning of enforced inactive status</li>
-<li>Role#endLockDate - YYYYMMDD - determines end of enforced inactive status</li>
-<li>Role#dayMask - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day role may be activated into user&rsquo;s RBAC session</li>
+<li>PermObj#description - any safe text</li>
+<li>PermObj#type - contains any safe text</li>
+<li>PermObj#props * - multi-occurring property key and values are separated with a &lsquo;:'. e.g. mykey1:myvalue1</li>
 </ul>
 <p>Parameters:</p>
 <ul>
-<li>role - must contains Role#name (required) and optional Role#description.</li>
+<li>pObj - must contain the PermObj#objName and PermObj#ou. The other attributes are optional.</li>
 </ul>
 <p>Returns:</p>
 <ul>
-<li>copy of the added Role</li>
+<li>copy of PermObj entity.</li>
 </ul>
 <p>Throws:</p>
 <ul>
-<li>SecurityException - thrown in the event of data validation or system error.</li>
+<li>SecurityException - - thrown in the event of perm object data or system error.</li>
 </ul>
-<h2 id="addrole">addRole</h2>
+<h2 id="addpermobj">addPermObj</h2>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.AdminMgr</span><span style="color:#666">;</span>
 <span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.AdminMgrFactory</span><span style="color:#666">;</span>
 <span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.GlobalErrIds</span><span style="color:#666">;</span>
 <span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.ReviewMgr</span><span style="color:#666">;</span>
 <span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.ReviewMgrFactory</span><span style="color:#666">;</span>
-<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.model.Role</span><span style="color:#666">;</span>
+<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.model.PermObj</span><span style="color:#666">;</span>
 <span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.SecurityException</span><span style="color:#666">;</span>
 
 <span style="color:#a2f">@test</span>
-<span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">static</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">testCreateRole</span><span style="color:#666">(</span><span style="color:#666">)</span>
+<span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">static</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">testAddPermObject</span><span style="color:#666">(</span>String objName<span style="color:#666">,</span> String permOu<span style="color:#666">)</span>
 <span style="color:#666">{</span>
-    String szLocation <span style="color:#666">=</span> <span style="color:#b44">&#34;.testCreateRole&#34;</span><span style="color:#666">;</span>
+    String szLocation <span style="color:#666">=</span> <span style="color:#b44">&#34;.testAddPermObject&#34;</span><span style="color:#666">;</span>
     <span style="color:#a2f;font-weight:bold">try</span>
     <span style="color:#666">{</span>
         <span style="color:#080;font-style:italic">// Instantiate the AdminMgr implementation which is used to provision RBAC policies.
 </span><span style="color:#080;font-style:italic"></span>        AdminMgr adminMgr <span style="color:#666">=</span> AdminMgrFactory<span style="color:#666">.</span><span style="color:#b44">createInstance</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
-        
-        <span style="color:#080;font-style:italic">// At its simplest a Role contains only a name.
-</span><span style="color:#080;font-style:italic"></span>        Role inRole <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> Role<span style="color:#666">(</span><span style="color:#b44">&#34;myRoleName&#34;</span><span style="color:#666">)</span><span style="color:#666">;</span>
-        
-        <span style="color:#080;font-style:italic">// Call the API to actually add the Role to ldap.
-</span><span style="color:#080;font-style:italic"></span>        adminMgr<span style="color:#666">.</span><span style="color:#b44">addRole</span><span style="color:#666">(</span>inRole<span style="color:#666">)</span><span style="color:#666">;</span>
-        
-        <span style="color:#080;font-style:italic">// Instantiate the ReviewMgr implementation which is used to interrogate RBAC policy information.
+
+        <span style="color:#080;font-style:italic">// Add the PermObj entity to ldap.  The PermObj entity must have a name and an OrgUnit affiliation.
+</span><span style="color:#080;font-style:italic"></span>        adminMgr<span style="color:#666">.</span><span style="color:#b44">addPermObj</span><span style="color:#666">(</span><span style="color:#a2f;font-weight:bold">new</span> PermObj<span style="color:#666">(</span>objName<span style="color:#666">,</span> permOu<span style="color:#666">)</span><span style="color:#666">)</span><span style="color:#666">;</span>
+
+        <span style="color:#080;font-style:italic">// Instantiate the ReviewMgr implementation which is used to interrogate policy information.
 </span><span style="color:#080;font-style:italic"></span>        ReviewMgr reviewMgr <span style="color:#666">=</span> ReviewMgrFactory<span style="color:#666">.</span><span style="color:#b44">createInstance</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
-        
-        <span style="color:#080;font-style:italic">// now read the newly created Role entity back:
-</span><span style="color:#080;font-style:italic"></span>        Role outRole <span style="color:#666">=</span> reviewMgr<span style="color:#666">.</span><span style="color:#b44">readRole</span><span style="color:#666">(</span>inRole<span style="color:#666">)</span><span style="color:#666">;</span>
-        assertTrue<span style="color:#666">(</span>szLocation <span style="color:#666">+</span> <span style="color:#b44">&#34; failed read&#34;</span><span style="color:#666">,</span> inRole<span style="color:#666">.</span><span style="color:#b44">equals</span><span style="color:#666">(</span>outRole<span style="color:#666">)</span><span style="color:#666">)</span><span style="color:#666">;</span>
-        LOG<span style="color:#666">.</span><span style="color:#b44">info</span><span style="color:#666">(</span>szLocation <span style="color:#666">+</span> <span style="color:#b44">&#34; [&#34;</span> <span style="color:#666">+</span> outRole<span style="color:#666">.</span><span style="color:#b44">getName</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">+</span> <span style="color:#b44">&#34;] success&#34;</span><span style="color:#666">)</span><span style="color:#666">;</span>
+        <span style="color:#080;font-style:italic">// now read the newly created Object entity back:
+</span><span style="color:#080;font-style:italic"></span>        PermObj outObj <span style="color:#666">=</span> reviewMgr<span style="color:#666">.</span><span style="color:#b44">readPermObj</span><span style="color:#666">(</span><span style="color:#a2f;font-weight:bold">new</span> PermObj<span style="color:#666">(</span>objName<span style="color:#666">)</span><span style="color:#666">)</span><span style="color:#666">;</span>
+
+        <span style="color:#080;font-style:italic">// Do some validations.
+</span><span style="color:#080;font-style:italic"></span>        assertNotNull<span style="color:#666">(</span>outObj<span style="color:#666">)</span><span style="color:#666">;</span>
+        assertTrue<span style="color:#666">(</span>szLocation <span style="color:#666">+</span> <span style="color:#b44">&#34; failed obj name check&#34;</span><span style="color:#666">,</span> objName<span style="color:#666">.</span><span style="color:#b44">equals</span><span style="color:#666">(</span>outObj<span style="color:#666">.</span><span style="color:#b44">getObjName</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">)</span><span style="color:#666">)</span><span style="color:#666">;</span>
+        assertTrue<span style="color:#666">(</span>szLocation <span style="color:#666">+</span> <span style="color:#b44">&#34; failed obj ou check&#34;</span><span style="color:#666">,</span> permOu<span style="color:#666">.</span><span style="color:#b44">equals</span><span style="color:#666">(</span>outObj<span style="color:#666">.</span><span style="color:#b44">getOu</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">)</span><span style="color:#666">)</span><span style="color:#666">;</span>
+        LOG<span style="color:#666">.</span><span style="color:#b44">info</span><span style="color:#666">(</span>szLocation <span style="color:#666">+</span> <span style="color:#b44">&#34; permission object [&#34;</span> <span style="color:#666">+</span> outObj<span style="color:#666">.</span><span style="color:#b44">getObjName</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">+</span> <span style="color:#b44">&#34;] success&#34;</span><span style="color:#666">)</span><span style="color:#666">;</span>
     <span style="color:#666">}</span>
     <span style="color:#a2f;font-weight:bold">catch</span> <span style="color:#666">(</span>SecurityException ex<span style="color:#666">)</span>
     <span style="color:#666">{</span>
@@ -229,7 +225,7 @@ The ROLES data set is updated. Initially, no user or permission is assigned to t
         <div class="nav_prev">
             
                 
-                <a href="4.6-authorized-roles.html">4.6 - Authorized Roles</a>
+                <a href="4.10-delete-user.html">4.10 - Delete User</a>
             
         </div>
         <div class="nav_up">
@@ -241,7 +237,7 @@ The ROLES data set is updated. Initially, no user or permission is assigned to t
         <div class="nav_next">
             
                 
-                <a href="4.8-delete-role.html">4.8 - Delete Role</a>
+                <a href="4.12-delete-permobj.html">4.12 - Delete Permission Object</a>
             
         </div>
         <div class="clearfix"></div>

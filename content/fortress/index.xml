@@ -137,7 +137,7 @@ More info here on how it works:
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://directory.apache.org/fortress/user-guide/4-fortress-code-samples.html</guid>
-      <description>4 - Apache Fortress Code Samples Table of content  4.1 - Create Session 4.2 - Check Access 4.3 - Session Permissions 4.4 - Add Active Role 4.5 - Drop Active Role 4.6 - Get Authorized Roles 4.7 - Add Role 4.8 - Delete Role 4.9 - Add User 4.10 - Delete User  </description>
+      <description>4 - Apache Fortress Code Samples Table of content  4.1 - Create Session 4.2 - Check Access 4.3 - Session Permissions 4.4 - Add Active Role 4.5 - Drop Active Role 4.6 - Get Authorized Roles 4.7 - Add Role 4.8 - Delete Role 4.9 - Add User 4.10 - Delete User 4.11 - Add Permission Object 4.12 - Delete Permission Object  </description>
     </item>
     
     <item>
@@ -157,7 +157,31 @@ Parameters:
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://directory.apache.org/fortress/user-guide/4.10-delete-user.html</guid>
-      <description>void deleteUser(User user) throws SecurityException 4.10 - Delete User This command deletes an existing user from the RBAC database. The command is valid if and only if the user to be deleted is a member of the USERS data set. The USERS and UA data sets and the assigned_users function are updated. This method performs a &amp;ldquo;hard&amp;rdquo; delete. It completely removes all data associated with this user from the directory. User entity must exist in directory prior to making this call else exception will be thrown.</description>
+      <description>4.10 - Delete User void deleteUser(User user) throws SecurityException This command deletes an existing user from the RBAC database. The command is valid if and only if the user to be deleted is a member of the USERS data set. The USERS and UA data sets and the assigned_users function are updated. This method performs a &amp;ldquo;hard&amp;rdquo; delete. It completely removes all data associated with this user from the directory. User entity must exist in directory prior to making this call else exception will be thrown.</description>
+    </item>
+    
+    <item>
+      <title>4.11 - Add Permission Object</title>
+      <link>https://directory.apache.org/fortress/user-guide/4.11-add-permobj.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/user-guide/4.11-add-permobj.html</guid>
+      <description>4.11 - Add Permission Object PermObj addPermObj(PermObj pObj) throws SecurityException This method will add permission object to perms container in directory. The perm object must not exist before making this call. A PermObj instance exists in a hierarchical, one-many relationship between itself and children as stored in ldap tree: (PermObj-&amp;gt;Permission}).
+required parameters:
+ PermObj#objName - contains the name of new object being added PermObj#ou - contains the name of an existing PERMS OrgUnit this object is associated with  optional parameters:</description>
+    </item>
+    
+    <item>
+      <title>4.12 - Delete Permission Object</title>
+      <link>https://directory.apache.org/fortress/user-guide/4.12-delete-permobj.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/user-guide/4.12-delete-permobj.html</guid>
+      <description>4.8 - Delete Permission Object void deletePermObj(PermObj pObj) throws SecurityException This method will remove permission object to perms container in directory. This method will also remove in associated permission objects that are attached to this object.
+required parameters:
+ PermObj#objName - contains the name of existing object targeted for removal  Parameters:
+ pObj - must contain the PermObj#objName of object targeted for removal.  Throws:
+ SecurityException - thrown in the event of perm object data or system error.</description>
     </item>
     
     <item>
