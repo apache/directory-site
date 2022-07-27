@@ -33,11 +33,11 @@ This guide is primarily for people new to Fortress.
   * [4.10 - Delete User](user-guide/4.10-delete-user.html)
   * [4.11 - Add Permission Object](user-guide/4.11-add-permobj.html)
   * [4.12 - Delete Permission Object](user-guide/4.12-delete-permobj.html)
+  * [4.13 - Add Permission](user-guide/4.13-add-permission.html)
+  * [4.14 - Delete Permission](user-guide/4.14-delete-permission.html)
  
   
 * TODO (more code samples):
-  * [4.13 - addPermission]  
-  * [4.14 - deletePermission]  
   * [4.15 - assignUser]  
   * [4.16 - deassignUser]  
   * [4.17 - grantPermission]  
