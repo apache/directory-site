@@ -26,3 +26,7 @@ navNextText: 4.1 - Example Creating RBAC Session
 * [4.12 - Delete Permission Object](4.12-delete-permobj.html)
 * [4.13 - Add Permission](4.13-add-permission.html)
 * [4.14 - Delete Permission](4.14-delete-permission.html)
+* [4.15 - Assign User](4.15-assign-user.html)
+* [4.16 - Deassign User](4.16-deassign-user.html)
+* [4.17 - Grant Permission](4.17-grant-permission.html)
+* [4.18 - Revoke Permission](4.18-revoke-permission.html)

@@ -35,13 +35,13 @@ This guide is primarily for people new to Fortress.
   * [4.12 - Delete Permission Object](user-guide/4.12-delete-permobj.html)
   * [4.13 - Add Permission](user-guide/4.13-add-permission.html)
   * [4.14 - Delete Permission](user-guide/4.14-delete-permission.html)
+  * [4.15 - Assign User](user-guide/4.15-assign-user.html)
+  * [4.16 - Deassign User](user-guide/4.16-deassign-user.html)
+  * [4.17 - Grant Permission](user-guide/4.17-grant-permission.html)
+  * [4.18 - Revoke Permission](user-guide/4.18-revoke-permission.html)
  
   
 * TODO (more code samples):
-  * [4.15 - assignUser]  
-  * [4.16 - deassignUser]  
-  * [4.17 - grantPermission]  
-  * [4.18 - revokePermission]  
   * [4.19 - addInheritance]  
   * [4.20 - deleteInheritance]  
   * [4.21 - createSsdSet]  
