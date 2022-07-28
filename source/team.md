@@ -20,7 +20,7 @@ title: Team
 | Pierre Smits | pierresmits | PMC | ![Pierre Smits](images/team/pierresmits.png) | [![Website](images/team/website.png)](http://www.orrtiz.com) ||
 | Pierre-Arnaud Marcelot | pamarcelot | PMC | ![Pierre-Arnaud Marcelot](images/team/pamarcelot.jpg) | [![Website](images/team/website.png)](http://www.pajbam.com)|[![Blog](images/team/blog.png)](http://www.pajbam.com) |
 | Radovan Semancik| semancik | PMC ||||
-| Shawn McKinney | smckinney | PMC chair | ![Shawn McKinney](images/team/smckinney.jpg) | [![Website](images/team/website.png)](http://symas.com/)|[![Blog](images/team/blog.png)](https://iamfortress.net/) |
+| **Shawn McKinney** | smckinney | **PMC chair** | ![Shawn McKinney](images/team/smckinney.jpg) | [![Website](images/team/website.png)](http://symas.com/)|[![Blog](images/team/blog.png)](https://iamfortress.net/) |
 | Stefan Seelmann | seelmann | PMC | ![Stefan Seelmann](images/team/seelmann.jpg) | [![Website](images/team/website.png)](http://www.stefan-seelmann.de) | [![Blog](images/team/blog.png)](http://www.stefan-seelmann.de) |
 | Stefan Zoerner | szoerner | PMC | ![Stefan Zoerner](images/team/szoerner.jpg) |||
 
@@ -28,6 +28,7 @@ title: Team
 
 | Name | id | Position | Photo | WebSite | Blog |
 |---|---|---|:-:|:-:|:-:|
+| Admir Hodzic | admirhodzic | Committer ||||
 | Alan Cabrera | adc | Committer ||||
 | Aleksander Adamowski | aadomowski | Committer ||||
 | Alex Haskell | aphaskell | Committer ||||
@@ -37,10 +38,12 @@ title: Team
 | Brian Demers | bdemers | Committer |||[![Blog](images/team/blog.png)](https://blog.bdemers.io/)|
 | Christopher Harm | charm | Committer ||||
 | David Jencks | djencks | Committer ||||
+| Franck Zeng | zenglinx | Committer ||||
 | Gerard Gagliano | gg | Committer ||||
 | G&ouml;kt&uuml;rk Gezer | gokturk | Committer ||||
 | Jan Rellermeyer | rjan | Committer | ![Jan Rellermeyer](images/team/jan.jpg) | [![Website](images/team/website.png)](http://people.inf.ethz.ch/rjan) ||
 | Jan Sindberg | sindberg | Committer ||||
+| Jiayi Liu | liujiayi771 | Committer ||||
 | John E. Conlon | jconlon | Committer ||||
 | Lin Chen | hazel | Committer |||| 
 | Lothar Haeger | lhaeger | Committer | ![Lothar Haeger](images/team/lhaeger.jpeg) |||
@@ -51,7 +54,9 @@ title: Team
 | Stephen McConnell | mcconnell | Committer |||| 
 | Steve Moyer | smoyer1 | Committer ||||
 | Timothy Bennett | tbennett | Committer |||| 
+| Wei Zhou | littlezhou |  Committer ||||
 | Yaning Xu | yaning |  Committer ||||
+| Yudhi Karunia Surtan | yudhiks |  Committer ||||
 
 To be continued ...
 
