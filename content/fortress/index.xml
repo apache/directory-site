@@ -137,7 +137,7 @@ More info here on how it works:
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://directory.apache.org/fortress/user-guide/4-fortress-code-samples.html</guid>
-      <description>4 - Apache Fortress Code Samples Table of content  4.1 - Create Session 4.2 - Check Access 4.3 - Session Permissions 4.4 - Add Active Role 4.5 - Drop Active Role 4.6 - Get Authorized Roles 4.7 - Add Role 4.8 - Delete Role 4.9 - Add User 4.10 - Delete User 4.11 - Add Permission Object 4.12 - Delete Permission Object 4.13 - Add Permission 4.14 - Delete Permission  </description>
+      <description>4 - Apache Fortress Code Samples Table of content  4.1 - Create Session 4.2 - Check Access 4.3 - Session Permissions 4.4 - Add Active Role 4.5 - Drop Active Role 4.6 - Get Authorized Roles 4.7 - Add Role 4.8 - Delete Role 4.9 - Add User 4.10 - Delete User 4.11 - Add Permission Object 4.12 - Delete Permission Object 4.13 - Add Permission 4.14 - Delete Permission 4.</description>
     </item>
     
     <item>
@@ -205,6 +205,46 @@ required parameters:
 required parameters:
  Permission#objName - contains the name of existing object being targeted for the permission delete Permission#opName - contains the name of existing permission operation being removed  Parameters:
  perm - must contain the object, Permission#objName, and operation, Permission#opName, that identifies target.</description>
+    </item>
+    
+    <item>
+      <title>4.15 - Assign User</title>
+      <link>https://directory.apache.org/fortress/user-guide/4.15-assign-user.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/user-guide/4.15-assign-user.html</guid>
+      <description>4.15 - Assign User void assignUser(UserRole uRole) throws SecurityException This command assigns a user to a role. The command is valid if and only if:
+ The user is a member of the USERS data set The role is a member of the ROLES data set The user is not already assigned to the role The SSD constraints are satisfied after assignment.  required parameters:
+ UserRole#name - contains the name for already existing Role to be assigned UserRole#userId - contains the userId for existing User  optional parameters</description>
+    </item>
+    
+    <item>
+      <title>4.16 - Deassign User</title>
+      <link>https://directory.apache.org/fortress/user-guide/4.16-deassign-user.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/user-guide/4.16-deassign-user.html</guid>
+      <description>4.16 - Deassign User void deassignUser(UserRole uRole) throws SecurityException This command deletes the assignment of the User from the Role entity. The command is valid if and only if:
+ the user is a member of the USERS data set the role is a member of the ROLES data set the user is assigned to the role.  required parameters:
+ UserRole#name - contains the name for already existing Role to be deassigned UserRole#userId - contains the userId for existing User  Throws:</description>
+    </item>
+    
+    <item>
+      <title>4.17 - Grant Permission</title>
+      <link>https://directory.apache.org/fortress/user-guide/4.17-grant-permission.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/user-guide/4.17-grant-permission.html</guid>
+      <description>4.17 - Grant Permission void grantPermission(Permission perm, Role role) throws SecurityException This command grants a role the permission to perform an operation on an object to a role. The command is implemented by granting permission by setting the access control list of the object involved. The command is valid if and only if the pair (object, operation) represents a permission, and the role is a member of the ROLES data set.</description>
+    </item>
+    
+    <item>
+      <title>4.18 - Revoke Permission</title>
+      <link>https://directory.apache.org/fortress/user-guide/4.18-revoke-permission.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/user-guide/4.18-revoke-permission.html</guid>
+      <description>4.14 - Revoke Permission void revokePermission(Permission perm, Role role) throws SecurityException This command revokes the permission to perform an operation on an object from the set of permissions assigned to a role. The command is implemented by setting the access control list of the object involved. The command is valid if and only if the pair (object, operation) represents a permission, the role is a member of the ROLES data set, and the permission is assigned to that role.</description>
     </item>
     
     <item>

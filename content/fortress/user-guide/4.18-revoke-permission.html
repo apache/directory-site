@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>4.14 - Delete Permission &mdash; Apache Directory</title>
+    <title>4.18 - Revoke Permission &mdash; Apache Directory</title>
 
     <link href="/css/common.css" rel="stylesheet" type="text/css"/>
     <link href="/css/turquoise.css" rel="stylesheet" type="text/css"/>
@@ -132,7 +132,7 @@
         <div class="nav_prev">
             
                 
-                <a href="4.13-add-permission.html">4.13 - Add Permission</a>
+                <a href="4.17-grant-permission.html">4.17 - Grant Permission</a>
             
         </div>
         <div class="nav_up">
@@ -143,8 +143,7 @@
         </div>
         <div class="nav_next">
             
-                
-                <a href="4.15-assign-user.html">4.15 - Assign User</a>
+                &nbsp;
             
         </div>
         <div class="clearfix"></div>
@@ -152,60 +151,42 @@
 
 
             
-	<h1 id="414---delete-permission">4.14 - Delete Permission</h1>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">deletePermission</span><span style="color:#666">(</span>Permission perm<span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> SecurityException
-</code></pre></div><p>This method will remove permission operation entity from permission object.
-A Fortress permission is (object-&gt;operation).
-The perm operation must exist before making this call.</p>
+	<h1 id="414---revoke-permission">4.14 - Revoke Permission</h1>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">revokePermission</span><span style="color:#666">(</span>Permission perm<span style="color:#666">,</span> Role role<span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> SecurityException
+</code></pre></div><p>This command revokes the permission to perform an operation on an object from the set of permissions assigned to a role.
+The command is implemented by setting the access control list of the object involved.
+The command is valid if and only if the pair (object, operation) represents a permission, the role is a member of the ROLES data set, and the permission is assigned to that role.</p>
 <p>required parameters:</p>
 <ul>
-<li>Permission#objName - contains the name of existing object being targeted for the permission delete</li>
-<li>Permission#opName - contains the name of existing permission operation being removed</li>
-</ul>
-<p>Parameters:</p>
-<ul>
-<li>perm - must contain the object, Permission#objName, and operation, Permission#opName, that identifies target.</li>
+<li>Permission#objName - contains the object name</li>
+<li>Permission#opName - contains the operation name</li>
+<li>Role#name - contains the role name</li>
 </ul>
 <p>Throws:</p>
 <ul>
-<li>SecurityException - thrown in the event of perm object data or system error.</li>
+<li>SecurityException - Thrown in the event of data validation or system error.</li>
 </ul>
-<h2 id="deletepermission">deletePermission</h2>
+<h2 id="revokepermission">revokePermission</h2>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.AdminMgr</span><span style="color:#666">;</span>
 <span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.AdminMgrFactory</span><span style="color:#666">;</span>
 <span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.GlobalErrIds</span><span style="color:#666">;</span>
 <span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.ReviewMgr</span><span style="color:#666">;</span>
 <span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.ReviewMgrFactory</span><span style="color:#666">;</span>
+<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.model.Role</span><span style="color:#666">;</span>
 <span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.model.Permission</span><span style="color:#666">;</span>
 <span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.SecurityException</span><span style="color:#666">;</span>
 
 <span style="color:#a2f">@test</span>
-<span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">static</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">testDelPermission</span><span style="color:#666">(</span>String objName<span style="color:#666">,</span> String operation<span style="color:#666">)</span>
+<span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">static</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">testRevokePermission</span><span style="color:#666">(</span>String roleName<span style="color:#666">,</span> String object<span style="color:#666">,</span> String operation<span style="color:#666">)</span>
 <span style="color:#666">{</span>
-    String szLocation <span style="color:#666">=</span> <span style="color:#b44">&#34;.testDelPermission&#34;</span><span style="color:#666">;</span>
-
+    String szLocation <span style="color:#666">=</span> <span style="color:#b44">&#34;.testRevokePermission&#34;</span><span style="color:#666">;</span>
     <span style="color:#a2f;font-weight:bold">try</span>
     <span style="color:#666">{</span>
         <span style="color:#080;font-style:italic">// Instantiate the AdminMgr implementation which is used to provision RBAC policies.
 </span><span style="color:#080;font-style:italic"></span>        AdminMgr adminMgr <span style="color:#666">=</span> AdminMgrFactory<span style="color:#666">.</span><span style="color:#b44">createInstance</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
-        <span style="color:#080;font-style:italic">// this will remove the permission:
-</span><span style="color:#080;font-style:italic"></span>        Permission inPerm <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> Permission<span style="color:#666">(</span>objName<span style="color:#666">,</span> operation<span style="color:#666">)</span><span style="color:#666">;</span>
-        adminMgr<span style="color:#666">.</span><span style="color:#b44">deletePermission</span><span style="color:#666">(</span>inPerm<span style="color:#666">)</span><span style="color:#666">;</span>
-
-        <span style="color:#080;font-style:italic">// Instantiate the ReviewMgr implementation which is used to interrogate policy information.
-</span><span style="color:#080;font-style:italic"></span>        ReviewMgr reviewMgr <span style="color:#666">=</span> ReviewMgrFactory<span style="color:#666">.</span><span style="color:#b44">createInstance</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
-        <span style="color:#a2f;font-weight:bold">try</span>
-        <span style="color:#666">{</span>
-            <span style="color:#080;font-style:italic">// this should fail:
-</span><span style="color:#080;font-style:italic"></span>            reviewMgr<span style="color:#666">.</span><span style="color:#b44">readPermission</span><span style="color:#666">(</span><span style="color:#a2f;font-weight:bold">new</span> Permission<span style="color:#666">(</span>objName<span style="color:#666">,</span> operation<span style="color:#666">)</span><span style="color:#666">)</span><span style="color:#666">;</span>
-            fail<span style="color:#666">(</span>szLocation <span style="color:#666">+</span> <span style="color:#b44">&#34; permission delete failed&#34;</span><span style="color:#666">)</span><span style="color:#666">;</span>
-        <span style="color:#666">}</span>
-        <span style="color:#a2f;font-weight:bold">catch</span> <span style="color:#666">(</span>SecurityException se<span style="color:#666">)</span>
-        <span style="color:#666">{</span>
-            assertTrue<span style="color:#666">(</span>szLocation <span style="color:#666">+</span> <span style="color:#b44">&#34; excep id check&#34;</span><span style="color:#666">,</span> se<span style="color:#666">.</span><span style="color:#b44">getErrorId</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">=</span><span style="color:#666">=</span> GlobalErrIds<span style="color:#666">.</span><span style="color:#b44">PERM_OP_NOT_FOUND</span><span style="color:#666">)</span><span style="color:#666">;</span>
-            <span style="color:#080;font-style:italic">// pass
-</span><span style="color:#080;font-style:italic"></span>        <span style="color:#666">}</span>
-        LOG<span style="color:#666">.</span><span style="color:#b44">info</span><span style="color:#666">(</span>szLocation <span style="color:#666">+</span> <span style="color:#b44">&#34; delete permission success&#34;</span><span style="color:#666">)</span><span style="color:#666">;</span>
+        Role inRole <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> Role<span style="color:#666">(</span>roleName<span style="color:#666">)</span><span style="color:#666">;</span>
+        Permission inPerm <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> Permission<span style="color:#666">(</span>object<span style="color:#666">,</span> operation<span style="color:#666">)</span><span style="color:#666">;</span>
+        adminMgr<span style="color:#666">.</span><span style="color:#b44">revokePermission</span><span style="color:#666">(</span>inPerm<span style="color:#666">,</span> inRole<span style="color:#666">)</span><span style="color:#666">;</span>
     <span style="color:#666">}</span>
     <span style="color:#a2f;font-weight:bold">catch</span> <span style="color:#666">(</span>SecurityException ex<span style="color:#666">)</span>
     <span style="color:#666">{</span>
@@ -220,7 +201,7 @@ The perm operation must exist before making this call.</p>
         <div class="nav_prev">
             
                 
-                <a href="4.13-add-permission.html">4.13 - Add Permission</a>
+                <a href="4.17-grant-permission.html">4.17 - Grant Permission</a>
             
         </div>
         <div class="nav_up">
@@ -231,8 +212,7 @@ The perm operation must exist before making this call.</p>
         </div>
         <div class="nav_next">
             
-                
-                <a href="4.15-assign-user.html">4.15 - Assign User</a>
+                &nbsp;
             
         </div>
         <div class="clearfix"></div>
