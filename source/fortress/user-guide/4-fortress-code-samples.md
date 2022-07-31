@@ -30,3 +30,7 @@ navNextText: 4.1 - Example Creating RBAC Session
 * [4.16 - Deassign User](4.16-deassign-user.html)
 * [4.17 - Grant Permission](4.17-grant-permission.html)
 * [4.18 - Revoke Permission](4.18-revoke-permission.html)
+* [4.19 - Add Inheritance](4.19-add-inheritance.html)
+* [4.20 - Delete Inheritance](4.20-delete-inheritance.html)
+* [4.21 - Add Ascendant](4.21-add-ascendant.html)
+* [4.22 - Add Descendant](4.22-add-descendant.html)

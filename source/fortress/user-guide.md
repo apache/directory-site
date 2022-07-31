@@ -39,13 +39,22 @@ This guide is primarily for people new to Fortress.
   * [4.16 - Deassign User](user-guide/4.16-deassign-user.html)
   * [4.17 - Grant Permission](user-guide/4.17-grant-permission.html)
   * [4.18 - Revoke Permission](user-guide/4.18-revoke-permission.html)
- 
+  * [4.19 - Add Inheritance](user-guide/4.19-add-inheritance.html)
+  * [4.20 - Delete Inheritance](user-guide/4.20-delete-inheritance.html)
+  * [4.21 - Add Ascendant](user-guide/4.21-add-ascendant.html)
+  * [4.22 - Add Descendant](user-guide/4.22-add-descendant.html)
   
 * TODO (more code samples):
-  * [4.19 - addInheritance]  
-  * [4.20 - deleteInheritance]  
-  * [4.21 - createSsdSet]  
-  * [4.22 - deleteSsdSet]  
-  * [4.23 - createDsdSet]  
-  * [4.24 - deleteDsdSet]
+  * [4.23 - createSsdSet]  
+  * [4.24 - deleteSsdSet]  
+  * [4.25 - createDsdSet]  
+  * [4.26 - deleteDsdSet]
+  * [4.27 - addSsdRoleMember]
+  * [4.28 - addDsdRoleMember]
+  * [4.29 - addSsdRoleMember]
+  * [4.30 - addDsdRoleMember]
+  * [4.31 - setSsdSetCardinality]
+  * [4.32 - setDsdSetCardinality]
+  * [4.33 - addRoleConstraint]
+  * [4.34 - removeRoleConstraint]
   * ...
