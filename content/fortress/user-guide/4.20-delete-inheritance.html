@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>4.18 - Revoke Permission &mdash; Apache Directory</title>
+    <title>4.20 - Delete Inheritance &mdash; Apache Directory</title>
 
     <link href="/css/common.css" rel="stylesheet" type="text/css"/>
     <link href="/css/turquoise.css" rel="stylesheet" type="text/css"/>
@@ -132,7 +132,7 @@
         <div class="nav_prev">
             
                 
-                <a href="4.17-grant-permission.html">4.17 - Grant Permission</a>
+                <a href="4.19-add-inheritance.html">4.19 - Add Inheritance</a>
             
         </div>
         <div class="nav_up">
@@ -144,7 +144,7 @@
         <div class="nav_next">
             
                 
-                <a href="4.19-add-inheritance.html">4.19 - Add Inheritance</a>
+                <a href="4.21-add-ascendant.html">4.21 - Add Ascendant</a>
             
         </div>
         <div class="clearfix"></div>
@@ -152,39 +152,38 @@
 
 
             
-	<h1 id="414---revoke-permission">4.14 - Revoke Permission</h1>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">revokePermission</span><span style="color:#666">(</span>Permission perm<span style="color:#666">,</span> Role role<span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> SecurityException
-</code></pre></div><p>This command revokes the permission to perform an operation on an object from the set of permissions assigned to a role.
-The command is implemented by setting the access control list of the object involved.
-The command is valid if and only if the pair (object, operation) represents a permission, the role is a member of the ROLES data set, and the permission is assigned to that role.</p>
+	<h1 id="420---delete-inheritance">4.20 - Delete Inheritance</h1>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">deleteInheritance</span><span style="color:#666">(</span>Role parentRole<span style="color:#666">,</span> Role childRole<span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> SecurityException
+</code></pre></div><p>This command deletes an existing immediate inheritance relationship parentRole &laquo;&ndash; childRole.</p>
+<p>The command is valid if and only if:</p>
+<ul>
+<li>The roles parentRole and childRole are members of the ROLES data set.</li>
+<li>The parentRole is an immediate ascendant of childRole.</li>
+<li>The new inheritance relation is computed as the reflexive-transitive closure of the immediate inheritance relation resulted after deleting the relationship parentRole &laquo;&ndash; childRole.</li>
+</ul>
 <p>required parameters:</p>
 <ul>
-<li>Permission#objName - contains the object name</li>
-<li>Permission#opName - contains the operation name</li>
-<li>Role#name - contains the role name</li>
+<li>parentRole - Role#name - contains the name of existing Role to remove parent relationship</li>
+<li>childRole - Role#name - contains the name of existing Role to remove child relationship</li>
 </ul>
 <p>Throws:</p>
 <ul>
-<li>SecurityException - Thrown in the event of data validation or system error.</li>
+<li>SecurityException - thrown in the event of data validation or system error.</li>
 </ul>
-<h2 id="revokepermission">revokePermission</h2>
+<h2 id="deleteinheritance">deleteInheritance</h2>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.AdminMgr</span><span style="color:#666">;</span>
 <span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.AdminMgrFactory</span><span style="color:#666">;</span>
 <span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.model.Role</span><span style="color:#666">;</span>
-<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.model.Permission</span><span style="color:#666">;</span>
 <span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.SecurityException</span><span style="color:#666">;</span>
 
 <span style="color:#a2f">@test</span>
-<span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">static</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">testRevokePermission</span><span style="color:#666">(</span>String roleName<span style="color:#666">,</span> String object<span style="color:#666">,</span> String operation<span style="color:#666">)</span>
+<span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">static</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">testDeleteInheritance</span><span style="color:#666">(</span>String childNm<span style="color:#666">,</span> String parentNm<span style="color:#666">)</span>
 <span style="color:#666">{</span>
-    String szLocation <span style="color:#666">=</span> <span style="color:#b44">&#34;.testRevokePermission&#34;</span><span style="color:#666">;</span>
+    String szLocation <span style="color:#666">=</span> <span style="color:#b44">&#34;.testDeleteInheritance&#34;</span><span style="color:#666">;</span>
     <span style="color:#a2f;font-weight:bold">try</span>
     <span style="color:#666">{</span>
-        <span style="color:#080;font-style:italic">// Instantiate the AdminMgr implementation which is used to provision RBAC policies.
-</span><span style="color:#080;font-style:italic"></span>        AdminMgr adminMgr <span style="color:#666">=</span> AdminMgrFactory<span style="color:#666">.</span><span style="color:#b44">createInstance</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
-        Role inRole <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> Role<span style="color:#666">(</span>roleName<span style="color:#666">)</span><span style="color:#666">;</span>
-        Permission inPerm <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> Permission<span style="color:#666">(</span>object<span style="color:#666">,</span> operation<span style="color:#666">)</span><span style="color:#666">;</span>
-        adminMgr<span style="color:#666">.</span><span style="color:#b44">revokePermission</span><span style="color:#666">(</span>inPerm<span style="color:#666">,</span> inRole<span style="color:#666">)</span><span style="color:#666">;</span>
+        AdminMgr adminMgr <span style="color:#666">=</span> AdminMgrFactory<span style="color:#666">.</span><span style="color:#b44">createInstance</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
+        adminMgr<span style="color:#666">.</span><span style="color:#b44">deleteInheritance</span><span style="color:#666">(</span> <span style="color:#a2f;font-weight:bold">new</span> Role<span style="color:#666">(</span> parentNm <span style="color:#666">)</span><span style="color:#666">,</span> <span style="color:#a2f;font-weight:bold">new</span> Role<span style="color:#666">(</span> childNm <span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
     <span style="color:#666">}</span>
     <span style="color:#a2f;font-weight:bold">catch</span> <span style="color:#666">(</span>SecurityException ex<span style="color:#666">)</span>
     <span style="color:#666">{</span>
@@ -199,7 +198,7 @@ The command is valid if and only if the pair (object, operation) represents a pe
         <div class="nav_prev">
             
                 
-                <a href="4.17-grant-permission.html">4.17 - Grant Permission</a>
+                <a href="4.19-add-inheritance.html">4.19 - Add Inheritance</a>
             
         </div>
         <div class="nav_up">
@@ -211,7 +210,7 @@ The command is valid if and only if the pair (object, operation) represents a pe
         <div class="nav_next">
             
                 
-                <a href="4.19-add-inheritance.html">4.19 - Add Inheritance</a>
+                <a href="4.21-add-ascendant.html">4.21 - Add Ascendant</a>
             
         </div>
         <div class="clearfix"></div>
