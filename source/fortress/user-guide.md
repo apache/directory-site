@@ -4,7 +4,7 @@ title: User's Guide
 
 # Fortress User's Guide
 
-Contains introductory information on RBAC and info on how to use Fortress.
+Contains introductory info on RBAC and how to use Fortress.
 
 ## Table of contents
 
@@ -44,7 +44,7 @@ Contains introductory information on RBAC and info on how to use Fortress.
   * [4.21 - Add Ascendant](user-guide/4.21-add-ascendant.html)
   * [4.22 - Add Descendant](user-guide/4.22-add-descendant.html)
   
-* TODO (more code samples):
+* TODO: (more code samples):
   * [4.23 - createSsdSet]  
   * [4.24 - deleteSsdSet]  
   * [4.25 - createDsdSet]  
