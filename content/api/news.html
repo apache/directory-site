@@ -78,7 +78,7 @@
 
                 <h5>Downloads</h5>
                 <ul>
-                    <li><a href="/api/downloads-2.html">Version 2.1.0</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/downloads-2.html">Version 2.1.1</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
                     <li><a href="/api/downloads-1.html">Version 1.0.3</a>&nbsp;&nbsp;</li>
                     <li><a href="/api/download-old-versions.html">Older versions</a></li>
                 </ul>
@@ -135,6 +135,24 @@
 
             
 	<h1 id="news">News</h1>
+<h2 class="news">Apache Directory LDAP API 2.1.1 released <em>posted on August 8th, 2021</em></h2>
+<p>The Apache Directory Team is proud to announce the availability of version 2.1.1 of the Apache Directory LDAP API.</p>
+<p>The Apache Directory LDAP API is an ongoing effort to provide an enhanced LDAP API, as a replacement for JNDI and the existing LDAP API (jLdap and Mozilla LDAP API).</p>
+<p>This is a schema aware API, with some convenient ways to access a LDAP server. This API is not only targeting the Apache Directory Server, but should work pristine with any LDAP server.</p>
+<p>It&rsquo;s also an extensible API : new Controls, schema elements and network layer could be added or used in the near future. It&rsquo;s also OSGi capable.</p>
+<p>This version is now using MINA 2.1.1, which comes with a complete rewrite of the TLS layer. It also fixes a list of issues:</p>
+<p><strong>Improvement:</strong></p>
+<ul>
+<li>[DIRAPI-352]https://issues.apache.org/jira/browse/DIRAPI-352) - The DSML Base64 implementation can be removed</li>
+</ul>
+<p><strong>Bugs:</strong></p>
+<ul>
+<li>[DIRAPI-348]https://issues.apache.org/jira/browse/DIRAPI-348) - NPE when Api decodes bind response from OpenDJ server 6.0</li>
+<li>[DIRAPI-369]https://issues.apache.org/jira/browse/DIRAPI-369) - DSML needsBase64Encoding</li>
+<li>[DIRAPI-379]https://issues.apache.org/jira/browse/DIRAPI-379) - NPE on ill formed error response</li>
+<li>[DIRAPI-380]https://issues.apache.org/jira/browse/DIRAPI-380) - Binding using a DN which RDN is complex may fail</li>
+</ul>
+<p>Downloads are available <a href="downloads-2.html">here</a> and the User&rsquo;s Guide is <a href="user-guide.html">there</a></p>
 <h2 class="news">Apache Directory LDAP API 2.1.0 released <em>posted on June 29th, 2021</em></h2>
 <p>The Apache Directory Team is proud to announce the availability of version 2.1.0 of the Apache Directory LDAP API.</p>
 <p>The Apache Directory LDAP API is an ongoing effort to provide an enhanced LDAP API, as a replacement for JNDI and the existing LDAP API (jLdap and Mozilla LDAP API).</p>
