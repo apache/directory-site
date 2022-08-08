@@ -19,7 +19,7 @@ This version is now using MINA 2.1.1, which comes with a complete rewrite of the
 
 **Improvement:**
 
-* [DIRAPI-352]https://issues.apache.org/jira/browse/DIRAPI-352) - The DSML Base64 implementation can be removed
+* [DIRAPI-352]https://issues.apache.org/jira/browse/DIRAPI-352) - The Base64 implementation can be removed
 
 **Bugs:**
 
