@@ -4,6 +4,14 @@ title: Download Old Versions
 
 # Download Old Versions
 
+## LDAP API 2.1
+
+<center>
+
+| Version| Download Link | Javadoc & XRef |  Date |
+|:-:|:-:|:-:|:-:|
+| Apache LDAP API 2.1.0 | [Download](https://archive.apache.org/dist/directory/api/dist/2.1.0) | [Javadoc](https://svn.apache.org/repos/infra/websites/production/directory/content/api/gen-docs/2.1.0/apidocs/index.html), [Xref](https://svn.apache.org/repos/infra/websites/production/directory/content/api/gen-docs/2.1.0/xref/index.html) |29/Jun/2021 |
+
 ## LDAP API 2.0
 
 <center>

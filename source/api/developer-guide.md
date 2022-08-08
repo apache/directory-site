@@ -310,7 +310,7 @@ For the record, here is the script shell you can use to sign the packages. Name 
 
 ### Publish Source and Binary Distribution Packages
 
-The sources, binaries and their signatures, have to be pushed in a place where they can be downloaded by the other committers, in order to be checked while validating the release. As the ~/people.apache.org server is not anymore available for that purpose, we use the [distribution](https://dist.apache.org/repos/dist/dev/directory) space for that purpose.
+The sources, binaries and their signatures, have to be pushed in a place where they can be downloaded by the other committers, in order to be checked while validating the release. As the \~/people.apache.org server is not anymore available for that purpose, we use the [distribution](https://dist.apache.org/repos/dist/dev/directory) space for that purpose.
 
 If you haven't checked out this space, do it now :
 
