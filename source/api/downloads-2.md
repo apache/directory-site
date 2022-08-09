@@ -2,7 +2,7 @@
 title: LDAP API Downloads
 ---
 
-# Downloads LDAP API 2.0
+# Downloads LDAP API 2.1
 
 ## Jar Download 
 

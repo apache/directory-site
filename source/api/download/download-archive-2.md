@@ -11,7 +11,7 @@ title: Downloads for Archive
     We suggest the following mirror site for your download:
 </p>
 
-## LDAP API 2.0
+## LDAP API 2.1
 
 ### ZIP Archive
 

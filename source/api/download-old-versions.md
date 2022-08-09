@@ -4,6 +4,8 @@ title: Download Old Versions
 
 # Download Old Versions
 
+<center>
+
 ## LDAP API 2.1
 
 <center>
