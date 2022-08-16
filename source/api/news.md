@@ -17,7 +17,7 @@ It's also an extensible API : new Controls, schema elements and network layer co
 This version is a fix, the previous version having been built with Java 11 and a wrong maven property led to a package that can't be used with Java 8. 
 
 
-Downloads are available [here](downloads-2.html) and the User's Guide is [there](user-guide.html)
+Downloads are available [here](downloads-2.html) and the User's Guide is [there](user-guide.html).
 
 <h2 class="news">Apache Directory LDAP API 2.1.1 released <em>posted on August 8th, 2022</em></h2>
 
