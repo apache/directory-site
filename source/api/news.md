@@ -4,7 +4,22 @@ title: News
 
 # News 
 
-<h2 class="news">Apache Directory LDAP API 2.1.1 released <em>posted on August 8th, 2021</em></h2>
+<h2 class="news">Apache Directory LDAP API 2.1.2 released <em>posted on August 16th, 2022</em></h2>
+
+The Apache Directory Team is proud to announce the availability of version 2.1.2 of the Apache Directory LDAP API.
+
+The Apache Directory LDAP API is an ongoing effort to provide an enhanced LDAP API, as a replacement for JNDI and the existing LDAP API (jLdap and Mozilla LDAP API).
+
+This is a schema aware API, with some convenient ways to access a LDAP server. This API is not only targeting the Apache Directory Server, but should work pristine with any LDAP server.
+
+It's also an extensible API : new Controls, schema elements and network layer could be added or used in the near future. It's also OSGi capable.
+
+This version is a fix, the previous version having been build with Java 11 and a wrong maven property led to a package that can't be used with Java 8. 
+
+
+Downloads are available [here](downloads-2.html) and the User's Guide is [there](user-guide.html)
+
+<h2 class="news">Apache Directory LDAP API 2.1.1 released <em>posted on August 8th, 2022</em></h2>
 
 The Apache Directory Team is proud to announce the availability of version 2.1.1 of the Apache Directory LDAP API.
 
