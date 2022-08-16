@@ -14,7 +14,7 @@ This is a schema aware API, with some convenient ways to access a LDAP server. T
 
 It's also an extensible API : new Controls, schema elements and network layer could be added or used in the near future. It's also OSGi capable.
 
-This version is a fix, the previous version having been build with Java 11 and a wrong maven property led to a package that can't be used with Java 8. 
+This version is a fix, the previous version having been built with Java 11 and a wrong maven property led to a package that can't be used with Java 8. 
 
 
 Downloads are available [here](downloads-2.html) and the User's Guide is [there](user-guide.html)
