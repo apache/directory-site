@@ -29,7 +29,7 @@ title: Download for Sources
                     </a>
                 </td>
                 <td align="right">
-                    [<a href="https://downloads.apache.org/directory/apacheds/dist/{{< param version_apacheds >}}/apacheds-parent-{{< param version_apacheds >}}-source-release.zip.asc">ASC</a>-<a href="https://downloads.apache.org/directory/apacheds/dist/{{< param version_apacheds >}}/apacheds-parent-{{< param version_apacheds >}}-source-release.zip.sha256">SHA256</a>-<a href="https://downloads.apache.org/directory/apacheds/dist/{{< param version_apacheds >}}/apacheds-parent-{{< param version_apacheds >}}-source-release.zip.sha512">SHA512</a>]
+                    [<a href="https://downloads.apache.org/directory/apacheds/dist/{{< param version_apacheds >}}/apacheds-parent-{{< param version_apacheds >}}-source-release.zip.asc">ASC</a>-<a href="https://downloads.apache.org/directory/apacheds/dist/{{< param version_apacheds >}}/apacheds-parent-{{< param version_apacheds >}}-source-release.zip.sha512">SHA512</a>]
                 </td>
             </tr>
         </table>

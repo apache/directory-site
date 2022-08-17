@@ -136,7 +136,7 @@ gpg --keyserver subkeys.pgp.net --send-keys <your key's id from last command>
 
 <DIV class="info" markdown="1">
 Make sure to have created the .pgpkey in your <em>p.a.o/~</em> directory and to have added your public key to the <b>KEYS</b> file.
-See also http://people.apache.org/~henkp/repo/faq.html#4
+See also https://people.apache.org/~henkp/repo/faq.html#4
 </DIV>
 
 ### Releasing ApacheDS
@@ -156,7 +156,7 @@ Edit the <em>apacheds.sh/bat</em> files in the service project directory to upda
 
 #### Release process
 
-Since we are using Nexus for releases the release process is as follows (see also [Publishing maven artifacts](http://www.apache.org/dev/publishing-maven-artifacts.html#staging-maven).
+Since we are using Nexus for releases the release process is as follows (see also [Publishing maven artifacts](https://www.apache.org/dev/publishing-maven-artifacts.html#staging-maven).
 
 ##### Test the Project
 
@@ -181,7 +181,7 @@ $ mvn release:clean
 $ mvn release:prepare
 ```
 
-This creates a tag [here](http://svn.apache.org/viewvc/directory/apacheds/tags/)
+This creates a tag [here](https://svn.apache.org/viewvc/directory/apacheds/tags/)
 
 ##### Stage the Release
 
@@ -441,7 +441,7 @@ Then move the packages from 'dev' to 'release' :
 $
 ```
 
-The packages should now be available on http://www.us.apache.org/dist/directory/apacheds/dist/<version>
+The packages should now be available on https://www.apache.org/dist/directory/apacheds/dist/<version>
 
 ##### Deploy the Javadocs and XRef
 
