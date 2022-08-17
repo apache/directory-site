@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>1 - Introduction &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/turquoise.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/server-icon_16x16.png" />
+</head>
+
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+             
+                ApacheDS
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+             
+                LDAP API
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+            
+                <strong>Mavibot</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>Mavibot 1.0</h5>
+                <ul>
+                    <li><a href="/mavibot/">Home</a></li>
+                    <li><a href="/mavibot/news.html">News</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/mavibot/downloads.html">Version 1.0.0-M8</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/mavibot/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Getting Started</h5>
+                <ul>
+                    <li><a href="/mavibot/vision.html">Vision</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/mavibot/five-minutes-tutorial.html">Five minutes tutorial</a></li>
+                    <li><a href="/mavibot/user-guide.html">User Guide</a></li>
+                    <li><a href="/mavibot/gen-docs/latest/apidocs/">JavaDocs</a></li>
+                    <li><a href="/mavibot/gen-docs/latest/xref/">Cross-Reference</a></li>
+                    
+                    <li><a href="/mavibot/developer-guide.html">Developer Guide</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                &nbsp;
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="../user-guide-v1.html">User Guide</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="1.1-btree-basics.html">1.1 - BTree Basics</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+            
+	<h1 id="mavibot-initialization">Mavibot initialization</h1>
+<p>The very first step when using <strong>Mavibot</strong> is to initialize it. That means creating the database that will contain all the data (we use only one file for that).</p>
+<p>This is done with a simple call, with one or 3 parameters:</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    RecordManager recordManager1 <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> RecordManager<span style="color:#666">(</span> <span style="color:#b44">&#34;MyData.db&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+
+    <span style="color:#080;font-style:italic">// or 
+</span><span style="color:#080;font-style:italic"></span>
+    RecordManager recordManager2 <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> RecordManager<span style="color:#666">(</span> <span style="color:#b44">&#34;MyData.db&#34;</span><span style="color:#666">,</span> 512<span style="color:#666">,</span> 1024 <span style="color:#666">)</span><span style="color:#666">;</span>
+</code></pre></div><p>The first method just require that you name the file that will contain the data (<em>&ldquo;MyData.db&rdquo;</em> here), teh second method allows you to configure the page size and teh cache size (in number of pages). Here, we set the page size to <em>512</em> bytes and the cache will store 1024 pages.</p>
+<p>Those call will create the inner structure needed to manage the database:</p>
+<ul>
+<li>the <em>RecordManagerHeader</em></li>
+<li>the <em>CopiedPagesBtree</em></li>
+<li>the list of active B-trees (currently containing no element, the previously created B-tree is a technical one)</li>
+</ul>
+<h2 id="the-recordmanagerheader">The RecordManagerHeader</h2>
+<p>This data structure is critical to <em>Mavibot</em>, it contains the root of all your database. It is stored with one single page, and is written in one single write operation, guaranteeing that once written, all the database is reachable. It cannot be corrupted. Worse case scenario, if it cannot be written, the previous version will always be available and point to the previous revision.</p>
+<p>The inner structure of this page is the following:</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Text" data-lang="Text">+--------------------------+
+| PageSize                 | 4 bytes : The size of a physical page (default to 4096)
++--------------------------+
+| Nb B-Trees               | 4 bytes : The number of managed B-trees (zero or more)
++--------------------------+
+| Revision                 | 8 bytes : The current revision
++--------------------------+
+| FirstFree offset         | 8 bytes : The offset of the first free page
++--------------------------+
+| list of B-trees offset   | 8 bytes : The offset of the current list of B-trees
++--------------------------+
+| current CP btree offset  | 8 bytes : The offset of the current BoB
++--------------------------+
+| idCounter                | 8 bytes : The page ID counter (an incremental counter)
++--------------------------+
+</code></pre></div><p>The <em>RecordManagerHeader</em> is a 48 bytes block, stored in a bigger page (default page size is 4096 bytes).</p>
+<p>The important information are :</p>
+<ul>
+<li>the current revision</li>
+<li>the pointer to the first free page (free pages are linked together in a list for the page allocator to use them)</li>
+<li>the pointer to the list of existing B-trees</li>
+<li>the pointer to the <em>CopiedPagesBtree</em> which is used to manage dead pages</li>
+<li>a unique page counter whicch is incremented after every write</li>
+</ul>
+<p>When you use a <em>Mavibot</em> database, the system will always read this first page, and retrieve all the needed informations about the existing B-trees, plus some extra information to retreive dead pages if there was a crash beforehand. It&rsquo;s critical to undestand that a crash will not corrupt the database, you will just lose the data that were written before the write transaction has been fully committed.</p>
+<h2 id="the-copiedpages-btree">The CopiedPages Btree</h2>
+<p>This is a technical B-tree that is used to keep a reference of all the pages that have been copied during a write transaction. That allows the system to reclaim the pages that are not anymore in use. The algorithm will be axplain later. Enough said that for every write operation, we keep track of every page that is copied in this B-tree. Note that unlike the other B-trees, this B-tree is not versionned (ie we discard the old <em>CopiedPagesBtree</em> pages immediately, they aren&rsquo;t useful)</p>
+<h2 id="the-list-of-active-b-trees">The list of active B-trees</h2>
+<p>We need to keep a track of all the active B-trees, whatever their version. A B-ytree is active when there is at least a read transaction using the assocciated revision. We may have many.</p>
+<p>The reason we keep them on teh disk is that it helps to reclaim old pages in case of a crash, otherwise we would have to parse the whole database - which would be costly.</p>
+<p>Here is the data structure as it is written on disk - and it may span on many pages -:</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Text" data-lang="Text">
++--+--+--+--+--+--+--+--+
+|  |  |  |  |  |  |  |  |    pageID
++--+--+--+--+--+--+--+--+
+|  |  |  |  |                number of transaction lists
++--+--+--+--+
+                             The current RMH :
++--+--+--+--+
+|  |  |  |  |                number of managed BTrees (N)
++--+--+--+--+--+--+--+--+
+|  |  |  |  |  |  |  |  |    revision
++--+--+--+--+--+--+--+--+
+...                          
++--+--+--+--+--+--+--+--+
+|  |  |  |  |  |  |  |  |    BtreeHeader offset x N,  For each managed B-tree
++--+--+--+--+--+--+--+--+
+...
+ 
+                             The active transactions list :
++--+--+--+--+
+|  |  |  |  |                number of managed BTrees for RMH[i] (M)
++--+--+--+--+--+--+--+--+
+|  |  |  |  |  |  |  |  |    revision RMH[i]
++--+--+--+--+--+--+--+--+
+...                          
++--+--+--+--+--+--+--+--+
+|  |  |  |  |  |  |  |  |    BtreeHeader offset x M,  For each managed B-tree of RMH[i]
++--+--+--+--+--+--+--+--+
+...
+</code></pre></div><p>Each transaction list has a size of <code>12 + (nb B-tree * 8)</code> bytes. For instance, if we manage 16 B-trees, that is 140 bytes (16 * 8 + 12 -&gt; 140), and add the first 12 bytes for completion). If we have 10 active transactions, a 4096 bytes page will easily hold all of them (12 + 10 x 140 -&gt; 1412 bytes).</p>
+<h2 id="the-list-of-free-pages">The list of free pages</h2>
+<p>This is basically a pointer to the first free page. All the freed pages are linked together. Their content is not flushed or cleared.</p>
+<p>The principle is that when a page is freed, we attach it to the begining of this list, and it becomes the new head of the free pages list.</p>
+<p>For the record, when <em>Mavibot</em> needs a new page to store some data, it will first fetch some from this list, and when this list get exhausted, then it will get a new page at the end of the file, growing the file in the process.</p>
+<p>Here is a representation of this list:</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Text" data-lang="Text">        +-------------+---+    +-------------+---+    +-------------+---+
+Head --&gt;|             | o-+---&gt;|             | o-+---&gt;|             | x |
+        +-------------+---+    +-------------+---+    +-------------+---+
+</code></pre></div><p>Note that the links are offsets in the file, and that the pages may be spread all across the file (ie we can start with 0x2000, then jump to 0x4000, go back to 0x3000, etc).</p>
+<h2 id="transaction-list">Transaction list</h2>
+<p>We have now created the database, we need to initialize the transaction list. The <em>transaction list</em> is a list that contains all the existing transactions, as soon as they are in use. That means:</p>
+<ul>
+<li>the newest revision (after a write)</li>
+<li>any older revision for which a read transaction is sill holding a revision</li>
+</ul>
+<p>When one start a read transaction, it always uses the current revision, but we may have other writes while the read transaction is still processing data (a read transaction can remain opened for a very long time). Of course, the database for this old revision is outdated, but this is the contract: a read transaction always uses pages created before or uup to the read revision. Any data added, moddified or removed since the beginning of the read transaction won&rsquo;t be seen.</p>
+<h1 id="adding-a-b-tree">Adding a B-tree</h1>
+<p>As soon as the database has been initialized, we can now add a working B-tree. This is done with a <em>write transaction</em> that needs to be created:</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">        <span style="color:#a2f;font-weight:bold">try</span> <span style="color:#666">(</span> WriteTransaction writeTransaction <span style="color:#666">=</span> recordManager<span style="color:#666">.</span><span style="color:#b44">beginWriteTransaction</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span>
+        <span style="color:#666">{</span>
+            <span style="color:#080;font-style:italic">// Create a new BTree with transaction and another one without
+</span><span style="color:#080;font-style:italic"></span>            <span style="color:#a2f;font-weight:bold">try</span>
+            <span style="color:#666">{</span>
+                btree <span style="color:#666">=</span> recordManager<span style="color:#666">.</span><span style="color:#b44">addBTree</span><span style="color:#666">(</span> writeTransaction<span style="color:#666">,</span> <span style="color:#b44">&#34;testWithTxn&#34;</span><span style="color:#666">,</span> LongSerializer<span style="color:#666">.</span><span style="color:#b44">INSTANCE</span><span style="color:#666">,</span> StringSerializer<span style="color:#666">.</span><span style="color:#b44">INSTANCE</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+                <span style="color:#a2f;font-weight:bold">throw</span> <span style="color:#a2f;font-weight:bold">new</span> NullPointerException<span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
+            <span style="color:#666">}</span>
+            <span style="color:#a2f;font-weight:bold">catch</span> <span style="color:#666">(</span> Exception e <span style="color:#666">)</span>
+            <span style="color:#666">{</span>
+                writeTransaction<span style="color:#666">.</span><span style="color:#b44">abort</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
+            <span style="color:#666">}</span>
+        <span style="color:#666">}</span>
+</code></pre></div><ul>
+<li>We first create a <em>Write Transaction</em> in a <em>try_with_resource</em> block</li>
+<li>then we add a B-tree (here stroring &lt;Long, String&gt; tuples) in a try/catch sequence</li>
+<li>we handle a potential exception, and rollback explicitely the transaction in this case</li>
+<li>last, not least, the commit is implicit when the transaction is auto-closed</li>
+</ul>
+<p>Note: We have to deal with the <em>abort()</em> call explicitely.</p>
+<p>The <em>B-tree</em> creation is entirely managed by the <em>recordManager</em> instance. A <em>B_Tree</em> is a data structure holding tuples (<code>&lt;key, value&gt;</code>) into pages. It has at least three pages:</p>
+<ul>
+<li>a <em>Info</em> page</li>
+<li>a <em>Header</em> page</li>
+<li>a <em>root</em> page.
+All those pages are written to disk when the transaction is commited, otherwise they are hold in memory until the transaction is either committed (and the pages are flushed oin disk) or rollbacked (and the memory is freed)</li>
+</ul>
+<p>The <em>Header</em> page is the reference page when accessing a <em>B_Tree</em>. It points to the <em>Info</em> and <em>root</em> page.</p>
+<p>Note: Each reference is a long integer, whch is the offset of the page on disk, if it has been written, or the page ID if it&rsquo;s in memory. Each single page has a unique ID whcih never change. This ID is created when the page is created, and it&rsquo;s an incremental number.</p>
+
+
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                &nbsp;
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="../user-guide-v1.html">User Guide</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="1.1-btree-basics.html">1.1 - BTree Basics</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2022, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

@@ -235,7 +235,7 @@ gpg --fingerprint
 gpg --keyserver subkeys.pgp.net --send-keys &lt;your key<span style="">&#39;</span>s id from last command&gt;
 </code></pre></div><DIV class="info" markdown="1">
 Make sure to have created the .pgpkey in your <em>p.a.o/~</em> directory and to have added your public key to the <b>KEYS</b> file.
-See also http://people.apache.org/~henkp/repo/faq.html#4
+See also https://people.apache.org/~henkp/repo/faq.html#4
 </DIV>
 <h3 id="releasing-apacheds-1">Releasing ApacheDS</h3>
 <p>Now that your environment has been setup, we will show you how to build and release the ApacheDS subproject. Keep an eye out for warnings and note sections that show version specific differences in this process.</p>
@@ -246,7 +246,7 @@ See also http://people.apache.org/~henkp/repo/faq.html#4
 <h5 id="update-serviceapachedssh-and-serviceapachedsbat">Update service/apacheds.sh and service/apacheds.bat</h5>
 <p>Edit the <em>apacheds.sh/bat</em> files in the service project directory to update the revision numbers used in that file to reference non-SNAPSHOT releases.</p>
 <h4 id="release-process">Release process</h4>
-<p>Since we are using Nexus for releases the release process is as follows (see also <a href="http://www.apache.org/dev/publishing-maven-artifacts.html#staging-maven">Publishing maven artifacts</a>.</p>
+<p>Since we are using Nexus for releases the release process is as follows (see also <a href="https://www.apache.org/dev/publishing-maven-artifacts.html#staging-maven">Publishing maven artifacts</a>.</p>
 <h5 id="test-the-project">Test the Project</h5>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ mvn release:prepare -DdryRun<span style="color:#666">=</span><span style="color:#a2f">true</span>
 </code></pre></div><p>Replace the version by the new version. Be careful, and remove the &lsquo;apacheds-parent-&rsquo; which is proposed for the new tag. We should just use the version number.</p>
@@ -256,7 +256,7 @@ See also http://people.apache.org/~henkp/repo/faq.html#4
 <h5 id="prepare-the-release">Prepare the Release</h5>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ mvn release:clean
 $ mvn release:prepare
-</code></pre></div><p>This creates a tag <a href="http://svn.apache.org/viewvc/directory/apacheds/tags/">here</a></p>
+</code></pre></div><p>This creates a tag <a href="https://svn.apache.org/viewvc/directory/apacheds/tags/">here</a></p>
 <h5 id="stage-the-release">Stage the Release</h5>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ mvn release:perform -Darguments<span style="color:#666">=</span><span style="color:#b44">&#34;-DskipTests&#34;</span>
 </code></pre></div><p>This deploys the release to a staging repository. Go to <a href="https://repository.apache.org/index.html#stagingRepositories">Staging Repositories</a> and close the staging repository.</p>
@@ -415,7 +415,7 @@ $ svn co https://dist.apache.org/repos/dist/release/directory/apacheds/dist ~/ap
 ...
 <span style="color:#080;font-style:italic"># exit</span>
 $
-</code></pre></div><p>The packages should now be available on <a href="http://www.us.apache.org/dist/directory/apacheds/dist/">http://www.us.apache.org/dist/directory/apacheds/dist/</a><version></p>
+</code></pre></div><p>The packages should now be available on <a href="https://www.apache.org/dist/directory/apacheds/dist/">https://www.apache.org/dist/directory/apacheds/dist/</a><version></p>
 <h5 id="deploy-the-javadocs-and-xref">Deploy the Javadocs and XRef</h5>
 <p>We now can deploy the generated Javadoc and cross-reference pages. They are generated in the following directory :</p>
 <pre><code>target/checkout/target/site
