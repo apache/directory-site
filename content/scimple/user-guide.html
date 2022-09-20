@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Users Guide &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/brown.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/server-icon_16x16.png" />
+</head>
+
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+             
+                ApacheDS
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+             
+                LDAP API
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+            
+                <strong>SCIMple</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>SCIMple 1.0</h5>
+                <ul>
+                    <li><a href="/scimple/">Home</a></li>
+                    <li><a href="/scimple/news.html">News</a></li>
+                </ul>
+                
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/scimple/five-minutes-tutorial.html">Five minutes tutorial</a></li>
+                    <li><a href="/scimple/user-guide.html">User Guide</a></li>
+                    
+                    
+                    
+                    
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="http://www.apache.org/">Apache</a></li>
+    <li><a href="http://www.apache.org/licenses/">License</a></li>
+    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="http://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+
+            
+	<h1 id="users-guide">Users guide</h1>
+<p>Apache&rsquo;s Java EE implementation of the <a href="http://www.simplecloud.info/">Simple Cross-domain Identity Management</a> (SCIM) version 2.0 specification as defined by the following RFCs:</p>
+<ul>
+<li>
+<p><a href="https://tools.ietf.org/html/rfc7643">RFC7643 - SCIM: Core Schema</a></p>
+</li>
+<li>
+<p><a href="https://tools.ietf.org/html/rfc7644">RFC7644 - SCIM: Protocol</a></p>
+</li>
+<li>
+<p><a href="https://tools.ietf.org/html/rfc7642">RFC7642 - SCIM: Definitions, Overview, Concepts, and Requirements</a></p>
+</li>
+</ul>
+<h2 id="project">Project</h2>
+<p>Please fork this project and contribute Pull-Requests via this project&rsquo;s Github page.  Issue tracking is being transitioned to the <a href="http://issues.apache.org/jira/browse/SCIMPLE">Apache Foundation&rsquo;s Jira server</a>.</p>
+<h2 id="features">Features</h2>
+<ul>
+<li>A full-featured Java SCIM client</li>
+<li>Declarative creation of new ResourceTypes and Extensions</li>
+<li>Dynamic generation of the Schema and ResourceType end-points.</li>
+<li>A suite of tools to allow the creation of SCIM resources that can then be verified against the appropriate schemas.</li>
+</ul>
+<h2 id="future-features">Future features</h2>
+<ul>
+<li>Example implementations of the server with various persistence paradigms.</li>
+<li>A set of verification tests to ensure the project meets the specification and to allow inter-operability testing.</li>
+</ul>
+<h2 id="example-code">Example code</h2>
+<p>Examples of the project&rsquo;s declarative syntax are shown below. The first example shows how a SCIM resource is declared:</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a2f">@Data</span>
+<span style="color:#a2f">@EqualsAndHashCode</span><span style="color:#666">(</span>callSuper <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">true</span><span style="color:#666">)</span>
+<span style="color:#a2f">@ScimResourceType</span><span style="color:#666">(</span>
+    id <span style="color:#666">=</span> ScimUser<span style="color:#666">.</span><span style="color:#b44">RESOURCE_NAME</span><span style="color:#666">,</span>
+    name <span style="color:#666">=</span> ScimUser<span style="color:#666">.</span><span style="color:#b44">RESOURCE_NAME</span><span style="color:#666">,</span>
+    schema <span style="color:#666">=</span> ScimUser<span style="color:#666">.</span><span style="color:#b44">SCHEMA_URI</span><span style="color:#666">,</span>
+    description <span style="color:#666">=</span> <span style="color:#b44">&#34;Top level ScimUser&#34;</span><span style="color:#666">,</span>
+    endpoint <span style="color:#666">=</span> <span style="color:#b44">&#34;/Users&#34;</span>
+<span style="color:#666">)</span>
+<span style="color:#a2f">@XmlRootElement</span><span style="color:#666">(</span>name <span style="color:#666">=</span> ScimUser<span style="color:#666">.</span><span style="color:#b44">RESOURCE_NAME</span><span style="color:#666">)</span>
+<span style="color:#a2f">@XmlAccessorType</span><span style="color:#666">(</span>XmlAccessType<span style="color:#666">.</span><span style="color:#b44">FIELD</span><span style="color:#666">)</span>
+<span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">class</span> <span style="color:#00f">ScimUser</span> <span style="color:#a2f;font-weight:bold">extends</span> ScimResource <span style="color:#666">{</span>
+
+    <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">static</span> <span style="color:#a2f;font-weight:bold">final</span> String RESOURCE_NAME <span style="color:#666">=</span> <span style="color:#b44">&#34;User&#34;</span><span style="color:#666">;</span>
+    <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">static</span> <span style="color:#a2f;font-weight:bold">final</span> String SCHEMA_URI <span style="color:#666">=</span> <span style="color:#b44">&#34;urn:ietf:params:scim:schemas:core:2.0:User&#34;</span><span style="color:#666">;</span>
+
+    <span style="color:#a2f">@ScimAttribute</span><span style="color:#666">(</span>
+    description<span style="color:#666">=</span><span style="color:#b44">&#34;A Boolean value indicating the User&#39;s administrative status.&#34;</span><span style="color:#666">,</span>
+    type<span style="color:#666">=</span>Type<span style="color:#666">.</span><span style="color:#b44">BOOLEAN</span>
+    <span style="color:#666">)</span>
+    
+    <span style="color:#a2f">@XmlElement</span><span style="color:#666">(</span>name <span style="color:#666">=</span> <span style="color:#b44">&#34;active&#34;</span><span style="color:#666">)</span>
+    Boolean active <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">true</span><span style="color:#666">;</span>
+
+    <span style="color:#a2f">@ScimAttribute</span><span style="color:#666">(</span>
+    type <span style="color:#666">=</span> Type<span style="color:#666">.</span><span style="color:#b44">COMPLEX</span><span style="color:#666">,</span>
+    description<span style="color:#666">=</span><span style="color:#b44">&#34;A physical mailing address for this User, as described in ...&#34;</span>
+    <span style="color:#666">)</span>
+    <span style="color:#a2f">@XmlElement</span><span style="color:#666">(</span>name <span style="color:#666">=</span> <span style="color:#b44">&#34;addresses&#34;</span><span style="color:#666">)</span>
+    List<span style="color:#666">&lt;</span>Address<span style="color:#666">&gt;</span> addresses<span style="color:#666">;</span>
+</code></pre></div><p>In the example above, annotations are used at the class level and member level to declare a new SCIM resource and its attributes respectively.  The example below shows the equivalent declaration for a resource Extension:</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a2f">@XmlRootElement</span>
+<span style="color:#a2f">@XmlAccessorType</span><span style="color:#666">(</span>XmlAccessType<span style="color:#666">.</span><span style="color:#b44">NONE</span><span style="color:#666">)</span>
+<span style="color:#a2f">@ScimExtensionType</span><span style="color:#666">(</span>
+    required <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">false</span><span style="color:#666">,</span>
+    name <span style="color:#666">=</span> <span style="color:#b44">&#34;EnterpriseUser&#34;</span><span style="color:#666">,</span>
+    id <span style="color:#666">=</span> EnterpriseExtension<span style="color:#666">.</span><span style="color:#b44">URN</span><span style="color:#666">,</span>
+    description <span style="color:#666">=</span> <span style="color:#b44">&#34;Attributes commonly used in representing users that belong to, or act on behalf of, a business or enterprise.&#34;</span>
+<span style="color:#666">)</span>
+<span style="color:#a2f">@Data</span>
+<span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">class</span> <span style="color:#00f">EnterpriseExtension</span> <span style="color:#a2f;font-weight:bold">implements</span> ScimExtension <span style="color:#666">{</span>
+
+    <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">static</span> <span style="color:#a2f;font-weight:bold">final</span> String URN <span style="color:#666">=</span> <span style="color:#b44">&#34;urn:ietf:params:scim:schemas:extension:enterprise:2.0:User&#34;</span><span style="color:#666">;</span>
+
+    <span style="color:#a2f">@XmlType</span>
+    <span style="color:#a2f">@XmlAccessorType</span><span style="color:#666">(</span>XmlAccessType<span style="color:#666">.</span><span style="color:#b44">NONE</span><span style="color:#666">)</span>
+    <span style="color:#a2f">@Data</span>
+    <span style="color:#a2f">@Accessors</span><span style="color:#666">(</span>chain <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">true</span><span style="color:#666">)</span>
+    <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">static</span> <span style="color:#a2f;font-weight:bold">class</span> <span style="color:#00f">Manager</span> <span style="color:#666">{</span>
+
+        <span style="color:#a2f">@ScimAttribute</span><span style="color:#666">(</span>
+        description <span style="color:#666">=</span> <span style="color:#b44">&#34;The \&#34;id\&#34; of the SCIM resource representing the user&#39;s manager.  RECOMMENDED.&#34;</span>
+        <span style="color:#666">)</span>
+    
+        <span style="color:#a2f">@XmlElement</span>
+        <span style="color:#a2f;font-weight:bold">private</span> String value<span style="color:#666">;</span>
+
+        <span style="color:#a2f">@ScimAttribute</span><span style="color:#666">(</span>
+        description <span style="color:#666">=</span> <span style="color:#b44">&#34;The URI of the SCIM resource representing the User&#39;s manager.  RECOMMENDED.&#34;</span>
+        <span style="color:#666">)</span>
+        
+        <span style="color:#a2f">@XmlElement</span>
+        <span style="color:#a2f;font-weight:bold">private</span> String $ref<span style="color:#666">;</span>
+</code></pre></div><p>This example shows how an extension is declared at the class level, but also provides an example of how complex SCIM types can be simply defined as suitably annotated inner classes.</p>
+<p>Implementations are fully customizable without altering the core server code. The example below shows how the implementation for a repository is declared:</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">class</span> <span style="color:#00f">InMemoryUserService</span> <span style="color:#a2f;font-weight:bold">implements</span> Respository<span style="color:#666">&lt;</span>ScimUser<span style="color:#666">&gt;</span> <span style="color:#666">{</span>
+</code></pre></div><p>Implementing the repository interface allows the customization of create, retrieve, update, and delete methods (as well as find).  Customization is flexible - if your system implements soft deletes, create a delete method that simply sets a flag and alter the find and retrieve methods to only return &ldquo;undeleted&rdquo; resources.</p>
+<h2 id="building--contributing">Building &amp; Contributing</h2>
+<p>Clone the code and build it!</p>
+<p><strong>Prerequisites</strong></p>
+<ul>
+<li>Java 11+</li>
+</ul>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git clone https://github.com/apache/directory-scimple.git
+<span style="color:#a2f">cd</span> directory-scimple
+./mvnw package
+<span style="color:#080;font-style:italic"># or on windows</span>
+<span style="color:#080;font-style:italic"># mvnw.bat package</span>
+</code></pre></div>
+
+            
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2022, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>
