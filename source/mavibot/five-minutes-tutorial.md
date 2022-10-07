@@ -94,6 +94,6 @@ Once the revision is not longer in use, the associated pages are likely to be re
 
 ## Cache
 
-We don't implement a cache : we depends on Java for that. The _BTree_ is stored in memory, using class instances, and are eventually loaded from disk if they are not present in memory. We use [_WeakReference_](http://docs.oracle.com/javase/7/docs/api/java/lang/ref/WeakReference.html) to hold all the pages.
+We don't implement a cache : we depends on Java for that. The _BTree_ is stored in memory, using class instances, and are eventually loaded from disk if they are not present in memory. We use [_WeakReference_](https://docs.oracle.com/javase/7/docs/api/java/lang/ref/WeakReference.html) to hold all the pages.
 
 As the _Java_ garbage collector already keeps in memory the most frequently used data, it's likely that the important pages - ie, the top of each _BTree_ - will be kept in memory.

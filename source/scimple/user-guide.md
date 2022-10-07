@@ -4,7 +4,7 @@ title: Users Guide
 
 # Users guide
 
-Apache's Java EE implementation of the [Simple Cross-domain Identity Management](http://www.simplecloud.info/) (SCIM) version 2.0 specification as defined by the following RFCs:
+Apache's Java EE implementation of the [Simple Cross-domain Identity Management](https://www.simplecloud.info/) (SCIM) version 2.0 specification as defined by the following RFCs:
 
 * [RFC7643 - SCIM: Core Schema](https://tools.ietf.org/html/rfc7643)
 
@@ -14,7 +14,7 @@ Apache's Java EE implementation of the [Simple Cross-domain Identity Management]
 
 ## Project
 
-Please fork this project and contribute Pull-Requests via this project's Github page.  Issue tracking is being transitioned to the [Apache Foundation's Jira server](http://issues.apache.org/jira/browse/SCIMPLE).
+Please fork this project and contribute Pull-Requests via this project's Github page.  Issue tracking is being transitioned to the [Apache Foundation's Jira server](https://issues.apache.org/jira/browse/SCIMPLE).
 
 ## Features
 

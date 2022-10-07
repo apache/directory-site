@@ -30,7 +30,7 @@ At first glance, we can say that finding a value in a Btree will be faster, as w
 
 Those two big advantages make the B+Tree more interesting to use than the simpler Btree.
 
-(See [Wikipedia page on B+tree](http://en.wikipedia.org/wiki/B%2B_tree) and [Wikipedia page on Btree](http://en.wikipedia.org/wiki/B-tree)
+(See [Wikipedia page on B+tree](https://en.wikipedia.org/wiki/B%2B_tree) and [Wikipedia page on Btree](https://en.wikipedia.org/wiki/B-tree)
 
 ### MVCC
 

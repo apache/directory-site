@@ -4,7 +4,7 @@ title: Internationalization (i18n)
 
 # Internationalization (i18n)
 
-It exists a good guide on internationalization (and externalizing string) at [How to Internationalize your Eclipse Plug-In](http://www.eclipse.org/articles/Article-Internationalization/how2I18n.html).
+It exists a good guide on internationalization (and externalizing string) at [How to Internationalize your Eclipse Plug-In](https://www.eclipse.org/articles/Article-Internationalization/how2I18n.html).
 
 ## Translating the current code
 

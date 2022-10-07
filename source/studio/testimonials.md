@@ -13,10 +13,10 @@ This page is dedicated to people using *{_}Apache Directory Studio{_}* and like 
 * <http://www.idtopia.com/blog/2007/04/03/ldap-studio-07-released>
 * <http://anothergeekwebsite.com/en/2007/03/ldapstudio-0>
 * <http://www.c-note.dk/2007/03/30/ldapbrowsers/>
-* <http://rcrblog.blogspot.com/2007/08/why-i-love-apaches-ldap-studio.html>
+* <https://rcrblog.blogspot.com/2007/08/why-i-love-apaches-ldap-studio.html>
 * <http://blog.fupps.com/2007/09/10/apache-directory-studio/>
 * <http://marksparhawk.com/articles/2007/10/03/apache-does-ldap-well>
-* <http://www.mikeperham.com/2007/09/28/using-apache-ds-part-2/>
+* <https://www.mikeperham.com/2007/09/28/using-apache-ds-part-2/>
 
 ### In French:
 
@@ -32,8 +32,8 @@ This page is dedicated to people using *{_}Apache Directory Studio{_}* and like 
 
 ### In German:
 
-* <http://blog.dogan.ch/2007/09/28/apache-directory-studio/>
-* <http://www.hare.at/ccldap/index.html>
+* <https://blog.dogan.ch/2007/09/28/apache-directory-studio/>
+* <https://www.hare.at/ccldap/index.html>
 
 ### George Stoianov says:
 

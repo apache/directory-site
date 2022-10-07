@@ -79,7 +79,7 @@ title: Download for Windows
 
 ApacheDS requires at least:
 * Windows XP, Vista or 7.
-* [a Java Runtime Environment](http://www.java.com/) 6 or later.
+* [a Java Runtime Environment](https://www.java.com/) 6 or later.
 
 <p>&nbsp;</p>
 

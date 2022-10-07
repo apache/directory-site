@@ -109,7 +109,7 @@ title: Downloads for Mac OS X
 ApacheDS requires at least:
 
 * Mac OS X version 10.4 (Tiger) or later.
-* [a Java Runtime Environment](http://www.java.com/) 6 or later.
+* [a Java Runtime Environment](https://www.java.com/) 6 or later.
 
 <p>&nbsp;</p>
 
