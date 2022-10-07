@@ -12,7 +12,7 @@ There are a few existing **Java LDAP API** around there. Here is a short list an
 |---|---|---|---|
 | [Apache Directory Client API 1.0](https://directory.apache.org/api/) | 1.0.0 | ASL 2.0 | The Apache Directory Server CLient API. |
 | [Apache Directory Client API 2.0](https://directory.apache.org/api/) | 2.0.0 | ASL 2.0 | The Apache Directory Server CLient API, V2. |
-| [jLDAP](http://www.openldap.org/jldap/) | 2008_03-01-1 | OpenLDAP Public License | A Novell&trade; contribution to the OpenLDAP project |
+| [jLDAP](https://www.openldap.org/jldap/) | 2008_03-01-1 | OpenLDAP Public License | A Novell&trade; contribution to the OpenLDAP project |
 | [JNDI](https://docs.oracle.com/javase/tutorial/jndi/index.html) | 1.2 | Sun license | This is not a pure LDAP API, however it's included in J2SE since Java 5. (Probably the API selected by many developers |
 | [ldapSDK](https://wiki.mozilla.org/Mozilla_LDAP_SDK_Programmer%27s_Guide) | 4.17 (discontinued) | Netscape Public License| The Mozilla&trade; API, formally the Netscape LDAP API |
 | [OpenDJ LDAP SDK](https://backstage.forgerock.com/docs/opendj/2.6/dev-guide/) | 2.6.4 (discontinued) | CDDL | The ForgeRock&trade; OpenDJ LDAP SDK |  

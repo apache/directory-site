@@ -52,7 +52,7 @@ To be more concrete:
 
 Currently, the sources are checked in here
 
-    http://svn.apache.org/repos/asf/directory/sandbox/szoerner/passwordHashInterceptor
+    https://svn.apache.org/repos/asf/directory/sandbox/szoerner/passwordHashInterceptor
 
 In order to build it, simply check it out and type "mvn install".
 Implementing the class PasswordHashInterceptor

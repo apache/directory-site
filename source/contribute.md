@@ -10,7 +10,7 @@ But you can help us and yourself more!
 As we are a community of volunteers working with the guidelines and policies of the Apache Software Foundation (the Apache Way) in mind, we welcome any kind of input you can provide to get better products. 
 These contributions, whether you think of reporting bugs, supplying code enhancements, improvements to our documentation, answering questions in our mailing lists or anywhere else are valuable to us. Because these will help us in helping you.
 
-You can also consider **donating** in other ways to the Apache Software Foundation. Look for more information on that subject at these pages: [resource donation](http://www.apache.org/foundation/contributing.html) or [sponsorship program](http://apache.org/foundation/sponsorship.html).
+You can also consider **donating** in other ways to the Apache Software Foundation. Look for more information on that subject at these pages: [resource donation](https://www.apache.org/foundation/contributing.html) or [sponsorship program](https://apache.org/foundation/sponsorship.html).
 
 So, you consider **contributing** to our project. But how do you go about achieving this? 
 
@@ -39,10 +39,10 @@ But the list is not limited to the above! If you feel we missed something there,
 
 | Name | Subscribe |  Post | Archive |
 |---|:-:|:-:|:-:|
-| The Directory Developers List | [Subscribe](mailto:dev-subscribe@directory.apache.org) | [Post](mailto:dev@directory.apache.org) | [mail-archives.apache.org](http://mail-archives.apache.org/mod_mbox/directory-dev) |
-| The Directory Users List| [Subscribe](mailto:users-subscribe@directory.apache.org) | [Post](mailto:users@directory.apache.org) | [mail-archives.apache.org](http://mail-archives.apache.org/mod_mbox/directory-users)  |
-| The Directory Commits List | [Subscribe](mailto:commits-subscribe@directory.apache.org) |  &mdash; | [mail-archives.apache.org](http://mail-archives.apache.org/mod_mbox/directory-commits) |
-| The LDAP API List | [Subscribe](mailto:api-subscribe@directory.apache.org) |  [Post](mailto:api@directory.apache.org) | [mail-archives.apache.org](http://mail-archives.apache.org/mod_mbox/directory-api) |
+| The Directory Developers List | [Subscribe](mailto:dev-subscribe@directory.apache.org) | [Post](mailto:dev@directory.apache.org) | [mail-archives.apache.org](https://mail-archives.apache.org/mod_mbox/directory-dev) |
+| The Directory Users List| [Subscribe](mailto:users-subscribe@directory.apache.org) | [Post](mailto:users@directory.apache.org) | [mail-archives.apache.org](https://mail-archives.apache.org/mod_mbox/directory-users)  |
+| The Directory Commits List | [Subscribe](mailto:commits-subscribe@directory.apache.org) |  &mdash; | [mail-archives.apache.org](https://mail-archives.apache.org/mod_mbox/directory-commits) |
+| The LDAP API List | [Subscribe](mailto:api-subscribe@directory.apache.org) |  [Post](mailto:api@directory.apache.org) | [mail-archives.apache.org](https://mail-archives.apache.org/mod_mbox/directory-api) |
 
 Our IRC channels on  freenode.net, where we have also informal discussions:
 

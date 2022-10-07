@@ -10,7 +10,7 @@ Hey, remember that those rules are not the best nor the worst, they are pretty m
 
 **eclipse IDE**
 
-Eclipse users can import those two files to enfore the code formating : [formatting.xml](http://svn.apache.org/repos/asf/directory/project/trunk/resources/formatting.xml) and [codetemplates.xml](http://svn.apache.org/repos/asf/directory/project/trunk/resources/codetemplates.xml)
+Eclipse users can import those two files to enfore the code formating : [formatting.xml](https://svn.apache.org/repos/asf/directory/project/trunk/resources/formatting.xml) and [codetemplates.xml](http://svn.apache.org/repos/asf/directory/project/trunk/resources/codetemplates.xml)
 
 **IDEA IDE**
 

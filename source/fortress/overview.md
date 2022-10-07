@@ -34,17 +34,17 @@ The following standards are implemented...
 
 ### ANSI Role-Based Access Control (INCITS 359) 
 
-There is more to RBAC than assigning users to groups and applying ACL policies within directories or databases.  [RBAC](http://csrc.nist.gov/groups/SNS/rbac/documents/draft-rbac-implementation-std-v01.pdf) systems provide selective Role activation/deactivation, role hierarchies, and constraints over separation of duty.  The [RBAC](http://csrc.nist.gov/groups/SNS/rbac/documents/draft-rbac-implementation-std-v01.pdf) component provides APIs to add, update, delete, and search the directory data
+There is more to RBAC than assigning users to groups and applying ACL policies within directories or databases.  [RBAC](https://csrc.nist.gov/groups/SNS/rbac/documents/draft-rbac-implementation-std-v01.pdf) systems provide selective Role activation/deactivation, role hierarchies, and constraints over separation of duty.  The [RBAC](https://csrc.nist.gov/groups/SNS/rbac/documents/draft-rbac-implementation-std-v01.pdf) component provides APIs to add, update, delete, and search the directory data
 
 More info can be found on [Intro to ANSI RBAC Page](user-guide/1-intro-rbac.html)
 
-### [Java EE Platform](http://java.net/projects/javaee-spec/pages/Home) (tm) Security
+### [Java EE Platform](https://java.net/projects/javaee-spec/pages/Home) (tm) Security
 
 Used for SSL, X.509 mutual authentication, form-based container authentication, authorization and SSO.  Works within compliant Java Web apps like Fortress Rest and Web.  
 
-### Administrative Role-Based Access Control ([ARBAC02](http://profsandhu.com/journals/tissec/p113-oh.pdf))
+### Administrative Role-Based Access Control ([ARBAC02](https://profsandhu.com/journals/tissec/p113-oh.pdf))
 
-The ARBAC model explains how [RBAC](http://csrc.nist.gov/groups/SNS/rbac/documents/draft-rbac-implementation-std-v01.pdf) can be extended with organizational controls to govern policies regarding the security administration process. ARBAC helps by allowing administrative tasks be delegated to end users who fall outside typical datacenter operations. 
+The ARBAC model explains how [RBAC](https://csrc.nist.gov/groups/SNS/rbac/documents/draft-rbac-implementation-std-v01.pdf) can be extended with organizational controls to govern policies regarding the security administration process. ARBAC helps by allowing administrative tasks be delegated to end users who fall outside typical datacenter operations. 
 
 ### IETF Password Policies
 

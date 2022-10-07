@@ -13,7 +13,7 @@ navNextText: 4.1 - ASN/1 TLV
 To be completed...
 
 
-The **LDAP** protocol is based on an **ASN/1** description. We will notexplain in detail what is **ASN/1** about, you would rather check [This page](https://en.wikipedia.org/wiki/Abstract_Syntax_Notation_One) for a very limited introduction, or if you feel teh need to understand what is **ASN/1** in detail, just read the [Olivier Dubuisson's book on ASN.1](http://www.oss.com/asn1/resources/books-whitepapers-pubs/dubuisson-asn1-book.PDF) (This is probably the best reference !)
+The **LDAP** protocol is based on an **ASN/1** description. We will notexplain in detail what is **ASN/1** about, you would rather check [This page](https://en.wikipedia.org/wiki/Abstract_Syntax_Notation_One) for a very limited introduction, or if you feel teh need to understand what is **ASN/1** in detail, just read the [Olivier Dubuisson's book on ASN.1](https://www.oss.com/asn1/resources/books-whitepapers-pubs/dubuisson-asn1-book.PDF) (This is probably the best reference !)
 
 Anyway, we use a subset of **ASN/1**, as what we have to deal with is the **BER/DER** encoding. (**BER** or **DER** stands for **B**asic **E**ncoding **R**ule and **D**istinguished **E**ncoding **R**ule. There are other possible encoding, like **PER**, **XER**, **CER**, but they are irrelevant for **LDAP**)
 
