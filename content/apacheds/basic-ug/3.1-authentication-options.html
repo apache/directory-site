@@ -113,11 +113,11 @@
 
 <h5>About Apache</h5>
 <ul>
-    <li><a href="http://www.apache.org/">Apache</a></li>
-    <li><a href="http://www.apache.org/licenses/">License</a></li>
-    <li><a href="http://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
-    <li><a href="http://www.apache.org/foundation/thanks.html">Thanks</a></li>
-    <li><a href="http://www.apache.org/security/">Security</a></li>
+    <li><a href="https://www.apache.org/">Apache</a></li>
+    <li><a href="https://www.apache.org/licenses/">License</a></li>
+    <li><a href="https://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="https://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="https://www.apache.org/security/">Security</a></li>
 </ul>
 
             </div>
@@ -304,7 +304,7 @@ userpassword: {SHA}nU4eI71bcnBGqeO0t9tXvY1u5oQ=
     <span style="color:#666">}</span>
 <span style="color:#666">}</span>
 </code></pre></div><p>The output is &ldquo;{SHA}nU4eI71bcnBGqeO0t9tXvY1u5oQ=&rdquo;.</p>
-<p>Another option is to use command line tools to calculate the hash value; the <a href="http://www.openssl.org">OpenSSL</a> project provides such stuff. Furthermore many UI LDAP tools allow you to store passwords automatically encrypted with the hash algorithm of your choice. See below <a href="https://directory.apache.org/studio/">Apache Directory Studio</a> as an example. The dialog automatically shows up if a <em>userPassword</em> attribute is to be manipulated (added, changed).</p>
+<p>Another option is to use command line tools to calculate the hash value; the <a href="https://www.openssl.org">OpenSSL</a> project provides such stuff. Furthermore many UI LDAP tools allow you to store passwords automatically encrypted with the hash algorithm of your choice. See below <a href="https://directory.apache.org/studio/">Apache Directory Studio</a> as an example. The dialog automatically shows up if a <em>userPassword</em> attribute is to be manipulated (added, changed).</p>
 <p><img src="images/password-edit-ls.png" alt="Password Edit"></p>
 <h3 id="from-an-ldap-client-point-of-view">From an LDAP client point of view</h3>
 <p>From an LDAP client point of view, the behavior during authentication is the same as with passwords stored in clear. During a simple bind, a client sends DN and password (unencrypted, i.e. no hash algorithm applied) to the server. If ApacheDS detects, that the user password for the given DN is stored in the directory with a hash function applied, it calculates the hash value of the given password with the appropriate algorithm (this is why the algorithm is stored together with the hashed password). Afterwards it compares the result with the stored attribute value. In case of a match, the bind operation ends successfully:</p>
@@ -486,7 +486,7 @@ dn: cn=Horatio Hornblower,ou=people,o=sevenSeas
 <p>The examples consist of an unknown user (an <em>inetOrgPerson</em> entry with uid=unknown does not exist), a successful authenttication, and an attempt with an existing uid but a wrong password.</p>
 <h2 id="resources">Resources</h2>
 <ul>
-<li><a href="http://www.faqs.org/rfcs/rfc2829.html">RFC 2829</a> Authentication Methods for LDAP</li>
+<li><a href="https://www.faqs.org/rfcs/rfc2829.html">RFC 2829</a> Authentication Methods for LDAP</li>
 <li><a href="http://www.secure-hash-algorithm-md5-sha-1.co.uk/">The Secure Hash Algorithm Directory</a> MD5, SHA-1 and HMAC Resources</li>
 </ul>
 
@@ -520,7 +520,7 @@ dn: cn=Horatio Hornblower,ou=people,o=sevenSeas
     </div>
 
     <div id="footer">
-    &copy; 2003-2022, <a href="http://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    &copy; 2003-2022, <a href="https://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
     Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
     Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
     Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
