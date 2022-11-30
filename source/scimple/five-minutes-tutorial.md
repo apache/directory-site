@@ -6,7 +6,7 @@ title: Five Minutes Tutorial
 
 > **NOTE:** Apache SCIMple is still in development, you must build Apache SCIMple from source.
 > ```
-> git clone https://github.com/apache/directory-scimple.git -b spring-boot
+> git clone https://github.com/apache/directory-scimple.git
 > cd directory-scimple
 > ./mvnw install
 > ```
@@ -14,9 +14,7 @@ title: Five Minutes Tutorial
 
 ## Create a new Spring Boot 3.0 project
 
-Head over to [start.spring.io](https://start.spring.io/#!type=maven-project&language=java&platformVersion=3.0.0-SNAPSHOT&packaging=jar&jvmVersion=17) and create a new project with Spring Boot 3.0.0-SNAPSHOT.
-
-> **NOTE:** A snapshot version is required until 3.0.0 (M5) is released.
+Head over to [start.spring.io](https://start.spring.io/#!type=maven-project&language=java&platformVersion=3.0.0&packaging=jar&jvmVersion=17) and create a new project with Spring Boot 3.
 
 Add the Apache SCIMple dependencies to the project:
 
