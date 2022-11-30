@@ -118,7 +118,7 @@ Clone the code and build it!
 
 **Prerequisites**
 
-* Java 11+
+* Java 17+ to build Java 11+ at runtime.
 
 ```bash
 git clone https://github.com/apache/directory-scimple.git
