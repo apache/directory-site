@@ -100,7 +100,7 @@ title: Downloads for Linux Binary Installer
 ApacheDS requires at least:
 
 * A recent Linux distribution.
-* [a Java Runtime Environment](http://www.java.com/) 6 or later.
+* [a Java Runtime Environment](https://www.java.com/) 6 or later.
 
 <p>&nbsp;</p>
 

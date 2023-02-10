@@ -13,6 +13,6 @@ Issues, bugs, and feature requests should be submitted to the following issue tr
 
 | Directory Sub-Project | JIRA key | Link to issue tracking system |
 |:-:|:-:|---|
-| Kerby | DIRKRB | [http://issues.apache.org/jira/browse/DIRKRB](http://issues.apache.org/jira/browse/DIRKRB) |
+| Kerby | DIRKRB | [https://issues.apache.org/jira/browse/DIRKRB](https://issues.apache.org/jira/browse/DIRKRB) |
 
 Umbrella JIRA: it's tracked in the master JIRA DIRKRB-102(issues.apache.org/jira/browse/DIRKRB-102), and find tasks there.

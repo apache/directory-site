@@ -97,7 +97,7 @@ title: Downloads for Archive
 ApacheDS requires at least:
 
 * A recent Linux distribution, Mac OS X (10.4 - Tiger or later), Windows (XP or Vista).
-* [a Java Runtime Environment](http://www.java.com/) 6 or later.
+* [a Java Runtime Environment](https://www.java.com/) 6 or later.
 
 <p>&nbsp;</p>
 

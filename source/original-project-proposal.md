@@ -32,45 +32,45 @@ LDAP is both a network line protocol and a hierarchical relational database. Som
 
 The Apache Foundation supports several component container projects which provide the proper foundation for a Java LDAP directory server. Apache also supports several server side application containers which can realize significant functional enhancements by employing an LDAP directory server. Also LDAP requiring organizations today must settle for less than optimal implementations and often have to pay as high as a dollar per entry to directory enable their applications. The Apache LDAP Project would solve these problems by providing a free robust LDAPv3 implementation in a standalone configuration or an embeddable configuration for use in all Apache servers and other third party products.
 
-Our goal is to produce a community of developers with backgrounds in LDAP, X.500, Database Engineering and JNDI tasked with the development of pure Java LDAPv3 Clients, APIs, JNDI providers and LDAPv3 compliant servers with the aforementioned features. The produced software will be ASF licensed. Where applicable the best available ASF/BSD licensed code will be reused and new code will be added to complete the LDAPv3 protocol as defined in [RFC 3377](http://www.ietf.org/rfc/rfc3377.txt) and its associated 8 RFCs listed below: 
+Our goal is to produce a community of developers with backgrounds in LDAP, X.500, Database Engineering and JNDI tasked with the development of pure Java LDAPv3 Clients, APIs, JNDI providers and LDAPv3 compliant servers with the aforementioned features. The produced software will be ASF licensed. Where applicable the best available ASF/BSD licensed code will be reused and new code will be added to complete the LDAPv3 protocol as defined in [RFC 3377](https://www.ietf.org/rfc/rfc3377.txt) and its associated 8 RFCs listed below: 
 
-* [RFC2251](http://www.ietf.org/rfc/rfc2251.txt) Lightweight Directory Access Protocol (v3): LDAP on-the-wire protocol
-* [RFC2252](http://www.ietf.org/rfc/rfc2252.txt) Lightweight Directory Access Protocol (v3): Attribute Syntax Definitions
-* [RFC2253](http://www.ietf.org/rfc/rfc2253.txt) Lightweight Directory Access Protocol (v3): UTF-8 String Representation of DNs
-* [RFC2254](http://www.ietf.org/rfc/rfc2254.txt) The String Representation of LDAP Search Filters
-* [RFC2255](http://www.ietf.org/rfc/rfc2255.txt) The LDAP URL Format
-* [RFC2256](http://www.ietf.org/rfc/rfc2256.txt) A Summary of the X.500(96) User Schema for use with LDAPv3
-* [RFC2829](http://www.ietf.org/rfc/rfc2829.txt) Authentication Methods for LDAP
-* [RFC2830](http://www.ietf.org/rfc/rfc2830.txt) Lightweight Directory Access Protocol (v3): Extension for Transport Layer Security 
+* [RFC2251](https://www.ietf.org/rfc/rfc2251.txt) Lightweight Directory Access Protocol (v3): LDAP on-the-wire protocol
+* [RFC2252](https://www.ietf.org/rfc/rfc2252.txt) Lightweight Directory Access Protocol (v3): Attribute Syntax Definitions
+* [RFC2253](https://www.ietf.org/rfc/rfc2253.txt) Lightweight Directory Access Protocol (v3): UTF-8 String Representation of DNs
+* [RFC2254](https://www.ietf.org/rfc/rfc2254.txt) The String Representation of LDAP Search Filters
+* [RFC2255](https://www.ietf.org/rfc/rfc2255.txt) The LDAP URL Format
+* [RFC2256](https://www.ietf.org/rfc/rfc2256.txt) A Summary of the X.500(96) User Schema for use with LDAPv3
+* [RFC2829](https://www.ietf.org/rfc/rfc2829.txt) Authentication Methods for LDAP
+* [RFC2830](https://www.ietf.org/rfc/rfc2830.txt) Lightweight Directory Access Protocol (v3): Extension for Transport Layer Security 
 
 Additionally, the schema objects specified within the following RFCs will be defined for use and partial or full complaince will be met where relavent to the project:
 
-* [RFC1274](http://www.ietf.org/rfc/rfc1274.txt) The COSINE and Internet X.500 Schema
-* [RFC1804](http://www.ietf.org/rfc/rfc1804.txt) Schema Publishing in X.500 Directory
-* [RFC2079](http://www.ietf.org/rfc/rfc2079.txt) Definition of an X.500 Attribute Type and an Object Class to Hold Uniform Resource Identifiers (URIs)
-* [RFC2247](http://www.ietf.org/rfc/rfc2247.txt) Using Domains in LDAP/X.500 Distinguished Names
-* [RFC2293](http://www.ietf.org/rfc/rfc2293.txt) Representing Tables and Subtrees in the X.500 Directory
-* [RFC2294](http://www.ietf.org/rfc/rfc2294.txt) Representing the O/R Address hierarchy in the X.500 Directory Information Tree
-* [RFC2307](http://www.ietf.org/rfc/rfc2307.txt) An Approach for Using LDAP as a Network Information Service
-* [RFC2377](http://www.ietf.org/rfc/rfc2377.txt) Naming Plan for Internet Directory-Enabled Applications
-* [RFC2587](http://www.ietf.org/rfc/rfc2587.txt) Internet X.509 Public Key Infrastructure LDAPv2 Schema
-* [RFC2589](http://www.ietf.org/rfc/rfc2589.txt) Lightweight Directory Access Protocol (v3): Extensions for Dynamic Directory Services
-* [RFC2596](http://www.ietf.org/rfc/rfc2596.txt) Use of Language Codes in LDAP
-* [RFC2649](http://www.ietf.org/rfc/rfc2649.txt) An LDAP Control and Schema for Holding Operation Signatures
-* [RFC2696](http://www.ietf.org/rfc/rfc2696.txt) LDAP Control Extension for Simple Paged Results Manipulation
-* [RFC2713](http://www.ietf.org/rfc/rfc2713.txt) Schema for Representing Java(tm) Objects in an LDAP Directory
-* [RFC2714](http://www.ietf.org/rfc/rfc2714.txt) Schema for Representing CORBA Object References in an LDAP Directory
-* [RFC2798](http://www.ietf.org/rfc/rfc2798.txt) Definition of the inetOrgPerson? LDAP Object Class
-* [RFC2829](http://www.ietf.org/rfc/rfc2829.txt) Authentication Methods for LDAP
-* [RFC2830](http://www.ietf.org/rfc/rfc2830.txt) Lightweight Directory Access Protocol (v3): Extension for Transport Layer Security
-* [RFC2849](http://www.ietf.org/rfc/rfc2849.txt) The LDAP Data Interchange Format (LDIF) - Technical Specification
-* [RFC2891](http://www.ietf.org/rfc/rfc2891.txt) LDAP Control Extension for Server Side Sorting of Search Results
-* [RFC3045](http://www.ietf.org/rfc/rfc3045.txt) Storing Vendor Information in the LDAP root DSE
-* [RFC3062](http://www.ietf.org/rfc/rfc3062.txt) LDAP Password Modify Extended Operation
-* [RFC3088](http://www.ietf.org/rfc/rfc3088.txt) OpenLDAP? Root Service An experimental LDAP referral service
-* [RFC3112](http://www.ietf.org/rfc/rfc3112.txt) LDAP Authentication Password Schema
-* [RFC3296](http://www.ietf.org/rfc/rfc3296.txt) Named Subordinate References in Lightweight Directory Access Protocol (LDAP) Directories
-* [RFC3383](http://www.ietf.org/rfc/rfc3383.txt) Internet Assigned Numbers Authority (IANA) considerations for the Lightweight Directory Access Protocol (LDAP) 
+* [RFC1274](https://www.ietf.org/rfc/rfc1274.txt) The COSINE and Internet X.500 Schema
+* [RFC1804](https://www.ietf.org/rfc/rfc1804.txt) Schema Publishing in X.500 Directory
+* [RFC2079](https://www.ietf.org/rfc/rfc2079.txt) Definition of an X.500 Attribute Type and an Object Class to Hold Uniform Resource Identifiers (URIs)
+* [RFC2247](https://www.ietf.org/rfc/rfc2247.txt) Using Domains in LDAP/X.500 Distinguished Names
+* [RFC2293](https://www.ietf.org/rfc/rfc2293.txt) Representing Tables and Subtrees in the X.500 Directory
+* [RFC2294](https://www.ietf.org/rfc/rfc2294.txt) Representing the O/R Address hierarchy in the X.500 Directory Information Tree
+* [RFC2307](https://www.ietf.org/rfc/rfc2307.txt) An Approach for Using LDAP as a Network Information Service
+* [RFC2377](https://www.ietf.org/rfc/rfc2377.txt) Naming Plan for Internet Directory-Enabled Applications
+* [RFC2587](https://www.ietf.org/rfc/rfc2587.txt) Internet X.509 Public Key Infrastructure LDAPv2 Schema
+* [RFC2589](https://www.ietf.org/rfc/rfc2589.txt) Lightweight Directory Access Protocol (v3): Extensions for Dynamic Directory Services
+* [RFC2596](https://www.ietf.org/rfc/rfc2596.txt) Use of Language Codes in LDAP
+* [RFC2649](https://www.ietf.org/rfc/rfc2649.txt) An LDAP Control and Schema for Holding Operation Signatures
+* [RFC2696](https://www.ietf.org/rfc/rfc2696.txt) LDAP Control Extension for Simple Paged Results Manipulation
+* [RFC2713](https://www.ietf.org/rfc/rfc2713.txt) Schema for Representing Java(tm) Objects in an LDAP Directory
+* [RFC2714](https://www.ietf.org/rfc/rfc2714.txt) Schema for Representing CORBA Object References in an LDAP Directory
+* [RFC2798](https://www.ietf.org/rfc/rfc2798.txt) Definition of the inetOrgPerson? LDAP Object Class
+* [RFC2829](https://www.ietf.org/rfc/rfc2829.txt) Authentication Methods for LDAP
+* [RFC2830](https://www.ietf.org/rfc/rfc2830.txt) Lightweight Directory Access Protocol (v3): Extension for Transport Layer Security
+* [RFC2849](https://www.ietf.org/rfc/rfc2849.txt) The LDAP Data Interchange Format (LDIF) - Technical Specification
+* [RFC2891](https://www.ietf.org/rfc/rfc2891.txt) LDAP Control Extension for Server Side Sorting of Search Results
+* [RFC3045](https://www.ietf.org/rfc/rfc3045.txt) Storing Vendor Information in the LDAP root DSE
+* [RFC3062](https://www.ietf.org/rfc/rfc3062.txt) LDAP Password Modify Extended Operation
+* [RFC3088](https://www.ietf.org/rfc/rfc3088.txt) OpenLDAP? Root Service An experimental LDAP referral service
+* [RFC3112](https://www.ietf.org/rfc/rfc3112.txt) LDAP Authentication Password Schema
+* [RFC3296](https://www.ietf.org/rfc/rfc3296.txt) Named Subordinate References in Lightweight Directory Access Protocol (LDAP) Directories
+* [RFC3383](https://www.ietf.org/rfc/rfc3383.txt) Internet Assigned Numbers Authority (IANA) considerations for the Lightweight Directory Access Protocol (LDAP) 
 
 ### Section 0.1 : Criteria
 
@@ -171,7 +171,7 @@ Technical Goals:
 * Clean status with Apaches Continuous Integration System
 * Website cross reference to existing Apache literature with respect to rules and regulations
 * At a minimum a beta release and/or a series of Release Candidates for a directory server and its clients.
-* At least one server that complies with [RFC2251](http://www.ietf.org/rfc/rfc2251.txt)
+* At least one server that complies with [RFC2251](https://www.ietf.org/rfc/rfc2251.txt)
 
 Non-Technical Goals:
 

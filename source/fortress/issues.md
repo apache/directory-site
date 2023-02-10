@@ -13,7 +13,7 @@ Issues, bugs, and feature requests should be submitted to the following issue tr
 
 | Directory Sub-Project | JIRA key | Link to issue tracking system |
 |:-:|:-:|---|
-| Fortress | FC | [http://issues.apache.org/jira/browse/FC](http://issues.apache.org/jira/browse/FC) |
+| Fortress | FC | [https://issues.apache.org/jira/browse/FC](https://issues.apache.org/jira/browse/FC) |
 
 <!-- =========================================================================================================== -->
 <!-- FC-1                                                                                                        -->
@@ -4838,7 +4838,7 @@ hr.fullcontent
     <tr id="comment-body-10900">
     <td bgcolor="#ffffff">
       <p>This version requires that you add a dependency on |hamcrest-core.jar|<br/>
-      &lt;<a href="http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22org.hamcrest%22%20AND%20a%3A%22hamcrest-core%22" class="external-link" rel="nofollow">http://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22org.hamcrest%22%20AND%20a%3A%22hamcrest-core%22</a>&gt;<br/>
+      &lt;<a href="https://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22org.hamcrest%22%20AND%20a%3A%22hamcrest-core%22" class="external-link" rel="nofollow">https://search.maven.org/#search%7Cgav%7C1%7Cg%3A%22org.hamcrest%22%20AND%20a%3A%22hamcrest-core%22</a>&gt;<br/>
       (with ant, it has to be added to the classpath)</p>
       <p>See <a href="https://github.com/junit-team/junit/wiki/Download-and-Install" class="external-link" rel="nofollow">https://github.com/junit-team/junit/wiki/Download-and-Install</a></p>
     </td>

@@ -25,7 +25,7 @@ navNextText: 6 - Encoding/Decoding
   * [StartTLS handling](#startts-handling)
 
 
-The **Apache LDAP AP** is built on top of [**Apache MINA**](http://mina.apache.org) which is a **NIO** framework. 
+The **Apache LDAP AP** is built on top of [**Apache MINA**](https://mina.apache.org) which is a **NIO** framework. 
 
 As **MINA** is fully asynchronous, it has some impact on the design of the **LDAP API**. Basically, we send requests, and we don't wait for responses, we get informed when the response is there. Most of the time, the **API** users will want to wait for a response, instead of leveraging the asyncrhonous aspect of the **API**: this is the reason we have a blocking **API**, based on the non-blocking implementation. We will explain the whole thing here.
 

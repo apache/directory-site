@@ -11,7 +11,7 @@ Pages with a (...) at the end of the title are not yet completed.
 Other pages are finished (but may be reviewed).
 </DIV>
 
-This document is about the LDAP API, developed at the Apache Software Foundation. It's a replacement for outdated Java/LDAP libraries like ([jLdap](http://www.openldap.org/jldap/), [Mozilla LDAP SDK](https://wiki.mozilla.org/Mozilla_LDAP_SDK_Programmer%27s_Guide/Getting_Started_With_LDAP_Java_SDK) and [JNDI](http://www.oracle.com/technetwork/java/jndi/index.html)).
+This document is about the LDAP API, developed at the Apache Software Foundation. It's a replacement for outdated Java/LDAP libraries like ([jLdap](https://www.openldap.org/jldap/), [Mozilla LDAP SDK](https://wiki.mozilla.org/Mozilla_LDAP_SDK_Programmer%27s_Guide/Getting_Started_With_LDAP_Java_SDK) and [JNDI](https://www.oracle.com/technetwork/java/jndi/index.html)).
 
 ## About this guide
 

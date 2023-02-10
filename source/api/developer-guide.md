@@ -144,7 +144,7 @@ See also http://people.apache.org/~henkp/repo/faq.html#4
 
 ## Release process
 
-Since we are using Nexus for releases the release process is as follows (see also [Publishing maven artifacts](http://www.apache.org/dev/publishing-maven-artifacts.html#staging-maven)).
+Since we are using Nexus for releases the release process is as follows (see also [Publishing maven artifacts](https://www.apache.org/dev/publishing-maven-artifacts.html#staging-maven)).
 
 ### Test the Project
 

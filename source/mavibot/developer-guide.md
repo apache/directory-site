@@ -29,7 +29,7 @@ If the build hangs or you get an out of memory exception please increase the hea
 
 ### Maven
 
-[Download](http://maven.apache.org/download.html) and install Maven 3.0.4.
+[Download](https://maven.apache.org/download.html) and install Maven 3.0.4.
 
 Add a MAVEN_HOME environment variable and add MAVEN_HOME/bin to your system path:
 
@@ -127,7 +127,7 @@ There are some more rules, as we are using **Java 8** now :
 
 # Releasing Mavibot
 
-Since we are using Nexus for releases the release process is as follows (see also [http://www.apache.org/dev/publishing-maven-artifacts.html#staging-maven](http://www.apache.org/dev/publishing-maven-artifacts.html#staging-maven)).
+Since we are using Nexus for releases the release process is as follows (see also [https://www.apache.org/dev/publishing-maven-artifacts.html#staging-maven](https://www.apache.org/dev/publishing-maven-artifacts.html#staging-maven)).
 
 ## Test the Project
     
@@ -162,7 +162,7 @@ This is useful to verify your settings in ~/.m2/settings.xml (Nexus password and
     $ mvn release:clean
     $ mvn release:prepare
 
-This creates a tag here: http://svn.apache.org/viewvc/directory/mavibot/tags/
+This creates a tag here: https://svn.apache.org/viewvc/directory/mavibot/tags/
 
 ## Stage the Release
 
@@ -260,14 +260,14 @@ Here is an exemple of a mote mail :
 
     The revision :
 
-    http://svn.apache.org/r1511750
+    https://svn.apache.org/r1511750
 
 
     The SVN tag:
     https://svn.apache.org/repos/asf/directory/mavibot/tags/1.0.0-M1/
 
     The source and binary distribution packages:
-    http://people.apache.org/~elecharny/
+    https://people.apache.org/~elecharny/
 
     The staging repository:
     https://repository.apache.org/content/repositories/orgapachedirectory-073/

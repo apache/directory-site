@@ -109,7 +109,7 @@ title: Downloads for Linux RPM Package
 ApacheDS requires at least:
 
 * A recent Linux distribution supporting the *.rpm install packages.
-* [a Java Runtime Environment](http://www.java.com/) 6 or later.
+* [a Java Runtime Environment](https://www.java.com/) 6 or later.
 
 <p>&nbsp;</p>
 

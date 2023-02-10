@@ -111,4 +111,4 @@ or
 
  
 
-Alternatively, you can verify the MD5 signature on the files. A unix program called md5 or md5sum is included in many unix distributions. It is also available as part of [GNU Textutils](http://www.gnu.org/software/textutils/textutils.html). Windows users can get binary md5 programs from [here](http://www.fourmilab.ch/md5/), [here](http://www.pc-tools.net/win32/freeware/console/), or [here](http://www.slavasoft.com/fsum/).
+Alternatively, you can verify the MD5 signature on the files. A unix program called md5 or md5sum is included in many unix distributions. It is also available as part of [GNU Textutils](https://www.gnu.org/software/textutils/textutils.html). Windows users can get binary md5 programs from [here](https://www.fourmilab.ch/md5/), [here](http://www.pc-tools.net/win32/freeware/console/), or [here](https://www.slavasoft.com/fsum/).
