@@ -159,10 +159,69 @@
 	<h1 id="9---dn">9 - DN</h1>
 <p>A <strong>DN</strong>, or <strong>Distingusished Name</strong> is a data structure that is composed of a list of <strong>RDN</strong> (<strong>Relative DN</strong>). Each <strong>RDN</strong> is composed of a list of <strong>AVA</strong> (<strong>AttributeType And Value</strong>).</p>
 <p>In a <strong>DN</strong>, the list of <strong>RDN</strong> is ordered from the most significant to the least significant <strong>RDN</strong>. For instance:</p>
-<pre><code>::: text
-cn=JohnDoe,ou=apache,dc=com
+<pre><code>cn=JohnDoe,ou=apache,dc=com
 </code></pre>
 <p>The most significant <strong>RDN</strong> is <code>cn=JohnDoe</code>.</p>
+<h2 id="rdn">RDN</h2>
+<p>A <strong>RDN</strong> can be composed of mant <strong>AVAs</strong>, which are ordered in two ways:</p>
+<ul>
+<li>Lexicograpgically, if we don&rsquo;t have a schema</li>
+<li>By OID, if we have a schema</li>
+</ul>
+<p>Typically, a <strong>DN</strong> like:</p>
+<pre><code>gn=Kate+cn=Bush,ou=apache,dc=com
+</code></pre>
+<p>will be ordered internally as :</p>
+<pre><code>cn=Bush+gn=Kate,ou=apache,dc=com	
+</code></pre>
+<p>if we don&rsquo;t have a schema (because <code>cn</code> is lexicographically before <code>gn</code>), or if we have a schema (because <code>2.5.4.3</code> is the <code>cn</code> OID and <code>2.5.4.42</code> is the <code>gn</code> OID)</p>
+<h3 id="internal-structure">Internal structure</h3>
+<p>We keep the following data inside a <strong>RDN</strong></p>
+<ul>
+<li><code>upName:</code>: a <code>String</code> containing the <strong>RDN</strong> user provided value</li>
+<li><code>normName</code>: a <code>String</code> containing the normalized <strong>RDN</strong> value</li>
+<li><code>avas</code>: A list of ordered <strong>AVAs</strong></li>
+<li><code>avaTypes</code>: A map of the <strong>RDN</strong> <code>AttributeTypes</code> (each <strong>AVA</strong> has an <code>AttributeType</code>) for a quick search</li>
+<li><code>avaType</code>: If we have only one <strong>AVA</strong>, we store its <code>AttributeType</code> here, not in the Map</li>
+<li><code>ava</code>: If we have only one <strong>AVA</strong>, we store it here, not in the list</li>
+<li><code>nbAvas</code>: The number of <strong>AVAs</strong> in this <strong>RDN</strong>.</li>
+<li><code>normalized</code>: A boolean indicating if the <strong>RDN</strong> has been normalized</li>
+<li><code>h</code>: The integer hascode for this instance</li>
+</ul>
+<p><strong>Note</strong>: When a <strong>RDN</strong> is initially created, we don&rsquo;t allocate the <code>List</code> or <code>Map</code>, because most of the time, the <strong>RDN</strong> contains a single <strong>AVA</strong>. We could extend the <strong>RDN</strong> class to manage those with multiple <strong>AVAs</strong> instead of managing all in one single class, but that would require having a <strong>RdnFactory</strong> class.</p>
+<h3 id="processing">Processing</h3>
+<p>We have two parsers that get called:</p>
+<ul>
+<li>The <code>FastParserRdn</code> for simpler <strong>RDNs</strong></li>
+<li>The <code>ComplexDnParser</code> for composed <strong>RDNs</strong> (or more specific use cases)</li>
+</ul>
+<p>If the first parser fails to parse the <strong>RDN</strong>, we call back to the second parser. That means we are fast in 99,9% of the time, and longer otherwise.</p>
+<p>Here is how it&rsquo;s handled:</p>
+<pre><code>private static void parse( SchemaManager schemaManager, String dn, Rdn rdn ) throws LdapInvalidDnException
+{
+    try
+    {
+        FastDnParser.parseRdn( schemaManager, dn, rdn );
+    }
+    catch ( TooComplexDnException e )
+    {
+        rdn.clear();
+        new ComplexDnParser().parseRdn( schemaManager, dn, rdn );
+    }
+}
+</code></pre>
+<p>The <code>FastDnParser</code> is basically a recursive descent: we consider we have a single <code>AttributeType</code>, an <code>=</code> signe, and the value. If we have a Schema, we will use it to process the <code>AttributeType</code> and the value, normalizing it (that is done at the <code>Ava</code> level). At the end, we get back an <code>Rdn</code> instance, with one <code>Ava</code>, where the following class&rsquo; fields are updated:</p>
+<ul>
+<li><code>upName:</code>: The user provaided form (the provided String)</li>
+<li><code>normName</code>: The normalized form</li>
+<li><code>avas</code>: Empty</li>
+<li><code>avaTypes</code>: Empty</li>
+<li><code>avaType</code>: The <code>AttributeType</code></li>
+<li><code>ava</code>: The <code>Ava</code> instance</li>
+<li><code>nbAvas</code>: 1</li>
+<li><code>normalized</code>: true or false (depends on the schema being present)</li>
+<li><code>h</code>: The integer hascode for this instance</li>
+</ul>
 
 
             
