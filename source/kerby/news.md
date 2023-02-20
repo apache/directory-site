@@ -10,6 +10,8 @@ The Apache Directory team is pleased to announce the release of Apache Kerby
 
 The issues fixed are available [here](https://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310910&version=12351717).
 
+This release fixes a new CVE in the LDAP backend - CVE-2023-25613.
+
 Downloads are available [here](downloads.html)
 <h2 class="news">Apache Kerby 2.0.2 released <em>posted on May 9, 2022</em></h2>
 

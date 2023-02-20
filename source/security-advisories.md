@@ -4,6 +4,10 @@ title: Security Advisories
 
 # Security Advisories
 
+## Apache Kerby
+
+ * [CVE-2023-25613](https://nvd.nist.gov/vuln/detail/CVE-2023-25613)
+
 ## Apache LDAP API
 
  * [CVE-2018-1337](https://nvd.nist.gov/vuln/detail/CVE-2018-1337)
