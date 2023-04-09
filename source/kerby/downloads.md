@@ -19,7 +19,7 @@ The Apache Kerby is also available as a Maven dependency:
     <dependency>
         <groupId>org.apache.kerby</groupId>
         <artifactId>kerb-client-api-all</artifactId>
-        <version>2.0.2</version>
+        <version>2.0.3</version>
     </dependency>
 
 ### Kerby Server API:
@@ -27,7 +27,7 @@ The Apache Kerby is also available as a Maven dependency:
     <dependency>
         <groupId>org.apache.kerby</groupId>
         <artifactId>kerb-server-api-all</artifactId>
-        <version>2.0.2</version>
+        <version>2.0.3</version>
     </dependency>
 
 ### Kerby ASN1:
@@ -35,7 +35,7 @@ The Apache Kerby is also available as a Maven dependency:
     <dependency>
         <groupId>org.apache.kerby</groupId>
         <artifactId>kerby-asn1</artifactId>
-        <version>2.0.2</version>
+        <version>2.0.3</version>
     </dependency>
 
 ### Kerby Simple KDC:
@@ -43,5 +43,5 @@ The Apache Kerby is also available as a Maven dependency:
     <dependency>
         <groupId>org.apache.kerby</groupId>
         <artifactId>kerb-simplekdc</artifactId>
-        <version>2.0.2</version>
+        <version>2.0.3</version>
     </dependency>
