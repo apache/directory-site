@@ -4,6 +4,43 @@ title: News
 
 # News 
 
+<h2 class="news">Apache Directory LDAP API 2.1.3 released <em>posted on April 9th, 2023</em></h2>
+
+The Apache Directory Team is proud to announce the availability of version 2.1.3 of the Apache Directory LDAP API.
+
+The Apache Directory LDAP API is an ongoing effort to provide an enhanced LDAP API, as a replacement for JNDI and the existing LDAP API (jLdap and Mozilla LDAP API).
+
+This is a schema aware API, with some convenient ways to access a LDAP server. This API is not only targeting the Apache Directory Server, but should work pristine with any LDAP server.
+
+It's also an extensible API : new Controls, schema elements and network layer could be added or used in the near future. It's also OSGi capable.
+
+This is a bug fix release, with some Schema extension to support the latest Password Policy draft:
+
+
+**New feature:**
+
+* [DIRAPI-385](https://issues.apache.org/jira/browse/DIRAPI-385): Add a way to modify the Element in a DnNode
+
+**Improvements:**
+
+* [DIRAPI-386](https://issues.apache.org/jira/browse/DIRAPI-386): The parsing of a wrong filter throws a LdapProtocolErrorException
+* [DIRAPI-387](https://issues.apache.org/jira/browse/DIRAPI-387): More info on PasswordException
+* [DIRAPI-391](https://issues.apache.org/jira/browse/DIRAPI-391): Improve the Dn parsing performance
+* [DIRAPI-392](https://issues.apache.org/jira/browse/DIRAPI-392): Extend the schema to support the latest PasswordPolicy RFC
+draft AttributeTypes
+
+**Tasks:**
+
+* [DIRAPI-389](https://issues.apache.org/jira/browse/DIRAPI-389) - Issue when comparing multi-component RDNs caused by the RDN order
+* [DIRAPI-390](https://issues.apache.org/jira/browse/DIRAPI-390) - Upgrade commons-text as it flags the project with CVE-2022-42889
+
+
+**Bugs:**
+
+* [DIRAPI-388](https://issues.apache.org/jira/browse/DIRAPI-388) - "No future" warning in the log
+
+Downloads are available [here](downloads-2.html) and the User's Guide is [there](user-guide.html)
+
 <h2 class="news">Apache Directory LDAP API 2.1.2 released <em>posted on August 16th, 2022</em></h2>
 
 The Apache Directory Team is proud to announce the availability of version 2.1.2 of the Apache Directory LDAP API.
@@ -34,14 +71,14 @@ This version is now using MINA 2.1.1, which comes with a complete rewrite of the
 
 **Improvement:**
 
-* [DIRAPI-352]https://issues.apache.org/jira/browse/DIRAPI-352) - The Base64 implementation can be removed
+* [DIRAPI-352](https://issues.apache.org/jira/browse/DIRAPI-352) - The Base64 implementation can be removed
 
 **Bugs:**
 
-* [DIRAPI-348]https://issues.apache.org/jira/browse/DIRAPI-348) - NPE when Api decodes bind response from OpenDJ server 6.0
-* [DIRAPI-369]https://issues.apache.org/jira/browse/DIRAPI-369) - DSML needsBase64Encoding
-* [DIRAPI-379]https://issues.apache.org/jira/browse/DIRAPI-379) - NPE on ill formed error response
-* [DIRAPI-380]https://issues.apache.org/jira/browse/DIRAPI-380) - Binding using a DN which RDN is complex may fail
+* [DIRAPI-348](https://issues.apache.org/jira/browse/DIRAPI-348) - NPE when Api decodes bind response from OpenDJ server 6.0
+* [DIRAPI-369](https://issues.apache.org/jira/browse/DIRAPI-369) - DSML needsBase64Encoding
+* [DIRAPI-379](https://issues.apache.org/jira/browse/DIRAPI-379) - NPE on ill formed error response
+* [DIRAPI-380](https://issues.apache.org/jira/browse/DIRAPI-380) - Binding using a DN which RDN is complex may fail
 
 Downloads are available [here](downloads-2.html) and the User's Guide is [there](user-guide.html)
 
@@ -61,11 +98,11 @@ This is a security enhancement release:
 
 **Improvement:**
 
-* [DIRAPI-373]https://issues.apache.org/jira/browse/DIRAPI-373) - Implement SASL integrity and confidentiality layer
-* [DIRAPI-374]https://issues.apache.org/jira/browse/DIRAPI-374) - Consistify LdapConnectionConfig useTls and useSsl flags
-* [DIRAPI-375]https://issues.apache.org/jira/browse/DIRAPI-375) - Add TLSv1.3 to default protocols
-* [DIRAPI-376]https://issues.apache.org/jira/browse/DIRAPI-376) - Change getRootDse() to return all user and operational attibutes
-* [DIRAPI-377]https://issues.apache.org/jira/browse/DIRAPI-377) - Add LDAP Relax Rules Control
+* [DIRAPI-373](https://issues.apache.org/jira/browse/DIRAPI-373) - Implement SASL integrity and confidentiality layer
+* [DIRAPI-374](https://issues.apache.org/jira/browse/DIRAPI-374) - Consistify LdapConnectionConfig useTls and useSsl flags
+* [DIRAPI-375](https://issues.apache.org/jira/browse/DIRAPI-375) - Add TLSv1.3 to default protocols
+* [DIRAPI-376](https://issues.apache.org/jira/browse/DIRAPI-376) - Change getRootDse() to return all user and operational attibutes
+* [DIRAPI-377](https://issues.apache.org/jira/browse/DIRAPI-377) - Add LDAP Relax Rules Control
 
 Downloads are available [here](downloads-2.html) and the User's Guide is [there](user-guide.html)
 

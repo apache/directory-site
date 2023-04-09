@@ -392,7 +392,7 @@ Then move the packages from 'dev' to 'release' :
     # exit
     $
 
-The packages should now be available on http://www.us.apache.org/dist/directory/api/dist/<version>
+The packages should now be available on http://www.apache.org/dist/directory/api/dist/<version>
 
 ### Deploy the Javadocs and XRef
 
