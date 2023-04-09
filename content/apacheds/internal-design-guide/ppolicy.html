@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title> &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/green.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/server-icon_16x16.png" />
+</head>
+
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+            
+                <strong>ApacheDS</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+             
+                LDAP API
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <h5>ApacheDS 2.0</h5>
+                <ul>
+                    <li><a href="/apacheds/">Home</a></li>
+                    <li><a href="/apacheds/news.html">News</a></li>
+                    <li><a href="/apacheds/features.html">Features</a></li>
+                    <li><a href="/apacheds/production-readiness.html">Production Readiness</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/apacheds/downloads.html">ApacheDS 2.0.0.AM26</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/apacheds/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/apacheds/basic-user-guide.html">Basic User Guide </a></li>
+                    <li><a href="/apacheds/advanced-user-guide.html">Advanced User Guide</a></li>
+                    <li><a href="/apacheds/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/apacheds/kerberos-user-guide.html">Kerberos User Guide</a></li>
+                    <li><a href="/apacheds/configuration/ads-2.0-configuration.html">Configuration</a></li>
+                    <li><a href="/apacheds/gen-docs/latest/apidocs">JavaDocs</a></li>
+                    <li><a href="/apacheds/gen-docs/latest/xref">Cross-Reference</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="https://www.apache.org/">Apache</a></li>
+    <li><a href="https://www.apache.org/licenses/">License</a></li>
+    <li><a href="https://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="https://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="https://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+
+            
+	<p>aci : 				10
+adminRole: 			 3
+alias: 				 4
+authn: 				 9
+authz: 			 	 2
+backend: 			 2
+build: 				 1
+changepw: 		 	 1
+config: 			 1
+control: 			 5
+core: 				 9
+core-integ: 		 2
+dhcp: 				 2
+doc: 				 2
+extop: 				 1
+hash interceptor: 	 1
+http: 				 1
+index: 				 2
+installer: 			24
+installer-plugin: 	 5
+jdbm: 				27
+jdk: 		 		 1
+ldap: 				25
+mavibot: 			 6
+network: 			 2
+persistent search:   2
+ppolicy: 			17
+pwd interceptor: 	 1
+referral: 			 1
+replication: 		20
+schema: 			 9
+script: 			 1
+search: 			10
+security: 			 2
+sp: 				 1
+test: 				 1
+upgrade: 			 5</p>
+<h2 id="passwordpolicy">PasswordPolicy</h2>
+<p>Password management and control is mst generally based on the RFC draft first published in 20 April 2000, with the latest version dated February 2022: <a href="https://datatracker.ietf.org/doc/html/draft-behera-ldap-password-policy-11">https://datatracker.ietf.org/doc/html/draft-behera-ldap-password-policy-11</a></p>
+<p>P.Behera, Nescape
+V. Chu, Nescape
+L. Poitou, Sun Microsystems
+J. Sermersheim, Novell
+J. Chu, Symas
+O. Kuzník, Symas</p>
+<h2 id="passwordpolicy-definition">PasswordPolicy definition</h2>
+<p>A PasswordPolicy can be set globally or locally. We use the PpolicyConfigContainer class to store all the server&rsquo;s PasswordPolicies.</p>
+<p>This instance is associated with the AuthenticationInterceptor instance. It may be empty if no PasswordPolicy is defined. Otherwise, it contains all of them.</p>
+<p>Here is a default passwordPolicy as defined in the configuration:</p>
+<pre><code>ou=config
+  |
+  +-- ads-directoryServiceId=default
+        |
+        +-- ou=interceptors
+             |
+             +-- ads-interceptorId=authenticationInterceptor
+                   |
+                   +-- ou=passwordPolicies
+                         |
+                         +-- ads-pwdId=default
+</code></pre><p>The associated entry looks like:</p>
+<pre><code>dn: ads-pwdId=default...
+objectClass: top
+objectClass: ads-base
+objectClass: ads-passwordPolicy
+ads-pwdId: default
+ads-pwdSafeModify: FALSE
+ads-pwdMaxAge: 0
+ads-pwdFailureCountInterval: 30
+ads-pwdAttribute: userPassword
+ads-pwdMaxFailure: 5
+ads-pwdLockout: TRUE
+ads-pwdMustChange: FALSE
+ads-pwdLockoutDuration: 0
+ads-pwdMinLength: 5
+ads-pwdInHistory: 5
+ads-pwdExpireWarning: 600
+ads-pwdMinAge: 0
+ads-pwdAllowUserChange: TRUE
+ads-pwdGraceAuthNLimit: 5
+ads-pwdCheckQuality: 1
+ads-pwdMaxLength: 0 
+ads-pwdGraceExpire: 0
+ads-pwdMinDelay: 0
+ads-pwdMaxDelay: 0
+ads-pwdMaxIdle: 0
+ads-pwdValidator: org.apache.directory.server.core.api.authn.ppolicy.DefaultPasswordValidator
+ads-enabled: TRUE
+</code></pre><p>Note that you may define more than one, assuming he ads-pwId is different.</p>
+<p>The default PasswordPolicy will apply to the entire DIT, but may be overloaded by a local one.</p>
+<h3 id="attributetypes">AttributeTypes</h3>
+<p>There are some new AttributeTypes which are declared. We have two sets:</p>
+<ul>
+<li>The first set is used to define how the PasswordPolicy should behaves, regardless of the user status</li>
+<li>The second set directely applies to each user.</li>
+</ul>
+<h4 id="global-attributetypes">Global attributeTypes:</h4>
+<p>Here is the set of configuration attributeTypes:</p>
+<ul>
+<li>pwdAttribute: The attribute that holds the password</li>
+<li>pwdMinAge</li>
+<li>pwdMaxAge</li>
+<li>pwdInHistory</li>
+<li>pwdCheckQuality</li>
+<li>pwdMinLength</li>
+<li>pwdMaxLength</li>
+<li>pwdExpireWarning</li>
+<li>pwdGraceAuthNLimit</li>
+<li>pwdGraceExpiry</li>
+<li>pwdLockout</li>
+<li>pwdLockoutDuration</li>
+<li>pwdMaxFailure</li>
+<li>pwdFailureCountInterval</li>
+<li>pwdMustChange</li>
+<li>pwdAllowUserChange</li>
+<li>pwdSafeModify</li>
+<li>pwdMinDelay</li>
+<li>pwdMaxDelay</li>
+<li>pwdMaxIdle</li>
+<li>pwdMaxRecordedFailure</li>
+</ul>
+<h4 id="entries-attributetypes">Entries attributeTypes:</h4>
+<p>Here is the set of AttributeTypes which are associated with every entry subject to the PasswordPolicy system (ie those which has an attribute as defined in pwdAttribute):
+- pwdChangedTime: The last time the entry&rsquo;s password was changed (stored in the entry)
+- pwdAccountLockedTime: The time that the user&rsquo;s account was locked (stored in the entry)
+- pwdFailureTime: The timestamps of the consecutive authentication failures (stored in the entry)
+- pwdHistory: A history of previously used passwords (stored in the entry)
+- pwdGraceUseTime: the timestamps of grace authentications after a password has expired (stored in the entry)
+- pwdReset: A flag to indicate (when TRUE) that the password has been updated by the password administrator and must be changed by the user (stored in the entry)
+- pwdPolicySubentry: The pwdPolicy subentry in effect for this object (Stored in the entry)
+- pwdStartTime: The time the entry&rsquo;s password becomes valid for authentication (stored in the entry)
+- pwdEndTime: The time the entry&rsquo;s password becomes invalid for authentication (stored in the entry)
+- pwdLastSuccess: holds the timestamp of the last successful authentication (stored in the entry)</p>
+<p>If the PasswordPolicy configuration is defined <em>after</em> the entries have been created, some of those entries will have to be set. Typically:</p>
+<ul>
+<li>pwdChangedTime: should be set to the current time (8.2.7)</li>
+<li>pwdAccountLockedTime</li>
+</ul>
+<h5 id="pwdchangedtime">pwdChangedTime</h5>
+<p>Should be added to the entry, as 5.3.2 says that if this Attribute is not present, then the password never expires.</p>
+<ul>
+<li>pwdMaxIdle: used when the pwdLastSuccess attribute is absent to check if the passwod is locked</li>
+<li>pwdMaxAge</li>
+<li>pwdMinAge</li>
+</ul>
+<h5 id="pwdaccountlockedtime">pwdAccountLockedTime</h5>
+<p>The following attributes and characteristics are related to the pwdAccountLockedTime one:</p>
+<ul>
+<li>Locked account: 000001010000Z</li>
+<li>Associated AT:  pwdLockoutDuration</li>
+<li>pwdLockoutDuration set to current time (8.1.3.2) when locking the user</li>
+<li>Policy state update: pwdLockoutDuration is removed from the entry</li>
+</ul>
+<h5 id="pwdfailuretime">pwdFailureTime</h5>
+<ul>
+<li>pwdFailureCountInterval</li>
+<li>pwdFailureTime</li>
+<li>pwdMinDelay</li>
+<li>pwdMaxDelay</li>
+<li>Policy state update: pwdFailureTime is removed from the entry</li>
+</ul>
+<h5 id="pwdhistory">pwdHistory</h5>
+<ul>
+<li>Policy state update: Add the new password to the pwdHistory attribute</li>
+<li>pwdInHistory</li>
+</ul>
+<h5 id="pwdgraceusetime">pwdGraceUseTime</h5>
+<ul>
+<li>pwdGraceAuthNLimit</li>
+<li>Policy state update: the attribute is remoed from the entry</li>
+</ul>
+<h5 id="pwdreset">pwdReset</h5>
+<ul>
+<li>pwdMustChange</li>
+<li>Policy state update: if pwdMustChange is TRUE, and the modification is done, pwdReset is set to TRUE, otherwise pwdReset is removved from the entry</li>
+</ul>
+<h5 id="pwdpolicysubentry">pwdPolicySubentry</h5>
+<p>Computed on the fly when requested</p>
+<h5 id="pwdpolicysubentry-1">pwdPolicySubentry</h5>
+<ul>
+<li>pwdMustChange</li>
+</ul>
+<h5 id="pwdstarttime">pwdStartTime</h5>
+<ul>
+<li>pwdEndTime</li>
+</ul>
+<h5 id="pwdendtime">pwdEndTime</h5>
+<ul>
+<li>pwdStartTime</li>
+</ul>
+<h5 id="pwdlastsuccess">pwdLastSuccess</h5>
+<ul>
+<li>pwdMaxIdle</li>
+<li>Policy state update: pwdLastSuccess is set to current</li>
+</ul>
+<h2 id="initialisation">Initialisation</h2>
+<p>When the server starts, it should initialize the Authentication interceptor, which will be added into the processing chain. This interceptor will contain all the logic assoiated with the passwordPolocy handling.</p>
+<p>There are three use cases:</p>
+<ol>
+<li>There is no defined PasswordPolicy: The authenticator will simply do nothing related when dealing with the operation.</li>
+<li>There is a default PasswordPolicy (the one defined in the configuration): In this case, we willm have to check if this PasswordPolicy has been added <em>after</em> some entries that will be impacted by it.</li>
+</ol>
+<p>typically, a use was pre-existing, and the PasswordPolicy efines some time limit on the userPassword. We will need to search the whole tree searchung for entries having the userPassword attribute
+and update the entry accordingly to the PasswordPolicy configuration.</p>
+<ol start="3">
+<li>There are subentries containing local definition of PasswordPolicies.</li>
+</ol>
+<h2 id="declaration">Declaration</h2>
+<p>The Password Policies are defined by using a subentry that contains a subtreeSpecification which describes the entries subject to this passwordPolicy. The PP subentries are stored into
+the subentry cache.</p>
+<p>There are two options here:
+-1- each entry points to the subentry that contains the passwordPolicy to use (in the pwdPolicySubentry attribute)
+-2- the subtreeSpecification automatically selects the entry subject to a passwordPolicy</p>
+<p>The first approach is simple, but requires that new users are created with the pwdPolicySubentry filled with the proper reference. This is demanding and error prone.
+Another possibility is that the added user is checked against the PP subentries, and if it fits one or many, then the pwdPolicySubentry attribute is added accordingly.
+It also generates a huge load if the password policy subentry subtree specification covers different entries, as each of these entries will have to be updated, and this will be
+the case if we add, change or delete a PP subentry, as all the associated entries will have to be updated.</p>
+<p>The second approach is way simpler from the user PoV, because the pwdPolicySubentry is not necessary. OTOH, the impact is that checking if the entry belongs to a PP is way more complex as it requires to
+check each PP to see if the entry belongs to it. That being said, there are not necessarily hundreds of PP to apply (generally speaking, only one). Still, this is an operation to process for every search
+that requested the operational attributes.</p>
+<p>Considering the extra cost of feeding the entry with the pwdPolicySubentry attribute when requested if it&rsquo;s niot present in the entry (typically for search operations), the first approach is likely to be better.</p>
+<h2 id="operations">Operations</h2>
+<p>Each operation will check if the session is still valid,</p>
+<p>For each operationsbut bind, we check if the password is locked or expired or not yet valid. If so, we return with an error code. Basicaly, the user account should be OK.</p>
+<p>We will need to access the LdapPrincipal information at this stage, and it should contain the PP operational attributes for the associated user. That means the Bind operation should fetch the user, and store the data in the LdapSession.
+If the user was already bound, then the new Bind operation will replace those data.</p>
+<p>For a bind, we call the authn interceptor first, and on return, we check the possible conditions</p>
+<h3 id="add">Add</h3>
+<h4 id="current-implementation">Current implementation</h4>
+<p>We first check if the user is authenticated. If the user is anonymous and the serevr does not allow anonymous users, then we reject the operation.</p>
+<p>Assuming the PPolicy is enabled, we get it based on the entry:</p>
+<ul>
+<li>we get the PPolicy DN from the pwdPolicySubentry AT</li>
+<li>we fetch the PPolicy from the DiT</li>
+<li>If we can&rsquo;t find it, we use the default PPolicy</li>
+</ul>
+<p>If the user&rsquo;s Password must be reset (ie the pwdReset AT <em>AND</em> the pwdMustChange PPolicy configuration are set to TRUE), then throw a LdapNoPermissionException is sent back.
+OTOH, if the pwdMustChange PPolicy configuration is set to FALSE or absent, then we can keep going</p>
+<p>The next step is to get the password attribute from the PPolicy&rsquo;s pwdAttribute AT. If it&rsquo;s not present in the entry, we ignore the following steps, otherwise:</p>
+<ul>
+<li>we get the attribute&rsquo;s value</li>
+<li>we check the password quality
+<ul>
+<li>if the entry has a pwdCheckQuality AT then
+<ul>
+<li>if its value is 0, bypass the quality check</li>
+<li>if its value is 1,
+<ul>
+<li>if the password is hashed, ignore it</li>
+<li>else
+<ul>
+<li>check the password length, based on the PPolicy pwdMinLength and pwdMaxLength values</li>
+<li>use the PasxwwordValidator associated with the PPolicy to check the password</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>if the value is 2,
+<ul>
+<li>if the password is hashed, return an error</li>
+<li>else
+<ul>
+<li>check the password length, based on the PPolicy pwdMinLength and pwdMaxLength values</li>
+<li>use the PasswordValidator associated with the PPolicy to check the password</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>we check the password validity, based on time
+<ul>
+<li>if we have a PwdMinAge or a pwdMaxAge configured in the PPolicy, add the pwdChangedTime attribute with a value set to the current time</li>
+<li>if the PPolicy PwdMustChange is set to TRUE, and if the addition is made by an administrator, then the pwdReset attribute must be added with a value TRUE</li>
+<li>if the pwdInHistory PPolicy configuration exists and is &gt; 0, then</li>
+</ul>
+</li>
+</ul>
+<p>Note: The PasswordValidator is a Java class that is defined by configuration, as a classname. We currently have only one implementation, the DefaultPasswordValidator class, which
+verifies that the username is not part of the password.</p>
+<h4 id="new-implementation">New implementation</h4>
+<p>This is the addition of a new entry. We have to check if the entry is related to a PP. This can be done automatically by checking the existing PP and their associated subtreeSpecification.
+If the entry is covered by a PP, then we update the pwdPolicySubEntry. (note: only one value is allowed, so the choice would be the closest PP in the DiT).
+One complementary condition is that the entry contains the proper password attribute.</p>
+<p>The very first step is to get the PP reference. If it&rsquo;s an Add operation, we have to check if the entry is part of a PPolicy adminsitrative area. Otherwise the entry will contain a pwdPolicySubentry</p>
+<p>getPwdPolicy(Entry, add) &lt;-
+if the entry contains a pwdPolicySubentry
+// Every operation
+then
+if the pwdPolicySubentry reference exist
+then
+(check that the entry is contained by the area defined by the subtreeSpecification) &lt;&ndash; Optional. It&rsquo;s a costly operation
+check if the PP declared password attribute is present in the entry
+if ok
+then
+return the PP
+else if add
+// It&rsquo;s an Add operation
+check that the entry is contained by the area defined by the subtreeSpecification
+if ok
+check if the PP declared password attribute is present in the entry
+if ok
+then
+return the PP</p>
+<p>// No PPolicy for this entry,
+return null;</p>
+<p>If this entry does not contain the attribute defined in the pwdAttribute for this area, we ignore it. If the entry is not associated to a PasswordPolicy area, we ignore it too.</p>
+<p>Otherwise we add the required operational attributes.</p>
+<h3 id="bind">Bind</h3>
+<p>When a &lsquo;bind&rsquo; is done, it&rsquo;s either for a new LDAP Session, or with an existing LDAP session.</p>
+<p>If this is for a new session, the  we have to check a few things related to the password:</p>
+<h4 id="new-ldap-session">New LDAP session</h4>
+<p>This is the first authentication to be done for the given user. If this is a Simple bind, the credentials contain the user DN and the password to check.
+There are many use cases, assuming the DN is for a valid user, that has a &lsquo;userPassword&rsquo; attribute:</p>
+<ul>
+<li>There is no PasswordPolicy set
+<ul>
+<li>The password does not match -&gt; we get out immediately</li>
+<li>The password matches -&gt; A LdapSession is created</li>
+</ul>
+</li>
+<li>There is a passwordPolicy set
+<ul>
+<li>The password does not match -&gt; we get out immediately</li>
+<li>The password matches</li>
+</ul>
+</li>
+</ul>
+<p>The following things will be checked while processing a bind operation, assuming the entry exists.</p>
+<p>If any of thses conditions are met, the account is locked and the Bind should fail.</p>
+<ul>
+<li>pwdAccountLockedTime is 000001010000Z</li>
+<li>pwdEndTime &lt;= current time &lt; pwdStartTime</li>
+<li>if pwdLastSuccess is present
+currentTime &gt;= pwdLastSuccess + pwdMaxIdle
+else
+currenTime &gt;= pwdChangedTime + pwdMaxIdle</li>
+<li>current time &lt; pwdAccountLockedTime + pwdLockoutDuration</li>
+</ul>
+<p>If any of those conditions are met, the password must be changed:</p>
+<ul>
+<li>pwdMustChange is TRUE</li>
+<li>pwdReset is TRUE</li>
+</ul>
+<p>If any of this condition is met, the password has expired:</p>
+<ul>
+<li>current time - pwdChangeTime &gt; pwdMaxAge</li>
+</ul>
+<p>If any of those conditions are met, the operation should fail:</p>
+<ul>
+<li>pwdLockout is TRUE</li>
+<li>n(pwdfailureTime &lt; pwdFailureCountInterval) &gt; = pwdMaxfailure</li>
+</ul>
+<h3 id="compare">Compare</h3>
+<h3 id="delete">Delete</h3>
+<h3 id="getrootdse">GetRootDSE</h3>
+<h3 id="hasentry">HasEntry</h3>
+<h3 id="lookup">Lookup</h3>
+<h3 id="modify">Modify</h3>
+<h3 id="move">Move</h3>
+<h3 id="moveandrename">MoveAndRename</h3>
+<h3 id="rename">Rename</h3>
+<h3 id="search">Search</h3>
+<h3 id="unbind">Unbind</h3>
+<p>static final String[] affichage = new String[]
+{
+&ldquo;&mdash;&mdash;&mdash;-&quot;,
+&ldquo;O&mdash;&mdash;&mdash;&quot;,
+&ldquo;OO&mdash;&mdash;&ndash;&quot;,
+&ldquo;OOO&mdash;&mdash;-&quot;,
+&ldquo;OOOO&mdash;&mdash;&quot;,
+&ldquo;OOOOO&mdash;&ndash;&quot;,
+&ldquo;OOOOOO&mdash;-&quot;,
+&ldquo;OOOOOOO&mdash;&quot;,
+&ldquo;OOOOOOOO&ndash;&quot;,
+&ldquo;OOOOOOOOO-&quot;,
+&ldquo;OOOOOOOOOO&rdquo;
+};</p>
+<p>&hellip;</p>
+<p>return affichage[ Math.floorMod( (int)Math.round( percentage*10 ), 11 ) ] );</p>
+<p>RDN:</p>
+<pre><code>private String 								upName = null;
+private String 								normName;
+private transient List&lt;Ava&gt; 				avas = null;  Sorted
+private transient Map&lt;String, List&lt;Ava&gt;&gt; 	avaTypes;
+private String 								avaType = null;
+protected Ava 								ava = null;
+private int									nbAvas = 0;
+private boolean 							normalized = false;
+private volatile 							int h;
+</code></pre>
+
+
+            
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2023, <a href="https://www.apache.org">The Apache Software Foundation</a> - <a href="/privacy-policy.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

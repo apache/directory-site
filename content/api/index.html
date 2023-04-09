@@ -78,7 +78,7 @@
 
                 <h5>Downloads</h5>
                 <ul>
-                    <li><a href="/api/downloads-2.html">Version 2.1.2</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/downloads-2.html">Version 2.1.3</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
                     <li><a href="/api/downloads-1.html">Version 1.0.3</a>&nbsp;&nbsp;</li>
                     <li><a href="/api/download-old-versions.html">Older versions</a></li>
                 </ul>
@@ -144,7 +144,7 @@
       The API is OSGI ready and extensible. New controls, schema elements and network layer could be added or used in the near future.
     </div>
     <div class="download-link">
-      <a href="/api/downloads-2.html" class="download_badge"><b>Download Apache<br>LDAP API 2.1.2</b></a>
+      <a href="/api/downloads-2.html" class="download_badge"><b>Download Apache<br>LDAP API 2.1.3</b></a>
     </div>
     <div class="download-link">
       <a href="/api/downloads-1.html" class="download_badge"><b>Download Apache<br>LDAP API 1.0.3</b></a>
@@ -157,6 +157,34 @@
 <div class="news">
     
 <h1 id="news">News</h1>
+<h2 class="news">Apache Directory LDAP API 2.1.3 released <em>posted on April 9th, 2023</em></h2>
+<p>The Apache Directory Team is proud to announce the availability of version 2.1.3 of the Apache Directory LDAP API.</p>
+<p>The Apache Directory LDAP API is an ongoing effort to provide an enhanced LDAP API, as a replacement for JNDI and the existing LDAP API (jLdap and Mozilla LDAP API).</p>
+<p>This is a schema aware API, with some convenient ways to access a LDAP server. This API is not only targeting the Apache Directory Server, but should work pristine with any LDAP server.</p>
+<p>It&rsquo;s also an extensible API : new Controls, schema elements and network layer could be added or used in the near future. It&rsquo;s also OSGi capable.</p>
+<p>This is a bug fix release, with some Schema extension to support the latest Password Policy draft:</p>
+<p><strong>New feature:</strong></p>
+<ul>
+<li><a href="https://issues.apache.org/jira/browse/DIRAPI-385">DIRAPI-385</a>: Add a way to modify the Element in a DnNode</li>
+</ul>
+<p><strong>Improvements:</strong></p>
+<ul>
+<li><a href="https://issues.apache.org/jira/browse/DIRAPI-386">DIRAPI-386</a>: The parsing of a wrong filter throws a LdapProtocolErrorException</li>
+<li><a href="https://issues.apache.org/jira/browse/DIRAPI-387">DIRAPI-387</a>: More info on PasswordException</li>
+<li><a href="https://issues.apache.org/jira/browse/DIRAPI-391">DIRAPI-391</a>: Improve the Dn parsing performance</li>
+<li><a href="https://issues.apache.org/jira/browse/DIRAPI-392">DIRAPI-392</a>: Extend the schema to support the latest PasswordPolicy RFC
+draft AttributeTypes</li>
+</ul>
+<p><strong>Tasks:</strong></p>
+<ul>
+<li><a href="https://issues.apache.org/jira/browse/DIRAPI-389">DIRAPI-389</a> - Issue when comparing multi-component RDNs caused by the RDN order</li>
+<li><a href="https://issues.apache.org/jira/browse/DIRAPI-390">DIRAPI-390</a> - Upgrade commons-text as it flags the project with CVE-2022-42889</li>
+</ul>
+<p><strong>Bugs:</strong></p>
+<ul>
+<li><a href="https://issues.apache.org/jira/browse/DIRAPI-388">DIRAPI-388</a> - &ldquo;No future&rdquo; warning in the log</li>
+</ul>
+<p>Downloads are available <a href="downloads-2.html">here</a> and the User&rsquo;s Guide is <a href="user-guide.html">there</a></p>
 <h2 class="news">Apache Directory LDAP API 2.1.2 released <em>posted on August 16th, 2022</em></h2>
 <p>The Apache Directory Team is proud to announce the availability of version 2.1.2 of the Apache Directory LDAP API.</p>
 <p>The Apache Directory LDAP API is an ongoing effort to provide an enhanced LDAP API, as a replacement for JNDI and the existing LDAP API (jLdap and Mozilla LDAP API).</p>
@@ -172,14 +200,14 @@
 <p>This version is now using MINA 2.1.1, which comes with a complete rewrite of the TLS layer. It also fixes a list of issues:</p>
 <p><strong>Improvement:</strong></p>
 <ul>
-<li>[DIRAPI-352]https://issues.apache.org/jira/browse/DIRAPI-352) - The Base64 implementation can be removed</li>
+<li><a href="https://issues.apache.org/jira/browse/DIRAPI-352">DIRAPI-352</a> - The Base64 implementation can be removed</li>
 </ul>
 <p><strong>Bugs:</strong></p>
 <ul>
-<li>[DIRAPI-348]https://issues.apache.org/jira/browse/DIRAPI-348) - NPE when Api decodes bind response from OpenDJ server 6.0</li>
-<li>[DIRAPI-369]https://issues.apache.org/jira/browse/DIRAPI-369) - DSML needsBase64Encoding</li>
-<li>[DIRAPI-379]https://issues.apache.org/jira/browse/DIRAPI-379) - NPE on ill formed error response</li>
-<li>[DIRAPI-380]https://issues.apache.org/jira/browse/DIRAPI-380) - Binding using a DN which RDN is complex may fail</li>
+<li><a href="https://issues.apache.org/jira/browse/DIRAPI-348">DIRAPI-348</a> - NPE when Api decodes bind response from OpenDJ server 6.0</li>
+<li><a href="https://issues.apache.org/jira/browse/DIRAPI-369">DIRAPI-369</a> - DSML needsBase64Encoding</li>
+<li><a href="https://issues.apache.org/jira/browse/DIRAPI-379">DIRAPI-379</a> - NPE on ill formed error response</li>
+<li><a href="https://issues.apache.org/jira/browse/DIRAPI-380">DIRAPI-380</a> - Binding using a DN which RDN is complex may fail</li>
 </ul>
 <p>Downloads are available <a href="downloads-2.html">here</a> and the User&rsquo;s Guide is <a href="user-guide.html">there</a></p>
 <h2 class="news">Apache Directory LDAP API 2.1.0 released <em>posted on June 29th, 2021</em></h2>
@@ -190,11 +218,11 @@
 <p>This is a security enhancement release:</p>
 <p><strong>Improvement:</strong></p>
 <ul>
-<li>[DIRAPI-373]https://issues.apache.org/jira/browse/DIRAPI-373) - Implement SASL integrity and confidentiality layer</li>
-<li>[DIRAPI-374]https://issues.apache.org/jira/browse/DIRAPI-374) - Consistify LdapConnectionConfig useTls and useSsl flags</li>
-<li>[DIRAPI-375]https://issues.apache.org/jira/browse/DIRAPI-375) - Add TLSv1.3 to default protocols</li>
-<li>[DIRAPI-376]https://issues.apache.org/jira/browse/DIRAPI-376) - Change getRootDse() to return all user and operational attibutes</li>
-<li>[DIRAPI-377]https://issues.apache.org/jira/browse/DIRAPI-377) - Add LDAP Relax Rules Control</li>
+<li><a href="https://issues.apache.org/jira/browse/DIRAPI-373">DIRAPI-373</a> - Implement SASL integrity and confidentiality layer</li>
+<li><a href="https://issues.apache.org/jira/browse/DIRAPI-374">DIRAPI-374</a> - Consistify LdapConnectionConfig useTls and useSsl flags</li>
+<li><a href="https://issues.apache.org/jira/browse/DIRAPI-375">DIRAPI-375</a> - Add TLSv1.3 to default protocols</li>
+<li><a href="https://issues.apache.org/jira/browse/DIRAPI-376">DIRAPI-376</a> - Change getRootDse() to return all user and operational attibutes</li>
+<li><a href="https://issues.apache.org/jira/browse/DIRAPI-377">DIRAPI-377</a> - Add LDAP Relax Rules Control</li>
 </ul>
 <p>Downloads are available <a href="downloads-2.html">here</a> and the User&rsquo;s Guide is <a href="user-guide.html">there</a></p>
 <h2 class="news">Apache Directory LDAP API 2.0.2 released <em>posted on May 25th, 2021</em></h2>

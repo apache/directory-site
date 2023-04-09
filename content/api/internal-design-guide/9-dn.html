@@ -78,7 +78,7 @@
 
                 <h5>Downloads</h5>
                 <ul>
-                    <li><a href="/api/downloads-2.html">Version 2.1.2</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/downloads-2.html">Version 2.1.3</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
                     <li><a href="/api/downloads-1.html">Version 1.0.3</a>&nbsp;&nbsp;</li>
                     <li><a href="/api/download-old-versions.html">Older versions</a></li>
                 </ul>
@@ -157,16 +157,16 @@
 
             
 	<h1 id="9---dn">9 - DN</h1>
-<p>A <strong>DN</strong>, or <strong>Distingusished Name</strong> is a data structure that is composed of a list of <strong>RDN</strong> (<strong>Relative DN</strong>). Each <strong>RDN</strong> is composed of a list of <strong>AVA</strong> (<strong>AttributeType And Value</strong>).</p>
+<p>A <strong>DN</strong>, or <strong>Distinguished Name</strong> is a data structure that is composed of a list of <strong>RDN</strong> (<strong>Relative DN</strong>). Each <strong>RDN</strong> is composed of a list of <strong>AVA</strong> (<strong>AttributeType And Value</strong>).</p>
 <p>In a <strong>DN</strong>, the list of <strong>RDN</strong> is ordered from the most significant to the least significant <strong>RDN</strong>. For instance:</p>
 <pre><code>cn=JohnDoe,ou=apache,dc=com
 </code></pre>
 <p>The most significant <strong>RDN</strong> is <code>cn=JohnDoe</code>.</p>
 <h2 id="rdn">RDN</h2>
-<p>A <strong>RDN</strong> can be composed of mant <strong>AVAs</strong>, which are ordered in two ways:</p>
+<p>A <strong>RDN</strong> can be composed of many <strong>AVAs</strong>, which are ordered in two ways:</p>
 <ul>
 <li>Lexicograpgically, if we don&rsquo;t have a schema</li>
-<li>By OID, if we have a schema</li>
+<li>By <strong>OID</strong>, if we have a schema</li>
 </ul>
 <p>Typically, a <strong>DN</strong> like:</p>
 <pre><code>gn=Kate+cn=Bush,ou=apache,dc=com
@@ -174,11 +174,11 @@
 <p>will be ordered internally as :</p>
 <pre><code>cn=Bush+gn=Kate,ou=apache,dc=com	
 </code></pre>
-<p>if we don&rsquo;t have a schema (because <code>cn</code> is lexicographically before <code>gn</code>), or if we have a schema (because <code>2.5.4.3</code> is the <code>cn</code> OID and <code>2.5.4.42</code> is the <code>gn</code> OID)</p>
+<p>if we don&rsquo;t have a schema (because <code>cn</code> is lexicographically before <code>gn</code>), or if we have a schema (because <code>2.5.4.3</code> is the <code>cn</code>'s <strong>OID</strong> and <code>2.5.4.42</code> is the <code>gn</code>'s <strong>OID</strong>)</p>
 <h3 id="internal-structure">Internal structure</h3>
-<p>We keep the following data inside a <strong>RDN</strong></p>
+<p>We keep the following data inside a <strong>RDN</strong>:</p>
 <ul>
-<li><code>upName:</code>: a <code>String</code> containing the <strong>RDN</strong> user provided value</li>
+<li><code>upName</code>: a <code>String</code> containing the <strong>RDN</strong> user provided value</li>
 <li><code>normName</code>: a <code>String</code> containing the normalized <strong>RDN</strong> value</li>
 <li><code>avas</code>: A list of ordered <strong>AVAs</strong></li>
 <li><code>avaTypes</code>: A map of the <strong>RDN</strong> <code>AttributeTypes</code> (each <strong>AVA</strong> has an <code>AttributeType</code>) for a quick search</li>
@@ -210,18 +210,67 @@
     }
 }
 </code></pre>
-<p>The <code>FastDnParser</code> is basically a recursive descent: we consider we have a single <code>AttributeType</code>, an <code>=</code> signe, and the value. If we have a Schema, we will use it to process the <code>AttributeType</code> and the value, normalizing it (that is done at the <code>Ava</code> level). At the end, we get back an <code>Rdn</code> instance, with one <code>Ava</code>, where the following class&rsquo; fields are updated:</p>
+<p>The <code>FastDnParser</code> is basically a recursive descent: we consider we have a single <code>AttributeType</code>, an <code>=</code> sign, and the value. If we have a Schema, we will use it to process the <code>AttributeType</code> and the value, normalizing it (that is done at the <code>Ava</code> level). At the end, we get back an <code>Rdn</code> instance, with one <code>Ava</code>, where the following class&rsquo; fields are updated:</p>
 <ul>
-<li><code>upName:</code>: The user provaided form (the provided String)</li>
+<li><code>upName:</code>: The user provided form (the provided String)</li>
 <li><code>normName</code>: The normalized form</li>
-<li><code>avas</code>: Empty</li>
-<li><code>avaTypes</code>: Empty</li>
+<li><code>avas</code>: null</li>
+<li><code>avaTypes</code>: null</li>
 <li><code>avaType</code>: The <code>AttributeType</code></li>
 <li><code>ava</code>: The <code>Ava</code> instance</li>
 <li><code>nbAvas</code>: 1</li>
 <li><code>normalized</code>: true or false (depends on the schema being present)</li>
 <li><code>h</code>: The integer hascode for this instance</li>
 </ul>
+<p>As we can see, the List and Map are null.</p>
+<p>The <code>ComplexDnParser</code> is an <strong>antlr</strong> based parser. It&rsquo;s much slower. We start with an inner production of this parser, the <code>relativeDistinguishedName</code> part:</p>
+<pre><code>relativeDistinguishedName [SchemaManager schemaManager, Rdn rdn]
+:
+(
+    attributeTypeAndValue[schemaManager, rdn] 
+    (
+        PLUS 
+        attributeTypeAndValue[schemaManager, rdn] 
+    )*
+)
+</code></pre>
+<p>As we can see, we can have to process one or more <code>attributeTypeAndValue</code> (aka <strong>AVA</strong>), and we need to do it in a way that allows the comparison of <strong>RDNs</strong> in a simple way.</p>
+<p>For that, as a <strong>RDN</strong> contain multiples <strong>AVAs</strong>, we need to order them. There are two use cases:</p>
+<ul>
+<li>The <strong>RDN</strong> is Schema aware</li>
+<li>The <strong>RDN</strong> is not schema aware</li>
+</ul>
+<h4 id="schema-aware-rdn">Schema aware RDN</h4>
+<p>This is the simplest case, because we have a standard way to &lsquo;normalize&rsquo; each element:</p>
+<ul>
+<li>The <code>AttributeType</code> is always represented as an <strong>OID</strong></li>
+<li>The value is always normalized accordingly to its <code>AttributeType</code></li>
+</ul>
+<p>For instance, a <strong>RDN</strong> like:</p>
+<pre><code>gn=Kate+cn=Bush
+</code></pre><p>uses two <strong>AVAs</strong> (separated by the <strong>+</strong> sign), one with the <strong>cn</strong> <code>AttributeType</code> and the other with the <strong>gn</strong> <code>AttributeType</code>.</p>
+<p>The <strong>cn</strong> <code>AttributeType</code>  is normalized as <code>2.5.4.3</code>, and the <strong>gn</strong> <code>AttributeType</code>  is normalized as 2.5.4.42.</p>
+<p>Now, if we use those <strong>OID</strong>, the <strong>RDN</strong> becomes:</p>
+<pre><code>2.5.4.3=Bush+2.5.4.42=Kate
+</code></pre><p>We have a way to order the <strong>AVA</strong> using the <strong>OIDs</strong> numeric values (<code>2.5.4.3</code> &lt; <code>2.5.4.42</code>).</p>
+<p>However, we still have to deal with the case where the <strong>RDN</strong> contains many times the same <code>AttributeType</code>, like in:</p>
+<pre><code>cn=john+cn=doe
+</code></pre><p>This is possible because the <code>cn</code> <code>AttributeType</code> accept more than one value:</p>
+<pre><code>( 2.5.4.3 NAME 'cn' SUP name )
+
+( 2.5.4.41 NAME 'name'
+         EQUALITY caseIgnoreMatch
+         SUBSTR caseIgnoreSubstringsMatch
+         SYNTAX 1.3.6.1.4.1.1466.115.121.1.15 )
+</code></pre><p>(Neither the <code>name</code>  or the <code>cn</code> <code>AttributeTypes</code> has the <strong>SINGLE-VALUE</strong> property)</p>
+<p>So we need to be able to order such <strong>RDN</strong>. We do that by keeping a <strong>Map&lt;AttributeType, List<Ava>&gt;</strong> in the <strong>RDN</strong> structure. For instance, for the <code>cn=john+cn=doe+gn=jo</code> <strong>RDN</strong>, the <strong>Map</strong> will look like:</p>
+<pre><code>&lt;cn&gt; -&gt; {'doe', 'john'}
+&lt;gn&gt; -&gt; {'jo'}
+</code></pre>
+<p>The value are ordered in the <strong>List</strong>.</p>
+<h4 id="non-schema-aware-rdn">Non Schema aware RDN</h4>
+<p>This is slightly different, because we can&rsquo;t normalize the <code>AttributeTypes</code> as <strong>OIDs</strong>.</p>
+<p>What we do is that we use the lowercase representation of the <code>AttributeTypes</code>, assuming we won&rsquo;t be able to deal with aliases (ie <code>cn</code> and <code>commonName</code> are teh same <code>AttributeTypes</code>). Then we use a lexicographic order.</p>
 
 
             
