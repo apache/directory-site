@@ -15,6 +15,5 @@ Eventually, it was understood that nights and weekends of a few developers aren'
 This new home proved worthy as help from the Apache Directory project, along with its community has brought many new members and improvements.
 
 Footnotes:  
-[1] Initial team roster (l to r) in 2009: Kevin McKinney (developer), Kelly McKinney (project manager) and Shawn McKinney (not pictured).  
-![Joshua Tree Software](images/joshua-tree-inception-shot.jpg "Joshua Tree Inception")  
+[1] Initial team roster in 2009: Kevin McKinney, Kelly McKinney and Shawn McKinney. 
 [2] Presentation [Open Source IAM using Fortress and OpenLDAP](https://ldapcon.org/2011/index.php?site=open-source)
