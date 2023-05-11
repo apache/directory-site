@@ -38,7 +38,7 @@ There is more to RBAC than assigning users to groups and applying ACL policies w
 
 More info can be found on [Intro to ANSI RBAC Page](user-guide/1-intro-rbac.html)
 
-### [Java EE Platform](https://java.net/projects/javaee-spec/pages/Home) (tm) Security
+### [Jakarta Platform](https://jakarta.ee/specifications/security/) Security
 
 Used for SSL, X.509 mutual authentication, form-based container authentication, authorization and SSO.  Works within compliant Java Web apps like Fortress Rest and Web.  
 
