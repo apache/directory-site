@@ -8,18 +8,11 @@ Several companies have built products and services around the Apache Directory&t
 
 ## ApacheDS&trade; Related Offerings
 
-### [Keydap](http://www.keydap.com)
-
-[Keydap](http://www.keydap.com) provides custom identity management solutions built around ApacheDS&trade;.
-
-Keydap distributes a custom version of ApacheDS&trade; called 'Keydap Server' with many value added features including Multi-Master replication for free under Apache License v2.0 and offers commercial support for both ApacheDS&trade; and Keydap Server.
-
 ### [Symas](https://symas.com/)
 
 Provides commerical support (subscriptions) to Apache Fortress along with professional services for installations, enhancements, integrations.
 
- * <a href="https://symas.com/fortressdetails/">Apache Fortress Product Page</a>
-
+ * <a href="https://www.symas.com/syms-rbac-abac-apache-fortress">Apache Fortress Product Page</a>
 
 ## Policy for additions to this page
 
