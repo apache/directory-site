@@ -1,10 +1,12 @@
 ---
-title: Version 3.0 Jakarta
+title: Apache Fortress v3.0 Jakarta Compatibility
+navPrev: news.html
+navPrevText: Back to news
 ---
 
 # Fortress Jakarta Compatibility
 
-Starting with version 3.0, Apache Fortress is Jakarta compatible. This includes:
+Apache Fortress 3.0 requires:
 
 - Java 11 (core, realm)
 - Java 17 (web, rest)
