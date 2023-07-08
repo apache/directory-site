@@ -39,6 +39,7 @@ title: Team
 | Christopher Harm | charm | Committer ||||
 | David Jencks | djencks | Committer ||||
 | Franck Zeng | zenglinx | Committer ||||
+| Frederik Roubert | roubert | Committer ||||
 | Gerard Gagliano | gg | Committer ||||
 | G&ouml;kt&uuml;rk Gezer | gokturk | Committer ||||
 | Jan Rellermeyer | rjan | Committer | ![Jan Rellermeyer](images/team/jan.jpg) | [![Website](images/team/website.png)](http://people.inf.ethz.ch/rjan) ||
