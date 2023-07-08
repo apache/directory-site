@@ -4,6 +4,10 @@ title: News
 
 # Fortress News
 
+<h2 class="news">Apache Fortress 3.0 is Jakarta compatible <em>posted on June 26th, 2023</em></h2>
+
+* [Fortress v3 Jakarta Compatible](jakarta-v3.html)
+
 <h2 class="news">Apache Fortress 2.0.8 Released <em>posted on July 22nd, 2022</em></h2>
 
 The Apache Directory Project announces the release of Fortress - 2.0.8.
