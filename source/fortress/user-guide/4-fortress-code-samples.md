@@ -34,3 +34,19 @@ navNextText: 4.1 - Example Creating RBAC Session
 * [4.20 - Delete Inheritance](4.20-delete-inheritance.html)
 * [4.21 - Add Ascendant](4.21-add-ascendant.html)
 * [4.22 - Add Descendant](4.22-add-descendant.html)
+* [4.23 - Create a Static Separation of Duty Set ](4.23-create-ssd-set.html)
+* [4.24 - Delete a Static Separation of Duty Set ](4.24-delete-ssd-set.html)
+* [4.25 - Create a Dynamic Separation of Duty Set ](4.25-create-dsd-set.html)
+* [4.26 - Delete a Dynamic Separation of Duty Set ](4.26-delete-dsd-set.html)
+
+
+* TODO: (more code samples):
+    * [4.27 - addSsdRoleMember]
+    * [4.28 - addDsdRoleMember]
+    * [4.29 - addSsdRoleMember]
+    * [4.30 - addDsdRoleMember]
+    * [4.31 - setSsdSetCardinality]
+    * [4.32 - setDsdSetCardinality]
+    * [4.33 - addRoleConstraint]
+    * [4.34 - removeRoleConstraint]
+    * ...
