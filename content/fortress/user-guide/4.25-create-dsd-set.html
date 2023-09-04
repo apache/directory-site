@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>4.22 - Add Descendant &mdash; Apache Directory</title>
+    <title>4.25 - Create DSD Set &mdash; Apache Directory</title>
 
     <link href="/css/common.css" rel="stylesheet" type="text/css"/>
     <link href="/css/turquoise.css" rel="stylesheet" type="text/css"/>
@@ -134,7 +134,7 @@
         <div class="nav_prev">
             
                 
-                <a href="4.21-add-ascendant.html">4.21 - Add Ascendant</a>
+                <a href="4.24-delete-ssd-set.html">4.24 - Delete SSD Set</a>
             
         </div>
         <div class="nav_up">
@@ -146,7 +146,7 @@
         <div class="nav_next">
             
                 
-                <a href="4.23-create-ssd-set.html">4.23 - Create SSD Set</a>
+                <a href="4.26-delete-dsd-set.html">4.26 - Delete DSD Set</a>
             
         </div>
         <div class="clearfix"></div>
@@ -154,53 +154,58 @@
 
 
             
-	<h1 id="422---add-descendant">4.22 - Add Descendant</h1>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">addDescendant</span><span style="color:#666">(</span>Role parentRole<span style="color:#666">,</span> Role childRole<span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> SecurityException
-</code></pre></div><p>This command creates a new role childRole, and inserts it in the role hierarchy as an immediate descendant of the existing role parentRole.</p>
+	<h1 id="425---create-a-dynamic-separation-of-duty-set">4.25 - Create a Dynamic Separation of Duty Set</h1>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">SDSet <span style="color:#00a000">createDsdSet</span><span style="color:#666">(</span>SDSet dsdSet<span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> SecurityException
+</code></pre></div><p>This command creates a named Dynamic Separation of Duty (DSD) set of roles and sets the cardinality n of its subsets that cannot have common users.</p>
 <p>The command is valid if and only if:</p>
 <ul>
-<li>The childRole is not a member of the ROLES data set.</li>
-<li>The parentRole is a member of the ROLES data set.</li>
+<li>The name of the DSD set is not already in use.</li>
+<li>All the roles in the DSD set are members of the ROLES data set.</li>
+<li>n is a natural number greater than or equal to 2 and less than or equal to the cardinality of the DSD role set.</li>
+<li>The DSD constraint for the new role set is satisfied.</li>
 </ul>
 <p>This method:</p>
 <ul>
-<li>Adds new role.</li>
-<li>Assigns role relationship between new childRole and pre-existing parentRole.</li>
+<li>Adds new DSD set.</li>
+<li>affects (runtime) role activations.</li>
 </ul>
 <p>required parameters:</p>
 <ul>
-<li>parentRole - Role#name - contains the name of existing Role to be parent</li>
-<li>childRole - Role#name - contains the name of new Role to be child</li>
+<li>SDSet#name - contains the name to use for the Role to be created.</li>
+<li>Type of SD Set - &lsquo;DYNAMIC&rsquo; (automatically set via this method).</li>
 </ul>
-<p>optional parameters childRole</p>
+<p>optional parameters:</p>
 <ul>
-<li>childRole - Role#description - maps to description attribute on organizationalRole object class for new child</li>
-<li>childRole - Role#beginTime - HHMM - determines begin hour role may be activated into user&rsquo;s RBAC session for new child</li>
-<li>childRole - Role#endTime - HHMM - determines end hour role may be activated into user&rsquo;s RBAC session for new child</li>
-<li>childRole - Role#beginDate - YYYYMMDD - determines date when role may be activated into user&rsquo;s RBAC session for new child</li>
-<li>childRole - Role#endDate - YYYYMMDD - indicates latest date role may be activated into user&rsquo;s RBAC session for new child</li>
-<li>childRole - Role#beginLockDate - YYYYMMDD - determines beginning of enforced inactive status for new child</li>
-<li>childRole - Role#endLockDate - YYYYMMDD - determines end of enforced inactive status for new child</li>
-<li>childRole - Role#dayMask - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day role may be activated into user&rsquo;s RBAC session for new child</li>
+<li>SDSet#members - multivalued attribute contains the RBAC Role names to be added to this set.</li>
+<li>SDSet#cardinality - default is 2 which is one more than max number of Roles that may be activated by a User from a particular set.</li>
+<li>SDSet#description - contains any safe text.</li>
 </ul>
 <p>Throws:</p>
 <ul>
 <li>SecurityException - thrown in the event of data validation or system error.</li>
 </ul>
-<h2 id="adddescendant">addDescendant</h2>
+<h2 id="createdsdset">createDsdSet</h2>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.AdminMgr</span><span style="color:#666">;</span>
 <span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.AdminMgrFactory</span><span style="color:#666">;</span>
-<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.model.Role</span><span style="color:#666">;</span>
+<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.model.SDSet</span><span style="color:#666">;</span>
 <span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.SecurityException</span><span style="color:#666">;</span>
 
 <span style="color:#a2f">@test</span>
-<span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">static</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">testAddDescendant</span><span style="color:#666">(</span>String childNm<span style="color:#666">,</span> String parentNm<span style="color:#666">)</span>
+<span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">static</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">testCreateDsdSet</span><span style="color:#666">(</span><span style="color:#666">)</span>
 <span style="color:#666">{</span>
-    String szLocation <span style="color:#666">=</span> <span style="color:#b44">&#34;.testAddDescendant&#34;</span><span style="color:#666">;</span>
+    String szLocation <span style="color:#666">=</span> <span style="color:#b44">&#34;.testCreateDsdSet&#34;</span><span style="color:#666">;</span>
     <span style="color:#a2f;font-weight:bold">try</span>
     <span style="color:#666">{</span>
         AdminMgr adminMgr <span style="color:#666">=</span> AdminMgrFactory<span style="color:#666">.</span><span style="color:#b44">createInstance</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
-        adminMgr<span style="color:#666">.</span><span style="color:#b44">addDescendant</span><span style="color:#666">(</span> <span style="color:#a2f;font-weight:bold">new</span> Role<span style="color:#666">(</span> parentNm <span style="color:#666">)</span><span style="color:#666">,</span> <span style="color:#a2f;font-weight:bold">new</span> Role<span style="color:#666">(</span> childNm <span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+        SDSet inDsdSet <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> SDSet<span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
+        inDsdSet<span style="color:#666">.</span><span style="color:#b44">setName</span><span style="color:#666">(</span> <span style="color:#b44">&#34;myDsdSetName&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+        inDsdSet<span style="color:#666">.</span><span style="color:#b44">setDescription</span><span style="color:#666">(</span> <span style="color:#b44">&#34;Test dynamic separation of duty set&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+        <span style="color:#080;font-style:italic">// Use existing role names:
+</span><span style="color:#080;font-style:italic"></span>        inDsdSet<span style="color:#666">.</span><span style="color:#b44">addMember</span><span style="color:#666">(</span> <span style="color:#b44">&#34;role3&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+        inDsdSet<span style="color:#666">.</span><span style="color:#b44">addMember</span><span style="color:#666">(</span> <span style="color:#b44">&#34;role4&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+        <span style="color:#080;font-style:italic">// Users may only only activate (into RBAC session) one of the roles in this set:
+</span><span style="color:#080;font-style:italic"></span>        inDsdSet<span style="color:#666">.</span><span style="color:#b44">setCardinality</span><span style="color:#666">(</span> 2 <span style="color:#666">)</span><span style="color:#666">;</span>
+        SDSet outDsdSet <span style="color:#666">=</span> am<span style="color:#666">.</span><span style="color:#b44">createDsdSet</span><span style="color:#666">(</span> inDsdSet <span style="color:#666">)</span><span style="color:#666">;</span>
     <span style="color:#666">}</span>
     <span style="color:#a2f;font-weight:bold">catch</span> <span style="color:#666">(</span>SecurityException ex<span style="color:#666">)</span>
     <span style="color:#666">{</span>
@@ -215,7 +220,7 @@
         <div class="nav_prev">
             
                 
-                <a href="4.21-add-ascendant.html">4.21 - Add Ascendant</a>
+                <a href="4.24-delete-ssd-set.html">4.24 - Delete SSD Set</a>
             
         </div>
         <div class="nav_up">
@@ -227,7 +232,7 @@
         <div class="nav_next">
             
                 
-                <a href="4.23-create-ssd-set.html">4.23 - Create SSD Set</a>
+                <a href="4.26-delete-dsd-set.html">4.26 - Delete DSD Set</a>
             
         </div>
         <div class="clearfix"></div>

@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>4 - Fortress Code Samples &mdash; Apache Directory</title>
+    <title>4.24 - Delete SSD Set &mdash; Apache Directory</title>
 
     <link href="/css/common.css" rel="stylesheet" type="text/css"/>
     <link href="/css/turquoise.css" rel="stylesheet" type="text/css"/>
@@ -134,19 +134,19 @@
         <div class="nav_prev">
             
                 
-                <a href="3-configuration.html">3 - Fortress Configuration</a>
+                <a href="4.23-create-ssd-set.html">4.23 - Create SSD Set</a>
             
         </div>
         <div class="nav_up">
             
                 
-                <a href="../user-guide.html">User Guide</a>
+                <a href="4-fortress-code-samples.html">4 - Fortress Code Samples</a>
             
         </div>
         <div class="nav_next">
             
                 
-                <a href="4.1-create-session.html">4.1 - Example Creating RBAC Session</a>
+                <a href="4.25-create-dsd-set.html">4.25 - Create DSD Set</a>
             
         </div>
         <div class="clearfix"></div>
@@ -154,122 +154,60 @@
 
 
             
-	<h1 id="4---apache-fortress-code-samples">4 - Apache Fortress Code Samples</h1>
-<h2 id="table-of-content">Table of content</h2>
+	<h1 id="424---delete-a-static-separation-of-duty-set">4.24 - Delete a Static Separation of Duty Set</h1>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">SDSet <span style="color:#00a000">deleteSsdSet</span><span style="color:#666">(</span>SDSet ssdSet<span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> SecurityException
+</code></pre></div><p>This command deletes a SSD role set completely. The command is valid if and only if the SSD role set exists.</p>
+<p>required parameters:</p>
 <ul>
-<li>
-<p><a href="4.1-create-session.html">4.1 - Create Session</a></p>
-</li>
-<li>
-<p><a href="4.2-check-access.html">4.2 - Check Access</a></p>
-</li>
-<li>
-<p><a href="4.3-session-permissions.html">4.3 - Session Permissions</a></p>
-</li>
-<li>
-<p><a href="4.4-activate-role.html">4.4 - Add Active Role</a></p>
-</li>
-<li>
-<p><a href="4.5-deactivate-role.html">4.5 - Drop Active Role</a></p>
-</li>
-<li>
-<p><a href="4.6-authorized-roles.html">4.6 - Get Authorized Roles</a></p>
-</li>
-<li>
-<p><a href="4.7-add-role.html">4.7 - Add Role</a></p>
-</li>
-<li>
-<p><a href="4.8-delete-role.html">4.8 - Delete Role</a></p>
-</li>
-<li>
-<p><a href="4.9-add-user.html">4.9 - Add User</a></p>
-</li>
-<li>
-<p><a href="4.10-delete-user.html">4.10 - Delete User</a></p>
-</li>
-<li>
-<p><a href="4.11-add-permobj.html">4.11 - Add Permission Object</a></p>
-</li>
-<li>
-<p><a href="4.12-delete-permobj.html">4.12 - Delete Permission Object</a></p>
-</li>
-<li>
-<p><a href="4.13-add-permission.html">4.13 - Add Permission</a></p>
-</li>
-<li>
-<p><a href="4.14-delete-permission.html">4.14 - Delete Permission</a></p>
-</li>
-<li>
-<p><a href="4.15-assign-user.html">4.15 - Assign User</a></p>
-</li>
-<li>
-<p><a href="4.16-deassign-user.html">4.16 - Deassign User</a></p>
-</li>
-<li>
-<p><a href="4.17-grant-permission.html">4.17 - Grant Permission</a></p>
-</li>
-<li>
-<p><a href="4.18-revoke-permission.html">4.18 - Revoke Permission</a></p>
-</li>
-<li>
-<p><a href="4.19-add-inheritance.html">4.19 - Add Inheritance</a></p>
-</li>
-<li>
-<p><a href="4.20-delete-inheritance.html">4.20 - Delete Inheritance</a></p>
-</li>
-<li>
-<p><a href="4.21-add-ascendant.html">4.21 - Add Ascendant</a></p>
-</li>
-<li>
-<p><a href="4.22-add-descendant.html">4.22 - Add Descendant</a></p>
-</li>
-<li>
-<p><a href="4.23-create-ssd-set.html">4.23 - Create a Static Separation of Duty Set </a></p>
-</li>
-<li>
-<p><a href="4.24-delete-ssd-set.html">4.24 - Delete a Static Separation of Duty Set </a></p>
-</li>
-<li>
-<p><a href="4.25-create-dsd-set.html">4.25 - Create a Dynamic Separation of Duty Set </a></p>
-</li>
-<li>
-<p><a href="4.26-delete-dsd-set.html">4.26 - Delete a Dynamic Separation of Duty Set </a></p>
-</li>
-<li>
-<p>TODO: (more code samples):</p>
+<li>SDSet#name - contains the name of SSD set to be removed.</li>
+</ul>
+<p>Throws:</p>
 <ul>
-<li>[4.27 - addSsdRoleMember]</li>
-<li>[4.28 - addDsdRoleMember]</li>
-<li>[4.29 - addSsdRoleMember]</li>
-<li>[4.30 - addDsdRoleMember]</li>
-<li>[4.31 - setSsdSetCardinality]</li>
-<li>[4.32 - setDsdSetCardinality]</li>
-<li>[4.33 - addRoleConstraint]</li>
-<li>[4.34 - removeRoleConstraint]</li>
-<li>&hellip;</li>
+<li>SecurityException - thrown in the event of data validation or system error.</li>
 </ul>
-</li>
-</ul>
+<h2 id="deletessdset">deleteSsdSet</h2>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.AdminMgr</span><span style="color:#666">;</span>
+<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.AdminMgrFactory</span><span style="color:#666">;</span>
+<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.model.SDSet</span><span style="color:#666">;</span>
+<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.SecurityException</span><span style="color:#666">;</span>
 
+<span style="color:#a2f">@test</span>
+<span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">static</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">testDeleteSsdSet</span><span style="color:#666">(</span><span style="color:#666">)</span>
+<span style="color:#666">{</span>
+    String szLocation <span style="color:#666">=</span> <span style="color:#b44">&#34;.testDeleteSsdSet&#34;</span><span style="color:#666">;</span>
+    <span style="color:#a2f;font-weight:bold">try</span>
+    <span style="color:#666">{</span>
+        AdminMgr adminMgr <span style="color:#666">=</span> AdminMgrFactory<span style="color:#666">.</span><span style="color:#b44">createInstance</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
+        SDSet inSsdSet <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> SDSet<span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
+        inSsdSet<span style="color:#666">.</span><span style="color:#b44">setName</span><span style="color:#666">(</span> <span style="color:#b44">&#34;mySsdSetName&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+        SDSet outSsdSet <span style="color:#666">=</span> am<span style="color:#666">.</span><span style="color:#b44">deleteSsdSet</span><span style="color:#666">(</span> inSsdSet <span style="color:#666">)</span><span style="color:#666">;</span>
+    <span style="color:#666">}</span>
+    <span style="color:#a2f;font-weight:bold">catch</span> <span style="color:#666">(</span>SecurityException ex<span style="color:#666">)</span>
+    <span style="color:#666">{</span>
+        LOG<span style="color:#666">.</span><span style="color:#b44">error</span><span style="color:#666">(</span>szLocation <span style="color:#666">+</span> <span style="color:#b44">&#34; caught SecurityException rc=&#34;</span> <span style="color:#666">+</span> ex<span style="color:#666">.</span><span style="color:#b44">getErrorId</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">+</span> <span style="color:#b44">&#34;, msg=&#34;</span> <span style="color:#666">+</span> ex<span style="color:#666">.</span><span style="color:#b44">getMessage</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">,</span> ex<span style="color:#666">)</span><span style="color:#666">;</span>
+        fail<span style="color:#666">(</span>ex<span style="color:#666">.</span><span style="color:#b44">getMessage</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">)</span><span style="color:#666">;</span>
+    <span style="color:#666">}</span>
+<span style="color:#666">}</span>
+</code></pre></div>
 
             
     <div class="nav">
         <div class="nav_prev">
             
                 
-                <a href="3-configuration.html">3 - Fortress Configuration</a>
+                <a href="4.23-create-ssd-set.html">4.23 - Create SSD Set</a>
             
         </div>
         <div class="nav_up">
             
                 
-                <a href="../user-guide.html">User Guide</a>
+                <a href="4-fortress-code-samples.html">4 - Fortress Code Samples</a>
             
         </div>
         <div class="nav_next">
             
                 
-                <a href="4.1-create-session.html">4.1 - Example Creating RBAC Session</a>
+                <a href="4.25-create-dsd-set.html">4.25 - Create DSD Set</a>
             
         </div>
         <div class="clearfix"></div>
