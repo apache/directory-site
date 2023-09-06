@@ -4,7 +4,7 @@ title: Fortress Overview
 
 # Apache Fortress Overview
 
-FORTRESS is a standards-based authorization system, that provides role-based access control, delegated administration and password policy services using an LDAP backend.
+FORTRESS is an an ANSI INCITS 359 compliant Role-Based Access Control system. It provides APIs, services and web pages for performing security policy administration, review and enforcement.  
 
 ## What's in it?  
 
