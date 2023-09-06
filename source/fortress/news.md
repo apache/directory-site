@@ -13,6 +13,7 @@ Included in 3.0.0:
 - Fortress Web upgrade to Apache Wicket version 10
 - Fortress Rest upgrade to Apache CXF version 4
 - Use latest dependencies for Apache LDAP API, Spring v6, Log4j and more
+- Runs on Apache Tomcat 10 
 - More info about [Fortress v3 Jakarta Compatible](jakarta-v3.html)
 
 The Release notes:
