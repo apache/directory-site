@@ -4,7 +4,7 @@ title: News
 
 # Fortress News
 
-<h2 class="news">Apache Fortress 3.0.0 Released <em>posted on September 5th, 2023</em></h2>
+<h2 class="news">Apache Fortress 3.0.0 Released <em>posted on September 6th, 2023</em></h2>
 
 The Apache Directory Project announces the release of Fortress - 3.0.0.
 
