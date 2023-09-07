@@ -38,13 +38,12 @@ navNextText: 4.1 - Example Creating RBAC Session
 * [4.24 - Delete a Static Separation of Duty Set ](4.24-delete-ssd-set.html)
 * [4.25 - Create a Dynamic Separation of Duty Set ](4.25-create-dsd-set.html)
 * [4.26 - Delete a Dynamic Separation of Duty Set ](4.26-delete-dsd-set.html)
-
+* [4.27 - Add Static Separation of Duty Set Member ](4.27-add-ssd-member.html)
+* [4.28 - Delete Static Separation of Duty Set Member ](4.28-delete-ssd-member.html)
+* [4.29 - Add Dynamic Separation of Duty Set Member ](4.29-add-dsd-member.html)
+* [4.30 - Delete Dynamic Separation of Duty Set Member ](4.30-delete-dsd-member.html)
 
 * TODO: (more code samples):
-    * [4.27 - addSsdRoleMember]
-    * [4.28 - addDsdRoleMember]
-    * [4.29 - addSsdRoleMember]
-    * [4.30 - addDsdRoleMember]
     * [4.31 - setSsdSetCardinality]
     * [4.32 - setDsdSetCardinality]
     * [4.33 - addRoleConstraint]
