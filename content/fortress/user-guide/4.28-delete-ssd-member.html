@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>4.25 - Create DSD Set &mdash; Apache Directory</title>
+    <title>4.28 - Delete Static Separation of Duty Set Member &mdash; Apache Directory</title>
 
     <link href="/css/common.css" rel="stylesheet" type="text/css"/>
     <link href="/css/turquoise.css" rel="stylesheet" type="text/css"/>
@@ -134,7 +134,7 @@
         <div class="nav_prev">
             
                 
-                <a href="4.24-delete-ssd-set.html">4.24 - Delete SSD Set</a>
+                <a href="4.27-add-ssd-member.html">4.27 - Add SSD Set Member</a>
             
         </div>
         <div class="nav_up">
@@ -146,7 +146,7 @@
         <div class="nav_next">
             
                 
-                <a href="4.26-delete-dsd-set.html">4.26 - Delete DSD Set</a>
+                <a href="4.29-add-dsd-member.html">4.29 - Add DSD Set Member</a>
             
         </div>
         <div class="clearfix"></div>
@@ -154,58 +154,50 @@
 
 
             
-	<h1 id="425---create-a-dynamic-separation-of-duty-dsd-set">4.25 - Create a Dynamic Separation of Duty (DSD) Set</h1>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">SDSet <span style="color:#00a000">createDsdSet</span><span style="color:#666">(</span>SDSet dsdSet<span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> SecurityException
-</code></pre></div><p>This command creates a named Dynamic Separation of Duty (DSD) set of roles and sets the cardinality n of its subsets that cannot have common users.</p>
+	<h1 id="428---delete-static-separation-of-duty-ssd-set-member">4.28 - Delete Static Separation of Duty (SSD) Set Member</h1>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">SDSet <span style="color:#00a000">deleteSsdRoleMember</span><span style="color:#666">(</span> SDSet ssdSet<span style="color:#666">,</span> Role role <span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> SecurityException<span style="color:#666">;</span>
+</code></pre></div><p>This command removes a role from a named SSD set of roles. The cardinality associated with the role set remains unchanged.</p>
 <p>The command is valid if and only if:</p>
 <ul>
-<li>The name of the DSD set is not already in use.</li>
-<li>All the roles in the DSD set are members of the ROLES data set.</li>
-<li>n is a natural number greater than or equal to 2 and less than or equal to the cardinality of the DSD role set.</li>
-<li>The DSD constraint for the new role set is satisfied.</li>
+<li>The SSD role set exists.</li>
+<li>The role to be removed is a member of the SSD role set.</li>
+<li>The cardinality associated with the SSD role set is less than the number of elements of the SSD role set.</li>
 </ul>
 <p>This method:</p>
 <ul>
-<li>Adds new DSD set.</li>
-<li>affects (runtime) role activations.</li>
+<li>Removes a member from an existing SSD set.</li>
+<li>affects admin time role assignments.</li>
 </ul>
 <p>required parameters:</p>
 <ul>
-<li>SDSet#name - contains the name to use for the Set to be created.</li>
-<li>Type of SD Set - &lsquo;DYNAMIC&rsquo; (automatically set via this method).</li>
-</ul>
-<p>optional parameters:</p>
-<ul>
-<li>SDSet#members - multivalued attribute contains the RBAC Role names to be added to this set.</li>
-<li>SDSet#cardinality - default is 2 which is one more than max number of Roles that may be activated by a User from a particular set.</li>
-<li>SDSet#description - contains any safe text.</li>
+<li>SDSet#name - contains the name of Set to be modified.</li>
+<li>Type of SD Set - &lsquo;STATIC&rsquo; (automatically set via this method).</li>
+<li>Role#name - of set member targeted for removal.</li>
 </ul>
 <p>Throws:</p>
 <ul>
 <li>SecurityException - thrown in the event of data validation or system error.</li>
 </ul>
-<h2 id="createdsdset">createDsdSet</h2>
+<h2 id="deletessdrolemember">deleteSsdRoleMember</h2>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.AdminMgr</span><span style="color:#666">;</span>
 <span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.AdminMgrFactory</span><span style="color:#666">;</span>
 <span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.model.SDSet</span><span style="color:#666">;</span>
+<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.model.Role</span><span style="color:#666">;</span>
 <span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.SecurityException</span><span style="color:#666">;</span>
 
 <span style="color:#a2f">@test</span>
-<span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">static</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">testCreateDsdSet</span><span style="color:#666">(</span><span style="color:#666">)</span>
+<span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">static</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">testDeleteSsdRoleMember</span><span style="color:#666">(</span><span style="color:#666">)</span>
 <span style="color:#666">{</span>
-    String szLocation <span style="color:#666">=</span> <span style="color:#b44">&#34;.testCreateDsdSet&#34;</span><span style="color:#666">;</span>
+    String szLocation <span style="color:#666">=</span> <span style="color:#b44">&#34;.testDeleteSsdRoleMember&#34;</span><span style="color:#666">;</span>
     <span style="color:#a2f;font-weight:bold">try</span>
     <span style="color:#666">{</span>
         AdminMgr adminMgr <span style="color:#666">=</span> AdminMgrFactory<span style="color:#666">.</span><span style="color:#b44">createInstance</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
-        SDSet inDsdSet <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> SDSet<span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
-        inDsdSet<span style="color:#666">.</span><span style="color:#b44">setName</span><span style="color:#666">(</span> <span style="color:#b44">&#34;myDsdSetName&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-        inDsdSet<span style="color:#666">.</span><span style="color:#b44">setDescription</span><span style="color:#666">(</span> <span style="color:#b44">&#34;Test dynamic separation of duty set&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-        <span style="color:#080;font-style:italic">// Use existing role names:
-</span><span style="color:#080;font-style:italic"></span>        inDsdSet<span style="color:#666">.</span><span style="color:#b44">addMember</span><span style="color:#666">(</span> <span style="color:#b44">&#34;role3&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-        inDsdSet<span style="color:#666">.</span><span style="color:#b44">addMember</span><span style="color:#666">(</span> <span style="color:#b44">&#34;role4&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-        <span style="color:#080;font-style:italic">// Users may only only activate (into RBAC session) one of the roles in this set:
-</span><span style="color:#080;font-style:italic"></span>        inDsdSet<span style="color:#666">.</span><span style="color:#b44">setCardinality</span><span style="color:#666">(</span> 2 <span style="color:#666">)</span><span style="color:#666">;</span>
-        SDSet outDsdSet <span style="color:#666">=</span> am<span style="color:#666">.</span><span style="color:#b44">createDsdSet</span><span style="color:#666">(</span> inDsdSet <span style="color:#666">)</span><span style="color:#666">;</span>
+        SDSet inSsdSet <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> SDSet<span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
+        <span style="color:#080;font-style:italic">// existing set name:
+</span><span style="color:#080;font-style:italic"></span>        inSsdSet<span style="color:#666">.</span><span style="color:#b44">setName</span><span style="color:#666">(</span> <span style="color:#b44">&#34;mySsdSetName&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+        <span style="color:#080;font-style:italic">// existing role name:
+</span><span style="color:#080;font-style:italic"></span>        Role inRole <span style="color:#666">-</span> <span style="color:#a2f;font-weight:bold">new</span> Role<span style="color:#666">(</span> <span style="color:#b44">&#34;role1&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+        SDSet outSsdSet <span style="color:#666">=</span> am<span style="color:#666">.</span><span style="color:#b44">deleteSsdRoleMember</span><span style="color:#666">(</span> inSsdSet<span style="color:#666">,</span> inRole <span style="color:#666">)</span><span style="color:#666">;</span>
     <span style="color:#666">}</span>
     <span style="color:#a2f;font-weight:bold">catch</span> <span style="color:#666">(</span>SecurityException ex<span style="color:#666">)</span>
     <span style="color:#666">{</span>
@@ -220,7 +212,7 @@
         <div class="nav_prev">
             
                 
-                <a href="4.24-delete-ssd-set.html">4.24 - Delete SSD Set</a>
+                <a href="4.27-add-ssd-member.html">4.27 - Add SSD Set Member</a>
             
         </div>
         <div class="nav_up">
@@ -232,7 +224,7 @@
         <div class="nav_next">
             
                 
-                <a href="4.26-delete-dsd-set.html">4.26 - Delete DSD Set</a>
+                <a href="4.29-add-dsd-member.html">4.29 - Add DSD Set Member</a>
             
         </div>
         <div class="clearfix"></div>

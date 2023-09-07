@@ -2278,7 +2278,7 @@ The command is valid if and only if:
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://directory.apache.org/fortress/user-guide/4.23-create-ssd-set.html</guid>
-      <description>4.23 - Create a Static Separation of Duty Set SDSet createSsdSet(SDSet ssdSet) throws SecurityException This command creates a named Static Separation of Duty (SSD) set of roles and sets the cardinality n of its subsets that cannot have common users.
+      <description>4.23 - Create a Static Separation of Duty (SSD) Set SDSet createSsdSet(SDSet ssdSet) throws SecurityException This command creates a named Static Separation of Duty (SSD) set of roles and sets the cardinality n of its subsets that cannot have common users.
 The command is valid if and only if:
  The name of the SSD set is not already in use. All the roles in the SSD set are members of the ROLES data set.</description>
     </item>
@@ -2289,10 +2289,10 @@ The command is valid if and only if:
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://directory.apache.org/fortress/user-guide/4.24-delete-ssd-set.html</guid>
-      <description>4.24 - Delete a Static Separation of Duty Set SDSet deleteSsdSet(SDSet ssdSet) throws SecurityException This command deletes a SSD role set completely. The command is valid if and only if the SSD role set exists.
+      <description>4.24 - Delete a Static Separation of Duty (SSD) Set SDSet deleteSsdSet(SDSet ssdSet) throws SecurityException This command deletes a SSD role set completely. The command is valid if and only if the SSD role set exists.
 required parameters:
  SDSet#name - contains the name of SSD set to be removed.  Throws:
- SecurityException - thrown in the event of data validation or system error.  deleteSsdSet import org.apache.directory.fortress.core.AdminMgr; import org.apache.directory.fortress.core.AdminMgrFactory; import org.</description>
+ SecurityException - thrown in the event of data validation or system error.  deleteSsdSet import org.apache.directory.fortress.core.AdminMgr; import org.</description>
     </item>
     
     <item>
@@ -2301,7 +2301,7 @@ required parameters:
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://directory.apache.org/fortress/user-guide/4.25-create-dsd-set.html</guid>
-      <description>4.25 - Create a Dynamic Separation of Duty Set SDSet createDsdSet(SDSet dsdSet) throws SecurityException This command creates a named Dynamic Separation of Duty (DSD) set of roles and sets the cardinality n of its subsets that cannot have common users.
+      <description>4.25 - Create a Dynamic Separation of Duty (DSD) Set SDSet createDsdSet(SDSet dsdSet) throws SecurityException This command creates a named Dynamic Separation of Duty (DSD) set of roles and sets the cardinality n of its subsets that cannot have common users.
 The command is valid if and only if:
  The name of the DSD set is not already in use. All the roles in the DSD set are members of the ROLES data set.</description>
     </item>
@@ -2312,10 +2312,54 @@ The command is valid if and only if:
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://directory.apache.org/fortress/user-guide/4.26-delete-dsd-set.html</guid>
-      <description>4.26 - Delete a Dynamic Separation of Duty Set SDSet deleteDsdSet(SDSet ssdSet) throws SecurityException This command deletes a DSD role set completely. The command is valid if and only if the DSD role set exists.
+      <description>4.26 - Delete a Dynamic Separation of Duty (DSD) Set SDSet deleteDsdSet(SDSet ssdSet) throws SecurityException This command deletes a DSD role set completely. The command is valid if and only if the DSD role set exists.
 required parameters:
  SDSet#name - contains the name of DSD set to be removed.  Throws:
- SecurityException - thrown in the event of data validation or system error.  deleteDsdSet import org.apache.directory.fortress.core.AdminMgr; import org.apache.directory.fortress.core.AdminMgrFactory; import org.</description>
+ SecurityException - thrown in the event of data validation or system error.  deleteDsdSet import org.apache.directory.fortress.core.AdminMgr; import org.</description>
+    </item>
+    
+    <item>
+      <title>4.27 - Add Static Separation of Duty Set Member</title>
+      <link>https://directory.apache.org/fortress/user-guide/4.27-add-ssd-member.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/user-guide/4.27-add-ssd-member.html</guid>
+      <description>4.27 - Add Static Separation of Duty (SSD) Set Member SDSet addSsdRoleMember( SDSet ssdSet, Role role ) throws SecurityException; This command adds a role to a named SSD set of roles. The cardinality associated with the role set remains unchanged.
+The command is valid if and only if:
+ The SSD role set exists. The role to be added is a member of the ROLES data set but not of a member of the SSD role set.</description>
+    </item>
+    
+    <item>
+      <title>4.28 - Delete Static Separation of Duty Set Member</title>
+      <link>https://directory.apache.org/fortress/user-guide/4.28-delete-ssd-member.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/user-guide/4.28-delete-ssd-member.html</guid>
+      <description>4.28 - Delete Static Separation of Duty (SSD) Set Member SDSet deleteSsdRoleMember( SDSet ssdSet, Role role ) throws SecurityException; This command removes a role from a named SSD set of roles. The cardinality associated with the role set remains unchanged.
+The command is valid if and only if:
+ The SSD role set exists. The role to be removed is a member of the SSD role set. The cardinality associated with the SSD role set is less than the number of elements of the SSD role set.</description>
+    </item>
+    
+    <item>
+      <title>4.29 - Add Dynamic Separation of Duty Set Member</title>
+      <link>https://directory.apache.org/fortress/user-guide/4.29-add-dsd-member.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/user-guide/4.29-add-dsd-member.html</guid>
+      <description>4.29 - Add Dynamic Separation of Duty (DSD) Set Member SDSet addDsdRoleMember( SDSet ssdSet, Role role ) throws SecurityException; This command adds a role to a named DSD set of roles. The cardinality associated with the role set remains unchanged.
+The command is valid if and only if:
+ The DSD role set exists. The role to be added is a member of the ROLES data set but not of a member of the DSD role set.</description>
+    </item>
+    
+    <item>
+      <title>4.29 - Delete Dynamic Separation of Duty Set Member</title>
+      <link>https://directory.apache.org/fortress/user-guide/4.30-delete-dsd-member.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/fortress/user-guide/4.30-delete-dsd-member.html</guid>
+      <description>4.30 - Delete Dynamic Separation of Duty (DSD) Set Member SDSet deleteDsdRoleMember( SDSet ssdSet, Role role ) throws SecurityException; This command removes a role from a named DSD set of roles. The cardinality associated with the role set remains unchanged.
+The command is valid if and only if:
+ The DSD role set exists. The role to be removed is a member of the DSD role set. The cardinality associated with the DSD role set is less than the number of elements of the DSD role set.</description>
     </item>
     
     <item>
