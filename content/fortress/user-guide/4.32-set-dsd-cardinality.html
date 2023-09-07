@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>4.30 - Delete Dynamic Separation of Duty Set Member &mdash; Apache Directory</title>
+    <title>4.32 - Set Dynamic Separation of Duty Set Cardinality &mdash; Apache Directory</title>
 
     <link href="/css/common.css" rel="stylesheet" type="text/css"/>
     <link href="/css/turquoise.css" rel="stylesheet" type="text/css"/>
@@ -134,7 +134,7 @@
         <div class="nav_prev">
             
                 
-                <a href="4.29-add-dsd-member.html">4.29 - Add Dynamic Separation of Duty Set Member</a>
+                <a href="4.31-set-ssd-set-cardinality.html">4.31 - Set SSD Set Member</a>
             
         </div>
         <div class="nav_up">
@@ -145,8 +145,7 @@
         </div>
         <div class="nav_next">
             
-                
-                <a href="4.31-set-ssd-cardinality.html">4.31 - Set SSD Set Cardinality</a>
+                &nbsp;
             
         </div>
         <div class="clearfix"></div>
@@ -154,50 +153,42 @@
 
 
             
-	<h1 id="430---delete-dynamic-separation-of-duty-dsd-set-member">4.30 - Delete Dynamic Separation of Duty (DSD) Set Member</h1>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">SDSet <span style="color:#00a000">deleteDsdRoleMember</span><span style="color:#666">(</span> SDSet ssdSet<span style="color:#666">,</span> Role role <span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> SecurityException<span style="color:#666">;</span>
-</code></pre></div><p>This command removes a role from a named DSD set of roles. The cardinality associated with the role set remains unchanged.</p>
-<p>The command is valid if and only if:</p>
+	<h1 id="433---set-dynamic-separation-of-duty-dsd-set-cardinality">4.33 - Set Dynamic Separation of Duty (DSD) Set Cardinality</h1>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">SDSet <span style="color:#00a000">setDsdSetCardinality</span><span style="color:#666">(</span> SDSet dsdSet<span style="color:#666">,</span> <span style="color:#0b0;font-weight:bold">int</span> cardinality <span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> SecurityException<span style="color:#666">;</span>
+</code></pre></div><p>This command sets the cardinality associated with a given DSD role set.</p>
 <ul>
-<li>The DSD role set exists.</li>
-<li>The role to be removed is a member of the DSD role set.</li>
-<li>The cardinality associated with the DSD role set is less than the number of elements of the DSD role set.</li>
-</ul>
-<p>This method:</p>
-<ul>
-<li>Removes a member from an existing DSD set.</li>
+<li>The new cardinality is a natural number greater than or equal to 2 and less than or equal to the number of elements of the DSD role set.</li>
+<li>The DSD constraint is satisfied after setting the new cardinality.</li>
 <li>Affects (runtime) role activations.</li>
 </ul>
 <p>required parameters:</p>
 <ul>
-<li>SDSet#name - contains the name of Set to be modified.</li>
-<li>Type of SD Set - &lsquo;DYNAMIC&rsquo; (automatically set via this method).</li>
-<li>Role#name - of set member targeted for removal.</li>
+<li>SDSet#name - contains the name for the Set to be modified.</li>
+<li>cardinality - contains new cardinality setting for DSD.</li>
 </ul>
 <p>Throws:</p>
 <ul>
 <li>SecurityException - thrown in the event of data validation or system error.</li>
 </ul>
-<h2 id="deletedsdrolemember">deleteDsdRoleMember</h2>
+<h2 id="setdsdsetcardinality">setDsdSetCardinality</h2>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.AdminMgr</span><span style="color:#666">;</span>
 <span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.AdminMgrFactory</span><span style="color:#666">;</span>
 <span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.model.SDSet</span><span style="color:#666">;</span>
-<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.model.Role</span><span style="color:#666">;</span>
 <span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.SecurityException</span><span style="color:#666">;</span>
 
 <span style="color:#a2f">@test</span>
-<span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">static</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">testDeleteDsdRoleMember</span><span style="color:#666">(</span><span style="color:#666">)</span>
+<span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">static</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">testSetDsdSetCardinality</span><span style="color:#666">(</span><span style="color:#666">)</span>
 <span style="color:#666">{</span>
-    String szLocation <span style="color:#666">=</span> <span style="color:#b44">&#34;.testDeleteDsdRoleMember&#34;</span><span style="color:#666">;</span>
+    String szLocation <span style="color:#666">=</span> <span style="color:#b44">&#34;.testSetDsdSetCardinality&#34;</span><span style="color:#666">;</span>
     <span style="color:#a2f;font-weight:bold">try</span>
     <span style="color:#666">{</span>
         AdminMgr adminMgr <span style="color:#666">=</span> AdminMgrFactory<span style="color:#666">.</span><span style="color:#b44">createInstance</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
         SDSet inDsdSet <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> SDSet<span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
         <span style="color:#080;font-style:italic">// existing set name:
 </span><span style="color:#080;font-style:italic"></span>        inDsdSet<span style="color:#666">.</span><span style="color:#b44">setName</span><span style="color:#666">(</span> <span style="color:#b44">&#34;myDsdSetName&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-        <span style="color:#080;font-style:italic">// existing role name:
-</span><span style="color:#080;font-style:italic"></span>        Role inRole <span style="color:#666">-</span> <span style="color:#a2f;font-weight:bold">new</span> Role<span style="color:#666">(</span> <span style="color:#b44">&#34;role1&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-        SDSet outDsdSet <span style="color:#666">=</span> am<span style="color:#666">.</span><span style="color:#b44">deleteDsdRoleMember</span><span style="color:#666">(</span> inDsdSet<span style="color:#666">,</span> inRole <span style="color:#666">)</span><span style="color:#666">;</span>
+        <span style="color:#080;font-style:italic">// a number &gt;= 2 and &lt;= number of elements of the DSD role set.
+</span><span style="color:#080;font-style:italic"></span>        <span style="color:#0b0;font-weight:bold">int</span> cardinality <span style="color:#666">=</span> 2<span style="color:#666">;</span>
+        SDSet outDsdSet <span style="color:#666">=</span> am<span style="color:#666">.</span><span style="color:#b44">setDsdSetCardinality</span><span style="color:#666">(</span> inDsdSet<span style="color:#666">,</span> cardinality <span style="color:#666">)</span><span style="color:#666">;</span>
     <span style="color:#666">}</span>
     <span style="color:#a2f;font-weight:bold">catch</span> <span style="color:#666">(</span>SecurityException ex<span style="color:#666">)</span>
     <span style="color:#666">{</span>
@@ -212,7 +203,7 @@
         <div class="nav_prev">
             
                 
-                <a href="4.29-add-dsd-member.html">4.29 - Add Dynamic Separation of Duty Set Member</a>
+                <a href="4.31-set-ssd-set-cardinality.html">4.31 - Set SSD Set Member</a>
             
         </div>
         <div class="nav_up">
@@ -223,8 +214,7 @@
         </div>
         <div class="nav_next">
             
-                
-                <a href="4.31-set-ssd-cardinality.html">4.31 - Set SSD Set Cardinality</a>
+                &nbsp;
             
         </div>
         <div class="clearfix"></div>
