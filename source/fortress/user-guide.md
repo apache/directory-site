@@ -51,10 +51,10 @@ Contains introductory info on RBAC and how to use Fortress.
   * [4.28 - Delete Static Separation of Duty Set Member ](user-guide/4.28-delete-ssd-member.html)
   * [4.29 - Add Dynamic Separation of Duty Set Member ](user-guide/4.29-add-dsd-member.html)
   * [4.30 - Delete Dynamic Separation of Duty Set Member ](user-guide/4.30-delete-dsd-member.html)
+  * [4.31 - Set Static Separation of Duty Set Cardinality](user-guide/4.31-set-ssd-cardinality.md)
+  * [4.32 - Set Dynamic Separation of Duty Set Cardinality](user-guide/4.32-set-dsd-cardinality.md)
   
 * TODO: (more code samples):
-  * [4.31 - setSsdSetCardinality]
-  * [4.32 - setDsdSetCardinality]
   * [4.33 - addRoleConstraint]
   * [4.34 - removeRoleConstraint]
   * ...
