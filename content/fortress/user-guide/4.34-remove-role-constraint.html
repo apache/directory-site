@@ -160,14 +160,14 @@
 <ul>
 <li>The user is a member of the USERS data set.</li>
 <li>The role is a member of the ROLES data set.</li>
-<li>The user is authorized to that role and has already had a constraint applied to it.</li>
+<li>The user is assigned to the role and has a constraint applied to it.</li>
 </ul>
 <p>Required Parameters:</p>
 <ul>
 <li>UserRole#userId - the userId for an existing User.</li>
-<li>UserRole#name - contains the name of a Role that user has already been assigned to a user.</li>
+<li>UserRole#name - contains the name of a Role assigned to the User.</li>
 <li>RoleConstraint#type - type of role constraint: [USER, FILTER, OTHER].</li>
-<li>RoleConstraint#key - the name of the attribute set this constraint is applicable for.</li>
+<li>RoleConstraint#key - the name of an attribute set targeted for removal from the User-Role.</li>
 <li>RoleConstraint#value - contains the value of the role constraint.</li>
 </ul>
 <p>Throws:</p>
@@ -182,9 +182,9 @@
 <span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.model.RoleConstraint</span><span style="color:#666">;</span>
 
 <span style="color:#a2f">@test</span>
-<span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">static</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">testAddRoleConstraint</span><span style="color:#666">(</span> User user<span style="color:#666">,</span> Role role <span style="color:#666">)</span>
+<span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">static</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">testRemoveRoleConstraint</span><span style="color:#666">(</span> User user<span style="color:#666">,</span> Role role <span style="color:#666">)</span>
     <span style="color:#666">{</span>
-        String szLocation <span style="color:#666">=</span> <span style="color:#b44">&#34;.testAddRoleConstraint&#34;</span><span style="color:#666">;</span>
+        String szLocation <span style="color:#666">=</span> <span style="color:#b44">&#34;.testRemoveRoleConstraint&#34;</span><span style="color:#666">;</span>
         <span style="color:#a2f;font-weight:bold">try</span>
         <span style="color:#666">{</span>
             AdminMgr adminMgr <span style="color:#666">=</span> AdminMgrFactory<span style="color:#666">.</span><span style="color:#b44">createInstance</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
