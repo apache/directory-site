@@ -46,3 +46,4 @@ navNextText: 4.1 - Example Creating RBAC Session
 * [4.32 - Set Dynamic Separation of Duty Set Cardinality](4.32-set-dsd-cardinality.html)
 * [4.33 - Add Role Constraint](4.33-add-role-constraint.html)
 * [4.34 - Remove Role Constraint](4.34-remove-role-constraint.html)
+* [4.35 - Create Session Role Constraint](4.35-create-session-role-constraint.html)

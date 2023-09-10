@@ -55,3 +55,4 @@ Contains introductory info on RBAC and how to use Fortress.
   * [4.32 - Set Dynamic Separation of Duty Set Cardinality](user-guide/4.32-set-dsd-cardinality.html)
   * [4.33 - Add Role Constraint](user-guide/4.33-add-role-constraint.html)
   * [4.34 - Remove Role Constraint](user-guide/4.34-remove-role-constraint.html)
+  * [4.35 - Create Session Role Constraint](user-guide/4.35-create-session-role-constraint.html)
