@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>4.36 - Remove Role Constraint &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/turquoise.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/server-icon_16x16.png" />
+    <script src="https://www.apachecon.com/event-images/snippet.js"></script>
+</head>
+
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+             
+                ApacheDS
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+             
+                LDAP API
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+            
+                <strong>Fortress</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <a class="acevent" data-format="wide" data-width="170"></a>
+                <h5>Fortress</h5>
+                <ul>
+                    <li><a href="/fortress/">Home</a></li>
+                    <li><a href="/fortress/history.html">History</a></li>
+                    <li><a href="/fortress/news.html">News</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/fortress/downloads.html">Fortress 3.0.0</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/fortress/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/fortress/overview.html">Overview</a></li>
+                    <li><a href="/fortress/installation.html">Installation Guide</a></li>
+                    <li><a href="/fortress/gen-docs/latest/apidocs/">JavaDocs</a></li>
+                    <li><a href="/fortress/user-guide.html">Users Guide</a></li>
+                    <li><a href="/fortress/user-guide-advanced.html">Advanced Users Guide</a></li>
+                    <li><a href="/fortress/coding-standards.html">Coding Standards</a></li>
+                    <li><a href="/fortress/testimonials.html">Testimonials</a></li>
+                    <li><a href="/fortress/developer-guide.html">Developer Guide</a></li>
+                    
+                    
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="https://www.apache.org/">Apache</a></li>
+    <li><a href="https://www.apache.org/licenses/">License</a></li>
+    <li><a href="https://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="https://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="https://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="4.35-add-role-constraint.html">4.35 - Add Role Constraint</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="4-fortress-code-samples.html">4 - Fortress Code Samples</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="4.37-create-session-role-constraint.html">4.37 - Create Session Role Constraint</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+            
+	<h1 id="436---remove-role-constraint">4.36 - Remove Role Constraint</h1>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">RoleConstraint <span style="color:#00a000">removeRoleConstraint</span><span style="color:#666">(</span> UserRole uRole<span style="color:#666">,</span> RoleConstraint roleConstraint <span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> SecurityException<span style="color:#666">;</span>
+</code></pre></div><p>This method removes a role constraint from the user.</p>
+<p>The function is valid if and only if:</p>
+<ul>
+<li>The user is a member of the USERS data set.</li>
+<li>The role is a member of the ROLES data set.</li>
+<li>The user is assigned to the role and has a constraint applied to it.</li>
+</ul>
+<p>Required Parameters:</p>
+<ul>
+<li>UserRole#userId - the userId for an existing User.</li>
+<li>UserRole#name - contains the name of a Role assigned to the User.</li>
+<li>RoleConstraint#type - type of role constraint: [USER, FILTER, OTHER].</li>
+<li>RoleConstraint#key - the name of an attribute set targeted for removal from the User-Role.</li>
+<li>RoleConstraint#value - contains the value of the role constraint.</li>
+</ul>
+<p>Throws:</p>
+<ul>
+<li>SecurityException - is thrown if user is not allowed to activate or runtime error occurs with system.</li>
+</ul>
+<h2 id="removeroleconstraint">removeRoleConstraint</h2>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.AdminMgr</span><span style="color:#666">;</span>
+<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.AdminMgrFactory</span><span style="color:#666">;</span>
+<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.SecurityException</span><span style="color:#666">;</span>
+<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.model.UserRole</span><span style="color:#666">;</span>
+<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.model.RoleConstraint</span><span style="color:#666">;</span>
+
+<span style="color:#a2f">@test</span>
+<span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">static</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">testRemoveRoleConstraint</span><span style="color:#666">(</span> User user<span style="color:#666">,</span> Role role<span style="color:#666">,</span> String key<span style="color:#666">,</span> String value <span style="color:#666">)</span>
+    <span style="color:#666">{</span>
+        String szLocation <span style="color:#666">=</span> <span style="color:#b44">&#34;.testRemoveRoleConstraint&#34;</span><span style="color:#666">;</span>
+        <span style="color:#a2f;font-weight:bold">try</span>
+        <span style="color:#666">{</span>
+            AdminMgr adminMgr <span style="color:#666">=</span> AdminMgrFactory<span style="color:#666">.</span><span style="color:#b44">createInstance</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
+            UserRole userRole <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> UserRole<span style="color:#666">(</span> user<span style="color:#666">.</span><span style="color:#b44">getUserId</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">,</span> role<span style="color:#666">.</span><span style="color:#b44">getName</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+            RoleConstraint constraint <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> RoleConstraint<span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
+            constraint<span style="color:#666">.</span><span style="color:#b44">setType</span><span style="color:#666">(</span>RoleConstraint<span style="color:#666">.</span><span style="color:#b44">RCType</span><span style="color:#666">.</span><span style="color:#b44">USER</span><span style="color:#666">)</span><span style="color:#666">;</span>
+            constraint<span style="color:#666">.</span><span style="color:#b44">setKey</span><span style="color:#666">(</span> key <span style="color:#666">)</span><span style="color:#666">;</span>
+            constraint<span style="color:#666">.</span><span style="color:#b44">setValue</span><span style="color:#666">(</span> value <span style="color:#666">)</span><span style="color:#666">;</span>
+            RoleConstraint out <span style="color:#666">=</span> adminMgr<span style="color:#666">.</span><span style="color:#b44">removeRoleConstraint</span><span style="color:#666">(</span> userRole<span style="color:#666">,</span> constraint <span style="color:#666">)</span><span style="color:#666">;</span>
+        <span style="color:#666">}</span>
+        <span style="color:#a2f;font-weight:bold">catch</span> <span style="color:#666">(</span> SecurityException ex <span style="color:#666">)</span>
+        <span style="color:#666">{</span>
+            LOG<span style="color:#666">.</span><span style="color:#b44">error</span><span style="color:#666">(</span> szLocation <span style="color:#666">+</span> <span style="color:#b44">&#34; caught SecurityException rc=&#34;</span> <span style="color:#666">+</span> ex<span style="color:#666">.</span><span style="color:#b44">getErrorId</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">+</span> <span style="color:#b44">&#34;, msg=&#34;</span> <span style="color:#666">+</span> ex<span style="color:#666">.</span><span style="color:#b44">getMessage</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">,</span> ex <span style="color:#666">)</span><span style="color:#666">;</span>
+            fail<span style="color:#666">(</span> ex<span style="color:#666">.</span><span style="color:#b44">getMessage</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
+        <span style="color:#666">}</span>
+    <span style="color:#666">}</span>
+</code></pre></div>
+
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="4.35-add-role-constraint.html">4.35 - Add Role Constraint</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="4-fortress-code-samples.html">4 - Fortress Code Samples</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="4.37-create-session-role-constraint.html">4.37 - Create Session Role Constraint</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2023, <a href="https://www.apache.org">The Apache Software Foundation</a> - <a href="https://privacy.apache.org/policies/privacy-policy-public.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

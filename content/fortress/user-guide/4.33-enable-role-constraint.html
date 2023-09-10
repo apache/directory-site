@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>4.33 - Add Role Constraint &mdash; Apache Directory</title>
+    <title>4.33 - Enable Role Constraint &mdash; Apache Directory</title>
 
     <link href="/css/common.css" rel="stylesheet" type="text/css"/>
     <link href="/css/turquoise.css" rel="stylesheet" type="text/css"/>
@@ -146,7 +146,7 @@
         <div class="nav_next">
             
                 
-                <a href="4.34-remove-role-constraint.html">4.34 - Remove Role Constraint</a>
+                <a href="4.34-disable-role-constraint.html">4.34 - Disable Role Constraint</a>
             
         </div>
         <div class="clearfix"></div>
@@ -154,47 +154,41 @@
 
 
             
-	<h1 id="433---add-role-constraint">4.33 - Add Role Constraint</h1>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">RoleConstraint <span style="color:#00a000">addRoleConstraint</span><span style="color:#666">(</span> UserRole uRole<span style="color:#666">,</span> RoleConstraint roleConstraint <span style="color:#666">)</span>
-</code></pre></div><p>This method adds a role constraint to the user.</p>
+	<h1 id="433---enable-role-constraint">4.33 - Enable Role Constraint</h1>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a2f;font-weight:bold">public</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">enableRoleConstraint</span><span style="color:#666">(</span> Role role<span style="color:#666">,</span> RoleConstraint roleConstraint <span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> SecurityException<span style="color:#666">;</span>
+</code></pre></div><p>This method enables a role to be constrained by attributes.</p>
 <p>The function is valid if and only if:</p>
 <ul>
-<li>The user is a member of the USERS data set.</li>
 <li>The role is a member of the ROLES data set.</li>
-<li>The user is assigned to that role.</li>
 </ul>
 <p>Required Parameters:</p>
 <ul>
-<li>UserRole#userId - the userId for an existing User.</li>
-<li>UserRole#name - contains the name of a Role assigned to the User.</li>
+<li>Role#name - contains the name of a Role.</li>
 <li>RoleConstraint#type - type of role constraint: [USER, FILTER, OTHER].</li>
 <li>RoleConstraint#key - the name of an attribute set targeted for the User-Role.</li>
-<li>RoleConstraint#value - contains the value of the role constraint.</li>
 </ul>
 <p>Throws:</p>
 <ul>
 <li>SecurityException - is thrown if user is not allowed to activate or runtime error occurs with system.</li>
 </ul>
-<h2 id="addroleconstraint">addRoleConstraint</h2>
+<h2 id="enableroleconstraint">enableRoleConstraint</h2>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.AdminMgr</span><span style="color:#666">;</span>
 <span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.AdminMgrFactory</span><span style="color:#666">;</span>
 <span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.SecurityException</span><span style="color:#666">;</span>
-<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.model.UserRole</span><span style="color:#666">;</span>
+<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.model.Role</span><span style="color:#666">;</span>
 <span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.model.RoleConstraint</span><span style="color:#666">;</span>
 
 <span style="color:#a2f">@test</span>
-<span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">static</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">testAddRoleConstraint</span><span style="color:#666">(</span> User user<span style="color:#666">,</span> Role role <span style="color:#666">)</span>
+<span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">static</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">testEnableRoleConstraint</span><span style="color:#666">(</span> Role role<span style="color:#666">,</span> String key <span style="color:#666">)</span>
 <span style="color:#666">{</span>
-    String szLocation <span style="color:#666">=</span> <span style="color:#b44">&#34;.testAddRoleConstraint&#34;</span><span style="color:#666">;</span>
+    String szLocation <span style="color:#666">=</span> <span style="color:#b44">&#34;.testEnableRoleConstraint&#34;</span><span style="color:#666">;</span>
     <span style="color:#a2f;font-weight:bold">try</span>
     <span style="color:#666">{</span>
         AdminMgr adminMgr <span style="color:#666">=</span> AdminMgrFactory<span style="color:#666">.</span><span style="color:#b44">createInstance</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
-        UserRole userRole <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> UserRole<span style="color:#666">(</span> user<span style="color:#666">.</span><span style="color:#b44">getUserId</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">,</span> role<span style="color:#666">.</span><span style="color:#b44">getName</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
         RoleConstraint constraint <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> RoleConstraint<span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
         constraint<span style="color:#666">.</span><span style="color:#b44">setType</span><span style="color:#666">(</span>RoleConstraint<span style="color:#666">.</span><span style="color:#b44">RCType</span><span style="color:#666">.</span><span style="color:#b44">USER</span><span style="color:#666">)</span><span style="color:#666">;</span>        
-        constraint<span style="color:#666">.</span><span style="color:#b44">setKey</span><span style="color:#666">(</span> <span style="color:#b44">&#34;locale&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-        constraint<span style="color:#666">.</span><span style="color:#b44">setValue</span><span style="color:#666">(</span> <span style="color:#b44">&#34;north&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-        RoleConstraint out <span style="color:#666">=</span> adminMgr<span style="color:#666">.</span><span style="color:#b44">addRoleConstraint</span><span style="color:#666">(</span> userRole<span style="color:#666">,</span> constraint <span style="color:#666">)</span><span style="color:#666">;</span>
+        constraint<span style="color:#666">.</span><span style="color:#b44">setKey</span><span style="color:#666">(</span> key <span style="color:#666">)</span><span style="color:#666">;</span>
+        RoleConstraint out <span style="color:#666">=</span> adminMgr<span style="color:#666">.</span><span style="color:#b44">enableRoleConstraint</span><span style="color:#666">(</span> role<span style="color:#666">,</span> constraint <span style="color:#666">)</span><span style="color:#666">;</span>
     <span style="color:#666">}</span>
     <span style="color:#a2f;font-weight:bold">catch</span> <span style="color:#666">(</span> SecurityException ex <span style="color:#666">)</span>
     <span style="color:#666">{</span>
@@ -221,7 +215,7 @@
         <div class="nav_next">
             
                 
-                <a href="4.34-remove-role-constraint.html">4.34 - Remove Role Constraint</a>
+                <a href="4.34-disable-role-constraint.html">4.34 - Disable Role Constraint</a>
             
         </div>
         <div class="clearfix"></div>
