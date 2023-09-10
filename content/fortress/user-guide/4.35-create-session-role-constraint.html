@@ -154,14 +154,15 @@
 
             
 	<h1 id="435---create-session-role-constraint">4.35 - Create Session Role Constraint</h1>
+<h2 id="an-example-of-combining-limited-abac-capability-with-standard-rbac">An example of combining limited ABAC capability with standard RBAC.</h2>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Session <span style="color:#00a000">createSession</span><span style="color:#666">(</span> User user<span style="color:#666">,</span> List<span style="color:#666">&lt;</span>RoleConstraint<span style="color:#666">&gt;</span> constraints<span style="color:#666">,</span> <span style="color:#0b0;font-weight:bold">boolean</span> isTrusted <span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> SecurityException
-</code></pre></div><p>Perform user authentication and role activations in one method plus additional constraints for evaluation during role activation.
+</code></pre></div><p>Perform user authentication and role activations in one method plus additional attribute constraints for evaluation.
 This method must be called once per user prior to calling other methods within this class. The successful result is Session that contains target user&rsquo;s RBAC roles.
 In addition to checking user password validity it will apply configured password policy checks.</p>
 <p>Parameters:</p>
 <ul>
 <li>user - Contains User.userId, User.password (optional if isTrusted is &lsquo;true&rsquo;), optional User.roles, optional User.adminRoles</li>
-<li>constraints - list of key-value pairs, bound for role activation checks.</li>
+<li>constraints - list of key-value pairs bound for role activation checks.</li>
 <li>isTrusted - For Single-sign-on scenarios. if true, password is not required.</li>
 </ul>
 <p>Returns:</p>
