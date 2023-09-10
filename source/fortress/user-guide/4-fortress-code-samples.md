@@ -12,6 +12,7 @@ navNextText: 4.1 - Example Creating RBAC Session
 
 ## Table of content
 
+### Role-Based Access Control (RBAC)
 * [4.1 - Create Session](4.1-create-session.html)
 * [4.2 - Check Access](4.2-check-access.html)
 * [4.3 - Session Permissions](4.3-session-permissions.html)
@@ -44,6 +45,8 @@ navNextText: 4.1 - Example Creating RBAC Session
 * [4.30 - Delete Dynamic Separation of Duty Set Member ](4.30-delete-dsd-member.html)
 * [4.31 - Set Static Separation of Duty Set Cardinality](4.31-set-ssd-cardinality.html)
 * [4.32 - Set Dynamic Separation of Duty Set Cardinality](4.32-set-dsd-cardinality.html)
+
+### Attribute-Based Access Control (ABAC)
 * [4.33 - Enable Role Constraint](4.33-enable-role-constraint.html)
 * [4.34 - Disable Role Constraint](4.34-disable-role-constraint.html)
 * [4.35 - Add Role Constraint](4.35-add-role-constraint.html)

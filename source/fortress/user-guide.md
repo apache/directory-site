@@ -20,6 +20,8 @@ Contains introductory info on RBAC and how to use Fortress.
   * [2.2 - Traditional Multi-Instances architecture](user-guide/2.2-tradi-multi-instances.html)
   * [2.3 - Multitenancy under the covers](user-guide/2.3-multitenancy-under-covers.html)
 * [3 - Configuration](user-guide/3-configuration.html)
+
+### Role-Based Access Control (RBAC)
 * [4 - Code Samples](user-guide/4-fortress-code-samples.html)
   * [4.1 - Create Session](user-guide/4.1-create-session.html)
   * [4.2 - Check Access](user-guide/4.2-check-access.html)
@@ -53,6 +55,8 @@ Contains introductory info on RBAC and how to use Fortress.
   * [4.30 - Delete Dynamic Separation of Duty Set Member ](user-guide/4.30-delete-dsd-member.html)
   * [4.31 - Set Static Separation of Duty Set Cardinality](user-guide/4.31-set-ssd-cardinality.html)
   * [4.32 - Set Dynamic Separation of Duty Set Cardinality](user-guide/4.32-set-dsd-cardinality.html)
+
+### Attribute-Based Access Control (ABAC) 
   * [4.33 - Enable Role Constraint](user-guide/4.33-enable-role-constraint.html)
   * [4.34 - Disable Role Constraint](user-guide/4.34-disable-role-constraint.html)
   * [4.35 - Add Role Constraint](user-guide/4.35-add-role-constraint.html)
