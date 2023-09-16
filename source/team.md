@@ -21,7 +21,6 @@ title: Team
 | Pierre-Arnaud Marcelot | pamarcelot | PMC | ![Pierre-Arnaud Marcelot](images/team/pamarcelot.jpg) | [![Website](images/team/website.png)](http://www.pajbam.com)|[![Blog](images/team/blog.png)](http://www.pajbam.com) |
 | Radovan Semancik| semancik | PMC ||||
 | **Shawn McKinney** | smckinney | **PMC chair** | ![Shawn McKinney](images/team/smckinney.jpg) | [![Website](images/team/website.png)](https://symas.com/)|[![Blog](images/team/blog.png)](https://iamfortress.net/) |
-| Stefan Seelmann | seelmann | PMC | ![Stefan Seelmann](images/team/seelmann.jpg) | [![Website](images/team/website.png)](https://www.stefan-seelmann.de) | [![Blog](images/team/blog.png)](https://www.stefan-seelmann.de) |
 | Stefan Zoerner | szoerner | PMC | ![Stefan Zoerner](images/team/szoerner.jpg) |||
 
 # The Apache Directory Project Committers
@@ -80,6 +79,7 @@ To be continued ...
 | Norval Hope | Committer ||||
 | Ole Ersoy | Committer ||||
 | Phil Steitz | PMC ||||
+| Stefan Seelmann | seelmann | PMC | ![Stefan Seelmann](images/team/seelmann.jpg) | [![Website](images/team/website.png)](https://www.stefan-seelmann.de) | [![Blog](images/team/blog.png)](https://www.stefan-seelmann.de) |
 | Trustin Lee | PMC ||||
 | Vince Tence | PMC ||||
 | Wes McKean | PMC ||||
