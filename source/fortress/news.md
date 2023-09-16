@@ -4,20 +4,25 @@ title: News
 
 # Fortress News
 
-<h2 class="news">Apache Fortress 3.0 is Jakarta compatible <em>posted on June 26th, 2023</em></h2>
+<h2 class="news">Apache Fortress 3.0.0 Released <em>posted on September 6th, 2023</em></h2>
 
-* [Fortress v3 Jakarta Compatible](jakarta-v3.html)
+The Apache Directory Project announces the release of Fortress - 3.0.0.
+
+Included in 3.0.0:
+- Fortress Jakarta compatible
+- Fortress Web upgrade to Apache Wicket version 10
+- Fortress Rest upgrade to Apache CXF version 4
+- Use latest dependencies for Apache LDAP API, Spring v6, Log4j and more
+- Runs on Apache Tomcat 10 
+- More info about [Fortress v3 Jakarta Compatible](jakarta-v3.html)
+
+The Release notes:
+
+* <a href="https://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12315921&version=12346614">Fortress 3.0.0 Release Notes</a>
 
 <h2 class="news">Apache Fortress 2.0.8 Released <em>posted on July 22nd, 2022</em></h2>
 
 The Apache Directory Project announces the release of Fortress - 2.0.8.
-
-Included in 2.0.8:
-- Fortress Web upgrade to Apache Wicket version 9. (requires >= Java 11)
-- Use latest dependencies for Spring, Log4j, Apache CXF and more
-- Support Symas OpenLDAP 2.5 builds
-- Update OpenLDAP and ApacheDS Docker Images
-- Fix performance problem with large groups
 
 The Release notes:
 

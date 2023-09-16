@@ -4,12 +4,11 @@ title: Fortress Overview
 
 # Apache Fortress Overview
 
-FORTRESS is a standards-based authorization system, that provides role-based access control, delegated administration and password policy services using an LDAP backend.
+FORTRESS is an ANSI INCITS 359 compliant Role-Based Access Control system. It provides APIs, services and web pages for performing security policy administration, review and enforcement.  
 
 ## What's in it?  
 
 Included are the following components:
-
 * Core  - Java APIs for access control, administration and review
 * Realm - Security provider for Apache Tomcat
 * Rest  - HTTP protocol wrappers for the APIs
@@ -19,10 +18,10 @@ It's released under terms of the Apache License 2.0.
 
 ## How Does It Work?
 
-It uses a directory server to store the information about users, roles, permissions, etc.  Out-of-the-box it supports either ApacheDS or OpenLDAP servers but works with any LDAPv3 compliant system.
+It uses a directory server to store the information.  It supports either ApacheDS or OpenLDAP servers but works with any LDAPv3 compliant system.
 
 ### API usage
-Probably the best place to start is the javadoc.  To understand how RBAC works, look at the interfaces like AccessMgr, AdminMgr and ReviewMgr.  For ARBAC add 'Del' to the name - for delegated.  DelAdminMgr, DelAccessMgr, etc.  For password policies, PwPolicyMgr.
+Look at the [code samples](user-guide/4-fortress-code-samples.html) and javadoc. There are also samples in the source distro. To understand how RBAC works, look at the interfaces like AccessMgr, AdminMgr and ReviewMgr.  For ARBAC add 'Del' to the name - for delegated.  DelAdminMgr, DelAccessMgr, etc.  For password policies, PwPolicyMgr.
 
 ## What technologies at play?
 

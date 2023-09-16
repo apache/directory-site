@@ -20,6 +20,8 @@ Contains introductory info on RBAC and how to use Fortress.
   * [2.2 - Traditional Multi-Instances architecture](user-guide/2.2-tradi-multi-instances.html)
   * [2.3 - Multitenancy under the covers](user-guide/2.3-multitenancy-under-covers.html)
 * [3 - Configuration](user-guide/3-configuration.html)
+
+### Role-Based Access Control (RBAC)
 * [4 - Code Samples](user-guide/4-fortress-code-samples.html)
   * [4.1 - Create Session](user-guide/4.1-create-session.html)
   * [4.2 - Check Access](user-guide/4.2-check-access.html)
@@ -43,18 +45,20 @@ Contains introductory info on RBAC and how to use Fortress.
   * [4.20 - Delete Inheritance](user-guide/4.20-delete-inheritance.html)
   * [4.21 - Add Ascendant](user-guide/4.21-add-ascendant.html)
   * [4.22 - Add Descendant](user-guide/4.22-add-descendant.html)
-  
-* TODO: (more code samples):
-  * [4.23 - createSsdSet]  
-  * [4.24 - deleteSsdSet]  
-  * [4.25 - createDsdSet]  
-  * [4.26 - deleteDsdSet]
-  * [4.27 - addSsdRoleMember]
-  * [4.28 - addDsdRoleMember]
-  * [4.29 - addSsdRoleMember]
-  * [4.30 - addDsdRoleMember]
-  * [4.31 - setSsdSetCardinality]
-  * [4.32 - setDsdSetCardinality]
-  * [4.33 - addRoleConstraint]
-  * [4.34 - removeRoleConstraint]
-  * ...
+  * [4.23 - Create a Static Separation of Duty Set ](user-guide/4.23-create-ssd-set.html)
+  * [4.24 - Delete a Static Separation of Duty Set ](user-guide/4.24-delete-ssd-set.html)
+  * [4.25 - Create a Dynamic Separation of Duty Set ](user-guide/4.25-create-dsd-set.html)
+  * [4.26 - Delete a Dynamic Separation of Duty Set ](user-guide/4.26-delete-dsd-set.html)
+  * [4.27 - Add Static Separation of Duty Set Member ](user-guide/4.27-add-ssd-member.html)
+  * [4.28 - Delete Static Separation of Duty Set Member ](user-guide/4.28-delete-ssd-member.html)
+  * [4.29 - Add Dynamic Separation of Duty Set Member ](user-guide/4.29-add-dsd-member.html)
+  * [4.30 - Delete Dynamic Separation of Duty Set Member ](user-guide/4.30-delete-dsd-member.html)
+  * [4.31 - Set Static Separation of Duty Set Cardinality](user-guide/4.31-set-ssd-cardinality.html)
+  * [4.32 - Set Dynamic Separation of Duty Set Cardinality](user-guide/4.32-set-dsd-cardinality.html)
+
+### Attribute-Based Access Control (ABAC) 
+  * [4.33 - Enable Role Constraint](user-guide/4.33-enable-role-constraint.html)
+  * [4.34 - Disable Role Constraint](user-guide/4.34-disable-role-constraint.html)
+  * [4.35 - Add Role Constraint](user-guide/4.35-add-role-constraint.html)
+  * [4.36 - Remove Role Constraint](user-guide/4.36-remove-role-constraint.html)
+  * [4.37 - Create Session Role Constraint](user-guide/4.37-create-session-role-constraint.html)
