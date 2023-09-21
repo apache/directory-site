@@ -273,6 +273,60 @@
 <h4 id="non-schema-aware-rdn">Non Schema aware RDN</h4>
 <p>This is slightly different, because we can&rsquo;t normalize the <code>AttributeTypes</code> as <strong>OIDs</strong>.</p>
 <p>What we do is that we use the lowercase representation of the <code>AttributeTypes</code>, assuming we won&rsquo;t be able to deal with aliases (ie <code>cn</code> and <code>commonName</code> are teh same <code>AttributeTypes</code>). Then we use a lexicographic order.</p>
+<h4 id="fast-parser">Fast parser</h4>
+<p>This is a recursive descent. The <code>parser</code> method is called with three arguments:</p>
+<ul>
+<li>The schema manager (may be null)</li>
+<li>The String to parse, containing the <strong>RDN</strong></li>
+<li>The resulting <strong>RDN</strong> (the method does not return an instance)</li>
+</ul>
+<p>The reason it does not return an instance is that this method is private and is either called to validate a <strong>RDN</strong> or to parse a new <strong>RDN</strong>. In the first case, we don&rsquo;t need to return anything, in the second case we call this method from a <strong>RDN</strong> instance. As the method is static, we need to cover both cases, and passing the <strong>RDN</strong> instance cover both, either by passing <code>null</code> when we want to check the <strong>RDN</strong> validity, or <code>this</code> to create a new <strong>RDN</strong>.</p>
+<p>The <code>parse()</code> method is the entry point (see upper), and it first call the <code>FastDnParser</code> (there is no point in having one parser for <strong>DN</strong> and one for <strong>RDN</strong>, as a <strong>RDN</strong> is just a specific case of a <strong>DN</strong> with one single <strong>RDN</strong> ) and if we get an exception, calls the <code>ComplexDnParser</code>:</p>
+<pre><code>private static void parse( SchemaManager schemaManager, String rdnStr, Rdn rdn ) throws LdapInvalidDnException
+{
+    try
+    {
+        FastDnParser.parseRdn( schemaManager, rdnStr, rdn );
+    }
+    catch ( TooComplexDnException e )
+    {
+        rdn.clear();
+        new ComplexDnParser().parseRdn( schemaManager, rdnStr, rdn );
+    }
+}
+</code></pre>
+<p>The <code>parseRdn</code> method calls the <code>parseRdnInternal</code> after some initialization:</p>
+<pre><code>/* No protection*/static void parseRdn( SchemaManager schemaManager, String name, Rdn rdn ) throws LdapInvalidDnException
+{
+    if ( Strings.isEmpty( name ) )
+    {
+        throw new LdapInvalidDnException( ResultCodeEnum.INVALID_DN_SYNTAX, I18n.err( I18n.ERR_13602_RDN_EMPTY ) );
+    }
+
+    if ( rdn == null )
+    {
+        throw new LdapInvalidDnException( ResultCodeEnum.INVALID_DN_SYNTAX, I18n.err( I18n.ERR_13603_NULL_RDN ) );
+    }
+
+    Position pos = new Position();
+    pos.start = 0;
+    pos.length = name.length();
+    StringBuilder sb = new StringBuilder();
+
+    parseRdnInternal( schemaManager, name, pos, rdn );
+    
+    sb.append( rdn.getNormName() );
+}
+</code></pre>
+<p>from there, it&rsquo;s quite simple:</p>
+<ul>
+<li>check for starting spaces and get rid of them</li>
+<li>read the <code>AttributeType</code></li>
+<li>ignore the space up to the <strong>=</strong> sign</li>
+<li>skip the <strong>=</strong> sign</li>
+<li>ignore the spaces upo to the first non-space char or the end of the String</li>
+</ul>
+<h4 id="complex-parser">Complex parser</h4>
 
 
             
