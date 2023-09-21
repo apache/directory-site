@@ -255,9 +255,11 @@ Considering the extra cost of feeding the entry with the pwdPolicySubentry attri
 
 ## Operations
 
-Each operation will check if the session is still valid, 
+Each operation will check if the session is still valid, at the very beginning. The password may have expired, or being locked. 
 
-For each operationsbut bind, we check if the password is locked or expired or not yet valid. If so, we return with an error code. Basicaly, the user account should be OK. 
+Note: a use may execute an operation without being athenticated, as anonymous. The server should prevent that.
+
+For each operations but bind, we check if the password is locked or expired or not yet valid. If so, we return with an error code. Basicaly, the user account should be OK. 
 
 We will need to access the LdapPrincipal information at this stage, and it should contain the PP operational attributes for the associated user. That means the Bind operation should fetch the user, and store the data in the LdapSession. 
 If the user was already bound, then the new Bind operation will replace those data.
