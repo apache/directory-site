@@ -4483,7 +4483,10 @@ You can also install it directly in Eclipse using this update site: https://dire
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://directory.apache.org/apacheds/internal-design-guide/packaging/packaging.html</guid>
-      <description>Packaging </description>
+      <description>Packaging Apache Directory Server is packaged in many flavvors:
+ As a pure linux binary As a Debian dep file As a RedHat RPM file As a Mac OS installer As a Winwosw installer As a docker installer As a source archive  We are going to explain how each of those packages are created.
+Generalities We use two sub-modules for the installer:
+ The apacheds-installers-maven-plugin which is a Maven plugin used to create the various packages The apacheds-installers which is creatinhg the packages  The apacheds-installers project defines each of the target in its pom.</description>
     </item>
     
     <item>
@@ -5140,6 +5143,15 @@ In English:  http://www.eclipseplugincentral.com/Web_Links-index-req-viewlink-ci
       <description>Testimonials This page collects testimonies from Apache Directory Server users, and expose what they are using it for.
   The openthinclient.org project uses ADS as an embedded directory server to store all kinds of configuration data. http://openthinclient.org is an open source thin client management solution allowing thin clients to boot from the network via using a single pure-java server.
   Mitchell Robson, founder of nicefonts.com: &amp;ldquo;As a developer, I first discovered the power of Apache Directory when seeking an efficient solution for managing directory services.</description>
+    </item>
+    
+    <item>
+      <title>Top Level Management Policy</title>
+      <link>https://directory.apache.org/top-level-mgmt.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/top-level-mgmt.html</guid>
+      <description>Top Level Management Policy What is the TLP POM? The top level Maven Project Object Model (POM) for Directory is used to centralize information about the Directory Project which is common to all projects at the TLP. It can be used in the POM inheritance tree to make sure subprojects use the appropriate repositories and contain the same information that can be managed centrally rather than duplicated in every subproject&amp;rsquo;s master POM file.</description>
     </item>
     
     <item>

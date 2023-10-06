@@ -129,6 +129,99 @@
 
             
 	<h1 id="packaging">Packaging</h1>
+<p><em>Apache Directory Server</em> is packaged in many flavvors:</p>
+<ul>
+<li>As a pure <em>linux</em> binary</li>
+<li>As a <em>Debian</em> <em>dep</em> file</li>
+<li>As a <em>RedHat</em> <em>RPM</em> file</li>
+<li>As a <em>Mac OS</em> installer</li>
+<li>As a <em>Winwosw</em> installer</li>
+<li>As a <em>docker</em> installer</li>
+<li>As a source archive</li>
+</ul>
+<p>We are going to explain how each of those packages are created.</p>
+<h2 id="generalities">Generalities</h2>
+<p>We use two sub-modules for the installer:</p>
+<ul>
+<li>The <em>apacheds-installers-maven-plugin</em> which is a <em>Maven</em> plugin used to create the various packages</li>
+<li>The <em>apacheds-installers</em> which is creatinhg the packages</li>
+</ul>
+<p>The <em>apacheds-installers</em> project defines each of the target in its <em>pom.xml</em> file. For instance, for the <em>Debian</em> installer, we will use this configuration:</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml">    <span style="color:#008000;font-weight:bold">&lt;profile</span><span style="color:#008000;font-weight:bold">&gt;</span>
+      <span style="color:#008000;font-weight:bold">&lt;id</span><span style="color:#008000;font-weight:bold">&gt;</span>debian<span style="color:#008000;font-weight:bold">&lt;/id&gt;</span>
+      <span style="color:#008000;font-weight:bold">&lt;build</span><span style="color:#008000;font-weight:bold">&gt;</span>
+        <span style="color:#008000;font-weight:bold">&lt;plugins</span><span style="color:#008000;font-weight:bold">&gt;</span>
+          <span style="color:#080;font-style:italic">&lt;!--</span><span style="color:#080;font-style:italic"> Generating installers </span><span style="color:#080;font-style:italic">--&gt;</span>
+          <span style="color:#008000;font-weight:bold">&lt;plugin</span><span style="color:#008000;font-weight:bold">&gt;</span>
+            <span style="color:#008000;font-weight:bold">&lt;groupId</span><span style="color:#008000;font-weight:bold">&gt;</span>${project.groupId}<span style="color:#008000;font-weight:bold">&lt;/groupId&gt;</span>
+            <span style="color:#008000;font-weight:bold">&lt;artifactId</span><span style="color:#008000;font-weight:bold">&gt;</span>apacheds-installers-maven-plugin<span style="color:#008000;font-weight:bold">&lt;/artifactId&gt;</span>
+            <span style="color:#008000;font-weight:bold">&lt;configuration</span><span style="color:#008000;font-weight:bold">&gt;</span>
+              <span style="color:#080;font-style:italic">&lt;!--</span><span style="color:#080;font-style:italic"> Targets for Linux .deb installer package </span><span style="color:#080;font-style:italic">--&gt;</span>
+              <span style="color:#008000;font-weight:bold">&lt;debTargets</span><span style="color:#008000;font-weight:bold">&gt;</span>
+                <span style="color:#008000;font-weight:bold">&lt;debTarget</span><span style="color:#008000;font-weight:bold">&gt;</span>
+                  <span style="color:#008000;font-weight:bold">&lt;id</span><span style="color:#008000;font-weight:bold">&gt;</span>apacheds-debian-i386<span style="color:#008000;font-weight:bold">&lt;/id&gt;</span>
+                  <span style="color:#008000;font-weight:bold">&lt;finalName</span><span style="color:#008000;font-weight:bold">&gt;</span>apacheds-${project.version}-i386.deb<span style="color:#008000;font-weight:bold">&lt;/finalName&gt;</span>
+                  <span style="color:#008000;font-weight:bold">&lt;osArch</span><span style="color:#008000;font-weight:bold">&gt;</span>i386<span style="color:#008000;font-weight:bold">&lt;/osArch&gt;</span>
+                <span style="color:#008000;font-weight:bold">&lt;/debTarget&gt;</span>
+                
+                <span style="color:#008000;font-weight:bold">&lt;debTarget</span><span style="color:#008000;font-weight:bold">&gt;</span>
+                 <span style="color:#008000;font-weight:bold">&lt;id</span><span style="color:#008000;font-weight:bold">&gt;</span>apacheds-debian-amd64<span style="color:#008000;font-weight:bold">&lt;/id&gt;</span>
+                  <span style="color:#008000;font-weight:bold">&lt;finalName</span><span style="color:#008000;font-weight:bold">&gt;</span>apacheds-${project.version}-amd64.deb<span style="color:#008000;font-weight:bold">&lt;/finalName&gt;</span>
+                  <span style="color:#008000;font-weight:bold">&lt;osArch</span><span style="color:#008000;font-weight:bold">&gt;</span>amd64<span style="color:#008000;font-weight:bold">&lt;/osArch&gt;</span>
+                <span style="color:#008000;font-weight:bold">&lt;/debTarget&gt;</span>
+              <span style="color:#008000;font-weight:bold">&lt;/debTargets&gt;</span>
+            <span style="color:#008000;font-weight:bold">&lt;/configuration&gt;</span>
+
+            <span style="color:#008000;font-weight:bold">&lt;executions</span><span style="color:#008000;font-weight:bold">&gt;</span>
+              <span style="color:#008000;font-weight:bold">&lt;execution</span><span style="color:#008000;font-weight:bold">&gt;</span>
+                <span style="color:#008000;font-weight:bold">&lt;goals</span><span style="color:#008000;font-weight:bold">&gt;</span>
+                  <span style="color:#008000;font-weight:bold">&lt;goal</span><span style="color:#008000;font-weight:bold">&gt;</span>generate<span style="color:#008000;font-weight:bold">&lt;/goal&gt;</span>
+                <span style="color:#008000;font-weight:bold">&lt;/goals&gt;</span>
+              <span style="color:#008000;font-weight:bold">&lt;/execution&gt;</span>
+            <span style="color:#008000;font-weight:bold">&lt;/executions&gt;</span>
+          <span style="color:#008000;font-weight:bold">&lt;/plugin&gt;</span>
+        <span style="color:#008000;font-weight:bold">&lt;/plugins&gt;</span>
+        
+        <span style="color:#008000;font-weight:bold">&lt;pluginManagement</span><span style="color:#008000;font-weight:bold">&gt;</span>
+          <span style="color:#008000;font-weight:bold">&lt;plugins</span><span style="color:#008000;font-weight:bold">&gt;</span>
+            <span style="color:#008000;font-weight:bold">&lt;plugin</span><span style="color:#008000;font-weight:bold">&gt;</span>
+              <span style="color:#008000;font-weight:bold">&lt;groupId</span><span style="color:#008000;font-weight:bold">&gt;</span>${project.groupId}<span style="color:#008000;font-weight:bold">&lt;/groupId&gt;</span>
+              <span style="color:#008000;font-weight:bold">&lt;artifactId</span><span style="color:#008000;font-weight:bold">&gt;</span>apacheds-installers-maven-plugin<span style="color:#008000;font-weight:bold">&lt;/artifactId&gt;</span>
+              <span style="color:#008000;font-weight:bold">&lt;version</span><span style="color:#008000;font-weight:bold">&gt;</span>${project.version}<span style="color:#008000;font-weight:bold">&lt;/version&gt;</span>
+            <span style="color:#008000;font-weight:bold">&lt;/plugin&gt;</span>
+          <span style="color:#008000;font-weight:bold">&lt;/plugins&gt;</span>
+        <span style="color:#008000;font-weight:bold">&lt;/pluginManagement&gt;</span>
+      <span style="color:#008000;font-weight:bold">&lt;/build&gt;</span>
+    <span style="color:#008000;font-weight:bold">&lt;/profile&gt;</span>
+</code></pre></div><p>We can see we have defined a specific profile for this package, <em>debian</em>, and that the <em>apacheds-installers-maven-plugin</em> plugin is configured to support two kinds of packages (<em>osArch</em> parameter):</p>
+<ul>
+<li>A <em>i386</em> package</li>
+<li>An <em>amd64</em> packager</li>
+</ul>
+<p>We also set the <em>finalName</em> with the package name.</p>
+<p>The <em>Maven</em> goal we call is named <em>generate</em>.</p>
+<p>In Java, we will have one class per target, extending the parent <em>Target</em> class.</p>
+<p>The <em>Target</em> parent class stores the target <em>id</em>, <em>architecture</em>, <em>OS</em> and the final file name. Each inheriting class stores the path to the tool to use to generate the installer:</p>
+<ul>
+<li><em>dpkg</em> for the <em>Debian</em> installer (defaults to <em>/usr/bin/dpkg</em>)</li>
+<li><em>rpmbuild</em> for the <em>RedHat</em> installer (defaults to <em>/usr/bin/rpmbuild</em>)</li>
+<li>TODO: Mac, Windows</li>
+</ul>
+<p>We use a default value, hard coded in the extended class, but this value can be ovveriden by the <em>pom.xml</em> configuration, and overriden by the use of a <em>-D</em> flag on teh command line (which has the highest level of precedence).</p>
+<p>Each extended class implements the <em>execute()</em> method which is responsible for calling an <em>InstallerCommand</em> class. These classes are teh one which create the packages.</p>
+<h2 id="linux-debian">Linux Debian</h2>
+<p>The debian configuration is managed by the <em>DebTarget.java</em> file, which sets one specific parameneter:</p>
+<ul>
+<li><em>OsName</em> set to <em>Linux</em></li>
+</ul>
+<p>The three other parameters are declared in the <em>pom.xml</em> file:</p>
+<ul>
+<li><em>id</em> set to <em>apacheds-debian-i386</em> or apacheds-debian-amd64*</li>
+<li><em>OsArch</em> set to <em>i386</em> or <em>i386</em> (see upper).</li>
+<li><em>finalName</em> is set to <em>apacheds-<version>-i386.deb</em> or <em>apacheds-<version>-amd64.deb</em></li>
+</ul>
+<p>(They do have default value, which get overriden by configuration).</p>
+<p>A <em>DebInstallerCommand</em> instance is created and its <em>execute()</em> method is called.</p>
 
 
             
