@@ -56,7 +56,7 @@ $ mvn release:prepare
 
 When asked for the SCM release tag please remove the project prefix, the version number is enough.
 
-This creates a tag here: https://github.com/apache/directory-project/tree
+This creates a tag [here](https://github.com/apache/directory-project/tags)
 
 * Stage the release
 
