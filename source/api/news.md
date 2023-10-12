@@ -4,6 +4,20 @@ title: News
 
 # News 
 
+<h2 class="news">Apache Directory LDAP API 2.1.5 released <em>posted on October 12th, 2023</em></h2>
+
+The Apache Directory Team is proud to announce the availability of version 2.1.5 of the Apache Directory LDAP API.
+
+The Apache Directory LDAP API is an ongoing effort to provide an enhanced LDAP API, as a replacement for JNDI and the existing LDAP API (jLdap and Mozilla LDAP API).
+
+This is a schema aware API, with some convenient ways to access a LDAP server. This API is not only targeting the Apache Directory Server, but should work pristine with any LDAP server.
+
+It's also an extensible API : new Controls, schema elements and network layer could be added or used in the near future. It's also OSGi capable.
+
+This is a 'technical' release, mostly bumping up dependencies, in order to use the latest versions of them. We needed to get this release out for the **Apache Directory Server** release that will come in the next few days.
+
+Downloads are available [here](downloads-2.html) and the User's Guide is [there](user-guide.html)
+
 <h2 class="news">Apache Directory LDAP API 2.1.4 released <em>posted on August 29th, 2023</em></h2>
 
 The Apache Directory Team is proud to announce the availability of version 2.1.4 of the Apache Directory LDAP API.
