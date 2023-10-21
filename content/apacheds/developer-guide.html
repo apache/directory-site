@@ -82,7 +82,7 @@
 
                 <h5>Downloads</h5>
                 <ul>
-                    <li><a href="/apacheds/downloads.html">ApacheDS 2.0.0.AM26</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/apacheds/downloads.html">ApacheDS 2.0.0.AM27</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
                     <li><a href="/apacheds/download-old-versions.html">Older versions</a></li>
                 </ul>
 
@@ -420,45 +420,33 @@ $
 </code></pre></div><p>The packages should now be available on <a href="https://www.apache.org/dist/directory/apacheds/dist/">https://www.apache.org/dist/directory/apacheds/dist/</a><version></p>
 <h5 id="deploy-the-javadocs-and-xref">Deploy the Javadocs and XRef</h5>
 <p>We now can deploy the generated Javadoc and cross-reference pages. They are generated in the following directory :</p>
-<pre><code>target/checkout/target/site
-</code></pre>
+<p>target/checkout/target/site</p>
 <p>We will copy two directories :</p>
-<pre><code>apidocs
-xref
-</code></pre>
-<p><em>Staging or Production?</em></p>
-<p>Those files will be stored on the production server only !!! And some extra caution must be taken not to delete them when we will publish the staging site too&hellip;</p>
-<p>First of all, you must checkout the two CMS store for the site : staging and revision.</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ <span style="color:#a2f">cd</span> ~/apacheds
-$ svn co https://svn.apache.org/repos/infra/websites/staging/directory/trunk staging
-...
-$ svn co https://svn.apache.org/repos/infra/websites/production/directory production
-...
-</code></pre></div><p>Now, you will first add the directory for the newly generated version :</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ <span style="color:#a2f">cd</span> ~/apacheds/production/content/apacheds/gen-docs
-$ mkdir &lt;version&gt;
-</code></pre></div><p>Then copy the generated docs :</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cp -r ~/apacheds/trunks/apacheds/target/checkout/target/site/apidocs ~/apacheds/production/content/apacheds/gen-docs/&lt;version&gt;
-$ cp -r ~/apacheds/trunks/apacheds/target/checkout/target/site/xref ~/apacheds/production/content/apacheds/gen-docs/&lt;version&gt;
-</code></pre></div><p>You have to check in those directories :</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ svn add &lt;version&gt;
-$ svn ci &lt;version&gt; -m <span style="color:#b44">&#34;Injected &lt;version&gt; javadocs&#34;</span>
-</code></pre></div><p>Now, you have to update the staging site, but first, do a <em>svn up</em>. Then you have to update the <em>extpaths.txt</em> file.</p>
-<p>This file list the files on the production site that will not be overriden by the publication of the staging site. It has to be updated.</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ <span style="color:#a2f">cd</span> ~/apacheds/staging/content/
-$ vi extpaths.txt
-</code></pre></div><p>Add the following line :</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">...
-# Apacheds
-apacheds/gen-docs/&lt;version&gt;
-...
-</code></pre></div><p>then save and check in the file.</p>
-<p>We also have to update the <em>.htaccess</em> file :</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ <span style="color:#a2f">cd</span> ~/apacheds/staging/content/apacheds/gen-docs
-$ vi .htaccess
-</code></pre></div><p>And update the two last lines to refer to the version you&rsquo;ve just released :</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">RewriteRule ^latest$ &lt;version&gt;/
-RewriteRule ^latest/<span style="color:#666">(</span>.*<span style="color:#666">)</span>$ &lt;version&gt;/<span style="color:#b8860b">$1</span>
+<ul>
+<li>apidocs</li>
+<li>xref</li>
+</ul>
+<p>They are uploaded to <a href="https://nightlies.apache.org/">https://nightlies.apache.org/</a> via WebDAV protocol.</p>
+<p>First create the folders for the version:</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ curl -u &lt;your asf id&gt; -X MKCOL <span style="color:#b44">&#39;https://nightlies.apache.org/directory/apacheds/&lt;version&gt;/&#39;</span>
+$ curl -u &lt;your asf id&gt; -X MKCOL <span style="color:#b44">&#39;https://nightlies.apache.org/directory/apacheds/&lt;version&gt;/apidocs&#39;</span>
+$ curl -u &lt;your asf id&gt; -X MKCOL <span style="color:#b44">&#39;https://nightlies.apache.org/directory/apacheds/&lt;version&gt;/xref&#39;</span>
+</code></pre></div><p>I used Rclone to copy folders via WebDAV.</p>
+<p>After intallation run rclone config and configure the nightlies connection:</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ rclone config
+name: nightlies
+type: webdav
+url: https://nightlies.apache.org
+vendor: other
+user: yourasfid
+pass: yourasfpassword <span style="color:#666">(</span>will be stored encrypted<span style="color:#666">)</span>
+</code></pre></div><p>Then copy the directories:</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#a2f">cd</span> target/checkout/target/site
+rclone copy --progress apidocs nightlies:/directory/apacheds/&lt;version&gt;/apidocs
+rclone copy --progress xref nightlies:/directory/apacheds/&lt;version&gt;/xref
+</code></pre></div><p>Finally update the links in the static/apacheds/gen-docs/.htaccess of the directory-site repo:</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">RewriteRule ^latest$ https://nightlies.apache.org/directory/apacheds/&lt;version&gt;/ [QSA,L]
+RewriteRule ^latest/(.*)$ https://nightlies.apache.org/directory/apacheds/&lt;version&gt;/$1 [QSA,L]
 </code></pre></div><p>Save and commit the file.</p>
 <h5 id="update-the-web-site">Update the web site</h5>
 <p>You can now update the site, add a news on the front page, and publish the site.</p>
@@ -469,6 +457,7 @@ RewriteRule ^latest/<span style="color:#666">(</span>.*<span style="color:#666">
 <li>/source/apacheds/news.md : add the news on top of this page</li>
 <li>/source/apacheds/download-old-versions.md : add a new line on top of the array, which refers to the latest version before the new one</li>
 </ul>
+<p>PS: You can check the result of your modification on <a href="https://builds.apache.org/job/Directory/job/site/">the build system</a>. If you have made an error, the web site won&rsquo;t be updated, without notice, but there!</p>
 <p>Commit the changes, and publish the web site, you are done !</p>
 <h5 id="inform-the-world-">Inform the world !</h5>
 <p>After 24h, you can now inform the world about the release.</p>
