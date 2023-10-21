@@ -506,6 +506,8 @@ There are a few places to modify :
 * /source/apacheds/news.md : add the news on top of this page
 * /source/apacheds/download-old-versions.md : add a new line on top of the array, which refers to the latest version before the new one
 
+PS: You can check the result of your modification on [the build system](https://builds.apache.org/job/Directory/job/site/). If you have made an error, the web site won't be updated, without notice, but there!
+
 Commit the changes, and publish the web site, you are done !
 
 ##### Inform the world !
