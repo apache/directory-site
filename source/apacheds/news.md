@@ -3,6 +3,69 @@ title: News
 ---
 
 # News
+<h2 class="news">ApacheDS 2.0.0.AM27 released <em>posted on October 21th, 2023</em></h2>
+
+The Apache Directory team is pleased to announce the release of ApacheDS 2.0.0.AM27, the 27th milestone towards a 2.0 version.
+
+ApacheDS is an extensible and embeddable directory server entirely written in Java, which has been certified LDAPv3 compatible by the Open Group. Besides LDAP it supports Kerberos 5 and the Change Password Protocol. It has been designed to introduce triggers, stored procedures, queues and views to the world of LDAP which has lacked these rich constructs.
+
+Downloads are available [here](downloads.html)
+
+This is a major and long expected release of ApacheDS. It brings many bug fixes (29). We foxused on fixing issues on newer versions of Java (11 and 17 are now supported), migrating Junit tests to version 5, mitigiate the Log4j security vulnerability.
+
+The Kerberos subsystem has been removed from the server, as [*Apache Kerby*](https://directory.apache.org/kerby/) is already providing a maintained and updated Kezrberos server.
+
+It uses the Apache LDAP API 2.1.5 release, and *TLS 1.3* is now supported.
+
+Here is the release note for Apache Directory ApacheDS 2.0.0.AM27:
+
+<b>Bugs :</b>
+
+* [DIRSERVER-1091](https://issues.apache.org/jira/browse/DIRSERVER-1091) - not Support multiple resource record answers caused by ResourceRecordImpl's error equals method   
+* [DIRSERVER-1632](https://issues.apache.org/jira/browse/DIRSERVER-1632) - Setting SASL QoP to 'auth-int' or 'auth-conf' while connecting using the LDAP API fails and throws a decoder exception
+* [DIRSERVER-1670](https://issues.apache.org/jira/browse/DIRSERVER-1670) - DIGEST-MD5 authentication mechanism must support encryption
+* [DIRSERVER-1951](https://issues.apache.org/jira/browse/DIRSERVER-1951) - Maven build on windows is flakey
+* [DIRSERVER-2162](https://issues.apache.org/jira/browse/DIRSERVER-2162) - Searching for users using ObjectClass=person takes long   
+* [DIRSERVER-2176](https://issues.apache.org/jira/browse/DIRSERVER-2176) - Thread leak from LdapServer    Unassigned    Resolved
+* [DIRSERVER-2223](https://issues.apache.org/jira/browse/DIRSERVER-2223) - JDK 9 ldaps does not work   
+* [DIRSERVER-2252](https://issues.apache.org/jira/browse/DIRSERVER-2252) - Controls are not properly passed back to the client   
+* [DIRSERVER-2286](https://issues.apache.org/jira/browse/DIRSERVER-2286) - Apacheds service will not start if kerberos is enable
+* [DIRSERVER-2301](https://issues.apache.org/jira/browse/DIRSERVER-2301) - Apache DS 2.0.0.AM26 Maven install fails with Unkown JVM/keysize   
+* [DIRSERVER-2302](https://issues.apache.org/jira/browse/DIRSERVER-2302) - Doing a search with a filter containing (objectClass=top) fails
+* [DIRSERVER-2303](https://issues.apache.org/jira/browse/DIRSERVER-2303) - ApplyLdifs treats entries with case sensitivity    
+* [DIRSERVER-2308](https://issues.apache.org/jira/browse/DIRSERVER-2308) - Moddn overrides existing entry   
+* [DIRSERVER-2309](https://issues.apache.org/jira/browse/DIRSERVER-2309) - DefaultDirectoryService#addAfter adds interceptor before the given one
+* [DIRSERVER-2322](https://issues.apache.org/jira/browse/DIRSERVER-2322) - ApacheDS default server instance not starting - Error 1067
+* [DIRSERVER-2326](https://issues.apache.org/jira/browse/DIRSERVER-2326) - LDAP server doesn't start on IBM JDK 8 (NoClassDefFound)
+* [DIRSERVER-2332](https://issues.apache.org/jira/browse/DIRSERVER-2332) - Unexpected Session Termination (nslcd - libpam-ldapd 
+* [DIRSERVER-2347](https://issues.apache.org/jira/browse/DIRSERVER-2347) - Incorrect Password Modify response (extended response)
+* [DIRSERVER-2359](https://issues.apache.org/jira/browse/DIRSERVER-2359) - Search request results in OPERATIONS_ERROR due NPE   
+* [DIRSERVER-2362](https://issues.apache.org/jira/browse/DIRSERVER-2362) - ApacheDS 2.0.0-M17 references older log4j that has security vulnerabilities
+
+
+<b>Improvements :</b>
+
+* [DIRSERVER-2305](https://issues.apache.org/jira/browse/DIRSERVER-2305) - Delete Control seen as support in the RootDSE    
+* [DIRSERVER-2327](https://issues.apache.org/jira/browse/DIRSERVER-2327) - Add possibility to use custom ReplayCache implementation
+* [DIRSERVER-2338](https://issues.apache.org/jira/browse/DIRSERVER-2338) - Using a static IV in symmetric encryption with CBC mode
+* [DIRSERVER-2370](https://issues.apache.org/jira/browse/DIRSERVER-2370) - Error under java17
+
+
+<b>Tasks :</b>
+
+* [DIRSERVER-1223](https://issues.apache.org/jira/browse/DIRSERVER-1223) - @Ignore annotation on both core and server integ causes tests to stop
+* [DIRSERVER-2328](https://issues.apache.org/jira/browse/DIRSERVER-2328) - CreateAuthenticator annotation trust manager improvements
+* [DIRSERVER-2329](https://issues.apache.org/jira/browse/DIRSERVER-2329) - Replication trust manager improvements
+* [DIRSERVER-2330](https://issues.apache.org/jira/browse/DIRSERVER-2330) - StartTlsHandler and LdapsInitializer use NoVerificationTrustManager
+* [DIRSERVER-2372](https://issues.apache.org/jira/browse/DIRSERVER-2372) - Remove the Kerberos server from the Directory Server
+
+
+<b>Tests :</b>
+
+* [DIRSERVER-1847]](https://issues.apache.org/jira/browse/DIRSERVER-1847) - Introduce time provider for time dependent tests
+
+
+
 <h2 class="news">ApacheDS 2.0.0.AM26 released <em>posted on March 7th, 2020</em></h2>
 
 The Apache Directory team is pleased to announce the release of ApacheDS 2.0.0.AM26, the 26th milestone towards a 2.0 version.

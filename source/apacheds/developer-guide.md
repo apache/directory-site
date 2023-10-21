@@ -447,80 +447,50 @@ The packages should now be available on https://www.apache.org/dist/directory/ap
 
 We now can deploy the generated Javadoc and cross-reference pages. They are generated in the following directory :
 
-    target/checkout/target/site
+target/checkout/target/site
 
 We will copy two directories :
 
-    apidocs
-    xref
+* apidocs
+* xref
 
-*Staging or Production?*
+They are uploaded to https://nightlies.apache.org/ via WebDAV protocol.
 
-Those files will be stored on the production server only !!! And some extra caution must be taken not to delete them when we will publish the staging site too...
-
-First of all, you must checkout the two CMS store for the site : staging and revision.
+First create the folders for the version:
 
 ```bash
-$ cd ~/apacheds
-$ svn co https://svn.apache.org/repos/infra/websites/staging/directory/trunk staging
-...
-$ svn co https://svn.apache.org/repos/infra/websites/production/directory production
-...
+$ curl -u <your asf id> -X MKCOL 'https://nightlies.apache.org/directory/apacheds/<version>/'
+$ curl -u <your asf id> -X MKCOL 'https://nightlies.apache.org/directory/apacheds/<version>/apidocs'
+$ curl -u <your asf id> -X MKCOL 'https://nightlies.apache.org/directory/apacheds/<version>/xref'
 ```
 
-Now, you will first add the directory for the newly generated version :
+I used Rclone to copy folders via WebDAV.
+
+After intallation run rclone config and configure the nightlies connection:
 
 ```bash
-$ cd ~/apacheds/production/content/apacheds/gen-docs
-$ mkdir <version>
+$ rclone config
+name: nightlies
+type: webdav
+url: https://nightlies.apache.org
+vendor: other
+user: yourasfid
+pass: yourasfpassword (will be stored encrypted)
 ```
 
-Then copy the generated docs :
+Then copy the directories:
 
 ```bash
-$ cp -r ~/apacheds/trunks/apacheds/target/checkout/target/site/apidocs ~/apacheds/production/content/apacheds/gen-docs/<version>
-$ cp -r ~/apacheds/trunks/apacheds/target/checkout/target/site/xref ~/apacheds/production/content/apacheds/gen-docs/<version>
+cd target/checkout/target/site
+rclone copy --progress apidocs nightlies:/directory/apacheds/<version>/apidocs
+rclone copy --progress xref nightlies:/directory/apacheds/<version>/xref
 ```
 
-You have to check in those directories :
-
-```bash
-$ svn add <version>
-$ svn ci <version> -m "Injected <version> javadocs"
-```
-
-Now, you have to update the staging site, but first, do a <em>svn up</em>. Then you have to update the <em>extpaths.txt</em> file.
-
-This file list the files on the production site that will not be overriden by the publication of the staging site. It has to be updated.
-
-```bash
-$ cd ~/apacheds/staging/content/
-$ vi extpaths.txt
-```
-
-Add the following line :
+Finally update the links in the static/apacheds/gen-docs/.htaccess of the directory-site repo:
 
 ```text
-...
-# Apacheds
-apacheds/gen-docs/<version>
-...
-```
-
-then save and check in the file.
-
-We also have to update the <em>.htaccess</em> file :
-
-```bash
-$ cd ~/apacheds/staging/content/apacheds/gen-docs
-$ vi .htaccess
-```
-
-And update the two last lines to refer to the version you've just released :
-
-```bash
-RewriteRule ^latest$ <version>/
-RewriteRule ^latest/(.*)$ <version>/$1
+RewriteRule ^latest$ https://nightlies.apache.org/directory/apacheds/<version>/ [QSA,L]
+RewriteRule ^latest/(.*)$ https://nightlies.apache.org/directory/apacheds/<version>/$1 [QSA,L]
 ```
 
 Save and commit the file.
