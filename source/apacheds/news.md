@@ -11,7 +11,7 @@ ApacheDS is an extensible and embeddable directory server entirely written in Ja
 
 Downloads are available [here](downloads.html)
 
-This is a major and long expected release of ApacheDS. It brings many bug fixes (29). We foxused on fixing issues on newer versions of Java (11 and 17 are now supported), migrating Junit tests to version 5, mitigiate the Log4j security vulnerability.
+This is a major and long expected release of ApacheDS. It brings many bug fixes (29). We focused on fixing issues with newer versions of Java (11 and 17 are now supported), migrating Junit tests to version 5, mitigating the Log4j security vulnerability.
 
 The Kerberos subsystem has been removed from the server, as [*Apache Kerby*](https://directory.apache.org/kerby/) is already providing a maintained and updated Kezrberos server.
 
