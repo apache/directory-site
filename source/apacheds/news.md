@@ -2,6 +2,9 @@
 title: News
 ---
 
+NOTE: On the latest Apache DS release (2.0.0.AM27), the attached packages have been created with teh wrong version (2.0.0.AM28-SNAPSHOT).
+Those packages are really for 2.0.0.ALM27, but where built using the Apache Jenkins service, which kicked in *after* the release, when the version was already bumped to AM28. This will be fixed in teh next release. Sorry for the inconvenience.
+
 # News
 <h2 class="news">ApacheDS 2.0.0.AM27 released <em>posted on October 21th, 2023</em></h2>
 
