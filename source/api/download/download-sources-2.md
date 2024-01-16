@@ -33,7 +33,7 @@ title: Downloads for Sources
                     </a>
                 </td>
                 <td align="right">
-                    [<a href="https://downloads.apache.org/directory/api/dist/{{< param version_api2 >}}/apache-ldap-api-{{< param version_api2 >}}-src.zip.asc">ASC</a>-<a href="https://downloads.apache.org/directory/api/dist/{{< param version_api2 >}}/apache-ldap-api-{{< param version_api2 >}}-src.zip.sha256">SHA256</a>-<a href="https://downloads.apache.org/directory/api/dist/{{< param version_api2 >}}/apache-ldap-api-{{< param version_api2 >}}-src.zip.sha512">SHA512</a>]
+                    [<a href="https://downloads.apache.org/directory/api/dist/{{< param version_api2 >}}/apache-ldap-api-{{< param version_api2 >}}-src.zip.asc">ASC</a>-<a href="https://downloads.apache.org/directory/api/dist/{{< param version_api2 >}}/apache-ldap-api-{{< param version_api2 >}}-src.zip.sha512">SHA512</a>]
                 </td>
             </tr>
         </table>
@@ -60,7 +60,7 @@ title: Downloads for Sources
                     </a>
                 </td>
                 <td align="right">
-                    [<a href="https://downloads.apache.org/directory/api/dist/{{< param version_api2 >}}/apache-ldap-api-{{< param version_api2 >}}-src.tar.gz.asc">ASC</a>-<a href="https://downloads.apache.org/directory/api/dist/{{< param version_api2 >}}/apache-ldap-api-{{< param version_api2 >}}-src.tar.gz.sha256">SHA256</a>-<a href="https://downloads.apache.org/directory/api/dist/{{< param version_api2 >}}/apache-ldap-api-{{< param version_api2 >}}-src.tar.gz.sha512">SHA512</a>]
+                    [<a href="https://downloads.apache.org/directory/api/dist/{{< param version_api2 >}}/apache-ldap-api-{{< param version_api2 >}}-src.tar.gz.asc">ASC</a>-<a href="https://downloads.apache.org/directory/api/dist/{{< param version_api2 >}}/apache-ldap-api-{{< param version_api2 >}}-src.tar.gz.sha512">SHA512</a>]
                 </td>
             </tr>
         </table>

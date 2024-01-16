@@ -257,15 +257,6 @@ for FILE in $(find . -maxdepth 1 -not '(' -name "sign.sh" -or -name ".*" -or -na
 
     echo -n "Signing: $FILE ... "
 
-    # SHA-256
-    if [ ! -f "$FILE.sha256" ];
-    then
-        gpg -v --default-key "$DEFAULT_KEY" --print-md SHA256 "$FILE" > "$FILE".sha256
-        echo "  - Generated '$FILE.sha256'"
-    else
-        echo "  - Skipped '$FILE.sha256' (file already existing)"
-    fi
-
     # SHA-512
     if [ ! -f "$FILE.sha512" ];
     then

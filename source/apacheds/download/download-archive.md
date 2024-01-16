@@ -31,7 +31,7 @@ title: Downloads for Archive
                     </a>
                 </td>
                 <td align="right">
-                    [<a href="https://downloads.apache.org/directory/apacheds/dist/{{< param version_apacheds >}}/apacheds-{{< param version_apacheds >}}.zip.asc">ASC</a>-<a href="https://downloads.apache.org/directory/apacheds/dist/{{< param version_apacheds >}}/apacheds-{{< param version_apacheds >}}.zip.sha256">SHA256</a>-<a href="https://downloads.apache.org/directory/apacheds/dist/{{< param version_apacheds >}}/apacheds-{{< param version_apacheds >}}.zip.sha512">SHA512</a>]
+                    [<a href="https://downloads.apache.org/directory/apacheds/dist/{{< param version_apacheds >}}/apacheds-{{< param version_apacheds >}}.zip.asc">ASC</a>-<a href="https://downloads.apache.org/directory/apacheds/dist/{{< param version_apacheds >}}/apacheds-{{< param version_apacheds >}}.zip.sha512">SHA512</a>]
                 </td>
             </tr>
         </table>
@@ -58,7 +58,7 @@ title: Downloads for Archive
                     </a>
                 </td>
                 <td align="right">
-                    [<a href="https://downloads.apache.org/directory/apacheds/dist/{{< param version_apacheds >}}/apacheds-{{< param version_apacheds >}}.tar.gz.asc">ASC</a>-<a href="https://downloads.apache.org/directory/apacheds/dist/{{< param version_apacheds >}}/apacheds-{{< param version_apacheds >}}.tar.gz.sha256">SHA256</a>-<a href="https://downloads.apache.org/directory/apacheds/dist/{{< param version_apacheds >}}/apacheds-{{< param version_apacheds >}}.tar.gz.sha512">SHA512</a>]
+                    [<a href="https://downloads.apache.org/directory/apacheds/dist/{{< param version_apacheds >}}/apacheds-{{< param version_apacheds >}}.tar.gz.asc">ASC</a>-<a href="https://downloads.apache.org/directory/apacheds/dist/{{< param version_apacheds >}}/apacheds-{{< param version_apacheds >}}.tar.gz.sha512">SHA512</a>]
                 </td>
             </tr>
         </table>

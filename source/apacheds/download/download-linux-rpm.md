@@ -31,7 +31,7 @@ title: Downloads for Linux RPM Package
                     </a>
                 </td>
                 <td align="right">
-                    [<a href="https://downloads.apache.org/directory/apacheds/dist/{{< param version_apacheds >}}/apacheds-{{< param version_apacheds >}}-x86_64.rpm.asc">ASC</a>-<a href="https://downloads.apache.org/directory/apacheds/dist/{{< param version_apacheds >}}/apacheds-{{< param version_apacheds >}}-x86_64.rpm.sha256">SHA256</a>-<a href="https://downloads.apache.org/directory/apacheds/dist/{{< param version_apacheds >}}/apacheds-{{< param version_apacheds >}}-x86_64.rpm.sha512">SHA512</a>]
+                    [<a href="https://downloads.apache.org/directory/apacheds/dist/{{< param version_apacheds >}}/apacheds-{{< param version_apacheds >}}-x86_64.rpm.asc">ASC</a>-<a href="https://downloads.apache.org/directory/apacheds/dist/{{< param version_apacheds >}}/apacheds-{{< param version_apacheds >}}-x86_64.rpm.sha512">SHA512</a>]
                 </td>
             </tr>
         </table>
@@ -58,7 +58,7 @@ title: Downloads for Linux RPM Package
                     </a>
                 </td>
                 <td align="right">
-                    [<a href="https://downloads.apache.org/directory/apacheds/dist/{{< param version_apacheds >}}/apacheds-{{< param version_apacheds >}}-i386.rpm.asc">ASC</a>-<a href="https://downloads.apache.org/directory/apacheds/dist/{{< param version_apacheds >}}/apacheds-{{< param version_apacheds >}}-i386.rpm.sha256">SHA256</a>-<a href="https://downloads.apache.org/directory/apacheds/dist/{{< param version_apacheds >}}/apacheds-{{< param version_apacheds >}}-i386.rpm.sha512">SHA512</a>]
+                    [<a href="https://downloads.apache.org/directory/apacheds/dist/{{< param version_apacheds >}}/apacheds-{{< param version_apacheds >}}-i386.rpm.asc">ASC</a>-<a href="https://downloads.apache.org/directory/apacheds/dist/{{< param version_apacheds >}}/apacheds-{{< param version_apacheds >}}-i386.rpm.sha512">SHA512</a>]
                 </td>
             </tr>
         </table>

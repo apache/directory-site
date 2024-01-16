@@ -1,4 +1,4 @@
----
+f---
 title: LDAP Java API - Developer Guide
 ---
 
@@ -278,15 +278,6 @@ For the record, here is the script shell you can use to sign the packages. Name 
         fi
 
         echo -n "Signing: $FILE ... "
-
-        # SHA-256
-        if [ ! -f "$FILE.sha256" ];
-        then
-            gpg -v --default-key "$DEFAULT_KEY" --print-md SHA256 "$FILE" > "$FILE".sha256
-            echo "  - Generated '$FILE.sha256'"
-        else
-            echo "  - Skipped '$FILE.sha256' (file already existing)"
-        fi
 
         # SHA-512
         if [ ! -f "$FILE.sha512" ];

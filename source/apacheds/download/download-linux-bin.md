@@ -31,7 +31,7 @@ title: Downloads for Linux Binary Installer
                     </a>
                 </td>
                 <td align="right">
-                    [<a href="https://downloads.apache.org/directory/apacheds/dist/{{< param version_apacheds >}}/apacheds-{{< param version_apacheds >}}-64bit.bin.asc">ASC</a>-<a href="https://downloads.apache.org/directory/apacheds/dist/{{< param version_apacheds >}}/apacheds-{{< param version_apacheds >}}-64bit.bin.sha256">SHA256</a>-<a href="https://downloads.apache.org/directory/apacheds/dist/{{< param version_apacheds >}}/apacheds-{{< param version_apacheds >}}-64bit.bin.sha512">SHA512</a>]
+                    [<a href="https://downloads.apache.org/directory/apacheds/dist/{{< param version_apacheds >}}/apacheds-{{< param version_apacheds >}}-64bit.bin.asc">ASC</a>-<a href="https://downloads.apache.org/directory/apacheds/dist/{{< param version_apacheds >}}/apacheds-{{< param version_apacheds >}}-64bit.bin.sha512">SHA512</a>]
                 </td>
             </tr>
         </table>
@@ -58,7 +58,7 @@ title: Downloads for Linux Binary Installer
                     </a>
                 </td>
                 <td align="right">
-                    [<a href="https://downloads.apache.org/directory/apacheds/dist/{{< param version_apacheds >}}/apacheds-{{< param version_apacheds >}}-32bit.bin.asc">ASC</a>-<a href="https://downloads.apache.org/directory/apacheds/dist/{{< param version_apacheds >}}/apacheds-{{< param version_apacheds >}}-32bit.bin.sha256">SHA256</a>-<a href="https://downloads.apache.org/directory/apacheds/dist/{{< param version_apacheds >}}/apacheds-{{< param version_apacheds >}}-32bit.bin.sha512">SHA512</a>]
+                    [<a href="https://downloads.apache.org/directory/apacheds/dist/{{< param version_apacheds >}}/apacheds-{{< param version_apacheds >}}-32bit.bin.asc">ASC</a>-<a href="https://downloads.apache.org/directory/apacheds/dist/{{< param version_apacheds >}}/apacheds-{{< param version_apacheds >}}-32bit.bin.sha512">SHA512</a>]
                 </td>
             </tr>
         </table>

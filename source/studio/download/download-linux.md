@@ -32,7 +32,6 @@ title: Downloads for Linux
                 </td>
                 <td align="right">
                     [<a href="https://downloads.apache.org/directory/studio/{{< param version_studio >}}/ApacheDirectoryStudio-{{< param version_studio >}}-linux.gtk.x86_64.tar.gz.asc">ASC</a>]
-                    [<a href="https://downloads.apache.org/directory/studio/{{< param version_studio >}}/ApacheDirectoryStudio-{{< param version_studio >}}-linux.gtk.x86_64.tar.gz.sha256">SHA256</a>]
                     [<a href="https://downloads.apache.org/directory/studio/{{< param version_studio >}}/ApacheDirectoryStudio-{{< param version_studio >}}-linux.gtk.x86_64.tar.gz.sha512">SHA512</a>]
                 </td>
             </tr>
