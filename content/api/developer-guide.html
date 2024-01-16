@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>LDAP Java API - Developer Guide &mdash; Apache Directory</title>
+    <title> &mdash; Apache Directory</title>
 
     <link href="/css/common.css" rel="stylesheet" type="text/css"/>
     <link href="/css/brown.css" rel="stylesheet" type="text/css"/>
@@ -136,7 +136,9 @@
             
 
             
-	<h1 id="developer-guide">Developer Guide</h1>
+	<h2 id="title-ldap-java-api---developer-guide">f&mdash;
+title: LDAP Java API - Developer Guide</h2>
+<h1 id="developer-guide">Developer Guide</h1>
 <p>This guide is intened to be read by those who participate into the development of the LDAP API. Users of the API are expected to read the <a href="user-guide.html">User guide</a>.</p>
 <h2 id="getting-the-source-building-the-trunks">Getting the source, Building the trunks</h2>
 <p>To get the source, build the <em>trunks/api</em> and get along with Maven.</p>
@@ -355,15 +357,6 @@ for FILE in $(find . -maxdepth 1 -not '(' -name &quot;sign.sh&quot; -or -name &q
 
     echo -n &quot;Signing: $FILE ... &quot;
 
-    # SHA-256
-    if [ ! -f &quot;$FILE.sha256&quot; ];
-    then
-        gpg -v --default-key &quot;$DEFAULT_KEY&quot; --print-md SHA256 &quot;$FILE&quot; &gt; &quot;$FILE&quot;.sha256
-        echo &quot;  - Generated '$FILE.sha256'&quot;
-    else
-        echo &quot;  - Skipped '$FILE.sha256' (file already existing)&quot;
-    fi
-
     # SHA-512
     if [ ! -f &quot;$FILE.sha512&quot; ];
     then
@@ -494,7 +487,7 @@ RewriteRule ^latest2/(.*)$ https://nightlies.apache.org/directory/api/2.0.2/$1 [
     </div>
 
     <div id="footer">
-    &copy; 2003-2023, <a href="https://www.apache.org">The Apache Software Foundation</a> - <a href="https://privacy.apache.org/policies/privacy-policy-public.html">Privacy Policy</a><br />
+    &copy; 2003-2024, <a href="https://www.apache.org">The Apache Software Foundation</a> - <a href="https://privacy.apache.org/policies/privacy-policy-public.html">Privacy Policy</a><br />
     Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
     Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
     Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are

@@ -304,15 +304,6 @@ stty <span style="color:#a2f">echo</span>
 
     <span style="color:#a2f">echo</span> -n <span style="color:#b44">&#34;</span><span style="color:#b44">Signing: </span><span style="color:#b8860b">$FILE</span><span style="color:#b44"> ... </span><span style="color:#b44">&#34;</span>
 
-    <span style="color:#080;font-style:italic"># SHA-256</span>
-    <span style="color:#a2f;font-weight:bold">if</span> <span style="color:#666">[</span> ! -f <span style="color:#b44">&#34;</span><span style="color:#b8860b">$FILE</span><span style="color:#b44">.sha256</span><span style="color:#b44">&#34;</span> <span style="color:#666">]</span>;
-    <span style="color:#a2f;font-weight:bold">then</span>
-        gpg -v --default-key <span style="color:#b44">&#34;</span><span style="color:#b8860b">$DEFAULT_KEY</span><span style="color:#b44">&#34;</span> --print-md SHA256 <span style="color:#b44">&#34;</span><span style="color:#b8860b">$FILE</span><span style="color:#b44">&#34;</span> &gt; <span style="color:#b44">&#34;</span><span style="color:#b8860b">$FILE</span><span style="color:#b44">&#34;</span>.sha256
-        <span style="color:#a2f">echo</span> <span style="color:#b44">&#34;</span><span style="color:#b44">  - Generated &#39;</span><span style="color:#b8860b">$FILE</span><span style="color:#b44">.sha256&#39;</span><span style="color:#b44">&#34;</span>
-    <span style="color:#a2f;font-weight:bold">else</span>
-        <span style="color:#a2f">echo</span> <span style="color:#b44">&#34;</span><span style="color:#b44">  - Skipped &#39;</span><span style="color:#b8860b">$FILE</span><span style="color:#b44">.sha256&#39; (file already existing)</span><span style="color:#b44">&#34;</span>
-    <span style="color:#a2f;font-weight:bold">fi</span>
-
     <span style="color:#080;font-style:italic"># SHA-512</span>
     <span style="color:#a2f;font-weight:bold">if</span> <span style="color:#666">[</span> ! -f <span style="color:#b44">&#34;</span><span style="color:#b8860b">$FILE</span><span style="color:#b44">.sha512</span><span style="color:#b44">&#34;</span> <span style="color:#666">]</span>;
     <span style="color:#a2f;font-weight:bold">then</span>
@@ -472,7 +463,7 @@ RewriteRule ^latest/(.*)$ https://nightlies.apache.org/directory/apacheds/&lt;ve
     </div>
 
     <div id="footer">
-    &copy; 2003-2023, <a href="https://www.apache.org">The Apache Software Foundation</a> - <a href="https://privacy.apache.org/policies/privacy-policy-public.html">Privacy Policy</a><br />
+    &copy; 2003-2024, <a href="https://www.apache.org">The Apache Software Foundation</a> - <a href="https://privacy.apache.org/policies/privacy-policy-public.html">Privacy Policy</a><br />
     Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
     Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
     Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
