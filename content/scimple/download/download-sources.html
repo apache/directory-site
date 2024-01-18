@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Welcome to Apache eSCIMo &mdash; Apache Directory</title>
+    <title>Downloads for Sources &mdash; Apache Directory</title>
 
     <link href="/css/common.css" rel="stylesheet" type="text/css"/>
     <link href="/css/brown.css" rel="stylesheet" type="text/css"/>
@@ -122,25 +122,102 @@
             
 
             
-	<h1 id="apache-scimpletrade">Apache SCIMple™</h1>
-<p>The Apache SCIMple™ is an implementation of SCIM v2.0 specification.</p>
-<p>Using Apache SCIMple™ user and group details can be transferred easily between
-SCIM aware applications.</p>
-<div class="news">
-    
-<h1 id="news">News</h1>
-<h2 class="news">Apache SCIMple 1.0.0-M1 Released!<em>posted on Jan 17, 2024</em></h2>
-<p>Apache SCIMple 1.0.0-M1 has been released. Stay tuned for more docs! Until then, take a look at
-the <a href="five-minutes-tutorial">Five Minute Guide</a>, to learn how to build a SCIM server with SCIMple and Spring Boot.</p>
-<h2 class="news">Apache SCIMple updates to Jakarta Packages<em>posted on Jun 1, 2022</em></h2>
-<p>Apache SCIMple is compatible with Jakarta EE 9. All <code>javax</code> packages have been replaced with the <code>jakarta</code> equivalent.</p>
-<p>Projects migrating from <a href="https://github.com/PennState/SCIMple-Identity/">PennState/SCIMple-Identity</a> may need to update their web servers.</p>
-<h2 class="news">New Project Apache SCIMple<em>posted on Jun 18, 2018</em></h2>
-<p>The Apache Directory team is pleased to welcome a new project, Apache SCIMple.</p>
-<p>The project started at <a href="https://github.com/PennState/SCIMple-Identity">PennState</a> in 2013 and recently went through <a href="https://incubator.apache.org/ip-clearance/directory-scimple.html">Apache&rsquo;s IP clearance</a> process</p>
+	<h1 id="downloads-for-scimple">Downloads for SCIMple</h1>
+<p>
+    We suggest the following mirror site for your download:
+</p>
+<h2 id="zip-archive">ZIP Archive</h2>
+<p>
+    <div class="download">
+        <table width="100%" class="noBorder">
+            <tr>
+                <td>
+                    <img src="/images/download.png" width="32" height="32" border="0"/>
+                </td>
+                <td>&nbsp;</td>
+                <td>
+                    <a href="[preferred]/directory/scimple/dist/1.0.0-M1/scimple-1.0.0-M1-source-release.zip">
+                        <strong>
+                            [preferred]/&#91;...&#93;/scimple-1.0.0-M1-source-release.zip
+                        </strong>
+                    </a>
+                </td>
+                <td align="right">
+                    [<a href="https://downloads.apache.org/directory/scimple/dist/1.0.0-M1/scimple-1.0.0-M1-source-release.zip.asc">ASC</a>
+                    -<a href="https://downloads.apache.org/directory/scimple/dist/1.0.0-M1/scimple-1.0.0-M1-source-release.zip.sha512">SHA512</a>]
+                </td>
+            </tr>
+        </table>
+    </div>
+</p>
+<p>
+    <form action="[location]" method="get" id="SelectMirror">
+        Other mirrors:
+        <select name="Preferred">
+            [if-any http]
+            <optgroup label="HTTP mirrors">
+                [for http]<option value="[http]">[http]</option>[end]
+            </optgroup>
+            [end]
+            [if-any ftp]
+            <optgroup label="FTP mirrors">
+                [for ftp]<option value="[ftp]">[ftp]</option>[end]
+            <opttgroup>
+            [end]
+            [if-any backup]
+            <optgroup label="Backup mirrors">
+                [for backup]<option value="[backup]">[backup] (backup)</option>[end]
+            </optgroup>
+            [end]
+        </select>
+        <input type="submit" value="Change Mirror"/>
+    </form>
+</p>
+
+<p>
+    <div class="noteMacro" align="center" border="0" cellpadding="5" cellspacing="8" width="85%">
+        We encourage you to <a href="#verifyIntegrity">verify the integrity</a> of the downloaded file using:
+        <ul>
+            <li>the ASC file (OpenPGP compatible signature) with the <a href="https://downloads.apache.org/directory/KEYS">KEYS file</a> (code signing keys used to sign the product)</li>
+            <li>the SHA256 or SHA512 files (checksum).</li>
+        </ul>
+    </div>
+</p>
 
 
+<h1><a name="verifyIntegrity"></a>Verify the integrity of the file</h1>
+                    
+<p>
+    The PGP signatures can be verified using PGP or GPG. First download the <a href="https://downloads.apache.org/directory/KEYS">KEYS</a>
+    as well as the <em>asc</em> signature file for the relevant distribution. Then verify the signatures using:
+</p>
+
+<div class="preformatted">
+    <div class="preformattedContent">
+        <pre>$ pgpk -a KEYS
+$ gpgv scimple-1.0.0-M1-source-release.zip.asc</pre>
+    </div>
 </div>
+or
+<div class="preformatted">
+    <div class="preformattedContent">
+        <pre>$ pgp -ka KEYS
+$ gpg scimple-1.0.0-M1-source-release.zip.asc scimple-1.0.0-M1-source-release.zip</pre>
+    </div>
+</div>
+or
+<div class="preformatted">
+    <div class="preformattedContent">
+        <pre>$ gpg --import KEYS
+$ gpg --verify scimple-1.0.0-M1-source-release.zip.asc scimple-1.0.0-M1-source-release.zip</pre>
+    </div>
+</div>
+
+<p>&nbsp;</p>
+
+<p>Alternatively, you can verify the checksums of the files (see the <a href="https://www.apache.org/info/verification.html">How to verify downloaded files</a> page). </p>
+<p>&nbsp;</p>
+
 
 
             

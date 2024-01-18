@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Welcome to Apache eSCIMo &mdash; Apache Directory</title>
+    <title>SCIMple Downloads &mdash; Apache Directory</title>
 
     <link href="/css/common.css" rel="stylesheet" type="text/css"/>
     <link href="/css/brown.css" rel="stylesheet" type="text/css"/>
@@ -122,25 +122,35 @@
             
 
             
-	<h1 id="apache-scimpletrade">Apache SCIMple™</h1>
-<p>The Apache SCIMple™ is an implementation of SCIM v2.0 specification.</p>
-<p>Using Apache SCIMple™ user and group details can be transferred easily between
-SCIM aware applications.</p>
-<div class="news">
-    
-<h1 id="news">News</h1>
-<h2 class="news">Apache SCIMple 1.0.0-M1 Released!<em>posted on Jan 17, 2024</em></h2>
-<p>Apache SCIMple 1.0.0-M1 has been released. Stay tuned for more docs! Until then, take a look at
-the <a href="five-minutes-tutorial">Five Minute Guide</a>, to learn how to build a SCIM server with SCIMple and Spring Boot.</p>
-<h2 class="news">Apache SCIMple updates to Jakarta Packages<em>posted on Jun 1, 2022</em></h2>
-<p>Apache SCIMple is compatible with Jakarta EE 9. All <code>javax</code> packages have been replaced with the <code>jakarta</code> equivalent.</p>
-<p>Projects migrating from <a href="https://github.com/PennState/SCIMple-Identity/">PennState/SCIMple-Identity</a> may need to update their web servers.</p>
-<h2 class="news">New Project Apache SCIMple<em>posted on Jun 18, 2018</em></h2>
-<p>The Apache Directory team is pleased to welcome a new project, Apache SCIMple.</p>
-<p>The project started at <a href="https://github.com/PennState/SCIMple-Identity">PennState</a> in 2013 and recently went through <a href="https://incubator.apache.org/ip-clearance/directory-scimple.html">Apache&rsquo;s IP clearance</a> process</p>
+	<h1 id="download-scimple">Download SCIMple</h1>
+<h2 id="scimple-archive-downloads">SCIMple Archive Downloads</h2>
+<p>To Download Apache Directory SCIMple:</p>
+<ul>
+<li><img src="../images/download-sources.png" alt="Download"> <a href="download/download-sources.html">Download Sources</a></li>
+</ul>
+<h2 id="scimple-maven-dependencies">SCIMple Maven Dependencies</h2>
+<p>To embed Apache Directory SCIMple components into applications via Maven dependencies:</p>
+<p>Add the Apache SCIMple dependencies to the project:</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#008000;font-weight:bold">&lt;dependency</span><span style="color:#008000;font-weight:bold">&gt;</span>
+    <span style="color:#008000;font-weight:bold">&lt;groupId</span><span style="color:#008000;font-weight:bold">&gt;</span>org.apache.directory.scim<span style="color:#008000;font-weight:bold">&lt;/groupId&gt;</span>
+    <span style="color:#008000;font-weight:bold">&lt;artifactId</span><span style="color:#008000;font-weight:bold">&gt;</span>scim-server<span style="color:#008000;font-weight:bold">&lt;/artifactId&gt;</span>
+    <span style="color:#008000;font-weight:bold">&lt;version</span><span style="color:#008000;font-weight:bold">&gt;</span>1.0.0-M1<span style="color:#008000;font-weight:bold">&lt;/version&gt;</span>
+<span style="color:#008000;font-weight:bold">&lt;/dependency&gt;</span>
 
-
-</div>
+<span style="color:#080;font-style:italic">&lt;!--</span><span style="color:#080;font-style:italic"> Spring Boot users, can use the starter package </span><span style="color:#080;font-style:italic">--&gt;</span>
+<span style="color:#008000;font-weight:bold">&lt;dependency</span><span style="color:#008000;font-weight:bold">&gt;</span>
+    <span style="color:#008000;font-weight:bold">&lt;groupId</span><span style="color:#008000;font-weight:bold">&gt;</span>org.apache.directory.scim<span style="color:#008000;font-weight:bold">&lt;/groupId&gt;</span>
+    <span style="color:#008000;font-weight:bold">&lt;artifactId</span><span style="color:#008000;font-weight:bold">&gt;</span>scim-spring-boot-starter<span style="color:#008000;font-weight:bold">&lt;/artifactId&gt;</span>
+    <span style="color:#008000;font-weight:bold">&lt;version</span><span style="color:#008000;font-weight:bold">&gt;</span>1.0.0-M1<span style="color:#008000;font-weight:bold">&lt;/version&gt;</span>
+<span style="color:#008000;font-weight:bold">&lt;/dependency&gt;</span>
+</code></pre></div><p>See the <a href="five-minutes-tutorial">Five Minute Spring Boot tutorial</a> for more details!</p>
+<p>Tutorials for other frameworks coming soon! If you cannot wait, look at the <a href="https://github.com/apache/directory-scimple/tree/1.0.0-M1/scim-server-examples">examples on GitHub</a>:</p>
+<ul>
+<li><a href="https://github.com/apache/directory-scimple/tree/1.0.0-M1/scim-server-examples/scim-server-quarkus">Quarkus</a></li>
+<li><a href="https://github.com/apache/directory-scimple/tree/1.0.0-M1/scim-server-examples/scim-server-spring-boot">Spring Boot</a></li>
+<li><a href="https://github.com/apache/directory-scimple/tree/1.0.0-M1/scim-server-examples/scim-server-jersey">Jersey</a></li>
+<li><a href="https://github.com/apache/directory-scimple/tree/1.0.0-M1/scim-server-examples/scim-server-memory">Jakarta EE War</a></li>
+</ul>
 
 
             

@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Five Minutes Tutorial &mdash; Apache Directory</title>
+    <title>Five Minute Tutorial &mdash; Apache Directory</title>
 
     <link href="/css/common.css" rel="stylesheet" type="text/css"/>
     <link href="/css/brown.css" rel="stylesheet" type="text/css"/>
@@ -72,17 +72,20 @@
             <div id="navigation">
                 
                 <a class="acevent" data-format="wide" data-width="170"></a>
-                <h5>SCIMple 1.0</h5>
+                <h5>SCIMple</h5>
                 <ul>
                     <li><a href="/scimple/">Home</a></li>
                     <li><a href="/scimple/news.html">News</a></li>
                 </ul>
-                
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/scimple/downloads.html">Version 1.0.0-M1</a>&nbsp;&nbsp;<IMG src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                </ul>
                 <h5>Documentation</h5>
                 <ul>
-                    <li><a href="/scimple/five-minutes-tutorial.html">Five minutes tutorial</a></li>
+                    <li><a href="/scimple/five-minutes-tutorial.html">Five minute tutorial</a></li>
                     <li><a href="/scimple/user-guide.html">User Guide</a></li>
-                    
+                    <li><a href="/scimple/gen-docs/latest/apidocs/">JavaDocs</a></li>
                     
                     
                     
@@ -120,24 +123,18 @@
 
             
 	<h1 id="five-minutes-tutorial">Five Minutes Tutorial</h1>
-<blockquote>
-<p><strong>NOTE:</strong> Apache SCIMple is still in development, you must build Apache SCIMple from source.</p>
-<pre><code>git clone https://github.com/apache/directory-scimple.git
-cd directory-scimple
-./mvnw install
-</code></pre></blockquote>
-<h2 id="create-a-new-spring-boot-30-project">Create a new Spring Boot 3.0 project</h2>
-<p>Head over to <a href="https://start.spring.io/#!type=maven-project&amp;language=java&amp;platformVersion=3.0.0&amp;packaging=jar&amp;jvmVersion=17">start.spring.io</a> and create a new project with Spring Boot 3.</p>
+<h2 id="create-a-new-spring-boot-3x-project">Create a new Spring Boot 3.x project</h2>
+<p>Head over to <a href="https://start.spring.io/#!type=maven-project&amp;language=java&amp;packaging=jar&amp;jvmVersion=17">start.spring.io</a> and create a new project with Spring Boot 3.</p>
 <p>Add the Apache SCIMple dependencies to the project:</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#008000;font-weight:bold">&lt;dependency</span><span style="color:#008000;font-weight:bold">&gt;</span>
   <span style="color:#008000;font-weight:bold">&lt;groupId</span><span style="color:#008000;font-weight:bold">&gt;</span>org.apache.directory.scim<span style="color:#008000;font-weight:bold">&lt;/groupId&gt;</span>
   <span style="color:#008000;font-weight:bold">&lt;artifactId</span><span style="color:#008000;font-weight:bold">&gt;</span>scim-spring-boot-starter<span style="color:#008000;font-weight:bold">&lt;/artifactId&gt;</span>
-  <span style="color:#008000;font-weight:bold">&lt;version</span><span style="color:#008000;font-weight:bold">&gt;</span>${scimple.version}<span style="color:#008000;font-weight:bold">&lt;/version&gt;</span>
+  <span style="color:#008000;font-weight:bold">&lt;version</span><span style="color:#008000;font-weight:bold">&gt;</span>1.0.0-M1<span style="color:#008000;font-weight:bold">&lt;/version&gt;</span>
 <span style="color:#008000;font-weight:bold">&lt;/dependency&gt;</span>
 <span style="color:#008000;font-weight:bold">&lt;dependency</span><span style="color:#008000;font-weight:bold">&gt;</span>
   <span style="color:#008000;font-weight:bold">&lt;groupId</span><span style="color:#008000;font-weight:bold">&gt;</span>org.apache.directory.scim<span style="color:#008000;font-weight:bold">&lt;/groupId&gt;</span>
   <span style="color:#008000;font-weight:bold">&lt;artifactId</span><span style="color:#008000;font-weight:bold">&gt;</span>scim-server<span style="color:#008000;font-weight:bold">&lt;/artifactId&gt;</span>
-  <span style="color:#008000;font-weight:bold">&lt;version</span><span style="color:#008000;font-weight:bold">&gt;</span>${scimple.version}<span style="color:#008000;font-weight:bold">&lt;/version&gt;</span>
+  <span style="color:#008000;font-weight:bold">&lt;version</span><span style="color:#008000;font-weight:bold">&gt;</span>1.0.0-M1<span style="color:#008000;font-weight:bold">&lt;/version&gt;</span>
 <span style="color:#008000;font-weight:bold">&lt;/dependency&gt;</span>
 </code></pre></div><h2 id="implement-repositories">Implement Repositories</h2>
 <p>A SCIMple <code>Repository</code> is an abstraction used to reduce the boiler plain needed to implement a SCIM service. Each
@@ -151,7 +148,7 @@ cd directory-scimple
 </code></pre></div><p>Then implement each method (<code>create</code>, <code>get</code>, <code>update</code>, <code>delete</code>, and <code>find</code>).</p>
 <p>The first four map to the expected CRUD operations, and the last method <code>find</code>, allows you to transform a SCIM query,
 into the query languages your objects are stored in.</p>
-<p>You can view this complete example on <a href="https://github.com/apache/directory-scimple/tree/spring-boot/scim-server-examples/scim-server-spring-boot">GitHub</a>.</p>
+<p>You can view this complete example on <a href="https://github.com/apache/directory-scimple/tree/1.0.0-M1/scim-server-examples/scim-server-spring-boot">GitHub</a>.</p>
 
 
             
