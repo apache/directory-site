@@ -77,10 +77,20 @@ td {font-size: 12px;}
       <!-- Apache Fortress project -->
       <td style="border-width: 0; border-right: 1px solid silver; padding-right: 15px; width:50%;" valign="top">
         <div class="download-link">
-          <a href="fortress/downloads.html" class="download_badge_mavibot"><b>Download Apache<br>Fortress {{< param version_fortress >}}</b></a>
+          <a href="fortress/downloads.html" class="download_badge_fortress"><b>Download Apache<br>Fortress {{< param version_fortress >}}</b></a>
         </div>
         <div class="separator">&nbsp;</div>
         Apache Fortress&trade; is a standards-based authorization system that provides attribute and role-based access control, delegated administration and password policy services using an LDAP backend.
+      </td>
+    </tr>
+    <tr>
+      <!-- Apache SCIMple project -->
+      <td style="border-width: 0; border-right: 1px solid silver; padding-right: 15px; width:50%;" valign="top">
+        <div class="download-link">
+          <a href="scimple/downloads.html" class="download_badge_scimple"><b>Download Apache<br>SCIMple {{< param version_scimple >}}</b></a>
+        </div>
+        <div class="separator">&nbsp;</div>
+        Apache SCIMple&trade; is a standards-based authorization system that provides attribute and role-based access control, delegated administration and password policy services using an LDAP backend.
       </td>
     </tr>
   </tbody>

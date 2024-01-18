@@ -1,20 +1,12 @@
 ---
-title: Five Minutes Tutorial
+title: Five Minute Tutorial
 ---
 
 # Five Minutes Tutorial
 
-> **NOTE:** Apache SCIMple is still in development, you must build Apache SCIMple from source.
-> ```
-> git clone https://github.com/apache/directory-scimple.git
-> cd directory-scimple
-> ./mvnw install
-> ```
+## Create a new Spring Boot 3.x project
 
-
-## Create a new Spring Boot 3.0 project
-
-Head over to [start.spring.io](https://start.spring.io/#!type=maven-project&language=java&platformVersion=3.0.0&packaging=jar&jvmVersion=17) and create a new project with Spring Boot 3.
+Head over to [start.spring.io](https://start.spring.io/#!type=maven-project&language=java&packaging=jar&jvmVersion=17) and create a new project with Spring Boot 3.
 
 Add the Apache SCIMple dependencies to the project:
 
@@ -22,12 +14,12 @@ Add the Apache SCIMple dependencies to the project:
 <dependency>
   <groupId>org.apache.directory.scim</groupId>
   <artifactId>scim-spring-boot-starter</artifactId>
-  <version>${scimple.version}</version>
+  <version>{{< param version_scimple >}}</version>
 </dependency>
 <dependency>
   <groupId>org.apache.directory.scim</groupId>
   <artifactId>scim-server</artifactId>
-  <version>${scimple.version}</version>
+  <version>{{< param version_scimple >}}</version>
 </dependency>
 ```
 
@@ -50,4 +42,4 @@ Then implement each method (`create`, `get`, `update`, `delete`, and `find`).
 The first four map to the expected CRUD operations, and the last method `find`, allows you to transform a SCIM query, 
 into the query languages your objects are stored in.
 
-You can view this complete example on [GitHub](https://github.com/apache/directory-scimple/tree/spring-boot/scim-server-examples/scim-server-spring-boot).
+You can view this complete example on [GitHub](https://github.com/apache/directory-scimple/tree/{{< param version_scimple >}}/scim-server-examples/scim-server-spring-boot).
