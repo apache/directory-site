@@ -90,7 +90,7 @@ td {font-size: 12px;}
           <a href="scimple/downloads.html" class="download_badge_scimple"><b>Download Apache<br>SCIMple {{< param version_scimple >}}</b></a>
         </div>
         <div class="separator">&nbsp;</div>
-        Apache SCIMple&trade; is a standards-based authorization system that provides attribute and role-based access control, delegated administration and password policy services using an LDAP backend.
+        Apache SCIMple&trade; is a Jakarta EE implementation of the SCIM 2.0 specification.  It can be used build custom SCIM servers and clients.
       </td>
     </tr>
   </tbody>
