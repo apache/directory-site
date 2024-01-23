@@ -1,0 +1,18 @@
+{{ $project_id := .id }}
+{{ $downloads_url := printf "%s/downloads.html" $project_id }}
+{{ if .url }}
+    {{ $downloads_url = .url }}
+{{ end }}
+{{ $class := printf "download_badge_%s" $project_id }}
+{{ if .class }}
+    {{ $class = .class }}
+{{ end }}
+{{ $download_text := "Download Apache" }}
+{{ if .download_text }}
+    {{ $download_text = .download_text }}
+{{ end }}
+<div class="download-link">
+    <a href="/{{ $downloads_url }}" class="{{ $class }}">
+        <b>{{ $download_text }}<br>{{ .name }} {{ .version }}</b>
+    </a>
+</div>
