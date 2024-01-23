@@ -11,9 +11,7 @@ slug: index
         <div class="description">
             Mavibot&trade; is a <em>Multi Version Concurrency Control</em> (MVCC) BTree in Java. It is expected to be a replacement for JDBM (The current backend for the  Apache Directory Server), but could be a good fit for any other project in need of a Java MVCC BTree implementation.
         </div>
-        <div class="download-link">
-            <a href="/mavibot/downloads.html" class="download_badge"><b>Download Apache<br>Mavibot {{< param version_mavibot >}}</b></a>
-        </div>
+        {{< download-mavibot >}}
     </div>
     <div class="right">
         <img src="../images/hero-mavibot.jpg" width="377" height="287" border="0"/>
