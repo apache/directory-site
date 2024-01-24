@@ -3,16 +3,23 @@
 {{ if .url }}
     {{ $downloads_url = .url }}
 {{ end }}
-{{ $class := printf "download_badge_%s" $project_id }}
-{{ if .class }}
-    {{ $class = .class }}
-{{ end }}
+{{ $logoClass := printf "%s-logo" $project_id }}
 {{ $download_text := "Download Apache" }}
 {{ if .download_text }}
     {{ $download_text = .download_text }}
 {{ end }}
-<div class="download-link">
-    <a href="/{{ $downloads_url }}" class="{{ $class }}">
-        <b>{{ $download_text }}<br>{{ .name }} {{ .version }}</b>
+<div class="download-button">
+    <a href="/{{ $downloads_url }}" class="download-button">
+        <div class="download-button-inside">
+            <div class="{{ .id }}-logo download-logo">
+                {{ partial "tree-logo.html" (dict "style" $logoClass ) }}
+            </div>
+            <div class="download-package-icon"></div>
+            <div class="download-button-text">
+                {{ $download_text }}<br>
+                {{ .name }} {{ .version }}
+            </div>
+        </div>
+        <div class="button-bottom-text">Free for Linux, macOS, & Windows</div>
     </a>
 </div>

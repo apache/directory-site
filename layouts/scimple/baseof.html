@@ -16,8 +16,9 @@
     limitations under the License.
 -->
 <html lang="en">
-{{ partial "head.html" (dict "context" . "csscolor" "brown") }}
+{{ partial "head.html" (dict "context" .) }}
 <body>
+<div class="top-bottom-spacer"></div>
 <div id="container">
     {{ partial "header.html" (dict "context" . "project" "scimple") }}
 
@@ -39,7 +40,7 @@
                 </ul>
                 <h5>Downloads</h5>
                 <ul>
-                    <li><a href="/scimple/downloads.html">Version {{ .Site.Params.version_scimple }}</a>&nbsp;&nbsp;<IMG src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/scimple/downloads.html">Version {{ .Site.Params.version_scimple }}</a>&nbsp;&nbsp;<IMG src="/images/new_badge.svg" alt="" style="margin-bottom:-3px;" border="0"></li>
                 </ul>
                 <h5>Documentation</h5>
                 <ul>
@@ -64,7 +65,7 @@
 
     {{ partial "footer.html" . }}
 </div><!-- container -->
-
+<div class="top-bottom-spacer"></div>
 </body>
 
 </html>

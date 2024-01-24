@@ -88,17 +88,37 @@ h6
 
 #container 
 {
-	position: absolute;
+	/*position: absolute;*/
+	position: relative;
 	width: 1005px;
 	margin-left: -502px;
 	left: 50%;
+
+	box-shadow: 0px 0px 10px 2px grey;
+	background-color: #ededed;
 }
 
 #header 
 {
 	width: 1005px;
-	height: 165px;
+	height: 13.5em;
 	background-repeat: no-repeat;
+	background-image:
+		url('../images/directory-header-logo.svg'),
+		url('../images/feathers-header.svg'),
+		linear-gradient(to right, var(--header-darker-color) , var(--header-ligher-color));
+	background-position-x: 3.8em, -19em, 0;
+	background-position-y: 0.3em, 0, 0;
+	background-size: 11em, 100% 12em, 100%;
+}
+
+#header > span
+{
+	color: white;
+	font-size: 2.4em;
+	position: absolute;
+	left: 0.5em;
+	top: 4.2em;
 }
 
 #headerClick
@@ -140,12 +160,6 @@ h6
 	border-bottom: solid #ffffff 1px;
 }
 
-#content 
-{
-	background: url('../images/content-backgound.png') repeat-y;
-	padding-bottom: 30px;
-}
-
 #endContent 
 {
 	clear: both;
@@ -154,7 +168,7 @@ h6
 #leftColumn 
 {
 	float: left;
-	width: 193px;
+	width: 200px;
 	padding-top: 10px;
 	margin-left: 10px;
 	line-height: 1.8em;
@@ -163,10 +177,13 @@ h6
 #rightColumn 
 {
 	float: left;
-	margin-left: 15px;
-	width: 762px;
+	padding-left: 15px;
+	padding-right: 15px;
+	width: 765px;
+	min-height: 85em;
 	text-align: left;
 	line-height: 1.5em;
+	background-color: white;
 }
 
 #editZone 
@@ -303,6 +320,8 @@ h2.news
 	font-weight: bolder;
 	padding-left: 20px;
 	margin: 10px;
+	background-position-x: 0.4em;
+	background-repeat: no-repeat;
 }
 
 .news h2 em,
@@ -341,13 +360,13 @@ h2.news em
 #footer 
 {
 	font-size: 11px;
-	padding-left: 215px;
+	margin-left: 210px;
+	padding-left: 15px;
 	padding-right: 20px;
 	padding-bottom: 15px;
+	padding-top: 30px;
 	text-align: center;
-	background-image: url('../images/footer.png');
-	background-repeat: no-repeat;
-	background-position: bottom;
+	background-color: white;
 }
 
 .nobr sup img 
@@ -919,6 +938,46 @@ a.download_badge_kerby b
     font-size: 10px;
 }
 
+.download-logo {
+	height: 5em;
+	width: 4.7em;
+	filter: drop-shadow(0.1em 0.1em 0.1em black);
+	position: relative;
+	right: 2.5em;
+	bottom: 1.6em;
+}
+.download-package-icon {
+	height: 3em;
+	width: 3em;
+	background-image: url("/images/download-package.svg");
+	position: relative;
+	left: 82%;
+	bottom: 110%
+}
+.download-button-inside {
+	border: solid black 0.1em;
+	border-radius: 1em;
+	height: 4em;
+	width: 21em;
+	margin-top: 3em;
+	margin-left: 3em;
+	background: rgb(208,208,208);
+	background: linear-gradient(0deg, rgba(208,208,208,1) 0%, rgba(255,255,255,1) 75%);
+}
+.download-button {
+	text-align: center;
+	width: 22em;
+	margin-bottom: 1em;
+}
+a.download-button {
+	text-decoration: none;
+}
+.download-button-text {
+	position: relative;
+	bottom: 186%;
+	font-weight: bold;
+}
+
 /* END - DOWNLOAD-BADGE */
 
 /* START - subProjects table */
@@ -954,3 +1013,44 @@ a.download_badge_kerby b
 	margin-bottom: 10px;
 }
 /* END - subProjects table */
+
+/* START - Logo colors */
+.apacheds-logo {
+	--color-logo: #2e9b2c;
+	--color-border: #1e651d;
+}
+
+.studio-logo {
+	--color-logo: #2d67ad;
+	--color-border: #1d4370;
+}
+
+.api-logo {
+	--color-logo: #77540C;
+	--color-border: #4d3708;
+}
+
+.mavibot-logo {
+	--color-logo: #309090;
+	--color-border: #1f5e5e;
+}
+
+.fortress-logo {
+	--color-logo: #c92c2c;
+	--color-border: #831d1d;
+}
+
+.scimple-logo {
+	--color-logo: #6682ad;
+	--color-border: #3e5474;
+}
+
+.kerby-logo {
+	--color-logo: #fa9a39;
+	--color-border: #c36405;
+}
+/* END - Logo colors */
+
+.top-bottom-spacer {
+	height: 1em;
+}

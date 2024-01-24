@@ -16,8 +16,9 @@
     limitations under the License.
 -->
 <html lang="en">
-{{ partial "head.html" (dict "context" . "csscolor" "turquoise") }}
+{{ partial "head.html" (dict "context" .) }}
 <body>
+<div class="top-bottom-spacer"></div>
 <div id="container">
     {{ partial "header.html" (dict "context" . "project" "fortress") }}
 
@@ -41,7 +42,7 @@
 
                 <h5>Downloads</h5>
                 <ul>
-                    <li><a href="/fortress/downloads.html">Fortress {{ .Site.Params.version_fortress }}</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/fortress/downloads.html">Fortress {{ .Site.Params.version_fortress }}</a>&nbsp;&nbsp;<img src="/images/new_badge.svg" alt="" style="margin-bottom:-3px;" border="0"></li>
                     <li><a href="/fortress/download-old-versions.html">Older versions</a></li>
                 </ul>
 
@@ -78,7 +79,7 @@
 
     {{ partial "footer.html" . }}
 </div><!-- container -->
-
+<div class="top-bottom-spacer"></div>
 </body>
 
 </html>
