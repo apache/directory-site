@@ -12,12 +12,12 @@ Add the Apache SCIMple dependencies to the project:
 
 ```xml
 <dependency>
-  <groupId>org.apache.directory.scim</groupId>
+  <groupId>org.apache.directory.scimple</groupId>
   <artifactId>scim-spring-boot-starter</artifactId>
   <version>{{< param version_scimple >}}</version>
 </dependency>
 <dependency>
-  <groupId>org.apache.directory.scim</groupId>
+  <groupId>org.apache.directory.scimple</groupId>
   <artifactId>scim-server</artifactId>
   <version>{{< param version_scimple >}}</version>
 </dependency>
