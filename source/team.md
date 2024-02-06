@@ -7,6 +7,7 @@ title: Team
 | Name | id | Position | Photo | WebSite | Blog |
 |---|---|---|:-:|:-:|:-:|
 | Alex Karasulu | akarasulu | Founder, PMC | ![Alex Karasulu](images/team/akarasulu.jpg) |||
+| Brian Demers | bdemers | PMC |||[![Blog](images/team/blog.png)](https://blog.bdemers.io/)|
 | Chris Custine | ccustine | PMC | ![Chris Custine](images/team/ccustine.png) | [![Website](images/team/website.png)](https://www.organicelement.com) | [![Blog](images/team/blog.png)](http://blog.organicelement.com) |
 | Chris Pike | cpike | PMC ||||
 | Christine Koppelt | ckoppelt | PMC ||||
@@ -19,7 +20,6 @@ title: Team
 | Noel J. Bergman | noel | PMC ||||
 | Pierre Smits | pierresmits | PMC | ![Pierre Smits](images/team/pierresmits.png) | [![Website](images/team/website.png)](http://www.orrtiz.com) ||
 | Pierre-Arnaud Marcelot | pamarcelot | PMC | ![Pierre-Arnaud Marcelot](images/team/pamarcelot.jpg) | [![Website](images/team/website.png)](http://www.pajbam.com)|[![Blog](images/team/blog.png)](http://www.pajbam.com) |
-| Radovan Semancik| semancik | PMC ||||
 | **Shawn McKinney** | smckinney | **PMC chair** | ![Shawn McKinney](images/team/smckinney.jpg) | [![Website](images/team/website.png)](https://symas.com/)|[![Blog](images/team/blog.png)](https://iamfortress.net/) |
 | Stefan Zoerner | szoerner | PMC | ![Stefan Zoerner](images/team/szoerner.jpg) |||
 
@@ -34,7 +34,6 @@ title: Team
 | Andrea Gariboldi | agariboldi | Committer ||||
 | Antoine Levy Lambert| antoine | Committer ||||
 | Berin Loritsch | bloritsch | Committer ||||
-| Brian Demers | bdemers | Committer |||[![Blog](images/team/blog.png)](https://blog.bdemers.io/)|
 | Christopher Harm | charm | Committer ||||
 | David Jencks | djencks | Committer ||||
 | Franck Zeng | zenglinx | Committer ||||
@@ -79,6 +78,7 @@ To be continued ...
 | Norval Hope | Committer ||||
 | Ole Ersoy | Committer ||||
 | Phil Steitz | PMC ||||
+| Radovan Semancik| semancik | PMC ||||
 | Stefan Seelmann | seelmann | PMC | ![Stefan Seelmann](images/team/seelmann.jpg) | [![Website](images/team/website.png)](https://www.stefan-seelmann.de) | [![Blog](images/team/blog.png)](https://www.stefan-seelmann.de) |
 | Trustin Lee | PMC ||||
 | Vince Tence | PMC ||||
