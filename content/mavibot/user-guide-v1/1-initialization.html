@@ -159,15 +159,16 @@
     <span style="color:#080;font-style:italic">// or 
 </span><span style="color:#080;font-style:italic"></span>
     RecordManager recordManager2 <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> RecordManager<span style="color:#666">(</span> <span style="color:#b44">&#34;MyData.db&#34;</span><span style="color:#666">,</span> 512<span style="color:#666">,</span> 1024 <span style="color:#666">)</span><span style="color:#666">;</span>
-</code></pre></div><p>The first method just require that you name the file that will contain the data (<em>&ldquo;MyData.db&rdquo;</em> here), teh second method allows you to configure the page size and teh cache size (in number of pages). Here, we set the page size to <em>512</em> bytes and the cache will store 1024 pages.</p>
-<p>Those call will create the inner structure needed to manage the database:</p>
+</code></pre></div><p>The first method just requires that you name the file that will contain the data (<em>&ldquo;MyData.db&rdquo;</em> here), the second method allows you to configure the page size and the cache size (in number of pages). Here, we set the page size to <em>512</em> bytes and the cache will store 1024 pages.</p>
+<p>Those calls will create the inner structure needed to manage the database:</p>
 <ul>
 <li>the <em>RecordManagerHeader</em></li>
 <li>the <em>CopiedPagesBtree</em></li>
-<li>the list of active B-trees (currently containing no element, the previously created B-tree is a technical one)</li>
+<li>the list of active <em>B-trees</em> (currently containing no element, the previously created <em>B-tree</em> is a technical one)</li>
+<li>The page cache which holds frequently used pages (the number of cached pages defaults to 10 000)</li>
 </ul>
 <h2 id="the-recordmanagerheader">The RecordManagerHeader</h2>
-<p>This data structure is critical to <em>Mavibot</em>, it contains the root of all your database. It is stored with one single page, and is written in one single write operation, guaranteeing that once written, all the database is reachable. It cannot be corrupted. Worse case scenario, if it cannot be written, the previous version will always be available and point to the previous revision.</p>
+<p>This data structure is critical to <em>Mavibot</em>, it contains the root of all your databases. It is stored with one single page, and is written in one single write operation, guaranteeing that once written, all the databases are reachable. It cannot be corrupted. Worse case scenario, if it cannot be written, the previous version will always be available and point to the previous revision.</p>
 <p>The inner structure of this page is the following:</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Text" data-lang="Text">+--------------------------+
 | PageSize                 | 4 bytes : The size of a physical page (default to 4096)
@@ -189,17 +190,19 @@
 <ul>
 <li>the current revision</li>
 <li>the pointer to the first free page (free pages are linked together in a list for the page allocator to use them)</li>
-<li>the pointer to the list of existing B-trees</li>
+<li>the pointer to the list of existing <em>B-trees</em></li>
 <li>the pointer to the <em>CopiedPagesBtree</em> which is used to manage dead pages</li>
-<li>a unique page counter whicch is incremented after every write</li>
+<li>a unique page counter which is incremented after every write</li>
 </ul>
-<p>When you use a <em>Mavibot</em> database, the system will always read this first page, and retrieve all the needed informations about the existing B-trees, plus some extra information to retreive dead pages if there was a crash beforehand. It&rsquo;s critical to undestand that a crash will not corrupt the database, you will just lose the data that were written before the write transaction has been fully committed.</p>
-<h2 id="the-copiedpages-btree">The CopiedPages Btree</h2>
-<p>This is a technical B-tree that is used to keep a reference of all the pages that have been copied during a write transaction. That allows the system to reclaim the pages that are not anymore in use. The algorithm will be axplain later. Enough said that for every write operation, we keep track of every page that is copied in this B-tree. Note that unlike the other B-trees, this B-tree is not versionned (ie we discard the old <em>CopiedPagesBtree</em> pages immediately, they aren&rsquo;t useful)</p>
+<p>When you use a <em>Mavibot</em> database, the system will always read this first page, and retrieve all the needed informations about the existing <em>B-trees</em>, plus some extra informations to retreive dead pages if there was a crash beforehand. It&rsquo;s critical to understand that a crash will not corrupt the database, you will just lose the data that were written before the write transaction has been fully committed.</p>
+<h2 id="the-copiedpages-b-tree">The CopiedPages B-tree</h2>
+<p>This is a technical <em>B-tree</em> that is used to keep a reference of all the pages that have been copied during a write transaction. That allows the system to reclaim the pages that are not anymore in use. The algorithm will be explained later. Enough said that for every write operation, we keep a track of every page that is copied for this <em>B-tree</em>. Note that unlike the other <em>B-trees</em>, this <em>B-tree</em> is not versionned (ie we discard the old <em>CopiedPagesBtree</em> pages immediately, they aren&rsquo;t useful)</p>
+<p>In any case, this is just a plain <em>B-tree</em> like any others, except that we don&rsquo;t keep many versions of it,  only the last one, as it&rsquo;s only updated when a write transaction is done.</p>
 <h2 id="the-list-of-active-b-trees">The list of active B-trees</h2>
-<p>We need to keep a track of all the active B-trees, whatever their version. A B-ytree is active when there is at least a read transaction using the assocciated revision. We may have many.</p>
-<p>The reason we keep them on teh disk is that it helps to reclaim old pages in case of a crash, otherwise we would have to parse the whole database - which would be costly.</p>
-<p>Here is the data structure as it is written on disk - and it may span on many pages -:</p>
+<p>Every time a read transaction is started, it will use a set of <em>B-trees</em>.</p>
+<p>We need to keep a track of all the active <em>B-trees</em>, whatever their version. A <em>B-tree</em> is active when there is at least a read transaction using the assocciated revision. We may have many.</p>
+<p>The reason we keep them on disk is that it helps to reclaim old pages in case of a crash, otherwise we would have to parse the whole database - which would be costly.</p>
+<p>Here is the data structure as it is written on disk - and it may span on many pages - :</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Text" data-lang="Text">
 +--+--+--+--+--+--+--+--+
 |  |  |  |  |  |  |  |  |    pageID
@@ -229,25 +232,25 @@
 |  |  |  |  |  |  |  |  |    BtreeHeader offset x M,  For each managed B-tree of RMH[i]
 +--+--+--+--+--+--+--+--+
 ...
-</code></pre></div><p>Each transaction list has a size of <code>12 + (nb B-tree * 8)</code> bytes. For instance, if we manage 16 B-trees, that is 140 bytes (16 * 8 + 12 -&gt; 140), and add the first 12 bytes for completion). If we have 10 active transactions, a 4096 bytes page will easily hold all of them (12 + 10 x 140 -&gt; 1412 bytes).</p>
+</code></pre></div><p>Each transaction list has a size of <code>12 + (nb B-tree * 8)</code> bytes. For instance, if we manage 16 <em>B-trees</em>, that is 140 bytes (16 * 8 + 12 -&gt; 140), and add the first 12 bytes for completion). If we have 10 active transactions, a 4096 bytes page will easily hold all of them (12 + 10 x 140 -&gt; 1412 bytes).</p>
 <h2 id="the-list-of-free-pages">The list of free pages</h2>
 <p>This is basically a pointer to the first free page. All the freed pages are linked together. Their content is not flushed or cleared.</p>
 <p>The principle is that when a page is freed, we attach it to the begining of this list, and it becomes the new head of the free pages list.</p>
 <p>For the record, when <em>Mavibot</em> needs a new page to store some data, it will first fetch some from this list, and when this list get exhausted, then it will get a new page at the end of the file, growing the file in the process.</p>
 <p>Here is a representation of this list:</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Text" data-lang="Text">        +-------------+---+    +-------------+---+    +-------------+---+
-Head --&gt;|             | o-+---&gt;|             | o-+---&gt;|             | x |
+Head --&gt;| &lt;link&gt;      | o-+---&gt;| &lt;link&gt;      | o-+---&gt;| &lt;link&gt;      | x |
         +-------------+---+    +-------------+---+    +-------------+---+
 </code></pre></div><p>Note that the links are offsets in the file, and that the pages may be spread all across the file (ie we can start with 0x2000, then jump to 0x4000, go back to 0x3000, etc).</p>
 <h2 id="transaction-list">Transaction list</h2>
-<p>We have now created the database, we need to initialize the transaction list. The <em>transaction list</em> is a list that contains all the existing transactions, as soon as they are in use. That means:</p>
+<p>We have now created the database, we need to initialize the <em>transaction list</em>. The <em>transaction list</em> is a list that contains all the existing transactions, as soon as they are in use. That means:</p>
 <ul>
 <li>the newest revision (after a write)</li>
 <li>any older revision for which a read transaction is sill holding a revision</li>
 </ul>
-<p>When one start a read transaction, it always uses the current revision, but we may have other writes while the read transaction is still processing data (a read transaction can remain opened for a very long time). Of course, the database for this old revision is outdated, but this is the contract: a read transaction always uses pages created before or uup to the read revision. Any data added, moddified or removed since the beginning of the read transaction won&rsquo;t be seen.</p>
+<p>When one start a read transaction, it always uses the current revision, but we may have other writes while the read transaction is still processing data (a read transaction can remain opened for a very long time). Of course, the database for this old revision is outdated, but this is the contract: a read transaction always uses pages created before or up to the read revision. Any data added, moddified or removed since the beginning of the read transaction won&rsquo;t be seen.</p>
 <h1 id="adding-a-b-tree">Adding a B-tree</h1>
-<p>As soon as the database has been initialized, we can now add a working B-tree. This is done with a <em>write transaction</em> that needs to be created:</p>
+<p>As soon as the database has been initialized, we can now add a working <em>B-tree</em>. This is done with a <em>write transaction</em> that needs to be created:</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">        <span style="color:#a2f;font-weight:bold">try</span> <span style="color:#666">(</span> WriteTransaction writeTransaction <span style="color:#666">=</span> recordManager<span style="color:#666">.</span><span style="color:#b44">beginWriteTransaction</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span>
         <span style="color:#666">{</span>
             <span style="color:#080;font-style:italic">// Create a new BTree with transaction and another one without
@@ -263,9 +266,9 @@ Head --&gt;|             | o-+---&gt;|             | o-+---&gt;|             | x
         <span style="color:#666">}</span>
 </code></pre></div><ul>
 <li>We first create a <em>Write Transaction</em> in a <em>try_with_resource</em> block</li>
-<li>then we add a B-tree (here stroring &lt;Long, String&gt; tuples) in a try/catch sequence</li>
-<li>we handle a potential exception, and rollback explicitely the transaction in this case</li>
-<li>last, not least, the commit is implicit when the transaction is auto-closed</li>
+<li>Then we add a <em>B-tree</em> (here stroring <code>&lt;Long, String&gt;</code> tuples) in a <em>try/catch</em> sequence</li>
+<li>We handle a potential exception, and rollback explicitely the transaction in this case</li>
+<li>Last, not least, the commit is implicit when the transaction is auto-closed</li>
 </ul>
 <p>Note: We have to deal with the <em>abort()</em> call explicitely.</p>
 <p>The <em>B-tree</em> creation is entirely managed by the <em>recordManager</em> instance. A <em>B_Tree</em> is a data structure holding tuples (<code>&lt;key, value&gt;</code>) into pages. It has at least three pages:</p>
