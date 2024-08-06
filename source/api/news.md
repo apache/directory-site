@@ -4,6 +4,30 @@ title: News
 
 # News 
 
+<h2 class="news">Apache Directory LDAP API 2.1.7 released <em>posted on August 08th, 2024</em></h2>
+
+The Apache Directory Team is proud to announce the availability of version 2.1.7 of the Apache Directory LDAP API.
+
+The Apache Directory LDAP API is an ongoing effort to provide an enhanced LDAP API, as a replacement for JNDI and the existing LDAP API (jLdap and Mozilla LDAP API).
+
+This is a schema aware API, with some convenient ways to access a LDAP server. This API is not only targeting the Apache Directory Server, but should work pristine with any LDAP server.
+
+It's also an extensible API : new Controls, schema elements and network layer could be added or used in the near future. It's also OSGi capable.
+
+This release is fixing a few issues and add a new control:
+
+* [DIRAPI-394](https://issues.apache.org/jira/browse/DIRAPI-394) Add support for control 1.3.6.1.4.1.30221.2.5.44 (Naming Entries With entryUUID)
+* [DIRAPI-398](https://issues.apache.org/jira/browse/DIRAPI-398) Release Pooled LDAP Connections when closed
+* [DIRAPI-400](https://issues.apache.org/jira/browse/DIRAPI-400) Hang in LDAP URL parser
+* [DIRAPI-401](https://issues.apache.org/jira/browse/DIRAPI-401) Unhandled Exception (NegativeArraySizeException) in Asn1Decoder
+* [DIRAPI-402](https://issues.apache.org/jira/browse/DIRAPI-402) unhandled exception (ArrayIndexOutOfBoundsException) in LDAP URL parser
+* [DIRAPI-403](https://issues.apache.org/jira/browse/DIRAPI-403) OutOfMemory error in Asn1Decoder for LDAP messages
+* [DIRAPI-404](https://issues.apache.org/jira/browse/DIRAPI-404) An inefficient constructor
+* [DIRAPI-405](https://issues.apache.org/jira/browse/DIRAPI-405) A possible handle leak
+
+
+Downloads are available [here](downloads-2.html) and the User's Guide is [there](user-guide.html)
+
 <h2 class="news">Apache Directory LDAP API 2.1.6 released <em>posted on February 06th, 2024</em></h2>
 
 The Apache Directory Team is proud to announce the availability of version 2.1.6 of the Apache Directory LDAP API.

@@ -12,6 +12,7 @@ title: Download Old Versions
 
 | Version| Download Link | Javadoc & XRef |  Date |
 |:-:|:-:|:-:|:-:|
+| Apache LDAP API 2.1.6 | [Download](https://archive.apache.org/dist/directory/api/dist/2.1.6) | [Javadoc](https://nightlies.apache.org/directory/api/2.1.6/apidocs/), [Xref](https://nightlies.apache.org/directory/api/2.1.6/xref/) |06/Feb/2024 |
 | Apache LDAP API 2.1.5 | [Download](https://archive.apache.org/dist/directory/api/dist/2.1.5) | [Javadoc](https://nightlies.apache.org/directory/api/2.1.5/apidocs/), [Xref](https://nightlies.apache.org/directory/api/2.1.5/xref/) |12/Oct/2023 |
 | Apache LDAP API 2.1.4 | [Download](https://archive.apache.org/dist/directory/api/dist/2.1.4) | [Javadoc](https://nightlies.apache.org/directory/api/2.1.4/apidocs/), [Xref](https://nightlies.apache.org/directory/api/2.1.4/xref/) |29/Aug/2023 |
 | Apache LDAP API 2.1.3 | [Download](https://archive.apache.org/dist/directory/api/dist/2.1.3) | [Javadoc](https://nightlies.apache.org/directory/api/2.1.3/apidocs/), [Xref](https://nightlies.apache.org/directory/api/2.1.3/xref/) |09/Apr/2023 |
