@@ -3,6 +3,14 @@ title: News
 ---
 
 # News
+<h2 class="news">Apache Kerby 2.1.0 released <em>posted on Aug 14, 2024</em></h2>
+
+The Apache Directory team is pleased to announce the release of Apache Kerby
+2.1.0.
+
+The issues fixed are available [here](https://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310910&version=12346557).
+
+Downloads are available [here](downloads.html)
 <h2 class="news">Apache Kerby 2.0.3 released <em>posted on Feb 20, 2023</em></h2>
 
 The Apache Directory team is pleased to announce the release of Apache Kerby
