@@ -19,7 +19,7 @@ The git repository is mirrored to Github: <https://github.com/apache/directory-k
 
 ## Build Requirements:
 
-* JDK 1.7+
+* JDK 1.8+
 * Maven 3.0 or later
 * Internet connection for first build (to fetch all Maven and Kerby dependencies)
 
