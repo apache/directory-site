@@ -6,7 +6,6 @@ title: Team
 
 | Name | id | Position | Photo | WebSite | Blog |
 |---|---|---|:-:|:-:|:-:|
-| Alex Karasulu | akarasulu | Founder, PMC | ![Alex Karasulu](images/team/akarasulu.jpg) |||
 | Brian Demers | bdemers | PMC |||[![Blog](images/team/blog.png)](https://blog.bdemers.io/)|
 | Chris Custine | ccustine | PMC | ![Chris Custine](images/team/ccustine.png) | [![Website](images/team/website.png)](https://www.organicelement.com) | [![Blog](images/team/blog.png)](http://blog.organicelement.com) |
 | Chris Pike | cpike | PMC ||||
@@ -28,7 +27,6 @@ title: Team
 | Name | id | Position | Photo | WebSite | Blog |
 |---|---|---|:-:|:-:|:-:|
 | Admir Hodzic | admirhodzic | Committer ||||
-| Alan Cabrera | adc | Committer ||||
 | Aleksander Adamowski | aadomowski | Committer ||||
 | Alex Haskell | aphaskell | Committer ||||
 | Andrea Gariboldi | agariboldi | Committer ||||
@@ -63,6 +61,8 @@ To be continued ...
 
 | Name | Position | Photo | WebSite | Blog |
 |---|---|:-:|:-:|:-:|
+| Alan Cabrera | adc | Committer ||||
+| Alex Karasulu | akarasulu | Founder, PMC | ![Alex Karasulu](images/team/akarasulu.jpg) |||
 | Brett Porter | PMC ||||
 | Brian Burch | Committer ||||
 | Ersin Er | PMC ||||
