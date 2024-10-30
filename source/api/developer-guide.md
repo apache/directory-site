@@ -7,7 +7,14 @@ title: LDAP Java API - Developer Guide
 This guide is intened to be read by those who participate into the development of the LDAP API. Users of the API are expected to read the [User guide](user-guide.html).
 
 ## Getting the source, Building the trunks
+
 To get the source, build the *trunks/api* and get along with Maven.
+
+<DIV class="info" markdown="1">
+    We require the use of Java 11 for the recent versions. The resulting package will work with Java 8 though.
+
+    Th eminimum version of Maven to use is 3.5.4.
+</DIV>
 
 ## Versioning Scheme
 
