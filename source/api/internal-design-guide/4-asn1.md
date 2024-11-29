@@ -289,6 +289,32 @@ For the _BindRequest_, only two states are mandatory and must be followed by ano
 * _VERSION_STATE_
 * _NAME_STATE_
 
+#### BindResponse message
+
+The _BindResponse_ message contains two elements:
+
+* A _LdapResult_ element 
+* An optional response used in a aunthentication dialogue, if the _BindRequest_ message was a **SASL** one
+
+```
+BindResponse ::= [APPLICATION 1] SEQUENCE {
+             COMPONENTS OF LDAPResult,
+             serverSaslCreds    [7] OCTET STRING OPTIONAL }
+```
+
+The associated state machine is shwon below:
+
+<img src="images/asn1-bind-response.png" alt="BindResponse state machine" width="100%"/>
+
+Just because we may have some data after the _LDAPResult_ element, we use a special version of the _LDAPResult_ state machine:
+
+<img src="images/asn1-ldap-result-BR.png" alt="BindResponse LDAPResult state machine" width="100%"/>
+
+In any case, two states are mandatory:
+
+* _RESULT_CODE_BR_STATE_
+* _MATCHED_DN_BR_STATE_
+
 
 #### Error handling
 
