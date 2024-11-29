@@ -190,7 +190,7 @@
 <li>A <em>Grammar</em></li>
 <li>A <em>Container</em></li>
 <li>A <em>StateEnum</em></li>
-<li>A message interface and implementation which will contaion the decoded message</li>
+<li>A message interface and implementation which will contain the decoded message</li>
 <li>and optionally a <em>Factory</em> (for controls and extended operations)</li>
 </ul>
 <p>The <em>Grammar</em> describes the transitions and actions of the state machine used to decode a message. Note that the actions can be stored in separate classes.</p>
@@ -202,7 +202,7 @@
 <p>So we decode a message using a state machine, which basically transit from one state to another, and optionally execute an action in between :</p>
 <p><img src="images/sm-transition.png" alt="State Machine transition"></p>
 <p>The difficulty with such a grammar is that transitions are to be defined for every cases. For instance, when it comes to process <em>SearchRequest</em> filters, here is what we get:</p>
-<p><img src="images/asn1-filter.png" alt="SearchRequest filters"></p>
+<img src="images/asn1-filter.png" alt="SearchRequest filters" width="100%"/>
 <p>As we can see, we have many different possible transitions from the starting point, one per filter type.</p>
 <p>Actually, we use the <strong>TLV</strong> tag to know which next step we should go to. Here, when we are on the <em>Greater or Equal</em> state, the transition to the <em>Attribute Desc</em> state is done if the tag is <strong>0x04</strong>. If any other tag is met, then that should generate an error.</p>
 <h4 id="error-handling">Error handling</h4>
