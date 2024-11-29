@@ -105,9 +105,18 @@ The _Target_ parent class stores the target *id*, *architecture*, *OS* and the f
 * _rpmbuild_ for the *RedHat* installer (defaults to _/usr/bin/rpmbuild_)
 * TODO: Mac, Windows
 
-We use a default value, hard coded in the extended class, but this value can be ovveriden by the _pom.xml_ configuration, and overriden by the use of a *-D* flag on teh command line (which has the highest level of precedence).
+We use a default value, hard coded in the extended class, but this value can be ovveriden by the _pom.xml_ configuration, and overriden by the use of a *-D* flag on the command line (which has the highest level of precedence).
 
-Each extended class implements the _execute()_ method which is responsible for calling an _InstallerCommand_ class. These classes are teh one which create the packages.
+Each extended class implements the _execute()_ method which is responsible for calling an _InstallerCommand_ class. These classes are the one which create the packages.
+
+Here is the list of inherited classes:
+
+* _ArchiveTarget_: Create the tar.gz package
+* _BinTarget_
+* _DebTarget_: Generate a *deb* file to be used on *Debian* based platforms
+* _MacOsXPkgTarget_: Generate *Mac OS* platform packages
+* _NsisTarget_: Generate a 32 bits windows package
+* _RpmTarget_: Generate a *rpm* file to be used on *RedHat/CentOS* based platforms
 
 ## Linux Debian
 

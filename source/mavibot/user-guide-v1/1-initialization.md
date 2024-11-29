@@ -70,6 +70,14 @@ This is a technical *B-tree* that is used to keep a reference of all the pages t
 
 In any case, this is just a plain *B-tree* like any others, except that we don't keep many versions of it,  only the last one, as it's only updated when a write transaction is done.
 
+## Thee list of existing B-trees
+
+We manage a list of declared *B-trees* in the record manager. Every time a *B-tree* is created, it's added in this list. When it's deleted, it's removed from this list.
+
+It's updated within a write transaction, the  it's flushed on disk in a new location, so if the transaction fails, we can still get back with th eprevious list.
+
+NOTE: This list does not include the *CPB*.
+
 ## The list of active B-trees
 
 Every time a read transaction is started, it will use a set of *B-trees*. 
