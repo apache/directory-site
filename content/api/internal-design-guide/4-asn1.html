@@ -371,6 +371,24 @@ Each transition is based on the tags used between two states.</p>
 <li><em>VERSION_STATE</em></li>
 <li><em>NAME_STATE</em></li>
 </ul>
+<h4 id="bindresponse-message">BindResponse message</h4>
+<p>The <em>BindResponse</em> message contains two elements:</p>
+<ul>
+<li>A <em>LdapResult</em> element</li>
+<li>An optional response used in a aunthentication dialogue, if the <em>BindRequest</em> message was a <strong>SASL</strong> one</li>
+</ul>
+<pre><code>BindResponse ::= [APPLICATION 1] SEQUENCE {
+             COMPONENTS OF LDAPResult,
+             serverSaslCreds    [7] OCTET STRING OPTIONAL }
+</code></pre><p>The associated state machine is shwon below:</p>
+<img src="images/asn1-bind-response.png" alt="BindResponse state machine" width="100%"/>
+<p>Just because we may have some data after the <em>LDAPResult</em> element, we use a special version of the <em>LDAPResult</em> state machine:</p>
+<img src="images/asn1-ldap-result-BR.png" alt="BindResponse LDAPResult state machine" width="100%"/>
+<p>In any case, two states are mandatory:</p>
+<ul>
+<li><em>RESULT_CODE_BR_STATE</em></li>
+<li><em>MATCHED_DN_BR_STATE</em></li>
+</ul>
 <h4 id="error-handling">Error handling</h4>
 <p>So when we are expecting a specific tag (as seen previoulsy, <strong>0x04</strong>, for instance), and we get another tag, we throw a <em>DecoderException</em>, and we stop the decoding.
 Of course, we have to discard all the <strong>PDU</strong>, and hopefully, we know how many bytes to process as it&rsquo;s given in the first <strong>TLV</strong>.</p>
