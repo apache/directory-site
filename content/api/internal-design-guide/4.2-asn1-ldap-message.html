@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>4-2 - ASN/1 LDAP grammar &mdash; Apache Directory</title>
+
+    <link href="/css/common.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/brown.css" rel="stylesheet" type="text/css"/>
+
+    <link rel="shortcut icon" href="/images/server-icon_16x16.png" />
+    <script src="https://www.apachecon.com/event-images/snippet.js"></script>
+</head>
+
+<body>
+<div id="container">
+    <div id="header">
+    <div id="subProjectsNavBar">
+        <a href="/">
+             
+                Main
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/apacheds/">
+             
+                ApacheDS
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/studio/">
+             
+                Studio
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/api/">
+            
+                <strong>LDAP API</strong>
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/mavibot/">
+             
+                Mavibot
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/scimple/">
+             
+                SCIMple
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/fortress/">
+             
+                Fortress
+            
+        </a>
+        &nbsp;|&nbsp;
+        <a href="/kerby/">
+             
+                Kerby
+            
+        </a>
+    </div>
+</div>
+
+
+    <div id="content">
+        <div id="leftColumn">
+            <div id="navigation">
+                
+                <a class="acevent" data-format="wide" data-width="170"></a>
+                <h5>LDAP API </h5>
+                <ul>
+                    <li><a href="/api/">Home</a></li>
+                    <li><a href="/api/news.html">News</a></li>
+                </ul>
+
+                <h5>Downloads</h5>
+                <ul>
+                    <li><a href="/api/downloads-2.html">Version 2.1.7</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/downloads-1.html">Version 1.0.3</a>&nbsp;&nbsp;</li>
+                    <li><a href="/api/download-old-versions.html">Older versions</a></li>
+                </ul>
+
+                <h5>Getting Started</h5>
+                <ul>
+                    <li><a href="/api/vision.html">Vision</a></li>
+                    <li><a href="/api/java-api.html">Java API</a></li>
+                </ul>
+
+                <h5>Documentation</h5>
+                <ul>
+                    <li><a href="/api/five-minutes-tutorial.html">Five minute tutorial</a></li>
+                    <li><a href="/api/user-guide.html">User Guide</a></li>
+                    <li><a href="/api/migration-guide.html">API 1 to 2 migration</a></li>
+                    <li><a href="/api/gen-docs/latest2/apidocs/">JavaDocs 2</a></li>
+                    <li><a href="/api/gen-docs/latest/apidocs/">JavaDocs</a></li>
+                    <li><a href="/api/gen-docs/latest2/xref/">Cross-Reference 2</a></li>
+                    <li><a href="/api/gen-docs/latest/xref/">Cross-Reference</a></li>
+                    
+                    <li><a href="/api/developer-guide.html">Developer Guide</a></li>
+                    <li><a href="/api/internal-design-guide.html">Internal Guide</a></li>
+                </ul>
+
+                <h5>Support</h5>
+<ul>
+    <li><a href="/mailing-lists-and-irc.html">Mailing Lists &amp; IRC</a></li>
+    <li><a href="/sources.html">Sources</a></li>
+    <li><a href="/issue-tracking.html">Issue Tracking</a></li>
+    <li><a href="/commercial-support.html">Commercial Support</a></li>
+</ul>
+
+<h5>Community</h5>
+<ul>
+    <li><a href="/contribute.html">How to Contribute</a></li>
+    <li><a href="/team.html">Team</a></li>
+    <li><a href="/original-project-proposal.html">Original Project Proposal</a></li>
+    <li><a href="/special-thanks.html" class="external-link" rel="nofollow">Special Thanks</a></li>
+</ul>
+
+<h5>About Apache</h5>
+<ul>
+    <li><a href="https://www.apache.org/">Apache</a></li>
+    <li><a href="https://www.apache.org/licenses/">License</a></li>
+    <li><a href="https://www.apache.org/foundation/sponsorship.html">Sponsorship</a></li>
+    <li><a href="https://www.apache.org/foundation/thanks.html">Thanks</a></li>
+    <li><a href="https://www.apache.org/security/">Security</a></li>
+</ul>
+
+            </div>
+        </div>
+        <div id="rightColumn">
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="4.1-asn1-tlv.html">4-1 - ASN/1 TLV</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="../internal-design-guide.html">Internal Design Guide</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="5-network.html">5 - Network</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+            
+	<h1 id="4-2---asn1-ldap-grammar">4-2 - ASN/1 LDAP grammar</h1>
+<p>The <strong>LDAP</strong> grammar is defined in <a href="https://www.rfc-editor.org/rfc/rfc4511#appendix-B">RFC 4511, appendix B</a>.</p>
+<p>Here it is:</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Text" data-lang="Text">Lightweight-Directory-Access-Protocol-V3 {1 3 6 1 1 18}
+        -- Copyright (C) The Internet Society (2006).  This version of
+        -- this ASN.1 module is part of RFC 4511; see the RFC itself
+        -- for full legal notices.
+        DEFINITIONS
+        IMPLICIT TAGS
+        EXTENSIBILITY IMPLIED ::=
+
+        BEGIN
+
+        LDAPMessage ::= SEQUENCE {
+             messageID       MessageID,
+             protocolOp      CHOICE {
+                  bindRequest           BindRequest,
+                  bindResponse          BindResponse,
+                  unbindRequest         UnbindRequest,
+                  searchRequest         SearchRequest,
+                  searchResEntry        SearchResultEntry,
+                  searchResDone         SearchResultDone,
+                  searchResRef          SearchResultReference,
+                  modifyRequest         ModifyRequest,
+                  modifyResponse        ModifyResponse,
+                  addRequest            AddRequest,
+                  addResponse           AddResponse,
+                  delRequest            DelRequest,
+                  delResponse           DelResponse,
+                  modDNRequest          ModifyDNRequest,
+                  modDNResponse         ModifyDNResponse,
+                  compareRequest        CompareRequest,
+                  compareResponse       CompareResponse,
+                  abandonRequest        AbandonRequest,
+                  extendedReq           ExtendedRequest,
+                  extendedResp          ExtendedResponse,
+                  ...,
+                  intermediateResponse  IntermediateResponse },
+             controls       [0] Controls OPTIONAL }
+
+        MessageID ::= INTEGER (0 ..  maxInt)
+
+        maxInt INTEGER ::= 2147483647 -- (2^^31 - 1) --
+
+        LDAPString ::= OCTET STRING -- UTF-8 encoded,
+                                    -- [ISO10646] characters
+
+        LDAPOID ::= OCTET STRING -- Constrained to &lt;numericoid&gt;
+                                 -- [RFC4512]
+
+        LDAPDN ::= LDAPString -- Constrained to &lt;distinguishedName&gt;
+                              -- [RFC4514]
+
+        RelativeLDAPDN ::= LDAPString -- Constrained to &lt;name-component&gt;
+                                      -- [RFC4514]
+
+        AttributeDescription ::= LDAPString
+                                -- Constrained to &lt;attributedescription&gt;
+                                -- [RFC4512]
+
+        AttributeValue ::= OCTET STRING
+
+        AttributeValueAssertion ::= SEQUENCE {
+             attributeDesc   AttributeDescription,
+             assertionValue  AssertionValue }
+
+        AssertionValue ::= OCTET STRING
+
+        PartialAttribute ::= SEQUENCE {
+             type       AttributeDescription,
+             vals       SET OF value AttributeValue }
+
+        Attribute ::= PartialAttribute(WITH COMPONENTS {
+             ...,
+             vals (SIZE(1..MAX))})
+
+        MatchingRuleId ::= LDAPString
+
+        LDAPResult ::= SEQUENCE {
+             resultCode         ENUMERATED {
+                  success                      (0),
+                  operationsError              (1),
+                  protocolError                (2),
+                  timeLimitExceeded            (3),
+                  sizeLimitExceeded            (4),
+                  compareFalse                 (5),
+                  compareTrue                  (6),
+                  authMethodNotSupported       (7),
+                  strongerAuthRequired         (8),
+                       -- 9 reserved --
+                  referral                     (10),
+                  adminLimitExceeded           (11),
+                  unavailableCriticalExtension (12),
+                  confidentialityRequired      (13),
+                  saslBindInProgress           (14),
+                  noSuchAttribute              (16),
+                  undefinedAttributeType       (17),
+                  inappropriateMatching        (18),
+                  constraintViolation          (19),
+                  attributeOrValueExists       (20),
+                  invalidAttributeSyntax       (21),
+                       -- 22-31 unused --
+                  noSuchObject                 (32),
+                  aliasProblem                 (33),
+                  invalidDNSyntax              (34),
+                       -- 35 reserved for undefined isLeaf --
+                  aliasDereferencingProblem    (36),
+                       -- 37-47 unused --
+                  inappropriateAuthentication  (48),
+                  invalidCredentials           (49),
+                  insufficientAccessRights     (50),
+                  busy                         (51),
+                  unavailable                  (52),
+                  unwillingToPerform           (53),
+                  loopDetect                   (54),
+                       -- 55-63 unused --
+                  namingViolation              (64),
+                  objectClassViolation         (65),
+                  notAllowedOnNonLeaf          (66),
+                  notAllowedOnRDN              (67),
+                  entryAlreadyExists           (68),
+                  objectClassModsProhibited    (69),
+                       -- 70 reserved for CLDAP --
+                  affectsMultipleDSAs          (71),
+                       -- 72-79 unused --
+                  other                        (80),
+                  ...  },
+             matchedDN          LDAPDN,
+             diagnosticMessage  LDAPString,
+             referral           [3] Referral OPTIONAL }
+
+        Referral ::= SEQUENCE SIZE (1..MAX) OF uri URI
+
+        URI ::= LDAPString     -- limited to characters permitted in
+                               -- URIs
+
+        Controls ::= SEQUENCE OF control Control
+
+        Control ::= SEQUENCE {
+             controlType             LDAPOID,
+             criticality             BOOLEAN DEFAULT FALSE,
+             controlValue            OCTET STRING OPTIONAL }
+
+        BindRequest ::= [APPLICATION 0] SEQUENCE {
+             version                 INTEGER (1 ..  127),
+             name                    LDAPDN,
+             authentication          AuthenticationChoice }
+
+        AuthenticationChoice ::= CHOICE {
+             simple                  [0] OCTET STRING,
+                                     -- 1 and 2 reserved
+             sasl                    [3] SaslCredentials,
+             ...  }
+
+        SaslCredentials ::= SEQUENCE {
+             mechanism               LDAPString,
+             credentials             OCTET STRING OPTIONAL }
+
+        BindResponse ::= [APPLICATION 1] SEQUENCE {
+             COMPONENTS OF LDAPResult,
+             serverSaslCreds    [7] OCTET STRING OPTIONAL }
+
+        UnbindRequest ::= [APPLICATION 2] NULL
+
+        SearchRequest ::= [APPLICATION 3] SEQUENCE {
+             baseObject      LDAPDN,
+             scope           ENUMERATED {
+                  baseObject              (0),
+                  singleLevel             (1),
+                  wholeSubtree            (2),
+                  ...  },
+             derefAliases    ENUMERATED {
+                  neverDerefAliases       (0),
+                  derefInSearching        (1),
+                  derefFindingBaseObj     (2),
+                  derefAlways             (3) },
+             sizeLimit       INTEGER (0 ..  maxInt),
+             timeLimit       INTEGER (0 ..  maxInt),
+             typesOnly       BOOLEAN,
+             filter          Filter,
+             attributes      AttributeSelection }
+
+        AttributeSelection ::= SEQUENCE OF selector LDAPString
+                       -- The LDAPString is constrained to
+                       -- &lt;attributeSelector&gt; in Section 4.5.1.8
+
+        Filter ::= CHOICE {
+             and             [0] SET SIZE (1..MAX) OF filter Filter,
+             or              [1] SET SIZE (1..MAX) OF filter Filter,
+             not             [2] Filter,
+             equalityMatch   [3] AttributeValueAssertion,
+             substrings      [4] SubstringFilter,
+             greaterOrEqual  [5] AttributeValueAssertion,
+             lessOrEqual     [6] AttributeValueAssertion,
+             present         [7] AttributeDescription,
+             approxMatch     [8] AttributeValueAssertion,
+             extensibleMatch [9] MatchingRuleAssertion,
+             ...  }
+
+        SubstringFilter ::= SEQUENCE {
+             type           AttributeDescription,
+             substrings     SEQUENCE SIZE (1..MAX) OF substring CHOICE {
+                  initial [0] AssertionValue,  -- can occur at most once
+                  any     [1] AssertionValue,
+                  final   [2] AssertionValue } -- can occur at most once
+             }
+
+        MatchingRuleAssertion ::= SEQUENCE {
+             matchingRule    [1] MatchingRuleId OPTIONAL,
+             type            [2] AttributeDescription OPTIONAL,
+             matchValue      [3] AssertionValue,
+             dnAttributes    [4] BOOLEAN DEFAULT FALSE }
+
+        SearchResultEntry ::= [APPLICATION 4] SEQUENCE {
+             objectName      LDAPDN,
+             attributes      PartialAttributeList }
+
+        PartialAttributeList ::= SEQUENCE OF
+                             partialAttribute PartialAttribute
+
+        SearchResultReference ::= [APPLICATION 19] SEQUENCE
+                                  SIZE (1..MAX) OF uri URI
+
+        SearchResultDone ::= [APPLICATION 5] LDAPResult
+
+        ModifyRequest ::= [APPLICATION 6] SEQUENCE {
+             object          LDAPDN,
+             changes         SEQUENCE OF change SEQUENCE {
+                  operation       ENUMERATED {
+                       add     (0),
+                       delete  (1),
+                       replace (2),
+                       ...  },
+                  modification    PartialAttribute } }
+
+        ModifyResponse ::= [APPLICATION 7] LDAPResult
+
+        AddRequest ::= [APPLICATION 8] SEQUENCE {
+             entry           LDAPDN,
+             attributes      AttributeList }
+
+        AttributeList ::= SEQUENCE OF attribute Attribute
+
+        AddResponse ::= [APPLICATION 9] LDAPResult
+
+        DelRequest ::= [APPLICATION 10] LDAPDN
+
+        DelResponse ::= [APPLICATION 11] LDAPResult
+
+        ModifyDNRequest ::= [APPLICATION 12] SEQUENCE {
+             entry           LDAPDN,
+             newrdn          RelativeLDAPDN,
+             deleteoldrdn    BOOLEAN,
+             newSuperior     [0] LDAPDN OPTIONAL }
+
+        ModifyDNResponse ::= [APPLICATION 13] LDAPResult
+
+        CompareRequest ::= [APPLICATION 14] SEQUENCE {
+             entry           LDAPDN,
+             ava             AttributeValueAssertion }
+
+        CompareResponse ::= [APPLICATION 15] LDAPResult
+
+        AbandonRequest ::= [APPLICATION 16] MessageID
+
+        ExtendedRequest ::= [APPLICATION 23] SEQUENCE {
+             requestName      [0] LDAPOID,
+             requestValue     [1] OCTET STRING OPTIONAL }
+
+        ExtendedResponse ::= [APPLICATION 24] SEQUENCE {
+             COMPONENTS OF LDAPResult,
+             responseName     [10] LDAPOID OPTIONAL,
+             responseValue    [11] OCTET STRING OPTIONAL }
+
+        IntermediateResponse ::= [APPLICATION 25] SEQUENCE {
+             responseName     [0] LDAPOID OPTIONAL,
+             responseValue    [1] OCTET STRING OPTIONAL }
+
+        END
+</code></pre></div><h2 id="ldapmessage">LDAPMessage</h2>
+<p>The structure of a <strong>LDAP</strong> message is described in the following chema:</p>
+<p><img src="images/asn1-ldap-message.png" alt="LDAPMessage"></p>
+<p>It&rsquo;s a representation of this part of the grammar:</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">        LDAPMessage ::= SEQUENCE {
+             messageID       MessageID,
+             protocolOp      CHOICE {
+                  bindRequest           BindRequest,
+                  bindResponse          BindResponse,
+                  unbindRequest         UnbindRequest,
+                  searchRequest         SearchRequest,
+                  searchResEntry        SearchResultEntry,
+                  searchResDone         SearchResultDone,
+                  searchResRef          SearchResultReference,
+                  modifyRequest         ModifyRequest,
+                  modifyResponse        ModifyResponse,
+                  addRequest            AddRequest,
+                  addResponse           AddResponse,
+                  delRequest            DelRequest,
+                  delResponse           DelResponse,
+                  modDNRequest          ModifyDNRequest,
+                  modDNResponse         ModifyDNResponse,
+                  compareRequest        CompareRequest,
+                  compareResponse       CompareResponse,
+                  abandonRequest        AbandonRequest,
+                  extendedReq           ExtendedRequest,
+                  extendedResp          ExtendedResponse,
+                  ...,
+                  intermediateResponse  IntermediateResponse },
+             controls       [0] Controls OPTIONAL }
+</code></pre></div><p>As we can see, it contains 3 <strong>PDU</strong>, the last one being optipnal, encapsulated into a <strong>SEQUENCE</strong> <strong>PDU</strong>.</p>
+<p>The existing transitions are:</p>
+<ul>
+<li><strong>0x30</strong> -&gt; <strong>0x02</strong>                  LDAPMessage -&gt; messageID (mandatory)</li>
+<li><strong>0x02</strong> -&gt; <strong>0x0[4567]/[0-F]</strong>       messageID -&gt; protocolOp (mandatory)</li>
+<li><strong>NN</strong> -&gt; <strong>0xA0</strong>                    protocolOp -&gt; controls (optional)</li>
+</ul>
+<h2 id="bindrequest">BindRequest</h2>
+<h2 id="bindresponse">BindResponse</h2>
+<h2 id="unbindrequest">UnbindRequest</h2>
+<p>This is the simplest operation. Its <strong>PDU</strong> contaons only 2 bytes: <strong>0x42 0x00</strong>.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">        UnbindRequest ::= [APPLICATION 2] NULL
+</code></pre></div><h2 id="searchrequest">SearchRequest</h2>
+<h2 id="searchresultentry">SearchResultEntry</h2>
+<h2 id="searchresultdone">SearchResultDone</h2>
+<h2 id="searchresultreference">SearchResultReference</h2>
+<h2 id="modifyrequest">ModifyRequest</h2>
+<h2 id="modifyresponse">ModifyResponse</h2>
+<h2 id="addrequest">AddRequest</h2>
+<h2 id="addresponse">AddResponse</h2>
+<h2 id="delrequest">DelRequest</h2>
+<h2 id="delresponse">DelResponse</h2>
+<h2 id="modifydnrequest">ModifyDNRequest</h2>
+<h2 id="modifydnresponse">ModifyDNResponse</h2>
+<h2 id="comparerequest">CompareRequest</h2>
+<h2 id="compareresponse">CompareResponse</h2>
+<h2 id="abandonrequest">AbandonRequest</h2>
+<h2 id="extendedrequest">ExtendedRequest</h2>
+<h2 id="extendedresponse">ExtendedResponse</h2>
+<h2 id="intermediateresponse">IntermediateResponse</h2>
+
+
+            
+    <div class="nav">
+        <div class="nav_prev">
+            
+                
+                <a href="4.1-asn1-tlv.html">4-1 - ASN/1 TLV</a>
+            
+        </div>
+        <div class="nav_up">
+            
+                
+                <a href="../internal-design-guide.html">Internal Design Guide</a>
+            
+        </div>
+        <div class="nav_next">
+            
+                
+                <a href="5-network.html">5 - Network</a>
+            
+        </div>
+        <div class="clearfix"></div>
+    </div>
+
+
+        </div>
+        <div id="endContent"></div>
+    </div>
+
+    <div id="footer">
+    &copy; 2003-2024, <a href="https://www.apache.org">The Apache Software Foundation</a> - <a href="https://privacy.apache.org/policies/privacy-policy-public.html">Privacy Policy</a><br />
+    Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
+    trademarks of The Apache Software Foundation.
+</div>
+
+</div>
+
+</body>
+
+</html>

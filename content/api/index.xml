@@ -410,6 +410,17 @@ Contents  Schema SchemaManager  SchemaObjects  AttributeTypes ObjectClasses Synt
     </item>
     
     <item>
+      <title>4-2 - ASN/1 LDAP grammar</title>
+      <link>https://directory.apache.org/api/internal-design-guide/4.2-asn1-ldap-message.html</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://directory.apache.org/api/internal-design-guide/4.2-asn1-ldap-message.html</guid>
+      <description>4-2 - ASN/1 LDAP grammar The LDAP grammar is defined in RFC 4511, appendix B.
+Here it is:
+Lightweight-Directory-Access-Protocol-V3 {1 3 6 1 1 18} -- Copyright (C) The Internet Society (2006). This version of -- this ASN.1 module is part of RFC 4511; see the RFC itself -- for full legal notices. DEFINITIONS IMPLICIT TAGS EXTENSIBILITY IMPLIED ::= BEGIN LDAPMessage ::= SEQUENCE { messageID MessageID, protocolOp CHOICE { bindRequest BindRequest, bindResponse BindResponse, unbindRequest UnbindRequest, searchRequest SearchRequest, searchResEntry SearchResultEntry, searchResDone SearchResultDone, searchResRef SearchResultReference, modifyRequest ModifyRequest, modifyResponse ModifyResponse, addRequest AddRequest, addResponse AddResponse, delRequest DelRequest, delResponse DelResponse, modDNRequest ModifyDNRequest, modDNResponse ModifyDNResponse, compareRequest CompareRequest, compareResponse CompareResponse, abandonRequest AbandonRequest, extendedReq ExtendedRequest, extendedResp ExtendedResponse, .</description>
+    </item>
+    
+    <item>
       <title>4.1 - Schema</title>
       <link>https://directory.apache.org/api/user-guide/4.1-schema.html</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>

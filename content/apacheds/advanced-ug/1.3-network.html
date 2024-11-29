@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>1.2 - Newtork Layer &mdash; Apache Directory</title>
+    <title>1.3 - Newtork Layer &mdash; Apache Directory</title>
 
     <link href="/css/common.css" rel="stylesheet" type="text/css"/>
     <link href="/css/green.css" rel="stylesheet" type="text/css"/>
@@ -130,7 +130,7 @@
         <div class="nav_prev">
             
                 
-                <a href="1.1-architecture-overview.html">1.1 - Architecture Overview</a>
+                <a href="1.2-directory-service.html">1.2 - DirectoryService</a>
             
         </div>
         <div class="nav_up">
@@ -142,7 +142,7 @@
         <div class="nav_next">
             
                 
-                <a href="1.3-directory-service.html">1.3 - DirectoryService</a>
+                <a href="1.4-interceptors.html">1.4 - Interceptors</a>
             
         </div>
         <div class="clearfix"></div>
@@ -168,6 +168,13 @@ The <em>DirectoryService</em> is the part responsible for the management of data
 <p>So when the <em>DirectoryService</em> has been started and is operational, we can start the various servers, which will accept incoming requests from remote peers.</p>
 <h3 id="transports">Transports</h3>
 <p>We allow connection through the definition of <em>transports</em>. A <em>Transport</em> is a <strong>TCP</strong> or an <strong>UDP</strong> socket capable of absorbing a request and to send a response. Depending on the type of server, we may declare one or more <strong>TCP</strong> <em>Transports</em>, or a <strong>TCP</strong> and a <strong>UDP</strong> <em>Transports</em>, or an <strong>UDP</strong> <em>Transport</em> only.</p>
+<p>The class hierarchy :</p>
+<p>ServerSocket:</p>
+<ul>
+<li>bind address</li>
+<li>port</li>
+<li>backlog</li>
+</ul>
 <h3 id="ldap-server">Ldap Server</h3>
 <p>The LDAP server needs one or two <strong>TCP</strong> <em>Transport</em>. We have the standard <em>LDAP</em> port (defaulting to <em>10389</em> for <em>ApacheDS</em>, but the well know port is usually 389), and one can also declare the <em>LDAPS</em> port (defaulting to <em>10636</em> for <em>ApacheDS</em>, but the well know port is usually 636).</p>
 <DIV class="warning" markdown="1">
@@ -186,7 +193,7 @@ Note that *LDAPS* is considered as deprecated.
         <div class="nav_prev">
             
                 
-                <a href="1.1-architecture-overview.html">1.1 - Architecture Overview</a>
+                <a href="1.2-directory-service.html">1.2 - DirectoryService</a>
             
         </div>
         <div class="nav_up">
@@ -198,7 +205,7 @@ Note that *LDAPS* is considered as deprecated.
         <div class="nav_next">
             
                 
-                <a href="1.3-directory-service.html">1.3 - DirectoryService</a>
+                <a href="1.4-interceptors.html">1.4 - Interceptors</a>
             
         </div>
         <div class="clearfix"></div>

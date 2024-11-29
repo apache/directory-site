@@ -198,6 +198,10 @@
 <h2 id="the-copiedpages-b-tree">The CopiedPages B-tree</h2>
 <p>This is a technical <em>B-tree</em> that is used to keep a reference of all the pages that have been copied during a write transaction. That allows the system to reclaim the pages that are not anymore in use. The algorithm will be explained later. Enough said that for every write operation, we keep a track of every page that is copied for this <em>B-tree</em>. Note that unlike the other <em>B-trees</em>, this <em>B-tree</em> is not versionned (ie we discard the old <em>CopiedPagesBtree</em> pages immediately, they aren&rsquo;t useful)</p>
 <p>In any case, this is just a plain <em>B-tree</em> like any others, except that we don&rsquo;t keep many versions of it,  only the last one, as it&rsquo;s only updated when a write transaction is done.</p>
+<h2 id="thee-list-of-existing-b-trees">Thee list of existing B-trees</h2>
+<p>We manage a list of declared <em>B-trees</em> in the record manager. Every time a <em>B-tree</em> is created, it&rsquo;s added in this list. When it&rsquo;s deleted, it&rsquo;s removed from this list.</p>
+<p>It&rsquo;s updated within a write transaction, the  it&rsquo;s flushed on disk in a new location, so if the transaction fails, we can still get back with th eprevious list.</p>
+<p>NOTE: This list does not include the <em>CPB</em>.</p>
 <h2 id="the-list-of-active-b-trees">The list of active B-trees</h2>
 <p>Every time a read transaction is started, it will use a set of <em>B-trees</em>.</p>
 <p>We need to keep a track of all the active <em>B-trees</em>, whatever their version. A <em>B-tree</em> is active when there is at least a read transaction using the assocciated revision. We may have many.</p>

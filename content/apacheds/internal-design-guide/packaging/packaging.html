@@ -207,8 +207,17 @@
 <li><em>rpmbuild</em> for the <em>RedHat</em> installer (defaults to <em>/usr/bin/rpmbuild</em>)</li>
 <li>TODO: Mac, Windows</li>
 </ul>
-<p>We use a default value, hard coded in the extended class, but this value can be ovveriden by the <em>pom.xml</em> configuration, and overriden by the use of a <em>-D</em> flag on teh command line (which has the highest level of precedence).</p>
-<p>Each extended class implements the <em>execute()</em> method which is responsible for calling an <em>InstallerCommand</em> class. These classes are teh one which create the packages.</p>
+<p>We use a default value, hard coded in the extended class, but this value can be ovveriden by the <em>pom.xml</em> configuration, and overriden by the use of a <em>-D</em> flag on the command line (which has the highest level of precedence).</p>
+<p>Each extended class implements the <em>execute()</em> method which is responsible for calling an <em>InstallerCommand</em> class. These classes are the one which create the packages.</p>
+<p>Here is the list of inherited classes:</p>
+<ul>
+<li><em>ArchiveTarget</em>: Create the tar.gz package</li>
+<li><em>BinTarget</em></li>
+<li><em>DebTarget</em>: Generate a <em>deb</em> file to be used on <em>Debian</em> based platforms</li>
+<li><em>MacOsXPkgTarget</em>: Generate <em>Mac OS</em> platform packages</li>
+<li><em>NsisTarget</em>: Generate a 32 bits windows package</li>
+<li><em>RpmTarget</em>: Generate a <em>rpm</em> file to be used on <em>RedHat/CentOS</em> based platforms</li>
+</ul>
 <h2 id="linux-debian">Linux Debian</h2>
 <p>The debian configuration is managed by the <em>DebTarget.java</em> file, which sets one specific parameneter:</p>
 <ul>

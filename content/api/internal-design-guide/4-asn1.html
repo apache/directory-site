@@ -169,11 +169,11 @@
 <p>The very first iteration was using a proprietary library (<strong>IBM SNACC</strong>), but that was before <strong>ApacheDS</strong> became a <strong>TLP</strong> ! The next iteration was based on a rewriting system, which was pretty slow. Then came <strong>Snicker</strong>, a <em>State Machine</em> based decoder, which is currently what we use. We might change for a faster implementation, like what <strong>Kerby</strong> is using&hellip;</p>
 <h3 id="asn1-messages">ASN/1 messages</h3>
 <p>Let&rsquo;s start with the basic information.</p>
-<p>An encoded ASN/1 message is a tuple contianing two or three elements : a <strong>T</strong>ype, a <strong>L</strong>ength and optionally - ie if the length is not 0 - a <strong>V</strong>alue. This tuple is called a <strong>TLV</strong>. Every message is a <strong>TLV</strong>.</p>
-<p>But a message can be have complex structure, so a <strong>TLV</strong> itself can encapsulate some <strong>TLV</strong>s. Actually the <strong>V</strong> part can be a list of <strong>TLV</strong>s. This is recursive&hellip;</p>
+<p>An encoded ASN/1 message is a tuple containing two or three elements : a <strong>T</strong>ype, a <strong>L</strong>ength and optionally - ie if the length is not 0 - a <strong>V</strong>alue. This tuple is called a <strong>TLV</strong>. Every message is a <strong>TLV</strong>.</p>
+<p>But a message can have a complex structure, so a <strong>TLV</strong> itself can encapsulate some <strong>TLV</strong>s. Actually the <strong>V</strong> part can be a list of <strong>TLV</strong>s. This is recursive&hellip;</p>
 <p>A typical encoded message can therefore represented this way :</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Text" data-lang="Text">    [TL [TLV] [TL [TLV] [TLV]]]
-</code></pre></div><p>Here, the message <strong>TLV</strong> value is a set of two <strong>TLV</strong>s, teh second one being itself a composition of 2 <strong>TLV</strong>s.</p>
+</code></pre></div><p>Here, the message <strong>TLV</strong> value is a set of two <strong>TLV</strong>s, the second one being itself a composition of 2 <strong>TLV</strong>s.</p>
 <p>The <strong>T</strong> describe the type of value, the <strong>L</strong> gives the length of this value (can be 0) and of course the <strong>V</strong> is the value, which can itself be a <strong>TLV</strong>.</p>
 <h3 id="encoderdecoder">Encoder/Decoder</h3>
 <p>There are two aspects we have to deal with :</p>
@@ -181,36 +181,308 @@
 <li>encoding messages</li>
 <li>decoding messages</li>
 </ul>
-<p>Those are two different things, and we don&rsquo;t use the same mechanism. <strong>Encoding</strong> is done using a <em>State Machine</em>, and <strong>Decoding</strong> which is hard wired in each class implementing a message.</p>
-<p>As we said, it&rsquo;s not perfect, first because it&rsquo;s complex to implement, complex to add a new message, and complex to test. We don&rsquo;t have a compiler that generates the stubs to encode or decode messages.</p>
-<h3 id="decoder">Decoder</h3>
+<p>Those are two different things, and we don&rsquo;t use the same mechanism. <strong>Decoding</strong> is done using a <em>State Machine</em>, and <strong>Encoding</strong> is hard wired in each class implementing a message.</p>
+<p>As we said, it&rsquo;s not perfect, first because it&rsquo;s complex to implement, complex to add a new message, and complex to test. We don&rsquo;t have a compiler that generates the stubs to encode or decode messages. However the implemented logic should allow a compiler to generate a decoder without a lot of change.</p>
+<h3 id="decoding">Decoding</h3>
 <p>The <em>Decoder</em> work is to take a <strong>byte[]</strong> and transform it into an instance of a jave object. When we receive the <strong>byte[]</strong>, we don&rsquo;t know yet what kind of message we are dealing with, so the creation of the instance is differed.</p>
-<p>We have built a generic decoder that takes some imputs and produces the result, based on those elements :</p>
+<p>We have built a generic decoder that takes some input and produces the result, based on those elements :</p>
 <ul>
 <li>A <em>Grammar</em></li>
 <li>A <em>Container</em></li>
 <li>A <em>StateEnum</em></li>
-<li>A <em>Decorator</em></li>
-<li>and optionally a <em>Factory</em></li>
+<li>A message interface and implementation which will contaion the decoded message</li>
+<li>and optionally a <em>Factory</em> (for controls and extended operations)</li>
 </ul>
 <p>The <em>Grammar</em> describes the transitions and actions of the state machine used to decode a message. Note that the actions can be stored in separate classes.</p>
 <p>The <em>Container</em> is a wrapper around a message that is fed by the State Machine and that will contain the Java instance once fully decoded. It&rsquo;s initally empty.</p>
-<p>The <em>StateEnum</em> is a Java enumeration listing all the possible <em>Grammar</em> states.</p>
-<p>The <em>Decorator</em> is a wrapper used to store a decoded message.</p>
-<p>The <em>Factory</em> is used to create the message instance (it&rsquo;s optional)</p>
-<p>And of course, you have the messsage class that will be created and stored in the <em>Decorator</em></p>
-<p>So what we have is based on a <strong>State Engine</strong>, which means you have to describe</p>
-<h3 id="encoder">Encoder</h3>
-<p>It&rsquo;s slightly simpler : we use the <em>Decorator</em> to implement the encoding of a message. Two methods are necessary :</p>
-<ul>
-<li><em>int computeLength()</em> : compute the <em>ByteBuffer</em> size necessary to stored the encoded message</li>
-<li><em>ByteBuffer encode( ByteBuffer )</em> : actually encode the message into a <em>ByteBuffer</em></li>
-</ul>
+<p>The <em>StateEnum</em> is a Java enumeration listing all the possible <em>Grammar</em> states, which are used in grammar&rsquo;s transitions.</p>
+<p>The interface and implementations respectively describe the accessors for a given element (Ldap message, control or extended operation), the implementation also provide the method to encode it.</p>
+<p>The <em>Factory</em> is used to create the message instance (it&rsquo;s used for controls and extended operations)</p>
 <h3 id="the-state-machine">The state machine</h3>
 <p>So we decode a message using a state machine, which basically transit from one state to another, and optionally execute an action in between :</p>
 <p><img src="images/sm-transition.png" alt="State Machine transition"></p>
-<p>Now, let&rsquo;s see a real example.</p>
+<p>The difficulty with such a grammar is that transitions are to be defined for every cases. For instance, when it comes to process <em>SearchRequest</em> filters, here is what we get:</p>
+<p><img src="images/asn1-filter.png" alt="SearchRequest filters"></p>
+<p>As we can see, we have many different possible transitions from the starting point, one per filter type.</p>
+<p>Actually, we use the <strong>TLV</strong> tag to know which next step we should go to. Here, when we are on the <em>Greater or Equal</em> state, the transition to the <em>Attribute Desc</em> state is done if the tag is <strong>0x04</strong>. If any other tag is met, then that should generate an error.</p>
+<h4 id="error-handling">Error handling</h4>
+<p>So when we are expecting a specific tag (as seen previoulsy, <strong>0x04</strong>, for instance), and we get another tag, we throw a <em>DecoderException</em>, and we stop the decoding.
+Of course, we have to discard all the <strong>PDU</strong>, and hopefully, we know how many bytes to process as it&rsquo;s given in the first <strong>TLV</strong>.</p>
+<p>Another use case is when we have completed a <strong>TLV</strong>, and there is another mandatory tag that follows. In the previous picture, the <em>AttributeDesc</em> state must be followed by a <em>AssertionValue</em> state (which starts with a <strong>0x04</strong> tag). If it&rsquo;s not the case, then we should also issue an error.</p>
+<p>Let&rsquo;s say we have such a <strong>PDU</strong>:</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Text" data-lang="Text">                  ...
+                  0x63, 0x3D,                                       // SearchRequest, 61 bytes long
+                    0x04, 0x00,                                     // Base Object RootDSE
+                    0x0A, 0x01, 0x02,                               // Scope Base
+                    0x0A, 0x01, 0x02,                               // Deref alias
+                    0x02, 0x05, 0x00, 0x21, 0x6E, 0x00, 0x51,       // SizeLimite
+                    0x02, 0x02, 0x00, 0x03,                         // TimeLimit
+                    0x01, 0x01, 0x41,                               // TypesOnly
+                    0xA6, 0x04,                                     // Less or equal filter, 4 bytes long
+                      0x04, 0x02,                                   // AttributeDesc
+                        0x63, 0x6E,                                 // cn
+                    0x04, 0x1F,                                     // AssertionValue, but out of the filter size...
+                      0x00, 0x00, 0x00, 0x04, 0x04, 0x02, 0x04, 0x04, 
+                      0x30, 0x04, 0x04, 0x02, 0x04, 0x04, 0x30, 0x04, 
+                      0x04, 0x02, 0x2E, 0x26, 0x04, 0x03, 0x04, 0x04, 
+                      0x04, 0x12, 0x12, 0x12, 0x12, 0x12, 0x12, 
+                    ...
 
+</code></pre></div><p>The filter is a <em>Less or equal</em> (tags <strong>0xA6</strong>). The gramar to get it decoded is:</p>
+<p><img src="images/asn1-less-or-equal-filter.png" alt="Less or equal filter"></p>
+<p>Once we have decoded the <em>AttributeDesc</em> <strong>TLV</strong> (<strong>0x04 0x02 0x63 0x6E</strong>), we have consumed all the bytes for the <em>Less or equal</em> <strong>TLV</strong>, so the next <strong>0x04</strong> tag does not belong to the <em>AssertionValue</em> state, which also starts with a <strong>0x04</strong> tag, although this state is mandatory: we have an error. How do we detect it?</p>
+<p>We have to start from the <strong>ASN1</strong> grammar for this message:</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Text" data-lang="Text">...
+        SearchRequest ::= [APPLICATION 3] SEQUENCE {
+             baseObject      LDAPDN,
+             scope           ENUMERATED {
+                  baseObject              (0),
+                  singleLevel             (1),
+                  wholeSubtree            (2),
+                  ...  },
+             derefAliases    ENUMERATED {
+                  neverDerefAliases       (0),
+                  derefInSearching        (1),
+                  derefFindingBaseObj     (2),
+                  derefAlways             (3) },
+             sizeLimit       INTEGER (0 ..  maxInt),
+             timeLimit       INTEGER (0 ..  maxInt),
+             typesOnly       BOOLEAN,
+             filter          Filter,
+             attributes      AttributeSelection }
+...
+
+        Filter ::= CHOICE {
+             and             [0] SET SIZE (1..MAX) OF filter Filter,
+             or              [1] SET SIZE (1..MAX) OF filter Filter,
+             not             [2] Filter,
+             equalityMatch   [3] AttributeValueAssertion,
+             substrings      [4] SubstringFilter,
+             greaterOrEqual  [5] AttributeValueAssertion,
+             lessOrEqual     [6] AttributeValueAssertion,
+             present         [7] AttributeDescription,
+             approxMatch     [8] AttributeValueAssertion,
+             extensibleMatch [9] MatchingRuleAssertion,
+             ...  }
+
+...
+        AttributeValueAssertion ::= SEQUENCE {
+             attributeDesc   AttributeDescription,
+             assertionValue  AssertionValue }
+...
+        AttributeDescription ::= LDAPString
+                                -- Constrained to &lt;attributedescription&gt;
+                                -- [RFC4512]
+
+        AttributeValue ::= OCTET STRING
+
+
+</code></pre></div><p>The first <strong>TLV</strong> contains 8 internal <strong>TLVs</strong>, all mandatory, including the <em>filter</em> one.
+The <em>Filter</em> <strong>TLV</strong> is one <strong>TLV</strong>
+The <em>LessOrEqual</em> <strong>TLV</strong> has 2 <strong>TLVs</strong>, which are primitive types.</p>
+<p>So in the case we are interested in, a _LessOrEqual* _SearchRequest_, we know that we expect this exact number of **TLVs** to be present. If the length of the encapsulating **TLV** is reached before we have consummed the expected number of **TLVs**, this is an error.</p>
+<p>Somehow, it&rsquo;s enough to count the expected <strong>TLVs</strong> to know if we are good to go, but it&rsquo;s a bit trickier than that: some of the <strong>TLVs</strong> are optionals, and must not be counted. Also when a <strong>TLV</strong> encodes for a <strong>CHOICE</strong>, we may have a variable number of <strong>TLVs</strong> depending on the selected choice.</p>
+<p>Another approach would be to consider that the grammar is a graph, and every <em>SEQUENCE</em> or <em>SET</em> element is a level. Keeping track of those level would allow the decoder to know if they are completed.</p>
+<p>The biggest issue comes with <em>OPTIONAL</em> elements, which render the verification complex. For instance, such a grammar is hard to decode:</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Control ::= SEQUENCE {
+             controlType             LDAPOID,
+             criticality             BOOLEAN DEFAULT FALSE,
+             controlValue            OCTET STRING OPTIONAL }
+
+FictiveMessage ::= SEQUENCE {
+             control                 Control,
+             value                   OCTET STRING }
+}
+</code></pre></div><p>We won&rsquo;t be able to know if a <strong>OxO4 LL</strong> sequence is for a <em>controlValue</em> or a <em>value</em>, unless we check the number of consumed bytes and compare it with the <em>SEQUENCE</em> <strong>TLV</strong> length.</p>
+<p>Now, the thing is that such a grammar is not a valid <strong>ASN.1</strong> one: in this case, there is no way the decoder could decide which element is to be processed, either a <em>controlValue</em> or a <em>value</em>. In this case, we use a <em>Application</em> tag to determinate which one is to be processed:</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Control ::= SEQUENCE {
+             controlType             LDAPOID,
+             criticality             BOOLEAN DEFAULT FALSE,
+             controlValue        [0] OCTET STRING OPTIONAL }
+
+FictiveMessage ::= SEQUENCE {
+             control                 Control,
+             value                   OCTET STRING }
+}
+</code></pre></div><p>The added <strong>[0]</strong> will encode the <strong>T</strong> part of the <strong>TLV</strong> differently (here, <strong>0x40</strong> for the <em>controlValue [0] OCTET STRING</em>, compared to <strong>0x04</strong> for the <em>value OCTET STRING</em>).</p>
+<p>So in general, we always know how to transit from one element to the proper next one.</p>
+<p>What if someone drafts a wrong <strong>PDU</strong> where an invalid element is injected? For instance, something like:</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">                0x30, (byte)0x82, 0x30, 0x47,                       // 12 359 bytes long message
+                  0x02, 0x02, 0x26, 0x2E,                           // message ID: 9774
+                  0x63, 0x1F,                                       // SearchRequest, 31 bytes long
+                    0x04, 0x00,                                     // Base Object RootDSE
+                    0x0A, 0x01, 0x02,                               // Scope Base
+                    0x0A, 0x01, 0x02,                               // Deref alias
+                    0x02, 0x05, 0x00, 0x21, 0x6E, 0x00, 0x51,       // SizeLimit
+                    0x02, 0x02, 0x00, 0x03,                         // TimeLimit
+                    0x01, 0x01, 0x41,                               // TypesOnly
+              -1-&gt;  (byte)0xA6, 0x04,                               // Less or equal filter
+                      0x04, 0x02,                                   // AttributeDesc
+                        0x04, 0x04, 
+              -2-&gt;  0x04, 0x02,                                     // AssertionValue, but out of the filter size...
+              -2-&gt;    0x00, 0x00
+                    0x30 ...                                        // Attribute description list
+
+</code></pre></div><p>Here, the four added bytes (in <strong>-2-&gt;</strong>) 0x04 0x02 0x00 0x00** are not part of the grammar, so they must be detected and discarded, because a previous alteration (in **-1-&gt;**) has made it so that the filter **TLV** only contains 4 bytes, and not 8.</p>
+<p>Except that the grammar says that for a <em>LessOrEqual</em> filter, it expects two <strong>TLVs</strong>, one for the <em>AttributeDesc</em>, the second for <em>AssertionValue</em>, which is present, but not part of the filter&rsquo;s <strong>TLV</strong>&hellip;</p>
+<p>At this point, we know which is the parent&rsquo;s <strong>TLV</strong> of each <strong>TLV</strong>. The <strong>-2-&gt;</strong> <strong>TLV</strong>&lsquo;s parent is the <em>SearchRequest</em> <strong>TLV</strong> (<strong>0x63 0x1F</strong>), when it should be <strong>-1-&gt;</strong> (<em>Less or equal filter</em>, <strong>0xA6 0x04</strong>).</p>
+<p>The way to deal with such issue is to mark each transition for a given level as requiring a following <strong>TLV</strong> if there is a non optional element at the same level. If we exhaust the length of the parent&rsquo;s <strong>TLV</strong> when we expect another <strong>TLV</strong>, that means we have an error. We just have to add this extra flag for each transaction that expect an extra <strong>TLV</strong> to be seen, and check it if the parent&rsquo;s expected length is 0.</p>
+<h3 id="encoding">Encoding</h3>
+<p>It&rsquo;s slightly simpler : we use the message or element implementation to encode a message.</p>
+<p>The initial idea was to allocate a buffer to store the message, with the correct size, which required:</p>
+<ul>
+<li>A call to a method <em>int computeLength()</em> which would recursively encode each part, and compute their atomic size</li>
+<li>A call to a method <em>ByteBuffer encode( ByteBuffer )</em> which would use the computed size and encoded atomic elements to allocate the proper buffer and store the type, length and data into this buffer.</li>
+</ul>
+<p>This approach works, but creates many intermediate buffers used to store the encoded elements, and keep them until we have completed the full message encoding in order to know the required buffer size.</p>
+<p>A better approach is now used:</p>
+<ul>
+<li>we preallocate a 1Kb buffer (LDAP messages are typically small)</li>
+<li>we encode recusively each part of a message, starting from the end, and store the result starting from the end of the buffer.</li>
+<li>if the buffer is not big enough, we reallocate a bigger one.</li>
+</ul>
+<p>Despite the extra reallocations, it&rsquo;s 2 times faster on average than the other approach, which requires an allocation for each single element we store.</p>
+<p>Also we know the exact length of each part as we go on, which is not the case for the previous mechanism: we don&rsquo;t anymore require a <em>computeLengh()</em> method.</p>
+<p>This is the way we encode an ASN.1 element in the current implementation.</p>
+<p>Let&rsquo;s see with a simple exemple.</p>
+<h4 id="asn1-encoding-a-ldap-simple-bind-request-message">ASN.1 encoding a LDAP Simple Bind Request Message</h4>
+<p>Here is the LDAP grammars elements we are going to use:</p>
+<pre><code>LDAPMessage ::= SEQUENCE {
+        messageID       INTEGER (0 .. maxInt),
+        protocolOp      CHOICE {
+            bindRequest           BindRequest,
+            ...
+
+        BindRequest ::= [APPLICATION 0] SEQUENCE {
+             version                 INTEGER (1 ..  127),
+             name                    OCTET STRING,
+             authentication          AuthenticationChoice }
+
+        AuthenticationChoice ::= CHOICE {
+             simple                  [0] OCTET STRING,
+             ...
+         }
+
+</code></pre><p>Here, we will use the following values:</p>
+<ul>
+<li><em>messageId</em>: <em>1</em></li>
+<li><em>version</em> : <em>3</em></li>
+<li><em>name</em>: <em>uid=akarasulu,dc=example,dc=com</em></li>
+<li><em>simple</em> (aka password): <em>password</em></li>
+</ul>
+<p>Which gives:</p>
+<pre><code>MessageType : BIND_REQUEST
+Message ID : 1
+    BindRequest
+        Version : '3'
+        Name : 'uid=akarasulu,dc=example,dc=com'
+        Simple authentication : '(omitted-for-safety)'
+</code></pre><p>(the &lsquo;password&rsquo; part is not exposed)</p>
+<p>Here is the stack trace when we call the <em>LdapEncoder.encodeMessage()</em> function on this message:</p>
+<pre><code>  encodeMessage()
+    encodeProtocolOp()
+      BindRequestFactory.INSTANCE.encodeReverse()
+        BerValue.encodeOctetString( buffer, ( byte ) LdapCodecConstants.BIND_REQUEST_SIMPLE_TAG, bindMessage.getCredentials() ) // encode the password
+        BerValue.encodeOctetString( buffer, bindMessage.getName() ) // encode the name
+        BerValue.encodeInteger( buffer, 3 ) // The LDAP version, 3
+        BerValue.encodeSequence( buffer, LdapCodecConstants.BIND_REQUEST_TAG, start ) // The encapsulating BindRequest tag and length
+      BerValue.encodeInteger( buffer, message.getMessageId() ) // The message ID, 1
+      BerValue.encodeSequence( buffer ) // The encapsulating LdapMessage tag and length
+</code></pre><p>Then we get the resulting buffer, move the content to the position 0, which finally get a buffer containing the following bytes:</p>
+<pre><code>0x30, 0x33,                 // LDAPMessage ::=SEQUENCE {
+  0x02, 0x01, 0x01,         // messageID MessageID
+  0x60, 0x2E,               // CHOICE { ..., bindRequest BindRequest, ...
+                            // BindRequest ::= APPLICATION[0] SEQUENCE {
+    0x02, 0x01, 0x03,       // version INTEGER (1..127),
+    0x04, 0x1F,             // name LDAPDN,
+      'u', 'i', 'd', '=', 'a', 'k', 'a', 'r', 'a', 's', 'u', 'l', 'u', ',',
+      'd', 'c', '=', 'e', 'x', 'a', 'm', 'p', 'l', 'e', ',', 'd', 'c', '=', 'c', 'o', 'm',
+    0x80, 0x08,             // authentication AuthenticationChoice
+                            // AuthenticationChoice ::= CHOICE { simple [0] OCTET STRING,
+                            // ...
+      'p', 'a', 's', 's', 'w', 'o', 'r', 'd'
+</code></pre><p>Note that each <em>encode</em> method will store the data <em>at the end of the buffer</em>:</p>
+<pre><code>Initial buffer
+
++-----------------------------------------------------------------------+
+|.......................................................................|
++-----------------------------------------------------------------------+
+
+After the credentials encoding:
+
++---------------------------------------------------------+--+-+--------+
+|.........................................................|80|8|password|
++---------------------------------------------------------+--+-+--------+
+                                                       ^  ^ ^
+                                                       |  | |
+                                                       |  | +--------- The 'password' string
+                                                       |  |
+                                                       |  +----------- The password length, 8
+                                                       |
+                                                       +-------------- The tag, 0x80
+
+After the name encoding:
+
++-------------------+--+--+-------------------------------+--+-+--------+
+|...................|04|1F|uid=akarasulu,dc=example,dc=com|80|8|password|
++-------------------+--+--+-------------------------------+--+-+--------+
+                 ^  ^  ^
+                 |  |  |
+                 |  |  +-------- The name
+                 |  |
+                 |  +----------- The name length, 31
+                 |
+                 +-------------- The tag, 0x04 (OCTET STRING)
+
+After the version encoding:
+
++------------+--+-+-+--+--+-------------------------------+--+-+--------+
+|............|02|1|3|04|1F|uid=akarasulu,dc=example,dc=com|80|8|password|
++------------+--+-+-+--+--+-------------------------------+--+-+--------+
+          ^  ^ ^
+          |  | |
+          |  | +--------- The version (3)
+          |  |
+          |  +----------- The version length, 1
+          |
+          +-------------- The tag, 0x02 (INTEGER)
+
+After the BindRequest encoding:
+
++------+--+--+--+-+-+--+--+-------------------------------+--+-+--------+
+|......|60|2E|02|1|3|04|1F|uid=akarasulu,dc=example,dc=com|80|8|password|
++------+--+--+--+-+-+--+--+-------------------------------+--+-+--------+
+    ^  ^ 
+    |  | 
+    |  +----------- The BindRequest length, 46 bytes
+    |
+    +-------------- The tag, 0x60 (BindRequest)
+
+
+And finally, the full Ldap Message:
+
++---+--+--+--+--+--+-+-+--+--+-------------------------------+--+-+--------+
+|...|30|33|60|2E|02|1|3|04|1F|uid=akarasulu,dc=example,dc=com|80|8|password|
++---+--+--+--+--+--+-+-+--+--+-------------------------------+--+-+--------+
+    ^  ^ 
+    |  | 
+    |  +----------- The BindRequest length, 46 bytes
+    |
+    +-------------- The tag, 0x60 (BindRequest)
+
+
+last, not least, we move the whole data to pos 0, and set the buffer limit to the end of the encoded data:
+
++--+--+--+--+--+-+-+--+--+-------------------------------+--+-+--------+---+
+|30|33|60|2E|02|1|3|04|1F|uid=akarasulu,dc=example,dc=com|80|8|password|...|
++--+--+--+--+--+-+-+--+--+-------------------------------+--+-+--------+---+
+                                                                       ^
+                                                                       |
+                                                                       +-- limit
+
+We can now send the encoded ASN1 buffer.
+
+</code></pre>
 
             
     <div class="nav">
