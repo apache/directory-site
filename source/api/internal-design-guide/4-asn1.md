@@ -65,7 +65,7 @@ We have built a generic decoder that takes some input and produces the result, b
 * A _Grammar_
 * A _Container_
 * A _StateEnum_
-* A message interface and implementation which will contaion the decoded message
+* A message interface and implementation which will contain the decoded message
 * and optionally a _Factory_ (for controls and extended operations)
 
 The _Grammar_ describes the transitions and actions of the state machine used to decode a message. Note that the actions can be stored in separate classes.
@@ -86,7 +86,7 @@ So we decode a message using a state machine, which basically transit from one s
 
 The difficulty with such a grammar is that transitions are to be defined for every cases. For instance, when it comes to process _SearchRequest_ filters, here is what we get:
 
-![SearchRequest filters](images/asn1-filter.png)
+<img src="images/asn1-filter.png" alt="SearchRequest filters" width="100%"/>
 
 As we can see, we have many different possible transitions from the starting point, one per filter type.
 
