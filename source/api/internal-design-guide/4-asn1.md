@@ -186,6 +186,76 @@ Now, here is the sub-message **protocolOp**:
 It covers all the existing **LDAP** messages.
 
 
+#### LdapResult
+
+The **LDAPResult** element is part of all the **LDAP** response. It contains the following informations:
+
+* A result code, indicating either a success (code 0) or an error (code from 1 to 80, but it may be higher in a future version)
+* A DN representing the associated entry 
+* A diagnistic message in case of an error
+* An optional list of LDP URL that may be able to process the operation.
+
+Here is the complete grammar, as defined in [RFC4511](https://www.rfc-editor.org/rfc/rfc4511):
+
+```
+LDAPResult ::= SEQUENCE {
+             resultCode         ENUMERATED {
+                  success                      (0),
+                  operationsError              (1),
+                  protocolError                (2),
+                  timeLimitExceeded            (3),
+                  sizeLimitExceeded            (4),
+                  compareFalse                 (5),
+                  compareTrue                  (6),
+                  authMethodNotSupported       (7),
+                  strongerAuthRequired         (8),
+                  referral                     (10),
+                  adminLimitExceeded           (11),
+                  unavailableCriticalExtension (12),
+                  confidentialityRequired      (13),
+                  saslBindInProgress           (14),
+                  noSuchAttribute              (16),
+                  undefinedAttributeType       (17),
+                  inappropriateMatching        (18),
+                  constraintViolation          (19),
+                  attributeOrValueExists       (20),
+                  invalidAttributeSyntax       (21),
+                  noSuchObject                 (32),
+                  aliasProblem                 (33),
+                  invalidDNSyntax              (34),
+                  aliasDereferencingProblem    (36),
+                  inappropriateAuthentication  (48),
+                  invalidCredentials           (49),
+                  insufficientAccessRights     (50),
+                  busy                         (51),
+                  unavailable                  (52),
+                  unwillingToPerform           (53),
+                  loopDetect                   (54),
+                  namingViolation              (64),
+                  objectClassViolation         (65),
+                  notAllowedOnNonLeaf          (66),
+                  notAllowedOnRDN              (67),
+                  entryAlreadyExists           (68),
+                  objectClassModsProhibited    (69),
+                  affectsMultipleDSAs          (71),
+                  other                        (80),
+                  ...  },
+             matchedDN          OCTET STRING,
+             diagnosticMessage  OCTET STRING,
+             referral           [3] Referral OPTIONAL }
+
+        Referral ::= SEQUENCE SIZE (1..MAX) OF uri OCTET STRING
+
+        URI ::= LDAPString     -- limited to characters permitted in
+                               -- URIs
+
+```
+
+The associated state machine is given by this schema:
+
+<img src="images/asn1-ldap-result.png" alt="LDAPResult state machine" width="100%"/>
+
+
 #### BindRequest message
 
 The _BindRequest_ message grammar is the following:
