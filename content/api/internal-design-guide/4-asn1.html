@@ -211,6 +211,25 @@
              messageID       INTEGER (0 .. maxInt),
              protocolOp      CHOICE {
                   bindRequest           BindRequest,
+                  bindResponse          BindResponse,
+                  unbindRequest         UnbindRequest,
+                  searchRequest         SearchRequest,
+                  searchResEntry        SearchResultEntry,
+                  searchResDone         SearchResultDone,
+                  searchResRef          SearchResultReference,
+                  modifyRequest         ModifyRequest,
+                  modifyResponse        ModifyResponse,
+                  addRequest            AddRequest,
+                  addResponse           AddResponse,
+                  delRequest            DelRequest,
+                  delResponse           DelResponse,
+                  modDNRequest          ModifyDNRequest,
+                  modDNResponse         ModifyDNResponse,
+                  compareRequest        CompareRequest,
+                  compareResponse       CompareResponse,
+                  abandonRequest        AbandonRequest,
+                  extendedReq           ExtendedRequest,
+                  extendedResp          ExtendedResponse,
                   ...,
                   intermediateResponse  IntermediateResponse },
              controls       [0] Controls OPTIONAL }
@@ -223,6 +242,7 @@
 <p>The following picture gives a clear view of the existing transitions:</p>
 <img src="images/asn1-ldap-message.png" alt="LDAP message state machine" width="100%"/>
 <p>The green boxes are sub-transitions, which will be descibed below.
+The red arrow indactes which parts are mandatory.
 Each transition is based on the tags used between two states.</p>
 <p>Here is a flat representation of a LDAP message structure, where we see the encapsulated <strong>TLVs</strong>:</p>
 <pre><code>
@@ -230,11 +250,11 @@ Each transition is based on the tags used between two states.</p>
 |   |   | +---+---+------------+ +---+---+--------------------+ [+---+---+---------------------------------------------+] |
 |   |   | |   |   |            | |   |   |                    | [|   |   | +---+---+---------+     +---+---+---------+ |] |
 | T | L | | T | L | message ID | | T | L | protocol operation | [| T | L | | T | L | control | ... | T | L | control | |] |
-|   |   | |   |   |            | |   |   |                    | [|   |   | +---+---+---------+     +---+---+---------+ |] |
-|   |   | +---+---+------------+ +---+---+--------------------+ [+---+---+---------------------------------------------+] |
-+---+---+-----------------------------------------------------------------------------------------------------------------+
-  |   |     |   |       |          |   |           |               |   |     |   |       |
-  |   |     |   |       |          |   |           |               |   |     |   |       +---------&gt; A control's encoded value
+|   |   | |   |   |            | |   |   |                    | [|   |   | +-o-+-o-+----o----+     +---+---+---------+ |] |
+|   |   | +-o-+-o-+-----o------+ +-o-+-o-+---------o----------+ [+-o-+-o-+---|---|------|------------------------------+] |
++-o-+-o-+---|---|-------|----------|---|-----------|---------------|---|-----|---|------|---------------------------------+
+  |   |     |   |       |          |   |           |               |   |     |   |      |
+  |   |     |   |       |          |   |           |               |   |     |   |      +----------&gt; A control's encoded value
   |   |     |   |       |          |   |           |               |   |     |   |       
   |   |     |   |       |          |   |           |               |   |     |   +-----------------&gt; A control's length
   |   |     |   |       |          |   |           |               |   |     |   
@@ -259,7 +279,24 @@ Each transition is based on the tags used between two states.</p>
   |   +--------------------------------------------------------------------------------------------&gt; The LDAP message's length
   |
   +------------------------------------------------------------------------------------------------&gt; The LDAP message sequence (0x30)
-</code></pre><h4 id="error-handling">Error handling</h4>
+</code></pre><h4 id="bindrequest-message">BindRequest message</h4>
+<p>The <em>BindRequest</em> message grammar is the following:</p>
+<pre><code>        BindRequest ::= [APPLICATION 0] SEQUENCE {
+             version                 INTEGER (1 ..  127),
+             name                    OCTET STRING,
+             authentication          AuthenticationChoice }
+
+        AuthenticationChoice ::= CHOICE {
+             simple                  [0] OCTET STRING,
+             sasl                    [3] SaslCredentials,
+             ...  }
+
+        SaslCredentials ::= SEQUENCE {
+             mechanism               OCTET STRING,
+             credentials             OCTET STRING OPTIONAL }
+</code></pre><p>Its state machine is shown in this picture:</p>
+<img src="images/asn1-protocol-op.png" alt="protocol operations state machine" width="100%"/>
+<h4 id="error-handling">Error handling</h4>
 <p>So when we are expecting a specific tag (as seen previoulsy, <strong>0x04</strong>, for instance), and we get another tag, we throw a <em>DecoderException</em>, and we stop the decoding.
 Of course, we have to discard all the <strong>PDU</strong>, and hopefully, we know how many bytes to process as it&rsquo;s given in the first <strong>TLV</strong>.</p>
 <p>Another use case is when we have completed a <strong>TLV</strong>, and there is another mandatory tag that follows. In the previous picture, the <em>AttributeDesc</em> state must be followed by a <em>AssertionValue</em> state (which starts with a <strong>0x04</strong> tag). If it&rsquo;s not the case, then we should also issue an error.</p>
