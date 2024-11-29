@@ -92,6 +92,73 @@ As we can see, we have many different possible transitions from the starting poi
 
 Actually, we use the **TLV** tag to know which next step we should go to. Here, when we are on the _Greater or Equal_ state, the transition to the _Attribute Desc_ state is done if the tag is **0x04**. If any other tag is met, then that should generate an error.
 
+#### LdapMessage state machine
+
+The *LDAPMessage* grammar starts with this part:
+
+```
+        LDAPMessage ::= SEQUENCE {
+             messageID       INTEGER (0 .. maxInt),
+             protocolOp      CHOICE {
+                  bindRequest           BindRequest,
+                  ...,
+                  intermediateResponse  IntermediateResponse },
+             controls       [0] Controls OPTIONAL }
+```
+
+We have three parts:
+
+* The message *ID*
+* The protocol part
+* The optional controls
+
+The following picture gives a clear view of the existing transitions:
+
+<img src="images/asn1-ldap-message.png" alt="LDAP message state machine" width="100%"/>
+
+The green boxes are sub-transitions, which will be descibed below. 
+Each transition is based on the tags used between two states.
+
+Here is a flat representation of a LDAP message structure, where we see the encapsulated **TLVs**:
+
+```
+
++---+---+-----------------------------------------------------------------------------------------------------------------+
+|   |   | +---+---+------------+ +---+---+--------------------+ [+---+---+---------------------------------------------+] |
+|   |   | |   |   |            | |   |   |                    | [|   |   | +---+---+---------+     +---+---+---------+ |] |
+| T | L | | T | L | message ID | | T | L | protocol operation | [| T | L | | T | L | control | ... | T | L | control | |] |
+|   |   | |   |   |            | |   |   |                    | [|   |   | +---+---+---------+     +---+---+---------+ |] |
+|   |   | +---+---+------------+ +---+---+--------------------+ [+---+---+---------------------------------------------+] |
++---+---+-----------------------------------------------------------------------------------------------------------------+
+  |   |     |   |       |          |   |           |               |   |     |   |       |
+  |   |     |   |       |          |   |           |               |   |     |   |       +---------> A control's encoded value
+  |   |     |   |       |          |   |           |               |   |     |   |       
+  |   |     |   |       |          |   |           |               |   |     |   +-----------------> A control's length
+  |   |     |   |       |          |   |           |               |   |     |   
+  |   |     |   |       |          |   |           |               |   |     +---------------------> A control's sequence (0x30)   
+  |   |     |   |       |          |   |           |               |   |     
+  |   |     |   |       |          |   |           |               |   +---------------------------> The controls total length
+  |   |     |   |       |          |   |           |               |
+  |   |     |   |       |          |   |           |               +-------------------------------> The controls sequence tag (0xA0)
+  |   |     |   |       |          |   |           |
+  |   |     |   |       |          |   |           +-----------------------------------------------> The encoded operation
+  |   |     |   |       |          |   |
+  |   |     |   |       |          |   +-----------------------------------------------------------> The operation length
+  |   |     |   |       |          |
+  |   |     |   |       |          +---------------------------------------------------------------> The operation code (can be 0x60 for a BindRequest)
+  |   |     |   |       |
+  |   |     |   |       +--------------------------------------------------------------------------> The message ID
+  |   |     |   |
+  |   |     |   +----------------------------------------------------------------------------------> The message ID's length (from 1 to 4)
+  |   |     |
+  |   |     +--------------------------------------------------------------------------------------> The message ID's tag, 0x02 for an INTEGER
+  |   |
+  |   +--------------------------------------------------------------------------------------------> The LDAP message's length
+  |
+  +------------------------------------------------------------------------------------------------> The LDAP message sequence (0x30)
+  ```
+
+
 #### Error handling
 
 So when we are expecting a specific tag (as seen previoulsy, **0x04**, for instance), and we get another tag, we throw a _DecoderException_, and we stop the decoding.
