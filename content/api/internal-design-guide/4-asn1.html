@@ -299,6 +299,16 @@ Each transition is based on the tags used between two states.</p>
              credentials             OCTET STRING OPTIONAL }
 </code></pre><p>Its state machine is shown in this picture:</p>
 <img src="images/asn1-bind-request.png" alt="BindRequest state machine" width="100%"/>
+<p>We have two flavors of <strong>Bind</strong>:</p>
+<ul>
+<li>Simple bind, which uses a name and its credentials, in clear text</li>
+<li><strong>SASL</strong> bind, which use a name, a mechanism and some added data. A dialog will be established, in which some responses and requests will be exchanged, until the authentication is established.</li>
+</ul>
+<p>For the <em>BindRequest</em>, only two states are mandatory and must be followed by another state:</p>
+<ul>
+<li><em>VERSION_STATE</em></li>
+<li><em>NAME_STATE</em></li>
+</ul>
 <h4 id="error-handling">Error handling</h4>
 <p>So when we are expecting a specific tag (as seen previoulsy, <strong>0x04</strong>, for instance), and we get another tag, we throw a <em>DecoderException</em>, and we stop the decoding.
 Of course, we have to discard all the <strong>PDU</strong>, and hopefully, we know how many bytes to process as it&rsquo;s given in the first <strong>TLV</strong>.</p>
