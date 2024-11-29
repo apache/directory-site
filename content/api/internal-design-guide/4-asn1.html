@@ -282,6 +282,68 @@ Each transition is based on the tags used between two states.</p>
 </code></pre><p>Now, here is the sub-message <strong>protocolOp</strong>:</p>
 <img src="images/asn1-protocol-op.png" alt="protocol operations state machine" width="100%"/>
 <p>It covers all the existing <strong>LDAP</strong> messages.</p>
+<h4 id="ldapresult">LdapResult</h4>
+<p>The <strong>LDAPResult</strong> element is part of all the <strong>LDAP</strong> response. It contains the following informations:</p>
+<ul>
+<li>A result code, indicating either a success (code 0) or an error (code from 1 to 80, but it may be higher in a future version)</li>
+<li>A DN representing the associated entry</li>
+<li>A diagnistic message in case of an error</li>
+<li>An optional list of LDP URL that may be able to process the operation.</li>
+</ul>
+<p>Here is the complete grammar, as defined in <a href="https://www.rfc-editor.org/rfc/rfc4511">RFC4511</a>:</p>
+<pre><code>LDAPResult ::= SEQUENCE {
+             resultCode         ENUMERATED {
+                  success                      (0),
+                  operationsError              (1),
+                  protocolError                (2),
+                  timeLimitExceeded            (3),
+                  sizeLimitExceeded            (4),
+                  compareFalse                 (5),
+                  compareTrue                  (6),
+                  authMethodNotSupported       (7),
+                  strongerAuthRequired         (8),
+                  referral                     (10),
+                  adminLimitExceeded           (11),
+                  unavailableCriticalExtension (12),
+                  confidentialityRequired      (13),
+                  saslBindInProgress           (14),
+                  noSuchAttribute              (16),
+                  undefinedAttributeType       (17),
+                  inappropriateMatching        (18),
+                  constraintViolation          (19),
+                  attributeOrValueExists       (20),
+                  invalidAttributeSyntax       (21),
+                  noSuchObject                 (32),
+                  aliasProblem                 (33),
+                  invalidDNSyntax              (34),
+                  aliasDereferencingProblem    (36),
+                  inappropriateAuthentication  (48),
+                  invalidCredentials           (49),
+                  insufficientAccessRights     (50),
+                  busy                         (51),
+                  unavailable                  (52),
+                  unwillingToPerform           (53),
+                  loopDetect                   (54),
+                  namingViolation              (64),
+                  objectClassViolation         (65),
+                  notAllowedOnNonLeaf          (66),
+                  notAllowedOnRDN              (67),
+                  entryAlreadyExists           (68),
+                  objectClassModsProhibited    (69),
+                  affectsMultipleDSAs          (71),
+                  other                        (80),
+                  ...  },
+             matchedDN          OCTET STRING,
+             diagnosticMessage  OCTET STRING,
+             referral           [3] Referral OPTIONAL }
+
+        Referral ::= SEQUENCE SIZE (1..MAX) OF uri OCTET STRING
+
+        URI ::= LDAPString     -- limited to characters permitted in
+                               -- URIs
+
+</code></pre><p>The associated state machine is given by this schema:</p>
+<img src="images/asn1-ldap-result.png" alt="LDAPResult state machine" width="100%"/>
 <h4 id="bindrequest-message">BindRequest message</h4>
 <p>The <em>BindRequest</em> message grammar is the following:</p>
 <pre><code>        BindRequest ::= [APPLICATION 0] SEQUENCE {
