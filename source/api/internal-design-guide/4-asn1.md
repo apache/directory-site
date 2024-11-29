@@ -210,6 +210,15 @@ Its state machine is shown in this picture:
 
 <img src="images/asn1-bind-request.png" alt="BindRequest state machine" width="100%"/>
 
+We have two flavors of **Bind**:
+* Simple bind, which uses a name and its credentials, in clear text
+* **SASL** bind, which use a name, a mechanism and some added data. A dialog will be established, in which some responses and requests will be exchanged, until the authentication is established.
+
+For the _BindRequest_, only two states are mandatory and must be followed by another state:
+
+* _VERSION_STATE_
+* _NAME_STATE_
+
 
 #### Error handling
 
