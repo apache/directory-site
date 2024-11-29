@@ -205,7 +205,61 @@
 <img src="images/asn1-filter.png" alt="SearchRequest filters" width="100%"/>
 <p>As we can see, we have many different possible transitions from the starting point, one per filter type.</p>
 <p>Actually, we use the <strong>TLV</strong> tag to know which next step we should go to. Here, when we are on the <em>Greater or Equal</em> state, the transition to the <em>Attribute Desc</em> state is done if the tag is <strong>0x04</strong>. If any other tag is met, then that should generate an error.</p>
-<h4 id="error-handling">Error handling</h4>
+<h4 id="ldapmessage-state-machine">LdapMessage state machine</h4>
+<p>The <em>LDAPMessage</em> grammar starts with this part:</p>
+<pre><code>        LDAPMessage ::= SEQUENCE {
+             messageID       INTEGER (0 .. maxInt),
+             protocolOp      CHOICE {
+                  bindRequest           BindRequest,
+                  ...,
+                  intermediateResponse  IntermediateResponse },
+             controls       [0] Controls OPTIONAL }
+</code></pre><p>We have three parts:</p>
+<ul>
+<li>The message <em>ID</em></li>
+<li>The protocol part</li>
+<li>The optional controls</li>
+</ul>
+<p>The following picture gives a clear view of the existing transitions:</p>
+<img src="images/asn1-ldap-message.png" alt="LDAP message state machine" width="100%"/>
+<p>The green boxes are sub-transitions, which will be descibed below.
+Each transition is based on the tags used between two states.</p>
+<p>Here is a flat representation of a LDAP message structure, where we see the encapsulated <strong>TLVs</strong>:</p>
+<pre><code>
++---+---+-----------------------------------------------------------------------------------------------------------------+
+|   |   | +---+---+------------+ +---+---+--------------------+ [+---+---+---------------------------------------------+] |
+|   |   | |   |   |            | |   |   |                    | [|   |   | +---+---+---------+     +---+---+---------+ |] |
+| T | L | | T | L | message ID | | T | L | protocol operation | [| T | L | | T | L | control | ... | T | L | control | |] |
+|   |   | |   |   |            | |   |   |                    | [|   |   | +---+---+---------+     +---+---+---------+ |] |
+|   |   | +---+---+------------+ +---+---+--------------------+ [+---+---+---------------------------------------------+] |
++---+---+-----------------------------------------------------------------------------------------------------------------+
+  |   |     |   |       |          |   |           |               |   |     |   |       |
+  |   |     |   |       |          |   |           |               |   |     |   |       +---------&gt; A control's encoded value
+  |   |     |   |       |          |   |           |               |   |     |   |       
+  |   |     |   |       |          |   |           |               |   |     |   +-----------------&gt; A control's length
+  |   |     |   |       |          |   |           |               |   |     |   
+  |   |     |   |       |          |   |           |               |   |     +---------------------&gt; A control's sequence (0x30)   
+  |   |     |   |       |          |   |           |               |   |     
+  |   |     |   |       |          |   |           |               |   +---------------------------&gt; The controls total length
+  |   |     |   |       |          |   |           |               |
+  |   |     |   |       |          |   |           |               +-------------------------------&gt; The controls sequence tag (0xA0)
+  |   |     |   |       |          |   |           |
+  |   |     |   |       |          |   |           +-----------------------------------------------&gt; The encoded operation
+  |   |     |   |       |          |   |
+  |   |     |   |       |          |   +-----------------------------------------------------------&gt; The operation length
+  |   |     |   |       |          |
+  |   |     |   |       |          +---------------------------------------------------------------&gt; The operation code (can be 0x60 for a BindRequest)
+  |   |     |   |       |
+  |   |     |   |       +--------------------------------------------------------------------------&gt; The message ID
+  |   |     |   |
+  |   |     |   +----------------------------------------------------------------------------------&gt; The message ID's length (from 1 to 4)
+  |   |     |
+  |   |     +--------------------------------------------------------------------------------------&gt; The message ID's tag, 0x02 for an INTEGER
+  |   |
+  |   +--------------------------------------------------------------------------------------------&gt; The LDAP message's length
+  |
+  +------------------------------------------------------------------------------------------------&gt; The LDAP message sequence (0x30)
+</code></pre><h4 id="error-handling">Error handling</h4>
 <p>So when we are expecting a specific tag (as seen previoulsy, <strong>0x04</strong>, for instance), and we get another tag, we throw a <em>DecoderException</em>, and we stop the decoding.
 Of course, we have to discard all the <strong>PDU</strong>, and hopefully, we know how many bytes to process as it&rsquo;s given in the first <strong>TLV</strong>.</p>
 <p>Another use case is when we have completed a <strong>TLV</strong>, and there is another mandatory tag that follows. In the previous picture, the <em>AttributeDesc</em> state must be followed by a <em>AssertionValue</em> state (which starts with a <strong>0x04</strong> tag). If it&rsquo;s not the case, then we should also issue an error.</p>
