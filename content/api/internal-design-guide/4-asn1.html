@@ -279,7 +279,10 @@ Each transition is based on the tags used between two states.</p>
   |   +--------------------------------------------------------------------------------------------&gt; The LDAP message's length
   |
   +------------------------------------------------------------------------------------------------&gt; The LDAP message sequence (0x30)
-</code></pre><h4 id="bindrequest-message">BindRequest message</h4>
+</code></pre><p>Now, here is the sub-message <strong>protocolOp</strong>:</p>
+<img src="images/asn1-protocol-op.png" alt="protocol operations state machine" width="100%"/>
+<p>It covers all the existing <strong>LDAP</strong> messages.</p>
+<h4 id="bindrequest-message">BindRequest message</h4>
 <p>The <em>BindRequest</em> message grammar is the following:</p>
 <pre><code>        BindRequest ::= [APPLICATION 0] SEQUENCE {
              version                 INTEGER (1 ..  127),
@@ -295,7 +298,7 @@ Each transition is based on the tags used between two states.</p>
              mechanism               OCTET STRING,
              credentials             OCTET STRING OPTIONAL }
 </code></pre><p>Its state machine is shown in this picture:</p>
-<img src="images/asn1-protocol-op.png" alt="protocol operations state machine" width="100%"/>
+<img src="images/asn1-bind-request.png" alt="BindRequest state machine" width="100%"/>
 <h4 id="error-handling">Error handling</h4>
 <p>So when we are expecting a specific tag (as seen previoulsy, <strong>0x04</strong>, for instance), and we get another tag, we throw a <em>DecoderException</em>, and we stop the decoding.
 Of course, we have to discard all the <strong>PDU</strong>, and hopefully, we know how many bytes to process as it&rsquo;s given in the first <strong>TLV</strong>.</p>
