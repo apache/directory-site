@@ -179,6 +179,13 @@ Here is a flat representation of a LDAP message structure, where we see the enca
   +------------------------------------------------------------------------------------------------> The LDAP message sequence (0x30)
 ```
 
+Now, here is the sub-message **protocolOp**:
+
+<img src="images/asn1-protocol-op.png" alt="protocol operations state machine" width="100%"/>
+
+It covers all the existing **LDAP** messages.
+
+
 #### BindRequest message
 
 The _BindRequest_ message grammar is the following:
@@ -201,7 +208,7 @@ The _BindRequest_ message grammar is the following:
 
 Its state machine is shown in this picture:
 
-<img src="images/asn1-protocol-op.png" alt="protocol operations state machine" width="100%"/>
+<img src="images/asn1-bind-request.png" alt="BindRequest state machine" width="100%"/>
 
 
 #### Error handling
