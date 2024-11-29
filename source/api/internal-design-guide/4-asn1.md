@@ -101,6 +101,25 @@ The *LDAPMessage* grammar starts with this part:
              messageID       INTEGER (0 .. maxInt),
              protocolOp      CHOICE {
                   bindRequest           BindRequest,
+                  bindResponse          BindResponse,
+                  unbindRequest         UnbindRequest,
+                  searchRequest         SearchRequest,
+                  searchResEntry        SearchResultEntry,
+                  searchResDone         SearchResultDone,
+                  searchResRef          SearchResultReference,
+                  modifyRequest         ModifyRequest,
+                  modifyResponse        ModifyResponse,
+                  addRequest            AddRequest,
+                  addResponse           AddResponse,
+                  delRequest            DelRequest,
+                  delResponse           DelResponse,
+                  modDNRequest          ModifyDNRequest,
+                  modDNResponse         ModifyDNResponse,
+                  compareRequest        CompareRequest,
+                  compareResponse       CompareResponse,
+                  abandonRequest        AbandonRequest,
+                  extendedReq           ExtendedRequest,
+                  extendedResp          ExtendedResponse,
                   ...,
                   intermediateResponse  IntermediateResponse },
              controls       [0] Controls OPTIONAL }
@@ -116,7 +135,9 @@ The following picture gives a clear view of the existing transitions:
 
 <img src="images/asn1-ldap-message.png" alt="LDAP message state machine" width="100%"/>
 
+
 The green boxes are sub-transitions, which will be descibed below. 
+The red arrow indactes which parts are mandatory.
 Each transition is based on the tags used between two states.
 
 Here is a flat representation of a LDAP message structure, where we see the encapsulated **TLVs**:
@@ -127,11 +148,11 @@ Here is a flat representation of a LDAP message structure, where we see the enca
 |   |   | +---+---+------------+ +---+---+--------------------+ [+---+---+---------------------------------------------+] |
 |   |   | |   |   |            | |   |   |                    | [|   |   | +---+---+---------+     +---+---+---------+ |] |
 | T | L | | T | L | message ID | | T | L | protocol operation | [| T | L | | T | L | control | ... | T | L | control | |] |
-|   |   | |   |   |            | |   |   |                    | [|   |   | +---+---+---------+     +---+---+---------+ |] |
-|   |   | +---+---+------------+ +---+---+--------------------+ [+---+---+---------------------------------------------+] |
-+---+---+-----------------------------------------------------------------------------------------------------------------+
-  |   |     |   |       |          |   |           |               |   |     |   |       |
-  |   |     |   |       |          |   |           |               |   |     |   |       +---------> A control's encoded value
+|   |   | |   |   |            | |   |   |                    | [|   |   | +-o-+-o-+----o----+     +---+---+---------+ |] |
+|   |   | +-o-+-o-+-----o------+ +-o-+-o-+---------o----------+ [+-o-+-o-+---|---|------|------------------------------+] |
++-o-+-o-+---|---|-------|----------|---|-----------|---------------|---|-----|---|------|---------------------------------+
+  |   |     |   |       |          |   |           |               |   |     |   |      |
+  |   |     |   |       |          |   |           |               |   |     |   |      +----------> A control's encoded value
   |   |     |   |       |          |   |           |               |   |     |   |       
   |   |     |   |       |          |   |           |               |   |     |   +-----------------> A control's length
   |   |     |   |       |          |   |           |               |   |     |   
@@ -156,7 +177,31 @@ Here is a flat representation of a LDAP message structure, where we see the enca
   |   +--------------------------------------------------------------------------------------------> The LDAP message's length
   |
   +------------------------------------------------------------------------------------------------> The LDAP message sequence (0x30)
-  ```
+```
+
+#### BindRequest message
+
+The _BindRequest_ message grammar is the following:
+
+```
+        BindRequest ::= [APPLICATION 0] SEQUENCE {
+             version                 INTEGER (1 ..  127),
+             name                    OCTET STRING,
+             authentication          AuthenticationChoice }
+
+        AuthenticationChoice ::= CHOICE {
+             simple                  [0] OCTET STRING,
+             sasl                    [3] SaslCredentials,
+             ...  }
+
+        SaslCredentials ::= SEQUENCE {
+             mechanism               OCTET STRING,
+             credentials             OCTET STRING OPTIONAL }
+```
+
+Its state machine is shown in this picture:
+
+<img src="images/asn1-protocol-op.png" alt="protocol operations state machine" width="100%"/>
 
 
 #### Error handling
