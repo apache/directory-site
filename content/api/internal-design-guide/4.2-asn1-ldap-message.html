@@ -158,7 +158,16 @@
 
 
             
-	<h1 id="4-2---asn1-ldap-grammar">4-2 - ASN/1 LDAP grammar</h1>
+	<h2 id="table-of-content">Table of content</h2>
+<ul>
+<li><a href="4.2-asn1-ldap-message.html#asn1-ldap-grammar">4.2 - ASN/1 LDAP Grammar</a>
+<ul>
+<li><a href="4.2-asn1-ldap-message.html#LDAPMessage">4.2.1 - LDAPMessage</a></li>
+<li><a href="#BindResponse-message">4.2.2 - LDAPMessage</a></li>
+</ul>
+</li>
+</ul>
+<h1 id="4-2---asn1-ldap-grammar">4-2 - ASN/1 LDAP grammar</h1>
 <p>The <strong>LDAP</strong> grammar is defined in <a href="https://www.rfc-editor.org/rfc/rfc4511#appendix-B">RFC 4511, appendix B</a>.</p>
 <p>Here it is:</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Text" data-lang="Text">Lightweight-Directory-Access-Protocol-V3 {1 3 6 1 1 18}
@@ -475,7 +484,40 @@
 <li><strong>NN</strong> -&gt; <strong>0xA0</strong>                    protocolOp -&gt; controls (optional)</li>
 </ul>
 <h2 id="bindrequest">BindRequest</h2>
-<h2 id="bindresponse">BindResponse</h2>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">        BindRequest ::= [APPLICATION 0] SEQUENCE {
+             version                 INTEGER (1 ..  127),
+             name                    LDAPDN,
+             authentication          AuthenticationChoice }
+
+        AuthenticationChoice ::= CHOICE {
+             simple                  [0] OCTET STRING,
+                                     -- 1 and 2 reserved
+             sasl                    [3] SaslCredentials,
+             ...  }
+
+        SaslCredentials ::= SEQUENCE {
+             mechanism               LDAPString,
+             credentials             OCTET STRING OPTIONAL }
+
+
+</code></pre></div><h2 id="bindresponse-message">BindResponse message</h2>
+<p>The <em>BindResponse</em> message contains two elements:</p>
+<ul>
+<li>A <em>LdapResult</em> element</li>
+<li>An optional response used in a aunthentication dialogue, if the <em>BindRequest</em> message was a <strong>SASL</strong> one</li>
+</ul>
+<pre><code>BindResponse ::= [APPLICATION 1] SEQUENCE {
+             COMPONENTS OF LDAPResult,
+             serverSaslCreds    [7] OCTET STRING OPTIONAL }
+</code></pre><p>The associated state machine is shwon below:</p>
+<img src="images/asn1-bind-response.png" alt="BindResponse state machine" width="100%"/>
+<p>Just because we may have some data after the <em>LDAPResult</em> element, we use a special version of the <em>LDAPResult</em> state machine:</p>
+<img src="images/asn1-ldap-result-BR.png" alt="BindResponse LDAPResult state machine" width="100%"/>
+<p>In any case, two states are mandatory:</p>
+<ul>
+<li><em>RESULT_CODE_BR_STATE</em></li>
+<li><em>MATCHED_DN_BR_STATE</em></li>
+</ul>
 <h2 id="unbindrequest">UnbindRequest</h2>
 <p>This is the simplest operation. Its <strong>PDU</strong> contaons only 2 bytes: <strong>0x42 0x00</strong>.</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">        UnbindRequest ::= [APPLICATION 2] NULL
