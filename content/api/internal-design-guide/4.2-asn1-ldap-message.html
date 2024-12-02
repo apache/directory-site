@@ -162,8 +162,10 @@
 <ul>
 <li><a href="4.2-asn1-ldap-message.html#asn1-ldap-grammar">4.2 - ASN/1 LDAP Grammar</a>
 <ul>
-<li><a href="4.2-asn1-ldap-message.html#LDAPMessage">4.2.1 - LDAPMessage</a></li>
-<li><a href="#BindResponse-message">4.2.2 - LDAPMessage</a></li>
+<li><a href="#LDAPMessage">4.2.1 - LDAPMessage</a></li>
+<li><a href="#LdapResult">4.2.1 - LDAPMessage</a></li>
+<li><a href="#BindRequest-message">4.2.2 - BindRequest</a></li>
+<li><a href="#BindResponse-message">4.2.3 - BindResponse</a></li>
 </ul>
 </li>
 </ul>
@@ -446,12 +448,10 @@
              responseValue    [1] OCTET STRING OPTIONAL }
 
         END
-</code></pre></div><h2 id="ldapmessage">LDAPMessage</h2>
-<p>The structure of a <strong>LDAP</strong> message is described in the following chema:</p>
-<p><img src="images/asn1-ldap-message.png" alt="LDAPMessage"></p>
-<p>It&rsquo;s a representation of this part of the grammar:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">        LDAPMessage ::= SEQUENCE {
-             messageID       MessageID,
+</code></pre></div><h2 id="ldapmessage">LdapMessage</h2>
+<p>The <em>LDAPMessage</em> grammar starts with this part:</p>
+<pre><code>        LDAPMessage ::= SEQUENCE {
+             messageID       INTEGER (0 .. maxInt),
              protocolOp      CHOICE {
                   bindRequest           BindRequest,
                   bindResponse          BindResponse,
@@ -476,13 +476,117 @@
                   ...,
                   intermediateResponse  IntermediateResponse },
              controls       [0] Controls OPTIONAL }
-</code></pre></div><p>As we can see, it contains 3 <strong>PDU</strong>, the last one being optipnal, encapsulated into a <strong>SEQUENCE</strong> <strong>PDU</strong>.</p>
-<p>The existing transitions are:</p>
+</code></pre><p>We have three parts:</p>
 <ul>
-<li><strong>0x30</strong> -&gt; <strong>0x02</strong>                  LDAPMessage -&gt; messageID (mandatory)</li>
-<li><strong>0x02</strong> -&gt; <strong>0x0[4567]/[0-F]</strong>       messageID -&gt; protocolOp (mandatory)</li>
-<li><strong>NN</strong> -&gt; <strong>0xA0</strong>                    protocolOp -&gt; controls (optional)</li>
+<li>The message <em>ID</em></li>
+<li>The protocol part</li>
+<li>The optional controls</li>
 </ul>
+<p>The following picture gives a clear view of the existing transitions:</p>
+<img src="images/asn1-ldap-message.png" alt="LDAP message state machine" width="100%"/>
+<p>The green boxes are sub-transitions, which will be descibed below.
+The red arrow indactes which parts are mandatory.
+Each transition is based on the tags used between two states.</p>
+<p>Here is a flat representation of a LDAP message structure, where we see the encapsulated <strong>TLVs</strong>:</p>
+<pre><code>
++---+---+-----------------------------------------------------------------------------------------------------------------+
+|   |   | +---+---+------------+ +---+---+--------------------+ [+---+---+---------------------------------------------+] |
+|   |   | |   |   |            | |   |   |                    | [|   |   | +---+---+---------+     +---+---+---------+ |] |
+| T | L | | T | L | message ID | | T | L | protocol operation | [| T | L | | T | L | control | ... | T | L | control | |] |
+|   |   | |   |   |            | |   |   |                    | [|   |   | +-o-+-o-+----o----+     +---+---+---------+ |] |
+|   |   | +-o-+-o-+-----o------+ +-o-+-o-+---------o----------+ [+-o-+-o-+---|---|------|------------------------------+] |
++-o-+-o-+---|---|-------|----------|---|-----------|---------------|---|-----|---|------|---------------------------------+
+  |   |     |   |       |          |   |           |               |   |     |   |      |
+  |   |     |   |       |          |   |           |               |   |     |   |      +----------&gt; A control's encoded value
+  |   |     |   |       |          |   |           |               |   |     |   |       
+  |   |     |   |       |          |   |           |               |   |     |   +-----------------&gt; A control's length
+  |   |     |   |       |          |   |           |               |   |     |   
+  |   |     |   |       |          |   |           |               |   |     +---------------------&gt; A control's sequence (0x30)   
+  |   |     |   |       |          |   |           |               |   |     
+  |   |     |   |       |          |   |           |               |   +---------------------------&gt; The controls total length
+  |   |     |   |       |          |   |           |               |
+  |   |     |   |       |          |   |           |               +-------------------------------&gt; The controls sequence tag (0xA0)
+  |   |     |   |       |          |   |           |
+  |   |     |   |       |          |   |           +-----------------------------------------------&gt; The encoded operation
+  |   |     |   |       |          |   |
+  |   |     |   |       |          |   +-----------------------------------------------------------&gt; The operation length
+  |   |     |   |       |          |
+  |   |     |   |       |          +---------------------------------------------------------------&gt; The operation code (can be 0x60 for a BindRequest)
+  |   |     |   |       |
+  |   |     |   |       +--------------------------------------------------------------------------&gt; The message ID
+  |   |     |   |
+  |   |     |   +----------------------------------------------------------------------------------&gt; The message ID's length (from 1 to 4)
+  |   |     |
+  |   |     +--------------------------------------------------------------------------------------&gt; The message ID's tag, 0x02 for an INTEGER
+  |   |
+  |   +--------------------------------------------------------------------------------------------&gt; The LDAP message's length
+  |
+  +------------------------------------------------------------------------------------------------&gt; The LDAP message sequence (0x30)
+</code></pre><p>Now, here is the sub-message <strong>protocolOp</strong>:</p>
+<img src="images/asn1-protocol-op.png" alt="protocol operations state machine" width="100%"/>
+<p>It covers all the existing <strong>LDAP</strong> messages.</p>
+<h2 id="ldapresult">LdapResult</h2>
+<p>The <strong>LDAPResult</strong> element is part of all the <strong>LDAP</strong> response. It contains the following informations:</p>
+<ul>
+<li>A result code, indicating either a success (code 0) or an error (code from 1 to 80, but it may be higher in a future version)</li>
+<li>A DN representing the associated entry</li>
+<li>A diagnistic message in case of an error</li>
+<li>An optional list of LDP URL that may be able to process the operation.</li>
+</ul>
+<p>Here is the complete grammar, as defined in <a href="https://www.rfc-editor.org/rfc/rfc4511">RFC4511</a>:</p>
+<pre><code>LDAPResult ::= SEQUENCE {
+             resultCode         ENUMERATED {
+                  success                      (0),
+                  operationsError              (1),
+                  protocolError                (2),
+                  timeLimitExceeded            (3),
+                  sizeLimitExceeded            (4),
+                  compareFalse                 (5),
+                  compareTrue                  (6),
+                  authMethodNotSupported       (7),
+                  strongerAuthRequired         (8),
+                  referral                     (10),
+                  adminLimitExceeded           (11),
+                  unavailableCriticalExtension (12),
+                  confidentialityRequired      (13),
+                  saslBindInProgress           (14),
+                  noSuchAttribute              (16),
+                  undefinedAttributeType       (17),
+                  inappropriateMatching        (18),
+                  constraintViolation          (19),
+                  attributeOrValueExists       (20),
+                  invalidAttributeSyntax       (21),
+                  noSuchObject                 (32),
+                  aliasProblem                 (33),
+                  invalidDNSyntax              (34),
+                  aliasDereferencingProblem    (36),
+                  inappropriateAuthentication  (48),
+                  invalidCredentials           (49),
+                  insufficientAccessRights     (50),
+                  busy                         (51),
+                  unavailable                  (52),
+                  unwillingToPerform           (53),
+                  loopDetect                   (54),
+                  namingViolation              (64),
+                  objectClassViolation         (65),
+                  notAllowedOnNonLeaf          (66),
+                  notAllowedOnRDN              (67),
+                  entryAlreadyExists           (68),
+                  objectClassModsProhibited    (69),
+                  affectsMultipleDSAs          (71),
+                  other                        (80),
+                  ...  },
+             matchedDN          OCTET STRING,
+             diagnosticMessage  OCTET STRING,
+             referral           [3] Referral OPTIONAL }
+
+        Referral ::= SEQUENCE SIZE (1..MAX) OF uri OCTET STRING
+
+        URI ::= LDAPString     -- limited to characters permitted in
+                               -- URIs
+
+</code></pre><p>The associated state machine is given by this schema:</p>
+<img src="images/asn1-ldap-result.png" alt="LDAPResult state machine" width="100%"/>
 <h2 id="bindrequest">BindRequest</h2>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">        BindRequest ::= [APPLICATION 0] SEQUENCE {
              version                 INTEGER (1 ..  127),
@@ -500,7 +604,34 @@
              credentials             OCTET STRING OPTIONAL }
 
 
-</code></pre></div><h2 id="bindresponse-message">BindResponse message</h2>
+</code></pre></div><h2 id="bindrequest-message">BindRequest message</h2>
+<p>The <em>BindRequest</em> message grammar is the following:</p>
+<pre><code>        BindRequest ::= [APPLICATION 0] SEQUENCE {
+             version                 INTEGER (1 ..  127),
+             name                    OCTET STRING,
+             authentication          AuthenticationChoice }
+
+        AuthenticationChoice ::= CHOICE {
+             simple                  [0] OCTET STRING,
+             sasl                    [3] SaslCredentials,
+             ...  }
+
+        SaslCredentials ::= SEQUENCE {
+             mechanism               OCTET STRING,
+             credentials             OCTET STRING OPTIONAL }
+</code></pre><p>Its state machine is shown in this picture:</p>
+<img src="images/asn1-bind-request.png" alt="BindRequest state machine" width="100%"/>
+<p>We have two flavors of <strong>Bind</strong>:</p>
+<ul>
+<li>Simple bind, which uses a name and its credentials, in clear text</li>
+<li><strong>SASL</strong> bind, which use a name, a mechanism and some added data. A dialog will be established, in which some responses and requests will be exchanged, until the authentication is established.</li>
+</ul>
+<p>For the <em>BindRequest</em>, only two states are mandatory and must be followed by another state:</p>
+<ul>
+<li><em>VERSION_STATE</em></li>
+<li><em>NAME_STATE</em></li>
+</ul>
+<h2 id="bindresponse-message">BindResponse message</h2>
 <p>The <em>BindResponse</em> message contains two elements:</p>
 <ul>
 <li>A <em>LdapResult</em> element</li>
@@ -519,14 +650,38 @@
 <li><em>MATCHED_DN_BR_STATE</em></li>
 </ul>
 <h2 id="unbindrequest">UnbindRequest</h2>
-<p>This is the simplest operation. Its <strong>PDU</strong> contaons only 2 bytes: <strong>0x42 0x00</strong>.</p>
+<p>This is the simplest operation. Its <strong>PDU</strong> contains only 2 bytes: <strong>0x42 0x00</strong>.</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">        UnbindRequest ::= [APPLICATION 2] NULL
-</code></pre></div><h2 id="searchrequest">SearchRequest</h2>
+</code></pre></div><p>Its state machine is already fully contained in the <em>LDAPMEssage</em> state machine, as it&rsquo;s encoded directly.</p>
+<h2 id="modifyrequest">ModifyRequest</h2>
+<p>The <em>Modify</em> operation request is described by this part of the <strong>LDAP</strong> grammar:</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">ModifyRequest ::= [APPLICATION 6] SEQUENCE {
+             object          OCTET STRING,
+             changes         SEQUENCE OF change SEQUENCE {
+                  operation       ENUMERATED {
+                       add     (0),
+                       delete  (1),
+                       replace (2),
+                       ...  },
+                  modification    PartialAttribute } }
+</code></pre></div><p>With this common element, <em>PartialAttribute</em>:</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">PartialAttribute ::= SEQUENCE {
+             type       OCTET STRING,
+             vals       SET OF value OCTET STRING }
+</code></pre></div><p>(Note: the <em>PartialAttribute</em> sub-element is shared with the <em>AddRequest</em> and <em>SearchResultEntry</em> message)</p>
+<p>The associated state machine is shwon below:</p>
+<img src="images/asn1-modify-request.png" alt="ModifyRequest state machine" width="100%"/>
+<p>Three states are mandatory:</p>
+<ul>
+<li><em>OBJECT_STATE</em></li>
+<li><em>CHANGES_STATE</em></li>
+<li><em>OPERATION_STATE</em></li>
+</ul>
+<h2 id="modifyresponse">ModifyResponse</h2>
+<h2 id="searchrequest">SearchRequest</h2>
 <h2 id="searchresultentry">SearchResultEntry</h2>
 <h2 id="searchresultdone">SearchResultDone</h2>
 <h2 id="searchresultreference">SearchResultReference</h2>
-<h2 id="modifyrequest">ModifyRequest</h2>
-<h2 id="modifyresponse">ModifyResponse</h2>
 <h2 id="addrequest">AddRequest</h2>
 <h2 id="addresponse">AddResponse</h2>
 <h2 id="delrequest">DelRequest</h2>
