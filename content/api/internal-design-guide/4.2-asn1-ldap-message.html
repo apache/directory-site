@@ -160,16 +160,19 @@
             
 	<h2 id="table-of-content">Table of content</h2>
 <ul>
-<li><a href="4.2-asn1-ldap-message.html#asn1-ldap-grammar">4.2 - ASN/1 LDAP Grammar</a>
+<li><a href="#asn1-ldap-grammar">4.2 - ASN/1 LDAP Grammar</a>
 <ul>
-<li><a href="#LDAPMessage">4.2.1 - LDAPMessage</a></li>
-<li><a href="#LdapResult">4.2.1 - LDAPMessage</a></li>
-<li><a href="#BindRequest-message">4.2.2 - BindRequest</a></li>
-<li><a href="#BindResponse-message">4.2.3 - BindResponse</a></li>
+<li><a href="#ldapmessage">LDAPMessage</a></li>
+<li><a href="#ldapresult">LDAPMessage</a></li>
+<li><a href="#addrequest-operation">AddRequest</a></li>
+<li><a href="#addresponse-operation">AddResponse</a></li>
+<li><a href="#bindrequest-operation">BindRequest</a></li>
+<li><a href="#bindresponse-operation">BindResponse</a></li>
+<li><a href="#unbindrequest-operation">UnbindRequest</a></li>
 </ul>
 </li>
 </ul>
-<h1 id="4-2---asn1-ldap-grammar">4-2 - ASN/1 LDAP grammar</h1>
+<h1 id="asn1-ldap-grammar">ASN/1 LDAP grammar</h1>
 <p>The <strong>LDAP</strong> grammar is defined in <a href="https://www.rfc-editor.org/rfc/rfc4511#appendix-B">RFC 4511, appendix B</a>.</p>
 <p>Here it is:</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Text" data-lang="Text">Lightweight-Directory-Access-Protocol-V3 {1 3 6 1 1 18}
@@ -449,7 +452,7 @@
 
         END
 </code></pre></div><h2 id="ldapmessage">LdapMessage</h2>
-<p>The <em>LDAPMessage</em> grammar starts with this part:</p>
+<p>The <strong>LDAPMessage</strong> grammar starts with this part:</p>
 <pre><code>        LDAPMessage ::= SEQUENCE {
              messageID       INTEGER (0 .. maxInt),
              protocolOp      CHOICE {
@@ -485,9 +488,9 @@
 <p>The following picture gives a clear view of the existing transitions:</p>
 <img src="images/asn1-ldap-message.png" alt="LDAP message state machine" width="100%"/>
 <p>The green boxes are sub-transitions, which will be descibed below.
-The red arrow indactes which parts are mandatory.
-Each transition is based on the tags used between two states.</p>
-<p>Here is a flat representation of a LDAP message structure, where we see the encapsulated <strong>TLVs</strong>:</p>
+The red arrow indicates which parts are mandatory.
+Each transition is based on the tag used between two states.</p>
+<p>Here is a flat representation of a <strong>LDAP</strong> message structure, where we see the encapsulated <strong>TLVs</strong>:</p>
 <pre><code>
 +---+---+-----------------------------------------------------------------------------------------------------------------+
 |   |   | +---+---+------------+ +---+---+--------------------+ [+---+---+---------------------------------------------+] |
@@ -529,9 +532,9 @@ Each transition is based on the tags used between two states.</p>
 <p>The <strong>LDAPResult</strong> element is part of all the <strong>LDAP</strong> response. It contains the following informations:</p>
 <ul>
 <li>A result code, indicating either a success (code 0) or an error (code from 1 to 80, but it may be higher in a future version)</li>
-<li>A DN representing the associated entry</li>
+<li>A <strong>DN</strong> representing the associated entry</li>
 <li>A diagnistic message in case of an error</li>
-<li>An optional list of LDP URL that may be able to process the operation.</li>
+<li>An optional list of <strong>LDAP URL</strong> that may be able to process the operation.</li>
 </ul>
 <p>Here is the complete grammar, as defined in <a href="https://www.rfc-editor.org/rfc/rfc4511">RFC4511</a>:</p>
 <pre><code>LDAPResult ::= SEQUENCE {
@@ -587,25 +590,8 @@ Each transition is based on the tags used between two states.</p>
 
 </code></pre><p>The associated state machine is given by this schema:</p>
 <img src="images/asn1-ldap-result.png" alt="LDAPResult state machine" width="100%"/>
-<h2 id="bindrequest">BindRequest</h2>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">        BindRequest ::= [APPLICATION 0] SEQUENCE {
-             version                 INTEGER (1 ..  127),
-             name                    LDAPDN,
-             authentication          AuthenticationChoice }
-
-        AuthenticationChoice ::= CHOICE {
-             simple                  [0] OCTET STRING,
-                                     -- 1 and 2 reserved
-             sasl                    [3] SaslCredentials,
-             ...  }
-
-        SaslCredentials ::= SEQUENCE {
-             mechanism               LDAPString,
-             credentials             OCTET STRING OPTIONAL }
-
-
-</code></pre></div><h2 id="bindrequest-message">BindRequest message</h2>
-<p>The <em>BindRequest</em> message grammar is the following:</p>
+<h2 id="addrequest-operation">AddRequest operation</h2>
+<p>The <strong>BindRequest</strong> message grammar is the following:</p>
 <pre><code>        BindRequest ::= [APPLICATION 0] SEQUENCE {
              version                 INTEGER (1 ..  127),
              name                    OCTET STRING,
@@ -623,38 +609,62 @@ Each transition is based on the tags used between two states.</p>
 <img src="images/asn1-bind-request.png" alt="BindRequest state machine" width="100%"/>
 <p>We have two flavors of <strong>Bind</strong>:</p>
 <ul>
-<li>Simple bind, which uses a name and its credentials, in clear text</li>
+<li><strong>Simple</strong> bind, which uses a name and its credentials, in clear text</li>
 <li><strong>SASL</strong> bind, which use a name, a mechanism and some added data. A dialog will be established, in which some responses and requests will be exchanged, until the authentication is established.</li>
 </ul>
-<p>For the <em>BindRequest</em>, only two states are mandatory and must be followed by another state:</p>
+<p>For a <strong>BindRequest</strong>, only two states are mandatory and must be followed by another state:</p>
 <ul>
 <li><em>VERSION_STATE</em></li>
 <li><em>NAME_STATE</em></li>
 </ul>
-<h2 id="bindresponse-message">BindResponse message</h2>
-<p>The <em>BindResponse</em> message contains two elements:</p>
+<h2 id="addresponse-operation">AddResponse operation</h2>
+<h2 id="bindrequest-operation">BindRequest operation</h2>
+<p>The <strong>BindRequest</strong> message grammar is the following:</p>
+<pre><code>        BindRequest ::= [APPLICATION 0] SEQUENCE {
+             version                 INTEGER (1 ..  127),
+             name                    OCTET STRING,
+             authentication          AuthenticationChoice }
+
+        AuthenticationChoice ::= CHOICE {
+             simple                  [0] OCTET STRING,
+             sasl                    [3] SaslCredentials,
+             ...  }
+
+        SaslCredentials ::= SEQUENCE {
+             mechanism               OCTET STRING,
+             credentials             OCTET STRING OPTIONAL }
+</code></pre><p>Its state machine is shown in this picture:</p>
+<img src="images/asn1-bind-request.png" alt="BindRequest state machine" width="100%"/>
+<p>We have two flavors of <strong>Bind</strong>:</p>
+<ul>
+<li><strong>Simple</strong> bind, which uses a name and its credentials, in clear text</li>
+<li><strong>SASL</strong> bind, which use a name, a mechanism and some added data. A dialog will be established, in which some responses and requests will be exchanged, until the authentication is established.</li>
+</ul>
+<p>For a <strong>BindRequest</strong>, only two states are mandatory and must be followed by another state:</p>
+<ul>
+<li><em>VERSION_STATE</em></li>
+<li><em>NAME_STATE</em></li>
+</ul>
+<h2 id="bindresponse-operation">BindResponse operation</h2>
+<p>The <strong>BindResponse</strong> message contains two elements:</p>
 <ul>
 <li>A <em>LdapResult</em> element</li>
-<li>An optional response used in a aunthentication dialogue, if the <em>BindRequest</em> message was a <strong>SASL</strong> one</li>
+<li>An optional response used in a aunthentication dialogue, if the <strong>BindRequest</strong> message was a <strong>SASL</strong> one</li>
 </ul>
 <pre><code>BindResponse ::= [APPLICATION 1] SEQUENCE {
              COMPONENTS OF LDAPResult,
              serverSaslCreds    [7] OCTET STRING OPTIONAL }
-</code></pre><p>The associated state machine is shwon below:</p>
+</code></pre><p>The associated state machine is shown below:</p>
 <img src="images/asn1-bind-response.png" alt="BindResponse state machine" width="100%"/>
-<p>Just because we may have some data after the <em>LDAPResult</em> element, we use a special version of the <em>LDAPResult</em> state machine:</p>
+<p>Just because we may have some data after the <strong>LDAPResult</strong> element, we use a special version of the <strong>LDAPResult</strong> state machine:</p>
 <img src="images/asn1-ldap-result-BR.png" alt="BindResponse LDAPResult state machine" width="100%"/>
 <p>In any case, two states are mandatory:</p>
 <ul>
 <li><em>RESULT_CODE_BR_STATE</em></li>
 <li><em>MATCHED_DN_BR_STATE</em></li>
 </ul>
-<h2 id="unbindrequest">UnbindRequest</h2>
-<p>This is the simplest operation. Its <strong>PDU</strong> contains only 2 bytes: <strong>0x42 0x00</strong>.</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">        UnbindRequest ::= [APPLICATION 2] NULL
-</code></pre></div><p>Its state machine is already fully contained in the <em>LDAPMEssage</em> state machine, as it&rsquo;s encoded directly.</p>
-<h2 id="modifyrequest">ModifyRequest</h2>
-<p>The <em>Modify</em> operation request is described by this part of the <strong>LDAP</strong> grammar:</p>
+<h2 id="modifyrequest-operation">ModifyRequest operation</h2>
+<p>The <strong>Modify</strong> operation request is described by this part of the <strong>LDAP</strong> grammar:</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">ModifyRequest ::= [APPLICATION 6] SEQUENCE {
              object          OCTET STRING,
              changes         SEQUENCE OF change SEQUENCE {
@@ -664,12 +674,12 @@ Each transition is based on the tags used between two states.</p>
                        replace (2),
                        ...  },
                   modification    PartialAttribute } }
-</code></pre></div><p>With this common element, <em>PartialAttribute</em>:</p>
+</code></pre></div><p>With this common element, <strong>PartialAttribute</strong>:</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">PartialAttribute ::= SEQUENCE {
              type       OCTET STRING,
              vals       SET OF value OCTET STRING }
-</code></pre></div><p>(Note: the <em>PartialAttribute</em> sub-element is shared with the <em>AddRequest</em> and <em>SearchResultEntry</em> message)</p>
-<p>The associated state machine is shwon below:</p>
+</code></pre></div><p>(Note: the <strong>PartialAttribute</strong> sub-element is shared with the <a href="#addrequest-message"><strong>AddRequest</strong></a> and <a href="#search-result-entry"><strong>SearchResultEntry</strong></a> messages)</p>
+<p>The associated state machine is shown below:</p>
 <img src="images/asn1-modify-request.png" alt="ModifyRequest state machine" width="100%"/>
 <p>Three states are mandatory:</p>
 <ul>
@@ -677,13 +687,16 @@ Each transition is based on the tags used between two states.</p>
 <li><em>CHANGES_STATE</em></li>
 <li><em>OPERATION_STATE</em></li>
 </ul>
-<h2 id="modifyresponse">ModifyResponse</h2>
+<h2 id="modifyresponse-operation">ModifyResponse operation</h2>
+<p>The <strong>Modify</strong> operation response is described by this part of the <strong>LDAP</strong> grammar:</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">    ModifyResponse ::= [APPLICATION 7] LDAPResult
+</code></pre></div><p>The associated state machine is shown below:</p>
+<img src="images/asn1-modify-response.png" alt="ModifyResponse state machine" width="100%"/>
+<p>There are no mandatory state.</p>
 <h2 id="searchrequest">SearchRequest</h2>
 <h2 id="searchresultentry">SearchResultEntry</h2>
 <h2 id="searchresultdone">SearchResultDone</h2>
 <h2 id="searchresultreference">SearchResultReference</h2>
-<h2 id="addrequest">AddRequest</h2>
-<h2 id="addresponse">AddResponse</h2>
 <h2 id="delrequest">DelRequest</h2>
 <h2 id="delresponse">DelResponse</h2>
 <h2 id="modifydnrequest">ModifyDNRequest</h2>
@@ -694,6 +707,10 @@ Each transition is based on the tags used between two states.</p>
 <h2 id="extendedrequest">ExtendedRequest</h2>
 <h2 id="extendedresponse">ExtendedResponse</h2>
 <h2 id="intermediateresponse">IntermediateResponse</h2>
+<h2 id="unbindrequest-operation">UnbindRequest operation</h2>
+<p>This is the simplest operation. Its <strong>PDU</strong> contains only 2 bytes: <strong>0x42 0x00</strong>.</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">        UnbindRequest ::= [APPLICATION 2] NULL
+</code></pre></div><p>Its state machine is already fully contained in the <strong>LDAPMEssage</strong> state machine, as it&rsquo;s encoded directly.</p>
 
 
             
