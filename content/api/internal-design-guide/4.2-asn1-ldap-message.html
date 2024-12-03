@@ -163,11 +163,28 @@
 <li><a href="#asn1-ldap-grammar">4.2 - ASN/1 LDAP Grammar</a>
 <ul>
 <li><a href="#ldapmessage">LDAPMessage</a></li>
-<li><a href="#ldapresult">LDAPMessage</a></li>
+<li><a href="#ldapresult">LDAPResult</a></li>
+<li><a href="#controls">Controls</a></li>
+<li><a href="#abandonrequest-operation">AbandonRequest</a></li>
 <li><a href="#addrequest-operation">AddRequest</a></li>
 <li><a href="#addresponse-operation">AddResponse</a></li>
 <li><a href="#bindrequest-operation">BindRequest</a></li>
 <li><a href="#bindresponse-operation">BindResponse</a></li>
+<li><a href="#comparerequest-operation">CompareRequest</a></li>
+<li><a href="#compareresponse-operation">CompareResponse</a></li>
+<li><a href="#delrequest-operation">DelRequest</a></li>
+<li><a href="#delresponse-operation">DelResponse</a></li>
+<li><a href="#extendedrequest-operation">ExtendedRequest</a></li>
+<li><a href="#extendedresponse-operation">ExtendedResponse</a></li>
+<li><a href="#intermediateresponse-operation">IntermediateResponse</a></li>
+<li><a href="#modifyequest-operation">ModifyRequest</a></li>
+<li><a href="#modifyresponse-operation">ModifyResponse</a></li>
+<li><a href="#modifydnequest-operation">ModifyDNRequest</a></li>
+<li><a href="#modifydnresponse-operation">ModifyDNResponse</a></li>
+<li><a href="#searchrequest-operation">SearchRequest</a></li>
+<li><a href="#searchresultdone-operation">SearchResultDone</a></li>
+<li><a href="#searchresultentry-operation">SearchResultEntry</a></li>
+<li><a href="#searchresultreference-operation">SearchResultReference</a></li>
 <li><a href="#unbindrequest-operation">UnbindRequest</a></li>
 </ul>
 </li>
@@ -590,6 +607,8 @@ Each transition is based on the tag used between two states.</p>
 
 </code></pre><p>The associated state machine is given by this schema:</p>
 <img src="images/asn1-ldap-result.png" alt="LDAPResult state machine" width="100%"/>
+<h2 id="controls">Controls</h2>
+<h2 id="abandonrequest-operation">AbandonRequest operation</h2>
 <h2 id="addrequest-operation">AddRequest operation</h2>
 <p>The <strong>AddRequest</strong> message grammar is the following:</p>
 <pre><code>AddRequest ::= [APPLICATION 8] SEQUENCE {
@@ -658,6 +677,13 @@ PartialAttribute ::= SEQUENCE {
 <li><em>RESULT_CODE_BR_STATE</em></li>
 <li><em>MATCHED_DN_BR_STATE</em></li>
 </ul>
+<h2 id="comparerequest-operation">CompareRequest operation</h2>
+<h2 id="compareresponse-operation">CompareResponse operation</h2>
+<h2 id="delrequest-operation">DelRequest operation</h2>
+<h2 id="delresponse-operation">DelResponse operation</h2>
+<h2 id="extendedrequest-operation">ExtendedRequest operation</h2>
+<h2 id="extendedresponse-operation">ExtendedResponse operation</h2>
+<h2 id="intermediateresponse-operation">IntermediateResponse operation</h2>
 <h2 id="modifyrequest-operation">ModifyRequest operation</h2>
 <p>The <strong>Modify</strong> operation request is described by this part of the <strong>LDAP</strong> grammar:</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">ModifyRequest ::= [APPLICATION 6] SEQUENCE {
@@ -677,7 +703,7 @@ PartialAttribute ::= SEQUENCE {
 </code></pre></div><p>(Note: the <strong>PartialAttribute</strong> sub-element is shared with the <a href="#addrequest-message"><strong>AddRequest</strong></a> and <a href="#search-result-entry"><strong>SearchResultEntry</strong></a> messages)</p>
 <p>The associated state machine is shown below:</p>
 <img src="images/asn1-modify-request.png" alt="ModifyRequest state machine" width="100%"/>
-<p>Three states are mandatory:</p>
+<p>Two states are mandatory:</p>
 <ul>
 <li><em>CHANGES_STATE</em></li>
 <li><em>MODIFICATION_STATE</em></li>
@@ -688,20 +714,12 @@ PartialAttribute ::= SEQUENCE {
 </code></pre></div><p>The associated state machine is shown below:</p>
 <img src="images/asn1-modify-response.png" alt="ModifyResponse state machine" width="100%"/>
 <p>There are no mandatory state.</p>
+<h2 id="modifydnrequest-operation">ModifyDNRequest operation</h2>
+<h2 id="modifydnresponse--operation">ModifyDNResponse  operation</h2>
 <h2 id="searchrequest">SearchRequest</h2>
-<h2 id="searchresultentry">SearchResultEntry</h2>
 <h2 id="searchresultdone">SearchResultDone</h2>
+<h2 id="searchresultentry">SearchResultEntry</h2>
 <h2 id="searchresultreference">SearchResultReference</h2>
-<h2 id="delrequest">DelRequest</h2>
-<h2 id="delresponse">DelResponse</h2>
-<h2 id="modifydnrequest">ModifyDNRequest</h2>
-<h2 id="modifydnresponse">ModifyDNResponse</h2>
-<h2 id="comparerequest">CompareRequest</h2>
-<h2 id="compareresponse">CompareResponse</h2>
-<h2 id="abandonrequest">AbandonRequest</h2>
-<h2 id="extendedrequest">ExtendedRequest</h2>
-<h2 id="extendedresponse">ExtendedResponse</h2>
-<h2 id="intermediateresponse">IntermediateResponse</h2>
 <h2 id="unbindrequest-operation">UnbindRequest operation</h2>
 <p>This is the simplest operation. Its <strong>PDU</strong> contains only 2 bytes: <strong>0x42 0x00</strong>.</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">        UnbindRequest ::= [APPLICATION 2] NULL
