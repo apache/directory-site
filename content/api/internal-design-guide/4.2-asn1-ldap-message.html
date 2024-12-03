@@ -685,11 +685,11 @@ PartialAttribute ::= SEQUENCE {
 <h2 id="comparerequest-operation">CompareRequest operation</h2>
 <h2 id="compareresponse-operation">CompareResponse operation</h2>
 <h2 id="delrequest-operation">DelRequest operation</h2>
-<p>The <strong>Del</strong> operation request is dscribed by this part of the <strong>LDAP</strong> grammar:</p>
+<p>The <strong>DelRequest</strong> message is described by this part of the <strong>LDAP</strong> grammar:</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">    DelRequest ::= [APPLICATION 10] OCTET STRING
 </code></pre></div><p>The state machine for this operation is already described in the <a href="#ldapmessage">LdapMessage</a> state machine. The operation code (0x4A) is completed with the Object&rsquo;s DN to be removed.</p>
 <h2 id="delresponse-operation">DelResponse operation</h2>
-<p>The <strong>Del</strong> operation response is described by this part of the <strong>LDAP</strong> grammar:</p>
+<p>The <strong>DelResponse</strong> message is described by this part of the <strong>LDAP</strong> grammar:</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">    DelResponse ::= [APPLICATION 11] LDAPResult
 </code></pre></div><p>The associated state machine is shown below:</p>
 <img src="images/asn1-del-response.png" alt="DelResponse state machine" width="100%"/>
@@ -698,7 +698,7 @@ PartialAttribute ::= SEQUENCE {
 <h2 id="extendedresponse-operation">ExtendedResponse operation</h2>
 <h2 id="intermediateresponse-operation">IntermediateResponse operation</h2>
 <h2 id="modifyrequest-operation">ModifyRequest operation</h2>
-<p>The <strong>Modify</strong> operation request is described by this part of the <strong>LDAP</strong> grammar:</p>
+<p>The <strong>ModifyRequest</strong> message is described by this part of the <strong>LDAP</strong> grammar:</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">ModifyRequest ::= [APPLICATION 6] SEQUENCE {
              object          OCTET STRING,
              changes         SEQUENCE OF change SEQUENCE {
@@ -722,13 +722,30 @@ PartialAttribute ::= SEQUENCE {
 <li><em>MODIFICATION_STATE</em></li>
 </ul>
 <h2 id="modifyresponse-operation">ModifyResponse operation</h2>
-<p>The <strong>Modify</strong> operation response is described by this part of the <strong>LDAP</strong> grammar:</p>
+<p>The <strong>ModifyResponse</strong> message is described by this part of the <strong>LDAP</strong> grammar:</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">    ModifyResponse ::= [APPLICATION 7] LDAPResult
 </code></pre></div><p>The associated state machine is shown below:</p>
 <img src="images/asn1-modify-response.png" alt="ModifyResponse state machine" width="100%"/>
 <p>There are no mandatory state.</p>
 <h2 id="modifydnrequest-operation">ModifyDNRequest operation</h2>
+<p>The <strong>ModifyDNRequest</strong> message grammar is the following:</p>
+<pre><code>        ModifyDNRequest ::= [APPLICATION 12] SEQUENCE {
+             entry           OCTET STRING,
+             newrdn          OCTET STRING,
+             deleteoldrdn    BOOLEAN,
+             newSuperior     [0] OCTET STRING OPTIONAL }
+</code></pre><p>Its state machine is shown in this picture:</p>
+<img src="images/asn1-modify-dn-request.png" alt="ModifyRequest state machine" width="100%"/>
+<p>For a <strong>ModifyRequest</strong>, one state is mandatory and must be followed by another state:</p>
+<ul>
+<li><em>ENTRY_MOD_DN_STATE</em></li>
+</ul>
 <h2 id="modifydnresponse--operation">ModifyDNResponse  operation</h2>
+<p>The *<em>ModifyDNResponse</em> message is described by this part of the <strong>LDAP</strong> grammar:</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">    ModifyResponse ::= [APPLICATION 13] LDAPResult
+</code></pre></div><p>The associated state machine is shown below:</p>
+<img src="images/asn1-modify-dn-response.png" alt="ModifyDNResponse state machine" width="100%"/>
+<p>There are no mandatory state.</p>
 <h2 id="searchrequest">SearchRequest</h2>
 <h2 id="searchresultdone">SearchResultDone</h2>
 <h2 id="searchresultentry">SearchResultEntry</h2>
