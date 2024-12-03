@@ -471,7 +471,7 @@
         END
 </code></pre></div><h2 id="ldapmessage">LdapMessage</h2>
 <p>The <strong>LDAPMessage</strong> grammar starts with this part:</p>
-<pre><code>        LDAPMessage ::= SEQUENCE {
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">        LDAPMessage ::= SEQUENCE {
              messageID       INTEGER (0 .. maxInt),
              protocolOp      CHOICE {
                   bindRequest           BindRequest,
@@ -497,7 +497,7 @@
                   ...,
                   intermediateResponse  IntermediateResponse },
              controls       [0] Controls OPTIONAL }
-</code></pre><p>We have three parts:</p>
+</code></pre></div><p>We have three parts:</p>
 <ul>
 <li>The message <em>ID</em></li>
 <li>The protocol part</li>
@@ -509,8 +509,7 @@
 The red arrow indicates which parts are mandatory.
 Each transition is based on the tag used between two states.</p>
 <p>Here is a flat representation of a <strong>LDAP</strong> message structure, where we see the encapsulated <strong>TLVs</strong>:</p>
-<pre><code>
-+---+---+-----------------------------------------------------------------------------------------------------------------+
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">+---+---+-----------------------------------------------------------------------------------------------------------------+
 |   |   | +---+---+------------+ +---+---+--------------------+ [+---+---+---------------------------------------------+] |
 |   |   | |   |   |            | |   |   |                    | [|   |   | +---+---+---------+     +---+---+---------+ |] |
 | T | L | | T | L | message ID | | T | L | protocol operation | [| T | L | | T | L | control | ... | T | L | control | |] |
@@ -518,11 +517,11 @@ Each transition is based on the tag used between two states.</p>
 |   |   | +-o-+-o-+-----o------+ +-o-+-o-+---------o----------+ [+-o-+-o-+---|---|------|------------------------------+] |
 +-o-+-o-+---|---|-------|----------|---|-----------|---------------|---|-----|---|------|---------------------------------+
   |   |     |   |       |          |   |           |               |   |     |   |      |
-  |   |     |   |       |          |   |           |               |   |     |   |      +----------&gt; A control's encoded value
+  |   |     |   |       |          |   |           |               |   |     |   |      +----------&gt; A control&#39;s encoded value
   |   |     |   |       |          |   |           |               |   |     |   |       
-  |   |     |   |       |          |   |           |               |   |     |   +-----------------&gt; A control's length
+  |   |     |   |       |          |   |           |               |   |     |   +-----------------&gt; A control&#39;s length
   |   |     |   |       |          |   |           |               |   |     |   
-  |   |     |   |       |          |   |           |               |   |     +---------------------&gt; A control's sequence (0x30)   
+  |   |     |   |       |          |   |           |               |   |     +---------------------&gt; A control&#39;s sequence (0x30)   
   |   |     |   |       |          |   |           |               |   |     
   |   |     |   |       |          |   |           |               |   +---------------------------&gt; The controls total length
   |   |     |   |       |          |   |           |               |
@@ -536,14 +535,14 @@ Each transition is based on the tag used between two states.</p>
   |   |     |   |       |
   |   |     |   |       +--------------------------------------------------------------------------&gt; The message ID
   |   |     |   |
-  |   |     |   +----------------------------------------------------------------------------------&gt; The message ID's length (from 1 to 4)
+  |   |     |   +----------------------------------------------------------------------------------&gt; The message ID&#39;s length (from 1 to 4)
   |   |     |
-  |   |     +--------------------------------------------------------------------------------------&gt; The message ID's tag, 0x02 for an INTEGER
+  |   |     +--------------------------------------------------------------------------------------&gt; The message ID&#39;s tag, 0x02 for an INTEGER
   |   |
-  |   +--------------------------------------------------------------------------------------------&gt; The LDAP message's length
+  |   +--------------------------------------------------------------------------------------------&gt; The LDAP message&#39;s length
   |
   +------------------------------------------------------------------------------------------------&gt; The LDAP message sequence (0x30)
-</code></pre><p>Now, here is the sub-message <strong>protocolOp</strong>:</p>
+</code></pre></div><p>Now, here is the sub-message <strong>protocolOp</strong>:</p>
 <img src="images/asn1-protocol-op.png" alt="protocol operations state machine" width="100%"/>
 <p>It covers all the existing <strong>LDAP</strong> messages.</p>
 <h2 id="ldapresult">LdapResult</h2>
@@ -555,7 +554,7 @@ Each transition is based on the tag used between two states.</p>
 <li>An optional list of <strong>LDAP URL</strong> that may be able to process the operation.</li>
 </ul>
 <p>Here is the complete grammar, as defined in <a href="https://www.rfc-editor.org/rfc/rfc4511">RFC4511</a>:</p>
-<pre><code>LDAPResult ::= SEQUENCE {
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">LDAPResult ::= SEQUENCE {
              resultCode         ENUMERATED {
                   success                      (0),
                   operationsError              (1),
@@ -606,13 +605,26 @@ Each transition is based on the tag used between two states.</p>
         URI ::= LDAPString     -- limited to characters permitted in
                                -- URIs
 
-</code></pre><p>The associated state machine is given by this schema:</p>
+</code></pre></div><p>The associated state machine is given by this schema:</p>
 <img src="images/asn1-ldap-result.png" alt="LDAPResult state machine" width="100%"/>
 <h2 id="controls">Controls</h2>
+<p>The <strong>Control</strong> grammar is the following:</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">     Controls ::= SEQUENCE OF control Control
+
+     Control ::= SEQUENCE {
+             controlType             OCTET STRING,
+             criticality             BOOLEAN DEFAULT FALSE,
+             controlValue            OCTET STRING OPTIONAL 
+</code></pre></div><p>The associated state machine is given by this schema:</p>
+<img src="images/asn1-controls.png" alt="Controls state machine" width="100%"/>
+<p>There is no mandatory transition.</p>
 <h2 id="abandonrequest-operation">AbandonRequest operation</h2>
+<p>The <strong>AbandonRequest</strong> message grammar is the following:</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">AbandonRequest ::= [APPLICATION 16] INTEGER (0 .. maxInt)
+</code></pre></div><p>The state machine for this operation is already described in the <a href="#ldapmessage">LdapMessage</a> state machine. The operation code (0x50) is completed with the <em>ID</em> of the message to be abandonned.</p>
 <h2 id="addrequest-operation">AddRequest operation</h2>
 <p>The <strong>AddRequest</strong> message grammar is the following:</p>
-<pre><code>AddRequest ::= [APPLICATION 8] SEQUENCE {
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">AddRequest ::= [APPLICATION 8] SEQUENCE {
              entry           OCTET STRING,
              attributes      AttributeList }
 
@@ -625,7 +637,7 @@ Attribute ::= PartialAttribute(WITH COMPONENTS {
 PartialAttribute ::= SEQUENCE {
              type       OCTET STRING,
              vals       SET OF value OCTET STRING }
-</code></pre><p>Its state machine is shown in this picture:</p>
+</code></pre></div><p>Its state machine is shown in this picture:</p>
 <img src="images/asn1-add-request.png" alt="AddRequest state machine" width="100%"/>
 <p>For a <strong>AddRequest</strong>, only one state is mandatory and must be followed by another state:</p>
 <ul>
@@ -639,7 +651,7 @@ PartialAttribute ::= SEQUENCE {
 <p>There are no mandatory state.</p>
 <h2 id="bindrequest-operation">BindRequest operation</h2>
 <p>The <strong>BindRequest</strong> message grammar is the following:</p>
-<pre><code>        BindRequest ::= [APPLICATION 0] SEQUENCE {
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">        BindRequest ::= [APPLICATION 0] SEQUENCE {
              version                 INTEGER (1 ..  127),
              name                    OCTET STRING,
              authentication          AuthenticationChoice }
@@ -652,7 +664,7 @@ PartialAttribute ::= SEQUENCE {
         SaslCredentials ::= SEQUENCE {
              mechanism               OCTET STRING,
              credentials             OCTET STRING OPTIONAL }
-</code></pre><p>Its state machine is shown in this picture:</p>
+</code></pre></div><p>Its state machine is shown in this picture:</p>
 <img src="images/asn1-bind-request.png" alt="BindRequest state machine" width="100%"/>
 <p>We have two flavors of <strong>Bind</strong>:</p>
 <ul>
@@ -670,10 +682,10 @@ PartialAttribute ::= SEQUENCE {
 <li>A <em>LdapResult</em> element</li>
 <li>An optional response used in a aunthentication dialogue, if the <strong>BindRequest</strong> message was a <strong>SASL</strong> one</li>
 </ul>
-<pre><code>BindResponse ::= [APPLICATION 1] SEQUENCE {
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">BindResponse ::= [APPLICATION 1] SEQUENCE {
              COMPONENTS OF LDAPResult,
              serverSaslCreds    [7] OCTET STRING OPTIONAL }
-</code></pre><p>The associated state machine is shown below:</p>
+</code></pre></div><p>The associated state machine is shown below:</p>
 <img src="images/asn1-bind-response.png" alt="BindResponse state machine" width="100%"/>
 <p>Just because we may have some data after the <strong>LDAPResult</strong> element, we use a special version of the <strong>LDAPResult</strong> state machine:</p>
 <img src="images/asn1-ldap-result-BR.png" alt="BindResponse LDAPResult state machine" width="100%"/>
@@ -684,14 +696,14 @@ PartialAttribute ::= SEQUENCE {
 </ul>
 <h2 id="comparerequest-operation">CompareRequest operation</h2>
 <p>The <strong>CompareRequest</strong> message grammar is the following:</p>
-<pre><code>CompareRequest ::= [APPLICATION 14] SEQUENCE {
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">CompareRequest ::= [APPLICATION 14] SEQUENCE {
              entry           OCTET STRING,
              ava             AttributeValueAssertion }
 
 AttributeValueAssertion ::= SEQUENCE {
              attributeDesc   OCTET STRING,
              assertionValue  OCTET STRING }
-</code></pre><p>Its state machine is shown in this picture:</p>
+</code></pre></div><p>Its state machine is shown in this picture:</p>
 <img src="images/asn1-compare-request.png" alt="CompareRequest state machine" width="100%"/>
 <p>For a <strong>CompareRequest</strong>, only one state is mandatory and must be followed by another state:</p>
 <ul>
@@ -748,19 +760,19 @@ AttributeValueAssertion ::= SEQUENCE {
 <p>There are no mandatory state.</p>
 <h2 id="modifydnrequest-operation">ModifyDNRequest operation</h2>
 <p>The <strong>ModifyDNRequest</strong> message grammar is the following:</p>
-<pre><code>        ModifyDNRequest ::= [APPLICATION 12] SEQUENCE {
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">        ModifyDNRequest ::= [APPLICATION 12] SEQUENCE {
              entry           OCTET STRING,
              newrdn          OCTET STRING,
              deleteoldrdn    BOOLEAN,
              newSuperior     [0] OCTET STRING OPTIONAL }
-</code></pre><p>Its state machine is shown in this picture:</p>
+</code></pre></div><p>Its state machine is shown in this picture:</p>
 <img src="images/asn1-modify-dn-request.png" alt="ModifyRequest state machine" width="100%"/>
 <p>For a <strong>ModifyRequest</strong>, one state is mandatory and must be followed by another state:</p>
 <ul>
 <li><em>ENTRY_MOD_DN_STATE</em></li>
 </ul>
 <h2 id="modifydnresponse--operation">ModifyDNResponse  operation</h2>
-<p>The *<em>ModifyDNResponse</em> message is described by this part of the <strong>LDAP</strong> grammar:</p>
+<p>The <strong>ModifyDNResponse</strong> message is described by this part of the <strong>LDAP</strong> grammar:</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">    ModifyResponse ::= [APPLICATION 13] LDAPResult
 </code></pre></div><p>The associated state machine is shown below:</p>
 <img src="images/asn1-modify-dn-response.png" alt="ModifyDNResponse state machine" width="100%"/>
