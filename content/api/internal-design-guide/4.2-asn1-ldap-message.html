@@ -726,7 +726,29 @@ AttributeValueAssertion ::= SEQUENCE {
 <img src="images/asn1-del-response.png" alt="DelResponse state machine" width="100%"/>
 <p>There are no mandatory state.</p>
 <h2 id="extendedrequest-operation">ExtendedRequest operation</h2>
+<p>The <strong>ExtendedRequest</strong> message is described by this part of the <strong>LDAP</strong> grammar:</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">          ExtendedRequest ::= [APPLICATION 23] SEQUENCE {
+             requestName      [0] OCTET STRING,
+             requestValue     [1] OCTET STRING OPTIONAL }
+</code></pre></div><p>The associated state machine is shown below:</p>
+<img src="images/asn1-extended-request.png" alt="ExtendedRequest state machine" width="100%"/>
+<p>There are no mandatory state.</p>
 <h2 id="extendedresponse-operation">ExtendedResponse operation</h2>
+<p>The <strong>ExtendedResponse</strong> message is described by this part of the <strong>LDAP</strong> grammar:</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">    ExtendedResponse ::= [APPLICATION 24] SEQUENCE {
+             COMPONENTS OF LDAPResult,
+             responseName     [10] OCTET STRING OPTIONAL,
+             responseValue    [11] OCTET STRING OPTIONAL }
+</code></pre></div><p>The associated state machine is shown below:</p>
+<img src="images/asn1-extended-response.png" alt="ExtendedResponse state machine" width="100%"/>
+<p>There are no mandatory state.</p>
+<p>Just because we may have some data after the <strong>LDAPResult</strong> element, we use a special version of the <strong>LDAPResult</strong> state machine:</p>
+<img src="images/asn1-ldap-result-ER.png" alt="ExtendedResponse LDAPResult state machine" width="100%"/>
+<p>In any case, two states are mandatory:</p>
+<ul>
+<li><em>RESULT_CODE_ER_STATE</em></li>
+<li><em>MATCHED_DN_ER_STATE</em></li>
+</ul>
 <h2 id="intermediateresponse-operation">IntermediateResponse operation</h2>
 <p>The <strong>IntermediateResponse</strong> message is described by this part of the <strong>LDAP</strong> grammar:</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">        IntermediateResponse ::= [APPLICATION 25] SEQUENCE {
