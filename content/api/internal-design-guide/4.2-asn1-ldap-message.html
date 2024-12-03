@@ -177,7 +177,7 @@
 <li><a href="#extendedrequest-operation">ExtendedRequest</a></li>
 <li><a href="#extendedresponse-operation">ExtendedResponse</a></li>
 <li><a href="#intermediateresponse-operation">IntermediateResponse</a></li>
-<li><a href="#modifyequest-operation">ModifyRequest</a></li>
+<li><a href="#modifyrequest-operation">ModifyRequest</a></li>
 <li><a href="#modifyresponse-operation">ModifyResponse</a></li>
 <li><a href="#modifydnequest-operation">ModifyDNRequest</a></li>
 <li><a href="#modifydnresponse-operation">ModifyDNResponse</a></li>
@@ -683,7 +683,26 @@ PartialAttribute ::= SEQUENCE {
 <li><em>MATCHED_DN_BR_STATE</em></li>
 </ul>
 <h2 id="comparerequest-operation">CompareRequest operation</h2>
+<p>The <strong>CompareRequest</strong> message grammar is the following:</p>
+<pre><code>CompareRequest ::= [APPLICATION 14] SEQUENCE {
+             entry           OCTET STRING,
+             ava             AttributeValueAssertion }
+
+AttributeValueAssertion ::= SEQUENCE {
+             attributeDesc   OCTET STRING,
+             assertionValue  OCTET STRING }
+</code></pre><p>Its state machine is shown in this picture:</p>
+<img src="images/asn1-compare-request.png" alt="CompareRequest state machine" width="100%"/>
+<p>For a <strong>CompareRequest</strong>, only one state is mandatory and must be followed by another state:</p>
+<ul>
+<li><em>AVA_COMP_STATE</em></li>
+</ul>
 <h2 id="compareresponse-operation">CompareResponse operation</h2>
+<p>The <strong>CompareResponse</strong> message is described by this part of the <strong>LDAP</strong> grammar:</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">    CompareResponse ::= [APPLICATION 15] LDAPResult
+</code></pre></div><p>The associated state machine is shown below:</p>
+<img src="images/asn1-compare-response.png" alt="CompareResponse state machine" width="100%"/>
+<p>There are no mandatory state.</p>
 <h2 id="delrequest-operation">DelRequest operation</h2>
 <p>The <strong>DelRequest</strong> message is described by this part of the <strong>LDAP</strong> grammar:</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">    DelRequest ::= [APPLICATION 10] OCTET STRING
