@@ -591,28 +591,23 @@ Each transition is based on the tag used between two states.</p>
 </code></pre><p>The associated state machine is given by this schema:</p>
 <img src="images/asn1-ldap-result.png" alt="LDAPResult state machine" width="100%"/>
 <h2 id="addrequest-operation">AddRequest operation</h2>
-<p>The <strong>BindRequest</strong> message grammar is the following:</p>
-<pre><code>        BindRequest ::= [APPLICATION 0] SEQUENCE {
-             version                 INTEGER (1 ..  127),
-             name                    OCTET STRING,
-             authentication          AuthenticationChoice }
+<p>The <strong>AddRequest</strong> message grammar is the following:</p>
+<pre><code>AddRequest ::= [APPLICATION 8] SEQUENCE {
+             entry           OCTET STRING,
+             attributes      AttributeList }
 
-        AuthenticationChoice ::= CHOICE {
-             simple                  [0] OCTET STRING,
-             sasl                    [3] SaslCredentials,
-             ...  }
+AttributeList ::= SEQUENCE OF attribute Attribute
 
-        SaslCredentials ::= SEQUENCE {
-             mechanism               OCTET STRING,
-             credentials             OCTET STRING OPTIONAL }
+Attribute ::= PartialAttribute(WITH COMPONENTS {
+             ...,
+             vals (SIZE(1..MAX))})
+
+PartialAttribute ::= SEQUENCE {
+             type       OCTET STRING,
+             vals       SET OF value OCTET STRING }
 </code></pre><p>Its state machine is shown in this picture:</p>
-<img src="images/asn1-bind-request.png" alt="BindRequest state machine" width="100%"/>
-<p>We have two flavors of <strong>Bind</strong>:</p>
-<ul>
-<li><strong>Simple</strong> bind, which uses a name and its credentials, in clear text</li>
-<li><strong>SASL</strong> bind, which use a name, a mechanism and some added data. A dialog will be established, in which some responses and requests will be exchanged, until the authentication is established.</li>
-</ul>
-<p>For a <strong>BindRequest</strong>, only two states are mandatory and must be followed by another state:</p>
+<img src="images/asn1-add-request.png" alt="AddRequest state machine" width="100%"/>
+<p>For a <strong>AddRequest</strong>, only two states are mandatory and must be followed by another state:</p>
 <ul>
 <li><em>VERSION_STATE</em></li>
 <li><em>NAME_STATE</em></li>
@@ -669,9 +664,10 @@ Each transition is based on the tag used between two states.</p>
              object          OCTET STRING,
              changes         SEQUENCE OF change SEQUENCE {
                   operation       ENUMERATED {
-                       add     (0),
-                       delete  (1),
-                       replace (2),
+                       add       (0),
+                       delete    (1),
+                       replace   (2),
+                       increment (3),
                        ...  },
                   modification    PartialAttribute } }
 </code></pre></div><p>With this common element, <strong>PartialAttribute</strong>:</p>
@@ -683,9 +679,8 @@ Each transition is based on the tag used between two states.</p>
 <img src="images/asn1-modify-request.png" alt="ModifyRequest state machine" width="100%"/>
 <p>Three states are mandatory:</p>
 <ul>
-<li><em>OBJECT_STATE</em></li>
 <li><em>CHANGES_STATE</em></li>
-<li><em>OPERATION_STATE</em></li>
+<li><em>MODIFICATION_STATE</em></li>
 </ul>
 <h2 id="modifyresponse-operation">ModifyResponse operation</h2>
 <p>The <strong>Modify</strong> operation response is described by this part of the <strong>LDAP</strong> grammar:</p>
