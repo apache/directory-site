@@ -809,9 +809,9 @@ AttributeValueAssertion ::= SEQUENCE {
 <h2 id="searchrequest">SearchRequest</h2>
 <h2 id="searchresultdone">SearchResultDone</h2>
 <p>The <strong>SearchResultDone</strong> message is described by this part of the <strong>LDAP</strong> grammar:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">    SearchResultReference ::= [APPLICATION 19] SEQUENCE SIZE (1..MAX) OF uri OCTET STRING
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">    SearchResultDone ::= [APPLICATION 5] LDAPResult
 </code></pre></div><p>The associated state machine is shown below:</p>
-<img src="images/asn1-search-result-reference.png" alt="SearchResultReference state machine" width="100%"/>
+<img src="images/asn1-search-result-done.png" alt="SearchResultDone state machine" width="100%"/>
 <p>There are no mandatory state.</p>
 <h2 id="searchresultentry">SearchResultEntry</h2>
 <h2 id="searchresultreference">SearchResultReference</h2>
