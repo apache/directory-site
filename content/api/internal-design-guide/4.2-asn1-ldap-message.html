@@ -506,8 +506,27 @@
 <p>The following picture gives a clear view of the existing transitions:</p>
 <img src="images/asn1-ldap-message.png" alt="LDAP message state machine" width="100%"/>
 <p>The green boxes are sub-transitions, which will be descibed below.
-The red arrow indicates which parts are mandatory.
-Each transition is based on the tag used between two states.</p>
+The red arrow indicates which transition are mandatory.
+Each transition is based on the tag used between two states.
+Dashed arrows are optional transitions.</p>
+<p>There are 15 mandatory transitions:</p>
+<ul>
+<li><em>ADD_REQUEST_STATE</em></li>
+<li><em>ADD_RESPONSE_STATE</em></li>
+<li><em>BIND_REQUEST_STATE</em></li>
+<li><em>BIND_RESPONSE_STATE</em></li>
+<li><em>COMPARE_REQUEST_STATE</em></li>
+<li><em>COMPARE_RESPONSE_STATE</em></li>
+<li><em>DEL_RESPONSE_STATE</em></li>
+<li><em>EXTENDED_RESPONSE_STATE</em></li>
+<li><em>MODIFY_DN_REQUEST_STATE</em></li>
+<li><em>MODIFY_DN_RESPONSE_STATE</em></li>
+<li><em>MODIFY_REQUEST_STATE</em></li>
+<li><em>MODIFY_RESPONSE_STATE</em></li>
+<li><em>SEARCH_REQUEST_STATE</em></li>
+<li><em>SEARCH_RESULT_DONE_STATE</em></li>
+<li><em>SEARCH_RESULT_ENTRY_STATE</em></li>
+</ul>
 <p>Here is a flat representation of a <strong>LDAP</strong> message structure, where we see the encapsulated <strong>TLVs</strong>:</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">+---+---+-----------------------------------------------------------------------------------------------------------------+
 |   |   | +---+---+------------+ +---+---+--------------------+ [+---+---+---------------------------------------------+] |
@@ -550,7 +569,7 @@ Each transition is based on the tag used between two states.</p>
 <ul>
 <li>A result code, indicating either a success (code 0) or an error (code from 1 to 80, but it may be higher in a future version)</li>
 <li>A <strong>DN</strong> representing the associated entry</li>
-<li>A diagnistic message in case of an error</li>
+<li>A diagnostic message in case of an error</li>
 <li>An optional list of <strong>LDAP URL</strong> that may be able to process the operation.</li>
 </ul>
 <p>Here is the complete grammar, as defined in <a href="https://www.rfc-editor.org/rfc/rfc4511">RFC4511</a>:</p>
@@ -860,6 +879,14 @@ AttributeValueAssertion ::= SEQUENCE {
 </code></pre></div><p>The associated state machine is shown below:</p>
 <img src="images/asn1-filter.png" alt="Filter state machine" width="100%"/>
 <p>There are six mandatory states:</p>
+<ul>
+<li><em>APPROX_MATCH_STATE</em></li>
+<li><em>EQUALITY_MATCH_STATE</em></li>
+<li><em>EXTENSIBLE_MATCH_STATE</em></li>
+<li><em>GREATER_OR_EQUAL_STATE</em></li>
+<li><em>LESS_OR_EQUAL_STATE</em></li>
+<li><em>SUBSTRINGS_FILTER_STATE</em></li>
+</ul>
 <h3 id="matchingruleassertion">MatchingRuleAssertion</h3>
 <p>The <strong>MatchingRuleAssertion</strong> grammar part is given below:</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">MatchingRuleAssertion ::= SEQUENCE {
@@ -867,7 +894,14 @@ AttributeValueAssertion ::= SEQUENCE {
              type            [2] OCTET STRING OPTIONAL,
              matchValue      [3] OCTET STRING,
              dnAttributes    [4] BOOLEAN DEFAULT FALSE }
-</code></pre></div><h3 id="substringfilter">SubstringFilter</h3>
+</code></pre></div><p>The associated state machine is shown below:</p>
+<img src="images/asn1-matching-rule-assertion.png" alt="Filter Matching Rule Assertion state machine" width="100%"/>
+<p>There are two mandatory states:</p>
+<ul>
+<li><em>MRA_MATCHING_RULE_STATE</em></li>
+<li><em>MRA_TYPE_STATE</em></li>
+</ul>
+<h3 id="substringfilter">SubstringFilter</h3>
 <p>The <strong>SubstringFilter</strong> grammar part is given below:</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">SubstringFilter ::= SEQUENCE {
              type           OCTET STRING,
