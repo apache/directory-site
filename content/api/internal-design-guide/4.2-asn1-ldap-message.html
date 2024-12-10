@@ -949,16 +949,17 @@ AttributeValueAssertion ::= SEQUENCE {
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">        UnbindRequest ::= [APPLICATION 2] NULL
 </code></pre></div><p>Its state machine is already fully contained in the <strong>LDAPMEssage</strong> state machine, as it&rsquo;s encoded directly.</p>
 <h1 id="state-transitions">State transitions</h1>
-<style>
-  .vert td {
-    writing-mode: horizontal-tb;
-  }
-  writing-mode: sideways-lr;
-</style>
 <html>
+  <style>
+    .vert td {
+      writing-mode: horizontal-tb;
+    }
+    writing-mode: sideways-lr;
+  </style>
   <table>
     <thead>
       <tr class:vert>
+        <th/>
         <th>
           ABANDON_REQUEST_STATE
         </th>
@@ -979,9 +980,7 @@ AttributeValueAssertion ::= SEQUENCE {
     </tbody>
   </table>
 </html>
-<pre><code>ABANDON_REQUEST_STATE,
-ADD_REQUEST_STATE,
-ADD_RESPONSE_STATE,
+<pre><code>ADD_RESPONSE_STATE,
 AND_STATE,
 ANY_STATE,
 APPROX_MATCH_STATE,
