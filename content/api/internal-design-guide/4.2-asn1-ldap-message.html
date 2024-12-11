@@ -950,51 +950,35 @@ AttributeValueAssertion ::= SEQUENCE {
 </code></pre></div><p>Its state machine is already fully contained in the <strong>LDAPMEssage</strong> state machine, as it&rsquo;s encoded directly.</p>
 <h1 id="state-transitions">State transitions</h1>
 <style>
-  .vertth {
-    column-size: 2rem;
-    writing-mode: vertical-lr;
-  }
-
-  }
+table, th, td {
+  border: 1px solid;
+  border-collapse: collapse;
+}
+.theader th {
+  writing-mode: vertical-lr;
+  width: 1.5rem;
+}
+.tbody td {
+  text-align: center;
+}
 </style>
 <html>
   <table>
-    <thead>
+    <thead class="theader">
       <tr>
-        <th/>
-        <th class="vertth">
-          ABANDON_REQUEST_STATE
-        </th>
-        <th class="vertth">
-          ADD_REQUEST_STATE
-        </th>
-        <th class="vertth">
-          ADD_RESPONSE_STATE
-        </th>
-        <th class="vertth">
-          AND_STATE
-        </th>
-        <th class="vertth">
-          ANY_STATE
-        </th>
-        <th class="vertth">
-          APPROX_MATCH_STATE
-        </th>
-        <th class="vertth">
-          ASSERTION_VALUE_FILTER_STATE
-        </th>
-        <th class="vertth">
-          ASSERTION_VALUE_COMP_STATE
-        </th>
-        <th class="vertth">
-          ATTRIBUTES_SR_STATE
-        </th>
-        <th class="vertth">
-          ATTRIBUTES_STATE
-        </th>
+        <th>ABANDON_REQUEST_STATE</th>
+        <th>ADD_REQUEST_STATE</th>
+        <th>ADD_RESPONSE_STATE</th>
+        <th>AND_STATE</th>
+        <th>ANY_STATE</th>
+        <th>APPROX_MATCH_STATE</th>
+        <th>ASSERTION_VALUE_FILTER_STATE</th>
+        <th>ASSERTION_VALUE_COMP_STATE</th>
+        <th>ATTRIBUTES_SR_STATE</th>
+        <th>ATTRIBUTES_STATE</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody class="tbody">
       <tr>
         <td>
           ABANDON_REQUEST_STATE
