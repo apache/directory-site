@@ -208,6 +208,7 @@
 <h4 id="error-handling">Error handling</h4>
 <p>So when we are expecting a specific tag (as seen previoulsy, <strong>0x04</strong>, for instance), and we get another tag, we throw a <em>DecoderException</em>, and we stop the decoding.
 Of course, we have to discard all the <strong>PDU</strong>, and hopefully, we know how many bytes to process as it&rsquo;s given in the first <strong>TLV</strong>.</p>
+<h5 id="completed-tlvs-but-incomplete-message">Completed TLVs but incomplete message</h5>
 <p>Another use case is when we have completed a <strong>TLV</strong>, and there is another mandatory tag that follows. In the previous picture, the <em>AttributeDesc</em> state must be followed by a <em>AssertionValue</em> state (which starts with a <strong>0x04</strong> tag). If it&rsquo;s not the case, then we should also issue an error.</p>
 <p>Let&rsquo;s say we have such a <strong>PDU</strong>:</p>
 <div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Text" data-lang="Text">                  ...
@@ -327,6 +328,68 @@ FictiveMessage ::= SEQUENCE {
 <p>Except that the grammar says that for a <em>LessOrEqual</em> filter, it expects two <strong>TLVs</strong>, one for the <em>AttributeDesc</em>, the second for <em>AssertionValue</em>, which is present, but not part of the filter&rsquo;s <strong>TLV</strong>&hellip;</p>
 <p>At this point, we know which is the parent&rsquo;s <strong>TLV</strong> of each <strong>TLV</strong>. The <strong>-2-&gt;</strong> <strong>TLV</strong>&lsquo;s parent is the <em>SearchRequest</em> <strong>TLV</strong> (<strong>0x63 0x1F</strong>), when it should be <strong>-1-&gt;</strong> (<em>Less or equal filter</em>, <strong>0xA6 0x04</strong>).</p>
 <p>The way to deal with such issue is to mark each transition for a given level as requiring a following <strong>TLV</strong> if there is a non optional element at the same level. If we exhaust the length of the parent&rsquo;s <strong>TLV</strong> when we expect another <strong>TLV</strong>, that means we have an error. We just have to add this extra flag for each transaction that expect an extra <strong>TLV</strong> to be seen, and check it if the parent&rsquo;s expected length is 0.</p>
+<h5 id="second-use-case">Second use case</h5>
+<p>Here is a PDU that is not valid, related to a <strong>SearchRequest</strong>:</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">                0x30, 0x60,                             // LDAPMessage ::=SEQUENCE {
+                  0x02, 0x01, 0x01,                     // messageID
+                  0x63, 0x5A,                           //      CHOICE { ..., searchRequest SearchRequest, ...
+                                                        // SearchRequest ::= APPLICATION[3] SEQUENCE {
+                    0x04, 0x1F,                         // baseObject LDAPDN,
+                      &#39;u&#39;, &#39;i&#39;, &#39;d&#39;, &#39;=&#39;, &#39;a&#39;, &#39;k&#39;, &#39;a&#39;, &#39;r&#39;, &#39;a&#39;, &#39;s&#39;, &#39;u&#39;, &#39;l&#39;, &#39;u&#39;, &#39;,&#39;,
+                      &#39;d&#39;, &#39;c&#39;, &#39;=&#39;, &#39;e&#39;, &#39;x&#39;, &#39;a&#39;, &#39;m&#39;, &#39;p&#39;, &#39;l&#39;, &#39;e&#39;, &#39;,&#39;, &#39;d&#39;, &#39;c&#39;, &#39;=&#39;, &#39;c&#39;, &#39;o&#39;, &#39;m&#39;,
+                    0x0A, 0x01, 0x01,                   // scope ENUMERATED {
+                                                        // singleLevel (1),
+                    0x0A, 0x01, 0x03,                   // derefAliases ENUMERATED {
+                                                        // derefAlways (3) },
+                    0x02, 0x02, 0x03, ( byte ) 0xE8,    // sizeLimit INTEGER (0 .. maxInt), (1000)
+                    0x02, 0x02, 0x03, ( byte ) 0xE8,    // timeLimit INTEGER (0 .. maxInt), (1000)
+                    0x01, 0x01, ( byte ) 0xFF,          // typesOnly BOOLEAN, (TRUE) filter Filter,
+                    ( byte ) 0xA4, 0x0D,                // Filter ::= CHOICE {
+                                                        // substrings [4] SubstringFilter
+                                                        // }
+                                                        // SubstringFilter ::= SEQUENCE {
+                      0x04, 0x0B,                       // type           OCTET STRING,
+                        &#39;o&#39;, &#39;b&#39;, &#39;j&#39;, &#39;e&#39;, &#39;c&#39;, &#39;t&#39;, &#39;c&#39;, &#39;l&#39;, &#39;a&#39;, &#39;s&#39;, &#39;s&#39;,
+                                                        // Here, we are expecting the Substrings part, a combinaison of initial, some any and final
+                                                        // Instead we have a 
+                    0x30, 0x15,                         // AttributeSelection ::= SEQUENCE OF selector OCTET STRING
+                      0x04, 0x05,
+                        &#39;a&#39;, &#39;t&#39;, &#39;t&#39;, &#39;r&#39;, &#39;0&#39;,        // selector
+                      0x04, 0x05,
+                        &#39;a&#39;, &#39;t&#39;, &#39;t&#39;, &#39;r&#39;, &#39;1&#39;,        // selector
+                      0x04, 0x05,
+                        &#39;a&#39;, &#39;t&#39;, &#39;t&#39;, &#39;r&#39;, &#39;2&#39;         // selector
+
+</code></pre></div><p>The problem is that the <strong>Subtrings</strong> filter has a length of 13 (<strong>0x0D</strong>), which imply we don&rsquo;t have a <em>initial</em>, <em>any</em> or <em>final</em> element. The <a href="https://www.rfc-editor.org/rfc/rfc4511#section-4.5.1.7.2">RFC 4511</a> is pretty clear. First the grammar says:</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">substrings     SEQUENCE SIZE (1..MAX) OF substring CHOICE {
+                  initial [0] AssertionValue,  -- can occur at most once
+                  any     [1] AssertionValue,
+                  final   [2] AssertionValue } -- can occur at most once
+</code></pre></div><p>The <strong>SEQUENCE</strong> must have a size of 1, which means at least one of the <em>initial</em>, <em>any</em> and <em>final</em> must be present.</p>
+<p>Second the specification says:</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">&#34;There SHALL be at most one &#39;initial&#39; and at most one &#39;final&#39; in the
+   &#39;substrings&#39; of a SubstringFilter.  If &#39;initial&#39; is present, it SHALL
+   be the first element of &#39;substrings&#39;.  If &#39;final&#39; is present, it
+   SHALL be the last element of &#39;substrings&#39;.&#34;
+</code></pre></div><p>So that means we <em>must</em> have at least one of the three elements, in a specific order (0 or 1 <em>initial</em> first, 0 to many <em>any</em> and 0 or 1 <em>final</em>).</p>
+<p>We can check if we have more than one <em>initial</em> or <em>final</em> in the grammar: we don&rsquo;t have a transition from <em>initial</em> to <em>initial</em>, nor a transition from <em>final</em> to <em>final</em>, not a transition for <em>final</em> to <em>any</em> or from <em>any</em> to <em>initial</em>, or from <em>final</em> to <em>initial</em>. That covers the ordering and occurence constraints.</p>
+<p>But we don&rsquo;t have any rule that checks we have at least one of the three. One way to do that is to check the <strong>TLV</strong> length when we call the transition&rsquo;s action:</p>
+<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">    public void action( C container ) throws DecoderException
+    {
+        TLV tlv = container.getCurrentTLV();
+
+        // The Length should not be null
+        if ( tlv.getLength() == 0 )
+        {
+            String msg = I18n.err( I18n.ERR_01101_NULL_LENGTH );
+            
+            LOG.error( msg );
+
+            // This will generate a PROTOCOL_ERROR
+            throw new DecoderException( msg );
+        }
+    }
+</code></pre></div><p>Here, if we have a <strong>0x30 0x00</strong> value for the <em>substrings</em> <strong>TLV</strong>, that means we don&rsquo;t have any of <em>initial</em>, <em>any</em> or <em>final</em>, so we stop the decoding.</p>
 <h3 id="encoding">Encoding</h3>
 <p>It&rsquo;s slightly simpler : we use the message or element implementation to encode a message.</p>
 <p>The initial idea was to allocate a buffer to store the message, with the correct size, which required:</p>
