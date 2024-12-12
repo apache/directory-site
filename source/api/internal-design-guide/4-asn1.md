@@ -97,6 +97,7 @@ Actually, we use the **TLV** tag to know which next step we should go to. Here, 
 So when we are expecting a specific tag (as seen previoulsy, **0x04**, for instance), and we get another tag, we throw a _DecoderException_, and we stop the decoding.
 Of course, we have to discard all the **PDU**, and hopefully, we know how many bytes to process as it's given in the first **TLV**.
 
+##### Completed TLVs but incomplete message
 
 Another use case is when we have completed a **TLV**, and there is another mandatory tag that follows. In the previous picture, the _AttributeDesc_ state must be followed by a _AssertionValue_ state (which starts with a **0x04** tag). If it's not the case, then we should also issue an error.
 
@@ -251,6 +252,89 @@ Except that the grammar says that for a _LessOrEqual_ filter, it expects two **T
 At this point, we know which is the parent's **TLV** of each **TLV**. The **-2->** **TLV**'s parent is the _SearchRequest_ **TLV** (**0x63 0x1F**), when it should be **-1->** (_Less or equal filter_, **0xA6 0x04**).
 
 The way to deal with such issue is to mark each transition for a given level as requiring a following **TLV** if there is a non optional element at the same level. If we exhaust the length of the parent's **TLV** when we expect another **TLV**, that means we have an error. We just have to add this extra flag for each transaction that expect an extra **TLV** to be seen, and check it if the parent's expected length is 0.
+
+##### Second use case
+
+Here is a PDU that is not valid, related to a **SearchRequest**:
+
+```text
+                0x30, 0x60,                             // LDAPMessage ::=SEQUENCE {
+                  0x02, 0x01, 0x01,                     // messageID
+                  0x63, 0x5A,                           //      CHOICE { ..., searchRequest SearchRequest, ...
+                                                        // SearchRequest ::= APPLICATION[3] SEQUENCE {
+                    0x04, 0x1F,                         // baseObject LDAPDN,
+                      'u', 'i', 'd', '=', 'a', 'k', 'a', 'r', 'a', 's', 'u', 'l', 'u', ',',
+                      'd', 'c', '=', 'e', 'x', 'a', 'm', 'p', 'l', 'e', ',', 'd', 'c', '=', 'c', 'o', 'm',
+                    0x0A, 0x01, 0x01,                   // scope ENUMERATED {
+                                                        // singleLevel (1),
+                    0x0A, 0x01, 0x03,                   // derefAliases ENUMERATED {
+                                                        // derefAlways (3) },
+                    0x02, 0x02, 0x03, ( byte ) 0xE8,    // sizeLimit INTEGER (0 .. maxInt), (1000)
+                    0x02, 0x02, 0x03, ( byte ) 0xE8,    // timeLimit INTEGER (0 .. maxInt), (1000)
+                    0x01, 0x01, ( byte ) 0xFF,          // typesOnly BOOLEAN, (TRUE) filter Filter,
+                    ( byte ) 0xA4, 0x0D,                // Filter ::= CHOICE {
+                                                        // substrings [4] SubstringFilter
+                                                        // }
+                                                        // SubstringFilter ::= SEQUENCE {
+                      0x04, 0x0B,                       // type           OCTET STRING,
+                        'o', 'b', 'j', 'e', 'c', 't', 'c', 'l', 'a', 's', 's',
+                                                        // Here, we are expecting the Substrings part, a combinaison of initial, some any and final
+                                                        // Instead we have a 
+                    0x30, 0x15,                         // AttributeSelection ::= SEQUENCE OF selector OCTET STRING
+                      0x04, 0x05,
+                        'a', 't', 't', 'r', '0',        // selector
+                      0x04, 0x05,
+                        'a', 't', 't', 'r', '1',        // selector
+                      0x04, 0x05,
+                        'a', 't', 't', 'r', '2'         // selector
+
+```
+
+The problem is that the **Subtrings** filter has a length of 13 (**0x0D**), which imply we don't have a _initial_, _any_ or _final_ element. The [RFC 4511](https://www.rfc-editor.org/rfc/rfc4511#section-4.5.1.7.2) is pretty clear. First the grammar says:
+
+```text
+substrings     SEQUENCE SIZE (1..MAX) OF substring CHOICE {
+                  initial [0] AssertionValue,  -- can occur at most once
+                  any     [1] AssertionValue,
+                  final   [2] AssertionValue } -- can occur at most once
+```
+
+The **SEQUENCE** must have a size of 1, which means at least one of the _initial_, _any_ and _final_ must be present.
+
+Second the specification says:
+
+```text
+"There SHALL be at most one 'initial' and at most one 'final' in the
+   'substrings' of a SubstringFilter.  If 'initial' is present, it SHALL
+   be the first element of 'substrings'.  If 'final' is present, it
+   SHALL be the last element of 'substrings'."
+```
+
+So that means we *must* have at least one of the three elements, in a specific order (0 or 1 _initial_ first, 0 to many *any* and 0 or 1 _final_).
+
+We can check if we have more than one _initial_ or _final_ in the grammar: we don't have a transition from _initial_ to _initial_, nor a transition from _final_ to _final_, not a transition for _final_ to _any_ or from _any_ to _initial_, or from _final_ to _initial_. That covers the ordering and occurence constraints.
+
+But we don't have any rule that checks we have at least one of the three. One way to do that is to check the **TLV** length when we call the transition's action:
+
+```text
+    public void action( C container ) throws DecoderException
+    {
+        TLV tlv = container.getCurrentTLV();
+
+        // The Length should not be null
+        if ( tlv.getLength() == 0 )
+        {
+            String msg = I18n.err( I18n.ERR_01101_NULL_LENGTH );
+            
+            LOG.error( msg );
+
+            // This will generate a PROTOCOL_ERROR
+            throw new DecoderException( msg );
+        }
+    }
+```
+
+Here, if we have a **0x30 0x00** value for the _substrings_ **TLV**, that means we don't have any of _initial_, _any_ or _final_, so we stop the decoding.
 
 
 ### Encoding
