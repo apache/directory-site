@@ -950,18 +950,12 @@ AttributeValueAssertion ::= SEQUENCE {
 </code></pre></div><p>Its state machine is already fully contained in the <strong>LDAPMEssage</strong> state machine, as it&rsquo;s encoded directly.</p>
 <h1 id="state-transitions">State transitions</h1>
 <h2 id="state-followers">State followers</h2>
+<p>This list gives all the possible tags for each of the state machine elements:</p>
 <ul>
-<li>
-<p><em>ABANDON_REQUEST_STATE</em>: {Controls tag (0xA0), #}</p>
-</li>
-<li>
-<p><em>ADD_REQUEST_STATE</em>: {Controls tag (0xA0), #}</p>
-</li>
-<li>
-<p><em>ADD_RESPONSE_STATE</em>:</p>
-</li>
-<li>
-<p><em>AND_STATE</em>:</p>
+<li><em>ABANDON_REQUEST_STATE</em>: {Controls tag (0xA0), #}</li>
+<li><em>ADD_REQUEST_STATE</em>: {Controls tag (0xA0), #}</li>
+<li><em>ADD_RESPONSE_STATE</em>:  {Controls tag (0xA0), #}</li>
+<li><em>AND_STATE</em>:
 <ul>
 <li>present tag (0x87)</li>
 <li>AttributeSelection tag (0x30)</li>
@@ -976,8 +970,7 @@ AttributeValueAssertion ::= SEQUENCE {
 <li>extensible match tag (0xA9)</li>
 </ul>
 </li>
-<li>
-<p><em>ANY_STATE</em>:</p>
+<li><em>ANY_STATE</em>:
 <ul>
 <li>any tag (0x81)</li>
 <li>final tag (0x82)}</li>
@@ -994,8 +987,7 @@ AttributeValueAssertion ::= SEQUENCE {
 <li>extensible match tag (0xA9)</li>
 </ul>
 </li>
-<li>
-<p><em>APPROX_MATCH_STATE</em>:</p>
+<li><em>APPROX_MATCH_STATE</em>:
 <ul>
 <li>present tag (0x87)</li>
 <li>AttributeSelection tag (0x30)</li>
@@ -1010,8 +1002,7 @@ AttributeValueAssertion ::= SEQUENCE {
 <li>extensible match tag (0xA9)</li>
 </ul>
 </li>
-<li>
-<p><em>ASSERTION_VALUE_FILTER_STATE</em>:</p>
+<li><em>ASSERTION_VALUE_FILTER_STATE</em>:
 <ul>
 <li>present tag (0x87)</li>
 <li>AttributeSelection tag (0x30)</li>
@@ -1026,89 +1017,39 @@ AttributeValueAssertion ::= SEQUENCE {
 <li>extensible match tag (0xA9)</li>
 </ul>
 </li>
-<li>
-<p><em>ASSERTION_VALUE_COMP_STATE</em> {Controls tag (0xA0), #}</p>
-</li>
-<li>
-<p><em>ATTRIBUTES_SR_STATE</em>: {PartialAttributeList tag (0x30)}</p>
-</li>
-<li>
-<p><em>ATTRIBUTES_STATE</em>: {AttributeList tag (0x30)}</p>
-</li>
-<li>
-<p><em>ATTRIBUTE_SELECTION_STATE</em>: {Controls tag (0xA0), #}</p>
-</li>
-<li>
-<p><em>ATTRIBUTE_DESC_COMP_STATE</em>: {AssertionValue tag (0x04)}</p>
-</li>
-<li>
-<p><em>ATTRIBUTE_DESC_FILTER_STATE</em>: {AssertionValue tag (0x04)}</p>
-</li>
-<li>
-<p><em>ATTRIBUTE_STATE</em>: {type tag (0x04)}</p>
-</li>
-<li>
-<p><em>ATTRIBUTE_VALUE_STATE</em>: {change tags (0x30), vals tag (0x04), Controls tag (0xA0), #}</p>
-</li>
-<li>
-<p><em>AVA_COMP_STATE</em>: {AttributeDesc tag (0x04)}</p>
-</li>
-<li>
-<p><em>BASE_OBJECT_STATE</em>: {scope tag (0x0A)}</p>
-</li>
-<li>
-<p><em>BIND_REQUEST_STATE</em>: {Controls tag (0xA0), #}</p>
-</li>
-<li>
-<p><em>BIND_RESPONSE_STATE</em>: {Controls tag (0xA0), #}</p>
-</li>
-<li>
-<p><em>CHANGES_STATE</em>: {change tag (0x30)}</p>
-</li>
-<li>
-<p><em>CHANGE_STATE</em>: {operation tag (0x30)}</p>
-</li>
-<li>
-<p><em>COMPARE_REQUEST_STATE</em>: {Controls tag (0xA0), #}</p>
-</li>
-<li>
-<p><em>COMPARE_RESPONSE_STATE</em>: {Controls tag (0xA0), #}</p>
-</li>
-<li>
-<p><em>CONTROLS_STATE</em>: {Control tag (0x30)}</p>
-</li>
-<li>
-<p><em>CONTROL_STATE</em>: {controlType tag (0x04)}</p>
-</li>
-<li>
-<p><em>CONTROL_TYPE_STATE</em>: {criticality tag (0x01), controlValue tag (0x04), Control tag (0x30), #}</p>
-</li>
-<li>
-<p><em>CONTROL_VALUE_STATE</em>: {Control tag (0x30), #}</p>
-</li>
-<li>
-<p><em>CREDENTIALS_STATE</em>: {Controls tag (0xA0), #}</p>
-</li>
-<li>
-<p><em>CRITICALITY_STATE</em>: {controlValue tag (0x04), Control tag (0x30), #}
-DELETE_OLD_RDN_STATE,</p>
-</li>
-<li>
-<p><em>DEL_REQUEST_STATE</em>: {Controls tag (0xA0), #}</p>
-</li>
-<li>
-<p><em>DEL_RESPONSE_STATE</em>: {Controls tag (0xA0), #}
-DEREF_ALIAS_STATE,
-DIAGNOSTIC_MESSAGE_BR_STATE,
-DIAGNOSTIC_MESSAGE_ER_STATE,
-DIAGNOSTIC_MESSAGE_STATE,
-END_STATE,
-ENTRY_COMP_STATE,
-ENTRY_MOD_DN_STATE,
-ENTRY_STATE,</p>
-</li>
-<li>
-<p><em>EQUALITY_MATCH_STATE</em>:</p>
+<li><em>ASSERTION_VALUE_COMP_STATE</em>: {Controls tag (0xA0), #}</li>
+<li><em>ATTRIBUTES_SR_STATE</em>: {PartialAttributeList tag (0x30)}</li>
+<li><em>ATTRIBUTES_STATE</em>: {AttributeList tag (0x30)}</li>
+<li><em>ATTRIBUTE_SELECTION_STATE</em>: {Controls tag (0xA0), #}</li>
+<li><em>ATTRIBUTE_DESC_COMP_STATE</em>: {AssertionValue tag (0x04)}</li>
+<li><em>ATTRIBUTE_DESC_FILTER_STATE</em>: {AssertionValue tag (0x04)}</li>
+<li><em>ATTRIBUTE_STATE</em>: {type tag (0x04)}</li>
+<li><em>ATTRIBUTE_VALUE_STATE</em>: {change tags (0x30), vals tag (0x04), Controls tag (0xA0), #}</li>
+<li><em>AVA_COMP_STATE</em>: {AttributeDesc tag (0x04)}</li>
+<li><em>BASE_OBJECT_STATE</em>: {scope tag (0x0A)}</li>
+<li><em>BIND_REQUEST_STATE</em>: {Controls tag (0xA0), #}</li>
+<li><em>BIND_RESPONSE_STATE</em>: {Controls tag (0xA0), #}</li>
+<li><em>CHANGES_STATE</em>: {change tag (0x30)}</li>
+<li><em>CHANGE_STATE</em>: {operation tag (0x30)}</li>
+<li><em>COMPARE_REQUEST_STATE</em>: {Controls tag (0xA0), #}</li>
+<li><em>COMPARE_RESPONSE_STATE</em>: {Controls tag (0xA0), #}</li>
+<li><em>CONTROLS_STATE</em>: {Control tag (0x30)}</li>
+<li><em>CONTROL_STATE</em>: {controlType tag (0x04)}</li>
+<li><em>CONTROL_TYPE_STATE</em>: {criticality tag (0x01), controlValue tag (0x04), Control tag (0x30), #}</li>
+<li><em>CONTROL_VALUE_STATE</em>: {Control tag (0x30), #}</li>
+<li><em>CREDENTIALS_STATE</em>: {Controls tag (0xA0), #}</li>
+<li><em>CRITICALITY_STATE</em>: {controlValue tag (0x04), Control tag (0x30), #}</li>
+<li><em>DELETE_OLD_RDN_STATE</em>: {nowSuperior tag (0x80), Control tag (0x30), #}</li>
+<li><em>DEL_REQUEST_STATE</em>: {Controls tag (0xA0), #}</li>
+<li><em>DEL_RESPONSE_STATE</em>: {Controls tag (0xA0), #}</li>
+<li><em>DEREF_ALIAS_STATE</em>: {sizeLimit tag (0x02)}</li>
+<li><em>DIAGNOSTIC_MESSAGE_BR_STATE</em>: {serverSaslCreds tag (0x87), Control tag (0x30), #}</li>
+<li><em>DIAGNOSTIC_MESSAGE_ER_STATE</em>: {responseName tag (0x8A), responseValue tag (0x8B), Control tag (0x30), #}</li>
+<li><em>DIAGNOSTIC_MESSAGE_STATE</em>: {Control tag (0x30), #}</li>
+<li><em>ENTRY_COMP_STATE</em>: {ava tag (0x30)}</li>
+<li><em>ENTRY_MOD_DN_STATE</em>: {newRdn tag (0x04)}</li>
+<li><em>ENTRY_STATE</em>: {attributes tag (0x30)}</li>
+<li><em>EQUALITY_MATCH_STATE</em>:
 <ul>
 <li>present tag (0x87)</li>
 <li>AttributeSelection tag (0x30)</li>
@@ -1123,142 +1064,94 @@ ENTRY_STATE,</p>
 <li>extensible match tag (0xA9)</li>
 </ul>
 </li>
-<li>
-<p><em>EXTENDED_REQUEST_STATE</em>: {Controls tag (0xA0), #}</p>
-</li>
-<li>
-<p><em>EXTENDED_RESPONSE_STATE</em>: {Controls tag (0xA0), #}</p>
-</li>
-<li>
-<p><em>EXTENSIBLE_MATCH_STATE</em>:</p>
+<li><em>EXTENDED_REQUEST_STATE</em>: {Controls tag (0xA0), #}</li>
+<li><em>EXTENDED_RESPONSE_STATE</em>: {Controls tag (0xA0), #}</li>
+<li><em>EXTENSIBLE_MATCH_STATE</em>:
 <ul>
-<li>
-<p>present tag (0x87)</p>
-</li>
-<li>
-<p>AttributeSelection tag (0x30)</p>
-</li>
-<li>
-<p>and tag (0xA0)</p>
-</li>
-<li>
-<p>or tag (0xA1)</p>
-</li>
-<li>
-<p>not tag (0xA2)</p>
-</li>
-<li>
-<p>equality tag (0xA3)</p>
-</li>
-<li>
-<p>substrings tag (0xA4)</p>
-</li>
-<li>
-<p>equality match tag (0xA5)</p>
-</li>
-<li>
-<p>less or equal tag (0xA6)</p>
-</li>
-<li>
-<p>approxMatch tag (0xA8)</p>
-</li>
-<li>
-<p>extensible match tag (0xA9)</p>
-<p>FINAL_STATE,</p>
-</li>
+<li>present tag (0x87)</li>
+<li>AttributeSelection tag (0x30)</li>
+<li>and tag (0xA0)</li>
+<li>or tag (0xA1)</li>
+<li>not tag (0xA2)</li>
+<li>equality tag (0xA3)</li>
+<li>substrings tag (0xA4)</li>
+<li>equality match tag (0xA5)</li>
+<li>less or equal tag (0xA6)</li>
+<li>approxMatch tag (0xA8)</li>
+<li>extensible match tag (0xA9)</li>
 </ul>
 </li>
-<li>
-<p><em>GREATER_OR_EQUAL_STATE</em>:</p>
+<li><em>FINAL_STATE</em>:
 <ul>
-<li>
-<p>present tag (0x87)</p>
-</li>
-<li>
-<p>AttributeSelection tag (0x30)</p>
-</li>
-<li>
-<p>and tag (0xA0)</p>
-</li>
-<li>
-<p>or tag (0xA1)</p>
-</li>
-<li>
-<p>not tag (0xA2)</p>
-</li>
-<li>
-<p>equality tag (0xA3)</p>
-</li>
-<li>
-<p>substrings tag (0xA4)</p>
-</li>
-<li>
-<p>equality match tag (0xA5)</p>
-</li>
-<li>
-<p>less or equal tag (0xA6)</p>
-</li>
-<li>
-<p>approxMatch tag (0xA8)</p>
-</li>
-<li>
-<p>extensible match tag (0xA9)</p>
-<p>INITIAL_STATE,
-INTERMEDIATE_RESPONSE_NAME_STATE,</p>
-</li>
+<li>present tag (0x87)</li>
+<li>AttributeSelection tag (0x30)</li>
+<li>and tag (0xA0)</li>
+<li>or tag (0xA1)</li>
+<li>not tag (0xA2)</li>
+<li>equality tag (0xA3)</li>
+<li>substrings tag (0xA4)</li>
+<li>equality match tag (0xA5)</li>
+<li>less or equal tag (0xA6)</li>
+<li>approxMatch tag (0xA8)</li>
+<li>extensible match tag (0xA9)</li>
 </ul>
 </li>
-<li>
-<p><em>INTERMEDIATE_RESPONSE_STATE</em>: {Controls tag (0xA0), #}
-INTERMEDIATE_RESPONSE_VALUE_STATE,</p>
-</li>
-<li>
-<p><em>LDAP_MESSAGE_STATE</em>: {messageId (0x02)}</p>
-</li>
-<li>
-<p><em>LESS_OR_EQUAL_STATE</em>:</p>
+<li><em>GREATER_OR_EQUAL_STATE</em>:
 <ul>
-<li>
-<p>present tag (0x87)</p>
-</li>
-<li>
-<p>AttributeSelection tag (0x30)</p>
-</li>
-<li>
-<p>and tag (0xA0)</p>
-</li>
-<li>
-<p>or tag (0xA1)</p>
-</li>
-<li>
-<p>not tag (0xA2)</p>
-</li>
-<li>
-<p>equality tag (0xA3)</p>
-</li>
-<li>
-<p>substrings tag (0xA4)</p>
-</li>
-<li>
-<p>equality match tag (0xA5)</p>
-</li>
-<li>
-<p>less or equal tag (0xA6)</p>
-</li>
-<li>
-<p>approxMatch tag (0xA8)</p>
-</li>
-<li>
-<p>extensible match tag (0xA9)</p>
-<p>MATCHED_DN_BR_STATE,
-MATCHED_DN_ER_STATE,
-MATCHED_DN_STATE,
-MECHANISM_STATE,</p>
-</li>
+<li>present tag (0x87)</li>
+<li>AttributeSelection tag (0x30)</li>
+<li>and tag (0xA0)</li>
+<li>or tag (0xA1)</li>
+<li>not tag (0xA2)</li>
+<li>equality tag (0xA3)</li>
+<li>substrings tag (0xA4)</li>
+<li>equality match tag (0xA5)</li>
+<li>less or equal tag (0xA6)</li>
+<li>approxMatch tag (0xA8)</li>
+<li>extensible match tag (0xA9)</li>
 </ul>
 </li>
-<li>
-<p><em>MESSAGE_ID_STATE</em>: protocolOp :</p>
+<li><em>INITIAL_STATE</em>:
+<ul>
+<li>any tag (0x81)</li>
+<li>final tag (0x82)</li>
+<li>present tag (0x87)</li>
+<li>AttributeSelection tag (0x30)</li>
+<li>and tag (0xA0)</li>
+<li>or tag (0xA1)</li>
+<li>not tag (0xA2)</li>
+<li>equality tag (0xA3)</li>
+<li>substrings tag (0xA4)</li>
+<li>equality match tag (0xA5)</li>
+<li>less or equal tag (0xA6)</li>
+<li>approxMatch tag (0xA8)</li>
+<li>extensible match tag (0xA9)</li>
+</ul>
+</li>
+<li><em>INTERMEDIATE_RESPONSE_NAME_STATE</em>: {responseValue tag (0x81), Controls tag (0xA0), #}</li>
+<li><em>INTERMEDIATE_RESPONSE_STATE</em>: {Controls tag (0xA0), #}</li>
+<li><em>INTERMEDIATE_RESPONSE_VALUE_STATE</em>: {Controls tag (0xA0), #}</li>
+<li><em>LDAP_MESSAGE_STATE</em>: {messageId (0x02)}</li>
+<li><em>LESS_OR_EQUAL_STATE</em>:
+<ul>
+<li>present tag (0x87)</li>
+<li>AttributeSelection tag (0x30)</li>
+<li>and tag (0xA0)</li>
+<li>or tag (0xA1)</li>
+<li>not tag (0xA2)</li>
+<li>equality tag (0xA3)</li>
+<li>substrings tag (0xA4)</li>
+<li>equality match tag (0xA5)</li>
+<li>less or equal tag (0xA6)</li>
+<li>approxMatch tag (0xA8)</li>
+<li>extensible match tag (0xA9)</li>
+</ul>
+</li>
+<li><em>MATCHED_DN_BR_STATE</em>: {matchedDN tag (0x04)}</li>
+<li><em>MATCHED_DN_ER_STATE</em>: {matchedDN tag (0x04)}</li>
+<li><em>MATCHED_DN_STATE</em>: {matchedDN tag (0x04)}</li>
+<li><em>MECHANISM_STATE</em>: {credentials tag (0x04), Controls tag (0xA0), #}</li>
+<li><em>MESSAGE_ID_STATE</em>: protocolOp :
 <ul>
 <li>UnbindRequest tag (0x42)</li>
 <li>DelRequest tag (0x4A)</li>
@@ -1280,236 +1173,166 @@ MECHANISM_STATE,</p>
 <li>SearchSearchResultReference (0x73)</li>
 <li>ExtendedRequesrv (0x77)</li>
 <li>ExtendedResponse (0x78)</li>
-<li>IntermediateResponse (0x79)
-MODIFICATION_STATE,</li>
+<li>IntermediateResponse (0x79)</li>
 </ul>
 </li>
-<li>
-<p><em>MODIFY_DN_REQUEST_STATE</em>: {Controls tag (0xA0), #}</p>
-</li>
-<li>
-<p><em>MODIFY_DN_RESPONSE_STATE</em>: {Controls tag (0xA0), #}</p>
-</li>
-<li>
-<p><em>MODIFY_REQUEST_STATE</em>: {Controls tag (0xA0), #}</p>
-</li>
-<li>
-<p><em>MODIFY_RESPONSE_STATE</em>: {Controls tag (0xA0), #}
-MRA_DN_ATTRIBUTES_STATE,
-MRA_MATCHING_RULE_STATE,
-MRA_TYPE_STATE,
-MRA_MATCH_VALUE_STATE,
-NAME_STATE,
-NEW_RDN_STATE,
-NEW_SUPERIOR_STATE,</p>
-</li>
-<li>
-<p><em>NOT_STATE</em>:</p>
+<li><em>MODIFICATION_STATE</em>: {type tag (0x04)}</li>
+<li><em>MODIFY_DN_REQUEST_STATE</em>: {Controls tag (0xA0), #}</li>
+<li><em>MODIFY_DN_RESPONSE_STATE</em>: {Controls tag (0xA0), #}</li>
+<li><em>MODIFY_REQUEST_STATE</em>: {Controls tag (0xA0), #}</li>
+<li><em>MODIFY_RESPONSE_STATE</em>: {Controls tag (0xA0), #}</li>
+<li><em>MRA_DN_ATTRIBUTES_STATE</em>:
 <ul>
-<li>
-<p>present tag (0x87)</p>
-</li>
-<li>
-<p>AttributeSelection tag (0x30)</p>
-</li>
-<li>
-<p>and tag (0xA0)</p>
-</li>
-<li>
-<p>or tag (0xA1)</p>
-</li>
-<li>
-<p>not tag (0xA2)</p>
-</li>
-<li>
-<p>equality tag (0xA3)</p>
-</li>
-<li>
-<p>substrings tag (0xA4)</p>
-</li>
-<li>
-<p>equality match tag (0xA5)</p>
-</li>
-<li>
-<p>less or equal tag (0xA6)</p>
-</li>
-<li>
-<p>approxMatch tag (0xA8)</p>
-</li>
-<li>
-<p>extensible match tag (0xA9)</p>
-<p>OBJECT_NAME_STATE,
-OBJECT_STATE,
-OPERATION_STATE,</p>
-</li>
+<li>present tag (0x87)</li>
+<li>AttributeSelection tag (0x30)</li>
+<li>and tag (0xA0)</li>
+<li>or tag (0xA1)</li>
+<li>not tag (0xA2)</li>
+<li>equality tag (0xA3)</li>
+<li>substrings tag (0xA4)</li>
+<li>equality match tag (0xA5)</li>
+<li>less or equal tag (0xA6)</li>
+<li>approxMatch tag (0xA8)</li>
+<li>extensible match tag (0xA9)</li>
 </ul>
 </li>
-<li>
-<p><em>OR_STATE</em>:</p>
+<li><em>MRA_MATCHING_RULE_STATE</em>: {type tag (0x82), matchValue tag (0x83)}</li>
+<li><em>MRA_TYPE_STATE</em>: {matchValue tag (0x83)}</li>
+<li><em>MRA_MATCH_VALUE_STATE</em>:
 <ul>
-<li>
-<p>present tag (0x87)</p>
-</li>
-<li>
-<p>AttributeSelection tag (0x30)</p>
-</li>
-<li>
-<p>and tag (0xA0)</p>
-</li>
-<li>
-<p>or tag (0xA1)</p>
-</li>
-<li>
-<p>not tag (0xA2)</p>
-</li>
-<li>
-<p>equality tag (0xA3)</p>
-</li>
-<li>
-<p>substrings tag (0xA4)</p>
-</li>
-<li>
-<p>equality match tag (0xA5)</p>
-</li>
-<li>
-<p>less or equal tag (0xA6)</p>
-</li>
-<li>
-<p>approxMatch tag (0xA8)</p>
-</li>
-<li>
-<p>extensible match tag (0xA9)</p>
-<p>PARTIAL_ATTRIBUTES_LIST_STATE,</p>
-</li>
+<li>dnAttributes tag (0x84)</li>
+<li>present tag (0x87)</li>
+<li>AttributeSelection tag (0x30)</li>
+<li>and tag (0xA0)</li>
+<li>or tag (0xA1)</li>
+<li>not tag (0xA2)</li>
+<li>equality tag (0xA3)</li>
+<li>substrings tag (0xA4)</li>
+<li>equality match tag (0xA5)</li>
+<li>less or equal tag (0xA6)</li>
+<li>approxMatch tag (0xA8)</li>
+<li>extensible match tag (0xA9)</li>
 </ul>
 </li>
-<li>
-<p><em>PRESENT_STATE</em>:</p>
+<li><em>NAME_STATE</em>: {simple tag (0x80), sasl tag (0xA3)}</li>
+<li><em>NEW_RDN_STATE</em>: {deleteOldrdn tag (0x01)}</li>
+<li><em>NEW_SUPERIOR_STATE</em>: {Controls tag (0xA0), #}</li>
+<li><em>NOT_STATE</em>:
 <ul>
-<li>
-<p>present tag (0x87)</p>
-</li>
-<li>
-<p>AttributeSelection tag (0x30)</p>
-</li>
-<li>
-<p>and tag (0xA0)</p>
-</li>
-<li>
-<p>or tag (0xA1)</p>
-</li>
-<li>
-<p>not tag (0xA2)</p>
-</li>
-<li>
-<p>equality tag (0xA3)</p>
-</li>
-<li>
-<p>substrings tag (0xA4)</p>
-</li>
-<li>
-<p>equality match tag (0xA5)</p>
-</li>
-<li>
-<p>less or equal tag (0xA6)</p>
-</li>
-<li>
-<p>approxMatch tag (0xA8)</p>
-</li>
-<li>
-<p>extensible match tag (0xA9)</p>
-<p>REFERENCE_STATE,
-REFERRAL_BR_STATE,
-REFERRAL_ER_STATE,
-REFERRAL_STATE,
-REQUEST_NAME_STATE,
-REQUEST_VALUE_STATE,
-RESPONSE_NAME_STATE,
-RESPONSE_VALUE_STATE,
-RESULT_CODE_BR_STATE,
-RESULT_CODE_ER_STATE,
-RESULT_CODE_STATE,
-SASL_STATE,
-SCOPE_STATE,</p>
-</li>
+<li>present tag (0x87)</li>
+<li>AttributeSelection tag (0x30)</li>
+<li>and tag (0xA0)</li>
+<li>or tag (0xA1)</li>
+<li>not tag (0xA2)</li>
+<li>equality tag (0xA3)</li>
+<li>substrings tag (0xA4)</li>
+<li>equality match tag (0xA5)</li>
+<li>less or equal tag (0xA6)</li>
+<li>approxMatch tag (0xA8)</li>
+<li>extensible match tag (0xA9)</li>
 </ul>
 </li>
-<li>
-<p><em>SEARCH_REQUEST_STATE</em>: {Controls tag (0xA0), #}</p>
-</li>
-<li>
-<p><em>SEARCH_RESULT_DONE_STATE</em>: {Controls tag (0xA0), #}</p>
-</li>
-<li>
-<p><em>SEARCH_RESULT_ENTRY_STATE</em>: {Controls tag (0xA0), #}</p>
-</li>
-<li>
-<p><em>SEARCH_RESULT_REFERENCE_STATE</em>: {Controls tag (0xA0), #}
-SELECTOR_STATE,
-SERVER_SASL_CREDENTIALS_STATE,
-SIMPLE_STATE,
-SIZE_LIMIT_STATE,</p>
-</li>
-<li>
-<p><em>START_STATE</em>: {LdapMessage tag 0x30}
-SUBSTRINGS_STATE,</p>
-</li>
-<li>
-<p><em>SUBSTRINGS_FILTER_STATE</em>:</p>
+<li><em>OBJECT_NAME_STATE</em>: {attributes tag (0x30)}</li>
+<li><em>OBJECT_STATE</em>: {changes tag (0x30)}</li>
+<li><em>OPERATION_STATE</em>: {modification tag (0x30)}</li>
+<li><em>OR_STATE</em>:
 <ul>
-<li>
-<p>present tag (0x87)</p>
-</li>
-<li>
-<p>AttributeSelection tag (0x30)</p>
-</li>
-<li>
-<p>and tag (0xA0)</p>
-</li>
-<li>
-<p>or tag (0xA1)</p>
-</li>
-<li>
-<p>not tag (0xA2)</p>
-</li>
-<li>
-<p>equality tag (0xA3)</p>
-</li>
-<li>
-<p>substrings tag (0xA4)</p>
-</li>
-<li>
-<p>equality match tag (0xA5)</p>
-</li>
-<li>
-<p>less or equal tag (0xA6)</p>
-</li>
-<li>
-<p>approxMatch tag (0xA8)</p>
-</li>
-<li>
-<p>extensible match tag (0xA9)</p>
-<p>TIME_LIMIT_STATE,
-TYPES_ONLY_STATE,
-TYPE_MOD_STATE,
-TYPE_SR_STATE,
-TYPE_STATE,
-TYPE_SUBSTRING_STATE,</p>
-</li>
+<li>present tag (0x87)</li>
+<li>AttributeSelection tag (0x30)</li>
+<li>and tag (0xA0)</li>
+<li>or tag (0xA1)</li>
+<li>not tag (0xA2)</li>
+<li>equality tag (0xA3)</li>
+<li>substrings tag (0xA4)</li>
+<li>equality match tag (0xA5)</li>
+<li>less or equal tag (0xA6)</li>
+<li>approxMatch tag (0xA8)</li>
+<li>extensible match tag (0xA9)</li>
 </ul>
 </li>
-<li>
-<p><em>UNBIND_REQUEST_STATE</em>: {Controls tag (0xA0), #}
-URI_BR_STATE,
-URI_ER_STATE,
-URI_STATE,
-VALS_SR_STATE,
-VALS_STATE,
-VALUES_STATE,
-VALUE_STATE,
-VALUE_SR_STATE,
-VERSION_STATE,</p>
+<li><em>PARTIAL_ATTRIBUTES_LIST_STATE</em>: {type tag (0x04)}</li>
+<li><em>PRESENT_STATE</em>:
+<ul>
+<li>present tag (0x87)</li>
+<li>AttributeSelection tag (0x30)</li>
+<li>and tag (0xA0)</li>
+<li>or tag (0xA1)</li>
+<li>not tag (0xA2)</li>
+<li>equality tag (0xA3)</li>
+<li>substrings tag (0xA4)</li>
+<li>equality match tag (0xA5)</li>
+<li>less or equal tag (0xA6)</li>
+<li>approxMatch tag (0xA8)</li>
+<li>extensible match tag (0xA9)</li>
+</ul>
 </li>
+<li><em>REFERENCE_STATE</em>: {reference tag (0x04), Controls tag (0xA0), #}</li>
+<li><em>REFERRAL_BR_STATE</em>: {uri tag (0x04), saslCredentials state (0x87), Controls tag (0xA0), #}</li>
+<li><em>REFERRAL_ER_STATE</em>: {uri tag (0x04), responseName tag (0x8A), responseValue tag (0x8B), Controls tag (0xA0), #}</li>
+<li><em>REFERRAL_STATE</em>: {uri tag (0x04), Controls tag (0xA0), #}</li>
+<li><em>REQUEST_NAME_STATE</em>: {requestValue tag (0x81), Controls tag (0xA0), #}</li>
+<li><em>REQUEST_VALUE_STATE</em>: {Controls tag (0xA0), #}</li>
+<li><em>RESPONSE_NAME_STATE</em>: {responseValue tag (0x8B), Controls tag (0xA0), #}</li>
+<li><em>RESPONSE_VALUE_STATE</em>: {Controls tag (0xA0), #}</li>
+<li><em>RESULT_CODE_BR_STATE</em>: {matchedDn tag (0x04)}</li>
+<li><em>RESULT_CODE_ER_STATE</em>: {matchedDn tag (0x04), responseName tag (0x8A), responseValue tag (0x8B), Controls tag (0xA0), #}</li>
+<li><em>RESULT_CODE_STATE</em>: {matchedDn tag (0x04)}</li>
+<li><em>SASL_STATE</em> {mechanism tag (0x04)}</li>
+<li><em>SCOPE_STATE</em>: {derefAlias tag (0x0A)}</li>
+<li><em>SEARCH_REQUEST_STATE</em>: {Controls tag (0xA0), #}</li>
+<li><em>SEARCH_RESULT_DONE_STATE</em>: {Controls tag (0xA0), #}</li>
+<li><em>SEARCH_RESULT_ENTRY_STATE</em>: {Controls tag (0xA0), #}</li>
+<li><em>SEARCH_RESULT_REFERENCE_STATE</em>: {Controls tag (0xA0), #}</li>
+<li><em>SELECTOR_STATE</em>: {selector tag (0x04), Controls tag (0xA0), #}</li>
+<li><em>SERVER_SASL_CREDENTIALS_STATE</em>_: {Controls tag (0xA0), #}</li>
+<li><em>SIMPLE_STATE</em>: {Controls tag (0xA0), #}</li>
+<li><em>SIZE_LIMIT_STATE</em>: {timeLimit tag (0x02)}</li>
+<li><em>START_STATE</em>: {LdapMessage tag 0x30}</li>
+<li><em>SUBSTRINGS_STATE</em>: {initial tag (0x80), any tag (0x81), final tag (0x82)}</li>
+<li><em>SUBSTRINGS_FILTER_STATE</em>:
+<ul>
+<li>present tag (0x87)</li>
+<li>AttributeSelection tag (0x30)</li>
+<li>and tag (0xA0)</li>
+<li>or tag (0xA1)</li>
+<li>not tag (0xA2)</li>
+<li>equality tag (0xA3)</li>
+<li>substrings tag (0xA4)</li>
+<li>equality match tag (0xA5)</li>
+<li>less or equal tag (0xA6)</li>
+<li>approxMatch tag (0xA8)</li>
+<li>extensible match tag (0xA9)</li>
+</ul>
+</li>
+<li><em>TIME_LIMIT_STATE</em>: {typesOnly tag (0x01)}</li>
+<li><em>TYPES_ONLY_STATE</em>:
+<ul>
+<li>present tag (0x87)</li>
+<li>and tag (0xA0)</li>
+<li>or tag (0xA1)</li>
+<li>not tag (0xA2)</li>
+<li>equality tag (0xA3)</li>
+<li>substrings tag (0xA4)</li>
+<li>equality match tag (0xA5)</li>
+<li>less or equal tag (0xA6)</li>
+<li>approxMatch tag (0xA8)</li>
+<li>extensible match tag (0xA9)</li>
+</ul>
+</li>
+<li><em>TYPE_MOD_STATE</em>: {vals tag (0x31)}</li>
+<li><em>TYPE_SR_STATE</em>: {vals tag (0x31)}</li>
+<li><em>TYPE_STATE</em>: {values tag (0x31)}</li>
+<li><em>TYPE_SUBSTRING_STATE</em>: {substrings tag (0x30)}</li>
+<li><em>UNBIND_REQUEST_STATE</em>: {Controls tag (0xA0), #}</li>
+<li><em>URI_BR_STATE</em>: {serverSaslCreds tag (0x87), Controls tag (0xA0), #}</li>
+<li><em>URI_ER_STATE</em>: {responseName tag (0x8A), responseValue tag (0x8B), Controls tag (0xA0), #}</li>
+<li><em>URI_STATE</em>: {Controls tag (0xA0), #}</li>
+<li><em>VALS_SR_STATE</em>: {partialAttribute tag (0x30), value tag (0x04), Controls tag (0xA0), #}</li>
+<li><em>VALS_STATE</em>: {partialAttribute tag (0x30), value tag (0x04), Controls tag (0xA0), #}</li>
+<li><em>VALUES_STATE</em>: {value tag (0x04)}</li>
+<li><em>VALUE_STATE</em>: {attribute tag (0x30), value tag (0x04), Controls tag (0xA0), #}</li>
+<li><em>VALUE_SR_STATE</em>: {value tag (0x04), Controls tag (0xA0), #}</li>
+<li><em>VERSION_STATE</em>: {name tag (0x04)}</li>
 </ul>
 
 
