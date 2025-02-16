@@ -9,9 +9,7 @@ slug: index
         <h1>ApacheDS&trade;</h1>
         <h2>LDAP and Kerberos server written in Java</h2>
         <div class="description">ApacheDS&trade; is an extensible and embeddable directory server entirely written in Java, which has been certified LDAPv3 compatible by the Open Group. Besides LDAP it supports Kerberos 5 and the Change Password Protocol. It has been designed to introduce triggers, stored procedures, queues and views to the world of LDAP which has lacked these rich constructs.</div>
-        <div class="download-link">
-            <a href="/apacheds/downloads.html" class="download_badge"><b>Download<br>ApacheDS {{<param version_apacheds >}}</b></a>
-        </div>
+        {{< download-apacheds >}}
     </div>
     <div class="right">
         <img src="../images/hero-apacheds.jpg" width="377" height="287" border="0"/>

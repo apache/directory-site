@@ -17,9 +17,8 @@ slug: index
 <div class="description">
   Apache Kerby&trade; is a Java Kerberos binding. It provides a rich, intuitive and interoperable implementation, library, KDC and various facilities that integrates PKI, OTP and token (OAuth2) as desired in modern environments such as cloud, Hadoop and mobile.<br/>
 </div>
-<!-- div class="download-link">
-  <a href="/kerby/downloads.html" class="download_badge"><b>Download Apache<br>Kerby {{< param version_kerby >}}</b></a>
-</div-->
+
+[//]: # ({{< download-kerby >}})
 
 <div class="news">
 
