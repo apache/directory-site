@@ -16,8 +16,9 @@
     limitations under the License.
 -->
 <html lang="en">
-{{ partial "head.html" (dict "context" . "csscolor" "brown") }}
+{{ partial "head.html" (dict "context" .) }}
 <body>
+<div class="top-bottom-spacer"></div>
 <div id="container">
     {{ partial "header.html" (dict "context" . "project" "api") }}
 
@@ -40,7 +41,7 @@
 
                 <h5>Downloads</h5>
                 <ul>
-                    <li><a href="/api/downloads-2.html">Version {{ .Site.Params.version_api2 }}</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/downloads-2.html">Version {{ .Site.Params.version_api2 }}</a>&nbsp;&nbsp;<img src="/images/new_badge.svg" alt="" style="margin-bottom:-3px;" border="0"></li>
                     <li><a href="/api/downloads-1.html">Version {{ .Site.Params.version_api }}</a>&nbsp;&nbsp;</li>
                     <li><a href="/api/download-old-versions.html">Older versions</a></li>
                 </ul>
@@ -78,7 +79,7 @@
 
     {{ partial "footer.html" . }}
 </div><!-- container -->
-
+<div class="top-bottom-spacer"></div>
 </body>
 
 </html>
