@@ -1,20 +1,29 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
+
+    
+    
+        
+    
+
 <head>
     <meta charset="utf-8">
     <title>3.2 - Basic authorization &mdash; Apache Directory</title>
 
     <link href="/css/common.css" rel="stylesheet" type="text/css"/>
-    <link href="/css/green.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/apacheds.css" rel="stylesheet" type="text/css"/>
 
     <link rel="shortcut icon" href="/images/server-icon_16x16.png" />
     <script src="https://www.apachecon.com/event-images/snippet.js"></script>
 </head>
 
 <body>
+<div class="top-bottom-spacer"></div>
 <div id="container">
     <div id="header">
+    <span>Apache Directory</span>
     <a href="/"><div id="headerClick"></div></a>
     <div id="subProjectsNavBar">
         <a href="/">
@@ -83,7 +92,7 @@
 
                 <h5>Downloads</h5>
                 <ul>
-                    <li><a href="/apacheds/downloads.html">ApacheDS 2.0.0.AM27</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/apacheds/downloads.html">ApacheDS 2.0.0.AM27</a>&nbsp;&nbsp;<img src="/images/new_badge.svg" alt="" style="margin-bottom:-3px;" border="0"></li>
                     <li><a href="/apacheds/download-old-versions.html">Older versions</a></li>
                 </ul>
 
@@ -223,36 +232,36 @@ userpassword: bush
 <h3 id="rules-and-sample-operations">Rules and sample operations</h3>
 <p>Without ACIs the server automatically protects, hides, the admin user from everyone but the admin user. Here a sample search operation in order to demonstrate this protection. The same command is submitted three times with different users.</p>
 <pre><code>$ ldapsearch -h zanzibar -p 10389 -D &quot;uid=admin,ou=system&quot; -w secret \\
-    -b &quot;ou=system&quot; -s one &quot;(uid=admin)&quot; dn
+	-b &quot;ou=system&quot; -s one &quot;(uid=admin)&quot; dn
 version: 1
 dn: uid=admin,ou=system
 
 $ ldapsearch -h zanzibar -p 10389 -D &quot;cn=William Bush,ou=people,o=sevenSeas&quot; -w pass \\
-    -b &quot;ou=system&quot; -s one &quot;(uid=admin)&quot; dn
+	-b &quot;ou=system&quot; -s one &quot;(uid=admin)&quot; dn
 	
 $ ldapsearch -h zanzibar -p 10389 -D &quot;cn=Tori Amos,ou=users,ou=system&quot; -w amos \\
-    -b &quot;ou=system&quot; -s one &quot;(uid=admin)&quot; dn
+	-b &quot;ou=system&quot; -s one &quot;(uid=admin)&quot; dn
 	
 $
 </code></pre>
 <p>Users cannot see other user entries under the &lsquo;ou=users,ou=system&rsquo; entry. So placing new users there automatically protects them. Placing new users anywhere else exposes them.</p>
 <pre><code>$ ldapsearch -h zanzibar -p 10389 -D &quot;uid=admin,ou=system&quot; -w secret \\
-    -b &quot;ou=users,ou=system&quot; -s one &quot;(objectclass=*)&quot; dn
+	-b &quot;ou=users,ou=system&quot; -s one &quot;(objectclass=*)&quot; dn
 version: 1
 dn: cn=Tori Amos,ou=users,ou=system
 
 dn: cn=Kate Bush,ou=users,ou=system
 
 $ ldapsearch -h zanzibar -p 10389 -D &quot;cn=Kate Bush,ou=users,ou=system&quot; -w bush \\
-    -b &quot;ou=users,ou=system&quot; -s one &quot;(objectclass=*)&quot; dn
+	-b &quot;ou=users,ou=system&quot; -s one &quot;(objectclass=*)&quot; dn
 version: 1
 dn: cn=Kate Bush,ou=users,ou=system
 
 $ ldapsearch -h zanzibar -p 10389 -D &quot;cn=William Bush,ou=people,o=sevenSeas&quot; -w pass \\
-    -b &quot;ou=users,ou=system&quot; -s one &quot;(objectclass=*)&quot; dn
+	-b &quot;ou=users,ou=system&quot; -s one &quot;(objectclass=*)&quot; dn
 	
 $ ldapsearch -h zanzibar -p 10389 -D &quot;cn=William Bush,ou=people,o=sevenSeas&quot; -w pass \\
-    -b &quot;ou=people,o=sevenSeas&quot; -s one &quot;(objectclass=*)&quot; dn
+	-b &quot;ou=people,o=sevenSeas&quot; -s one &quot;(objectclass=*)&quot; dn
 version: 1
 dn: cn=Horatio Hornblower,ou=people,o=sevenSeas
 
@@ -431,56 +440,56 @@ objectclass: accessControlSubentry
 cn: sevenSeasAuthorizationRequirementsACISubentry
 subtreeSpecification: {}
 prescriptiveACI: {
-    identificationTag &quot;directoryManagerFullAccessACI&quot;,
-    precedence 11,
-    authenticationLevel simple,
-    itemOrUserFirst userFirst:
-    {
-        userClasses
-        {
-            name { &quot;cn=Horatio Nelson,ou=people,o=sevenSeas&quot; }
-        },
-        userPermissions
-        { 
-            {
-                protectedItems
-                {
-                    entry, allUserAttributeTypesAndValues
-                },
-                grantsAndDenials
-                {
-                    grantAdd, grantDiscloseOnError, grantRead,
-                    grantRemove, grantBrowse, grantExport, grantImport,
-                    grantModify, grantRename, grantReturnDN,
-                    grantCompare, grantFilterMatch, grantInvoke
-                } 
-            }
-        }
-    } 
+	identificationTag &quot;directoryManagerFullAccessACI&quot;,
+	precedence 11,
+	authenticationLevel simple,
+	itemOrUserFirst userFirst:
+	{
+		userClasses
+		{
+			name { &quot;cn=Horatio Nelson,ou=people,o=sevenSeas&quot; }
+		},
+		userPermissions
+		{ 
+			{
+				protectedItems
+				{
+					entry, allUserAttributeTypesAndValues
+				},
+				grantsAndDenials
+				{
+					grantAdd, grantDiscloseOnError, grantRead,
+					grantRemove, grantBrowse, grantExport, grantImport,
+					grantModify, grantRename, grantReturnDN,
+					grantCompare, grantFilterMatch, grantInvoke
+				} 
+			}
+		}
+	} 
 }
 prescriptiveACI: {
-    identificationTag &quot;allUsersACI&quot;,
-    precedence 10,
-    authenticationLevel none,
-    itemOrUserFirst userFirst:
-    {
-        userClasses
-        {
-            allUsers
-        },
-        userPermissions
-        { 
-            {
-                protectedItems { entry, allUserAttributeTypesAndValues },
-                grantsAndDenials { grantRead, grantBrowse, grantReturnDN,
+	identificationTag &quot;allUsersACI&quot;,
+	precedence 10,
+	authenticationLevel none,
+	itemOrUserFirst userFirst:
+	{
+		userClasses
+		{
+			allUsers
+		},
+		userPermissions
+		{ 
+			{
+				protectedItems { entry, allUserAttributeTypesAndValues },
+				grantsAndDenials { grantRead, grantBrowse, grantReturnDN,
                          grantCompare, grantFilterMatch, grantDiscloseOnError } 
-            },
-            {
-                protectedItems { attributeType { userPassword } },
-                grantsAndDenials { denyRead, denyCompare, denyFilterMatch }
-            }
-        }	
-    }
+			},
+			{
+				protectedItems { attributeType { userPassword } },
+				grantsAndDenials { denyRead, denyCompare, denyFilterMatch }
+			}
+		}	
+	}
   }
 </code></pre>
 <p>To apply this configuration to the sample data partition, you can perform an <em>ldapmodify</em> with the LDIF as agrument:</p>
@@ -494,9 +503,9 @@ $
 <h2 id="verification-that-it-works">Verification, that it works</h2>
 <p>After successfully applying the changes to the sample partition, one may ask how to check whether it works. We therefore perform some operations with the help of command line tools. Some will be permitted, some will not (and cause an appropriate error message). It would also be able to check this with the help of graphical tools (you might like to do this instead). But it is easier to document the parameters used with the help command line arguments.</p>
 <h3 id="performing-some-search-operations-in-order-to-read-data">Performing some search operations in order to read data</h3>
-<p>Bind as user &ldquo;William Bush&rdquo; and search for entries which match &ldquo;(uid=hhornblo)&quot;. Expected behavior: We are able to read the attributes of entry &ldquo;cn=Horatio Hornblower,ou=people,o=sevenSeas&rdquo; (the only entry which matches the filter). The password attribute should not be visible. It works as desired:</p>
+<p>Bind as user &ldquo;William Bush&rdquo; and search for entries which match &ldquo;(uid=hhornblo)&rdquo;. Expected behavior: We are able to read the attributes of entry &ldquo;cn=Horatio Hornblower,ou=people,o=sevenSeas&rdquo; (the only entry which matches the filter). The password attribute should not be visible. It works as desired:</p>
 <pre><code>$ ldapsearch -h zanzibar -p 10389 -D &quot;cn=William Bush,ou=people,o=sevenSeas&quot; -w pass \\
-    -b &quot;o=sevenSeas&quot; -s sub &quot;(uid=hhornblo)&quot;
+	-b &quot;o=sevenSeas&quot; -s sub &quot;(uid=hhornblo)&quot;
 version: 1
 dn: cn=Horatio Hornblower,ou=people,o=sevenSeas
 mail: hhornblo@royalnavy.mod.uk
@@ -512,7 +521,7 @@ sn: Hornblower
 </code></pre>
 <p>In the described configuration, the user &ldquo;Horatio Nelson&rdquo; acts as a directory manager below &ldquo;o=sevenSeas&rdquo;. Hence he should basically be allowed to do everything. He should even be able to see other users&rsquo; <em>userPassword</em> values. In our case, the hash function <em>SHA</em> was applied to them:</p>
 <pre><code>$ ldapsearch -h zanzibar -p 10389 -D &quot;cn=Horatio Nelson,ou=people,o=sevenSeas&quot; -w pass \\
-    -b &quot;o=sevenSeas&quot; -s sub &quot;(objectclass=person)&quot; uid userPassword
+	-b &quot;o=sevenSeas&quot; -s sub &quot;(objectclass=person)&quot; uid userPassword
 version: 1
 dn: cn=Horatio Hornblower,ou=people,o=sevenSeas
 userpassword: {SHA}nU4eI71bcnBGqeO0t9tXvY1u5oQ=
@@ -529,10 +538,10 @@ uid: tquist
 </code></pre>
 <p>But &ldquo;Horation Nelson&rdquo; is not able to perform searches in other areas than &ldquo;o=sevenSeas&rdquo; to see the entries. Of course our global ApacheDS administrator &ldquo;uid=admin,ou=system&rdquo; is still able to see them:</p>
 <pre><code>$ ldapsearch -h zanzibar -p 10389 -D &quot;cn=Horatio Nelson,ou=people,o=sevenSeas&quot; -w pass \\
-    -b &quot;ou=system&quot; -s sub &quot;(objectclass=person)&quot;
+	-b &quot;ou=system&quot; -s sub &quot;(objectclass=person)&quot;
 	
 $ ldapsearch -h zanzibar -p 10389 -D &quot;uid=admin,ou=system&quot; -w secret \\
-    -b &quot;ou=system&quot; -s sub &quot;(objectclass=person)&quot;
+	-b &quot;ou=system&quot; -s sub &quot;(objectclass=person)&quot;
 version: 1
 dn: uid=admin,ou=system
 sn: administrator
@@ -578,13 +587,13 @@ $
 </code></pre>
 <p>The same holds true for all &ldquo;Seven Seas&rdquo;-user other than &ldquo;Horatio Nelson&rdquo;. The latter is permitted to do so:</p>
 <pre><code>$ ldapmodify -h zanzibar -p 10389 -D &quot;cn=William Bush,ou=people,o=sevenSeas&quot; -w pass \\
-    -a -f captain_hook.ldif
+	-a -f captain_hook.ldif
 adding new entry cn=James Hook,ou=people,o=sevenSeas
 ldap_add: Insufficient access
 ldap_add: additional info: failed to add entry cn=James Hook,ou=people,o=sevenSeas: null
 	
 $ ldapmodify -h zanzibar -p 10389 -D &quot;cn=Horatio Nelson,ou=people,o=sevenSeas&quot; -w pass \\
-    -a -f captain_hook.ldif
+	-a -f captain_hook.ldif
 adding new entry cn=James Hook,ou=people,o=sevenSeas
 $
 </code></pre>
@@ -612,13 +621,13 @@ ldap_modify: Insufficient access
 ldap_modify: additional info: failed to modify entry cn=James Hook,ou=people,o=sevenSeas: null
 
 $ ldapmodify -h zanzibar -p 10389 -D &quot;cn=William Bush,ou=people,o=sevenSeas&quot; -w pass \\ 
-    -f captain_hook_modify.ldif
+	-f captain_hook_modify.ldif
 modifying entry cn=James Hook,ou=people,o=sevenSeas
 ldap_modify: Insufficient access
 ldap_modify: additional info: failed to modify entry cn=James Hook,ou=people,o=sevenSeas: null
 
 $ ldapmodify -h zanzibar -p 10389 -D &quot;cn=Horatio Nelson,ou=people,o=sevenSeas&quot; -w pass \\
-    -f captain_hook_modify.ldif
+	-f captain_hook_modify.ldif
 modifying entry cn=James Hook,ou=people,o=sevenSeas
 </code></pre>
 <h4 id="deleting-an-entry">Deleting an entry</h4>
@@ -634,13 +643,13 @@ ldap_delete: Insufficient access
 ldap_delete: additional info: failed to delete entry cn=James Hook,ou=people,o=sevenSeas: null
 
 $ ldapmodify -h zanzibar -p 10389 -D &quot;cn=William Bush,ou=people,o=sevenSeas&quot; -w pass \\
-    -f captain_hook_delete.ldif
+	-f captain_hook_delete.ldif
 deleting entry cn=James Hook,ou=people,o=sevenSeas
 ldap_delete: Insufficient access
 ldap_delete: additional info: failed to delete entry cn=James Hook,ou=people,o=sevenSeas: null
 
 $ ldapmodify -h zanzibar -p 10389 -D &quot;cn=Horatio Nelson,ou=people,o=sevenSeas&quot; -w pass \\
-    -f captain_hook_delete.ldif
+	-f captain_hook_delete.ldif
 deleting entry cn=James Hook,ou=people,o=sevenSeas
 $
 </code></pre>
@@ -681,16 +690,18 @@ $
         <div id="endContent"></div>
     </div>
 
-    <div id="footer">
+    <div class="footer-wrapper">
+<div id="footer">
     &copy; 2003-2025, <a href="https://www.apache.org">The Apache Software Foundation</a> - <a href="https://privacy.apache.org/policies/privacy-policy-public.html">Privacy Policy</a><br />
     Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
-    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple, Fortress, Apache Fortress, EnMasse,
     Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
     trademarks of The Apache Software Foundation.
 </div>
-
 </div>
 
+</div>
+<div class="top-bottom-spacer"></div>
 </body>
 
 </html>

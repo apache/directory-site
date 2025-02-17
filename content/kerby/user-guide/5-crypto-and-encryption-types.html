@@ -1,20 +1,29 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
+
+    
+    
+        
+    
+
 <head>
     <meta charset="utf-8">
     <title>5 - Kerberos Crypto and Encryption Types &mdash; Apache Directory</title>
 
     <link href="/css/common.css" rel="stylesheet" type="text/css"/>
-    <link href="/css/orange.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/kerby.css" rel="stylesheet" type="text/css"/>
 
     <link rel="shortcut icon" href="/images/server-icon_16x16.png" />
     <script src="https://www.apachecon.com/event-images/snippet.js"></script>
 </head>
 
 <body>
+<div class="top-bottom-spacer"></div>
 <div id="container">
     <div id="header">
+    <span>Apache Directory</span>
     <a href="/"><div id="headerClick"></div></a>
     <div id="subProjectsNavBar">
         <a href="/">
@@ -81,7 +90,7 @@
 
                 <h5>Downloads</h5>
                 <ul>
-                    <li><a href="/kerby/downloads.html">Version 2.1.0</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/kerby/downloads.html">Version 2.1.0</a>&nbsp;&nbsp;<img src="/images/new_badge.svg" alt="" style="margin-bottom:-3px;" border="0"></li>
                     <li><a href="/kerby/download-old-versions.html">Older versions</a></li>
                 </ul>
 
@@ -162,78 +171,78 @@
 Interoperates with MIT Kerberos and Microsoft AD
 Independent of Kerberos code in JRE, but rely on JCE</p>
 <table>
-<thead>
-<tr>
-<th>Encryption Type</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>des-cbc-crc</td>
-<td>DES cbc mode with CRC-32 (weak)</td>
-</tr>
-<tr>
-<td>des-cbc-md4</td>
-<td>DES cbc mode with RSA-MD4 (weak)</td>
-</tr>
-<tr>
-<td>des-cbc-md5</td>
-<td>DES cbc mode with RSA-MD5 (weak)</td>
-</tr>
-<tr>
-<td>des3-cbc-sha1 des3-hmac-sha1 des3-cbc-sha1-kd</td>
-<td>Triple DES cbc mode with HMAC/sha1</td>
-</tr>
-<tr>
-<td>des-hmac-sha1</td>
-<td>DES with HMAC/sha1 (weak)</td>
-</tr>
-<tr>
-<td>aes256-cts-hmac-sha1-96 aes256-cts AES-256</td>
-<td>CTS mode with 96-bit SHA-1 HMAC</td>
-</tr>
-<tr>
-<td>aes128-cts-hmac-sha1-96 aes128-cts AES-128</td>
-<td>CTS mode with 96-bit SHA-1 HMAC</td>
-</tr>
-<tr>
-<td>arcfour-hmac rc4-hmac arcfour-hmac-md5</td>
-<td>RC4 with HMAC/MD5</td>
-</tr>
-<tr>
-<td>arcfour-hmac-exp rc4-hmac-exp arcfour-hmac-md5-exp</td>
-<td>Exportable RC4 with HMAC/MD5 (weak)</td>
-</tr>
-<tr>
-<td>camellia256-cts-cmac camellia256-cts</td>
-<td>Camellia-256 CTS mode with CMAC</td>
-</tr>
-<tr>
-<td>camellia128-cts-cmac camellia128-cts</td>
-<td>Camellia-128 CTS mode with CMAC</td>
-</tr>
-<tr>
-<td>des</td>
-<td>The DES family: des-cbc-crc, des-cbc-md5, and des-cbc-md4 (weak)</td>
-</tr>
-<tr>
-<td>des3</td>
-<td>The triple DES family: des3-cbc-sha1</td>
-</tr>
-<tr>
-<td>aes</td>
-<td>The AES family: aes256-cts-hmac-sha1-96 and aes128-cts-hmac-sha1-96</td>
-</tr>
-<tr>
-<td>rc4</td>
-<td>The RC4 family: arcfour-hmac</td>
-</tr>
-<tr>
-<td>camellia</td>
-<td>The Camellia family: camellia256-cts-cmac and camellia128-cts-cmac</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Encryption Type</th>
+          <th>Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>des-cbc-crc</td>
+          <td>DES cbc mode with CRC-32 (weak)</td>
+      </tr>
+      <tr>
+          <td>des-cbc-md4</td>
+          <td>DES cbc mode with RSA-MD4 (weak)</td>
+      </tr>
+      <tr>
+          <td>des-cbc-md5</td>
+          <td>DES cbc mode with RSA-MD5 (weak)</td>
+      </tr>
+      <tr>
+          <td>des3-cbc-sha1 des3-hmac-sha1 des3-cbc-sha1-kd</td>
+          <td>Triple DES cbc mode with HMAC/sha1</td>
+      </tr>
+      <tr>
+          <td>des-hmac-sha1</td>
+          <td>DES with HMAC/sha1 (weak)</td>
+      </tr>
+      <tr>
+          <td>aes256-cts-hmac-sha1-96 aes256-cts AES-256</td>
+          <td>CTS mode with 96-bit SHA-1 HMAC</td>
+      </tr>
+      <tr>
+          <td>aes128-cts-hmac-sha1-96 aes128-cts AES-128</td>
+          <td>CTS mode with 96-bit SHA-1 HMAC</td>
+      </tr>
+      <tr>
+          <td>arcfour-hmac rc4-hmac arcfour-hmac-md5</td>
+          <td>RC4 with HMAC/MD5</td>
+      </tr>
+      <tr>
+          <td>arcfour-hmac-exp rc4-hmac-exp arcfour-hmac-md5-exp</td>
+          <td>Exportable RC4 with HMAC/MD5 (weak)</td>
+      </tr>
+      <tr>
+          <td>camellia256-cts-cmac camellia256-cts</td>
+          <td>Camellia-256 CTS mode with CMAC</td>
+      </tr>
+      <tr>
+          <td>camellia128-cts-cmac camellia128-cts</td>
+          <td>Camellia-128 CTS mode with CMAC</td>
+      </tr>
+      <tr>
+          <td>des</td>
+          <td>The DES family: des-cbc-crc, des-cbc-md5, and des-cbc-md4 (weak)</td>
+      </tr>
+      <tr>
+          <td>des3</td>
+          <td>The triple DES family: des3-cbc-sha1</td>
+      </tr>
+      <tr>
+          <td>aes</td>
+          <td>The AES family: aes256-cts-hmac-sha1-96 and aes128-cts-hmac-sha1-96</td>
+      </tr>
+      <tr>
+          <td>rc4</td>
+          <td>The RC4 family: arcfour-hmac</td>
+      </tr>
+      <tr>
+          <td>camellia</td>
+          <td>The Camellia family: camellia256-cts-cmac and camellia128-cts-cmac</td>
+      </tr>
+  </tbody>
 </table>
 
 
@@ -265,16 +274,18 @@ Independent of Kerberos code in JRE, but rely on JCE</p>
         <div id="endContent"></div>
     </div>
 
-    <div id="footer">
+    <div class="footer-wrapper">
+<div id="footer">
     &copy; 2003-2025, <a href="https://www.apache.org">The Apache Software Foundation</a> - <a href="https://privacy.apache.org/policies/privacy-policy-public.html">Privacy Policy</a><br />
     Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
-    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple, Fortress, Apache Fortress, EnMasse,
     Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
     trademarks of The Apache Software Foundation.
 </div>
-
 </div>
 
+</div>
+<div class="top-bottom-spacer"></div>
 </body>
 
 </html>

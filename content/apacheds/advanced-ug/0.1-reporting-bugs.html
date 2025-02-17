@@ -1,20 +1,29 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
+
+    
+    
+        
+    
+
 <head>
     <meta charset="utf-8">
     <title>0.1 - Reporting Bugs &mdash; Apache Directory</title>
 
     <link href="/css/common.css" rel="stylesheet" type="text/css"/>
-    <link href="/css/green.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/apacheds.css" rel="stylesheet" type="text/css"/>
 
     <link rel="shortcut icon" href="/images/server-icon_16x16.png" />
     <script src="https://www.apachecon.com/event-images/snippet.js"></script>
 </head>
 
 <body>
+<div class="top-bottom-spacer"></div>
 <div id="container">
     <div id="header">
+    <span>Apache Directory</span>
     <a href="/"><div id="headerClick"></div></a>
     <div id="subProjectsNavBar">
         <a href="/">
@@ -83,7 +92,7 @@
 
                 <h5>Downloads</h5>
                 <ul>
-                    <li><a href="/apacheds/downloads.html">ApacheDS 2.0.0.AM27</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/apacheds/downloads.html">ApacheDS 2.0.0.AM27</a>&nbsp;&nbsp;<img src="/images/new_badge.svg" alt="" style="margin-bottom:-3px;" border="0"></li>
                     <li><a href="/apacheds/download-old-versions.html">Older versions</a></li>
                 </ul>
 
@@ -161,40 +170,40 @@
 <p>We&rsquo;ll prioritize your bug higher than others and probably fix it rapidly because the problem is isolated thanks to your testcase submission. We will in fact strip out your testcase and add it to our suite of test cases to make sure ApacheDS always passes this integration test you&rsquo;ve provided.</p>
 <h3 id="installing-the-apacheds-archetype-testcase">Installing the apacheds-archetype-testcase</h3>
 <p>To use the archetype you&rsquo;ll need to check it out and install it. Here&rsquo;s how you can do that for the leading edge of 2.0.0:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">svn co http://svn.apache.org/repos/asf/directory/documentation/samples/trunk/apacheds-archetype-testcase
-<span style="color:#a2f">cd</span> apacheds-archetype-testcase
-mvn install
-</code></pre></div><p>This will install the archetype onto your local repository. Now you can invoke the archetype.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>svn co http://svn.apache.org/repos/asf/directory/documentation/samples/trunk/apacheds-archetype-testcase
+</span></span><span style="display:flex;"><span><span style="color:#a2f">cd</span> apacheds-archetype-testcase
+</span></span><span style="display:flex;"><span>mvn install
+</span></span></code></pre></div><p>This will install the archetype onto your local repository. Now you can invoke the archetype.</p>
 <h3 id="invoking-running-the-archetype-generating-the-testcase-project">Invoking (running) the archetype: generating the testcase project</h3>
 <p>Once you checkout the archetype plugin and install it you can use it like so to generate a foo-test project:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mvn archetype:generate -DarchetypeGroupId<span style="color:#666">=</span>org.apache.directory.samples <span style="color:#b62;font-weight:bold">\
-</span><span style="color:#b62;font-weight:bold"></span>                       -DarchetypeArtifactId<span style="color:#666">=</span>apacheds-archetype-testcase <span style="color:#b62;font-weight:bold">\
-</span><span style="color:#b62;font-weight:bold"></span>                       -DarchetypeVersion<span style="color:#666">=</span>1.5.5-SNAPSHOT <span style="color:#b62;font-weight:bold">\
-</span><span style="color:#b62;font-weight:bold"></span>                       -DgroupId<span style="color:#666">=</span>com.acme -DartifactId<span style="color:#666">=</span>foo-test -Dpackage<span style="color:#666">=</span>com.acme
-</code></pre></div><p>This will generate the default test case project with the following tree structure:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">~/foo-test$ tree
-.
-|-- pom.xml
-|-- src
-    |-- main
-    |   |-- java
-    |       |-- com
-    |           |-- acme
-    |               |-- Dummy.java
-    |-- <span style="color:#a2f">test</span>
-        |-- java
-        |    -- com
-        |        -- acme
-        |           |-- AdvancedTest.java
-        |           |-- AdvancedTestApacheDsFactory.java
-        |           |-- MinimalTest.java
-        |-- resources
-            |-- log4j.properties
-            |-- sevenSeas_data.ldif
-            |-- sevenSeas_schema.ldif
-
-<span style="color:#666">10</span> directories, <span style="color:#666">8</span> files
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mvn archetype:generate -DarchetypeGroupId<span style="color:#666">=</span>org.apache.directory.samples <span style="color:#b62;font-weight:bold">\
+</span></span></span><span style="display:flex;"><span><span style="color:#b62;font-weight:bold"></span>                       -DarchetypeArtifactId<span style="color:#666">=</span>apacheds-archetype-testcase <span style="color:#b62;font-weight:bold">\
+</span></span></span><span style="display:flex;"><span><span style="color:#b62;font-weight:bold"></span>                       -DarchetypeVersion<span style="color:#666">=</span>1.5.5-SNAPSHOT <span style="color:#b62;font-weight:bold">\
+</span></span></span><span style="display:flex;"><span><span style="color:#b62;font-weight:bold"></span>                       -DgroupId<span style="color:#666">=</span>com.acme -DartifactId<span style="color:#666">=</span>foo-test -Dpackage<span style="color:#666">=</span>com.acme
+</span></span></code></pre></div><p>This will generate the default test case project with the following tree structure:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>~/foo-test$ tree
+</span></span><span style="display:flex;"><span>.
+</span></span><span style="display:flex;"><span>|-- pom.xml
+</span></span><span style="display:flex;"><span>|-- src
+</span></span><span style="display:flex;"><span>    |-- main
+</span></span><span style="display:flex;"><span>    |   |-- java
+</span></span><span style="display:flex;"><span>    |       |-- com
+</span></span><span style="display:flex;"><span>    |           |-- acme
+</span></span><span style="display:flex;"><span>    |               |-- Dummy.java
+</span></span><span style="display:flex;"><span>    |-- <span style="color:#a2f">test</span>
+</span></span><span style="display:flex;"><span>        |-- java
+</span></span><span style="display:flex;"><span>        |    -- com
+</span></span><span style="display:flex;"><span>        |        -- acme
+</span></span><span style="display:flex;"><span>        |           |-- AdvancedTest.java
+</span></span><span style="display:flex;"><span>        |           |-- AdvancedTestApacheDsFactory.java
+</span></span><span style="display:flex;"><span>        |           |-- MinimalTest.java
+</span></span><span style="display:flex;"><span>        |-- resources
+</span></span><span style="display:flex;"><span>            |-- log4j.properties
+</span></span><span style="display:flex;"><span>            |-- sevenSeas_data.ldif
+</span></span><span style="display:flex;"><span>            |-- sevenSeas_schema.ldif
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#666">10</span> directories, <span style="color:#666">8</span> files
+</span></span></code></pre></div><ul>
 <li>Dummy.java - this is just a placeholder file to make sure that Maven works properly.</li>
 <li>MinimalTest - a minimal ApacheDS Integration Test. It contains two test methods to demonstrate usage of JNDI and the ApacheDS core API. Add your own test method here.</li>
 <li>AdvancedTest - an advanced ApacheDS Integration Test in case you need a special configuration for your test. It demonstrates how to add a new partition, how to enable LDAPS, how to enable a disabled schema, how to inject a custom schema, and how to inject custom test data.</li>
@@ -205,13 +214,13 @@ mvn install
 <li>sevenSeas_schema.ldif - sample custom schema used by the advanced test.</li>
 </ul>
 <p>Once you do this you can cd into foo-test and just build and test it for fun to see what happens.  This will build, and test the sample test cases (they should pass) that comes packaged with the project you just created. CD into foo-test and run the following command:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mvn <span style="color:#a2f">test</span>
-</code></pre></div><p>Now you can customize the MinimalTest.java or AdvancedTest.java file to isolate your bug. Open the classes with your favorite editor and goto town.  However if you want to pull this project into your IDE and edit it there you can use Maven&rsquo;s IDEA, Eclipse and Netbeans integration to create IDE project descriptors for them.  Then you can import this project into your IDE.  Here&rsquo;s how:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mvn <span style="color:#a2f">test</span>
+</span></span></code></pre></div><p>Now you can customize the MinimalTest.java or AdvancedTest.java file to isolate your bug. Open the classes with your favorite editor and goto town.  However if you want to pull this project into your IDE and edit it there you can use Maven&rsquo;s IDEA, Eclipse and Netbeans integration to create IDE project descriptors for them.  Then you can import this project into your IDE.  Here&rsquo;s how:</p>
 <h4 id="for-idea">For IDEA</h4>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mvn idea:idea
-</code></pre></div><h4 id="for-eclipse">For Eclipse</h4>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mvn eclipse:eclipse
-</code></pre></div><h4 id="for-netbeans">For Netbeans</h4>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mvn idea:idea
+</span></span></code></pre></div><h4 id="for-eclipse">For Eclipse</h4>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mvn eclipse:eclipse
+</span></span></code></pre></div><h4 id="for-netbeans">For Netbeans</h4>
 <p>See this page: <a href="http://maven.apache.org/guides/mini/guide-ide-netbeans/guide-ide-netbeans.html">http://maven.apache.org/guides/mini/guide-ide-netbeans/guide-ide-netbeans.html</a>.</p>
 <h3 id="note-about-version">Note about version</h3>
 <p>Note that this archetype is specific for ApacheDS 1.5.5.</p>
@@ -254,16 +263,18 @@ mvn install
         <div id="endContent"></div>
     </div>
 
-    <div id="footer">
+    <div class="footer-wrapper">
+<div id="footer">
     &copy; 2003-2025, <a href="https://www.apache.org">The Apache Software Foundation</a> - <a href="https://privacy.apache.org/policies/privacy-policy-public.html">Privacy Policy</a><br />
     Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
-    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple, Fortress, Apache Fortress, EnMasse,
     Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
     trademarks of The Apache Software Foundation.
 </div>
-
 </div>
 
+</div>
+<div class="top-bottom-spacer"></div>
 </body>
 
 </html>

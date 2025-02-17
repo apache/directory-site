@@ -1,20 +1,29 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
+
+    
+    
+        
+    
+
 <head>
     <meta charset="utf-8">
     <title>1.1.5 - Database &mdash; Apache Directory</title>
 
     <link href="/css/common.css" rel="stylesheet" type="text/css"/>
-    <link href="/css/green.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/apacheds.css" rel="stylesheet" type="text/css"/>
 
     <link rel="shortcut icon" href="/images/server-icon_16x16.png" />
     <script src="https://www.apachecon.com/event-images/snippet.js"></script>
 </head>
 
 <body>
+<div class="top-bottom-spacer"></div>
 <div id="container">
     <div id="header">
+    <span>Apache Directory</span>
     <a href="/"><div id="headerClick"></div></a>
     <div id="subProjectsNavBar">
         <a href="/">
@@ -83,7 +92,7 @@
 
                 <h5>Downloads</h5>
                 <ul>
-                    <li><a href="/apacheds/downloads.html">ApacheDS 2.0.0.AM27</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/apacheds/downloads.html">ApacheDS 2.0.0.AM27</a>&nbsp;&nbsp;<img src="/images/new_badge.svg" alt="" style="margin-bottom:-3px;" border="0"></li>
                     <li><a href="/apacheds/download-old-versions.html">Older versions</a></li>
                 </ul>
 
@@ -165,7 +174,7 @@
 <h2 id="storage">Storage</h2>
 <p>We store everthing related to users, hosts and services in the LDAP base, as entries. In order to be able to retrieve them, we have to store them in a known place in the hierarchy. This position is fknown by the kerberos server using the
 <strong>Search Base DN</strong> parameter.</p>
-<p>Everytime the <strong>Kerberos</strong> server received a request for a ticket from a principal, it will do a LDAP search starting from the <strong>Search Base DN</strong>, looking for any entry matching the filter <em>'(krb5PrincipalName=<the principal>)'</em>. This entry should contain the Kerberos keys that will be used to generate the ticket.</p>
+<p>Everytime the <strong>Kerberos</strong> server received a request for a ticket from a principal, it will do a LDAP search starting from the <strong>Search Base DN</strong>, looking for any entry matching the filter <em>&rsquo;(krb5PrincipalName=<the principal>)&rsquo;</em>. This entry should contain the Kerberos keys that will be used to generate the ticket.</p>
 <p>One more requirement : the key as a version which allows a user to keep going with a previous key when he just changed its password (an operation that will change the Kerberos keys).</p>
 <p>So for an LDAP entry to be seen as a valid Kerberos entry, it has to contain a <em>Krb5PrincipalName</em>, a <em>Krb5Key</em> and one more attribute, the <em>Krb5KeyVersionNumber</em>.</p>
 <h2 id="structure">Structure</h2>
@@ -179,58 +188,58 @@
 <p>This ObjectClass is used to store all the information needed to manage a Kerberos user or service. It has one mandatory AttributeType, <em>krb5KeyVersioNumber</em>, which is set to 0 for newly crated users or services, and incremented after each modification done on the password (which leads to the generation of new keys).</p>
 <p>Here is a list of optional AttributeTypes the entry can have :</p>
 <table>
-<thead>
-<tr>
-<th>AttributeType</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>krb5ValidStart</td>
-<td>The date at which the keys are valid</td>
-</tr>
-<tr>
-<td>krb5ValidEnd</td>
-<td>The date at which the keys aren&rsquo;t valid any more</td>
-</tr>
-<tr>
-<td>krb5PasswordEnd</td>
-<td>The end of password validity</td>
-</tr>
-<tr>
-<td>krb5MaxLife</td>
-<td>The maximum duration</td>
-</tr>
-<tr>
-<td>krb5MaxRenew</td>
-<td>Th maximum number of renew</td>
-</tr>
-<tr>
-<td>krb5KDCFlags</td>
-<td>The KDC flags</td>
-</tr>
-<tr>
-<td>krb5EncryptionType</td>
-<td>The EncryptionTypes</td>
-</tr>
-<tr>
-<td>krb5Key</td>
-<td>The generated keys</td>
-</tr>
-<tr>
-<td>krb5AccountDisabled</td>
-<td>The account has been disabled</td>
-</tr>
-<tr>
-<td>krb5AccountLockedOut</td>
-<td>The account has been locked out</td>
-</tr>
-<tr>
-<td>krb5AccountExpirationTime</td>
-<td>The account expiration time</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>AttributeType</th>
+          <th>Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>krb5ValidStart</td>
+          <td>The date at which the keys are valid</td>
+      </tr>
+      <tr>
+          <td>krb5ValidEnd</td>
+          <td>The date at which the keys aren&rsquo;t valid any more</td>
+      </tr>
+      <tr>
+          <td>krb5PasswordEnd</td>
+          <td>The end of password validity</td>
+      </tr>
+      <tr>
+          <td>krb5MaxLife</td>
+          <td>The maximum duration</td>
+      </tr>
+      <tr>
+          <td>krb5MaxRenew</td>
+          <td>Th maximum number of renew</td>
+      </tr>
+      <tr>
+          <td>krb5KDCFlags</td>
+          <td>The KDC flags</td>
+      </tr>
+      <tr>
+          <td>krb5EncryptionType</td>
+          <td>The EncryptionTypes</td>
+      </tr>
+      <tr>
+          <td>krb5Key</td>
+          <td>The generated keys</td>
+      </tr>
+      <tr>
+          <td>krb5AccountDisabled</td>
+          <td>The account has been disabled</td>
+      </tr>
+      <tr>
+          <td>krb5AccountLockedOut</td>
+          <td>The account has been locked out</td>
+      </tr>
+      <tr>
+          <td>krb5AccountExpirationTime</td>
+          <td>The account expiration time</td>
+      </tr>
+  </tbody>
 </table>
 <h2 id="sample">Sample</h2>
 <p>Here is a sample entry, which has the <em>Krb5KdcEntry</em> and  <em>Krb5Principal</em> ObjectClasses set :</p>
@@ -283,16 +292,18 @@ krb5Key: '0x30 0x19 0xA0 0x03 0x02 0x01 0x11 0xA1 0x12 0x04 0x10 0xAD 0x21 0x4B 
         <div id="endContent"></div>
     </div>
 
-    <div id="footer">
+    <div class="footer-wrapper">
+<div id="footer">
     &copy; 2003-2025, <a href="https://www.apache.org">The Apache Software Foundation</a> - <a href="https://privacy.apache.org/policies/privacy-policy-public.html">Privacy Policy</a><br />
     Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
-    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple, Fortress, Apache Fortress, EnMasse,
     Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
     trademarks of The Apache Software Foundation.
 </div>
-
 </div>
 
+</div>
+<div class="top-bottom-spacer"></div>
 </body>
 
 </html>

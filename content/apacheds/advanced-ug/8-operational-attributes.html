@@ -1,20 +1,29 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
+
+    
+    
+        
+    
+
 <head>
     <meta charset="utf-8">
     <title>8 - Operational Attributes &mdash; Apache Directory</title>
 
     <link href="/css/common.css" rel="stylesheet" type="text/css"/>
-    <link href="/css/green.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/apacheds.css" rel="stylesheet" type="text/css"/>
 
     <link rel="shortcut icon" href="/images/server-icon_16x16.png" />
     <script src="https://www.apachecon.com/event-images/snippet.js"></script>
 </head>
 
 <body>
+<div class="top-bottom-spacer"></div>
 <div id="container">
     <div id="header">
+    <span>Apache Directory</span>
     <a href="/"><div id="headerClick"></div></a>
     <div id="subProjectsNavBar">
         <a href="/">
@@ -83,7 +92,7 @@
 
                 <h5>Downloads</h5>
                 <ul>
-                    <li><a href="/apacheds/downloads.html">ApacheDS 2.0.0.AM27</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/apacheds/downloads.html">ApacheDS 2.0.0.AM27</a>&nbsp;&nbsp;<img src="/images/new_badge.svg" alt="" style="margin-bottom:-3px;" border="0"></li>
                     <li><a href="/apacheds/download-old-versions.html">Older versions</a></li>
                 </ul>
 
@@ -164,518 +173,518 @@
 <h2 id="global-operational-attributes">Global operational attributes</h2>
 <p>Those operational attributes are stored in the <strong>RootDSE</strong>, and global to the server. They can&rsquo;t be modified by a user.</p>
 <table>
-<thead>
-<tr>
-<th>Attribute name</th>
-<th>Type</th>
-<th>Category</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>vendorName</td>
-<td>DSA OPERATION</td>
-<td>Standard</td>
-<td>RFC3045: name of implementation vendor</td>
-</tr>
-<tr>
-<td>vendorVersion</td>
-<td>DSA OPERATION</td>
-<td>Standard</td>
-<td>RFC3045: version of implementation</td>
-</tr>
-<tr>
-<td>entryTtl</td>
-<td>DSA OPERATION</td>
-<td>Standard</td>
-<td>RFC2589: entry time-to-live</td>
-</tr>
-<tr>
-<td>dynamicSubtrees</td>
-<td>DSA OPERATION</td>
-<td>Standard</td>
-<td>RFC2589: dynamic subtrees</td>
-</tr>
-<tr>
-<td>supportedFeatures</td>
-<td>DSA OPERATION</td>
-<td>Standard</td>
-<td>RFC3674: features supported by the server</td>
-</tr>
-<tr>
-<td>supportedControl</td>
-<td>DSA OPERATION</td>
-<td>Standard</td>
-<td>RFC2252: supported controls</td>
-</tr>
-<tr>
-<td>supportedSASLMechanisms</td>
-<td>DSA OPERATION</td>
-<td>Standard</td>
-<td>RFC2252: supported SASL mechanisms</td>
-</tr>
-<tr>
-<td>supportedLDAPVersion</td>
-<td>DSA OPERATION</td>
-<td>Standard</td>
-<td>RFC2252: supported LDAP versions</td>
-</tr>
-<tr>
-<td>namingContexts</td>
-<td>DSA OPERATION</td>
-<td>Standard</td>
-<td>RFC2252: naming contexts</td>
-</tr>
-<tr>
-<td>altServer</td>
-<td>DSA OPERATION</td>
-<td>Standard</td>
-<td>RFC2252: alternative servers</td>
-</tr>
-<tr>
-<td>supportedExtension</td>
-<td>DSA OPERATION</td>
-<td>Standard</td>
-<td>RFC2252: supported extended operations</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Attribute name</th>
+          <th>Type</th>
+          <th>Category</th>
+          <th>Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>vendorName</td>
+          <td>DSA OPERATION</td>
+          <td>Standard</td>
+          <td>RFC3045: name of implementation vendor</td>
+      </tr>
+      <tr>
+          <td>vendorVersion</td>
+          <td>DSA OPERATION</td>
+          <td>Standard</td>
+          <td>RFC3045: version of implementation</td>
+      </tr>
+      <tr>
+          <td>entryTtl</td>
+          <td>DSA OPERATION</td>
+          <td>Standard</td>
+          <td>RFC2589: entry time-to-live</td>
+      </tr>
+      <tr>
+          <td>dynamicSubtrees</td>
+          <td>DSA OPERATION</td>
+          <td>Standard</td>
+          <td>RFC2589: dynamic subtrees</td>
+      </tr>
+      <tr>
+          <td>supportedFeatures</td>
+          <td>DSA OPERATION</td>
+          <td>Standard</td>
+          <td>RFC3674: features supported by the server</td>
+      </tr>
+      <tr>
+          <td>supportedControl</td>
+          <td>DSA OPERATION</td>
+          <td>Standard</td>
+          <td>RFC2252: supported controls</td>
+      </tr>
+      <tr>
+          <td>supportedSASLMechanisms</td>
+          <td>DSA OPERATION</td>
+          <td>Standard</td>
+          <td>RFC2252: supported SASL mechanisms</td>
+      </tr>
+      <tr>
+          <td>supportedLDAPVersion</td>
+          <td>DSA OPERATION</td>
+          <td>Standard</td>
+          <td>RFC2252: supported LDAP versions</td>
+      </tr>
+      <tr>
+          <td>namingContexts</td>
+          <td>DSA OPERATION</td>
+          <td>Standard</td>
+          <td>RFC2252: naming contexts</td>
+      </tr>
+      <tr>
+          <td>altServer</td>
+          <td>DSA OPERATION</td>
+          <td>Standard</td>
+          <td>RFC2252: alternative servers</td>
+      </tr>
+      <tr>
+          <td>supportedExtension</td>
+          <td>DSA OPERATION</td>
+          <td>Standard</td>
+          <td>RFC2252: supported extended operations</td>
+      </tr>
+  </tbody>
 </table>
 <h2 id="entry-operational-attributes">Entry operational attributes</h2>
 <p>Those are attributes related to an entry, carrying some additional information about it</p>
 <table>
-<thead>
-<tr>
-<th>Attribute name</th>
-<th>Type</th>
-<th>Category</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>createTimestamp</td>
-<td>DIRECTORY OPERATION</td>
-<td>Standard</td>
-<td>RFC2252: time which object was created</td>
-</tr>
-<tr>
-<td>modifyTimestamp</td>
-<td>DIRECTORY OPERATION</td>
-<td>Standard</td>
-<td>RFC2252: time which object was last modified</td>
-</tr>
-<tr>
-<td>creatorsName</td>
-<td>DIRECTORY OPERATION</td>
-<td>Standard</td>
-<td>RFC2252: name of creator</td>
-</tr>
-<tr>
-<td>modifiersName</td>
-<td>DIRECTORY OPERATION</td>
-<td>Standard</td>
-<td>RFC2252: name of last modifier</td>
-</tr>
-<tr>
-<td>hasSubordinates</td>
-<td>DIRECTORY OPERATION</td>
-<td>Standard</td>
-<td>X.501: entry has children</td>
-</tr>
-<tr>
-<td>ref</td>
-<td>DISTRIBUTED OPERATION</td>
-<td>Standard</td>
-<td>RFC3296: named reference - a labeledURI</td>
-</tr>
-<tr>
-<td>entryUUID</td>
-<td>DIRECTORY OPERATION</td>
-<td>ApacheDS</td>
-<td>UUID of the entry</td>
-</tr>
-<tr>
-<td>entryDN</td>
-<td>DIRECTORY OPERATION</td>
-<td>ApacheDS</td>
-<td>DN of the entry</td>
-</tr>
-<tr>
-<td>entryCSN</td>
-<td>DIRECTORY OPERATION</td>
-<td>ApacheDS</td>
-<td>Change sequence number of the entry</td>
-</tr>
-<tr>
-<td>nbChildren</td>
-<td>DIRECTORY OPERATION</td>
-<td>ApacheDS</td>
-<td>The number of children for this entry</td>
-</tr>
-<tr>
-<td>nbSubordinates</td>
-<td>DIRECTORY OPERATION</td>
-<td>ApacheDS</td>
-<td>The number of subordinates for this entry</td>
-</tr>
-<tr>
-<td>entryParentId</td>
-<td>DIRECTORY OPERATION</td>
-<td>ApacheDS</td>
-<td>Attribute holding the id of parent entry</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Attribute name</th>
+          <th>Type</th>
+          <th>Category</th>
+          <th>Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>createTimestamp</td>
+          <td>DIRECTORY OPERATION</td>
+          <td>Standard</td>
+          <td>RFC2252: time which object was created</td>
+      </tr>
+      <tr>
+          <td>modifyTimestamp</td>
+          <td>DIRECTORY OPERATION</td>
+          <td>Standard</td>
+          <td>RFC2252: time which object was last modified</td>
+      </tr>
+      <tr>
+          <td>creatorsName</td>
+          <td>DIRECTORY OPERATION</td>
+          <td>Standard</td>
+          <td>RFC2252: name of creator</td>
+      </tr>
+      <tr>
+          <td>modifiersName</td>
+          <td>DIRECTORY OPERATION</td>
+          <td>Standard</td>
+          <td>RFC2252: name of last modifier</td>
+      </tr>
+      <tr>
+          <td>hasSubordinates</td>
+          <td>DIRECTORY OPERATION</td>
+          <td>Standard</td>
+          <td>X.501: entry has children</td>
+      </tr>
+      <tr>
+          <td>ref</td>
+          <td>DISTRIBUTED OPERATION</td>
+          <td>Standard</td>
+          <td>RFC3296: named reference - a labeledURI</td>
+      </tr>
+      <tr>
+          <td>entryUUID</td>
+          <td>DIRECTORY OPERATION</td>
+          <td>ApacheDS</td>
+          <td>UUID of the entry</td>
+      </tr>
+      <tr>
+          <td>entryDN</td>
+          <td>DIRECTORY OPERATION</td>
+          <td>ApacheDS</td>
+          <td>DN of the entry</td>
+      </tr>
+      <tr>
+          <td>entryCSN</td>
+          <td>DIRECTORY OPERATION</td>
+          <td>ApacheDS</td>
+          <td>Change sequence number of the entry</td>
+      </tr>
+      <tr>
+          <td>nbChildren</td>
+          <td>DIRECTORY OPERATION</td>
+          <td>ApacheDS</td>
+          <td>The number of children for this entry</td>
+      </tr>
+      <tr>
+          <td>nbSubordinates</td>
+          <td>DIRECTORY OPERATION</td>
+          <td>ApacheDS</td>
+          <td>The number of subordinates for this entry</td>
+      </tr>
+      <tr>
+          <td>entryParentId</td>
+          <td>DIRECTORY OPERATION</td>
+          <td>ApacheDS</td>
+          <td>Attribute holding the id of parent entry</td>
+      </tr>
+  </tbody>
 </table>
 <h2 id="schema-related-operational-attributes">Schema related operational attributes</h2>
 <p>Those operational attributes are containing the schema elements handled by the server. They are stored in the <strong>RootDSE</strong></p>
 <table>
-<thead>
-<tr>
-<th>Attribute name</th>
-<th>Type</th>
-<th>Category</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>ldapSyntaxes</td>
-<td>DIRECTORY OPERATION</td>
-<td>Standard</td>
-<td>RFC2252: LDAP syntaxes</td>
-</tr>
-<tr>
-<td>subschemaSubentry</td>
-<td>DIRECTORY OPERATION</td>
-<td>Standard</td>
-<td>RFC2252: name of controlling subschema entry</td>
-</tr>
-<tr>
-<td>dITStructureRules</td>
-<td>DIRECTORY OPERATION</td>
-<td>Standard</td>
-<td>RFC2252: DIT structure rules</td>
-</tr>
-<tr>
-<td>dITContentRules</td>
-<td>DIRECTORY OPERATION</td>
-<td>Standard</td>
-<td>RFC2252: DIT content rules</td>
-</tr>
-<tr>
-<td>matchingRules</td>
-<td>DIRECTORY OPERATION</td>
-<td>Standard</td>
-<td>RFC2252: matching rules</td>
-</tr>
-<tr>
-<td>attributeTypes</td>
-<td>DIRECTORY OPERATION</td>
-<td>Standard</td>
-<td>RFC2252: attribute types</td>
-</tr>
-<tr>
-<td>objectClasses</td>
-<td>DIRECTORY OPERATION</td>
-<td>Standard</td>
-<td>RFC2252: object classes</td>
-</tr>
-<tr>
-<td>nameForms</td>
-<td>DIRECTORY OPERATION</td>
-<td>Standard</td>
-<td>RFC2252: Name Forms</td>
-</tr>
-<tr>
-<td>matchingRuleUse</td>
-<td>DIRECTORY OPERATION</td>
-<td>Standard</td>
-<td>RFC2252: matching rule uses</td>
-</tr>
-<tr>
-<td>structuralObjectClass</td>
-<td>DIRECTORY OPERATION</td>
-<td>Standard</td>
-<td>X.500(93): structural object class of entry</td>
-</tr>
-<tr>
-<td>comparators</td>
-<td>DIRECTORY OPERATION</td>
-<td>ApacheDS</td>
-<td>A multivalued comparator description attribute</td>
-</tr>
-<tr>
-<td>normalizers</td>
-<td>DIRECTORY OPERATION</td>
-<td>ApacheDS</td>
-<td>A multivalued normalizer description attribute</td>
-</tr>
-<tr>
-<td>syntaxCheckers</td>
-<td>DIRECTORY OPERATION</td>
-<td>ApacheDS</td>
-<td>A multivalued syntaxCheckers description attribute</td>
-</tr>
-<tr>
-<td>schemaModifyTimestamp</td>
-<td>DIRECTORY OPERATION</td>
-<td>ApacheDS</td>
-<td>Time which schema was modified</td>
-</tr>
-<tr>
-<td>schemaModifiersName</td>
-<td>DIRECTORY OPERATION</td>
-<td>ApacheDS</td>
-<td>The DN of the modifier of the schema</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Attribute name</th>
+          <th>Type</th>
+          <th>Category</th>
+          <th>Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>ldapSyntaxes</td>
+          <td>DIRECTORY OPERATION</td>
+          <td>Standard</td>
+          <td>RFC2252: LDAP syntaxes</td>
+      </tr>
+      <tr>
+          <td>subschemaSubentry</td>
+          <td>DIRECTORY OPERATION</td>
+          <td>Standard</td>
+          <td>RFC2252: name of controlling subschema entry</td>
+      </tr>
+      <tr>
+          <td>dITStructureRules</td>
+          <td>DIRECTORY OPERATION</td>
+          <td>Standard</td>
+          <td>RFC2252: DIT structure rules</td>
+      </tr>
+      <tr>
+          <td>dITContentRules</td>
+          <td>DIRECTORY OPERATION</td>
+          <td>Standard</td>
+          <td>RFC2252: DIT content rules</td>
+      </tr>
+      <tr>
+          <td>matchingRules</td>
+          <td>DIRECTORY OPERATION</td>
+          <td>Standard</td>
+          <td>RFC2252: matching rules</td>
+      </tr>
+      <tr>
+          <td>attributeTypes</td>
+          <td>DIRECTORY OPERATION</td>
+          <td>Standard</td>
+          <td>RFC2252: attribute types</td>
+      </tr>
+      <tr>
+          <td>objectClasses</td>
+          <td>DIRECTORY OPERATION</td>
+          <td>Standard</td>
+          <td>RFC2252: object classes</td>
+      </tr>
+      <tr>
+          <td>nameForms</td>
+          <td>DIRECTORY OPERATION</td>
+          <td>Standard</td>
+          <td>RFC2252: Name Forms</td>
+      </tr>
+      <tr>
+          <td>matchingRuleUse</td>
+          <td>DIRECTORY OPERATION</td>
+          <td>Standard</td>
+          <td>RFC2252: matching rule uses</td>
+      </tr>
+      <tr>
+          <td>structuralObjectClass</td>
+          <td>DIRECTORY OPERATION</td>
+          <td>Standard</td>
+          <td>X.500(93): structural object class of entry</td>
+      </tr>
+      <tr>
+          <td>comparators</td>
+          <td>DIRECTORY OPERATION</td>
+          <td>ApacheDS</td>
+          <td>A multivalued comparator description attribute</td>
+      </tr>
+      <tr>
+          <td>normalizers</td>
+          <td>DIRECTORY OPERATION</td>
+          <td>ApacheDS</td>
+          <td>A multivalued normalizer description attribute</td>
+      </tr>
+      <tr>
+          <td>syntaxCheckers</td>
+          <td>DIRECTORY OPERATION</td>
+          <td>ApacheDS</td>
+          <td>A multivalued syntaxCheckers description attribute</td>
+      </tr>
+      <tr>
+          <td>schemaModifyTimestamp</td>
+          <td>DIRECTORY OPERATION</td>
+          <td>ApacheDS</td>
+          <td>Time which schema was modified</td>
+      </tr>
+      <tr>
+          <td>schemaModifiersName</td>
+          <td>DIRECTORY OPERATION</td>
+          <td>ApacheDS</td>
+          <td>The DN of the modifier of the schema</td>
+      </tr>
+  </tbody>
 </table>
 <h2 id="collective-attributes-operational-attributes">Collective Attributes operational attributes</h2>
 <p>Those are attributes related to collective attributes.</p>
 <table>
-<thead>
-<tr>
-<th>Attribute name</th>
-<th>Type</th>
-<th>Category</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>collectiveAttributeSubentries</td>
-<td>DIRECTORY OPERATION</td>
-<td>Standard</td>
-<td>RFC3671: identifies all collective attribute subentries that affect the entry</td>
-</tr>
-<tr>
-<td>collectiveExclusions</td>
-<td>DIRECTORY OPERATION</td>
-<td>Standard</td>
-<td>RFC3671: RFC3671: allows particular collective attributes to be excluded from an entry</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Attribute name</th>
+          <th>Type</th>
+          <th>Category</th>
+          <th>Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>collectiveAttributeSubentries</td>
+          <td>DIRECTORY OPERATION</td>
+          <td>Standard</td>
+          <td>RFC3671: identifies all collective attribute subentries that affect the entry</td>
+      </tr>
+      <tr>
+          <td>collectiveExclusions</td>
+          <td>DIRECTORY OPERATION</td>
+          <td>Standard</td>
+          <td>RFC3671: RFC3671: allows particular collective attributes to be excluded from an entry</td>
+      </tr>
+  </tbody>
 </table>
 <h2 id="administrative-model-attributes">Administrative Model Attributes</h2>
 <p>Those are attributes related to the Administrative Model management</p>
 <table>
-<thead>
-<tr>
-<th>Attribute name</th>
-<th>Type</th>
-<th>Category</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>administrativeRole</td>
-<td>DIRECTORY OPERATION</td>
-<td>Standard</td>
-<td>RFC3672: indicate that the associated administrative area is concerned withone or more administrative roles</td>
-</tr>
-<tr>
-<td>subtreeSpecification</td>
-<td>DIRECTORY OPERATION</td>
-<td>Standard</td>
-<td>RFC3672: defines a collection of entries within an administrative area</td>
-</tr>
-<tr>
-<td>prescriptiveACI</td>
-<td>DIRECTORY OPERATION</td>
-<td>ApacheDS</td>
-<td>Access control information that applies to a set of entries</td>
-</tr>
-<tr>
-<td>entryACI</td>
-<td>DIRECTORY OPERATION</td>
-<td>ApacheDS</td>
-<td>Access control information that applies to a single entry</td>
-</tr>
-<tr>
-<td>subentryACI</td>
-<td>DIRECTORY OPERATION</td>
-<td>ApacheDS</td>
-<td>Access control information that applies to a single subentry</td>
-</tr>
-<tr>
-<td>autonomousAreaSubentry</td>
-<td>DIRECTORY OPERATION</td>
-<td>ApacheDS</td>
-<td>Used to track a subentry associated with an autonomousArea</td>
-</tr>
-<tr>
-<td>accessControlSubentries</td>
-<td>DIRECTORY OPERATION</td>
-<td>ApacheDS</td>
-<td>Used to track a subentry associated with access control areas</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Attribute name</th>
+          <th>Type</th>
+          <th>Category</th>
+          <th>Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>administrativeRole</td>
+          <td>DIRECTORY OPERATION</td>
+          <td>Standard</td>
+          <td>RFC3672: indicate that the associated administrative area is concerned withone or more administrative roles</td>
+      </tr>
+      <tr>
+          <td>subtreeSpecification</td>
+          <td>DIRECTORY OPERATION</td>
+          <td>Standard</td>
+          <td>RFC3672: defines a collection of entries within an administrative area</td>
+      </tr>
+      <tr>
+          <td>prescriptiveACI</td>
+          <td>DIRECTORY OPERATION</td>
+          <td>ApacheDS</td>
+          <td>Access control information that applies to a set of entries</td>
+      </tr>
+      <tr>
+          <td>entryACI</td>
+          <td>DIRECTORY OPERATION</td>
+          <td>ApacheDS</td>
+          <td>Access control information that applies to a single entry</td>
+      </tr>
+      <tr>
+          <td>subentryACI</td>
+          <td>DIRECTORY OPERATION</td>
+          <td>ApacheDS</td>
+          <td>Access control information that applies to a single subentry</td>
+      </tr>
+      <tr>
+          <td>autonomousAreaSubentry</td>
+          <td>DIRECTORY OPERATION</td>
+          <td>ApacheDS</td>
+          <td>Used to track a subentry associated with an autonomousArea</td>
+      </tr>
+      <tr>
+          <td>accessControlSubentries</td>
+          <td>DIRECTORY OPERATION</td>
+          <td>ApacheDS</td>
+          <td>Used to track a subentry associated with access control areas</td>
+      </tr>
+  </tbody>
 </table>
 <h2 id="replication-related-operational-attributes">Replication related operational attributes</h2>
 <p>Those attributes are used in a replication context.</p>
 <table>
-<thead>
-<tr>
-<th>Attribute name</th>
-<th>Type</th>
-<th>Category</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>contextCSN</td>
-<td>DIRECTORY OPERATION</td>
-<td>ApacheDS</td>
-<td>The largest committed CSN of a context</td>
-</tr>
-<tr>
-<td>entryDeleted</td>
-<td>DIRECTORY OPERATION</td>
-<td>ApacheDS</td>
-<td>Whether or not an entry has been deleted. (Not anymore used)</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Attribute name</th>
+          <th>Type</th>
+          <th>Category</th>
+          <th>Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>contextCSN</td>
+          <td>DIRECTORY OPERATION</td>
+          <td>ApacheDS</td>
+          <td>The largest committed CSN of a context</td>
+      </tr>
+      <tr>
+          <td>entryDeleted</td>
+          <td>DIRECTORY OPERATION</td>
+          <td>ApacheDS</td>
+          <td>Whether or not an entry has been deleted. (Not anymore used)</td>
+      </tr>
+  </tbody>
 </table>
 <h2 id="index-related-operational-attributes">Index related operational attributes</h2>
 <p>Those operational attributes are used to define the various system predefined indexes</p>
 <table>
-<thead>
-<tr>
-<th>Attribute name</th>
-<th>Type</th>
-<th>Category</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>apachePresence</td>
-<td>DSA OPERATION</td>
-<td>ApacheDS</td>
-<td>Index attribute used to track the existence of attributes</td>
-</tr>
-<tr>
-<td>apacheOneLevel</td>
-<td>DSA OPERATION</td>
-<td>ApacheDS</td>
-<td>Index attribute used to track one level searches</td>
-</tr>
-<tr>
-<td>apacheOneAlias</td>
-<td>DSA OPERATION</td>
-<td>ApacheDS</td>
-<td>Index attribute used to track single level aliases</td>
-</tr>
-<tr>
-<td>apacheSubAlias</td>
-<td>DSA OPERATION</td>
-<td>ApacheDS</td>
-<td>Index attribute used to track sub level aliases</td>
-</tr>
-<tr>
-<td>apacheAlias</td>
-<td>DSA OPERATION</td>
-<td>ApacheDS</td>
-<td>Index attribute used to track aliases</td>
-</tr>
-<tr>
-<td>apacheSubLevel</td>
-<td>DSA OPERATION</td>
-<td>ApacheDS</td>
-<td>Index attribute used to track sub level searches</td>
-</tr>
-<tr>
-<td>apacheRdn</td>
-<td>DSA OPERATION</td>
-<td>ApacheDS</td>
-<td>Index attribute RDN with values both user provided and normalized based on schema</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Attribute name</th>
+          <th>Type</th>
+          <th>Category</th>
+          <th>Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>apachePresence</td>
+          <td>DSA OPERATION</td>
+          <td>ApacheDS</td>
+          <td>Index attribute used to track the existence of attributes</td>
+      </tr>
+      <tr>
+          <td>apacheOneLevel</td>
+          <td>DSA OPERATION</td>
+          <td>ApacheDS</td>
+          <td>Index attribute used to track one level searches</td>
+      </tr>
+      <tr>
+          <td>apacheOneAlias</td>
+          <td>DSA OPERATION</td>
+          <td>ApacheDS</td>
+          <td>Index attribute used to track single level aliases</td>
+      </tr>
+      <tr>
+          <td>apacheSubAlias</td>
+          <td>DSA OPERATION</td>
+          <td>ApacheDS</td>
+          <td>Index attribute used to track sub level aliases</td>
+      </tr>
+      <tr>
+          <td>apacheAlias</td>
+          <td>DSA OPERATION</td>
+          <td>ApacheDS</td>
+          <td>Index attribute used to track aliases</td>
+      </tr>
+      <tr>
+          <td>apacheSubLevel</td>
+          <td>DSA OPERATION</td>
+          <td>ApacheDS</td>
+          <td>Index attribute used to track sub level searches</td>
+      </tr>
+      <tr>
+          <td>apacheRdn</td>
+          <td>DSA OPERATION</td>
+          <td>ApacheDS</td>
+          <td>Index attribute RDN with values both user provided and normalized based on schema</td>
+      </tr>
+  </tbody>
 </table>
 <h2 id="trigger-interceptor-model-attributes">Trigger interceptor Model Attributes</h2>
 <p>Those are attributes used in the Trigger Interceptor</p>
 <table>
-<thead>
-<tr>
-<th>Attribute name</th>
-<th>Type</th>
-<th>Category</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>prescriptiveTriggerSpecification</td>
-<td>DIRECTORY OPERATION</td>
-<td>ApacheDS</td>
-<td>Trigger specification that applies to a set of entries</td>
-</tr>
-<tr>
-<td>entryTriggerSpecification</td>
-<td>DIRECTORY OPERATION</td>
-<td>ApacheDS</td>
-<td>Trigger specification that applies to a single entry</td>
-</tr>
-<tr>
-<td>triggerExecutionSubentries</td>
-<td>DIRECTORY OPERATION</td>
-<td>ApacheDS</td>
-<td>Used to track subentries associated with a trigger area which an entry falls under</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Attribute name</th>
+          <th>Type</th>
+          <th>Category</th>
+          <th>Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>prescriptiveTriggerSpecification</td>
+          <td>DIRECTORY OPERATION</td>
+          <td>ApacheDS</td>
+          <td>Trigger specification that applies to a set of entries</td>
+      </tr>
+      <tr>
+          <td>entryTriggerSpecification</td>
+          <td>DIRECTORY OPERATION</td>
+          <td>ApacheDS</td>
+          <td>Trigger specification that applies to a single entry</td>
+      </tr>
+      <tr>
+          <td>triggerExecutionSubentries</td>
+          <td>DIRECTORY OPERATION</td>
+          <td>ApacheDS</td>
+          <td>Used to track subentries associated with a trigger area which an entry falls under</td>
+      </tr>
+  </tbody>
 </table>
 <h2 id="changelog-related-operational-attributes">ChangeLog related operational attributes</h2>
 <p>Those operational attributes are meant to be used by teh <strong>ChangeLog</strong> interceptor. They are not supposed to be distributed, and they can&rsquo;t be modified by a user.</p>
 <table>
-<thead>
-<tr>
-<th>Attribute name</th>
-<th>Type</th>
-<th>Category</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>revisions</td>
-<td>DSA OPERATION</td>
-<td>ApacheDS</td>
-<td>Revision numbers used in change log</td>
-</tr>
-<tr>
-<td>changeTime</td>
-<td>DSA OPERATION</td>
-<td>ApacheDS</td>
-<td>Represents the time when the change event occurred</td>
-</tr>
-<tr>
-<td>changeType</td>
-<td>DSA OPERATION</td>
-<td>ApacheDS</td>
-<td>Type of change operation</td>
-</tr>
-<tr>
-<td>eventId</td>
-<td>DSA OPERATION</td>
-<td>ApacheDS</td>
-<td>The unique sequential id for the event (a.k.a revision number)</td>
-</tr>
-<tr>
-<td>committer</td>
-<td>DSA OPERATION</td>
-<td>ApacheDS</td>
-<td>The principal committing the change</td>
-</tr>
-<tr>
-<td>changeLogContext</td>
-<td>DSA OPERATION</td>
-<td>ApacheDS</td>
-<td>Tells about the changelog context suffix</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Attribute name</th>
+          <th>Type</th>
+          <th>Category</th>
+          <th>Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>revisions</td>
+          <td>DSA OPERATION</td>
+          <td>ApacheDS</td>
+          <td>Revision numbers used in change log</td>
+      </tr>
+      <tr>
+          <td>changeTime</td>
+          <td>DSA OPERATION</td>
+          <td>ApacheDS</td>
+          <td>Represents the time when the change event occurred</td>
+      </tr>
+      <tr>
+          <td>changeType</td>
+          <td>DSA OPERATION</td>
+          <td>ApacheDS</td>
+          <td>Type of change operation</td>
+      </tr>
+      <tr>
+          <td>eventId</td>
+          <td>DSA OPERATION</td>
+          <td>ApacheDS</td>
+          <td>The unique sequential id for the event (a.k.a revision number)</td>
+      </tr>
+      <tr>
+          <td>committer</td>
+          <td>DSA OPERATION</td>
+          <td>ApacheDS</td>
+          <td>The principal committing the change</td>
+      </tr>
+      <tr>
+          <td>changeLogContext</td>
+          <td>DSA OPERATION</td>
+          <td>ApacheDS</td>
+          <td>Tells about the changelog context suffix</td>
+      </tr>
+  </tbody>
 </table>
 
 
@@ -706,16 +715,18 @@
         <div id="endContent"></div>
     </div>
 
-    <div id="footer">
+    <div class="footer-wrapper">
+<div id="footer">
     &copy; 2003-2025, <a href="https://www.apache.org">The Apache Software Foundation</a> - <a href="https://privacy.apache.org/policies/privacy-policy-public.html">Privacy Policy</a><br />
     Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
-    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple, Fortress, Apache Fortress, EnMasse,
     Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
     trademarks of The Apache Software Foundation.
 </div>
-
 </div>
 
+</div>
+<div class="top-bottom-spacer"></div>
 </body>
 
 </html>

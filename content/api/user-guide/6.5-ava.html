@@ -1,20 +1,29 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
+
+    
+    
+        
+    
+
 <head>
     <meta charset="utf-8">
     <title>6.5 - Ava &mdash; Apache Directory</title>
 
     <link href="/css/common.css" rel="stylesheet" type="text/css"/>
-    <link href="/css/brown.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/api.css" rel="stylesheet" type="text/css"/>
 
     <link rel="shortcut icon" href="/images/server-icon_16x16.png" />
     <script src="https://www.apachecon.com/event-images/snippet.js"></script>
 </head>
 
 <body>
+<div class="top-bottom-spacer"></div>
 <div id="container">
     <div id="header">
+    <span>Apache Directory</span>
     <a href="/"><div id="headerClick"></div></a>
     <div id="subProjectsNavBar">
         <a href="/">
@@ -81,7 +90,7 @@
 
                 <h5>Downloads</h5>
                 <ul>
-                    <li><a href="/api/downloads-2.html">Version 2.1.7</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/downloads-2.html">Version 2.1.7</a>&nbsp;&nbsp;<img src="/images/new_badge.svg" alt="" style="margin-bottom:-3px;" border="0"></li>
                     <li><a href="/api/downloads-1.html">Version 1.0.3</a>&nbsp;&nbsp;</li>
                     <li><a href="/api/download-old-versions.html">Older versions</a></li>
                 </ul>
@@ -162,8 +171,8 @@
 	<h1 id="65---ava">6.5 - Ava</h1>
 <p>An <em>Ava</em> is used to store an <em>Attribute</em> value associated to an <em>AttributeType</em>.</p>
 <p>It describes a container holding an <em>AttributeType</em> associated with a <em>Value</em> in a <em>Rdn</em>. An example would be:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Text" data-lang="Text">    dc=example
-</code></pre></div><p>where &lsquo;dc&rsquo; is the <em>AttributeType</em> and &lsquo;example&rsquo; its associated value.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Text" data-lang="Text"><span style="display:flex;"><span>    dc=example
+</span></span></code></pre></div><p>where &lsquo;dc&rsquo; is the <em>AttributeType</em> and &rsquo;example&rsquo; its associated value.</p>
 <p>The value can be a binary or a String value, depending on the <em>AttributeType</em>.</p>
 <p>We can create a schema aware <em>Ava</em>, or just a plain <em>Ava</em>. Having a schema aware <em>Ava</em> allows further controls to be made on the value we inject.  Is syntax will be checked against the <em>AttributeType</em> syntax.</p>
 <p>Most of the time, one will not need to create or manipulate an <em>Ava</em>, as it&rsquo;s an internal element of a <em>Rdn</em>.</p>
@@ -173,24 +182,24 @@
 <p>As for the <em>Dn</em> and <em>Rdn</em> classes, we have to hold two representations of its internal <em>AttributeType</em> and <em>Value</em>.  The User Provided form, and the escaped form (which are used inside filters). If the <em>AVA</em> is schema aware, the escaped form will be computed, otherwise we store the user provided form. Let&rsquo;s see some examples.</p>
 <h3 id="schema-aware-ava">Schema Aware Ava</h3>
 <p>Here we will create an <em>AVA</em> and check that the user provided values are preserved. The <em>getName()</em> and <em>getString()</em> methods will give back this user provided form, in a form that allows it to be used in a Filter.</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    Ava atav <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> Ava<span style="color:#666">(</span> schemaManager<span style="color:#666">,</span> <span style="color:#b44">&#34; CommonName &#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34; This is    a TEST &#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-    System<span style="color:#666">.</span><span style="color:#b44">out</span><span style="color:#666">.</span><span style="color:#b44">println</span><span style="color:#666">(</span> <span style="color:#b44">&#34;toString     : &#39;&#34;</span> <span style="color:#666">+</span> atav<span style="color:#666">.</span><span style="color:#b44">toString</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">+</span> <span style="color:#b44">&#34;&#39;&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-    System<span style="color:#666">.</span><span style="color:#b44">out</span><span style="color:#666">.</span><span style="color:#b44">println</span><span style="color:#666">(</span> <span style="color:#b44">&#34;Escaped      : &#39;&#34;</span> <span style="color:#666">+</span> atav<span style="color:#666">.</span><span style="color:#b44">getEscaped</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">+</span> <span style="color:#b44">&#34;&#39;&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-    System<span style="color:#666">.</span><span style="color:#b44">out</span><span style="color:#666">.</span><span style="color:#b44">println</span><span style="color:#666">(</span> <span style="color:#b44">&#34;UserProvided : &#39;&#34;</span> <span style="color:#666">+</span> atav<span style="color:#666">.</span><span style="color:#b44">getName</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">+</span> <span style="color:#b44">&#34;&#39;&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-</code></pre></div><p>will produce :</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Text" data-lang="Text">    toString     : &#39; CommonName =\ This is    a TEST\ &#39;
-    Escaped      : &#39; CommonName =\ This is    a TEST\ &#39;
-    UserProvided : &#39; CommonName =\ This is    a TEST\ &#39;
-</code></pre></div><h3 id="not-schema-aware">Not Schema Aware</h3>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#bbb">    </span>Ava<span style="color:#bbb"> </span>atav<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>Ava(<span style="color:#bbb"> </span>schemaManager,<span style="color:#bbb"> </span><span style="color:#b44">&#34; CommonName &#34;</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34; This is    a TEST &#34;</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>System.<span style="color:#b44">out</span>.<span style="color:#b44">println</span>(<span style="color:#bbb"> </span><span style="color:#b44">&#34;toString     : &#39;&#34;</span><span style="color:#bbb"> </span><span style="color:#666">+</span><span style="color:#bbb"> </span>atav.<span style="color:#b44">toString</span>()<span style="color:#bbb"> </span><span style="color:#666">+</span><span style="color:#bbb"> </span><span style="color:#b44">&#34;&#39;&#34;</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>System.<span style="color:#b44">out</span>.<span style="color:#b44">println</span>(<span style="color:#bbb"> </span><span style="color:#b44">&#34;Escaped      : &#39;&#34;</span><span style="color:#bbb"> </span><span style="color:#666">+</span><span style="color:#bbb"> </span>atav.<span style="color:#b44">getEscaped</span>()<span style="color:#bbb"> </span><span style="color:#666">+</span><span style="color:#bbb"> </span><span style="color:#b44">&#34;&#39;&#34;</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>System.<span style="color:#b44">out</span>.<span style="color:#b44">println</span>(<span style="color:#bbb"> </span><span style="color:#b44">&#34;UserProvided : &#39;&#34;</span><span style="color:#bbb"> </span><span style="color:#666">+</span><span style="color:#bbb"> </span>atav.<span style="color:#b44">getName</span>()<span style="color:#bbb"> </span><span style="color:#666">+</span><span style="color:#bbb"> </span><span style="color:#b44">&#34;&#39;&#34;</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span></code></pre></div><p>will produce :</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Text" data-lang="Text"><span style="display:flex;"><span>    toString     : &#39; CommonName =\ This is    a TEST\ &#39;
+</span></span><span style="display:flex;"><span>    Escaped      : &#39; CommonName =\ This is    a TEST\ &#39;
+</span></span><span style="display:flex;"><span>    UserProvided : &#39; CommonName =\ This is    a TEST\ &#39;
+</span></span></code></pre></div><h3 id="not-schema-aware">Not Schema Aware</h3>
 <p>The biggest difference in this case is that the <em>AttributeType</em> will not be replaced by its <em>Oid</em>, but instead by a lowercase form of the provided ID. We also escape the leading and trailing spaces in the value.</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java"><span style="color:#a2f;font-weight:bold">public</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">testAvaSimpleNorm</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> LdapException
-<span style="color:#666">{</span>
-    Ava atav <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> Ava<span style="color:#666">(</span> <span style="color:#a2f;font-weight:bold">null</span><span style="color:#666">,</span> <span style="color:#b44">&#34; CommonName &#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34; This is    a TEST &#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-    assertEquals<span style="color:#666">(</span> <span style="color:#b44">&#34; CommonName = This is    a TEST &#34;</span><span style="color:#666">,</span> atav<span style="color:#666">.</span><span style="color:#b44">toString</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-    assertEquals<span style="color:#666">(</span> <span style="color:#b44">&#34;commonname=\\ This is    a TEST\\ &#34;</span><span style="color:#666">,</span> atav<span style="color:#666">.</span><span style="color:#b44">getNormName</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-    assertEquals<span style="color:#666">(</span> <span style="color:#b44">&#34; CommonName = This is    a TEST &#34;</span><span style="color:#666">,</span> atav<span style="color:#666">.</span><span style="color:#b44">getUpName</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-<span style="color:#666">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#0b0;font-weight:bold">void</span><span style="color:#bbb"> </span><span style="color:#00a000">testAvaSimpleNorm</span>()<span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">throws</span><span style="color:#bbb"> </span>LdapException<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>Ava<span style="color:#bbb"> </span>atav<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>Ava(<span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">null</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34; CommonName &#34;</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34; This is    a TEST &#34;</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>assertEquals(<span style="color:#bbb"> </span><span style="color:#b44">&#34; CommonName = This is    a TEST &#34;</span>,<span style="color:#bbb"> </span>atav.<span style="color:#b44">toString</span>()<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>assertEquals(<span style="color:#bbb"> </span><span style="color:#b44">&#34;commonname=\\ This is    a TEST\\ &#34;</span>,<span style="color:#bbb"> </span>atav.<span style="color:#b44">getNormName</span>()<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>assertEquals(<span style="color:#bbb"> </span><span style="color:#b44">&#34; CommonName = This is    a TEST &#34;</span>,<span style="color:#bbb"> </span>atav.<span style="color:#b44">getUpName</span>()<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>}<span style="color:#bbb">
+</span></span></span></code></pre></div>
 
             
     <div class="nav">
@@ -220,16 +229,18 @@
         <div id="endContent"></div>
     </div>
 
-    <div id="footer">
+    <div class="footer-wrapper">
+<div id="footer">
     &copy; 2003-2025, <a href="https://www.apache.org">The Apache Software Foundation</a> - <a href="https://privacy.apache.org/policies/privacy-policy-public.html">Privacy Policy</a><br />
     Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
-    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple, Fortress, Apache Fortress, EnMasse,
     Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
     trademarks of The Apache Software Foundation.
 </div>
-
 </div>
 
+</div>
+<div class="top-bottom-spacer"></div>
 </body>
 
 </html>

@@ -1,20 +1,29 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
+
+    
+    
+        
+    
+
 <head>
     <meta charset="utf-8">
     <title>4 - ASN/1 &mdash; Apache Directory</title>
 
     <link href="/css/common.css" rel="stylesheet" type="text/css"/>
-    <link href="/css/brown.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/api.css" rel="stylesheet" type="text/css"/>
 
     <link rel="shortcut icon" href="/images/server-icon_16x16.png" />
     <script src="https://www.apachecon.com/event-images/snippet.js"></script>
 </head>
 
 <body>
+<div class="top-bottom-spacer"></div>
 <div id="container">
     <div id="header">
+    <span>Apache Directory</span>
     <a href="/"><div id="headerClick"></div></a>
     <div id="subProjectsNavBar">
         <a href="/">
@@ -81,7 +90,7 @@
 
                 <h5>Downloads</h5>
                 <ul>
-                    <li><a href="/api/downloads-2.html">Version 2.1.7</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/downloads-2.html">Version 2.1.7</a>&nbsp;&nbsp;<img src="/images/new_badge.svg" alt="" style="margin-bottom:-3px;" border="0"></li>
                     <li><a href="/api/downloads-1.html">Version 1.0.3</a>&nbsp;&nbsp;</li>
                     <li><a href="/api/download-old-versions.html">Older versions</a></li>
                 </ul>
@@ -173,8 +182,8 @@
 <p>An encoded ASN/1 message is a tuple containing two or three elements : a <strong>T</strong>ype, a <strong>L</strong>ength and optionally - ie if the length is not 0 - a <strong>V</strong>alue. This tuple is called a <strong>TLV</strong>. Every message is a <strong>TLV</strong>.</p>
 <p>But a message can have a complex structure, so a <strong>TLV</strong> itself can encapsulate some <strong>TLV</strong>s. Actually the <strong>V</strong> part can be a list of <strong>TLV</strong>s. This is recursive&hellip;</p>
 <p>A typical encoded message can therefore represented this way :</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Text" data-lang="Text">    [TL [TLV] [TL [TLV] [TLV]]]
-</code></pre></div><p>Here, the message <strong>TLV</strong> value is a set of two <strong>TLV</strong>s, the second one being itself a composition of 2 <strong>TLV</strong>s.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Text" data-lang="Text"><span style="display:flex;"><span>    [TL [TLV] [TL [TLV] [TLV]]]
+</span></span></code></pre></div><p>Here, the message <strong>TLV</strong> value is a set of two <strong>TLV</strong>s, the second one being itself a composition of 2 <strong>TLV</strong>s.</p>
 <p>The <strong>T</strong> describe the type of value, the <strong>L</strong> gives the length of this value (can be 0) and of course the <strong>V</strong> is the value, which can itself be a <strong>TLV</strong>.</p>
 <h3 id="encoderdecoder">Encoder/Decoder</h3>
 <p>There are two aspects we have to deal with :</p>
@@ -212,185 +221,180 @@ Of course, we have to discard all the <strong>PDU</strong>, and hopefully, we kn
 <h5 id="completed-tlvs-but-incomplete-message">Completed TLVs but incomplete message</h5>
 <p>Another use case is when we have completed a <strong>TLV</strong>, and there is another mandatory tag that follows. In the previous picture, the <em>AttributeDesc</em> state must be followed by a <em>AssertionValue</em> state (which starts with a <strong>0x04</strong> tag). If it&rsquo;s not the case, then we should also issue an error.</p>
 <p>Let&rsquo;s say we have such a <strong>PDU</strong>:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Text" data-lang="Text">                  ...
-                  0x63, 0x3D,                                       // SearchRequest, 61 bytes long
-                    0x04, 0x00,                                     // Base Object RootDSE
-                    0x0A, 0x01, 0x02,                               // Scope Base
-                    0x0A, 0x01, 0x02,                               // Deref alias
-                    0x02, 0x05, 0x00, 0x21, 0x6E, 0x00, 0x51,       // SizeLimite
-                    0x02, 0x02, 0x00, 0x03,                         // TimeLimit
-                    0x01, 0x01, 0x41,                               // TypesOnly
-                    0xA6, 0x04,                                     // Less or equal filter, 4 bytes long
-                      0x04, 0x02,                                   // AttributeDesc
-                        0x63, 0x6E,                                 // cn
-                    0x04, 0x1F,                                     // AssertionValue, but out of the filter size...
-                      0x00, 0x00, 0x00, 0x04, 0x04, 0x02, 0x04, 0x04, 
-                      0x30, 0x04, 0x04, 0x02, 0x04, 0x04, 0x30, 0x04, 
-                      0x04, 0x02, 0x2E, 0x26, 0x04, 0x03, 0x04, 0x04, 
-                      0x04, 0x12, 0x12, 0x12, 0x12, 0x12, 0x12, 
-                    ...
-
-</code></pre></div><p>The filter is a <em>Less or equal</em> (tags <strong>0xA6</strong>). The gramar to get it decoded is:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Text" data-lang="Text"><span style="display:flex;"><span>                  ...
+</span></span><span style="display:flex;"><span>                  0x63, 0x3D,                                       // SearchRequest, 61 bytes long
+</span></span><span style="display:flex;"><span>                    0x04, 0x00,                                     // Base Object RootDSE
+</span></span><span style="display:flex;"><span>                    0x0A, 0x01, 0x02,                               // Scope Base
+</span></span><span style="display:flex;"><span>                    0x0A, 0x01, 0x02,                               // Deref alias
+</span></span><span style="display:flex;"><span>                    0x02, 0x05, 0x00, 0x21, 0x6E, 0x00, 0x51,       // SizeLimite
+</span></span><span style="display:flex;"><span>                    0x02, 0x02, 0x00, 0x03,                         // TimeLimit
+</span></span><span style="display:flex;"><span>                    0x01, 0x01, 0x41,                               // TypesOnly
+</span></span><span style="display:flex;"><span>                    0xA6, 0x04,                                     // Less or equal filter, 4 bytes long
+</span></span><span style="display:flex;"><span>                      0x04, 0x02,                                   // AttributeDesc
+</span></span><span style="display:flex;"><span>                        0x63, 0x6E,                                 // cn
+</span></span><span style="display:flex;"><span>                    0x04, 0x1F,                                     // AssertionValue, but out of the filter size...
+</span></span><span style="display:flex;"><span>                      0x00, 0x00, 0x00, 0x04, 0x04, 0x02, 0x04, 0x04, 
+</span></span><span style="display:flex;"><span>                      0x30, 0x04, 0x04, 0x02, 0x04, 0x04, 0x30, 0x04, 
+</span></span><span style="display:flex;"><span>                      0x04, 0x02, 0x2E, 0x26, 0x04, 0x03, 0x04, 0x04, 
+</span></span><span style="display:flex;"><span>                      0x04, 0x12, 0x12, 0x12, 0x12, 0x12, 0x12, 
+</span></span><span style="display:flex;"><span>                    ...
+</span></span></code></pre></div><p>The filter is a <em>Less or equal</em> (tags <strong>0xA6</strong>). The gramar to get it decoded is:</p>
 <p><img src="images/asn1-less-or-equal-filter.png" alt="Less or equal filter"></p>
 <p>Once we have decoded the <em>AttributeDesc</em> <strong>TLV</strong> (<strong>0x04 0x02 0x63 0x6E</strong>), we have consumed all the bytes for the <em>Less or equal</em> <strong>TLV</strong>, so the next <strong>0x04</strong> tag does not belong to the <em>AssertionValue</em> state, which also starts with a <strong>0x04</strong> tag, although this state is mandatory: we have an error. How do we detect it?</p>
 <p>We have to start from the <strong>ASN1</strong> grammar for this message:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Text" data-lang="Text">...
-        SearchRequest ::= [APPLICATION 3] SEQUENCE {
-             baseObject      LDAPDN,
-             scope           ENUMERATED {
-                  baseObject              (0),
-                  singleLevel             (1),
-                  wholeSubtree            (2),
-                  ...  },
-             derefAliases    ENUMERATED {
-                  neverDerefAliases       (0),
-                  derefInSearching        (1),
-                  derefFindingBaseObj     (2),
-                  derefAlways             (3) },
-             sizeLimit       INTEGER (0 ..  maxInt),
-             timeLimit       INTEGER (0 ..  maxInt),
-             typesOnly       BOOLEAN,
-             filter          Filter,
-             attributes      AttributeSelection }
-...
-
-        Filter ::= CHOICE {
-             and             [0] SET SIZE (1..MAX) OF filter Filter,
-             or              [1] SET SIZE (1..MAX) OF filter Filter,
-             not             [2] Filter,
-             equalityMatch   [3] AttributeValueAssertion,
-             substrings      [4] SubstringFilter,
-             greaterOrEqual  [5] AttributeValueAssertion,
-             lessOrEqual     [6] AttributeValueAssertion,
-             present         [7] AttributeDescription,
-             approxMatch     [8] AttributeValueAssertion,
-             extensibleMatch [9] MatchingRuleAssertion,
-             ...  }
-
-...
-        AttributeValueAssertion ::= SEQUENCE {
-             attributeDesc   AttributeDescription,
-             assertionValue  AssertionValue }
-...
-        AttributeDescription ::= LDAPString
-                                -- Constrained to &lt;attributedescription&gt;
-                                -- [RFC4512]
-
-        AttributeValue ::= OCTET STRING
-
-
-</code></pre></div><p>The first <strong>TLV</strong> contains 8 internal <strong>TLVs</strong>, all mandatory, including the <em>filter</em> one.
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Text" data-lang="Text"><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>        SearchRequest ::= [APPLICATION 3] SEQUENCE {
+</span></span><span style="display:flex;"><span>             baseObject      LDAPDN,
+</span></span><span style="display:flex;"><span>             scope           ENUMERATED {
+</span></span><span style="display:flex;"><span>                  baseObject              (0),
+</span></span><span style="display:flex;"><span>                  singleLevel             (1),
+</span></span><span style="display:flex;"><span>                  wholeSubtree            (2),
+</span></span><span style="display:flex;"><span>                  ...  },
+</span></span><span style="display:flex;"><span>             derefAliases    ENUMERATED {
+</span></span><span style="display:flex;"><span>                  neverDerefAliases       (0),
+</span></span><span style="display:flex;"><span>                  derefInSearching        (1),
+</span></span><span style="display:flex;"><span>                  derefFindingBaseObj     (2),
+</span></span><span style="display:flex;"><span>                  derefAlways             (3) },
+</span></span><span style="display:flex;"><span>             sizeLimit       INTEGER (0 ..  maxInt),
+</span></span><span style="display:flex;"><span>             timeLimit       INTEGER (0 ..  maxInt),
+</span></span><span style="display:flex;"><span>             typesOnly       BOOLEAN,
+</span></span><span style="display:flex;"><span>             filter          Filter,
+</span></span><span style="display:flex;"><span>             attributes      AttributeSelection }
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        Filter ::= CHOICE {
+</span></span><span style="display:flex;"><span>             and             [0] SET SIZE (1..MAX) OF filter Filter,
+</span></span><span style="display:flex;"><span>             or              [1] SET SIZE (1..MAX) OF filter Filter,
+</span></span><span style="display:flex;"><span>             not             [2] Filter,
+</span></span><span style="display:flex;"><span>             equalityMatch   [3] AttributeValueAssertion,
+</span></span><span style="display:flex;"><span>             substrings      [4] SubstringFilter,
+</span></span><span style="display:flex;"><span>             greaterOrEqual  [5] AttributeValueAssertion,
+</span></span><span style="display:flex;"><span>             lessOrEqual     [6] AttributeValueAssertion,
+</span></span><span style="display:flex;"><span>             present         [7] AttributeDescription,
+</span></span><span style="display:flex;"><span>             approxMatch     [8] AttributeValueAssertion,
+</span></span><span style="display:flex;"><span>             extensibleMatch [9] MatchingRuleAssertion,
+</span></span><span style="display:flex;"><span>             ...  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>        AttributeValueAssertion ::= SEQUENCE {
+</span></span><span style="display:flex;"><span>             attributeDesc   AttributeDescription,
+</span></span><span style="display:flex;"><span>             assertionValue  AssertionValue }
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span>        AttributeDescription ::= LDAPString
+</span></span><span style="display:flex;"><span>                                -- Constrained to &lt;attributedescription&gt;
+</span></span><span style="display:flex;"><span>                                -- [RFC4512]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        AttributeValue ::= OCTET STRING
+</span></span></code></pre></div><p>The first <strong>TLV</strong> contains 8 internal <strong>TLVs</strong>, all mandatory, including the <em>filter</em> one.
 The <em>Filter</em> <strong>TLV</strong> is one <strong>TLV</strong>
 The <em>LessOrEqual</em> <strong>TLV</strong> has 2 <strong>TLVs</strong>, which are primitive types.</p>
-<p>So in the case we are interested in, a _LessOrEqual* _SearchRequest_, we know that we expect this exact number of **TLVs** to be present. If the length of the encapsulating **TLV** is reached before we have consummed the expected number of **TLVs**, this is an error.</p>
+<p>So in the case we are interested in, a _LessOrEqual* <em>SearchRequest</em>, we know that we expect this exact number of <strong>TLVs</strong> to be present. If the length of the encapsulating <strong>TLV</strong> is reached before we have consummed the expected number of <strong>TLVs</strong>, this is an error.</p>
 <p>Somehow, it&rsquo;s enough to count the expected <strong>TLVs</strong> to know if we are good to go, but it&rsquo;s a bit trickier than that: some of the <strong>TLVs</strong> are optionals, and must not be counted. Also when a <strong>TLV</strong> encodes for a <strong>CHOICE</strong>, we may have a variable number of <strong>TLVs</strong> depending on the selected choice.</p>
 <p>Another approach would be to consider that the grammar is a graph, and every <em>SEQUENCE</em> or <em>SET</em> element is a level. Keeping track of those level would allow the decoder to know if they are completed.</p>
 <p>The biggest issue comes with <em>OPTIONAL</em> elements, which render the verification complex. For instance, such a grammar is hard to decode:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Control ::= SEQUENCE {
-             controlType             LDAPOID,
-             criticality             BOOLEAN DEFAULT FALSE,
-             controlValue            OCTET STRING OPTIONAL }
-
-FictiveMessage ::= SEQUENCE {
-             control                 Control,
-             value                   OCTET STRING }
-}
-</code></pre></div><p>We won&rsquo;t be able to know if a <strong>OxO4 LL</strong> sequence is for a <em>controlValue</em> or a <em>value</em>, unless we check the number of consumed bytes and compare it with the <em>SEQUENCE</em> <strong>TLV</strong> length.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Control ::= SEQUENCE {
+</span></span><span style="display:flex;"><span>             controlType             LDAPOID,
+</span></span><span style="display:flex;"><span>             criticality             BOOLEAN DEFAULT FALSE,
+</span></span><span style="display:flex;"><span>             controlValue            OCTET STRING OPTIONAL }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>FictiveMessage ::= SEQUENCE {
+</span></span><span style="display:flex;"><span>             control                 Control,
+</span></span><span style="display:flex;"><span>             value                   OCTET STRING }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>We won&rsquo;t be able to know if a <strong>OxO4 LL</strong> sequence is for a <em>controlValue</em> or a <em>value</em>, unless we check the number of consumed bytes and compare it with the <em>SEQUENCE</em> <strong>TLV</strong> length.</p>
 <p>Now, the thing is that such a grammar is not a valid <strong>ASN.1</strong> one: in this case, there is no way the decoder could decide which element is to be processed, either a <em>controlValue</em> or a <em>value</em>. In this case, we use a <em>Application</em> tag to determinate which one is to be processed:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Control ::= SEQUENCE {
-             controlType             LDAPOID,
-             criticality             BOOLEAN DEFAULT FALSE,
-             controlValue        [0] OCTET STRING OPTIONAL }
-
-FictiveMessage ::= SEQUENCE {
-             control                 Control,
-             value                   OCTET STRING }
-}
-</code></pre></div><p>The added <strong>[0]</strong> will encode the <strong>T</strong> part of the <strong>TLV</strong> differently (here, <strong>0x40</strong> for the <em>controlValue [0] OCTET STRING</em>, compared to <strong>0x04</strong> for the <em>value OCTET STRING</em>).</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Control ::= SEQUENCE {
+</span></span><span style="display:flex;"><span>             controlType             LDAPOID,
+</span></span><span style="display:flex;"><span>             criticality             BOOLEAN DEFAULT FALSE,
+</span></span><span style="display:flex;"><span>             controlValue        [0] OCTET STRING OPTIONAL }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>FictiveMessage ::= SEQUENCE {
+</span></span><span style="display:flex;"><span>             control                 Control,
+</span></span><span style="display:flex;"><span>             value                   OCTET STRING }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>The added <strong>[0]</strong> will encode the <strong>T</strong> part of the <strong>TLV</strong> differently (here, <strong>0x40</strong> for the <em>controlValue [0] OCTET STRING</em>, compared to <strong>0x04</strong> for the <em>value OCTET STRING</em>).</p>
 <p>So in general, we always know how to transit from one element to the proper next one.</p>
 <p>What if someone drafts a wrong <strong>PDU</strong> where an invalid element is injected? For instance, something like:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">                0x30, (byte)0x82, 0x30, 0x47,                       // 12 359 bytes long message
-                  0x02, 0x02, 0x26, 0x2E,                           // message ID: 9774
-                  0x63, 0x1F,                                       // SearchRequest, 31 bytes long
-                    0x04, 0x00,                                     // Base Object RootDSE
-                    0x0A, 0x01, 0x02,                               // Scope Base
-                    0x0A, 0x01, 0x02,                               // Deref alias
-                    0x02, 0x05, 0x00, 0x21, 0x6E, 0x00, 0x51,       // SizeLimit
-                    0x02, 0x02, 0x00, 0x03,                         // TimeLimit
-                    0x01, 0x01, 0x41,                               // TypesOnly
-              -1-&gt;  (byte)0xA6, 0x04,                               // Less or equal filter
-                      0x04, 0x02,                                   // AttributeDesc
-                        0x04, 0x04, 
-              -2-&gt;  0x04, 0x02,                                     // AssertionValue, but out of the filter size...
-              -2-&gt;    0x00, 0x00
-                    0x30 ...                                        // Attribute description list
-
-</code></pre></div><p>Here, the four added bytes (in <strong>-2-&gt;</strong>) 0x04 0x02 0x00 0x00** are not part of the grammar, so they must be detected and discarded, because a previous alteration (in **-1-&gt;**) has made it so that the filter **TLV** only contains 4 bytes, and not 8.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>                0x30, (byte)0x82, 0x30, 0x47,                       // 12 359 bytes long message
+</span></span><span style="display:flex;"><span>                  0x02, 0x02, 0x26, 0x2E,                           // message ID: 9774
+</span></span><span style="display:flex;"><span>                  0x63, 0x1F,                                       // SearchRequest, 31 bytes long
+</span></span><span style="display:flex;"><span>                    0x04, 0x00,                                     // Base Object RootDSE
+</span></span><span style="display:flex;"><span>                    0x0A, 0x01, 0x02,                               // Scope Base
+</span></span><span style="display:flex;"><span>                    0x0A, 0x01, 0x02,                               // Deref alias
+</span></span><span style="display:flex;"><span>                    0x02, 0x05, 0x00, 0x21, 0x6E, 0x00, 0x51,       // SizeLimit
+</span></span><span style="display:flex;"><span>                    0x02, 0x02, 0x00, 0x03,                         // TimeLimit
+</span></span><span style="display:flex;"><span>                    0x01, 0x01, 0x41,                               // TypesOnly
+</span></span><span style="display:flex;"><span>              -1-&gt;  (byte)0xA6, 0x04,                               // Less or equal filter
+</span></span><span style="display:flex;"><span>                      0x04, 0x02,                                   // AttributeDesc
+</span></span><span style="display:flex;"><span>                        0x04, 0x04, 
+</span></span><span style="display:flex;"><span>              -2-&gt;  0x04, 0x02,                                     // AssertionValue, but out of the filter size...
+</span></span><span style="display:flex;"><span>              -2-&gt;    0x00, 0x00
+</span></span><span style="display:flex;"><span>                    0x30 ...                                        // Attribute description list
+</span></span></code></pre></div><p>Here, the four added bytes (in <strong>-2-&gt;</strong>) 0x04 0x02 0x00 0x00** are not part of the grammar, so they must be detected and discarded, because a previous alteration (in <strong>-1-&gt;</strong>) has made it so that the filter <strong>TLV</strong> only contains 4 bytes, and not 8.</p>
 <p>Except that the grammar says that for a <em>LessOrEqual</em> filter, it expects two <strong>TLVs</strong>, one for the <em>AttributeDesc</em>, the second for <em>AssertionValue</em>, which is present, but not part of the filter&rsquo;s <strong>TLV</strong>&hellip;</p>
-<p>At this point, we know which is the parent&rsquo;s <strong>TLV</strong> of each <strong>TLV</strong>. The <strong>-2-&gt;</strong> <strong>TLV</strong>&lsquo;s parent is the <em>SearchRequest</em> <strong>TLV</strong> (<strong>0x63 0x1F</strong>), when it should be <strong>-1-&gt;</strong> (<em>Less or equal filter</em>, <strong>0xA6 0x04</strong>).</p>
+<p>At this point, we know which is the parent&rsquo;s <strong>TLV</strong> of each <strong>TLV</strong>. The <strong>-2-&gt;</strong> <strong>TLV</strong>&rsquo;s parent is the <em>SearchRequest</em> <strong>TLV</strong> (<strong>0x63 0x1F</strong>), when it should be <strong>-1-&gt;</strong> (<em>Less or equal filter</em>, <strong>0xA6 0x04</strong>).</p>
 <p>The way to deal with such issue is to mark each transition for a given level as requiring a following <strong>TLV</strong> if there is a non optional element at the same level. If we exhaust the length of the parent&rsquo;s <strong>TLV</strong> when we expect another <strong>TLV</strong>, that means we have an error. We just have to add this extra flag for each transaction that expect an extra <strong>TLV</strong> to be seen, and check it if the parent&rsquo;s expected length is 0.</p>
 <h5 id="second-use-case">Second use case</h5>
 <p>Here is a PDU that is not valid, related to a <strong>SearchRequest</strong>:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">                0x30, 0x60,                             // LDAPMessage ::=SEQUENCE {
-                  0x02, 0x01, 0x01,                     // messageID
-                  0x63, 0x5A,                           //      CHOICE { ..., searchRequest SearchRequest, ...
-                                                        // SearchRequest ::= APPLICATION[3] SEQUENCE {
-                    0x04, 0x1F,                         // baseObject LDAPDN,
-                      &#39;u&#39;, &#39;i&#39;, &#39;d&#39;, &#39;=&#39;, &#39;a&#39;, &#39;k&#39;, &#39;a&#39;, &#39;r&#39;, &#39;a&#39;, &#39;s&#39;, &#39;u&#39;, &#39;l&#39;, &#39;u&#39;, &#39;,&#39;,
-                      &#39;d&#39;, &#39;c&#39;, &#39;=&#39;, &#39;e&#39;, &#39;x&#39;, &#39;a&#39;, &#39;m&#39;, &#39;p&#39;, &#39;l&#39;, &#39;e&#39;, &#39;,&#39;, &#39;d&#39;, &#39;c&#39;, &#39;=&#39;, &#39;c&#39;, &#39;o&#39;, &#39;m&#39;,
-                    0x0A, 0x01, 0x01,                   // scope ENUMERATED {
-                                                        // singleLevel (1),
-                    0x0A, 0x01, 0x03,                   // derefAliases ENUMERATED {
-                                                        // derefAlways (3) },
-                    0x02, 0x02, 0x03, ( byte ) 0xE8,    // sizeLimit INTEGER (0 .. maxInt), (1000)
-                    0x02, 0x02, 0x03, ( byte ) 0xE8,    // timeLimit INTEGER (0 .. maxInt), (1000)
-                    0x01, 0x01, ( byte ) 0xFF,          // typesOnly BOOLEAN, (TRUE) filter Filter,
-                    ( byte ) 0xA4, 0x0D,                // Filter ::= CHOICE {
-                                                        // substrings [4] SubstringFilter
-                                                        // }
-                                                        // SubstringFilter ::= SEQUENCE {
-                      0x04, 0x0B,                       // type           OCTET STRING,
-                        &#39;o&#39;, &#39;b&#39;, &#39;j&#39;, &#39;e&#39;, &#39;c&#39;, &#39;t&#39;, &#39;c&#39;, &#39;l&#39;, &#39;a&#39;, &#39;s&#39;, &#39;s&#39;,
-                                                        // Here, we are expecting the Substrings part, a combinaison of initial, some any and final
-                                                        // Instead we have a 
-                    0x30, 0x15,                         // AttributeSelection ::= SEQUENCE OF selector OCTET STRING
-                      0x04, 0x05,
-                        &#39;a&#39;, &#39;t&#39;, &#39;t&#39;, &#39;r&#39;, &#39;0&#39;,        // selector
-                      0x04, 0x05,
-                        &#39;a&#39;, &#39;t&#39;, &#39;t&#39;, &#39;r&#39;, &#39;1&#39;,        // selector
-                      0x04, 0x05,
-                        &#39;a&#39;, &#39;t&#39;, &#39;t&#39;, &#39;r&#39;, &#39;2&#39;         // selector
-
-</code></pre></div><p>The problem is that the <strong>Subtrings</strong> filter has a length of 13 (<strong>0x0D</strong>), which imply we don&rsquo;t have a <em>initial</em>, <em>any</em> or <em>final</em> element. The <a href="https://www.rfc-editor.org/rfc/rfc4511#section-4.5.1.7.2">RFC 4511</a> is pretty clear. First the grammar says:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">substrings     SEQUENCE SIZE (1..MAX) OF substring CHOICE {
-                  initial [0] AssertionValue,  -- can occur at most once
-                  any     [1] AssertionValue,
-                  final   [2] AssertionValue } -- can occur at most once
-</code></pre></div><p>The <strong>SEQUENCE</strong> must have a size of 1, which means at least one of the <em>initial</em>, <em>any</em> and <em>final</em> must be present.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>                0x30, 0x60,                             // LDAPMessage ::=SEQUENCE {
+</span></span><span style="display:flex;"><span>                  0x02, 0x01, 0x01,                     // messageID
+</span></span><span style="display:flex;"><span>                  0x63, 0x5A,                           //      CHOICE { ..., searchRequest SearchRequest, ...
+</span></span><span style="display:flex;"><span>                                                        // SearchRequest ::= APPLICATION[3] SEQUENCE {
+</span></span><span style="display:flex;"><span>                    0x04, 0x1F,                         // baseObject LDAPDN,
+</span></span><span style="display:flex;"><span>                      &#39;u&#39;, &#39;i&#39;, &#39;d&#39;, &#39;=&#39;, &#39;a&#39;, &#39;k&#39;, &#39;a&#39;, &#39;r&#39;, &#39;a&#39;, &#39;s&#39;, &#39;u&#39;, &#39;l&#39;, &#39;u&#39;, &#39;,&#39;,
+</span></span><span style="display:flex;"><span>                      &#39;d&#39;, &#39;c&#39;, &#39;=&#39;, &#39;e&#39;, &#39;x&#39;, &#39;a&#39;, &#39;m&#39;, &#39;p&#39;, &#39;l&#39;, &#39;e&#39;, &#39;,&#39;, &#39;d&#39;, &#39;c&#39;, &#39;=&#39;, &#39;c&#39;, &#39;o&#39;, &#39;m&#39;,
+</span></span><span style="display:flex;"><span>                    0x0A, 0x01, 0x01,                   // scope ENUMERATED {
+</span></span><span style="display:flex;"><span>                                                        // singleLevel (1),
+</span></span><span style="display:flex;"><span>                    0x0A, 0x01, 0x03,                   // derefAliases ENUMERATED {
+</span></span><span style="display:flex;"><span>                                                        // derefAlways (3) },
+</span></span><span style="display:flex;"><span>                    0x02, 0x02, 0x03, ( byte ) 0xE8,    // sizeLimit INTEGER (0 .. maxInt), (1000)
+</span></span><span style="display:flex;"><span>                    0x02, 0x02, 0x03, ( byte ) 0xE8,    // timeLimit INTEGER (0 .. maxInt), (1000)
+</span></span><span style="display:flex;"><span>                    0x01, 0x01, ( byte ) 0xFF,          // typesOnly BOOLEAN, (TRUE) filter Filter,
+</span></span><span style="display:flex;"><span>                    ( byte ) 0xA4, 0x0D,                // Filter ::= CHOICE {
+</span></span><span style="display:flex;"><span>                                                        // substrings [4] SubstringFilter
+</span></span><span style="display:flex;"><span>                                                        // }
+</span></span><span style="display:flex;"><span>                                                        // SubstringFilter ::= SEQUENCE {
+</span></span><span style="display:flex;"><span>                      0x04, 0x0B,                       // type           OCTET STRING,
+</span></span><span style="display:flex;"><span>                        &#39;o&#39;, &#39;b&#39;, &#39;j&#39;, &#39;e&#39;, &#39;c&#39;, &#39;t&#39;, &#39;c&#39;, &#39;l&#39;, &#39;a&#39;, &#39;s&#39;, &#39;s&#39;,
+</span></span><span style="display:flex;"><span>                                                        // Here, we are expecting the Substrings part, a combinaison of initial, some any and final
+</span></span><span style="display:flex;"><span>                                                        // Instead we have a 
+</span></span><span style="display:flex;"><span>                    0x30, 0x15,                         // AttributeSelection ::= SEQUENCE OF selector OCTET STRING
+</span></span><span style="display:flex;"><span>                      0x04, 0x05,
+</span></span><span style="display:flex;"><span>                        &#39;a&#39;, &#39;t&#39;, &#39;t&#39;, &#39;r&#39;, &#39;0&#39;,        // selector
+</span></span><span style="display:flex;"><span>                      0x04, 0x05,
+</span></span><span style="display:flex;"><span>                        &#39;a&#39;, &#39;t&#39;, &#39;t&#39;, &#39;r&#39;, &#39;1&#39;,        // selector
+</span></span><span style="display:flex;"><span>                      0x04, 0x05,
+</span></span><span style="display:flex;"><span>                        &#39;a&#39;, &#39;t&#39;, &#39;t&#39;, &#39;r&#39;, &#39;2&#39;         // selector
+</span></span></code></pre></div><p>The problem is that the <strong>Subtrings</strong> filter has a length of 13 (<strong>0x0D</strong>), which imply we don&rsquo;t have a <em>initial</em>, <em>any</em> or <em>final</em> element. The <a href="https://www.rfc-editor.org/rfc/rfc4511#section-4.5.1.7.2">RFC 4511</a> is pretty clear. First the grammar says:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>substrings     SEQUENCE SIZE (1..MAX) OF substring CHOICE {
+</span></span><span style="display:flex;"><span>                  initial [0] AssertionValue,  -- can occur at most once
+</span></span><span style="display:flex;"><span>                  any     [1] AssertionValue,
+</span></span><span style="display:flex;"><span>                  final   [2] AssertionValue } -- can occur at most once
+</span></span></code></pre></div><p>The <strong>SEQUENCE</strong> must have a size of 1, which means at least one of the <em>initial</em>, <em>any</em> and <em>final</em> must be present.</p>
 <p>Second the specification says:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">&#34;There SHALL be at most one &#39;initial&#39; and at most one &#39;final&#39; in the
-   &#39;substrings&#39; of a SubstringFilter.  If &#39;initial&#39; is present, it SHALL
-   be the first element of &#39;substrings&#39;.  If &#39;final&#39; is present, it
-   SHALL be the last element of &#39;substrings&#39;.&#34;
-</code></pre></div><p>So that means we <em>must</em> have at least one of the three elements, in a specific order (0 or 1 <em>initial</em> first, 0 to many <em>any</em> and 0 or 1 <em>final</em>).</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>&#34;There SHALL be at most one &#39;initial&#39; and at most one &#39;final&#39; in the
+</span></span><span style="display:flex;"><span>   &#39;substrings&#39; of a SubstringFilter.  If &#39;initial&#39; is present, it SHALL
+</span></span><span style="display:flex;"><span>   be the first element of &#39;substrings&#39;.  If &#39;final&#39; is present, it
+</span></span><span style="display:flex;"><span>   SHALL be the last element of &#39;substrings&#39;.&#34;
+</span></span></code></pre></div><p>So that means we <em>must</em> have at least one of the three elements, in a specific order (0 or 1 <em>initial</em> first, 0 to many <em>any</em> and 0 or 1 <em>final</em>).</p>
 <p>We can check if we have more than one <em>initial</em> or <em>final</em> in the grammar: we don&rsquo;t have a transition from <em>initial</em> to <em>initial</em>, nor a transition from <em>final</em> to <em>final</em>, not a transition for <em>final</em> to <em>any</em> or from <em>any</em> to <em>initial</em>, or from <em>final</em> to <em>initial</em>. That covers the ordering and occurence constraints.</p>
 <p>But we don&rsquo;t have any rule that checks we have at least one of the three. One way to do that is to check the <strong>TLV</strong> length when we call the transition&rsquo;s action:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">    public void action( C container ) throws DecoderException
-    {
-        TLV tlv = container.getCurrentTLV();
-
-        // The Length should not be null
-        if ( tlv.getLength() == 0 )
-        {
-            String msg = I18n.err( I18n.ERR_01101_NULL_LENGTH );
-            
-            LOG.error( msg );
-
-            // This will generate a PROTOCOL_ERROR
-            throw new DecoderException( msg );
-        }
-    }
-</code></pre></div><p>Here, if we have a <strong>0x30 0x00</strong> value for the <em>substrings</em> <strong>TLV</strong>, that means we don&rsquo;t have any of <em>initial</em>, <em>any</em> or <em>final</em>, so we stop the decoding.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>    public void action( C container ) throws DecoderException
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        TLV tlv = container.getCurrentTLV();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        // The Length should not be null
+</span></span><span style="display:flex;"><span>        if ( tlv.getLength() == 0 )
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            String msg = I18n.err( I18n.ERR_01101_NULL_LENGTH );
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            LOG.error( msg );
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            // This will generate a PROTOCOL_ERROR
+</span></span><span style="display:flex;"><span>            throw new DecoderException( msg );
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span></code></pre></div><p>Here, if we have a <strong>0x30 0x00</strong> value for the <em>substrings</em> <strong>TLV</strong>, that means we don&rsquo;t have any of <em>initial</em>, <em>any</em> or <em>final</em>, so we stop the decoding.</p>
 <h3 id="encoding">Encoding</h3>
 <p>It&rsquo;s slightly simpler : we use the message or element implementation to encode a message.</p>
 <p>The initial idea was to allocate a buffer to store the message, with the correct size, which required:</p>
@@ -411,7 +415,7 @@ FictiveMessage ::= SEQUENCE {
 <p>Let&rsquo;s see with a simple exemple.</p>
 <h4 id="asn1-encoding-a-ldap-simple-bind-request-message">ASN.1 encoding a LDAP Simple Bind Request Message</h4>
 <p>Here is the LDAP grammars elements we are going to use:</p>
-<pre><code>LDAPMessage ::= SEQUENCE {
+<pre tabindex="0"><code>LDAPMessage ::= SEQUENCE {
         messageID       INTEGER (0 .. maxInt),
         protocolOp      CHOICE {
             bindRequest           BindRequest,
@@ -426,7 +430,6 @@ FictiveMessage ::= SEQUENCE {
              simple                  [0] OCTET STRING,
              ...
          }
-
 </code></pre><p>Here, we will use the following values:</p>
 <ul>
 <li><em>messageId</em>: <em>1</em></li>
@@ -435,15 +438,15 @@ FictiveMessage ::= SEQUENCE {
 <li><em>simple</em> (aka password): <em>password</em></li>
 </ul>
 <p>Which gives:</p>
-<pre><code>MessageType : BIND_REQUEST
+<pre tabindex="0"><code>MessageType : BIND_REQUEST
 Message ID : 1
     BindRequest
-        Version : '3'
-        Name : 'uid=akarasulu,dc=example,dc=com'
-        Simple authentication : '(omitted-for-safety)'
+        Version : &#39;3&#39;
+        Name : &#39;uid=akarasulu,dc=example,dc=com&#39;
+        Simple authentication : &#39;(omitted-for-safety)&#39;
 </code></pre><p>(the &lsquo;password&rsquo; part is not exposed)</p>
 <p>Here is the stack trace when we call the <em>LdapEncoder.encodeMessage()</em> function on this message:</p>
-<pre><code>  encodeMessage()
+<pre tabindex="0"><code>  encodeMessage()
     encodeProtocolOp()
       BindRequestFactory.INSTANCE.encodeReverse()
         BerValue.encodeOctetString( buffer, ( byte ) LdapCodecConstants.BIND_REQUEST_SIMPLE_TAG, bindMessage.getCredentials() ) // encode the password
@@ -453,20 +456,20 @@ Message ID : 1
       BerValue.encodeInteger( buffer, message.getMessageId() ) // The message ID, 1
       BerValue.encodeSequence( buffer ) // The encapsulating LdapMessage tag and length
 </code></pre><p>Then we get the resulting buffer, move the content to the position 0, which finally get a buffer containing the following bytes:</p>
-<pre><code>0x30, 0x33,                 // LDAPMessage ::=SEQUENCE {
+<pre tabindex="0"><code>0x30, 0x33,                 // LDAPMessage ::=SEQUENCE {
   0x02, 0x01, 0x01,         // messageID MessageID
   0x60, 0x2E,               // CHOICE { ..., bindRequest BindRequest, ...
                             // BindRequest ::= APPLICATION[0] SEQUENCE {
     0x02, 0x01, 0x03,       // version INTEGER (1..127),
     0x04, 0x1F,             // name LDAPDN,
-      'u', 'i', 'd', '=', 'a', 'k', 'a', 'r', 'a', 's', 'u', 'l', 'u', ',',
-      'd', 'c', '=', 'e', 'x', 'a', 'm', 'p', 'l', 'e', ',', 'd', 'c', '=', 'c', 'o', 'm',
+      &#39;u&#39;, &#39;i&#39;, &#39;d&#39;, &#39;=&#39;, &#39;a&#39;, &#39;k&#39;, &#39;a&#39;, &#39;r&#39;, &#39;a&#39;, &#39;s&#39;, &#39;u&#39;, &#39;l&#39;, &#39;u&#39;, &#39;,&#39;,
+      &#39;d&#39;, &#39;c&#39;, &#39;=&#39;, &#39;e&#39;, &#39;x&#39;, &#39;a&#39;, &#39;m&#39;, &#39;p&#39;, &#39;l&#39;, &#39;e&#39;, &#39;,&#39;, &#39;d&#39;, &#39;c&#39;, &#39;=&#39;, &#39;c&#39;, &#39;o&#39;, &#39;m&#39;,
     0x80, 0x08,             // authentication AuthenticationChoice
                             // AuthenticationChoice ::= CHOICE { simple [0] OCTET STRING,
                             // ...
-      'p', 'a', 's', 's', 'w', 'o', 'r', 'd'
+      &#39;p&#39;, &#39;a&#39;, &#39;s&#39;, &#39;s&#39;, &#39;w&#39;, &#39;o&#39;, &#39;r&#39;, &#39;d&#39;
 </code></pre><p>Note that each <em>encode</em> method will store the data <em>at the end of the buffer</em>:</p>
-<pre><code>Initial buffer
+<pre tabindex="0"><code>Initial buffer
 
 +-----------------------------------------------------------------------+
 |.......................................................................|
@@ -479,7 +482,7 @@ After the credentials encoding:
 +---------------------------------------------------------+--+-+--------+
                                                        ^  ^ ^
                                                        |  | |
-                                                       |  | +--------- The 'password' string
+                                                       |  | +--------- The &#39;password&#39; string
                                                        |  |
                                                        |  +----------- The password length, 8
                                                        |
@@ -545,7 +548,6 @@ last, not least, we move the whole data to pos 0, and set the buffer limit to th
                                                                        +-- limit
 
 We can now send the encoded ASN1 buffer.
-
 </code></pre>
 
             
@@ -576,16 +578,18 @@ We can now send the encoded ASN1 buffer.
         <div id="endContent"></div>
     </div>
 
-    <div id="footer">
+    <div class="footer-wrapper">
+<div id="footer">
     &copy; 2003-2025, <a href="https://www.apache.org">The Apache Software Foundation</a> - <a href="https://privacy.apache.org/policies/privacy-policy-public.html">Privacy Policy</a><br />
     Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
-    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple, Fortress, Apache Fortress, EnMasse,
     Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
     trademarks of The Apache Software Foundation.
 </div>
-
 </div>
 
+</div>
+<div class="top-bottom-spacer"></div>
 </body>
 
 </html>

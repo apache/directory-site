@@ -1,20 +1,29 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
+
+    
+    
+        
+    
+
 <head>
     <meta charset="utf-8">
     <title>4.2.10 - ACI grammar &mdash; Apache Directory</title>
 
     <link href="/css/common.css" rel="stylesheet" type="text/css"/>
-    <link href="/css/green.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/apacheds.css" rel="stylesheet" type="text/css"/>
 
     <link rel="shortcut icon" href="/images/server-icon_16x16.png" />
     <script src="https://www.apachecon.com/event-images/snippet.js"></script>
 </head>
 
 <body>
+<div class="top-bottom-spacer"></div>
 <div id="container">
     <div id="header">
+    <span>Apache Directory</span>
     <a href="/"><div id="headerClick"></div></a>
     <div id="subProjectsNavBar">
         <a href="/">
@@ -83,7 +92,7 @@
 
                 <h5>Downloads</h5>
                 <ul>
-                    <li><a href="/apacheds/downloads.html">ApacheDS 2.0.0.AM27</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/apacheds/downloads.html">ApacheDS 2.0.0.AM27</a>&nbsp;&nbsp;<img src="/images/new_badge.svg" alt="" style="margin-bottom:-3px;" border="0"></li>
                     <li><a href="/apacheds/download-old-versions.html">Older versions</a></li>
                 </ul>
 
@@ -170,29 +179,29 @@ define by this grammar :</p>
 &lt;authenticationLevel&gt; ::= &quot;none&quot; | &quot;simple&quot; | &quot;strong&quot;
 
 &lt;itemOrUserFirst&gt; ::= 
-           &quot;itemFirst&quot; &lt;SP*&gt; ':' &lt;SP*&gt; '{' &lt;SP*&gt; &lt;itemType&gt; &lt;SP*&gt;
+		   &quot;itemFirst&quot; &lt;SP*&gt; ':' &lt;SP*&gt; '{' &lt;SP*&gt; &lt;itemType&gt; &lt;SP*&gt;
 '}' 
-           | 
-           &quot;userFirst&quot; &lt;SP*&gt; ':' &lt;SP*&gt; '{' &lt;SP*&gt; &lt;userType&gt; &lt;SP*&gt;
+		   | 
+		   &quot;userFirst&quot; &lt;SP*&gt; ':' &lt;SP*&gt; '{' &lt;SP*&gt; &lt;userType&gt; &lt;SP*&gt;
 '}'
 
 &lt;itemType&gt; ::= 
-        &quot;protectedItems&quot; &lt;SP*&gt; '{' &lt;SP*&gt; &lt;protectedItem?&gt; '}' &lt;SP*&gt; 
-                 ',' &lt;SP*&gt; '{' &lt;SP*&gt; &lt;anyItemPermission&gt; &lt;SP*&gt;
+	    &quot;protectedItems&quot; &lt;SP*&gt; '{' &lt;SP*&gt; &lt;protectedItem?&gt; '}' &lt;SP*&gt; 
+			     ',' &lt;SP*&gt; '{' &lt;SP*&gt; &lt;anyItemPermission&gt; &lt;SP*&gt;
 &lt;anyItemPermission*&gt; '}'
-        | 
-        &quot;itemPermissions&quot; &lt;SP+&gt; '{' &lt;SP*&gt; &lt;itemPermissions?&gt; '}' &lt;SP*&gt; 
-                 ',' &lt;SP*&gt; &quot;protectedItems&quot; &lt;SP*&gt; '{' &lt;SP*&gt;
+	    | 
+	    &quot;itemPermissions&quot; &lt;SP+&gt; '{' &lt;SP*&gt; &lt;itemPermissions?&gt; '}' &lt;SP*&gt; 
+			     ',' &lt;SP*&gt; &quot;protectedItems&quot; &lt;SP*&gt; '{' &lt;SP*&gt;
 &lt;protectedItem?&gt; '}'
 
 &lt;userType&gt; ::= 
-         &quot;userClasses&quot; &lt;SP+&gt; '{' &lt;SP*&gt; &lt;userClass?&gt; '}' &lt;SP*&gt; ',' 
-                   &lt;SP*&gt; '{' &lt;SP*&gt; &lt;anyUserPermission&gt; &lt;SP*&gt;
+	     &quot;userClasses&quot; &lt;SP+&gt; '{' &lt;SP*&gt; &lt;userClass?&gt; '}' &lt;SP*&gt; ',' 
+			       &lt;SP*&gt; '{' &lt;SP*&gt; &lt;anyUserPermission&gt; &lt;SP*&gt;
 &lt;anyUserPermission*&gt; '}'
-          |
-          &quot;userPermissions&quot; &lt;SP+&gt; '{' &lt;SP*&gt; &lt;userPermissions?&gt; '}'
+	      |
+	      &quot;userPermissions&quot; &lt;SP+&gt; '{' &lt;SP*&gt; &lt;userPermissions?&gt; '}'
 &lt;SP*&gt; ',' 
-                   &lt;SP*&gt; &quot;userClasses&quot; &lt;SP+&gt; '{' &lt;SP*&gt;
+			       &lt;SP*&gt; &quot;userClasses&quot; &lt;SP+&gt; '{' &lt;SP*&gt;
 &lt;userClass?&gt; '}'
 
 &lt;protectedItem?&gt; ::= &lt;protectedItem&gt; &lt;SP*&gt; &lt;protectedItem*&gt; | e
@@ -219,19 +228,19 @@ define by this grammar :</p>
 &lt;maxValueCount*&gt; | e
 
 &lt;valueCountType&gt; ::= 
-           &quot;type&quot; &lt;SP+&gt; &lt;oid&gt; &lt;SP*&gt; ',' &lt;SP*&gt; &quot;maxCount&quot; &lt;SP+&gt;
+		   &quot;type&quot; &lt;SP+&gt; &lt;oid&gt; &lt;SP*&gt; ',' &lt;SP*&gt; &quot;maxCount&quot; &lt;SP+&gt;
 INTEGER 
-            | 
-           &quot;maxCount&quot; &lt;SP+&gt; INTEGER &lt;SP*&gt; ',' &lt;SP*&gt; &quot;type&quot; &lt;SP+&gt;
+		    | 
+		   &quot;maxCount&quot; &lt;SP+&gt; INTEGER &lt;SP*&gt; ',' &lt;SP*&gt; &quot;type&quot; &lt;SP+&gt;
 &lt;oid&gt; 
     
 &lt;restrictedValue*&gt; ::= ',' &lt;SP*&gt; '{' &lt;SP*&gt; &lt;typeValueIn&gt; &lt;SP*&gt; '}' &lt;SP*&gt;
 &lt;restrictedValue*&gt; | e 
     
 &lt;typeValueIn&gt; ::=
-        &quot;type&quot; &lt;SP+&gt; &lt;oid&gt; &lt;SP*&gt; ',' &lt;SP*&gt; &quot;valuesIn&quot; &lt;SP+&gt; &lt;oid&gt;
-        |
-        &quot;valuesIn&quot; &lt;SP+&gt; &lt;oid&gt; &lt;SP*&gt; ',' &lt;SP*&gt; &quot;type&quot; &lt;SP+&gt; &lt;oid&gt;
+		&quot;type&quot; &lt;SP+&gt; &lt;oid&gt; &lt;SP*&gt; ',' &lt;SP*&gt; &quot;valuesIn&quot; &lt;SP+&gt; &lt;oid&gt;
+		|
+		&quot;valuesIn&quot; &lt;SP+&gt; &lt;oid&gt; &lt;SP*&gt; ',' &lt;SP*&gt; &quot;type&quot; &lt;SP+&gt; &lt;oid&gt;
 
 &lt;oids&gt; ::= ',' &lt;SP*&gt; &lt;oid&gt; &lt;SP*&gt; &lt;oids&gt; | e
 
@@ -239,7 +248,7 @@ INTEGER
 &lt;anyItemPermission*&gt; '}' &lt;SP*&gt; &lt;itemPermissions*&gt; | e
 
 &lt;itemPermissions*&gt; ::= 
-             ',' &lt;SP*&gt; '{' &lt;SP*&gt; &lt;anyItemPermission&gt; &lt;SP*&gt;
+		     ',' &lt;SP*&gt; '{' &lt;SP*&gt; &lt;anyItemPermission&gt; &lt;SP*&gt;
 &lt;anyItemPermission*&gt; '}' &lt;SP*&gt; &lt;itemPermissions*&gt; | e
 
 &lt;anyItemPermission*&gt; ::= ',' &lt;SP*&gt; &lt;anyItemPermission&gt; &lt;SP*&gt;
@@ -307,7 +316,7 @@ INTEGER
 &lt;anyUserPermission*&gt; '}' &lt;SP*&gt; &lt;userPermissions*&gt; | e
 
 &lt;userPermissions*&gt; ::= 
-             ',' &lt;SP*&gt; '{' &lt;SP*&gt; &lt;anyUserPermission&gt; &lt;SP*&gt;
+		     ',' &lt;SP*&gt; '{' &lt;SP*&gt; &lt;anyUserPermission&gt; &lt;SP*&gt;
 &lt;anyUserPermission*&gt; '}' &lt;SP*&gt; &lt;userPermissions*&gt; | e
 
 &lt;anyUserPermission*&gt; ::= ',' &lt;SP*&gt; &lt;anyUserPermission&gt; &lt;SP*&gt;
@@ -335,18 +344,18 @@ INTEGER
 &lt;specificExclusion*&gt; | e
 
 &lt;specificExclusion&gt; ::=
-              &quot;chopBefore&quot; &lt;SP*&gt; ':' &lt;SP*&gt; &lt;distinguishedName&gt; 
-              | 
-              &quot;chopAfter&quot; &lt;SP*&gt; ':' &lt;SP*&gt; &lt;distinguishedName&gt;
+		      &quot;chopBefore&quot; &lt;SP*&gt; ':' &lt;SP*&gt; &lt;distinguishedName&gt; 
+		      | 
+		      &quot;chopAfter&quot; &lt;SP*&gt; ':' &lt;SP*&gt; &lt;distinguishedName&gt;
 
 &lt;refinement&gt; ::= 
-           &quot;item&quot; &lt;SP*&gt; ':' &lt;SP*&gt; &lt;oid&gt; 
-           | 
-           &quot;and&quot; &lt;SP*&gt; ':' &lt;SP*&gt; '{' &lt;refinements?&gt; '}'
-           | 
-           &quot;or&quot; &lt;SP*&gt; ':' &lt;SP*&gt; '{' &lt;refinements?&gt; '}'
-           | 
-           &quot;not&quot; &lt;SP*&gt; ':' &lt;SP*&gt; '{' &lt;refinements?&gt; '}'
+	       &quot;item&quot; &lt;SP*&gt; ':' &lt;SP*&gt; &lt;oid&gt; 
+	       | 
+	       &quot;and&quot; &lt;SP*&gt; ':' &lt;SP*&gt; '{' &lt;refinements?&gt; '}'
+	       | 
+	       &quot;or&quot; &lt;SP*&gt; ':' &lt;SP*&gt; '{' &lt;refinements?&gt; '}'
+	       | 
+	       &quot;not&quot; &lt;SP*&gt; ':' &lt;SP*&gt; '{' &lt;refinements?&gt; '}'
 
 &lt;refinements?&gt; ::= &lt;SP*&gt; &lt;refinements?&gt; &lt;SP*&gt; &lt;refinement*&gt; | e
 
@@ -439,16 +448,18 @@ FILTER_VALUE : (options: ~( ')' | '(' | '&amp;' | '|' | '!' ) ( ~(')') )* ) ;
         <div id="endContent"></div>
     </div>
 
-    <div id="footer">
+    <div class="footer-wrapper">
+<div id="footer">
     &copy; 2003-2025, <a href="https://www.apache.org">The Apache Software Foundation</a> - <a href="https://privacy.apache.org/policies/privacy-policy-public.html">Privacy Policy</a><br />
     Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
-    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple, Fortress, Apache Fortress, EnMasse,
     Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
     trademarks of The Apache Software Foundation.
 </div>
-
 </div>
 
+</div>
+<div class="top-bottom-spacer"></div>
 </body>
 
 </html>

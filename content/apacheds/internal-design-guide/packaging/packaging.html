@@ -1,20 +1,29 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
+
+    
+    
+        
+    
+
 <head>
     <meta charset="utf-8">
     <title>Packaging &mdash; Apache Directory</title>
 
     <link href="/css/common.css" rel="stylesheet" type="text/css"/>
-    <link href="/css/green.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/apacheds.css" rel="stylesheet" type="text/css"/>
 
     <link rel="shortcut icon" href="/images/server-icon_16x16.png" />
     <script src="https://www.apachecon.com/event-images/snippet.js"></script>
 </head>
 
 <body>
+<div class="top-bottom-spacer"></div>
 <div id="container">
     <div id="header">
+    <span>Apache Directory</span>
     <a href="/"><div id="headerClick"></div></a>
     <div id="subProjectsNavBar">
         <a href="/">
@@ -83,7 +92,7 @@
 
                 <h5>Downloads</h5>
                 <ul>
-                    <li><a href="/apacheds/downloads.html">ApacheDS 2.0.0.AM27</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/apacheds/downloads.html">ApacheDS 2.0.0.AM27</a>&nbsp;&nbsp;<img src="/images/new_badge.svg" alt="" style="margin-bottom:-3px;" border="0"></li>
                     <li><a href="/apacheds/download-old-versions.html">Older versions</a></li>
                 </ul>
 
@@ -148,53 +157,53 @@
 <li>The <em>apacheds-installers</em> which is creatinhg the packages</li>
 </ul>
 <p>The <em>apacheds-installers</em> project defines each of the target in its <em>pom.xml</em> file. For instance, for the <em>Debian</em> installer, we will use this configuration:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml">    <span style="color:#008000;font-weight:bold">&lt;profile</span><span style="color:#008000;font-weight:bold">&gt;</span>
-      <span style="color:#008000;font-weight:bold">&lt;id</span><span style="color:#008000;font-weight:bold">&gt;</span>debian<span style="color:#008000;font-weight:bold">&lt;/id&gt;</span>
-      <span style="color:#008000;font-weight:bold">&lt;build</span><span style="color:#008000;font-weight:bold">&gt;</span>
-        <span style="color:#008000;font-weight:bold">&lt;plugins</span><span style="color:#008000;font-weight:bold">&gt;</span>
-          <span style="color:#080;font-style:italic">&lt;!--</span><span style="color:#080;font-style:italic"> Generating installers </span><span style="color:#080;font-style:italic">--&gt;</span>
-          <span style="color:#008000;font-weight:bold">&lt;plugin</span><span style="color:#008000;font-weight:bold">&gt;</span>
-            <span style="color:#008000;font-weight:bold">&lt;groupId</span><span style="color:#008000;font-weight:bold">&gt;</span>${project.groupId}<span style="color:#008000;font-weight:bold">&lt;/groupId&gt;</span>
-            <span style="color:#008000;font-weight:bold">&lt;artifactId</span><span style="color:#008000;font-weight:bold">&gt;</span>apacheds-installers-maven-plugin<span style="color:#008000;font-weight:bold">&lt;/artifactId&gt;</span>
-            <span style="color:#008000;font-weight:bold">&lt;configuration</span><span style="color:#008000;font-weight:bold">&gt;</span>
-              <span style="color:#080;font-style:italic">&lt;!--</span><span style="color:#080;font-style:italic"> Targets for Linux .deb installer package </span><span style="color:#080;font-style:italic">--&gt;</span>
-              <span style="color:#008000;font-weight:bold">&lt;debTargets</span><span style="color:#008000;font-weight:bold">&gt;</span>
-                <span style="color:#008000;font-weight:bold">&lt;debTarget</span><span style="color:#008000;font-weight:bold">&gt;</span>
-                  <span style="color:#008000;font-weight:bold">&lt;id</span><span style="color:#008000;font-weight:bold">&gt;</span>apacheds-debian-i386<span style="color:#008000;font-weight:bold">&lt;/id&gt;</span>
-                  <span style="color:#008000;font-weight:bold">&lt;finalName</span><span style="color:#008000;font-weight:bold">&gt;</span>apacheds-${project.version}-i386.deb<span style="color:#008000;font-weight:bold">&lt;/finalName&gt;</span>
-                  <span style="color:#008000;font-weight:bold">&lt;osArch</span><span style="color:#008000;font-weight:bold">&gt;</span>i386<span style="color:#008000;font-weight:bold">&lt;/osArch&gt;</span>
-                <span style="color:#008000;font-weight:bold">&lt;/debTarget&gt;</span>
-                
-                <span style="color:#008000;font-weight:bold">&lt;debTarget</span><span style="color:#008000;font-weight:bold">&gt;</span>
-                 <span style="color:#008000;font-weight:bold">&lt;id</span><span style="color:#008000;font-weight:bold">&gt;</span>apacheds-debian-amd64<span style="color:#008000;font-weight:bold">&lt;/id&gt;</span>
-                  <span style="color:#008000;font-weight:bold">&lt;finalName</span><span style="color:#008000;font-weight:bold">&gt;</span>apacheds-${project.version}-amd64.deb<span style="color:#008000;font-weight:bold">&lt;/finalName&gt;</span>
-                  <span style="color:#008000;font-weight:bold">&lt;osArch</span><span style="color:#008000;font-weight:bold">&gt;</span>amd64<span style="color:#008000;font-weight:bold">&lt;/osArch&gt;</span>
-                <span style="color:#008000;font-weight:bold">&lt;/debTarget&gt;</span>
-              <span style="color:#008000;font-weight:bold">&lt;/debTargets&gt;</span>
-            <span style="color:#008000;font-weight:bold">&lt;/configuration&gt;</span>
-
-            <span style="color:#008000;font-weight:bold">&lt;executions</span><span style="color:#008000;font-weight:bold">&gt;</span>
-              <span style="color:#008000;font-weight:bold">&lt;execution</span><span style="color:#008000;font-weight:bold">&gt;</span>
-                <span style="color:#008000;font-weight:bold">&lt;goals</span><span style="color:#008000;font-weight:bold">&gt;</span>
-                  <span style="color:#008000;font-weight:bold">&lt;goal</span><span style="color:#008000;font-weight:bold">&gt;</span>generate<span style="color:#008000;font-weight:bold">&lt;/goal&gt;</span>
-                <span style="color:#008000;font-weight:bold">&lt;/goals&gt;</span>
-              <span style="color:#008000;font-weight:bold">&lt;/execution&gt;</span>
-            <span style="color:#008000;font-weight:bold">&lt;/executions&gt;</span>
-          <span style="color:#008000;font-weight:bold">&lt;/plugin&gt;</span>
-        <span style="color:#008000;font-weight:bold">&lt;/plugins&gt;</span>
-        
-        <span style="color:#008000;font-weight:bold">&lt;pluginManagement</span><span style="color:#008000;font-weight:bold">&gt;</span>
-          <span style="color:#008000;font-weight:bold">&lt;plugins</span><span style="color:#008000;font-weight:bold">&gt;</span>
-            <span style="color:#008000;font-weight:bold">&lt;plugin</span><span style="color:#008000;font-weight:bold">&gt;</span>
-              <span style="color:#008000;font-weight:bold">&lt;groupId</span><span style="color:#008000;font-weight:bold">&gt;</span>${project.groupId}<span style="color:#008000;font-weight:bold">&lt;/groupId&gt;</span>
-              <span style="color:#008000;font-weight:bold">&lt;artifactId</span><span style="color:#008000;font-weight:bold">&gt;</span>apacheds-installers-maven-plugin<span style="color:#008000;font-weight:bold">&lt;/artifactId&gt;</span>
-              <span style="color:#008000;font-weight:bold">&lt;version</span><span style="color:#008000;font-weight:bold">&gt;</span>${project.version}<span style="color:#008000;font-weight:bold">&lt;/version&gt;</span>
-            <span style="color:#008000;font-weight:bold">&lt;/plugin&gt;</span>
-          <span style="color:#008000;font-weight:bold">&lt;/plugins&gt;</span>
-        <span style="color:#008000;font-weight:bold">&lt;/pluginManagement&gt;</span>
-      <span style="color:#008000;font-weight:bold">&lt;/build&gt;</span>
-    <span style="color:#008000;font-weight:bold">&lt;/profile&gt;</span>
-</code></pre></div><p>We can see we have defined a specific profile for this package, <em>debian</em>, and that the <em>apacheds-installers-maven-plugin</em> plugin is configured to support two kinds of packages (<em>osArch</em> parameter):</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span>    <span style="color:#008000;font-weight:bold">&lt;profile&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#008000;font-weight:bold">&lt;id&gt;</span>debian<span style="color:#008000;font-weight:bold">&lt;/id&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#008000;font-weight:bold">&lt;build&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#008000;font-weight:bold">&lt;plugins&gt;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#080;font-style:italic">&lt;!-- Generating installers --&gt;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#008000;font-weight:bold">&lt;plugin&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#008000;font-weight:bold">&lt;groupId&gt;</span>${project.groupId}<span style="color:#008000;font-weight:bold">&lt;/groupId&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#008000;font-weight:bold">&lt;artifactId&gt;</span>apacheds-installers-maven-plugin<span style="color:#008000;font-weight:bold">&lt;/artifactId&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#008000;font-weight:bold">&lt;configuration&gt;</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#080;font-style:italic">&lt;!-- Targets for Linux .deb installer package --&gt;</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#008000;font-weight:bold">&lt;debTargets&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#008000;font-weight:bold">&lt;debTarget&gt;</span>
+</span></span><span style="display:flex;"><span>                  <span style="color:#008000;font-weight:bold">&lt;id&gt;</span>apacheds-debian-i386<span style="color:#008000;font-weight:bold">&lt;/id&gt;</span>
+</span></span><span style="display:flex;"><span>                  <span style="color:#008000;font-weight:bold">&lt;finalName&gt;</span>apacheds-${project.version}-i386.deb<span style="color:#008000;font-weight:bold">&lt;/finalName&gt;</span>
+</span></span><span style="display:flex;"><span>                  <span style="color:#008000;font-weight:bold">&lt;osArch&gt;</span>i386<span style="color:#008000;font-weight:bold">&lt;/osArch&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#008000;font-weight:bold">&lt;/debTarget&gt;</span>
+</span></span><span style="display:flex;"><span>                
+</span></span><span style="display:flex;"><span>                <span style="color:#008000;font-weight:bold">&lt;debTarget&gt;</span>
+</span></span><span style="display:flex;"><span>                 <span style="color:#008000;font-weight:bold">&lt;id&gt;</span>apacheds-debian-amd64<span style="color:#008000;font-weight:bold">&lt;/id&gt;</span>
+</span></span><span style="display:flex;"><span>                  <span style="color:#008000;font-weight:bold">&lt;finalName&gt;</span>apacheds-${project.version}-amd64.deb<span style="color:#008000;font-weight:bold">&lt;/finalName&gt;</span>
+</span></span><span style="display:flex;"><span>                  <span style="color:#008000;font-weight:bold">&lt;osArch&gt;</span>amd64<span style="color:#008000;font-weight:bold">&lt;/osArch&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#008000;font-weight:bold">&lt;/debTarget&gt;</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#008000;font-weight:bold">&lt;/debTargets&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#008000;font-weight:bold">&lt;/configuration&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#008000;font-weight:bold">&lt;executions&gt;</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#008000;font-weight:bold">&lt;execution&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#008000;font-weight:bold">&lt;goals&gt;</span>
+</span></span><span style="display:flex;"><span>                  <span style="color:#008000;font-weight:bold">&lt;goal&gt;</span>generate<span style="color:#008000;font-weight:bold">&lt;/goal&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#008000;font-weight:bold">&lt;/goals&gt;</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#008000;font-weight:bold">&lt;/execution&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#008000;font-weight:bold">&lt;/executions&gt;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#008000;font-weight:bold">&lt;/plugin&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#008000;font-weight:bold">&lt;/plugins&gt;</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#008000;font-weight:bold">&lt;pluginManagement&gt;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#008000;font-weight:bold">&lt;plugins&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#008000;font-weight:bold">&lt;plugin&gt;</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#008000;font-weight:bold">&lt;groupId&gt;</span>${project.groupId}<span style="color:#008000;font-weight:bold">&lt;/groupId&gt;</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#008000;font-weight:bold">&lt;artifactId&gt;</span>apacheds-installers-maven-plugin<span style="color:#008000;font-weight:bold">&lt;/artifactId&gt;</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#008000;font-weight:bold">&lt;version&gt;</span>${project.version}<span style="color:#008000;font-weight:bold">&lt;/version&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#008000;font-weight:bold">&lt;/plugin&gt;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#008000;font-weight:bold">&lt;/plugins&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#008000;font-weight:bold">&lt;/pluginManagement&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#008000;font-weight:bold">&lt;/build&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#008000;font-weight:bold">&lt;/profile&gt;</span>
+</span></span></code></pre></div><p>We can see we have defined a specific profile for this package, <em>debian</em>, and that the <em>apacheds-installers-maven-plugin</em> plugin is configured to support two kinds of packages (<em>osArch</em> parameter):</p>
 <ul>
 <li>A <em>i386</em> package</li>
 <li>An <em>amd64</em> packager</li>
@@ -240,16 +249,18 @@
         <div id="endContent"></div>
     </div>
 
-    <div id="footer">
+    <div class="footer-wrapper">
+<div id="footer">
     &copy; 2003-2025, <a href="https://www.apache.org">The Apache Software Foundation</a> - <a href="https://privacy.apache.org/policies/privacy-policy-public.html">Privacy Policy</a><br />
     Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
-    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple, Fortress, Apache Fortress, EnMasse,
     Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
     trademarks of The Apache Software Foundation.
 </div>
-
 </div>
 
+</div>
+<div class="top-bottom-spacer"></div>
 </body>
 
 </html>

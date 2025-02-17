@@ -1,20 +1,29 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
+
+    
+    
+        
+    
+
 <head>
     <meta charset="utf-8">
     <title>4.2.1 - Schema Objects &mdash; Apache Directory</title>
 
     <link href="/css/common.css" rel="stylesheet" type="text/css"/>
-    <link href="/css/brown.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/api.css" rel="stylesheet" type="text/css"/>
 
     <link rel="shortcut icon" href="/images/server-icon_16x16.png" />
     <script src="https://www.apachecon.com/event-images/snippet.js"></script>
 </head>
 
 <body>
+<div class="top-bottom-spacer"></div>
 <div id="container">
     <div id="header">
+    <span>Apache Directory</span>
     <a href="/"><div id="headerClick"></div></a>
     <div id="subProjectsNavBar">
         <a href="/">
@@ -81,7 +90,7 @@
 
                 <h5>Downloads</h5>
                 <ul>
-                    <li><a href="/api/downloads-2.html">Version 2.1.7</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/downloads-2.html">Version 2.1.7</a>&nbsp;&nbsp;<img src="/images/new_badge.svg" alt="" style="margin-bottom:-3px;" border="0"></li>
                     <li><a href="/api/downloads-1.html">Version 1.0.3</a>&nbsp;&nbsp;</li>
                     <li><a href="/api/download-old-versions.html">Older versions</a></li>
                 </ul>
@@ -178,58 +187,58 @@
 <h2 id="the-schema-object-list">The Schema Object list</h2>
 <p>Here are the 8 LDAP <strong>SchemaObject</strong>s and the 3 additional ones :</p>
 <table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong><a href="4.2.1.2-object-classes.html">ObjectClasses (e)</a></strong></td>
-<td>Defines the permitted <strong>AttributeType</strong>s of an entry</td>
-</tr>
-<tr>
-<td><strong><a href="4.2.1.1-attribute-types.html">AttributeTypes (&hellip;)</a></strong></td>
-<td>Defines the type of attributes we can store in an entry</td>
-</tr>
-<tr>
-<td><strong><a href="4.2.1.3-syntaxes.html">Syntaxes (e)</a></strong></td>
-<td>Defines the syntax that is applied to the <strong>AttributeType</strong> values</td>
-</tr>
-<tr>
-<td><strong><a href="4.2.1.4-matching-rules.html">MatchingRules (e)</a></strong></td>
-<td>The rules that are used to match <strong>AttributeType</strong>&lsquo;s values</td>
-</tr>
-<tr>
-<td><strong><a href="4.2.1.5-dit-content-rules.html">DITContentRules (e)</a></strong></td>
-<td>Defines the allowed or forbidden <strong>AttributeType</strong>s and <strong>ObjectClasse</strong>s</td>
-</tr>
-<tr>
-<td><strong><a href="4.2.1.6-dit-structure-rules.html">DITStructureRules (e)</a></strong></td>
-<td>Defines the hierarchical relationships between entries</td>
-</tr>
-<tr>
-<td><strong><a href="4.2.1.8-name-forms.html">NameForms (e)</a></strong></td>
-<td>Defines the <strong>AttributeType</strong>s that may be use in a <strong>RDN</strong></td>
-</tr>
-<tr>
-<td><strong><a href="4.2.1.7-matching-rule-uses.html">MatchingRuleUses (e)</a></strong></td>
-<td>Defines the <strong>AttributeType</strong>s that can be used for a <strong>MatchingRule</strong></td>
-</tr>
-<tr>
-<td><em><strong><a href="">SyntaxChecker (e)</a></strong></em></td>
-<td>The function that do the check on values</td>
-</tr>
-<tr>
-<td><em><strong><a href="">Normalizer (e)</a></strong></em></td>
-<td>The function that normalize the values</td>
-</tr>
-<tr>
-<td><em><strong><a href="">LdapComparator (e)</a></strong></em></td>
-<td>The function that compare two values</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Name</th>
+          <th>Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong><a href="4.2.1.2-object-classes.html">ObjectClasses (e)</a></strong></td>
+          <td>Defines the permitted <strong>AttributeType</strong>s of an entry</td>
+      </tr>
+      <tr>
+          <td><strong><a href="4.2.1.1-attribute-types.html">AttributeTypes (&hellip;)</a></strong></td>
+          <td>Defines the type of attributes we can store in an entry</td>
+      </tr>
+      <tr>
+          <td><strong><a href="4.2.1.3-syntaxes.html">Syntaxes (e)</a></strong></td>
+          <td>Defines the syntax that is applied to the <strong>AttributeType</strong> values</td>
+      </tr>
+      <tr>
+          <td><strong><a href="4.2.1.4-matching-rules.html">MatchingRules (e)</a></strong></td>
+          <td>The rules that are used to match <strong>AttributeType</strong>&rsquo;s values</td>
+      </tr>
+      <tr>
+          <td><strong><a href="4.2.1.5-dit-content-rules.html">DITContentRules (e)</a></strong></td>
+          <td>Defines the allowed or forbidden <strong>AttributeType</strong>s and <strong>ObjectClasse</strong>s</td>
+      </tr>
+      <tr>
+          <td><strong><a href="4.2.1.6-dit-structure-rules.html">DITStructureRules (e)</a></strong></td>
+          <td>Defines the hierarchical relationships between entries</td>
+      </tr>
+      <tr>
+          <td><strong><a href="4.2.1.8-name-forms.html">NameForms (e)</a></strong></td>
+          <td>Defines the <strong>AttributeType</strong>s that may be use in a <strong>RDN</strong></td>
+      </tr>
+      <tr>
+          <td><strong><a href="4.2.1.7-matching-rule-uses.html">MatchingRuleUses (e)</a></strong></td>
+          <td>Defines the <strong>AttributeType</strong>s that can be used for a <strong>MatchingRule</strong></td>
+      </tr>
+      <tr>
+          <td><em><strong><a href="">SyntaxChecker (e)</a></strong></em></td>
+          <td>The function that do the check on values</td>
+      </tr>
+      <tr>
+          <td><em><strong><a href="">Normalizer (e)</a></strong></em></td>
+          <td>The function that normalize the values</td>
+      </tr>
+      <tr>
+          <td><em><strong><a href="">LdapComparator (e)</a></strong></em></td>
+          <td>The function that compare two values</td>
+      </tr>
+  </tbody>
 </table>
 <p>The last three elements are ApacheDS specific.</p>
 <p>All those elements have some tight relationships. The following schema expose all the relations between all those elements :</p>
@@ -287,16 +296,18 @@
         <div id="endContent"></div>
     </div>
 
-    <div id="footer">
+    <div class="footer-wrapper">
+<div id="footer">
     &copy; 2003-2025, <a href="https://www.apache.org">The Apache Software Foundation</a> - <a href="https://privacy.apache.org/policies/privacy-policy-public.html">Privacy Policy</a><br />
     Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
-    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple, Fortress, Apache Fortress, EnMasse,
     Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
     trademarks of The Apache Software Foundation.
 </div>
-
 </div>
 
+</div>
+<div class="top-bottom-spacer"></div>
 </body>
 
 </html>

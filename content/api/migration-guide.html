@@ -1,20 +1,29 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
+
+    
+    
+        
+    
+
 <head>
     <meta charset="utf-8">
     <title>API 1.0 to 2.0 migration guide &mdash; Apache Directory</title>
 
     <link href="/css/common.css" rel="stylesheet" type="text/css"/>
-    <link href="/css/brown.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/api.css" rel="stylesheet" type="text/css"/>
 
     <link rel="shortcut icon" href="/images/server-icon_16x16.png" />
     <script src="https://www.apachecon.com/event-images/snippet.js"></script>
 </head>
 
 <body>
+<div class="top-bottom-spacer"></div>
 <div id="container">
     <div id="header">
+    <span>Apache Directory</span>
     <a href="/"><div id="headerClick"></div></a>
     <div id="subProjectsNavBar">
         <a href="/">
@@ -81,7 +90,7 @@
 
                 <h5>Downloads</h5>
                 <ul>
-                    <li><a href="/api/downloads-2.html">Version 2.1.7</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/downloads-2.html">Version 2.1.7</a>&nbsp;&nbsp;<img src="/images/new_badge.svg" alt="" style="margin-bottom:-3px;" border="0"></li>
                     <li><a href="/api/downloads-1.html">Version 1.0.3</a>&nbsp;&nbsp;</li>
                     <li><a href="/api/download-old-versions.html">Older versions</a></li>
                 </ul>
@@ -148,7 +157,7 @@
 <li>StringValue</li>
 </ul>
 <p>They are all replaced by a single class, <em>Value</em>, that is not anymore parametered.</p>
-<p>We now have to use the <em>Value</em> class only. That is not a really big trouble, as everywhere you were using <em>Value<?>*, you just have to remove the *<?></em>.</p>
+<p>We now have to use the <em>Value</em> class only. That is not a really big trouble, as everywhere you were using <em>Value<?></em>, you just have to remove the <em><?></em>.</p>
 <p>Do not anymore use <em>new BinaryValue( byte[] )</em> or <em>new StringValue( String )</em>, just do <em>new Value( byte[] )</em> and <em>new Value( String )</em>.</p>
 <p>There are a few methods that has changed, like <em>getValues()</em> that now always returns a <em>String</em> (even for a <em>byte[]</em>, which will be dumped as a hexadecimal string). If you want to get the <em>byte[]</em> from the <em>Value</em>, use <em>getBytes()</em>.</p>
 <h3 id="connection-pool">Connection pool</h3>
@@ -162,16 +171,18 @@
         <div id="endContent"></div>
     </div>
 
-    <div id="footer">
+    <div class="footer-wrapper">
+<div id="footer">
     &copy; 2003-2025, <a href="https://www.apache.org">The Apache Software Foundation</a> - <a href="https://privacy.apache.org/policies/privacy-policy-public.html">Privacy Policy</a><br />
     Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
-    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple, Fortress, Apache Fortress, EnMasse,
     Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
     trademarks of The Apache Software Foundation.
 </div>
-
 </div>
 
+</div>
+<div class="top-bottom-spacer"></div>
 </body>
 
 </html>

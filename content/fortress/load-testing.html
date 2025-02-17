@@ -1,20 +1,29 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
+
+    
+    
+        
+    
+
 <head>
     <meta charset="utf-8">
     <title>Load Testing &mdash; Apache Directory</title>
 
     <link href="/css/common.css" rel="stylesheet" type="text/css"/>
-    <link href="/css/turquoise.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/fortress.css" rel="stylesheet" type="text/css"/>
 
     <link rel="shortcut icon" href="/images/server-icon_16x16.png" />
     <script src="https://www.apachecon.com/event-images/snippet.js"></script>
 </head>
 
 <body>
+<div class="top-bottom-spacer"></div>
 <div id="container">
     <div id="header">
+    <span>Apache Directory</span>
     <a href="/"><div id="headerClick"></div></a>
     <div id="subProjectsNavBar">
         <a href="/">
@@ -82,7 +91,7 @@
 
                 <h5>Downloads</h5>
                 <ul>
-                    <li><a href="/fortress/downloads.html">Fortress 3.0.0</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/fortress/downloads.html">Fortress 3.0.0</a>&nbsp;&nbsp;<img src="/images/new_badge.svg" alt="" style="margin-bottom:-3px;" border="0"></li>
                     <li><a href="/fortress/download-old-versions.html">Older versions</a></li>
                 </ul>
 
@@ -139,21 +148,21 @@ Typical tests insert millions of entries and process authentication and authoriz
 For production deployments, it&rsquo;s not unusual to run tests for many days, even weeks, to verify that the environment can handle the expected loads, over time, without degradation or faults.</p>
 <p>How fast/long can it run? Take it for a test drive in your env and find out.</p>
 <h3 id="typical-deployment">Typical deployment</h3>
-<pre><code>            .--------------.      
+<pre tabindex="0"><code>            .--------------.      
             |     Maven    |      
-            '-------.------'      
+            &#39;-------.------&#39;      
                     | in-process
-            .-------'-------.
+            .-------&#39;-------.
             | Jmeter plugin |
-            '-------.-------'
+            &#39;-------.-------&#39;
                     | in-process
-            .-------'------.
+            .-------&#39;------.
             | FortressCore |
-            '-------.------'
+            &#39;-------.------&#39;
                     | LDAPS
-          .---------'-------.
+          .---------&#39;-------.
           | DirectoryServer |
-          '-----------------'
+          &#39;-----------------&#39;
 </code></pre><ul>
 <li>Uses the <code>mvn verify</code> command to invoke maven jmeter plugin which then executes jmeter tests running various fortress core test cases.</li>
 </ul>
@@ -169,7 +178,7 @@ For production deployments, it&rsquo;s not unusual to run tests for many days, e
 <h3 id="instructions-to-run-the-load-tests">Instructions to run the Load Tests</h3>
 <h4 id="1-load-the-security-policy">1. Load the security policy</h4>
 <p>Use the <a href="http://fortress-a:1313/fortress/load-utility.html">Fortress Load Utility</a> to load a <a href="https://github.com/apache/directory-fortress-core/blob/master/ldap/setup/JmeterTestPolicy.xml">Jmeter Test Policy</a>:</p>
-<pre><code>mvn install -Dload.file=./ldap/setup/JmeterTestPolicy.xml
+<pre tabindex="0"><code>mvn install -Dload.file=./ldap/setup/JmeterTestPolicy.xml
 </code></pre><h4 id="2-find-the-jmx-files">2. Find the .jmx files</h4>
 <p>Next, edit one of the following jmeter config files to enable a corresponding test case:</p>
 <p>A. Add User:</p>
@@ -245,39 +254,39 @@ For production deployments, it&rsquo;s not unusual to run tests for many days, e
 <li><strong>ThreadGroup.ramp_time</strong>: integer value, number of seconds for starting threads.  A rule of thumb, set to same as num_threads.</li>
 </ul>
 <p>For example:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#008000;font-weight:bold">&lt;ThreadGroup</span> <span style="color:#b44">guiclass=</span><span style="color:#b44">&#34;ThreadGroupGui&#34;</span> <span style="color:#b44">testclass=</span><span style="color:#b44">&#34;ThreadGroup&#34;</span> <span style="color:#b44">testname=</span><span style="color:#b44">&#34;Fortress CreateSession&#34;</span> <span style="color:#b44">enabled=</span><span style="color:#b44">&#34;true&#34;</span><span style="color:#008000;font-weight:bold">&gt;</span>
- ...
- <span style="color:#008000;font-weight:bold">&lt;elementProp</span> <span style="color:#b44">name=</span><span style="color:#b44">&#34;ThreadGroup.main_controller&#34;</span> <span style="">.</span><span style="">.</span><span style="">.</span><span style="color:#008000;font-weight:bold">&gt;</span>
-     <span style="color:#008000;font-weight:bold">&lt;boolProp</span> <span style="color:#b44">name=</span><span style="color:#b44">&#34;LoopController.continue_forever&#34;</span><span style="color:#008000;font-weight:bold">&gt;</span>false<span style="color:#008000;font-weight:bold">&lt;/boolProp&gt;</span>
-     <span style="color:#008000;font-weight:bold">&lt;stringProp</span> <span style="color:#b44">name=</span><span style="color:#b44">&#34;LoopController.loops&#34;</span><span style="color:#008000;font-weight:bold">&gt;</span>1000<span style="color:#008000;font-weight:bold">&lt;/stringProp&gt;</span>
- <span style="color:#008000;font-weight:bold">&lt;/elementProp&gt;</span>
- <span style="color:#008000;font-weight:bold">&lt;stringProp</span> <span style="color:#b44">name=</span><span style="color:#b44">&#34;ThreadGroup.num_threads&#34;</span><span style="color:#008000;font-weight:bold">&gt;</span>10<span style="color:#008000;font-weight:bold">&lt;/stringProp&gt;</span>
- <span style="color:#008000;font-weight:bold">&lt;stringProp</span> <span style="color:#b44">name=</span><span style="color:#b44">&#34;ThreadGroup.ramp_time&#34;</span><span style="color:#008000;font-weight:bold">&gt;</span>10<span style="color:#008000;font-weight:bold">&lt;/stringProp&gt;</span>
- ...
-<span style="color:#008000;font-weight:bold">&lt;/ThreadGroup&gt;</span>
-</code></pre></div><p>This test will start ten threads in ten seconds.  Each thread executes the <em>createSession</em> function 1000 times before terminating.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#008000;font-weight:bold">&lt;ThreadGroup</span> <span style="color:#b44">guiclass=</span><span style="color:#b44">&#34;ThreadGroupGui&#34;</span> <span style="color:#b44">testclass=</span><span style="color:#b44">&#34;ThreadGroup&#34;</span> <span style="color:#b44">testname=</span><span style="color:#b44">&#34;Fortress CreateSession&#34;</span> <span style="color:#b44">enabled=</span><span style="color:#b44">&#34;true&#34;</span><span style="color:#008000;font-weight:bold">&gt;</span>
+</span></span><span style="display:flex;"><span> ...
+</span></span><span style="display:flex;"><span> <span style="color:#008000;font-weight:bold">&lt;elementProp</span> <span style="color:#b44">name=</span><span style="color:#b44">&#34;ThreadGroup.main_controller&#34;</span> <span style="">...</span><span style="color:#008000;font-weight:bold">&gt;</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#008000;font-weight:bold">&lt;boolProp</span> <span style="color:#b44">name=</span><span style="color:#b44">&#34;LoopController.continue_forever&#34;</span><span style="color:#008000;font-weight:bold">&gt;</span>false<span style="color:#008000;font-weight:bold">&lt;/boolProp&gt;</span>
+</span></span><span style="display:flex;"><span>     <span style="color:#008000;font-weight:bold">&lt;stringProp</span> <span style="color:#b44">name=</span><span style="color:#b44">&#34;LoopController.loops&#34;</span><span style="color:#008000;font-weight:bold">&gt;</span>1000<span style="color:#008000;font-weight:bold">&lt;/stringProp&gt;</span>
+</span></span><span style="display:flex;"><span> <span style="color:#008000;font-weight:bold">&lt;/elementProp&gt;</span>
+</span></span><span style="display:flex;"><span> <span style="color:#008000;font-weight:bold">&lt;stringProp</span> <span style="color:#b44">name=</span><span style="color:#b44">&#34;ThreadGroup.num_threads&#34;</span><span style="color:#008000;font-weight:bold">&gt;</span>10<span style="color:#008000;font-weight:bold">&lt;/stringProp&gt;</span>
+</span></span><span style="display:flex;"><span> <span style="color:#008000;font-weight:bold">&lt;stringProp</span> <span style="color:#b44">name=</span><span style="color:#b44">&#34;ThreadGroup.ramp_time&#34;</span><span style="color:#008000;font-weight:bold">&gt;</span>10<span style="color:#008000;font-weight:bold">&lt;/stringProp&gt;</span>
+</span></span><span style="display:flex;"><span> ...
+</span></span><span style="display:flex;"><span><span style="color:#008000;font-weight:bold">&lt;/ThreadGroup&gt;</span>
+</span></span></code></pre></div><p>This test will start ten threads in ten seconds.  Each thread executes the <em>createSession</em> function 1000 times before terminating.</p>
 <h4 id="4-configure-log4j2">4. Configure Log4j2</h4>
 <p>The jmeter-maven-plugin log4j config file, <a href="https://github.com/apache/directory-fortress-core/blob/master/src/test/conf/log4j2.xml">log4j2.xml</a> must be present in the src/test/conf folder.</p>
 <h5 id="srctestconflog4j2xml-config-file">src/test/conf/log4j2.xml config file:</h5>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#080">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
-<span style="color:#008000;font-weight:bold">&lt;Configuration</span><span style="color:#008000;font-weight:bold">&gt;</span>
-    <span style="color:#008000;font-weight:bold">&lt;Appenders</span><span style="color:#008000;font-weight:bold">&gt;</span>
-        <span style="color:#008000;font-weight:bold">&lt;File</span> <span style="color:#b44">name=</span><span style="color:#b44">&#34;file&#34;</span> <span style="color:#b44">fileName=</span><span style="color:#b44">&#34;fortress-jmeter.log&#34;</span> <span style="color:#b44">append=</span><span style="color:#b44">&#34;true&#34;</span><span style="color:#008000;font-weight:bold">&gt;</span>
-            <span style="color:#008000;font-weight:bold">&lt;PatternLayout</span> <span style="color:#b44">pattern=</span><span style="color:#b44">&#34;%d{yyyy-MM-dd HH:mm:sss} %-5p %c{1}:%L - %m%n&#34;</span><span style="color:#008000;font-weight:bold">/&gt;</span>
-        <span style="color:#008000;font-weight:bold">&lt;/File&gt;</span>
-        <span style="color:#008000;font-weight:bold">&lt;Console</span> <span style="color:#b44">name=</span><span style="color:#b44">&#34;console&#34;</span> <span style="color:#b44">target=</span><span style="color:#b44">&#34;SYSTEM_OUT&#34;</span><span style="color:#008000;font-weight:bold">&gt;</span>
-            <span style="color:#008000;font-weight:bold">&lt;PatternLayout</span> <span style="color:#b44">pattern=</span><span style="color:#b44">&#34;%d{yyyy-MM-dd HH:mm:sss} %-5p %c{1}:%L - %m%n&#34;</span><span style="color:#008000;font-weight:bold">/&gt;</span>
-        <span style="color:#008000;font-weight:bold">&lt;/Console&gt;</span>
-    <span style="color:#008000;font-weight:bold">&lt;/Appenders&gt;</span>
-    <span style="color:#008000;font-weight:bold">&lt;Loggers</span><span style="color:#008000;font-weight:bold">&gt;</span>
-        <span style="color:#008000;font-weight:bold">&lt;Logger</span> <span style="color:#b44">name=</span><span style="color:#b44">&#34;org.apache.directory.api&#34;</span> <span style="color:#b44">level=</span><span style="color:#b44">&#34;info&#34;</span><span style="color:#008000;font-weight:bold">/&gt;</span>
-        <span style="color:#008000;font-weight:bold">&lt;Logger</span> <span style="color:#b44">name=</span><span style="color:#b44">&#34;org.apache.directory.fortress.core&#34;</span> <span style="color:#b44">level=</span><span style="color:#b44">&#34;info&#34;</span><span style="color:#008000;font-weight:bold">/&gt;</span>
-        <span style="color:#008000;font-weight:bold">&lt;Root</span> <span style="color:#b44">level=</span><span style="color:#b44">&#34;warn&#34;</span><span style="color:#008000;font-weight:bold">&gt;</span>
-            <span style="color:#008000;font-weight:bold">&lt;AppenderRef</span> <span style="color:#b44">ref=</span><span style="color:#b44">&#34;file&#34;</span><span style="color:#008000;font-weight:bold">/&gt;</span>
-        <span style="color:#008000;font-weight:bold">&lt;/Root&gt;</span>
-    <span style="color:#008000;font-weight:bold">&lt;/Loggers&gt;</span>
-<span style="color:#008000;font-weight:bold">&lt;/Configuration&gt;</span>
-</code></pre></div><p>Tips:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#080">&lt;?xml version=&#34;1.0&#34; encoding=&#34;UTF-8&#34;?&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#008000;font-weight:bold">&lt;Configuration&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#008000;font-weight:bold">&lt;Appenders&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#008000;font-weight:bold">&lt;File</span> <span style="color:#b44">name=</span><span style="color:#b44">&#34;file&#34;</span> <span style="color:#b44">fileName=</span><span style="color:#b44">&#34;fortress-jmeter.log&#34;</span> <span style="color:#b44">append=</span><span style="color:#b44">&#34;true&#34;</span><span style="color:#008000;font-weight:bold">&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#008000;font-weight:bold">&lt;PatternLayout</span> <span style="color:#b44">pattern=</span><span style="color:#b44">&#34;%d{yyyy-MM-dd HH:mm:sss} %-5p %c{1}:%L - %m%n&#34;</span><span style="color:#008000;font-weight:bold">/&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#008000;font-weight:bold">&lt;/File&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#008000;font-weight:bold">&lt;Console</span> <span style="color:#b44">name=</span><span style="color:#b44">&#34;console&#34;</span> <span style="color:#b44">target=</span><span style="color:#b44">&#34;SYSTEM_OUT&#34;</span><span style="color:#008000;font-weight:bold">&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#008000;font-weight:bold">&lt;PatternLayout</span> <span style="color:#b44">pattern=</span><span style="color:#b44">&#34;%d{yyyy-MM-dd HH:mm:sss} %-5p %c{1}:%L - %m%n&#34;</span><span style="color:#008000;font-weight:bold">/&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#008000;font-weight:bold">&lt;/Console&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#008000;font-weight:bold">&lt;/Appenders&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#008000;font-weight:bold">&lt;Loggers&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#008000;font-weight:bold">&lt;Logger</span> <span style="color:#b44">name=</span><span style="color:#b44">&#34;org.apache.directory.api&#34;</span> <span style="color:#b44">level=</span><span style="color:#b44">&#34;info&#34;</span><span style="color:#008000;font-weight:bold">/&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#008000;font-weight:bold">&lt;Logger</span> <span style="color:#b44">name=</span><span style="color:#b44">&#34;org.apache.directory.fortress.core&#34;</span> <span style="color:#b44">level=</span><span style="color:#b44">&#34;info&#34;</span><span style="color:#008000;font-weight:bold">/&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#008000;font-weight:bold">&lt;Root</span> <span style="color:#b44">level=</span><span style="color:#b44">&#34;warn&#34;</span><span style="color:#008000;font-weight:bold">&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#008000;font-weight:bold">&lt;AppenderRef</span> <span style="color:#b44">ref=</span><span style="color:#b44">&#34;file&#34;</span><span style="color:#008000;font-weight:bold">/&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#008000;font-weight:bold">&lt;/Root&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#008000;font-weight:bold">&lt;/Loggers&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#008000;font-weight:bold">&lt;/Configuration&gt;</span>
+</span></span></code></pre></div><p>Tips:</p>
 <ul>
 <li>Use course-grained logging and a file appender for application logging.</li>
 <li>Use console output for viewing the jmeter test progress.</li>
@@ -291,198 +300,198 @@ For production deployments, it&rsquo;s not unusual to run tests for many days, e
 <h5 id="overview-of-the-tests">Overview of the tests</h5>
 <p>The tests run from the command line as a maven profile.</p>
 <table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Usage</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>add users</td>
-<td>mvn verify -Ploadtest -Dtype=AddUser [args]</td>
-</tr>
-<tr>
-<td>del users</td>
-<td>mvn verify -Ploadtest -Dtype=DelUser [args]</td>
-</tr>
-<tr>
-<td>user check</td>
-<td>mvn verify -Ploadtest -Dtype=CheckUser [args]</td>
-</tr>
-<tr>
-<td>create session</td>
-<td>mvn verify -Ploadtest -Dtype=CreateSession [args]</td>
-</tr>
-<tr>
-<td>bind user</td>
-<td>mvn verify -Ploadtest -Dtype=BindUser [args]</td>
-</tr>
-<tr>
-<td>check access</td>
-<td>mvn verify -Ploadtest -Dtype=CheckAccess [args]</td>
-</tr>
-<tr>
-<td>check role</td>
-<td>mvn verify -Ploadtest -Dtype=CheckRole [args]</td>
-</tr>
-<tr>
-<td>session perms</td>
-<td>mvn verify -Ploadtest -Dtype=SessionPerms [args]</td>
-</tr>
-<tr>
-<td>add roles</td>
-<td>mvn verify -Ploadtest -Dtype=AddRole [args]</td>
-</tr>
-<tr>
-<td>del roles</td>
-<td>mvn verify -Ploadtest -Dtype=DelRole [args]</td>
-</tr>
-<tr>
-<td>assign user</td>
-<td>mvn verify -Ploadtest -Dtype=AssignUser [args]</td>
-</tr>
-<tr>
-<td>deassign user</td>
-<td>mvn verify -Ploadtest -Dtype=DeassignUser [args]</td>
-</tr>
-<tr>
-<td>grant perm</td>
-<td>mvn verify -Ploadtest -Dtype=GrantPerm [args]</td>
-</tr>
-<tr>
-<td>revoke perm</td>
-<td>mvn verify -Ploadtest -Dtype=RevokePerm [args]</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Name</th>
+          <th>Usage</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>add users</td>
+          <td>mvn verify -Ploadtest -Dtype=AddUser [args]</td>
+      </tr>
+      <tr>
+          <td>del users</td>
+          <td>mvn verify -Ploadtest -Dtype=DelUser [args]</td>
+      </tr>
+      <tr>
+          <td>user check</td>
+          <td>mvn verify -Ploadtest -Dtype=CheckUser [args]</td>
+      </tr>
+      <tr>
+          <td>create session</td>
+          <td>mvn verify -Ploadtest -Dtype=CreateSession [args]</td>
+      </tr>
+      <tr>
+          <td>bind user</td>
+          <td>mvn verify -Ploadtest -Dtype=BindUser [args]</td>
+      </tr>
+      <tr>
+          <td>check access</td>
+          <td>mvn verify -Ploadtest -Dtype=CheckAccess [args]</td>
+      </tr>
+      <tr>
+          <td>check role</td>
+          <td>mvn verify -Ploadtest -Dtype=CheckRole [args]</td>
+      </tr>
+      <tr>
+          <td>session perms</td>
+          <td>mvn verify -Ploadtest -Dtype=SessionPerms [args]</td>
+      </tr>
+      <tr>
+          <td>add roles</td>
+          <td>mvn verify -Ploadtest -Dtype=AddRole [args]</td>
+      </tr>
+      <tr>
+          <td>del roles</td>
+          <td>mvn verify -Ploadtest -Dtype=DelRole [args]</td>
+      </tr>
+      <tr>
+          <td>assign user</td>
+          <td>mvn verify -Ploadtest -Dtype=AssignUser [args]</td>
+      </tr>
+      <tr>
+          <td>deassign user</td>
+          <td>mvn verify -Ploadtest -Dtype=DeassignUser [args]</td>
+      </tr>
+      <tr>
+          <td>grant perm</td>
+          <td>mvn verify -Ploadtest -Dtype=GrantPerm [args]</td>
+      </tr>
+      <tr>
+          <td>revoke perm</td>
+          <td>mvn verify -Ploadtest -Dtype=RevokePerm [args]</td>
+      </tr>
+  </tbody>
 </table>
 <h5 id="description-of-runtime-arguments">Description of runtime arguments</h5>
 <p>These may be injected into the runtime as Java system (-D) command-line arguments or jmeter params:</p>
 <table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Type</th>
-<th>Test</th>
-<th>Jmeter param</th>
-<th>Java system prop</th>
-<th>Description</th>
-<th>Example</th>
-<th>Default</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>batchsize</td>
-<td>Integer</td>
-<td>not AddUser,DelUser</td>
-<td>True</td>
-<td>True</td>
-<td>Number of users to iterate over when checking authN and/or authZ.</td>
-<td>batchsize=1000</td>
-<td>10</td>
-</tr>
-<tr>
-<td>duplicate</td>
-<td>Integer</td>
-<td>AddUser,DelUser</td>
-<td>False</td>
-<td>True</td>
-<td>Duplicate operation after specified interval.</td>
-<td>duplicate=1000</td>
-<td>none (don&rsquo;t duplicate)</td>
-</tr>
-<tr>
-<td>hostname</td>
-<td>String</td>
-<td>all</td>
-<td>False</td>
-<td>True</td>
-<td>Useful for distributing the load in a multi-provider env. Will override fortress.properties.</td>
-<td>hostname=foo</td>
-<td>none</td>
-</tr>
-<tr>
-<td>ou</td>
-<td>String</td>
-<td>AddUser,AddPerm</td>
-<td>True</td>
-<td>True</td>
-<td>The group name</td>
-<td>name=localhost-A1-1</td>
-<td>none</td>
-</tr>
-<tr>
-<td>password</td>
-<td>String</td>
-<td>not DelUser</td>
-<td>True</td>
-<td>True</td>
-<td>The password used by test users</td>
-<td>password=newsecret</td>
-<td>secret</td>
-</tr>
-<tr>
-<td>perm</td>
-<td>String</td>
-<td>CheckUser,CheckAccess, AddPerm,DelPerm,GrantPerm,RevokePerm</td>
-<td>True</td>
-<td>True</td>
-<td>Format is objectName.operationName</td>
-<td>perm=jmeterobject.oper</td>
-<td>none</td>
-</tr>
-<tr>
-<td>qualifier</td>
-<td>String</td>
-<td>all</td>
-<td>True</td>
-<td>True</td>
-<td>Part of the userid: hostname + qualifier + counter.</td>
-<td>qualifier=A1</td>
-<td>none</td>
-</tr>
-<tr>
-<td>role</td>
-<td>String</td>
-<td>AddUser,CheckRole,AddRole,DelRole,AssignUser,DeassignUser</td>
-<td>True</td>
-<td>True</td>
-<td>The role name</td>
-<td>role=jmeterrole</td>
-<td>none</td>
-</tr>
-<tr>
-<td>sleep</td>
-<td>Integer</td>
-<td>all</td>
-<td>True</td>
-<td>True</td>
-<td>Sleep this many milliseconds after op.</td>
-<td>sleep=30</td>
-<td>none (no sleep)</td>
-</tr>
-<tr>
-<td>update</td>
-<td>Boolean</td>
-<td>AddUser</td>
-<td>True</td>
-<td>True</td>
-<td>Edit user&rsquo;s description.</td>
-<td>update=true</td>
-<td>false</td>
-</tr>
-<tr>
-<td>verify</td>
-<td>Boolean</td>
-<td>AddUser,DelUser</td>
-<td>True</td>
-<td>True</td>
-<td>e.g. read after op to verify success.</td>
-<td>verify=true</td>
-<td>false</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Name</th>
+          <th>Type</th>
+          <th>Test</th>
+          <th>Jmeter param</th>
+          <th>Java system prop</th>
+          <th>Description</th>
+          <th>Example</th>
+          <th>Default</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>batchsize</td>
+          <td>Integer</td>
+          <td>not AddUser,DelUser</td>
+          <td>True</td>
+          <td>True</td>
+          <td>Number of users to iterate over when checking authN and/or authZ.</td>
+          <td>batchsize=1000</td>
+          <td>10</td>
+      </tr>
+      <tr>
+          <td>duplicate</td>
+          <td>Integer</td>
+          <td>AddUser,DelUser</td>
+          <td>False</td>
+          <td>True</td>
+          <td>Duplicate operation after specified interval.</td>
+          <td>duplicate=1000</td>
+          <td>none (don&rsquo;t duplicate)</td>
+      </tr>
+      <tr>
+          <td>hostname</td>
+          <td>String</td>
+          <td>all</td>
+          <td>False</td>
+          <td>True</td>
+          <td>Useful for distributing the load in a multi-provider env. Will override fortress.properties.</td>
+          <td>hostname=foo</td>
+          <td>none</td>
+      </tr>
+      <tr>
+          <td>ou</td>
+          <td>String</td>
+          <td>AddUser,AddPerm</td>
+          <td>True</td>
+          <td>True</td>
+          <td>The group name</td>
+          <td>name=localhost-A1-1</td>
+          <td>none</td>
+      </tr>
+      <tr>
+          <td>password</td>
+          <td>String</td>
+          <td>not DelUser</td>
+          <td>True</td>
+          <td>True</td>
+          <td>The password used by test users</td>
+          <td>password=newsecret</td>
+          <td>secret</td>
+      </tr>
+      <tr>
+          <td>perm</td>
+          <td>String</td>
+          <td>CheckUser,CheckAccess, AddPerm,DelPerm,GrantPerm,RevokePerm</td>
+          <td>True</td>
+          <td>True</td>
+          <td>Format is objectName.operationName</td>
+          <td>perm=jmeterobject.oper</td>
+          <td>none</td>
+      </tr>
+      <tr>
+          <td>qualifier</td>
+          <td>String</td>
+          <td>all</td>
+          <td>True</td>
+          <td>True</td>
+          <td>Part of the userid: hostname + qualifier + counter.</td>
+          <td>qualifier=A1</td>
+          <td>none</td>
+      </tr>
+      <tr>
+          <td>role</td>
+          <td>String</td>
+          <td>AddUser,CheckRole,AddRole,DelRole,AssignUser,DeassignUser</td>
+          <td>True</td>
+          <td>True</td>
+          <td>The role name</td>
+          <td>role=jmeterrole</td>
+          <td>none</td>
+      </tr>
+      <tr>
+          <td>sleep</td>
+          <td>Integer</td>
+          <td>all</td>
+          <td>True</td>
+          <td>True</td>
+          <td>Sleep this many milliseconds after op.</td>
+          <td>sleep=30</td>
+          <td>none (no sleep)</td>
+      </tr>
+      <tr>
+          <td>update</td>
+          <td>Boolean</td>
+          <td>AddUser</td>
+          <td>True</td>
+          <td>True</td>
+          <td>Edit user&rsquo;s description.</td>
+          <td>update=true</td>
+          <td>false</td>
+      </tr>
+      <tr>
+          <td>verify</td>
+          <td>Boolean</td>
+          <td>AddUser,DelUser</td>
+          <td>True</td>
+          <td>True</td>
+          <td>e.g. read after op to verify success.</td>
+          <td>verify=true</td>
+          <td>false</td>
+      </tr>
+  </tbody>
 </table>
 <ul>
 <li>Java system properties take precedence over params set in the Jmeter config files.</li>
@@ -491,225 +500,225 @@ For production deployments, it&rsquo;s not unusual to run tests for many days, e
 <p>From <strong>FORTRESS_HOME</strong> folder, enter the following command from a system prompt:</p>
 <p>A. Add Users:</p>
 <p>Will add user entry.  Optionally will perform an update and/or role assignment.</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mvn verify -Ploadtest -Dtype<span style="color:#666">=</span>ftAddUser -Dqualifier<span style="color:#666">=</span>A1 -Dverify<span style="color:#666">=</span><span style="color:#a2f">true</span> -Dsleep<span style="color:#666">=</span><span style="color:#666">30</span> -Dupdate<span style="color:#666">=</span><span style="color:#a2f">true</span> -Dou<span style="color:#666">=</span>loadtestu -Drole<span style="color:#666">=</span>jmeterrole
-</code></pre></div><p>This test adds users.  The following system properties are passed on the command line to define behavior:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mvn verify -Ploadtest -Dtype<span style="color:#666">=</span>ftAddUser -Dqualifier<span style="color:#666">=</span>A1 -Dverify<span style="color:#666">=</span><span style="color:#a2f">true</span> -Dsleep<span style="color:#666">=</span><span style="color:#666">30</span> -Dupdate<span style="color:#666">=</span><span style="color:#a2f">true</span> -Dou<span style="color:#666">=</span>loadtestu -Drole<span style="color:#666">=</span>jmeterrole
+</span></span></code></pre></div><p>This test adds users.  The following system properties are passed on the command line to define behavior:</p>
 <table>
-<thead>
-<tr>
-<th>name=value</th>
-<th>Usage</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>type=AddUser</td>
-<td>run the AddUser test case</td>
-</tr>
-<tr>
-<td>qualifier=A1</td>
-<td>construct userid: hostname + qualifier + counter</td>
-</tr>
-<tr>
-<td>verify=true</td>
-<td>read after operation to verify success</td>
-</tr>
-<tr>
-<td>sleep=30</td>
-<td>sleep this many milliseconds between ops</td>
-</tr>
-<tr>
-<td>update=true</td>
-<td>edit user&rsquo;s description if set to true</td>
-</tr>
-<tr>
-<td>ou=loadtestu</td>
-<td>orgunit is required on fortress users</td>
-</tr>
-<tr>
-<td>role=jmeterrole</td>
-<td>role assignments are optional</td>
-</tr>
-<tr>
-<td>password=secret</td>
-<td>optional override to default password</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>name=value</th>
+          <th>Usage</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>type=AddUser</td>
+          <td>run the AddUser test case</td>
+      </tr>
+      <tr>
+          <td>qualifier=A1</td>
+          <td>construct userid: hostname + qualifier + counter</td>
+      </tr>
+      <tr>
+          <td>verify=true</td>
+          <td>read after operation to verify success</td>
+      </tr>
+      <tr>
+          <td>sleep=30</td>
+          <td>sleep this many milliseconds between ops</td>
+      </tr>
+      <tr>
+          <td>update=true</td>
+          <td>edit user&rsquo;s description if set to true</td>
+      </tr>
+      <tr>
+          <td>ou=loadtestu</td>
+          <td>orgunit is required on fortress users</td>
+      </tr>
+      <tr>
+          <td>role=jmeterrole</td>
+          <td>role assignments are optional</td>
+      </tr>
+      <tr>
+          <td>password=secret</td>
+          <td>optional override to default password</td>
+      </tr>
+  </tbody>
 </table>
 <ul>
 <li>It may be more convenient to set these in the jmeter config files instead. Choose the approach that works in your test setup.</li>
 </ul>
 <p>B. Delete Users:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mvn verify -Ploadtest -Dtype<span style="color:#666">=</span>ftDelUser -Dqualifier<span style="color:#666">=</span>A1 -Dverify<span style="color:#666">=</span><span style="color:#a2f">true</span> -Dsleep<span style="color:#666">=</span><span style="color:#666">30</span>
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mvn verify -Ploadtest -Dtype<span style="color:#666">=</span>ftDelUser -Dqualifier<span style="color:#666">=</span>A1 -Dverify<span style="color:#666">=</span><span style="color:#a2f">true</span> -Dsleep<span style="color:#666">=</span><span style="color:#666">30</span>
+</span></span></code></pre></div><ul>
 <li>Same properties as add except for &lsquo;ou&rsquo;, which is not used for delete ops</li>
 </ul>
 <p>C. Check Users:</p>
 <p>Performs createSession followed by optional calling checkAccess.</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mvn verify -Ploadtest -Dtype<span style="color:#666">=</span>CheckUser -Dqualifier<span style="color:#666">=</span>A1 -Dperm<span style="color:#666">=</span>jmeterobject.oper -Dbatchsize<span style="color:#666">=</span><span style="color:#666">10000</span>
-</code></pre></div><p>Arguments:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mvn verify -Ploadtest -Dtype<span style="color:#666">=</span>CheckUser -Dqualifier<span style="color:#666">=</span>A1 -Dperm<span style="color:#666">=</span>jmeterobject.oper -Dbatchsize<span style="color:#666">=</span><span style="color:#666">10000</span>
+</span></span></code></pre></div><p>Arguments:</p>
 <table>
-<thead>
-<tr>
-<th>name=value</th>
-<th>Usage</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>type=CheckUser</td>
-<td>run the CheckUser test case</td>
-</tr>
-<tr>
-<td>qualifier=A1</td>
-<td>construct userid: hostname + qualifier + counter</td>
-</tr>
-<tr>
-<td>perm=jmeterobject.oper</td>
-<td>calls checkAccess if set. Format: objectName.operationName</td>
-</tr>
-<tr>
-<td>batchsize=10000</td>
-<td>we have 10000 users in our batch</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>name=value</th>
+          <th>Usage</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>type=CheckUser</td>
+          <td>run the CheckUser test case</td>
+      </tr>
+      <tr>
+          <td>qualifier=A1</td>
+          <td>construct userid: hostname + qualifier + counter</td>
+      </tr>
+      <tr>
+          <td>perm=jmeterobject.oper</td>
+          <td>calls checkAccess if set. Format: objectName.operationName</td>
+      </tr>
+      <tr>
+          <td>batchsize=10000</td>
+          <td>we have 10000 users in our batch</td>
+      </tr>
+  </tbody>
 </table>
 <p>D. Create Session:</p>
 <p>Performs createSession only.</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mvn verify -Ploadtest -Dtype<span style="color:#666">=</span>CreateSession -Dqualifier<span style="color:#666">=</span>A1 -Dbatchsize<span style="color:#666">=</span><span style="color:#666">10000</span>
-</code></pre></div><p>E. Check Access:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mvn verify -Ploadtest -Dtype<span style="color:#666">=</span>CreateSession -Dqualifier<span style="color:#666">=</span>A1 -Dbatchsize<span style="color:#666">=</span><span style="color:#666">10000</span>
+</span></span></code></pre></div><p>E. Check Access:</p>
 <p>Perform createSession and one checkAccess.</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mvn verify -Ploadtest -Dtype<span style="color:#666">=</span>CheckAccess -Dqualifier<span style="color:#666">=</span>A1 -Dperm<span style="color:#666">=</span>jmeterobject.oper -Dbatchsize<span style="color:#666">=</span><span style="color:#666">10000</span>
-</code></pre></div><p>Arguments:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mvn verify -Ploadtest -Dtype<span style="color:#666">=</span>CheckAccess -Dqualifier<span style="color:#666">=</span>A1 -Dperm<span style="color:#666">=</span>jmeterobject.oper -Dbatchsize<span style="color:#666">=</span><span style="color:#666">10000</span>
+</span></span></code></pre></div><p>Arguments:</p>
 <ul>
 <li>perm=jmeterobject.oper   &lt;&ndash; Format: objectName.operationName.</li>
 </ul>
 <p>F. Bind User:</p>
 <p>Performs authentication.</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mvn verify -Ploadtest -Dtype<span style="color:#666">=</span>BindUser -Dqualifier<span style="color:#666">=</span>A1 -Dbatchsize<span style="color:#666">=</span><span style="color:#666">10000</span>
-</code></pre></div><p>G. Check Role:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mvn verify -Ploadtest -Dtype<span style="color:#666">=</span>BindUser -Dqualifier<span style="color:#666">=</span>A1 -Dbatchsize<span style="color:#666">=</span><span style="color:#666">10000</span>
+</span></span></code></pre></div><p>G. Check Role:</p>
 <p>Performs createSession and isUserInRole.</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mvn verify -Ploadtest -Dtype<span style="color:#666">=</span>CheckRole -Dqualifier<span style="color:#666">=</span>A1 -Drole<span style="color:#666">=</span>jmeterrole -Dbatchsize<span style="color:#666">=</span><span style="color:#666">10000</span>
-</code></pre></div><p>H. Session Perms:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mvn verify -Ploadtest -Dtype<span style="color:#666">=</span>CheckRole -Dqualifier<span style="color:#666">=</span>A1 -Drole<span style="color:#666">=</span>jmeterrole -Dbatchsize<span style="color:#666">=</span><span style="color:#666">10000</span>
+</span></span></code></pre></div><p>H. Session Perms:</p>
 <p>Performs createSession and sessionPermissions.</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mvn verify -Ploadtest -Dtype<span style="color:#666">=</span>SessionPerms -Dqualifier<span style="color:#666">=</span>A1 -Dbatchsize<span style="color:#666">=</span><span style="color:#666">10000</span>
-</code></pre></div><p>I. Add Role:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mvn verify -Ploadtest -Dtype<span style="color:#666">=</span>SessionPerms -Dqualifier<span style="color:#666">=</span>A1 -Dbatchsize<span style="color:#666">=</span><span style="color:#666">10000</span>
+</span></span></code></pre></div><p>I. Add Role:</p>
 <ul>
 <li>Add role entries to the directory.</li>
 </ul>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mvn verify -Ploadtest -Dtype<span style="color:#666">=</span>AddRole -Dqualifier<span style="color:#666">=</span>A1
-</code></pre></div><p>J. Delete Role:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mvn verify -Ploadtest -Dtype<span style="color:#666">=</span>AddRole -Dqualifier<span style="color:#666">=</span>A1
+</span></span></code></pre></div><p>J. Delete Role:</p>
 <ul>
 <li>Delete role entries from the directory.</li>
 </ul>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mvn verify -Ploadtest -Dtype<span style="color:#666">=</span>DelRole -Dqualifier<span style="color:#666">=</span>A1
-</code></pre></div><p>K. Assign User:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mvn verify -Ploadtest -Dtype<span style="color:#666">=</span>DelRole -Dqualifier<span style="color:#666">=</span>A1
+</span></span></code></pre></div><p>K. Assign User:</p>
 <ul>
 <li>Assign users to roles.</li>
 </ul>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mvn verify -Ploadtest -Dtype<span style="color:#666">=</span>AssignUser -Dqualifier<span style="color:#666">=</span>A1
-</code></pre></div><p>L. Deassign User:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mvn verify -Ploadtest -Dtype<span style="color:#666">=</span>AssignUser -Dqualifier<span style="color:#666">=</span>A1
+</span></span></code></pre></div><p>L. Deassign User:</p>
 <ul>
 <li>Deassign users from roles.</li>
 </ul>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mvn verify -Ploadtest -Dtype<span style="color:#666">=</span>DeassignUser -Dqualifier<span style="color:#666">=</span>A1
-</code></pre></div><p>M. Add Permission:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mvn verify -Ploadtest -Dtype<span style="color:#666">=</span>AddPerm -Dperm<span style="color:#666">=</span>foo.exe
-</code></pre></div><p>N. Delete Permission:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mvn verify -Ploadtest -Dtype<span style="color:#666">=</span>DelPerm -Dperm<span style="color:#666">=</span>foo.exe
-</code></pre></div><p>O. Grant Permission:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mvn verify -Ploadtest -Dtype<span style="color:#666">=</span>GrantPerm -Dperm<span style="color:#666">=</span>foo.exe -Drole<span style="color:#666">=</span>localhost-X2-78
-</code></pre></div><p>P. Revoke Permission:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mvn verify -Ploadtest -Dtype<span style="color:#666">=</span>RevokePerm -Dperm<span style="color:#666">=</span>foo.exe -Drole<span style="color:#666">=</span>localhost-X2-78
-</code></pre></div><h4 id="5-understanding-the-tests">5. Understanding the tests</h4>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mvn verify -Ploadtest -Dtype<span style="color:#666">=</span>DeassignUser -Dqualifier<span style="color:#666">=</span>A1
+</span></span></code></pre></div><p>M. Add Permission:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mvn verify -Ploadtest -Dtype<span style="color:#666">=</span>AddPerm -Dperm<span style="color:#666">=</span>foo.exe
+</span></span></code></pre></div><p>N. Delete Permission:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mvn verify -Ploadtest -Dtype<span style="color:#666">=</span>DelPerm -Dperm<span style="color:#666">=</span>foo.exe
+</span></span></code></pre></div><p>O. Grant Permission:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mvn verify -Ploadtest -Dtype<span style="color:#666">=</span>GrantPerm -Dperm<span style="color:#666">=</span>foo.exe -Drole<span style="color:#666">=</span>localhost-X2-78
+</span></span></code></pre></div><p>P. Revoke Permission:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mvn verify -Ploadtest -Dtype<span style="color:#666">=</span>RevokePerm -Dperm<span style="color:#666">=</span>foo.exe -Drole<span style="color:#666">=</span>localhost-X2-78
+</span></span></code></pre></div><h4 id="5-understanding-the-tests">5. Understanding the tests</h4>
 <p>A. Batch Size property</p>
 <ul>
 <li>Required on the tests that perform operations like authentication or authorization.</li>
 <li>Defines the size of the user set for a particular test. The default is 10.</li>
 <li>Sets the global counter max, used to generate test userId.</li>
 </ul>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mvn verify -Ploadtest -Dtype<span style="color:#666">=</span>BindUser -Dbatchsize<span style="color:#666">=</span><span style="color:#666">100</span> -Dqualifier<span style="color:#666">=</span>A1
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mvn verify -Ploadtest -Dtype<span style="color:#666">=</span>BindUser -Dbatchsize<span style="color:#666">=</span><span style="color:#666">100</span> -Dqualifier<span style="color:#666">=</span>A1
+</span></span></code></pre></div><ul>
 <li>The above test iterates over 100 users performing authentication.</li>
 </ul>
 <h5 id="srctestjmeterbinduserjmx-jmeter-config-file">src/test/jmeter/BindUser.jmx jmeter config file:</h5>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml">      <span style="color:#008000;font-weight:bold">&lt;ThreadGroup</span> <span style="color:#b44">guiclass=</span><span style="color:#b44">&#34;ThreadGroupGui&#34;</span> <span style="color:#b44">testclass=</span><span style="color:#b44">&#34;ThreadGroup&#34;</span> <span style="color:#b44">testname=</span><span style="color:#b44">&#34;Fortress BindUser&#34;</span> <span style="color:#b44">enabled=</span><span style="color:#b44">&#34;true&#34;</span><span style="color:#008000;font-weight:bold">&gt;</span>
-        ...
-        <span style="color:#008000;font-weight:bold">&lt;elementProp</span> <span style="color:#b44">name=</span><span style="color:#b44">&#34;ThreadGroup.main_controller&#34;</span> <span style="color:#b44">elementType=</span><span style="color:#b44">&#34;LoopController&#34;</span> <span style="color:#b44">guiclass=</span><span style="color:#b44">&#34;LoopControlPanel&#34;</span> <span style="color:#b44">testclass=</span><span style="color:#b44">&#34;LoopController&#34;</span> <span style="color:#b44">testname=</span><span style="color:#b44">&#34;Loop Controller&#34;</span> <span style="color:#b44">enabled=</span><span style="color:#b44">&#34;true&#34;</span><span style="color:#008000;font-weight:bold">&gt;</span>
-          <span style="color:#008000;font-weight:bold">&lt;stringProp</span> <span style="color:#b44">name=</span><span style="color:#b44">&#34;LoopController.loops&#34;</span><span style="color:#008000;font-weight:bold">&gt;</span>500<span style="color:#008000;font-weight:bold">&lt;/stringProp&gt;</span>
-        <span style="color:#008000;font-weight:bold">&lt;/elementProp&gt;</span>
-        <span style="color:#008000;font-weight:bold">&lt;stringProp</span> <span style="color:#b44">name=</span><span style="color:#b44">&#34;ThreadGroup.num_threads&#34;</span><span style="color:#008000;font-weight:bold">&gt;</span>10<span style="color:#008000;font-weight:bold">&lt;/stringProp&gt;</span>
-        ...
-      <span style="color:#008000;font-weight:bold">&lt;/ThreadGroup&gt;</span>
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span>      <span style="color:#008000;font-weight:bold">&lt;ThreadGroup</span> <span style="color:#b44">guiclass=</span><span style="color:#b44">&#34;ThreadGroupGui&#34;</span> <span style="color:#b44">testclass=</span><span style="color:#b44">&#34;ThreadGroup&#34;</span> <span style="color:#b44">testname=</span><span style="color:#b44">&#34;Fortress BindUser&#34;</span> <span style="color:#b44">enabled=</span><span style="color:#b44">&#34;true&#34;</span><span style="color:#008000;font-weight:bold">&gt;</span>
+</span></span><span style="display:flex;"><span>        ...
+</span></span><span style="display:flex;"><span>        <span style="color:#008000;font-weight:bold">&lt;elementProp</span> <span style="color:#b44">name=</span><span style="color:#b44">&#34;ThreadGroup.main_controller&#34;</span> <span style="color:#b44">elementType=</span><span style="color:#b44">&#34;LoopController&#34;</span> <span style="color:#b44">guiclass=</span><span style="color:#b44">&#34;LoopControlPanel&#34;</span> <span style="color:#b44">testclass=</span><span style="color:#b44">&#34;LoopController&#34;</span> <span style="color:#b44">testname=</span><span style="color:#b44">&#34;Loop Controller&#34;</span> <span style="color:#b44">enabled=</span><span style="color:#b44">&#34;true&#34;</span><span style="color:#008000;font-weight:bold">&gt;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#008000;font-weight:bold">&lt;stringProp</span> <span style="color:#b44">name=</span><span style="color:#b44">&#34;LoopController.loops&#34;</span><span style="color:#008000;font-weight:bold">&gt;</span>500<span style="color:#008000;font-weight:bold">&lt;/stringProp&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#008000;font-weight:bold">&lt;/elementProp&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#008000;font-weight:bold">&lt;stringProp</span> <span style="color:#b44">name=</span><span style="color:#b44">&#34;ThreadGroup.num_threads&#34;</span><span style="color:#008000;font-weight:bold">&gt;</span>10<span style="color:#008000;font-weight:bold">&lt;/stringProp&gt;</span>
+</span></span><span style="display:flex;"><span>        ...
+</span></span><span style="display:flex;"><span>      <span style="color:#008000;font-weight:bold">&lt;/ThreadGroup&gt;</span>
+</span></span></code></pre></div><ul>
 <li>5,000 bind operations will occur during the test.</li>
 </ul>
 <h5 id="targetjmeterresultsdate-bindusercsv-log-file">target/jmeter/results/[DATE]-BindUser.csv log file:</h5>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#080;font-style:italic"># notice the generated userids, localhost-A1-1, localhost-A1-2, localhost-A1-3</span>
-1688562906113,21,Fortress BindUser,,test completed TID: <span style="color:#666">19</span> UID: localhost-A1-1,Fortress BindUser 1-1,,true,,0,0,1,1,null,0,0,0
-1688562906136,3,Fortress BindUser,,test completed TID: <span style="color:#666">19</span> UID: localhost-A1-2,Fortress BindUser 1-1,,true,,0,0,1,1,null,0,0,0
-1688562906139,5,Fortress BindUser,,test completed TID: <span style="color:#666">19</span> UID: localhost-A1-3,Fortress BindUser 1-1,,true,,0,0,1,1,null,0,0,0
-...
-<span style="color:#080;font-style:italic"># when the counter == batchsize (100) it will reset to 1</span>
-1688562906455,4,Fortress BindUser,,test completed TID: <span style="color:#666">19</span> UID: localhost-A1-100,Fortress BindUser 1-1,,true,,0,0,2,2,null,0,0,0
-1688562906455,3,Fortress BindUser,,test completed TID: <span style="color:#666">20</span> UID: localhost-A1-1,Fortress BindUser 1-2,,true,,0,0,2,2,null,0,0,0
-1688562906459,3,Fortress BindUser,,test completed TID: <span style="color:#666">20</span> UID: localhost-A1-2,Fortress BindUser 1-2,,true,,0,0,2,2,null,0,0,0
-...
-<span style="color:#080;font-style:italic"># and keep doing that until the number of iterations (5,000) has been reached</span>
-1688562915035,2,Fortress BindUser,,test completed TID: <span style="color:#666">28</span> UID: localhost-A1-100,Fortress BindUser 1-10,,true,,0,0,1,1,null,0,0,0
-</code></pre></div><p>B. Qualifier property.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#080;font-style:italic"># notice the generated userids, localhost-A1-1, localhost-A1-2, localhost-A1-3</span>
+</span></span><span style="display:flex;"><span>1688562906113,21,Fortress BindUser,,test completed TID: <span style="color:#666">19</span> UID: localhost-A1-1,Fortress BindUser 1-1,,true,,0,0,1,1,null,0,0,0
+</span></span><span style="display:flex;"><span>1688562906136,3,Fortress BindUser,,test completed TID: <span style="color:#666">19</span> UID: localhost-A1-2,Fortress BindUser 1-1,,true,,0,0,1,1,null,0,0,0
+</span></span><span style="display:flex;"><span>1688562906139,5,Fortress BindUser,,test completed TID: <span style="color:#666">19</span> UID: localhost-A1-3,Fortress BindUser 1-1,,true,,0,0,1,1,null,0,0,0
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"># when the counter == batchsize (100) it will reset to 1</span>
+</span></span><span style="display:flex;"><span>1688562906455,4,Fortress BindUser,,test completed TID: <span style="color:#666">19</span> UID: localhost-A1-100,Fortress BindUser 1-1,,true,,0,0,2,2,null,0,0,0
+</span></span><span style="display:flex;"><span>1688562906455,3,Fortress BindUser,,test completed TID: <span style="color:#666">20</span> UID: localhost-A1-1,Fortress BindUser 1-2,,true,,0,0,2,2,null,0,0,0
+</span></span><span style="display:flex;"><span>1688562906459,3,Fortress BindUser,,test completed TID: <span style="color:#666">20</span> UID: localhost-A1-2,Fortress BindUser 1-2,,true,,0,0,2,2,null,0,0,0
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"># and keep doing that until the number of iterations (5,000) has been reached</span>
+</span></span><span style="display:flex;"><span>1688562915035,2,Fortress BindUser,,test completed TID: <span style="color:#666">28</span> UID: localhost-A1-100,Fortress BindUser 1-10,,true,,0,0,1,1,null,0,0,0
+</span></span></code></pre></div><p>B. Qualifier property.</p>
 <ul>
 <li>The add test generates userids based on: hostname + qualifier + counter.</li>
 <li>The counter is global across threads, so if you enable 20 threads * 100 loops:</li>
 </ul>
 <h5 id="srctestjmeteradduserjmx-jmeter-config-file">src/test/jmeter/AddUser.jmx jmeter config file:</h5>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml">      <span style="color:#008000;font-weight:bold">&lt;ThreadGroup</span> <span style="color:#b44">guiclass=</span><span style="color:#b44">&#34;ThreadGroupGui&#34;</span> <span style="color:#b44">testclass=</span><span style="color:#b44">&#34;ThreadGroup&#34;</span> <span style="color:#b44">testname=</span><span style="color:#b44">&#34;Fortress AddUser&#34;</span> <span style="color:#b44">enabled=</span><span style="color:#b44">&#34;true&#34;</span><span style="color:#008000;font-weight:bold">&gt;</span>
-        ...
-        <span style="color:#008000;font-weight:bold">&lt;elementProp</span> <span style="color:#b44">name=</span><span style="color:#b44">&#34;ThreadGroup.main_controller&#34;</span> <span style="color:#b44">elementType=</span><span style="color:#b44">&#34;LoopController&#34;</span> <span style="color:#b44">guiclass=</span><span style="color:#b44">&#34;LoopControlPanel&#34;</span> <span style="color:#b44">testclass=</span><span style="color:#b44">&#34;LoopController&#34;</span> <span style="color:#b44">testname=</span><span style="color:#b44">&#34;Loop Controller&#34;</span> <span style="color:#b44">enabled=</span><span style="color:#b44">&#34;true&#34;</span><span style="color:#008000;font-weight:bold">&gt;</span>
-          <span style="color:#008000;font-weight:bold">&lt;stringProp</span> <span style="color:#b44">name=</span><span style="color:#b44">&#34;LoopController.loops&#34;</span><span style="color:#008000;font-weight:bold">&gt;</span>100<span style="color:#008000;font-weight:bold">&lt;/stringProp&gt;</span>
-        <span style="color:#008000;font-weight:bold">&lt;/elementProp&gt;</span>
-        <span style="color:#008000;font-weight:bold">&lt;stringProp</span> <span style="color:#b44">name=</span><span style="color:#b44">&#34;ThreadGroup.num_threads&#34;</span><span style="color:#008000;font-weight:bold">&gt;</span>20<span style="color:#008000;font-weight:bold">&lt;/stringProp&gt;</span>
-        ...
-      <span style="color:#008000;font-weight:bold">&lt;/ThreadGroup&gt;</span>
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span>      <span style="color:#008000;font-weight:bold">&lt;ThreadGroup</span> <span style="color:#b44">guiclass=</span><span style="color:#b44">&#34;ThreadGroupGui&#34;</span> <span style="color:#b44">testclass=</span><span style="color:#b44">&#34;ThreadGroup&#34;</span> <span style="color:#b44">testname=</span><span style="color:#b44">&#34;Fortress AddUser&#34;</span> <span style="color:#b44">enabled=</span><span style="color:#b44">&#34;true&#34;</span><span style="color:#008000;font-weight:bold">&gt;</span>
+</span></span><span style="display:flex;"><span>        ...
+</span></span><span style="display:flex;"><span>        <span style="color:#008000;font-weight:bold">&lt;elementProp</span> <span style="color:#b44">name=</span><span style="color:#b44">&#34;ThreadGroup.main_controller&#34;</span> <span style="color:#b44">elementType=</span><span style="color:#b44">&#34;LoopController&#34;</span> <span style="color:#b44">guiclass=</span><span style="color:#b44">&#34;LoopControlPanel&#34;</span> <span style="color:#b44">testclass=</span><span style="color:#b44">&#34;LoopController&#34;</span> <span style="color:#b44">testname=</span><span style="color:#b44">&#34;Loop Controller&#34;</span> <span style="color:#b44">enabled=</span><span style="color:#b44">&#34;true&#34;</span><span style="color:#008000;font-weight:bold">&gt;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#008000;font-weight:bold">&lt;stringProp</span> <span style="color:#b44">name=</span><span style="color:#b44">&#34;LoopController.loops&#34;</span><span style="color:#008000;font-weight:bold">&gt;</span>100<span style="color:#008000;font-weight:bold">&lt;/stringProp&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#008000;font-weight:bold">&lt;/elementProp&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#008000;font-weight:bold">&lt;stringProp</span> <span style="color:#b44">name=</span><span style="color:#b44">&#34;ThreadGroup.num_threads&#34;</span><span style="color:#008000;font-weight:bold">&gt;</span>20<span style="color:#008000;font-weight:bold">&lt;/stringProp&gt;</span>
+</span></span><span style="display:flex;"><span>        ...
+</span></span><span style="display:flex;"><span>      <span style="color:#008000;font-weight:bold">&lt;/ThreadGroup&gt;</span>
+</span></span></code></pre></div><ul>
 <li>with a qualifier = &lsquo;A1&rsquo;, 2,000 users will be added:</li>
 </ul>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mvn verify -Ploadtest -Dtype<span style="color:#666">=</span>AddUser -Dqualifier<span style="color:#666">=</span>A1
-</code></pre></div><h5 id="targetjmeterresultsdateaddusercsv-log-file">target/jmeter/results/[DATE]AddUser.csv log file:</h5>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">1688515254648,107,Fortress AddUser,,test completed TID: <span style="color:#666">19</span> UID: localhost-A1-1,Fortress AddUser 1-1,,true,,0,0,2,2,null,0,0,0
-1688515254648,115,Fortress AddUser,,test completed TID: <span style="color:#666">20</span> UID: localhost-A1-2,Fortress AddUser 1-2,,true,,0,0,2,2,null,0,0,0
-1688515254758,22,Fortress AddUser,,test completed TID: <span style="color:#666">19</span> UID: localhost-A1-3,Fortress AddUser 1-1,,true,,0,0,2,2,null,0,0,0
-...
-<span style="color:#080;font-style:italic"># the test stops after 2,000 iterations, adding users localhost-A1-1 - localhost-A1-2000</span>
-1688515271941,19,Fortress AddUser,,test completed TID: <span style="color:#666">37</span> UID: localhost-A1-2000,Fortress AddUser 1-19,,true,,0,0,1,1,null,0,0,0
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mvn verify -Ploadtest -Dtype<span style="color:#666">=</span>AddUser -Dqualifier<span style="color:#666">=</span>A1
+</span></span></code></pre></div><h5 id="targetjmeterresultsdateaddusercsv-log-file">target/jmeter/results/[DATE]AddUser.csv log file:</h5>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>1688515254648,107,Fortress AddUser,,test completed TID: <span style="color:#666">19</span> UID: localhost-A1-1,Fortress AddUser 1-1,,true,,0,0,2,2,null,0,0,0
+</span></span><span style="display:flex;"><span>1688515254648,115,Fortress AddUser,,test completed TID: <span style="color:#666">20</span> UID: localhost-A1-2,Fortress AddUser 1-2,,true,,0,0,2,2,null,0,0,0
+</span></span><span style="display:flex;"><span>1688515254758,22,Fortress AddUser,,test completed TID: <span style="color:#666">19</span> UID: localhost-A1-3,Fortress AddUser 1-1,,true,,0,0,2,2,null,0,0,0
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"># the test stops after 2,000 iterations, adding users localhost-A1-1 - localhost-A1-2000</span>
+</span></span><span style="display:flex;"><span>1688515271941,19,Fortress AddUser,,test completed TID: <span style="color:#666">37</span> UID: localhost-A1-2000,Fortress AddUser 1-19,,true,,0,0,1,1,null,0,0,0
+</span></span></code></pre></div><ul>
 <li>If the same test runs a second time (before a delete run) it&rsquo;ll fail with duplicates as it tries to add the same users again.</li>
 <li>This is the idea of the &lsquo;qualifier&rsquo;. It defines test batches.</li>
 <li>Change its value and create new batches.</li>
 <li>DelUser work the same way. Delete the user in the A1 batch by running:</li>
 </ul>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mvn verify -Ploadtest -Dtype<span style="color:#666">=</span>DelUser -Dqualifier<span style="color:#666">=</span>A1
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mvn verify -Ploadtest -Dtype<span style="color:#666">=</span>DelUser -Dqualifier<span style="color:#666">=</span>A1
+</span></span></code></pre></div><ul>
 <li>The thread and loop properties in DelUser.jmx must match AddUser.jmx in order for the same size to be computed.</li>
 </ul>
 <p>C. Verify property</p>
 <ul>
 <li>When true, a read entry is performed after the write.</li>
 </ul>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mvn verify -Ploadtest -Dtype<span style="color:#666">=</span>AddUser -Dqualifier<span style="color:#666">=</span>A1 -Dverify<span style="color:#666">=</span><span style="color:#a2f">true</span>
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mvn verify -Ploadtest -Dtype<span style="color:#666">=</span>AddUser -Dqualifier<span style="color:#666">=</span>A1 -Dverify<span style="color:#666">=</span><span style="color:#a2f">true</span>
+</span></span></code></pre></div><ul>
 <li>Don&rsquo;t confuse the verify property with the maven verify target. One is required on all test invocations, the other optional.</li>
 </ul>
 <p>D. Update property</p>
 <ul>
 <li>When true, an update will be performed to the user&rsquo;s description field following the add.</li>
 </ul>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mvn verify -Ploadtest -Dtype<span style="color:#666">=</span>AddUser -Dqualifier<span style="color:#666">=</span>A1 -Dupdate<span style="color:#666">=</span><span style="color:#a2f">true</span>
-</code></pre></div><p>E. Role property</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mvn verify -Ploadtest -Dtype<span style="color:#666">=</span>AddUser -Dqualifier<span style="color:#666">=</span>A1 -Dupdate<span style="color:#666">=</span><span style="color:#a2f">true</span>
+</span></span></code></pre></div><p>E. Role property</p>
 <ul>
 <li>If &lsquo;role&rsquo; set as property, it will be assigned after the add.  The role itself must already exist before being used in assignment to user.</li>
 </ul>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mvn verify -Ploadtest -Dtype<span style="color:#666">=</span>AddUser -Dqualifier<span style="color:#666">=</span>A1 -Drole<span style="color:#666">=</span>jmeterrole
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mvn verify -Ploadtest -Dtype<span style="color:#666">=</span>AddUser -Dqualifier<span style="color:#666">=</span>A1 -Drole<span style="color:#666">=</span>jmeterrole
+</span></span></code></pre></div><ul>
 <li>Tests that call checkAccess method (CheckUser, CheckAccess) will fail if role has not been assigned.</li>
 <li>Tests that call isUserInRole method (CheckRole) will fail if not assigned.</li>
 </ul>
@@ -717,11 +726,11 @@ For production deployments, it&rsquo;s not unusual to run tests for many days, e
 <ul>
 <li>This param is optional in CheckUser and required in CheckAccess.</li>
 </ul>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#080;font-style:italic"># will call checkAccess 10 times (if set) per test iteration:</span>
-mvn verify -Ploadtest -Dtype<span style="color:#666">=</span>CheckUser -Dperm<span style="color:#666">=</span>jmeterobject.oper -Dbatchsize<span style="color:#666">=</span><span style="color:#666">10000</span>
-<span style="color:#080;font-style:italic"># calls checkAccess once per test:</span>
-mvn verify -Ploadtest -Dtype<span style="color:#666">=</span>CheckAccess -Dperm<span style="color:#666">=</span>jmeterobject.oper -Dbatchsize<span style="color:#666">=</span><span style="color:#666">10000</span>
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#080;font-style:italic"># will call checkAccess 10 times (if set) per test iteration:</span>
+</span></span><span style="display:flex;"><span>mvn verify -Ploadtest -Dtype<span style="color:#666">=</span>CheckUser -Dperm<span style="color:#666">=</span>jmeterobject.oper -Dbatchsize<span style="color:#666">=</span><span style="color:#666">10000</span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"># calls checkAccess once per test:</span>
+</span></span><span style="display:flex;"><span>mvn verify -Ploadtest -Dtype<span style="color:#666">=</span>CheckAccess -Dperm<span style="color:#666">=</span>jmeterobject.oper -Dbatchsize<span style="color:#666">=</span><span style="color:#666">10000</span>
+</span></span></code></pre></div><ul>
 <li>These permissions must already exist (loaded via security policy) before running this test.</li>
 <li>CheckUser will iterate over 10 perms, e.g. jmeter.oper1, jmeter.oper2, jmeter.oper3, &hellip; jmeter.oper10</li>
 <li>CheckUser picks a random number between 1 and 10 and uses that.</li>
@@ -759,59 +768,59 @@ mvn verify -Ploadtest -Dtype<span style="color:#666">=</span>CheckAccess -Dperm<
 <p>C. Common Errors</p>
 <h5 id="i-jmeter-tests-fail-javalangnosuchmethoderror">i. jmeter tests fail java.lang.NoSuchMethodError</h5>
 <p>Happens when jmeter test instance can&rsquo;t load all of its classes. Ensure the required libs have been loaded.</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#666">[</span>INFO<span style="color:#666">]</span> Executing test: AddUser.jmx
-<span style="color:#666">[</span>INFO<span style="color:#666">]</span> Arguments <span style="color:#a2f;font-weight:bold">for</span> forked JMeter JVM: <span style="color:#666">[</span>java, -Xms1024M, -Xmx1024M, -Djava.awt.headless<span style="color:#666">=</span>true, -jar, ApacheJMeter-5.5.jar, -d, /home/smckinn/GIT/fortressDev/directory-fortress-core/target/b8ccc8a0-8845-4d34-aa10-b4ec7f50f4f5/jmeter, -j, /home/smckinn/GIT/fortressDev/directory-fortress-core/target/jmeter/logs/AddUser.jmx.log, -l, /home/smckinn/GIT/fortressDev/directory-fortress-core/target/jmeter/results/20230702-AddUser.csv, -n, -t, /home/smckinn/GIT/fortressDev/directory-fortress-core/target/jmeter/testFiles/AddUser.jmx, -Dsun.net.http.allowRestrictedHeaders, true, -Dqualifier, A10, -Dversion, 3.0.0-SNAPSHOT<span style="color:#666">]</span>
-<span style="color:#666">[</span>INFO<span style="color:#666">]</span>  
-<span style="color:#666">[</span>INFO<span style="color:#666">]</span> java.lang.NoSuchMethodError: <span style="color:#b44">&#39;void org.apache.logging.slf4j.Log4jLoggerFactory.&lt;init&gt;(org.apache.logging.slf4j.Log4jMarkerFactory)&#39;</span>
-<span style="color:#666">[</span>INFO<span style="color:#666">]</span>  at org.apache.logging.slf4j.SLF4JServiceProvider.initialize<span style="color:#666">(</span>SLF4JServiceProvider.java:54<span style="color:#666">)</span>
-<span style="color:#666">[</span>INFO<span style="color:#666">]</span>  at org.slf4j.LoggerFactory.bind<span style="color:#666">(</span>LoggerFactory.java:183<span style="color:#666">)</span>
-<span style="color:#666">[</span>INFO<span style="color:#666">]</span>  at org.slf4j.LoggerFactory.performInitialization<span style="color:#666">(</span>LoggerFactory.java:170<span style="color:#666">)</span>
-<span style="color:#666">[</span>INFO<span style="color:#666">]</span>  at org.slf4j.LoggerFactory.getProvider<span style="color:#666">(</span>LoggerFactory.java:455<span style="color:#666">)</span>
-<span style="color:#666">[</span>INFO<span style="color:#666">]</span>  at org.slf4j.LoggerFactory.getILoggerFactory<span style="color:#666">(</span>LoggerFactory.java:441<span style="color:#666">)</span>
-<span style="color:#666">[</span>INFO<span style="color:#666">]</span>  at org.slf4j.LoggerFactory.getLogger<span style="color:#666">(</span>LoggerFactory.java:390<span style="color:#666">)</span>
-<span style="color:#666">[</span>INFO<span style="color:#666">]</span>  at org.slf4j.LoggerFactory.getLogger<span style="color:#666">(</span>LoggerFactory.java:416<span style="color:#666">)</span>
-<span style="color:#666">[</span>INFO<span style="color:#666">]</span>  at org.apache.jmeter.JMeter.&lt;clinit&gt;<span style="color:#666">(</span>JMeter.java:113<span style="color:#666">)</span>
-<span style="color:#666">[</span>INFO<span style="color:#666">]</span>  at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0<span style="color:#666">(</span>Native Method<span style="color:#666">)</span>
-<span style="color:#666">[</span>INFO<span style="color:#666">]</span>  at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance<span style="color:#666">(</span>NativeConstructorAccessorImpl.java:62<span style="color:#666">)</span>
-<span style="color:#666">[</span>INFO<span style="color:#666">]</span>  at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance<span style="color:#666">(</span>DelegatingConstructorAccessorImpl.java:45<span style="color:#666">)</span>
-<span style="color:#666">[</span>INFO<span style="color:#666">]</span>  at java.base/java.lang.reflect.Constructor.newInstance<span style="color:#666">(</span>Constructor.java:490<span style="color:#666">)</span>
-<span style="color:#666">[</span>INFO<span style="color:#666">]</span>  at org.apache.jmeter.NewDriver.main<span style="color:#666">(</span>NewDriver.java:257<span style="color:#666">)</span>
-<span style="color:#666">[</span>INFO<span style="color:#666">]</span> JMeter home directory was detected as: /home/smckinn/GIT/fortressDev/directory-fortress-core/target/b8ccc8a0-8845-4d34-aa10-b4ec7f50f4f5/jmeter
-<span style="color:#666">[</span>INFO<span style="color:#666">]</span> Completed Test: /home/smckinn/GIT/fortressDev/directory-fortress-core/target/jmeter/testFiles/AddUser.jmx
-<span style="color:#666">[</span>INFO<span style="color:#666">]</span>  
-<span style="color:#666">[</span>INFO<span style="color:#666">]</span> 
-<span style="color:#666">[</span>INFO<span style="color:#666">]</span> --- tools:1.4:verify-legal-files <span style="color:#666">(</span>verify-legal-files<span style="color:#666">)</span> @ fortress-core ---
-</code></pre></div><hr>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#666">[</span>INFO<span style="color:#666">]</span> Executing test: AddUser.jmx
+</span></span><span style="display:flex;"><span><span style="color:#666">[</span>INFO<span style="color:#666">]</span> Arguments <span style="color:#a2f;font-weight:bold">for</span> forked JMeter JVM: <span style="color:#666">[</span>java, -Xms1024M, -Xmx1024M, -Djava.awt.headless<span style="color:#666">=</span>true, -jar, ApacheJMeter-5.5.jar, -d, /home/smckinn/GIT/fortressDev/directory-fortress-core/target/b8ccc8a0-8845-4d34-aa10-b4ec7f50f4f5/jmeter, -j, /home/smckinn/GIT/fortressDev/directory-fortress-core/target/jmeter/logs/AddUser.jmx.log, -l, /home/smckinn/GIT/fortressDev/directory-fortress-core/target/jmeter/results/20230702-AddUser.csv, -n, -t, /home/smckinn/GIT/fortressDev/directory-fortress-core/target/jmeter/testFiles/AddUser.jmx, -Dsun.net.http.allowRestrictedHeaders, true, -Dqualifier, A10, -Dversion, 3.0.0-SNAPSHOT<span style="color:#666">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#666">[</span>INFO<span style="color:#666">]</span>  
+</span></span><span style="display:flex;"><span><span style="color:#666">[</span>INFO<span style="color:#666">]</span> java.lang.NoSuchMethodError: <span style="color:#b44">&#39;void org.apache.logging.slf4j.Log4jLoggerFactory.&lt;init&gt;(org.apache.logging.slf4j.Log4jMarkerFactory)&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#666">[</span>INFO<span style="color:#666">]</span>  at org.apache.logging.slf4j.SLF4JServiceProvider.initialize<span style="color:#666">(</span>SLF4JServiceProvider.java:54<span style="color:#666">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#666">[</span>INFO<span style="color:#666">]</span>  at org.slf4j.LoggerFactory.bind<span style="color:#666">(</span>LoggerFactory.java:183<span style="color:#666">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#666">[</span>INFO<span style="color:#666">]</span>  at org.slf4j.LoggerFactory.performInitialization<span style="color:#666">(</span>LoggerFactory.java:170<span style="color:#666">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#666">[</span>INFO<span style="color:#666">]</span>  at org.slf4j.LoggerFactory.getProvider<span style="color:#666">(</span>LoggerFactory.java:455<span style="color:#666">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#666">[</span>INFO<span style="color:#666">]</span>  at org.slf4j.LoggerFactory.getILoggerFactory<span style="color:#666">(</span>LoggerFactory.java:441<span style="color:#666">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#666">[</span>INFO<span style="color:#666">]</span>  at org.slf4j.LoggerFactory.getLogger<span style="color:#666">(</span>LoggerFactory.java:390<span style="color:#666">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#666">[</span>INFO<span style="color:#666">]</span>  at org.slf4j.LoggerFactory.getLogger<span style="color:#666">(</span>LoggerFactory.java:416<span style="color:#666">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#666">[</span>INFO<span style="color:#666">]</span>  at org.apache.jmeter.JMeter.&lt;clinit&gt;<span style="color:#666">(</span>JMeter.java:113<span style="color:#666">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#666">[</span>INFO<span style="color:#666">]</span>  at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0<span style="color:#666">(</span>Native Method<span style="color:#666">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#666">[</span>INFO<span style="color:#666">]</span>  at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance<span style="color:#666">(</span>NativeConstructorAccessorImpl.java:62<span style="color:#666">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#666">[</span>INFO<span style="color:#666">]</span>  at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance<span style="color:#666">(</span>DelegatingConstructorAccessorImpl.java:45<span style="color:#666">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#666">[</span>INFO<span style="color:#666">]</span>  at java.base/java.lang.reflect.Constructor.newInstance<span style="color:#666">(</span>Constructor.java:490<span style="color:#666">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#666">[</span>INFO<span style="color:#666">]</span>  at org.apache.jmeter.NewDriver.main<span style="color:#666">(</span>NewDriver.java:257<span style="color:#666">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#666">[</span>INFO<span style="color:#666">]</span> JMeter home directory was detected as: /home/smckinn/GIT/fortressDev/directory-fortress-core/target/b8ccc8a0-8845-4d34-aa10-b4ec7f50f4f5/jmeter
+</span></span><span style="display:flex;"><span><span style="color:#666">[</span>INFO<span style="color:#666">]</span> Completed Test: /home/smckinn/GIT/fortressDev/directory-fortress-core/target/jmeter/testFiles/AddUser.jmx
+</span></span><span style="display:flex;"><span><span style="color:#666">[</span>INFO<span style="color:#666">]</span>  
+</span></span><span style="display:flex;"><span><span style="color:#666">[</span>INFO<span style="color:#666">]</span> 
+</span></span><span style="display:flex;"><span><span style="color:#666">[</span>INFO<span style="color:#666">]</span> --- tools:1.4:verify-legal-files <span style="color:#666">(</span>verify-legal-files<span style="color:#666">)</span> @ fortress-core ---
+</span></span></code></pre></div><hr>
 <h5 id="ii-jmeter-error-error-in-nonguidriver-null">ii. jmeter error: Error in NonGUIDriver null</h5>
 <p>The current version of jmeter v5.6 requires</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml">    <span style="color:#080;font-style:italic">&lt;!--</span><span style="color:#080;font-style:italic"> Required for jmeter runtime. Fixes: Error in NonGUIDriver java.lang.NullPointerException </span><span style="color:#080;font-style:italic">--&gt;</span>
-    <span style="color:#008000;font-weight:bold">&lt;dependency</span><span style="color:#008000;font-weight:bold">&gt;</span>
-      <span style="color:#008000;font-weight:bold">&lt;groupId</span><span style="color:#008000;font-weight:bold">&gt;</span>org.apache.jmeter<span style="color:#008000;font-weight:bold">&lt;/groupId&gt;</span>
-      <span style="color:#008000;font-weight:bold">&lt;artifactId</span><span style="color:#008000;font-weight:bold">&gt;</span>jorphan<span style="color:#008000;font-weight:bold">&lt;/artifactId&gt;</span>
-      <span style="color:#008000;font-weight:bold">&lt;version</span><span style="color:#008000;font-weight:bold">&gt;</span>${version.jmeter.java}<span style="color:#008000;font-weight:bold">&lt;/version&gt;</span>
-      <span style="color:#008000;font-weight:bold">&lt;scope</span><span style="color:#008000;font-weight:bold">&gt;</span>test<span style="color:#008000;font-weight:bold">&lt;/scope&gt;</span>
-    <span style="color:#008000;font-weight:bold">&lt;/dependency&gt;</span>
-</code></pre></div><p>Sample error</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#666">[</span>INFO<span style="color:#666">]</span> Executing test: AddUser.jmx
-<span style="color:#666">[</span>INFO<span style="color:#666">]</span> Arguments <span style="color:#a2f;font-weight:bold">for</span> forked JMeter JVM: <span style="color:#666">[</span>java, -Xms1024M, -Xmx1024M, -Djava.awt.headless<span style="color:#666">=</span>true, -jar, ApacheJMeter-5.5.jar, -d, /home/smckinn/GIT/fortressDev/directory-fortress-core/target/dceff4c0-ff24-4e9c-ad4a-7db38b276b52/jmeter, -j, /home/smckinn/GIT/fortressDev/directory-fortress-core/target/jmeter/logs/AddUser.jmx.log, -l, /home/smckinn/GIT/fortressDev/directory-fortress-core/target/jmeter/results/20230702-AddUser.csv, -n, -t, /home/smckinn/GIT/fortressDev/directory-fortress-core/target/jmeter/testFiles/AddUser.jmx, -Dsun.net.http.allowRestrictedHeaders, true, -Dqualifier, A10, -Dversion, 3.0.0-SNAPSHOT<span style="color:#666">]</span>
-<span style="color:#666">[</span>INFO<span style="color:#666">]</span>  
-<span style="color:#666">[</span>INFO<span style="color:#666">]</span> Error in NonGUIDriver java.lang.NullPointerException
-<span style="color:#666">[</span>INFO<span style="color:#666">]</span> An error occurred: Error in NonGUIDriver null
-<span style="color:#666">[</span>INFO<span style="color:#666">]</span> ------------------------------------------------------------------------
-<span style="color:#666">[</span>INFO<span style="color:#666">]</span> BUILD FAILURE
-<span style="color:#666">[</span>INFO<span style="color:#666">]</span> ------------------------------------------------------------------------
-<span style="color:#666">[</span>INFO<span style="color:#666">]</span> Total time:  12.799 s
-<span style="color:#666">[</span>INFO<span style="color:#666">]</span> Finished at: 2023-07-02T14:04:09-05:00
-<span style="color:#666">[</span>INFO<span style="color:#666">]</span> ------------------------------------------------------------------------
-<span style="color:#666">[</span>ERROR<span style="color:#666">]</span> Failed to execute goal com.lazerycode.jmeter:jmeter-maven-plugin:3.7.0:jmeter <span style="color:#666">(</span>jmeter-tests<span style="color:#666">)</span> on project fortress-core: Test failed with <span style="color:#a2f">exit</span> code:1 -&gt; <span style="color:#666">[</span>Help 1<span style="color:#666">]</span>
-<span style="color:#666">[</span>ERROR<span style="color:#666">]</span> 
-<span style="color:#666">[</span>ERROR<span style="color:#666">]</span> To see the full stack trace of the errors, re-run Maven with the -e switch.
-<span style="color:#666">[</span>ERROR<span style="color:#666">]</span> Re-run Maven using the -X switch to <span style="color:#a2f">enable</span> full debug logging.
-<span style="color:#666">[</span>ERROR<span style="color:#666">]</span> 
-<span style="color:#666">[</span>ERROR<span style="color:#666">]</span> For more information about the errors and possible solutions, please <span style="color:#a2f">read</span> the following articles:
-<span style="color:#666">[</span>ERROR<span style="color:#666">]</span> <span style="color:#666">[</span>Help 1<span style="color:#666">]</span> http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException
-<span style="color:#666">[</span>INFO<span style="color:#666">]</span> Shutdown detected, destroying JMeter process...
-</code></pre></div><hr>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span>    <span style="color:#080;font-style:italic">&lt;!-- Required for jmeter runtime. Fixes: Error in NonGUIDriver java.lang.NullPointerException --&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#008000;font-weight:bold">&lt;dependency&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#008000;font-weight:bold">&lt;groupId&gt;</span>org.apache.jmeter<span style="color:#008000;font-weight:bold">&lt;/groupId&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#008000;font-weight:bold">&lt;artifactId&gt;</span>jorphan<span style="color:#008000;font-weight:bold">&lt;/artifactId&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#008000;font-weight:bold">&lt;version&gt;</span>${version.jmeter.java}<span style="color:#008000;font-weight:bold">&lt;/version&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#008000;font-weight:bold">&lt;scope&gt;</span>test<span style="color:#008000;font-weight:bold">&lt;/scope&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#008000;font-weight:bold">&lt;/dependency&gt;</span>
+</span></span></code></pre></div><p>Sample error</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#666">[</span>INFO<span style="color:#666">]</span> Executing test: AddUser.jmx
+</span></span><span style="display:flex;"><span><span style="color:#666">[</span>INFO<span style="color:#666">]</span> Arguments <span style="color:#a2f;font-weight:bold">for</span> forked JMeter JVM: <span style="color:#666">[</span>java, -Xms1024M, -Xmx1024M, -Djava.awt.headless<span style="color:#666">=</span>true, -jar, ApacheJMeter-5.5.jar, -d, /home/smckinn/GIT/fortressDev/directory-fortress-core/target/dceff4c0-ff24-4e9c-ad4a-7db38b276b52/jmeter, -j, /home/smckinn/GIT/fortressDev/directory-fortress-core/target/jmeter/logs/AddUser.jmx.log, -l, /home/smckinn/GIT/fortressDev/directory-fortress-core/target/jmeter/results/20230702-AddUser.csv, -n, -t, /home/smckinn/GIT/fortressDev/directory-fortress-core/target/jmeter/testFiles/AddUser.jmx, -Dsun.net.http.allowRestrictedHeaders, true, -Dqualifier, A10, -Dversion, 3.0.0-SNAPSHOT<span style="color:#666">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#666">[</span>INFO<span style="color:#666">]</span>  
+</span></span><span style="display:flex;"><span><span style="color:#666">[</span>INFO<span style="color:#666">]</span> Error in NonGUIDriver java.lang.NullPointerException
+</span></span><span style="display:flex;"><span><span style="color:#666">[</span>INFO<span style="color:#666">]</span> An error occurred: Error in NonGUIDriver null
+</span></span><span style="display:flex;"><span><span style="color:#666">[</span>INFO<span style="color:#666">]</span> ------------------------------------------------------------------------
+</span></span><span style="display:flex;"><span><span style="color:#666">[</span>INFO<span style="color:#666">]</span> BUILD FAILURE
+</span></span><span style="display:flex;"><span><span style="color:#666">[</span>INFO<span style="color:#666">]</span> ------------------------------------------------------------------------
+</span></span><span style="display:flex;"><span><span style="color:#666">[</span>INFO<span style="color:#666">]</span> Total time:  12.799 s
+</span></span><span style="display:flex;"><span><span style="color:#666">[</span>INFO<span style="color:#666">]</span> Finished at: 2023-07-02T14:04:09-05:00
+</span></span><span style="display:flex;"><span><span style="color:#666">[</span>INFO<span style="color:#666">]</span> ------------------------------------------------------------------------
+</span></span><span style="display:flex;"><span><span style="color:#666">[</span>ERROR<span style="color:#666">]</span> Failed to execute goal com.lazerycode.jmeter:jmeter-maven-plugin:3.7.0:jmeter <span style="color:#666">(</span>jmeter-tests<span style="color:#666">)</span> on project fortress-core: Test failed with <span style="color:#a2f">exit</span> code:1 -&gt; <span style="color:#666">[</span>Help 1<span style="color:#666">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#666">[</span>ERROR<span style="color:#666">]</span> 
+</span></span><span style="display:flex;"><span><span style="color:#666">[</span>ERROR<span style="color:#666">]</span> To see the full stack trace of the errors, re-run Maven with the -e switch.
+</span></span><span style="display:flex;"><span><span style="color:#666">[</span>ERROR<span style="color:#666">]</span> Re-run Maven using the -X switch to <span style="color:#a2f">enable</span> full debug logging.
+</span></span><span style="display:flex;"><span><span style="color:#666">[</span>ERROR<span style="color:#666">]</span> 
+</span></span><span style="display:flex;"><span><span style="color:#666">[</span>ERROR<span style="color:#666">]</span> For more information about the errors and possible solutions, please <span style="color:#a2f">read</span> the following articles:
+</span></span><span style="display:flex;"><span><span style="color:#666">[</span>ERROR<span style="color:#666">]</span> <span style="color:#666">[</span>Help 1<span style="color:#666">]</span> http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException
+</span></span><span style="display:flex;"><span><span style="color:#666">[</span>INFO<span style="color:#666">]</span> Shutdown detected, destroying JMeter process...
+</span></span></code></pre></div><hr>
 <h5 id="iii-jmeter-tests-hang">iii. jmeter tests hang</h5>
 <p>Observation:
 When running tests that consume lots of memory, e.g. using many threads and/or enabling REST, the process hangs.
@@ -821,29 +830,29 @@ Most likely jmeter has run out of memory.<br>
 An error is not reported. The process hangs and stops responding.</p>
 <p>Remedy:
 Edit the project&rsquo;s pom.mxl. Goto the loadtest profile. Increase the memory allocation, e.g. 2048 (2GB):</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#008000;font-weight:bold">&lt;profile</span><span style="color:#008000;font-weight:bold">&gt;</span>
-   <span style="color:#008000;font-weight:bold">&lt;id</span><span style="color:#008000;font-weight:bold">&gt;</span>loadtest<span style="color:#008000;font-weight:bold">&lt;/id&gt;</span>
-   <span style="color:#008000;font-weight:bold">&lt;build</span><span style="color:#008000;font-weight:bold">&gt;</span>
-    ...
-      <span style="color:#008000;font-weight:bold">&lt;jMeterProcessJVMSettings</span><span style="color:#008000;font-weight:bold">&gt;</span>
-         <span style="color:#008000;font-weight:bold">&lt;xms</span><span style="color:#008000;font-weight:bold">&gt;</span>2048<span style="color:#008000;font-weight:bold">&lt;/xms&gt;</span>
-         <span style="color:#008000;font-weight:bold">&lt;xmx</span><span style="color:#008000;font-weight:bold">&gt;</span>2048<span style="color:#008000;font-weight:bold">&lt;/xmx&gt;</span>
-      <span style="color:#008000;font-weight:bold">&lt;/jMeterProcessJVMSettings&gt;</span>
-    ...
-   <span style="color:#008000;font-weight:bold">&lt;/build&gt;</span>
-<span style="color:#008000;font-weight:bold">&lt;/profile&gt;</span>
-</code></pre></div><hr>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#008000;font-weight:bold">&lt;profile&gt;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#008000;font-weight:bold">&lt;id&gt;</span>loadtest<span style="color:#008000;font-weight:bold">&lt;/id&gt;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#008000;font-weight:bold">&lt;build&gt;</span>
+</span></span><span style="display:flex;"><span>    ...
+</span></span><span style="display:flex;"><span>      <span style="color:#008000;font-weight:bold">&lt;jMeterProcessJVMSettings&gt;</span>
+</span></span><span style="display:flex;"><span>         <span style="color:#008000;font-weight:bold">&lt;xms&gt;</span>2048<span style="color:#008000;font-weight:bold">&lt;/xms&gt;</span>
+</span></span><span style="display:flex;"><span>         <span style="color:#008000;font-weight:bold">&lt;xmx&gt;</span>2048<span style="color:#008000;font-weight:bold">&lt;/xmx&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#008000;font-weight:bold">&lt;/jMeterProcessJVMSettings&gt;</span>
+</span></span><span style="display:flex;"><span>    ...
+</span></span><span style="display:flex;"><span>   <span style="color:#008000;font-weight:bold">&lt;/build&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#008000;font-weight:bold">&lt;/profile&gt;</span>
+</span></span></code></pre></div><hr>
 <h5 id="iv-too-many-open-files">iv. too many open files</h5>
 <p>Observation:
 When running loadtests thought the REST interface, Exceptions in log file:</p>
 <h6 id="targetguidjmeterbinfortress-jmeterlog">target/[GUID]/jmeter/bin/fortress-jmeter.log</h6>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">2023-07-05 01:59:015 WARN  UserBase:219 - ThreadId: 23, error running test: org.apache.directory.fortress.core.RestException: post <span style="color:#b8860b">uri</span><span style="color:#666">=</span><span style="color:#666">[</span>https://fortress-a:8443/fortress-rest-3.0.0-SNAPSHOT/<span style="color:#666">]</span>, <span style="color:#a2f;font-weight:bold">function</span><span style="color:#666">=</span><span style="color:#666">[</span>rbacCheck<span style="color:#666">]</span>, caught <span style="color:#b8860b">IOException</span><span style="color:#666">=</span>Too many open files
-2023-07-05 01:59:015 ERROR RestUtils:389 - post <span style="color:#b8860b">uri</span><span style="color:#666">=</span><span style="color:#666">[</span>https://fortress-a:8443/fortress-rest-3.0.0-SNAPSHOT/<span style="color:#666">]</span>, <span style="color:#a2f;font-weight:bold">function</span><span style="color:#666">=</span><span style="color:#666">[</span>rbacCheck<span style="color:#666">]</span>, caught <span style="color:#b8860b">IOException</span><span style="color:#666">=</span>Too many open files
-java.net.SocketException: Too many open files
-</code></pre></div><p>Remedy:
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>2023-07-05 01:59:015 WARN  UserBase:219 - ThreadId: 23, error running test: org.apache.directory.fortress.core.RestException: post <span style="color:#b8860b">uri</span><span style="color:#666">=[</span>https://fortress-a:8443/fortress-rest-3.0.0-SNAPSHOT/<span style="color:#666">]</span>, <span style="color:#a2f;font-weight:bold">function</span><span style="color:#666">=[</span>rbacCheck<span style="color:#666">]</span>, caught <span style="color:#b8860b">IOException</span><span style="color:#666">=</span>Too many open files
+</span></span><span style="display:flex;"><span>2023-07-05 01:59:015 ERROR RestUtils:389 - post <span style="color:#b8860b">uri</span><span style="color:#666">=[</span>https://fortress-a:8443/fortress-rest-3.0.0-SNAPSHOT/<span style="color:#666">]</span>, <span style="color:#a2f;font-weight:bold">function</span><span style="color:#666">=[</span>rbacCheck<span style="color:#666">]</span>, caught <span style="color:#b8860b">IOException</span><span style="color:#666">=</span>Too many open files
+</span></span><span style="display:flex;"><span>java.net.SocketException: Too many open files
+</span></span></code></pre></div><p>Remedy:
 Increase the maximum open files for ALL users. Requires a reboot to become active.</p>
 <h6 id="etcsecuritylimitsconf">/etc/security/limits.conf</h6>
-<pre><code>'*               -       nofile             8192'
+<pre tabindex="0"><code>&#39;*               -       nofile             8192&#39;
 </code></pre><hr>
 
 
@@ -853,16 +862,18 @@ Increase the maximum open files for ALL users. Requires a reboot to become activ
         <div id="endContent"></div>
     </div>
 
-    <div id="footer">
+    <div class="footer-wrapper">
+<div id="footer">
     &copy; 2003-2025, <a href="https://www.apache.org">The Apache Software Foundation</a> - <a href="https://privacy.apache.org/policies/privacy-policy-public.html">Privacy Policy</a><br />
     Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
-    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple, Fortress, Apache Fortress, EnMasse,
     Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
     trademarks of The Apache Software Foundation.
 </div>
-
 </div>
 
+</div>
+<div class="top-bottom-spacer"></div>
 </body>
 
 </html>

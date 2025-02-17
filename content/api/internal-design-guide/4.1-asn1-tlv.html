@@ -1,20 +1,29 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
+
+    
+    
+        
+    
+
 <head>
     <meta charset="utf-8">
     <title>4-1 - ASN/1 TLV &mdash; Apache Directory</title>
 
     <link href="/css/common.css" rel="stylesheet" type="text/css"/>
-    <link href="/css/brown.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/api.css" rel="stylesheet" type="text/css"/>
 
     <link rel="shortcut icon" href="/images/server-icon_16x16.png" />
     <script src="https://www.apachecon.com/event-images/snippet.js"></script>
 </head>
 
 <body>
+<div class="top-bottom-spacer"></div>
 <div id="container">
     <div id="header">
+    <span>Apache Directory</span>
     <a href="/"><div id="headerClick"></div></a>
     <div id="subProjectsNavBar">
         <a href="/">
@@ -81,7 +90,7 @@
 
                 <h5>Downloads</h5>
                 <ul>
-                    <li><a href="/api/downloads-2.html">Version 2.1.7</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/downloads-2.html">Version 2.1.7</a>&nbsp;&nbsp;<img src="/images/new_badge.svg" alt="" style="margin-bottom:-3px;" border="0"></li>
                     <li><a href="/api/downloads-1.html">Version 1.0.3</a>&nbsp;&nbsp;</li>
                     <li><a href="/api/download-old-versions.html">Older versions</a></li>
                 </ul>
@@ -178,21 +187,21 @@
 <li>If the label is 31, then more than one byte is used to encode the <strong>Type</strong>. In this case, we use the following bytes to compute the label, where each byte which high bit is one will be followed by another byte.</li>
 </ul>
 <p>We limit the label to 2,097,151 as we encode the <strong>Type</strong> in one Java int :</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Text" data-lang="Text">    b1 xxx[1-1111], b2 1[111-1111], b3 1[111-1111], b4 0[111-1111]
-    -&gt;
-    [111-1111][111-1111][111-1111] 
-    -&gt;
-    0001-1111 1111-1111 1111-1111
-    -&gt;
-    0x1FFFFF
-    -&gt; 
-    2,097,151
-</code></pre></div><p>In <strong>LDAP</strong> or <strong>Kerberos</strong>, no label is higher than 30, so we always use 1 byte <strong>Type</strong>s.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Text" data-lang="Text"><span style="display:flex;"><span>    b1 xxx[1-1111], b2 1[111-1111], b3 1[111-1111], b4 0[111-1111]
+</span></span><span style="display:flex;"><span>    -&gt;
+</span></span><span style="display:flex;"><span>    [111-1111][111-1111][111-1111] 
+</span></span><span style="display:flex;"><span>    -&gt;
+</span></span><span style="display:flex;"><span>    0001-1111 1111-1111 1111-1111
+</span></span><span style="display:flex;"><span>    -&gt;
+</span></span><span style="display:flex;"><span>    0x1FFFFF
+</span></span><span style="display:flex;"><span>    -&gt; 
+</span></span><span style="display:flex;"><span>    2,097,151
+</span></span></code></pre></div><p>In <strong>LDAP</strong> or <strong>Kerberos</strong>, no label is higher than 30, so we always use 1 byte <strong>Type</strong>s.</p>
 <p>Other interesting information that we need to grab from a <em>Type</em> are stored in the two first bits (bit 7 and 6), and in the third bit (bit 5). The first two bits describe the class, the third tells if the <strong>TLV</strong> is a <strong>primitive</strong> (b5 = 0) or a <strong>constructed</strong> <strong>TLV</strong> (b5 = 1).</p>
 <h3 id="length">Length</h3>
 <p><strong>Length</strong> gives the number of bytes of the <strong>Value</strong>, and nothing else. So the total length of a <strong>TLV</strong> will be:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Text" data-lang="Text">    TLV length = Tag length + Length length + Value length, 
-</code></pre></div><p>where the <strong>Value</strong> length is stored in the <strong>Length</strong> element.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Text" data-lang="Text"><span style="display:flex;"><span>    TLV length = Tag length + Length length + Value length, 
+</span></span></code></pre></div><p>where the <strong>Value</strong> length is stored in the <strong>Length</strong> element.</p>
 <p>The <strong>Length</strong> may be 0, which means that there is no value following.</p>
 <p>How is <strong>Length</strong> encoded? A <strong>Value</strong> may be from 0 to N bytes long, with N &lt; (256 ^ 126) - 1. This limit is purely hypothetic, of course. If we have to deal with huge objects like pictures or movies, their length will not exceed a few MBytes or a few GBytes</p>
 <p>Typically, we will find five kind of <strong>Length</strong>s :</p>
@@ -207,10 +216,10 @@
 <p>The fourth type could also be ignored (4 GBytes is quite a huge size for an LDAP element &hellip;), so we can decide that we won&rsquo;t accept those <strong>Values</strong>. It seems reasonable.</p>
 <p>As the <strong>Length</strong> can be stored in more than one byte, we have to take care of fragmented <strong>PDU</strong> : we may receive only the first bytes, and have to wait for the rest to be received. The idea is to freeze and start again when we receive some more data.</p>
 <p>In any case, if the first byte is &gt; 0x7F, that means it&rsquo;s a multi-bytes length, and we have to process the following bytesto get the real length. In this case, the first byte contains teh number of expected following bytes. Typically :</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Text" data-lang="Text">    0x74 -&gt; 116
-    0x82 0x02 0x84 : 2 bytes, length = 2 * 16 + 132 -&gt; 164
-    0x81 0x84 : 1 byte, length = 132
-</code></pre></div><h3 id="value">Value</h3>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Text" data-lang="Text"><span style="display:flex;"><span>    0x74 -&gt; 116
+</span></span><span style="display:flex;"><span>    0x82 0x02 0x84 : 2 bytes, length = 2 * 16 + 132 -&gt; 164
+</span></span><span style="display:flex;"><span>    0x81 0x84 : 1 byte, length = 132
+</span></span></code></pre></div><h3 id="value">Value</h3>
 <p><strong>Value</strong> carries the &lsquo;meat&rsquo; of a <strong>TLV</strong>. Depending on the <strong>Type</strong>, it&rsquo;s either a primitive value, or a constructed one (which means it contains a <strong>TLV</strong> or a set of <strong>TLV</strong>s). Remember that bit 5 of the <strong>Type</strong> tells if the <strong>Value</strong> is <em>primitive</em> ( b5 == 0) or <em>constructed</em> (b5 == 1).</p>
 <ul>
 <li>If we have a <em>primitive</em> <strong>Value</strong>, we have to read <strong>Length</strong> byte and we are done</li>
@@ -220,12 +229,12 @@
 <p>In the <strong>API</strong>, the <strong>TLV</strong> processing is done in the <em>Asn1Decoder</em> class, and more specifically by the <em>decode( ByteBuffer stream, Asn1Container container )</em> method, which takes a ByteBuffer as input, and feed a container as a result.</p>
 <p>The important thing to understand is that this method can be called repetively, until a message is fully decoded, as soon as we feed it with some new <em>ByteBuffer</em>. The <em>Container</em> instance will contain the result, as soon as its state has switched to <strong>PDU_DECODED</strong>.</p>
 <p>While processing a <strong>TLV</strong>, when we are done with the <strong>Value</strong> part, the decoder will check if any action is to be executed. The action is associated to the grammar in use, which is stored in the container. Here is the part that call the action, in the <em>Asn1Decoder.treatTLVDoneState()</em> method :</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">    <span style="color:#a2f;font-weight:bold">private</span> <span style="color:#0b0;font-weight:bold">boolean</span> <span style="color:#00a000">treatTLVDoneState</span><span style="color:#666">(</span> ByteBuffer stream<span style="color:#666">,</span> Asn1Container container <span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> DecoderException
-    <span style="color:#666">{</span>
-        <span style="color:#080;font-style:italic">// First, we have to execute the associated action
-</span><span style="color:#080;font-style:italic"></span>        container<span style="color:#666">.</span><span style="color:#b44">getGrammar</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">.</span><span style="color:#b44">executeAction</span><span style="color:#666">(</span> container <span style="color:#666">)</span><span style="color:#666">;</span>
-        <span style="color:#666">.</span><span style="color:#666">.</span><span style="color:#666">.</span>
-</code></pre></div><p>So the <em>Container</em> must contain the grammar, and the current state. We may not have any action to execute, either because none is associated with the current transition or because we are at the end of the message.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">private</span><span style="color:#bbb"> </span><span style="color:#0b0;font-weight:bold">boolean</span><span style="color:#bbb"> </span><span style="color:#00a000">treatTLVDoneState</span>(<span style="color:#bbb"> </span>ByteBuffer<span style="color:#bbb"> </span>stream,<span style="color:#bbb"> </span>Asn1Container<span style="color:#bbb"> </span>container<span style="color:#bbb"> </span>)<span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">throws</span><span style="color:#bbb"> </span>DecoderException<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#080;font-style:italic">// First, we have to execute the associated action</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>container.<span style="color:#b44">getGrammar</span>().<span style="color:#b44">executeAction</span>(<span style="color:#bbb"> </span>container<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>...<span style="color:#bbb">
+</span></span></span></code></pre></div><p>So the <em>Container</em> must contain the grammar, and the current state. We may not have any action to execute, either because none is associated with the current transition or because we are at the end of the message.</p>
 <h3 id="tlv-implementation">TLV implementation</h3>
 <p>The <strong>TLV</strong> class stores the <strong>Type</strong>, <strong>Length</strong> and <strong>Value</strong>, plus some extra information, like a unique <em>id</em>, a reference to its parent&rsquo;s <strong>TLV</strong> and the expected length when the included <strong>Value</strong> is a set of <strong>TLV</strong>.</p>
 <p><img src="images/tlv-bervalue.png" alt="TLV/BerValue"></p>
@@ -237,463 +246,463 @@
 <p>At this point, an example would be useful.</p>
 <h2 id="example">Example</h2>
 <p>Let say we want to implement a decoder for the following message :</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Text" data-lang="Text">    EntryChangeNotification ::= SEQUENCE
-    {
-        changeType ENUMERATED
-        {
-            add             (1),
-            delete          (2),
-            modify          (4),
-            modDN           (8)
-        },
-        previousDN   LDAPDN OPTIONAL,     -- modifyDN ops. only
-        changeNumber INTEGER OPTIONAL     -- if supported
-    }
-</code></pre></div><p>You don&rsquo;t need to know anything about this message, what is important is how we will decode it.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Text" data-lang="Text"><span style="display:flex;"><span>    EntryChangeNotification ::= SEQUENCE
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        changeType ENUMERATED
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            add             (1),
+</span></span><span style="display:flex;"><span>            delete          (2),
+</span></span><span style="display:flex;"><span>            modify          (4),
+</span></span><span style="display:flex;"><span>            modDN           (8)
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>        previousDN   LDAPDN OPTIONAL,     -- modifyDN ops. only
+</span></span><span style="display:flex;"><span>        changeNumber INTEGER OPTIONAL     -- if supported
+</span></span><span style="display:flex;"><span>    }
+</span></span></code></pre></div><p>You don&rsquo;t need to know anything about this message, what is important is how we will decode it.</p>
 <p>The first thing we need to create is an interface and a implementation for the Java object that will represent the <strong>EntryChange</strong> object.</p>
 <p>Here is the interface (note that it&rsquo;s a <em>Control</em>, but it&rsquo;s a irrelevant information here) :</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">interface</span> <span style="color:#00f">EntryChange</span> <span style="color:#a2f;font-weight:bold">extends</span> Control
-    <span style="color:#666">{</span>
-        <span style="color:#080;font-style:italic">/** No defined change number */</span> 
-        <span style="color:#0b0;font-weight:bold">int</span> UNDEFINED_CHANGE_NUMBER <span style="color:#666">=</span> <span style="color:#666">-</span>1<span style="color:#666">;</span>
-
-        <span style="color:#080;font-style:italic">/** The EntryChange control */</span>
-        String OID <span style="color:#666">=</span> <span style="color:#b44">&#34;2.16.840.1.113730.3.4.7&#34;</span><span style="color:#666">;</span>
-
-
-        <span style="color:#080;font-style:italic">/**
-</span><span style="color:#080;font-style:italic">         * @return The ChangeType
-</span><span style="color:#080;font-style:italic">         */</span>
-        ChangeType <span style="color:#00a000">getChangeType</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
-
-
-        <span style="color:#080;font-style:italic">/**
-</span><span style="color:#080;font-style:italic">         * Set the ChangeType
-</span><span style="color:#080;font-style:italic">         *
-</span><span style="color:#080;font-style:italic">         * @param changeType Add, Delete; Modify or ModifyDN
-</span><span style="color:#080;font-style:italic">         */</span>
-        <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">setChangeType</span><span style="color:#666">(</span> ChangeType changeType <span style="color:#666">)</span><span style="color:#666">;</span>
-
-
-        <span style="color:#080;font-style:italic">/**
-</span><span style="color:#080;font-style:italic">         * @return The previous DN
-</span><span style="color:#080;font-style:italic">         */</span>
-        Dn <span style="color:#00a000">getPreviousDn</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
-
-
-        <span style="color:#080;font-style:italic">/**
-</span><span style="color:#080;font-style:italic">         * Sets the previous DN
-</span><span style="color:#080;font-style:italic">         * 
-</span><span style="color:#080;font-style:italic">         * @param previousDn The previous DN
-</span><span style="color:#080;font-style:italic">         */</span>
-        <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">setPreviousDn</span><span style="color:#666">(</span> Dn previousDn <span style="color:#666">)</span><span style="color:#666">;</span>
-
-
-        <span style="color:#080;font-style:italic">/**
-</span><span style="color:#080;font-style:italic">         * @return The change number
-</span><span style="color:#080;font-style:italic">         */</span>
-        <span style="color:#0b0;font-weight:bold">long</span> <span style="color:#00a000">getChangeNumber</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
-
-
-        <span style="color:#080;font-style:italic">/**
-</span><span style="color:#080;font-style:italic">         * Sets the ChangeNumber
-</span><span style="color:#080;font-style:italic">         * 
-</span><span style="color:#080;font-style:italic">         * @param changeNumber The ChanegNumber
-</span><span style="color:#080;font-style:italic">         */</span>
-        <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">setChangeNumber</span><span style="color:#666">(</span> <span style="color:#0b0;font-weight:bold">long</span> changeNumber <span style="color:#666">)</span><span style="color:#666">;</span>
-    <span style="color:#666">}</span>
-</code></pre></div><p>What is important is that we declare all the setters and getters for the object fields that matter : <em>changeType</em>, <em>previousDN</em> and <em>changeNumber</em></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">interface</span> <span style="color:#00f">EntryChange</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">extends</span><span style="color:#bbb"> </span>Control<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#080;font-style:italic">/** No defined change number */</span><span style="color:#bbb"> 
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#0b0;font-weight:bold">int</span><span style="color:#bbb"> </span>UNDEFINED_CHANGE_NUMBER<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#666">-</span>1;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#080;font-style:italic">/** The EntryChange control */</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>String<span style="color:#bbb"> </span>OID<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#b44">&#34;2.16.840.1.113730.3.4.7&#34;</span>;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#080;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         * @return The ChangeType
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         */</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>ChangeType<span style="color:#bbb"> </span><span style="color:#00a000">getChangeType</span>();<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#080;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         * Set the ChangeType
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         *
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         * @param changeType Add, Delete; Modify or ModifyDN
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         */</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#0b0;font-weight:bold">void</span><span style="color:#bbb"> </span><span style="color:#00a000">setChangeType</span>(<span style="color:#bbb"> </span>ChangeType<span style="color:#bbb"> </span>changeType<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#080;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         * @return The previous DN
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         */</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>Dn<span style="color:#bbb"> </span><span style="color:#00a000">getPreviousDn</span>();<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#080;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         * Sets the previous DN
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         * 
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         * @param previousDn The previous DN
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         */</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#0b0;font-weight:bold">void</span><span style="color:#bbb"> </span><span style="color:#00a000">setPreviousDn</span>(<span style="color:#bbb"> </span>Dn<span style="color:#bbb"> </span>previousDn<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#080;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         * @return The change number
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         */</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#0b0;font-weight:bold">long</span><span style="color:#bbb"> </span><span style="color:#00a000">getChangeNumber</span>();<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#080;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         * Sets the ChangeNumber
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         * 
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         * @param changeNumber The ChanegNumber
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         */</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#0b0;font-weight:bold">void</span><span style="color:#bbb"> </span><span style="color:#00a000">setChangeNumber</span>(<span style="color:#bbb"> </span><span style="color:#0b0;font-weight:bold">long</span><span style="color:#bbb"> </span>changeNumber<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>}<span style="color:#bbb">
+</span></span></span></code></pre></div><p>What is important is that we declare all the setters and getters for the object fields that matter : <em>changeType</em>, <em>previousDN</em> and <em>changeNumber</em></p>
 <p>The implementation is not really complex :</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    <span style="color:#080;font-style:italic">/**
-</span><span style="color:#080;font-style:italic">     * A simple implementation of the EntryChange response control.
-</span><span style="color:#080;font-style:italic">     *
-</span><span style="color:#080;font-style:italic">     * @author &lt;a href=&#34;mailto:dev@directory.apache.org&#34;&gt;Apache Directory Project&lt;/a&gt;
-</span><span style="color:#080;font-style:italic">     */</span>
-    <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">class</span> <span style="color:#00f">EntryChangeImpl</span> <span style="color:#a2f;font-weight:bold">extends</span> AbstractControl <span style="color:#a2f;font-weight:bold">implements</span> EntryChange
-    <span style="color:#666">{</span>
-        <span style="color:#080;font-style:italic">/** The changeType */</span>
-        <span style="color:#a2f;font-weight:bold">private</span> ChangeType changeType <span style="color:#666">=</span> ChangeType<span style="color:#666">.</span><span style="color:#b44">ADD</span><span style="color:#666">;</span>
-
-        <span style="color:#a2f;font-weight:bold">private</span> <span style="color:#0b0;font-weight:bold">long</span> changeNumber <span style="color:#666">=</span> UNDEFINED_CHANGE_NUMBER<span style="color:#666">;</span>
-
-        <span style="color:#080;font-style:italic">/** The previous Dn */</span>
-        <span style="color:#a2f;font-weight:bold">private</span> Dn previousDn <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">null</span><span style="color:#666">;</span>
-
-
-        <span style="color:#080;font-style:italic">/**
-</span><span style="color:#080;font-style:italic">         *
-</span><span style="color:#080;font-style:italic">         * Creates a new instance of EntryChangeControl.
-</span><span style="color:#080;font-style:italic">         *
-</span><span style="color:#080;font-style:italic">         */</span>
-        <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#00a000">EntryChangeImpl</span><span style="color:#666">(</span><span style="color:#666">)</span>
-        <span style="color:#666">{</span>
-            <span style="color:#a2f;font-weight:bold">super</span><span style="color:#666">(</span> OID <span style="color:#666">)</span><span style="color:#666">;</span>
-        <span style="color:#666">}</span>
-
-
-        <span style="color:#080;font-style:italic">/**
-</span><span style="color:#080;font-style:italic">         * {@inheritDoc}
-</span><span style="color:#080;font-style:italic">         */</span>
-        <span style="color:#a2f">@Override</span>
-        <span style="color:#a2f;font-weight:bold">public</span> ChangeType <span style="color:#00a000">getChangeType</span><span style="color:#666">(</span><span style="color:#666">)</span>
-        <span style="color:#666">{</span>
-            <span style="color:#a2f;font-weight:bold">return</span> changeType<span style="color:#666">;</span>
-        <span style="color:#666">}</span>
-
-
-        <span style="color:#080;font-style:italic">/**
-</span><span style="color:#080;font-style:italic">         * {@inheritDoc}
-</span><span style="color:#080;font-style:italic">         */</span>
-        <span style="color:#a2f">@Override</span>
-        <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">setChangeType</span><span style="color:#666">(</span> ChangeType changeType <span style="color:#666">)</span>
-        <span style="color:#666">{</span>
-            <span style="color:#a2f;font-weight:bold">this</span><span style="color:#666">.</span><span style="color:#b44">changeType</span> <span style="color:#666">=</span> changeType<span style="color:#666">;</span>
-        <span style="color:#666">}</span>
-
-
-        <span style="color:#080;font-style:italic">/**
-</span><span style="color:#080;font-style:italic">         * {@inheritDoc}
-</span><span style="color:#080;font-style:italic">         */</span>
-        <span style="color:#a2f">@Override</span>
-        <span style="color:#a2f;font-weight:bold">public</span> Dn <span style="color:#00a000">getPreviousDn</span><span style="color:#666">(</span><span style="color:#666">)</span>
-        <span style="color:#666">{</span>
-            <span style="color:#a2f;font-weight:bold">return</span> previousDn<span style="color:#666">;</span>
-        <span style="color:#666">}</span>
-
-
-        <span style="color:#080;font-style:italic">/**
-</span><span style="color:#080;font-style:italic">         * {@inheritDoc}
-</span><span style="color:#080;font-style:italic">         */</span>
-        <span style="color:#a2f">@Override</span>
-        <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">setPreviousDn</span><span style="color:#666">(</span> Dn previousDn <span style="color:#666">)</span>
-        <span style="color:#666">{</span>
-            <span style="color:#a2f;font-weight:bold">this</span><span style="color:#666">.</span><span style="color:#b44">previousDn</span> <span style="color:#666">=</span> previousDn<span style="color:#666">;</span>
-        <span style="color:#666">}</span>
-
-
-        <span style="color:#080;font-style:italic">/**
-</span><span style="color:#080;font-style:italic">         * {@inheritDoc}
-</span><span style="color:#080;font-style:italic">         */</span>
-        <span style="color:#a2f">@Override</span>
-        <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#0b0;font-weight:bold">long</span> <span style="color:#00a000">getChangeNumber</span><span style="color:#666">(</span><span style="color:#666">)</span>
-        <span style="color:#666">{</span>
-            <span style="color:#a2f;font-weight:bold">return</span> changeNumber<span style="color:#666">;</span>
-        <span style="color:#666">}</span>
-
-
-        <span style="color:#080;font-style:italic">/**
-</span><span style="color:#080;font-style:italic">         * {@inheritDoc}
-</span><span style="color:#080;font-style:italic">         */</span>
-        <span style="color:#a2f">@Override</span>
-        <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">setChangeNumber</span><span style="color:#666">(</span> <span style="color:#0b0;font-weight:bold">long</span> changeNumber <span style="color:#666">)</span>
-        <span style="color:#666">{</span>
-            <span style="color:#a2f;font-weight:bold">this</span><span style="color:#666">.</span><span style="color:#b44">changeNumber</span> <span style="color:#666">=</span> changeNumber<span style="color:#666">;</span>
-        <span style="color:#666">}</span>
-
-
-        <span style="color:#080;font-style:italic">/**
-</span><span style="color:#080;font-style:italic">         * @see Object#hashCode()
-</span><span style="color:#080;font-style:italic">         */</span>
-        <span style="color:#a2f">@Override</span>
-        <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#0b0;font-weight:bold">int</span> <span style="color:#00a000">hashCode</span><span style="color:#666">(</span><span style="color:#666">)</span>
-        <span style="color:#666">{</span>
-            <span style="color:#0b0;font-weight:bold">int</span> h <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">super</span><span style="color:#666">.</span><span style="color:#b44">hashCode</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
-
-            h <span style="color:#666">=</span> h <span style="color:#666">*</span> 37 <span style="color:#666">+</span> <span style="color:#666">(</span> <span style="color:#0b0;font-weight:bold">int</span> <span style="color:#666">)</span> changeNumber<span style="color:#666">;</span>
-            h <span style="color:#666">=</span> h <span style="color:#666">*</span> 37 <span style="color:#666">+</span> <span style="color:#666">(</span> changeType <span style="color:#666">=</span><span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">null</span> <span style="color:#666">?</span> 0 <span style="color:#666">:</span> changeType<span style="color:#666">.</span><span style="color:#b44">hashCode</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-            h <span style="color:#666">=</span> h <span style="color:#666">*</span> 37 <span style="color:#666">+</span> <span style="color:#666">(</span> previousDn <span style="color:#666">=</span><span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">null</span> <span style="color:#666">?</span> 0 <span style="color:#666">:</span> previousDn<span style="color:#666">.</span><span style="color:#b44">hashCode</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-
-            <span style="color:#a2f;font-weight:bold">return</span> h<span style="color:#666">;</span>
-        <span style="color:#666">}</span>
-
-
-        <span style="color:#080;font-style:italic">/**
-</span><span style="color:#080;font-style:italic">         * {@inheritDoc}
-</span><span style="color:#080;font-style:italic">         */</span>
-        <span style="color:#a2f">@Override</span>
-        <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#0b0;font-weight:bold">boolean</span> <span style="color:#00a000">equals</span><span style="color:#666">(</span> Object o <span style="color:#666">)</span>
-        <span style="color:#666">{</span>
-            <span style="color:#a2f;font-weight:bold">if</span> <span style="color:#666">(</span> <span style="color:#666">!</span><span style="color:#a2f;font-weight:bold">super</span><span style="color:#666">.</span><span style="color:#b44">equals</span><span style="color:#666">(</span> o <span style="color:#666">)</span> <span style="color:#666">)</span>
-            <span style="color:#666">{</span>
-                <span style="color:#a2f;font-weight:bold">return</span> <span style="color:#a2f;font-weight:bold">false</span><span style="color:#666">;</span>
-            <span style="color:#666">}</span>
-
-            EntryChange otherControl <span style="color:#666">=</span> <span style="color:#666">(</span> EntryChange <span style="color:#666">)</span> o<span style="color:#666">;</span>
-
-            <span style="color:#a2f;font-weight:bold">return</span> <span style="color:#666">(</span> changeNumber <span style="color:#666">=</span><span style="color:#666">=</span> otherControl<span style="color:#666">.</span><span style="color:#b44">getChangeNumber</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span> <span style="color:#666">&amp;</span><span style="color:#666">&amp;</span> <span style="color:#666">(</span> changeType <span style="color:#666">=</span><span style="color:#666">=</span> otherControl<span style="color:#666">.</span><span style="color:#b44">getChangeType</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span>
-                <span style="color:#666">&amp;</span><span style="color:#666">&amp;</span> <span style="color:#666">(</span> previousDn<span style="color:#666">.</span><span style="color:#b44">equals</span><span style="color:#666">(</span> otherControl<span style="color:#666">.</span><span style="color:#b44">getPreviousDn</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-        <span style="color:#666">}</span>
-
-
-        <span style="color:#080;font-style:italic">/**
-</span><span style="color:#080;font-style:italic">         * Return a String representing this EntryChangeControl.
-</span><span style="color:#080;font-style:italic">         */</span>
-        <span style="color:#a2f">@Override</span>
-        <span style="color:#a2f;font-weight:bold">public</span> String <span style="color:#00a000">toString</span><span style="color:#666">(</span><span style="color:#666">)</span>
-        <span style="color:#666">{</span>
-            StringBuilder sb <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> StringBuilder<span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
-
-            sb<span style="color:#666">.</span><span style="color:#b44">append</span><span style="color:#666">(</span> <span style="color:#b44">&#34;    Entry Change Control\n&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-            sb<span style="color:#666">.</span><span style="color:#b44">append</span><span style="color:#666">(</span> <span style="color:#b44">&#34;        oid : &#34;</span> <span style="color:#666">)</span><span style="color:#666">.</span><span style="color:#b44">append</span><span style="color:#666">(</span> getOid<span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">.</span><span style="color:#b44">append</span><span style="color:#666">(</span> <span style="color:#b44">&#39;\n&#39;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-            sb<span style="color:#666">.</span><span style="color:#b44">append</span><span style="color:#666">(</span> <span style="color:#b44">&#34;        critical : &#34;</span> <span style="color:#666">)</span><span style="color:#666">.</span><span style="color:#b44">append</span><span style="color:#666">(</span> isCritical<span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">.</span><span style="color:#b44">append</span><span style="color:#666">(</span> <span style="color:#b44">&#39;\n&#39;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-            sb<span style="color:#666">.</span><span style="color:#b44">append</span><span style="color:#666">(</span> <span style="color:#b44">&#34;        changeType   : &#39;&#34;</span> <span style="color:#666">)</span><span style="color:#666">.</span><span style="color:#b44">append</span><span style="color:#666">(</span> changeType <span style="color:#666">)</span><span style="color:#666">.</span><span style="color:#b44">append</span><span style="color:#666">(</span> <span style="color:#b44">&#34;&#39;\n&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-            sb<span style="color:#666">.</span><span style="color:#b44">append</span><span style="color:#666">(</span> <span style="color:#b44">&#34;        previousDN   : &#39;&#34;</span> <span style="color:#666">)</span><span style="color:#666">.</span><span style="color:#b44">append</span><span style="color:#666">(</span> previousDn <span style="color:#666">)</span><span style="color:#666">.</span><span style="color:#b44">append</span><span style="color:#666">(</span> <span style="color:#b44">&#34;&#39;\n&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-
-            <span style="color:#a2f;font-weight:bold">if</span> <span style="color:#666">(</span> changeNumber <span style="color:#666">=</span><span style="color:#666">=</span> UNDEFINED_CHANGE_NUMBER <span style="color:#666">)</span>
-            <span style="color:#666">{</span>
-                sb<span style="color:#666">.</span><span style="color:#b44">append</span><span style="color:#666">(</span> <span style="color:#b44">&#34;        changeNumber : &#39;&#34;</span> <span style="color:#666">)</span><span style="color:#666">.</span><span style="color:#b44">append</span><span style="color:#666">(</span> <span style="color:#b44">&#34;UNDEFINED&#34;</span> <span style="color:#666">)</span><span style="color:#666">.</span><span style="color:#b44">append</span><span style="color:#666">(</span> <span style="color:#b44">&#34;&#39;\n&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-            <span style="color:#666">}</span>
-            <span style="color:#a2f;font-weight:bold">else</span>
-            <span style="color:#666">{</span>
-                sb<span style="color:#666">.</span><span style="color:#b44">append</span><span style="color:#666">(</span> <span style="color:#b44">&#34;        changeNumber : &#39;&#34;</span> <span style="color:#666">)</span><span style="color:#666">.</span><span style="color:#b44">append</span><span style="color:#666">(</span> changeNumber <span style="color:#666">)</span><span style="color:#666">.</span><span style="color:#b44">append</span><span style="color:#666">(</span> <span style="color:#b44">&#34;&#39;\n&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-            <span style="color:#666">}</span>
-
-            <span style="color:#a2f;font-weight:bold">return</span> sb<span style="color:#666">.</span><span style="color:#b44">toString</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
-        <span style="color:#666">}</span>
-    <span style="color:#666">}</span>
-</code></pre></div><p>This is pretty much trivial.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#080;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">     * A simple implementation of the EntryChange response control.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">     *
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">     * @author &lt;a href=&#34;mailto:dev@directory.apache.org&#34;&gt;Apache Directory Project&lt;/a&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">     */</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">class</span> <span style="color:#00f">EntryChangeImpl</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">extends</span><span style="color:#bbb"> </span>AbstractControl<span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">implements</span><span style="color:#bbb"> </span>EntryChange<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#080;font-style:italic">/** The changeType */</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#a2f;font-weight:bold">private</span><span style="color:#bbb"> </span>ChangeType<span style="color:#bbb"> </span>changeType<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span>ChangeType.<span style="color:#b44">ADD</span>;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#a2f;font-weight:bold">private</span><span style="color:#bbb"> </span><span style="color:#0b0;font-weight:bold">long</span><span style="color:#bbb"> </span>changeNumber<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span>UNDEFINED_CHANGE_NUMBER;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#080;font-style:italic">/** The previous Dn */</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#a2f;font-weight:bold">private</span><span style="color:#bbb"> </span>Dn<span style="color:#bbb"> </span>previousDn<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">null</span>;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#080;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         *
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         * Creates a new instance of EntryChangeControl.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         *
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         */</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#a2f;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#00a000">EntryChangeImpl</span>()<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#a2f;font-weight:bold">super</span>(<span style="color:#bbb"> </span>OID<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#080;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         * {@inheritDoc}
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         */</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#a2f">@Override</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#a2f;font-weight:bold">public</span><span style="color:#bbb"> </span>ChangeType<span style="color:#bbb"> </span><span style="color:#00a000">getChangeType</span>()<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#a2f;font-weight:bold">return</span><span style="color:#bbb"> </span>changeType;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#080;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         * {@inheritDoc}
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         */</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#a2f">@Override</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#a2f;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#0b0;font-weight:bold">void</span><span style="color:#bbb"> </span><span style="color:#00a000">setChangeType</span>(<span style="color:#bbb"> </span>ChangeType<span style="color:#bbb"> </span>changeType<span style="color:#bbb"> </span>)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#a2f;font-weight:bold">this</span>.<span style="color:#b44">changeType</span><span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span>changeType;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#080;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         * {@inheritDoc}
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         */</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#a2f">@Override</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#a2f;font-weight:bold">public</span><span style="color:#bbb"> </span>Dn<span style="color:#bbb"> </span><span style="color:#00a000">getPreviousDn</span>()<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#a2f;font-weight:bold">return</span><span style="color:#bbb"> </span>previousDn;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#080;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         * {@inheritDoc}
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         */</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#a2f">@Override</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#a2f;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#0b0;font-weight:bold">void</span><span style="color:#bbb"> </span><span style="color:#00a000">setPreviousDn</span>(<span style="color:#bbb"> </span>Dn<span style="color:#bbb"> </span>previousDn<span style="color:#bbb"> </span>)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#a2f;font-weight:bold">this</span>.<span style="color:#b44">previousDn</span><span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span>previousDn;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#080;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         * {@inheritDoc}
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         */</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#a2f">@Override</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#a2f;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#0b0;font-weight:bold">long</span><span style="color:#bbb"> </span><span style="color:#00a000">getChangeNumber</span>()<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#a2f;font-weight:bold">return</span><span style="color:#bbb"> </span>changeNumber;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#080;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         * {@inheritDoc}
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         */</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#a2f">@Override</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#a2f;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#0b0;font-weight:bold">void</span><span style="color:#bbb"> </span><span style="color:#00a000">setChangeNumber</span>(<span style="color:#bbb"> </span><span style="color:#0b0;font-weight:bold">long</span><span style="color:#bbb"> </span>changeNumber<span style="color:#bbb"> </span>)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#a2f;font-weight:bold">this</span>.<span style="color:#b44">changeNumber</span><span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span>changeNumber;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#080;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         * @see Object#hashCode()
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         */</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#a2f">@Override</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#a2f;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#0b0;font-weight:bold">int</span><span style="color:#bbb"> </span><span style="color:#00a000">hashCode</span>()<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#0b0;font-weight:bold">int</span><span style="color:#bbb"> </span>h<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">super</span>.<span style="color:#b44">hashCode</span>();<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>h<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span>h<span style="color:#bbb"> </span><span style="color:#666">*</span><span style="color:#bbb"> </span>37<span style="color:#bbb"> </span><span style="color:#666">+</span><span style="color:#bbb"> </span>(<span style="color:#bbb"> </span><span style="color:#0b0;font-weight:bold">int</span><span style="color:#bbb"> </span>)<span style="color:#bbb"> </span>changeNumber;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>h<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span>h<span style="color:#bbb"> </span><span style="color:#666">*</span><span style="color:#bbb"> </span>37<span style="color:#bbb"> </span><span style="color:#666">+</span><span style="color:#bbb"> </span>(<span style="color:#bbb"> </span>changeType<span style="color:#bbb"> </span><span style="color:#666">==</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">null</span><span style="color:#bbb"> </span><span style="color:#666">?</span><span style="color:#bbb"> </span>0<span style="color:#bbb"> </span>:<span style="color:#bbb"> </span>changeType.<span style="color:#b44">hashCode</span>()<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>h<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span>h<span style="color:#bbb"> </span><span style="color:#666">*</span><span style="color:#bbb"> </span>37<span style="color:#bbb"> </span><span style="color:#666">+</span><span style="color:#bbb"> </span>(<span style="color:#bbb"> </span>previousDn<span style="color:#bbb"> </span><span style="color:#666">==</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">null</span><span style="color:#bbb"> </span><span style="color:#666">?</span><span style="color:#bbb"> </span>0<span style="color:#bbb"> </span>:<span style="color:#bbb"> </span>previousDn.<span style="color:#b44">hashCode</span>()<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#a2f;font-weight:bold">return</span><span style="color:#bbb"> </span>h;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#080;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         * {@inheritDoc}
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         */</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#a2f">@Override</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#a2f;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#0b0;font-weight:bold">boolean</span><span style="color:#bbb"> </span><span style="color:#00a000">equals</span>(<span style="color:#bbb"> </span>Object<span style="color:#bbb"> </span>o<span style="color:#bbb"> </span>)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#a2f;font-weight:bold">if</span><span style="color:#bbb"> </span>(<span style="color:#bbb"> </span><span style="color:#666">!</span><span style="color:#a2f;font-weight:bold">super</span>.<span style="color:#b44">equals</span>(<span style="color:#bbb"> </span>o<span style="color:#bbb"> </span>)<span style="color:#bbb"> </span>)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                </span><span style="color:#a2f;font-weight:bold">return</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">false</span>;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>EntryChange<span style="color:#bbb"> </span>otherControl<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span>(<span style="color:#bbb"> </span>EntryChange<span style="color:#bbb"> </span>)<span style="color:#bbb"> </span>o;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#a2f;font-weight:bold">return</span><span style="color:#bbb"> </span>(<span style="color:#bbb"> </span>changeNumber<span style="color:#bbb"> </span><span style="color:#666">==</span><span style="color:#bbb"> </span>otherControl.<span style="color:#b44">getChangeNumber</span>()<span style="color:#bbb"> </span>)<span style="color:#bbb"> </span><span style="color:#666">&amp;&amp;</span><span style="color:#bbb"> </span>(<span style="color:#bbb"> </span>changeType<span style="color:#bbb"> </span><span style="color:#666">==</span><span style="color:#bbb"> </span>otherControl.<span style="color:#b44">getChangeType</span>()<span style="color:#bbb"> </span>)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                </span><span style="color:#666">&amp;&amp;</span><span style="color:#bbb"> </span>(<span style="color:#bbb"> </span>previousDn.<span style="color:#b44">equals</span>(<span style="color:#bbb"> </span>otherControl.<span style="color:#b44">getPreviousDn</span>()<span style="color:#bbb"> </span>)<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#080;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         * Return a String representing this EntryChangeControl.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         */</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#a2f">@Override</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#a2f;font-weight:bold">public</span><span style="color:#bbb"> </span>String<span style="color:#bbb"> </span><span style="color:#00a000">toString</span>()<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>StringBuilder<span style="color:#bbb"> </span>sb<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>StringBuilder();<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>sb.<span style="color:#b44">append</span>(<span style="color:#bbb"> </span><span style="color:#b44">&#34;    Entry Change Control\n&#34;</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>sb.<span style="color:#b44">append</span>(<span style="color:#bbb"> </span><span style="color:#b44">&#34;        oid : &#34;</span><span style="color:#bbb"> </span>).<span style="color:#b44">append</span>(<span style="color:#bbb"> </span>getOid()<span style="color:#bbb"> </span>).<span style="color:#b44">append</span>(<span style="color:#bbb"> </span><span style="color:#b44">&#39;\n&#39;</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>sb.<span style="color:#b44">append</span>(<span style="color:#bbb"> </span><span style="color:#b44">&#34;        critical : &#34;</span><span style="color:#bbb"> </span>).<span style="color:#b44">append</span>(<span style="color:#bbb"> </span>isCritical()<span style="color:#bbb"> </span>).<span style="color:#b44">append</span>(<span style="color:#bbb"> </span><span style="color:#b44">&#39;\n&#39;</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>sb.<span style="color:#b44">append</span>(<span style="color:#bbb"> </span><span style="color:#b44">&#34;        changeType   : &#39;&#34;</span><span style="color:#bbb"> </span>).<span style="color:#b44">append</span>(<span style="color:#bbb"> </span>changeType<span style="color:#bbb"> </span>).<span style="color:#b44">append</span>(<span style="color:#bbb"> </span><span style="color:#b44">&#34;&#39;\n&#34;</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>sb.<span style="color:#b44">append</span>(<span style="color:#bbb"> </span><span style="color:#b44">&#34;        previousDN   : &#39;&#34;</span><span style="color:#bbb"> </span>).<span style="color:#b44">append</span>(<span style="color:#bbb"> </span>previousDn<span style="color:#bbb"> </span>).<span style="color:#b44">append</span>(<span style="color:#bbb"> </span><span style="color:#b44">&#34;&#39;\n&#34;</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#a2f;font-weight:bold">if</span><span style="color:#bbb"> </span>(<span style="color:#bbb"> </span>changeNumber<span style="color:#bbb"> </span><span style="color:#666">==</span><span style="color:#bbb"> </span>UNDEFINED_CHANGE_NUMBER<span style="color:#bbb"> </span>)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                </span>sb.<span style="color:#b44">append</span>(<span style="color:#bbb"> </span><span style="color:#b44">&#34;        changeNumber : &#39;&#34;</span><span style="color:#bbb"> </span>).<span style="color:#b44">append</span>(<span style="color:#bbb"> </span><span style="color:#b44">&#34;UNDEFINED&#34;</span><span style="color:#bbb"> </span>).<span style="color:#b44">append</span>(<span style="color:#bbb"> </span><span style="color:#b44">&#34;&#39;\n&#34;</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#a2f;font-weight:bold">else</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                </span>sb.<span style="color:#b44">append</span>(<span style="color:#bbb"> </span><span style="color:#b44">&#34;        changeNumber : &#39;&#34;</span><span style="color:#bbb"> </span>).<span style="color:#b44">append</span>(<span style="color:#bbb"> </span>changeNumber<span style="color:#bbb"> </span>).<span style="color:#b44">append</span>(<span style="color:#bbb"> </span><span style="color:#b44">&#34;&#39;\n&#34;</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#a2f;font-weight:bold">return</span><span style="color:#bbb"> </span>sb.<span style="color:#b44">toString</span>();<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>}<span style="color:#bbb">
+</span></span></span></code></pre></div><p>This is pretty much trivial.</p>
 <p>We now need a <em>Decorator</em> to manipulate this instance. Here is the code :</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">class</span> <span style="color:#00f">EntryChangeDecorator</span> <span style="color:#a2f;font-weight:bold">extends</span> ControlDecorator<span style="color:#666">&lt;</span>EntryChange<span style="color:#666">&gt;</span> <span style="color:#a2f;font-weight:bold">implements</span> EntryChange
-    <span style="color:#666">{</span>
-        <span style="color:#080;font-style:italic">/** Default value when no change number is provided */</span>
-        <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">static</span> <span style="color:#a2f;font-weight:bold">final</span> <span style="color:#0b0;font-weight:bold">int</span> UNDEFINED_CHANGE_NUMBER <span style="color:#666">=</span> <span style="color:#666">-</span>1<span style="color:#666">;</span>
-
-        <span style="color:#080;font-style:italic">/** A temporary storage for the previous Dn */</span>
-        <span style="color:#a2f;font-weight:bold">private</span> <span style="color:#0b0;font-weight:bold">byte</span><span style="color:#666">[</span><span style="color:#666">]</span> previousDnBytes <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">null</span><span style="color:#666">;</span>
-
-        <span style="color:#080;font-style:italic">/** The entry change global length */</span>
-        <span style="color:#a2f;font-weight:bold">private</span> <span style="color:#0b0;font-weight:bold">int</span> eccSeqLength<span style="color:#666">;</span>
-
-        <span style="color:#080;font-style:italic">/** An instance of this decoder */</span>
-        <span style="color:#a2f;font-weight:bold">private</span> <span style="color:#a2f;font-weight:bold">static</span> <span style="color:#a2f;font-weight:bold">final</span> Asn1Decoder DECODER <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> Asn1Decoder<span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
-
-
-        <span style="color:#080;font-style:italic">/**
-</span><span style="color:#080;font-style:italic">         * Creates a new instance of EntryChangeDecoder wrapping a newly created
-</span><span style="color:#080;font-style:italic">         * EntryChange Control object.
-</span><span style="color:#080;font-style:italic">         * 
-</span><span style="color:#080;font-style:italic">         * @param codec The LDAP service instance
-</span><span style="color:#080;font-style:italic">         */</span>
-        <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#00a000">EntryChangeDecorator</span><span style="color:#666">(</span> LdapApiService codec <span style="color:#666">)</span>
-        <span style="color:#666">{</span>
-            <span style="color:#a2f;font-weight:bold">super</span><span style="color:#666">(</span> codec<span style="color:#666">,</span> <span style="color:#a2f;font-weight:bold">new</span> EntryChangeImpl<span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-        <span style="color:#666">}</span>
-
-
-        <span style="color:#080;font-style:italic">/**
-</span><span style="color:#080;font-style:italic">         * Creates a new instance of EntryChangeDecorator wrapping the supplied
-</span><span style="color:#080;font-style:italic">         * EntryChange Control.
-</span><span style="color:#080;font-style:italic">         *
-</span><span style="color:#080;font-style:italic">         * @param codec The LDAP service instance
-</span><span style="color:#080;font-style:italic">         * @param control The EntryChange Control to be decorated.
-</span><span style="color:#080;font-style:italic">         */</span>
-        <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#00a000">EntryChangeDecorator</span><span style="color:#666">(</span> LdapApiService codec<span style="color:#666">,</span> EntryChange control <span style="color:#666">)</span>
-        <span style="color:#666">{</span>
-            <span style="color:#a2f;font-weight:bold">super</span><span style="color:#666">(</span> codec<span style="color:#666">,</span> control <span style="color:#666">)</span><span style="color:#666">;</span>
-        <span style="color:#666">}</span>
-
-
-        <span style="color:#080;font-style:italic">/**
-</span><span style="color:#080;font-style:italic">         * Internally used to not have to cast the decorated Control.
-</span><span style="color:#080;font-style:italic">         *
-</span><span style="color:#080;font-style:italic">         * @return the decorated Control.
-</span><span style="color:#080;font-style:italic">         */</span>
-        <span style="color:#a2f;font-weight:bold">private</span> EntryChange <span style="color:#00a000">getEntryChange</span><span style="color:#666">(</span><span style="color:#666">)</span>
-        <span style="color:#666">{</span>
-            <span style="color:#a2f;font-weight:bold">return</span> getDecorated<span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
-        <span style="color:#666">}</span>
-
-
-        <span style="color:#080;font-style:italic">/**
-</span><span style="color:#080;font-style:italic">         * Compute the EntryChangeControl length 
-</span><span style="color:#080;font-style:italic">         * 
-</span><span style="color:#080;font-style:italic">         * &lt;pre&gt;
-</span><span style="color:#080;font-style:italic">         * 0x30 L1 
-</span><span style="color:#080;font-style:italic">         *   | 
-</span><span style="color:#080;font-style:italic">         *   +--&amp;gt; 0x0A 0x0(1-4) [1|2|4|8] (changeType) 
-</span><span style="color:#080;font-style:italic">         *  [+--&amp;gt; 0x04 L2 previousDN] 
-</span><span style="color:#080;font-style:italic">         *  [+--&amp;gt; 0x02 0x0(1-4) [0..2^63-1] (changeNumber)]
-</span><span style="color:#080;font-style:italic">         *  &lt;/pre&gt;
-</span><span style="color:#080;font-style:italic">         *  
-</span><span style="color:#080;font-style:italic">         * @return the control length.
-</span><span style="color:#080;font-style:italic">         */</span>
-        <span style="color:#a2f">@Override</span>
-        <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#0b0;font-weight:bold">int</span> <span style="color:#00a000">computeLength</span><span style="color:#666">(</span><span style="color:#666">)</span>
-        <span style="color:#666">{</span>
-            <span style="color:#0b0;font-weight:bold">int</span> changeTypesLength <span style="color:#666">=</span> 1 <span style="color:#666">+</span> 1 <span style="color:#666">+</span> 1<span style="color:#666">;</span>
-
-            <span style="color:#0b0;font-weight:bold">int</span> previousDnLength <span style="color:#666">=</span> 0<span style="color:#666">;</span>
-            <span style="color:#0b0;font-weight:bold">int</span> changeNumberLength <span style="color:#666">=</span> 0<span style="color:#666">;</span>
-
-            <span style="color:#a2f;font-weight:bold">if</span> <span style="color:#666">(</span> getPreviousDn<span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">!</span><span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">null</span> <span style="color:#666">)</span>
-            <span style="color:#666">{</span>
-                previousDnBytes <span style="color:#666">=</span> Strings<span style="color:#666">.</span><span style="color:#b44">getBytesUtf8</span><span style="color:#666">(</span> getPreviousDn<span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">.</span><span style="color:#b44">getName</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-                previousDnLength <span style="color:#666">=</span> 1 <span style="color:#666">+</span> TLV<span style="color:#666">.</span><span style="color:#b44">getNbBytes</span><span style="color:#666">(</span> previousDnBytes<span style="color:#666">.</span><span style="color:#b44">length</span> <span style="color:#666">)</span> <span style="color:#666">+</span> previousDnBytes<span style="color:#666">.</span><span style="color:#b44">length</span><span style="color:#666">;</span>
-            <span style="color:#666">}</span>
-
-            <span style="color:#a2f;font-weight:bold">if</span> <span style="color:#666">(</span> getChangeNumber<span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">!</span><span style="color:#666">=</span> UNDEFINED_CHANGE_NUMBER <span style="color:#666">)</span>
-            <span style="color:#666">{</span>
-                changeNumberLength <span style="color:#666">=</span> 1 <span style="color:#666">+</span> 1 <span style="color:#666">+</span> BerValue<span style="color:#666">.</span><span style="color:#b44">getNbBytes</span><span style="color:#666">(</span> getChangeNumber<span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-            <span style="color:#666">}</span>
-
-            eccSeqLength <span style="color:#666">=</span> changeTypesLength <span style="color:#666">+</span> previousDnLength <span style="color:#666">+</span> changeNumberLength<span style="color:#666">;</span>
-            valueLength <span style="color:#666">=</span> 1 <span style="color:#666">+</span> TLV<span style="color:#666">.</span><span style="color:#b44">getNbBytes</span><span style="color:#666">(</span> eccSeqLength <span style="color:#666">)</span> <span style="color:#666">+</span> eccSeqLength<span style="color:#666">;</span>
-
-            <span style="color:#a2f;font-weight:bold">return</span> valueLength<span style="color:#666">;</span>
-        <span style="color:#666">}</span>
-
-
-        <span style="color:#080;font-style:italic">/**
-</span><span style="color:#080;font-style:italic">         * Encodes the entry change control.
-</span><span style="color:#080;font-style:italic">         * 
-</span><span style="color:#080;font-style:italic">         * @param buffer The encoded sink
-</span><span style="color:#080;font-style:italic">         * @return A ByteBuffer that contains the encoded PDU
-</span><span style="color:#080;font-style:italic">         * @throws EncoderException If anything goes wrong.
-</span><span style="color:#080;font-style:italic">         */</span>
-        <span style="color:#a2f">@Override</span>
-        <span style="color:#a2f;font-weight:bold">public</span> ByteBuffer <span style="color:#00a000">encode</span><span style="color:#666">(</span> ByteBuffer buffer <span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> EncoderException
-        <span style="color:#666">{</span>
-            <span style="color:#a2f;font-weight:bold">if</span> <span style="color:#666">(</span> buffer <span style="color:#666">=</span><span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">null</span> <span style="color:#666">)</span>
-            <span style="color:#666">{</span>
-                <span style="color:#a2f;font-weight:bold">throw</span> <span style="color:#a2f;font-weight:bold">new</span> EncoderException<span style="color:#666">(</span> I18n<span style="color:#666">.</span><span style="color:#b44">err</span><span style="color:#666">(</span> I18n<span style="color:#666">.</span><span style="color:#b44">ERR_04023</span> <span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-            <span style="color:#666">}</span>
-
-            buffer<span style="color:#666">.</span><span style="color:#b44">put</span><span style="color:#666">(</span> UniversalTag<span style="color:#666">.</span><span style="color:#b44">SEQUENCE</span><span style="color:#666">.</span><span style="color:#b44">getValue</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-            buffer<span style="color:#666">.</span><span style="color:#b44">put</span><span style="color:#666">(</span> TLV<span style="color:#666">.</span><span style="color:#b44">getBytes</span><span style="color:#666">(</span> eccSeqLength <span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-
-            buffer<span style="color:#666">.</span><span style="color:#b44">put</span><span style="color:#666">(</span> UniversalTag<span style="color:#666">.</span><span style="color:#b44">ENUMERATED</span><span style="color:#666">.</span><span style="color:#b44">getValue</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-            buffer<span style="color:#666">.</span><span style="color:#b44">put</span><span style="color:#666">(</span> <span style="color:#666">(</span> <span style="color:#0b0;font-weight:bold">byte</span> <span style="color:#666">)</span> 1 <span style="color:#666">)</span><span style="color:#666">;</span>
-            buffer<span style="color:#666">.</span><span style="color:#b44">put</span><span style="color:#666">(</span> BerValue<span style="color:#666">.</span><span style="color:#b44">getBytes</span><span style="color:#666">(</span> getChangeType<span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">.</span><span style="color:#b44">getValue</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-
-            <span style="color:#a2f;font-weight:bold">if</span> <span style="color:#666">(</span> getPreviousDn<span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">!</span><span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">null</span> <span style="color:#666">)</span>
-            <span style="color:#666">{</span>
-                BerValue<span style="color:#666">.</span><span style="color:#b44">encode</span><span style="color:#666">(</span> buffer<span style="color:#666">,</span> previousDnBytes <span style="color:#666">)</span><span style="color:#666">;</span>
-            <span style="color:#666">}</span>
-
-            <span style="color:#a2f;font-weight:bold">if</span> <span style="color:#666">(</span> getChangeNumber<span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">!</span><span style="color:#666">=</span> UNDEFINED_CHANGE_NUMBER <span style="color:#666">)</span>
-            <span style="color:#666">{</span>
-                BerValue<span style="color:#666">.</span><span style="color:#b44">encode</span><span style="color:#666">(</span> buffer<span style="color:#666">,</span> getChangeNumber<span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-            <span style="color:#666">}</span>
-
-            <span style="color:#a2f;font-weight:bold">return</span> buffer<span style="color:#666">;</span>
-        <span style="color:#666">}</span>
-
-
-        <span style="color:#080;font-style:italic">/**
-</span><span style="color:#080;font-style:italic">         * {@inheritDoc}
-</span><span style="color:#080;font-style:italic">         */</span>
-        <span style="color:#a2f">@Override</span>
-        <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#0b0;font-weight:bold">byte</span><span style="color:#666">[</span><span style="color:#666">]</span> <span style="color:#00a000">getValue</span><span style="color:#666">(</span><span style="color:#666">)</span>
-        <span style="color:#666">{</span>
-            <span style="color:#a2f;font-weight:bold">if</span> <span style="color:#666">(</span> value <span style="color:#666">=</span><span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">null</span> <span style="color:#666">)</span>
-            <span style="color:#666">{</span>
-                <span style="color:#a2f;font-weight:bold">try</span>
-                <span style="color:#666">{</span>
-                    computeLength<span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
-                    ByteBuffer buffer <span style="color:#666">=</span> ByteBuffer<span style="color:#666">.</span><span style="color:#b44">allocate</span><span style="color:#666">(</span> valueLength <span style="color:#666">)</span><span style="color:#666">;</span>
-
-                    buffer<span style="color:#666">.</span><span style="color:#b44">put</span><span style="color:#666">(</span> UniversalTag<span style="color:#666">.</span><span style="color:#b44">SEQUENCE</span><span style="color:#666">.</span><span style="color:#b44">getValue</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-                    buffer<span style="color:#666">.</span><span style="color:#b44">put</span><span style="color:#666">(</span> TLV<span style="color:#666">.</span><span style="color:#b44">getBytes</span><span style="color:#666">(</span> eccSeqLength <span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-
-                    buffer<span style="color:#666">.</span><span style="color:#b44">put</span><span style="color:#666">(</span> UniversalTag<span style="color:#666">.</span><span style="color:#b44">ENUMERATED</span><span style="color:#666">.</span><span style="color:#b44">getValue</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-                    buffer<span style="color:#666">.</span><span style="color:#b44">put</span><span style="color:#666">(</span> <span style="color:#666">(</span> <span style="color:#0b0;font-weight:bold">byte</span> <span style="color:#666">)</span> 1 <span style="color:#666">)</span><span style="color:#666">;</span>
-                    buffer<span style="color:#666">.</span><span style="color:#b44">put</span><span style="color:#666">(</span> BerValue<span style="color:#666">.</span><span style="color:#b44">getBytes</span><span style="color:#666">(</span> getChangeType<span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">.</span><span style="color:#b44">getValue</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-
-                    <span style="color:#a2f;font-weight:bold">if</span> <span style="color:#666">(</span> getPreviousDn<span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">!</span><span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">null</span> <span style="color:#666">)</span>
-                    <span style="color:#666">{</span>
-                        BerValue<span style="color:#666">.</span><span style="color:#b44">encode</span><span style="color:#666">(</span> buffer<span style="color:#666">,</span> previousDnBytes <span style="color:#666">)</span><span style="color:#666">;</span>
-                    <span style="color:#666">}</span>
-
-                    <span style="color:#a2f;font-weight:bold">if</span> <span style="color:#666">(</span> getChangeNumber<span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">!</span><span style="color:#666">=</span> UNDEFINED_CHANGE_NUMBER <span style="color:#666">)</span>
-                    <span style="color:#666">{</span>
-                        BerValue<span style="color:#666">.</span><span style="color:#b44">encode</span><span style="color:#666">(</span> buffer<span style="color:#666">,</span> getChangeNumber<span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-                    <span style="color:#666">}</span>
-
-                    value <span style="color:#666">=</span> buffer<span style="color:#666">.</span><span style="color:#b44">array</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
-                <span style="color:#666">}</span>
-                <span style="color:#a2f;font-weight:bold">catch</span> <span style="color:#666">(</span> Exception e <span style="color:#666">)</span>
-                <span style="color:#666">{</span>
-                    <span style="color:#a2f;font-weight:bold">return</span> <span style="color:#a2f;font-weight:bold">null</span><span style="color:#666">;</span>
-                <span style="color:#666">}</span>
-            <span style="color:#666">}</span>
-
-            <span style="color:#a2f;font-weight:bold">return</span> value<span style="color:#666">;</span>
-        <span style="color:#666">}</span>
-
-
-        <span style="color:#080;font-style:italic">/**
-</span><span style="color:#080;font-style:italic">         * {@inheritDoc}
-</span><span style="color:#080;font-style:italic">         */</span>
-        <span style="color:#a2f">@Override</span>
-        <span style="color:#a2f;font-weight:bold">public</span> ChangeType <span style="color:#00a000">getChangeType</span><span style="color:#666">(</span><span style="color:#666">)</span>
-        <span style="color:#666">{</span>
-            <span style="color:#a2f;font-weight:bold">return</span> getEntryChange<span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">.</span><span style="color:#b44">getChangeType</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
-        <span style="color:#666">}</span>
-
-
-        <span style="color:#080;font-style:italic">/**
-</span><span style="color:#080;font-style:italic">         * {@inheritDoc}
-</span><span style="color:#080;font-style:italic">         */</span>
-        <span style="color:#a2f">@Override</span>
-        <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">setChangeType</span><span style="color:#666">(</span> ChangeType changeType <span style="color:#666">)</span>
-        <span style="color:#666">{</span>
-            getEntryChange<span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">.</span><span style="color:#b44">setChangeType</span><span style="color:#666">(</span> changeType <span style="color:#666">)</span><span style="color:#666">;</span>
-        <span style="color:#666">}</span>
-
-
-        <span style="color:#080;font-style:italic">/**
-</span><span style="color:#080;font-style:italic">         * {@inheritDoc}
-</span><span style="color:#080;font-style:italic">         */</span>
-        <span style="color:#a2f">@Override</span>
-        <span style="color:#a2f;font-weight:bold">public</span> Dn <span style="color:#00a000">getPreviousDn</span><span style="color:#666">(</span><span style="color:#666">)</span>
-        <span style="color:#666">{</span>
-            <span style="color:#a2f;font-weight:bold">return</span> getEntryChange<span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">.</span><span style="color:#b44">getPreviousDn</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
-        <span style="color:#666">}</span>
-
-
-        <span style="color:#080;font-style:italic">/**
-</span><span style="color:#080;font-style:italic">         * {@inheritDoc}
-</span><span style="color:#080;font-style:italic">         */</span>
-        <span style="color:#a2f">@Override</span>
-        <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">setPreviousDn</span><span style="color:#666">(</span> Dn previousDn <span style="color:#666">)</span>
-        <span style="color:#666">{</span>
-            getEntryChange<span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">.</span><span style="color:#b44">setPreviousDn</span><span style="color:#666">(</span> previousDn <span style="color:#666">)</span><span style="color:#666">;</span>
-        <span style="color:#666">}</span>
-
-
-        <span style="color:#080;font-style:italic">/**
-</span><span style="color:#080;font-style:italic">         * {@inheritDoc}
-</span><span style="color:#080;font-style:italic">         */</span>
-        <span style="color:#a2f">@Override</span>
-        <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#0b0;font-weight:bold">long</span> <span style="color:#00a000">getChangeNumber</span><span style="color:#666">(</span><span style="color:#666">)</span>
-        <span style="color:#666">{</span>
-            <span style="color:#a2f;font-weight:bold">return</span> getEntryChange<span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">.</span><span style="color:#b44">getChangeNumber</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
-        <span style="color:#666">}</span>
-
-
-        <span style="color:#080;font-style:italic">/**
-</span><span style="color:#080;font-style:italic">         * {@inheritDoc}
-</span><span style="color:#080;font-style:italic">         */</span>
-        <span style="color:#a2f">@Override</span>
-        <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">setChangeNumber</span><span style="color:#666">(</span> <span style="color:#0b0;font-weight:bold">long</span> changeNumber <span style="color:#666">)</span>
-        <span style="color:#666">{</span>
-            getEntryChange<span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">.</span><span style="color:#b44">setChangeNumber</span><span style="color:#666">(</span> changeNumber <span style="color:#666">)</span><span style="color:#666">;</span>
-        <span style="color:#666">}</span>
-
-
-        <span style="color:#080;font-style:italic">/**
-</span><span style="color:#080;font-style:italic">         * {@inheritDoc}
-</span><span style="color:#080;font-style:italic">         */</span>
-        <span style="color:#a2f">@Override</span>
-        <span style="color:#a2f;font-weight:bold">public</span> Asn1Object <span style="color:#00a000">decode</span><span style="color:#666">(</span> <span style="color:#0b0;font-weight:bold">byte</span><span style="color:#666">[</span><span style="color:#666">]</span> controlBytes <span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> DecoderException
-        <span style="color:#666">{</span>
-            ByteBuffer bb <span style="color:#666">=</span> ByteBuffer<span style="color:#666">.</span><span style="color:#b44">wrap</span><span style="color:#666">(</span> controlBytes <span style="color:#666">)</span><span style="color:#666">;</span>
-            EntryChangeContainer container <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> EntryChangeContainer<span style="color:#666">(</span> getCodecService<span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">,</span> <span style="color:#a2f;font-weight:bold">this</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-            DECODER<span style="color:#666">.</span><span style="color:#b44">decode</span><span style="color:#666">(</span> bb<span style="color:#666">,</span> container <span style="color:#666">)</span><span style="color:#666">;</span>
-            <span style="color:#a2f;font-weight:bold">return</span> <span style="color:#a2f;font-weight:bold">this</span><span style="color:#666">;</span>
-        <span style="color:#666">}</span>
-    <span style="color:#666">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">class</span> <span style="color:#00f">EntryChangeDecorator</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">extends</span><span style="color:#bbb"> </span>ControlDecorator<span style="color:#666">&lt;</span>EntryChange<span style="color:#666">&gt;</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">implements</span><span style="color:#bbb"> </span>EntryChange<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#080;font-style:italic">/** Default value when no change number is provided */</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#a2f;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">static</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">final</span><span style="color:#bbb"> </span><span style="color:#0b0;font-weight:bold">int</span><span style="color:#bbb"> </span>UNDEFINED_CHANGE_NUMBER<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#666">-</span>1;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#080;font-style:italic">/** A temporary storage for the previous Dn */</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#a2f;font-weight:bold">private</span><span style="color:#bbb"> </span><span style="color:#0b0;font-weight:bold">byte</span><span style="color:#666">[]</span><span style="color:#bbb"> </span>previousDnBytes<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">null</span>;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#080;font-style:italic">/** The entry change global length */</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#a2f;font-weight:bold">private</span><span style="color:#bbb"> </span><span style="color:#0b0;font-weight:bold">int</span><span style="color:#bbb"> </span>eccSeqLength;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#080;font-style:italic">/** An instance of this decoder */</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#a2f;font-weight:bold">private</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">static</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">final</span><span style="color:#bbb"> </span>Asn1Decoder<span style="color:#bbb"> </span>DECODER<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>Asn1Decoder();<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#080;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         * Creates a new instance of EntryChangeDecoder wrapping a newly created
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         * EntryChange Control object.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         * 
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         * @param codec The LDAP service instance
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         */</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#a2f;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#00a000">EntryChangeDecorator</span>(<span style="color:#bbb"> </span>LdapApiService<span style="color:#bbb"> </span>codec<span style="color:#bbb"> </span>)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#a2f;font-weight:bold">super</span>(<span style="color:#bbb"> </span>codec,<span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>EntryChangeImpl()<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#080;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         * Creates a new instance of EntryChangeDecorator wrapping the supplied
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         * EntryChange Control.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         *
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         * @param codec The LDAP service instance
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         * @param control The EntryChange Control to be decorated.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         */</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#a2f;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#00a000">EntryChangeDecorator</span>(<span style="color:#bbb"> </span>LdapApiService<span style="color:#bbb"> </span>codec,<span style="color:#bbb"> </span>EntryChange<span style="color:#bbb"> </span>control<span style="color:#bbb"> </span>)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#a2f;font-weight:bold">super</span>(<span style="color:#bbb"> </span>codec,<span style="color:#bbb"> </span>control<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#080;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         * Internally used to not have to cast the decorated Control.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         *
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         * @return the decorated Control.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         */</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#a2f;font-weight:bold">private</span><span style="color:#bbb"> </span>EntryChange<span style="color:#bbb"> </span><span style="color:#00a000">getEntryChange</span>()<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#a2f;font-weight:bold">return</span><span style="color:#bbb"> </span>getDecorated();<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#080;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         * Compute the EntryChangeControl length 
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         * 
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         * &lt;pre&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         * 0x30 L1 
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         *   | 
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         *   +--&amp;gt; 0x0A 0x0(1-4) [1|2|4|8] (changeType) 
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         *  [+--&amp;gt; 0x04 L2 previousDN] 
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         *  [+--&amp;gt; 0x02 0x0(1-4) [0..2^63-1] (changeNumber)]
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         *  &lt;/pre&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         *  
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         * @return the control length.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         */</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#a2f">@Override</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#a2f;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#0b0;font-weight:bold">int</span><span style="color:#bbb"> </span><span style="color:#00a000">computeLength</span>()<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#0b0;font-weight:bold">int</span><span style="color:#bbb"> </span>changeTypesLength<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span>1<span style="color:#bbb"> </span><span style="color:#666">+</span><span style="color:#bbb"> </span>1<span style="color:#bbb"> </span><span style="color:#666">+</span><span style="color:#bbb"> </span>1;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#0b0;font-weight:bold">int</span><span style="color:#bbb"> </span>previousDnLength<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span>0;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#0b0;font-weight:bold">int</span><span style="color:#bbb"> </span>changeNumberLength<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span>0;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#a2f;font-weight:bold">if</span><span style="color:#bbb"> </span>(<span style="color:#bbb"> </span>getPreviousDn()<span style="color:#bbb"> </span><span style="color:#666">!=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">null</span><span style="color:#bbb"> </span>)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                </span>previousDnBytes<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span>Strings.<span style="color:#b44">getBytesUtf8</span>(<span style="color:#bbb"> </span>getPreviousDn().<span style="color:#b44">getName</span>()<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                </span>previousDnLength<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span>1<span style="color:#bbb"> </span><span style="color:#666">+</span><span style="color:#bbb"> </span>TLV.<span style="color:#b44">getNbBytes</span>(<span style="color:#bbb"> </span>previousDnBytes.<span style="color:#b44">length</span><span style="color:#bbb"> </span>)<span style="color:#bbb"> </span><span style="color:#666">+</span><span style="color:#bbb"> </span>previousDnBytes.<span style="color:#b44">length</span>;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#a2f;font-weight:bold">if</span><span style="color:#bbb"> </span>(<span style="color:#bbb"> </span>getChangeNumber()<span style="color:#bbb"> </span><span style="color:#666">!=</span><span style="color:#bbb"> </span>UNDEFINED_CHANGE_NUMBER<span style="color:#bbb"> </span>)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                </span>changeNumberLength<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span>1<span style="color:#bbb"> </span><span style="color:#666">+</span><span style="color:#bbb"> </span>1<span style="color:#bbb"> </span><span style="color:#666">+</span><span style="color:#bbb"> </span>BerValue.<span style="color:#b44">getNbBytes</span>(<span style="color:#bbb"> </span>getChangeNumber()<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>eccSeqLength<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span>changeTypesLength<span style="color:#bbb"> </span><span style="color:#666">+</span><span style="color:#bbb"> </span>previousDnLength<span style="color:#bbb"> </span><span style="color:#666">+</span><span style="color:#bbb"> </span>changeNumberLength;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>valueLength<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span>1<span style="color:#bbb"> </span><span style="color:#666">+</span><span style="color:#bbb"> </span>TLV.<span style="color:#b44">getNbBytes</span>(<span style="color:#bbb"> </span>eccSeqLength<span style="color:#bbb"> </span>)<span style="color:#bbb"> </span><span style="color:#666">+</span><span style="color:#bbb"> </span>eccSeqLength;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#a2f;font-weight:bold">return</span><span style="color:#bbb"> </span>valueLength;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#080;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         * Encodes the entry change control.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         * 
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         * @param buffer The encoded sink
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         * @return A ByteBuffer that contains the encoded PDU
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         * @throws EncoderException If anything goes wrong.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         */</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#a2f">@Override</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#a2f;font-weight:bold">public</span><span style="color:#bbb"> </span>ByteBuffer<span style="color:#bbb"> </span><span style="color:#00a000">encode</span>(<span style="color:#bbb"> </span>ByteBuffer<span style="color:#bbb"> </span>buffer<span style="color:#bbb"> </span>)<span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">throws</span><span style="color:#bbb"> </span>EncoderException<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#a2f;font-weight:bold">if</span><span style="color:#bbb"> </span>(<span style="color:#bbb"> </span>buffer<span style="color:#bbb"> </span><span style="color:#666">==</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">null</span><span style="color:#bbb"> </span>)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                </span><span style="color:#a2f;font-weight:bold">throw</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>EncoderException(<span style="color:#bbb"> </span>I18n.<span style="color:#b44">err</span>(<span style="color:#bbb"> </span>I18n.<span style="color:#b44">ERR_04023</span><span style="color:#bbb"> </span>)<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>buffer.<span style="color:#b44">put</span>(<span style="color:#bbb"> </span>UniversalTag.<span style="color:#b44">SEQUENCE</span>.<span style="color:#b44">getValue</span>()<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>buffer.<span style="color:#b44">put</span>(<span style="color:#bbb"> </span>TLV.<span style="color:#b44">getBytes</span>(<span style="color:#bbb"> </span>eccSeqLength<span style="color:#bbb"> </span>)<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>buffer.<span style="color:#b44">put</span>(<span style="color:#bbb"> </span>UniversalTag.<span style="color:#b44">ENUMERATED</span>.<span style="color:#b44">getValue</span>()<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>buffer.<span style="color:#b44">put</span>(<span style="color:#bbb"> </span>(<span style="color:#bbb"> </span><span style="color:#0b0;font-weight:bold">byte</span><span style="color:#bbb"> </span>)<span style="color:#bbb"> </span>1<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>buffer.<span style="color:#b44">put</span>(<span style="color:#bbb"> </span>BerValue.<span style="color:#b44">getBytes</span>(<span style="color:#bbb"> </span>getChangeType().<span style="color:#b44">getValue</span>()<span style="color:#bbb"> </span>)<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#a2f;font-weight:bold">if</span><span style="color:#bbb"> </span>(<span style="color:#bbb"> </span>getPreviousDn()<span style="color:#bbb"> </span><span style="color:#666">!=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">null</span><span style="color:#bbb"> </span>)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                </span>BerValue.<span style="color:#b44">encode</span>(<span style="color:#bbb"> </span>buffer,<span style="color:#bbb"> </span>previousDnBytes<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#a2f;font-weight:bold">if</span><span style="color:#bbb"> </span>(<span style="color:#bbb"> </span>getChangeNumber()<span style="color:#bbb"> </span><span style="color:#666">!=</span><span style="color:#bbb"> </span>UNDEFINED_CHANGE_NUMBER<span style="color:#bbb"> </span>)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                </span>BerValue.<span style="color:#b44">encode</span>(<span style="color:#bbb"> </span>buffer,<span style="color:#bbb"> </span>getChangeNumber()<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#a2f;font-weight:bold">return</span><span style="color:#bbb"> </span>buffer;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#080;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         * {@inheritDoc}
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         */</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#a2f">@Override</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#a2f;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#0b0;font-weight:bold">byte</span><span style="color:#666">[]</span><span style="color:#bbb"> </span><span style="color:#00a000">getValue</span>()<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#a2f;font-weight:bold">if</span><span style="color:#bbb"> </span>(<span style="color:#bbb"> </span>value<span style="color:#bbb"> </span><span style="color:#666">==</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">null</span><span style="color:#bbb"> </span>)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                </span><span style="color:#a2f;font-weight:bold">try</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                    </span>computeLength();<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                    </span>ByteBuffer<span style="color:#bbb"> </span>buffer<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span>ByteBuffer.<span style="color:#b44">allocate</span>(<span style="color:#bbb"> </span>valueLength<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                    </span>buffer.<span style="color:#b44">put</span>(<span style="color:#bbb"> </span>UniversalTag.<span style="color:#b44">SEQUENCE</span>.<span style="color:#b44">getValue</span>()<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                    </span>buffer.<span style="color:#b44">put</span>(<span style="color:#bbb"> </span>TLV.<span style="color:#b44">getBytes</span>(<span style="color:#bbb"> </span>eccSeqLength<span style="color:#bbb"> </span>)<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                    </span>buffer.<span style="color:#b44">put</span>(<span style="color:#bbb"> </span>UniversalTag.<span style="color:#b44">ENUMERATED</span>.<span style="color:#b44">getValue</span>()<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                    </span>buffer.<span style="color:#b44">put</span>(<span style="color:#bbb"> </span>(<span style="color:#bbb"> </span><span style="color:#0b0;font-weight:bold">byte</span><span style="color:#bbb"> </span>)<span style="color:#bbb"> </span>1<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                    </span>buffer.<span style="color:#b44">put</span>(<span style="color:#bbb"> </span>BerValue.<span style="color:#b44">getBytes</span>(<span style="color:#bbb"> </span>getChangeType().<span style="color:#b44">getValue</span>()<span style="color:#bbb"> </span>)<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                    </span><span style="color:#a2f;font-weight:bold">if</span><span style="color:#bbb"> </span>(<span style="color:#bbb"> </span>getPreviousDn()<span style="color:#bbb"> </span><span style="color:#666">!=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">null</span><span style="color:#bbb"> </span>)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                    </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                        </span>BerValue.<span style="color:#b44">encode</span>(<span style="color:#bbb"> </span>buffer,<span style="color:#bbb"> </span>previousDnBytes<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                    </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                    </span><span style="color:#a2f;font-weight:bold">if</span><span style="color:#bbb"> </span>(<span style="color:#bbb"> </span>getChangeNumber()<span style="color:#bbb"> </span><span style="color:#666">!=</span><span style="color:#bbb"> </span>UNDEFINED_CHANGE_NUMBER<span style="color:#bbb"> </span>)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                    </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                        </span>BerValue.<span style="color:#b44">encode</span>(<span style="color:#bbb"> </span>buffer,<span style="color:#bbb"> </span>getChangeNumber()<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                    </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                    </span>value<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span>buffer.<span style="color:#b44">array</span>();<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                </span><span style="color:#a2f;font-weight:bold">catch</span><span style="color:#bbb"> </span>(<span style="color:#bbb"> </span>Exception<span style="color:#bbb"> </span>e<span style="color:#bbb"> </span>)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                    </span><span style="color:#a2f;font-weight:bold">return</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">null</span>;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#a2f;font-weight:bold">return</span><span style="color:#bbb"> </span>value;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#080;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         * {@inheritDoc}
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         */</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#a2f">@Override</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#a2f;font-weight:bold">public</span><span style="color:#bbb"> </span>ChangeType<span style="color:#bbb"> </span><span style="color:#00a000">getChangeType</span>()<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#a2f;font-weight:bold">return</span><span style="color:#bbb"> </span>getEntryChange().<span style="color:#b44">getChangeType</span>();<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#080;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         * {@inheritDoc}
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         */</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#a2f">@Override</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#a2f;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#0b0;font-weight:bold">void</span><span style="color:#bbb"> </span><span style="color:#00a000">setChangeType</span>(<span style="color:#bbb"> </span>ChangeType<span style="color:#bbb"> </span>changeType<span style="color:#bbb"> </span>)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>getEntryChange().<span style="color:#b44">setChangeType</span>(<span style="color:#bbb"> </span>changeType<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#080;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         * {@inheritDoc}
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         */</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#a2f">@Override</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#a2f;font-weight:bold">public</span><span style="color:#bbb"> </span>Dn<span style="color:#bbb"> </span><span style="color:#00a000">getPreviousDn</span>()<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#a2f;font-weight:bold">return</span><span style="color:#bbb"> </span>getEntryChange().<span style="color:#b44">getPreviousDn</span>();<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#080;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         * {@inheritDoc}
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         */</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#a2f">@Override</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#a2f;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#0b0;font-weight:bold">void</span><span style="color:#bbb"> </span><span style="color:#00a000">setPreviousDn</span>(<span style="color:#bbb"> </span>Dn<span style="color:#bbb"> </span>previousDn<span style="color:#bbb"> </span>)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>getEntryChange().<span style="color:#b44">setPreviousDn</span>(<span style="color:#bbb"> </span>previousDn<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#080;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         * {@inheritDoc}
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         */</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#a2f">@Override</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#a2f;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#0b0;font-weight:bold">long</span><span style="color:#bbb"> </span><span style="color:#00a000">getChangeNumber</span>()<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#a2f;font-weight:bold">return</span><span style="color:#bbb"> </span>getEntryChange().<span style="color:#b44">getChangeNumber</span>();<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#080;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         * {@inheritDoc}
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         */</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#a2f">@Override</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#a2f;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#0b0;font-weight:bold">void</span><span style="color:#bbb"> </span><span style="color:#00a000">setChangeNumber</span>(<span style="color:#bbb"> </span><span style="color:#0b0;font-weight:bold">long</span><span style="color:#bbb"> </span>changeNumber<span style="color:#bbb"> </span>)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>getEntryChange().<span style="color:#b44">setChangeNumber</span>(<span style="color:#bbb"> </span>changeNumber<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#080;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         * {@inheritDoc}
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         */</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#a2f">@Override</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#a2f;font-weight:bold">public</span><span style="color:#bbb"> </span>Asn1Object<span style="color:#bbb"> </span><span style="color:#00a000">decode</span>(<span style="color:#bbb"> </span><span style="color:#0b0;font-weight:bold">byte</span><span style="color:#666">[]</span><span style="color:#bbb"> </span>controlBytes<span style="color:#bbb"> </span>)<span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">throws</span><span style="color:#bbb"> </span>DecoderException<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>ByteBuffer<span style="color:#bbb"> </span>bb<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span>ByteBuffer.<span style="color:#b44">wrap</span>(<span style="color:#bbb"> </span>controlBytes<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>EntryChangeContainer<span style="color:#bbb"> </span>container<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>EntryChangeContainer(<span style="color:#bbb"> </span>getCodecService(),<span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">this</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>DECODER.<span style="color:#b44">decode</span>(<span style="color:#bbb"> </span>bb,<span style="color:#bbb"> </span>container<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#a2f;font-weight:bold">return</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">this</span>;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>}<span style="color:#bbb">
+</span></span></span></code></pre></div>
 
             
     <div class="nav">
@@ -723,16 +732,18 @@
         <div id="endContent"></div>
     </div>
 
-    <div id="footer">
+    <div class="footer-wrapper">
+<div id="footer">
     &copy; 2003-2025, <a href="https://www.apache.org">The Apache Software Foundation</a> - <a href="https://privacy.apache.org/policies/privacy-policy-public.html">Privacy Policy</a><br />
     Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
-    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple, Fortress, Apache Fortress, EnMasse,
     Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
     trademarks of The Apache Software Foundation.
 </div>
-
 </div>
 
+</div>
+<div class="top-bottom-spacer"></div>
 </body>
 
 </html>

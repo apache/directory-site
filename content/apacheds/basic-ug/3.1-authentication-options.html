@@ -1,20 +1,29 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
+
+    
+    
+        
+    
+
 <head>
     <meta charset="utf-8">
     <title>3.1 - Authentication options &mdash; Apache Directory</title>
 
     <link href="/css/common.css" rel="stylesheet" type="text/css"/>
-    <link href="/css/green.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/apacheds.css" rel="stylesheet" type="text/css"/>
 
     <link rel="shortcut icon" href="/images/server-icon_16x16.png" />
     <script src="https://www.apachecon.com/event-images/snippet.js"></script>
 </head>
 
 <body>
+<div class="top-bottom-spacer"></div>
 <div id="container">
     <div id="header">
+    <span>Apache Directory</span>
     <a href="/"><div id="headerClick"></div></a>
     <div id="subProjectsNavBar">
         <a href="/">
@@ -83,7 +92,7 @@
 
                 <h5>Downloads</h5>
                 <ul>
-                    <li><a href="/apacheds/downloads.html">ApacheDS 2.0.0.AM27</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/apacheds/downloads.html">ApacheDS 2.0.0.AM27</a>&nbsp;&nbsp;<img src="/images/new_badge.svg" alt="" style="margin-bottom:-3px;" border="0"></li>
                     <li><a href="/apacheds/download-old-versions.html">Older versions</a></li>
                 </ul>
 
@@ -205,13 +214,13 @@ userpassword: pass
 </code></pre>
 <p>In the following search command, a user tries to bind with the given DN (option -D) but a wrong password (option -w). The bind fails and the command terminates without performing the search.</p>
 <pre><code>$ ldapsearch -h zanzibar -p 10389 -D &quot;cn=Horatio Hornblower,ou=people,o=sevenSeas&quot; \\
-    -w wrong -b &quot;ou=people,o=sevenSeas&quot; -s base &quot;(objectclass=*)&quot;
+	-w wrong -b &quot;ou=people,o=sevenSeas&quot; -s base &quot;(objectclass=*)&quot;
 ldap_simple_bind: Invalid credentials
 ldap_simple_bind: additional info: Bind failed: null
 </code></pre>
 <p>If the user provides the correct password during the call of the ldapsearch command, the bind operation succeeds and the seach operation is performed afterwards.</p>
 <pre><code>$ ldapsearch -h zanzibar -p 10389 -D &quot;cn=Horatio Hornblower,ou=people,o=sevenSeas&quot; \\
-    -w pass -b &quot;ou=people,o=sevenSeas&quot; -s base &quot;(objectclass=*)&quot;
+	-w pass -b &quot;ou=people,o=sevenSeas&quot; -s base &quot;(objectclass=*)&quot;
 version: 1
 dn: ou=people,o=sevenSeas
 ou: people
@@ -221,53 +230,53 @@ objectclass: top
 </code></pre>
 <h3 id="binds-from-java-components-using-jndi">Binds from Java components using JNDI</h3>
 <p>Using JNDI, authentication via simple binds is accomplished by appropriate configuration. One option is to provide the parameters in a Hashtable object like this</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">java.util.Hashtable</span><span style="color:#666">;</span>
-
-<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">javax.naming.Context</span><span style="color:#666">;</span>
-<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">javax.naming.InitialContext</span><span style="color:#666">;</span>
-<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">javax.naming.NamingEnumeration</span><span style="color:#666">;</span>
-<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">javax.naming.NamingException</span><span style="color:#666">;</span>
-
-<span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">class</span> <span style="color:#00f">SimpleBindDemo</span> <span style="color:#666">{</span>
-    
-    <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">static</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">main</span><span style="color:#666">(</span>String<span style="color:#666">[</span><span style="color:#666">]</span> args<span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> NamingException <span style="color:#666">{</span>
-        
-        <span style="color:#a2f;font-weight:bold">if</span> <span style="color:#666">(</span>args<span style="color:#666">.</span><span style="color:#b44">length</span> <span style="color:#666">&lt;</span> 2<span style="color:#666">)</span> <span style="color:#666">{</span>
-            System<span style="color:#666">.</span><span style="color:#b44">err</span><span style="color:#666">.</span><span style="color:#b44">println</span><span style="color:#666">(</span><span style="color:#b44">&#34;Usage: java SimpleBindDemo &lt;userDN&gt; &lt;password&gt;&#34;</span><span style="color:#666">)</span><span style="color:#666">;</span>
-            System<span style="color:#666">.</span><span style="color:#b44">exit</span><span style="color:#666">(</span>1<span style="color:#666">)</span><span style="color:#666">;</span>
-        <span style="color:#666">}</span>
-        
-        Hashtable env <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> Hashtable<span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
-        env<span style="color:#666">.</span><span style="color:#b44">put</span><span style="color:#666">(</span>Context<span style="color:#666">.</span><span style="color:#b44">INITIAL_CONTEXT_FACTORY</span><span style="color:#666">,</span> <span style="color:#b44">&#34;com.sun.jndi.ldap.LdapCtxFactory&#34;</span><span style="color:#666">)</span><span style="color:#666">;</span>
-        env<span style="color:#666">.</span><span style="color:#b44">put</span><span style="color:#666">(</span>Context<span style="color:#666">.</span><span style="color:#b44">PROVIDER_URL</span><span style="color:#666">,</span> <span style="color:#b44">&#34;ldap://zanzibar:10389/o=sevenSeas&#34;</span><span style="color:#666">)</span><span style="color:#666">;</span>
-        
-        env<span style="color:#666">.</span><span style="color:#b44">put</span><span style="color:#666">(</span>Context<span style="color:#666">.</span><span style="color:#b44">SECURITY_AUTHENTICATION</span><span style="color:#666">,</span> <span style="color:#b44">&#34;simple&#34;</span><span style="color:#666">)</span><span style="color:#666">;</span>
-        env<span style="color:#666">.</span><span style="color:#b44">put</span><span style="color:#666">(</span>Context<span style="color:#666">.</span><span style="color:#b44">SECURITY_PRINCIPAL</span><span style="color:#666">,</span> args<span style="color:#666">[</span>0<span style="color:#666">]</span><span style="color:#666">)</span><span style="color:#666">;</span>
-        env<span style="color:#666">.</span><span style="color:#b44">put</span><span style="color:#666">(</span>Context<span style="color:#666">.</span><span style="color:#b44">SECURITY_CREDENTIALS</span><span style="color:#666">,</span> args<span style="color:#666">[</span>1<span style="color:#666">]</span><span style="color:#666">)</span><span style="color:#666">;</span>
-        
-        <span style="color:#a2f;font-weight:bold">try</span> <span style="color:#666">{</span>
-            Context ctx <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> InitialContext<span style="color:#666">(</span>env<span style="color:#666">)</span><span style="color:#666">;</span>
-            NamingEnumeration enm <span style="color:#666">=</span> ctx<span style="color:#666">.</span><span style="color:#b44">list</span><span style="color:#666">(</span><span style="color:#b44">&#34;&#34;</span><span style="color:#666">)</span><span style="color:#666">;</span>
-            
-            <span style="color:#a2f;font-weight:bold">while</span> <span style="color:#666">(</span>enm<span style="color:#666">.</span><span style="color:#b44">hasMore</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">)</span> <span style="color:#666">{</span>
-                System<span style="color:#666">.</span><span style="color:#b44">out</span><span style="color:#666">.</span><span style="color:#b44">println</span><span style="color:#666">(</span>enm<span style="color:#666">.</span><span style="color:#b44">next</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">)</span><span style="color:#666">;</span>
-            <span style="color:#666">}</span>
-            
-            enm<span style="color:#666">.</span><span style="color:#b44">close</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
-            ctx<span style="color:#666">.</span><span style="color:#b44">close</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
-        <span style="color:#666">}</span> <span style="color:#a2f;font-weight:bold">catch</span> <span style="color:#666">(</span>NamingException e<span style="color:#666">)</span> <span style="color:#666">{</span>
-            System<span style="color:#666">.</span><span style="color:#b44">out</span><span style="color:#666">.</span><span style="color:#b44">println</span><span style="color:#666">(</span>e<span style="color:#666">.</span><span style="color:#b44">getMessage</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">)</span><span style="color:#666">;</span>
-        <span style="color:#666">}</span>
-    <span style="color:#666">}</span>
-<span style="color:#666">}</span>
-</code></pre></div><p>If the DN of a user entry and the fitting password are provided as command line arguments, the program binds successfully and performs a search:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ java SimpleBindDemo <span style="color:#b44">&#34;cn=Horatio Hornblower,ou=people,o=sevenSeas&#34;</span> pass
-<span style="color:#b8860b">ou</span><span style="color:#666">=</span>people: javax.naming.directory.DirContext
-<span style="color:#b8860b">ou</span><span style="color:#666">=</span>groups: javax.naming.directory.DirContext
-</code></pre></div><p>On the other hand, providing an incorrect password results in a failed bind operation. JNDI maps it to a <em>NamingException</em>:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ java SimpleBindDemo <span style="color:#b44">&#34;cn=Horatio Hornblower,ou=people,o=sevenSeas&#34;</span> quatsch
-<span style="color:#666">[</span>LDAP: error code <span style="color:#666">49</span> - Bind failed: null<span style="color:#666">]</span>
-</code></pre></div><p>In real life, you obviously want to separate most of the configuration data from the source code, for instance with the help of the <em>jndi.properties</em> file.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">import</span><span style="color:#bbb"> </span><span style="color:#00f;font-weight:bold">java.util.Hashtable</span>;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#a2f;font-weight:bold">import</span><span style="color:#bbb"> </span><span style="color:#00f;font-weight:bold">javax.naming.Context</span>;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#a2f;font-weight:bold">import</span><span style="color:#bbb"> </span><span style="color:#00f;font-weight:bold">javax.naming.InitialContext</span>;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#a2f;font-weight:bold">import</span><span style="color:#bbb"> </span><span style="color:#00f;font-weight:bold">javax.naming.NamingEnumeration</span>;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#a2f;font-weight:bold">import</span><span style="color:#bbb"> </span><span style="color:#00f;font-weight:bold">javax.naming.NamingException</span>;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#a2f;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">class</span> <span style="color:#00f">SimpleBindDemo</span><span style="color:#bbb"> </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">static</span><span style="color:#bbb"> </span><span style="color:#0b0;font-weight:bold">void</span><span style="color:#bbb"> </span><span style="color:#00a000">main</span>(String<span style="color:#666">[]</span><span style="color:#bbb"> </span>args)<span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">throws</span><span style="color:#bbb"> </span>NamingException<span style="color:#bbb"> </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#a2f;font-weight:bold">if</span><span style="color:#bbb"> </span>(args.<span style="color:#b44">length</span><span style="color:#bbb"> </span><span style="color:#666">&lt;</span><span style="color:#bbb"> </span>2)<span style="color:#bbb"> </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>System.<span style="color:#b44">err</span>.<span style="color:#b44">println</span>(<span style="color:#b44">&#34;Usage: java SimpleBindDemo &lt;userDN&gt; &lt;password&gt;&#34;</span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>System.<span style="color:#b44">exit</span>(1);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>Hashtable<span style="color:#bbb"> </span>env<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>Hashtable();<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>env.<span style="color:#b44">put</span>(Context.<span style="color:#b44">INITIAL_CONTEXT_FACTORY</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;com.sun.jndi.ldap.LdapCtxFactory&#34;</span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>env.<span style="color:#b44">put</span>(Context.<span style="color:#b44">PROVIDER_URL</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;ldap://zanzibar:10389/o=sevenSeas&#34;</span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>env.<span style="color:#b44">put</span>(Context.<span style="color:#b44">SECURITY_AUTHENTICATION</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;simple&#34;</span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>env.<span style="color:#b44">put</span>(Context.<span style="color:#b44">SECURITY_PRINCIPAL</span>,<span style="color:#bbb"> </span>args<span style="color:#666">[</span>0<span style="color:#666">]</span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>env.<span style="color:#b44">put</span>(Context.<span style="color:#b44">SECURITY_CREDENTIALS</span>,<span style="color:#bbb"> </span>args<span style="color:#666">[</span>1<span style="color:#666">]</span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#a2f;font-weight:bold">try</span><span style="color:#bbb"> </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>Context<span style="color:#bbb"> </span>ctx<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>InitialContext(env);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>NamingEnumeration<span style="color:#bbb"> </span>enm<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span>ctx.<span style="color:#b44">list</span>(<span style="color:#b44">&#34;&#34;</span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#a2f;font-weight:bold">while</span><span style="color:#bbb"> </span>(enm.<span style="color:#b44">hasMore</span>())<span style="color:#bbb"> </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                </span>System.<span style="color:#b44">out</span>.<span style="color:#b44">println</span>(enm.<span style="color:#b44">next</span>());<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>enm.<span style="color:#b44">close</span>();<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>ctx.<span style="color:#b44">close</span>();<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>}<span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">catch</span><span style="color:#bbb"> </span>(NamingException<span style="color:#bbb"> </span>e)<span style="color:#bbb"> </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>System.<span style="color:#b44">out</span>.<span style="color:#b44">println</span>(e.<span style="color:#b44">getMessage</span>());<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>}<span style="color:#bbb">
+</span></span></span></code></pre></div><p>If the DN of a user entry and the fitting password are provided as command line arguments, the program binds successfully and performs a search:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ java SimpleBindDemo <span style="color:#b44">&#34;cn=Horatio Hornblower,ou=people,o=sevenSeas&#34;</span> pass
+</span></span><span style="display:flex;"><span><span style="color:#b8860b">ou</span><span style="color:#666">=</span>people: javax.naming.directory.DirContext
+</span></span><span style="display:flex;"><span><span style="color:#b8860b">ou</span><span style="color:#666">=</span>groups: javax.naming.directory.DirContext
+</span></span></code></pre></div><p>On the other hand, providing an incorrect password results in a failed bind operation. JNDI maps it to a <em>NamingException</em>:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ java SimpleBindDemo <span style="color:#b44">&#34;cn=Horatio Hornblower,ou=people,o=sevenSeas&#34;</span> quatsch
+</span></span><span style="display:flex;"><span><span style="color:#666">[</span>LDAP: error code <span style="color:#666">49</span> - Bind failed: null<span style="color:#666">]</span>
+</span></span></code></pre></div><p>In real life, you obviously want to separate most of the configuration data from the source code, for instance with the help of the <em>jndi.properties</em> file.</p>
 <h2 id="passwords-stored-one-way-encrypted">Passwords stored one-way encrypted</h2>
 <p>If passwords are stored in the directory in clear like above, the administrator (<em>uid=admin,ou=system</em>) is able to read them. This holds true even if authorization is enabled. The passwords would also be visible in exported LDIF files. This is often unacceptable.</p>
 <DIV class="warning" markdown="1">
@@ -286,33 +295,33 @@ userpassword: {SHA}nU4eI71bcnBGqeO0t9tXvY1u5oQ=
 <p>The value &ldquo;{SHA}nU4eI71bcnBGqeO0t9tXvY1u5oQ=&rdquo; means that <em>SHA</em> (Secure Hash Algorithm) was applied to the password, and &ldquo;nU4eI71bcnBGqeO0t9tXvY1u5oQ=&rdquo; was the result (Base-64 encoded). Please note that it is not possible to calculate the source (&ldquo;pass&rdquo; in our case) back from the result. This is why it is called one-way encrypted &ndash; it is rather difficult to decrypt it. One may guess many times, calculate the hash values (the algorithms are public) and compare the result. But this would take a long time, especially if you choose a more complex password than we did (&ldquo;pass&rdquo;).</p>
 <h3 id="but-how-to-obtain-the-hash-value-for-a-password">But how to obtain the hash value for a password?</h3>
 <p>With some lines of code, it is quite easy to accomplish this task programatically in Java:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">java.security.MessageDigest</span><span style="color:#666">;</span>
-<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">java.security.NoSuchAlgorithmException</span><span style="color:#666">;</span>
-<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">sun.misc.BASE64Encoder</span><span style="color:#666">;</span>
-
-<span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">class</span> <span style="color:#00f">DigestDemo</span> <span style="color:#666">{</span>
-    <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">static</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">main</span><span style="color:#666">(</span>String<span style="color:#666">[</span><span style="color:#666">]</span> args<span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> NoSuchAlgorithmException <span style="color:#666">{</span>
-        String password <span style="color:#666">=</span> <span style="color:#b44">&#34;pass&#34;</span><span style="color:#666">;</span>
-        String algorithm <span style="color:#666">=</span> <span style="color:#b44">&#34;SHA&#34;</span><span style="color:#666">;</span>
-        
-        <span style="color:#080;font-style:italic">// Calculate hash value
-</span><span style="color:#080;font-style:italic"></span>        MessageDigest md <span style="color:#666">=</span> MessageDigest<span style="color:#666">.</span><span style="color:#b44">getInstance</span><span style="color:#666">(</span>algorithm<span style="color:#666">)</span><span style="color:#666">;</span>
-        md<span style="color:#666">.</span><span style="color:#b44">update</span><span style="color:#666">(</span>password<span style="color:#666">.</span><span style="color:#b44">getBytes</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">)</span><span style="color:#666">;</span>
-        <span style="color:#0b0;font-weight:bold">byte</span><span style="color:#666">[</span><span style="color:#666">]</span> bytes <span style="color:#666">=</span> md<span style="color:#666">.</span><span style="color:#b44">digest</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
-        
-        <span style="color:#080;font-style:italic">// Print out value in Base64 encoding
-</span><span style="color:#080;font-style:italic"></span>        BASE64Encoder base64encoder <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> BASE64Encoder<span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
-        String hash <span style="color:#666">=</span> base64encoder<span style="color:#666">.</span><span style="color:#b44">encode</span><span style="color:#666">(</span>bytes<span style="color:#666">)</span><span style="color:#666">;</span>        
-        System<span style="color:#666">.</span><span style="color:#b44">out</span><span style="color:#666">.</span><span style="color:#b44">println</span><span style="color:#666">(</span><span style="color:#b44">&#39;{&#39;</span><span style="color:#666">+</span>algorithm<span style="color:#666">+</span><span style="color:#b44">&#39;}&#39;</span><span style="color:#666">+</span>hash<span style="color:#666">)</span><span style="color:#666">;</span>
-    <span style="color:#666">}</span>
-<span style="color:#666">}</span>
-</code></pre></div><p>The output is &ldquo;{SHA}nU4eI71bcnBGqeO0t9tXvY1u5oQ=&rdquo;.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">import</span><span style="color:#bbb"> </span><span style="color:#00f;font-weight:bold">java.security.MessageDigest</span>;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#a2f;font-weight:bold">import</span><span style="color:#bbb"> </span><span style="color:#00f;font-weight:bold">java.security.NoSuchAlgorithmException</span>;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#a2f;font-weight:bold">import</span><span style="color:#bbb"> </span><span style="color:#00f;font-weight:bold">sun.misc.BASE64Encoder</span>;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#a2f;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">class</span> <span style="color:#00f">DigestDemo</span><span style="color:#bbb"> </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">static</span><span style="color:#bbb"> </span><span style="color:#0b0;font-weight:bold">void</span><span style="color:#bbb"> </span><span style="color:#00a000">main</span>(String<span style="color:#666">[]</span><span style="color:#bbb"> </span>args)<span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">throws</span><span style="color:#bbb"> </span>NoSuchAlgorithmException<span style="color:#bbb"> </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>String<span style="color:#bbb"> </span>password<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#b44">&#34;pass&#34;</span>;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>String<span style="color:#bbb"> </span>algorithm<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#b44">&#34;SHA&#34;</span>;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#080;font-style:italic">// Calculate hash value</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>MessageDigest<span style="color:#bbb"> </span>md<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span>MessageDigest.<span style="color:#b44">getInstance</span>(algorithm);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>md.<span style="color:#b44">update</span>(password.<span style="color:#b44">getBytes</span>());<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#0b0;font-weight:bold">byte</span><span style="color:#666">[]</span><span style="color:#bbb"> </span>bytes<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span>md.<span style="color:#b44">digest</span>();<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#080;font-style:italic">// Print out value in Base64 encoding</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>BASE64Encoder<span style="color:#bbb"> </span>base64encoder<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>BASE64Encoder();<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>String<span style="color:#bbb"> </span>hash<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span>base64encoder.<span style="color:#b44">encode</span>(bytes);<span style="color:#bbb">        
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>System.<span style="color:#b44">out</span>.<span style="color:#b44">println</span>(<span style="color:#b44">&#39;{&#39;</span><span style="color:#666">+</span>algorithm<span style="color:#666">+</span><span style="color:#b44">&#39;}&#39;</span><span style="color:#666">+</span>hash);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>}<span style="color:#bbb">
+</span></span></span></code></pre></div><p>The output is &ldquo;{SHA}nU4eI71bcnBGqeO0t9tXvY1u5oQ=&rdquo;.</p>
 <p>Another option is to use command line tools to calculate the hash value; the <a href="https://www.openssl.org">OpenSSL</a> project provides such stuff. Furthermore many UI LDAP tools allow you to store passwords automatically encrypted with the hash algorithm of your choice. See below <a href="https://directory.apache.org/studio/">Apache Directory Studio</a> as an example. The dialog automatically shows up if a <em>userPassword</em> attribute is to be manipulated (added, changed).</p>
 <p><img src="images/password-edit-ls.png" alt="Password Edit"></p>
 <h3 id="from-an-ldap-client-point-of-view">From an LDAP client point of view</h3>
 <p>From an LDAP client point of view, the behavior during authentication is the same as with passwords stored in clear. During a simple bind, a client sends DN and password (unencrypted, i.e. no hash algorithm applied) to the server. If ApacheDS detects, that the user password for the given DN is stored in the directory with a hash function applied, it calculates the hash value of the given password with the appropriate algorithm (this is why the algorithm is stored together with the hashed password). Afterwards it compares the result with the stored attribute value. In case of a match, the bind operation ends successfully:</p>
 <pre><code>$ ldapsearch -h zanzibar -p 10389 -D &quot;cn=Horatio Hornblower,ou=people,o=sevenSeas&quot; \\ 
-    -w pass -b &quot;ou=people,o=sevenSeas&quot; -s base &quot;(objectclass=*)&quot;
+	-w pass -b &quot;ou=people,o=sevenSeas&quot; -s base &quot;(objectclass=*)&quot;
 version: 1
 dn: ou=people,o=sevenSeas
 ou: people
@@ -322,7 +331,7 @@ objectclass: top
 </code></pre>
 <p>Providing the hashed value of the <em>userPassword</em> attribute instead of the original value will be rejected by ApacheDS:</p>
 <pre><code>$ ldapsearch -h zanzibar -p 10389 -D &quot;cn=Horatio Hornblower,ou=people,o=sevenSeas&quot; \\
-    -w &quot;{SHA}nU4eI71bcnBGqeO0t9tXvY1u5oQ=&quot; -b &quot;ou=people,o=sevenSeas&quot; -s base &quot;(objectclass=*)&quot;
+	-w &quot;{SHA}nU4eI71bcnBGqeO0t9tXvY1u5oQ=&quot; -b &quot;ou=people,o=sevenSeas&quot; -s base &quot;(objectclass=*)&quot;
 ldap_simple_bind: Invalid credentials
 ldap_simple_bind: additional info: Bind failed: null
 </code></pre>
@@ -404,77 +413,77 @@ userpassword: {SHA}nU4eI71bcnBGqeO0t9tXvY1u5oQ=
 <h3 id="sample-code-with-jndi">Sample code with JNDI</h3>
 <p>The algorithm described above is implemented by many software solutions which are able to integrate LDAP directories. You will learn more about some of them and their configuration options within a later section of this guide.</p>
 <p>For illustration purposes, here is a simple Java program which performs the steps with the help of JNDI. It uses anonymous bind for the first step, hence it must be enabled (replace with a technical user, if it better meets your requirements).</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">java.util.Hashtable</span><span style="color:#666">;</span>
-<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">javax.naming.Context</span><span style="color:#666">;</span>
-<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">javax.naming.NamingEnumeration</span><span style="color:#666">;</span>
-<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">javax.naming.NamingException</span><span style="color:#666">;</span>
-<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">javax.naming.directory.DirContext</span><span style="color:#666">;</span>
-<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">javax.naming.directory.InitialDirContext</span><span style="color:#666">;</span>
-<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">javax.naming.directory.SearchControls</span><span style="color:#666">;</span>
-<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">javax.naming.directory.SearchResult</span><span style="color:#666">;</span>
-
-<span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">class</span> <span style="color:#00f">AdvancedBindDemo</span> <span style="color:#666">{</span>
-    
-    <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">static</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">main</span><span style="color:#666">(</span>String<span style="color:#666">[</span><span style="color:#666">]</span> args<span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> NamingException <span style="color:#666">{</span>
-        
-        <span style="color:#a2f;font-weight:bold">if</span> <span style="color:#666">(</span>args<span style="color:#666">.</span><span style="color:#b44">length</span> <span style="color:#666">&lt;</span> 2<span style="color:#666">)</span> <span style="color:#666">{</span>
-            System<span style="color:#666">.</span><span style="color:#b44">err</span><span style="color:#666">.</span><span style="color:#b44">println</span><span style="color:#666">(</span><span style="color:#b44">&#34;Usage: java AdvancedBindDemo &lt;uid&gt; &lt;password&gt;&#34;</span><span style="color:#666">)</span><span style="color:#666">;</span>
-            System<span style="color:#666">.</span><span style="color:#b44">exit</span><span style="color:#666">(</span>1<span style="color:#666">)</span><span style="color:#666">;</span>
-        <span style="color:#666">}</span>
-        
-        Hashtable env <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> Hashtable<span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
-        env<span style="color:#666">.</span><span style="color:#b44">put</span><span style="color:#666">(</span>Context<span style="color:#666">.</span><span style="color:#b44">INITIAL_CONTEXT_FACTORY</span><span style="color:#666">,</span> <span style="color:#b44">&#34;com.sun.jndi.ldap.LdapCtxFactory&#34;</span><span style="color:#666">)</span><span style="color:#666">;</span>
-        env<span style="color:#666">.</span><span style="color:#b44">put</span><span style="color:#666">(</span>Context<span style="color:#666">.</span><span style="color:#b44">PROVIDER_URL</span><span style="color:#666">,</span> <span style="color:#b44">&#34;ldap://zanzibar:10389/&#34;</span><span style="color:#666">)</span><span style="color:#666">;</span>
-        env<span style="color:#666">.</span><span style="color:#b44">put</span><span style="color:#666">(</span>Context<span style="color:#666">.</span><span style="color:#b44">SECURITY_AUTHENTICATION</span><span style="color:#666">,</span> <span style="color:#b44">&#34;simple&#34;</span><span style="color:#666">)</span><span style="color:#666">;</span>
-        
-        String uid <span style="color:#666">=</span> args<span style="color:#666">[</span>0<span style="color:#666">]</span><span style="color:#666">;</span>
-        String password <span style="color:#666">=</span> args<span style="color:#666">[</span>1<span style="color:#666">]</span><span style="color:#666">;</span>
-        
-        DirContext ctx <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">null</span><span style="color:#666">;</span>
-        
-        <span style="color:#a2f;font-weight:bold">try</span> <span style="color:#666">{</span>            
-            <span style="color:#080;font-style:italic">// Step 1: Bind anonymously            
-</span><span style="color:#080;font-style:italic"></span>            ctx <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> InitialDirContext<span style="color:#666">(</span>env<span style="color:#666">)</span><span style="color:#666">;</span>
-            
-            <span style="color:#080;font-style:italic">// Step 2: Search the directory
-</span><span style="color:#080;font-style:italic"></span>            String base <span style="color:#666">=</span> <span style="color:#b44">&#34;o=sevenSeas&#34;</span><span style="color:#666">;</span>
-            String filter <span style="color:#666">=</span> <span style="color:#b44">&#34;(&amp;(objectClass=inetOrgPerson)(uid={0}))&#34;</span><span style="color:#666">;</span>           
-            SearchControls ctls <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> SearchControls<span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
-            ctls<span style="color:#666">.</span><span style="color:#b44">setSearchScope</span><span style="color:#666">(</span>SearchControls<span style="color:#666">.</span><span style="color:#b44">SUBTREE_SCOPE</span><span style="color:#666">)</span><span style="color:#666">;</span>
-            ctls<span style="color:#666">.</span><span style="color:#b44">setReturningAttributes</span><span style="color:#666">(</span><span style="color:#a2f;font-weight:bold">new</span> String<span style="color:#666">[</span>0<span style="color:#666">]</span><span style="color:#666">)</span><span style="color:#666">;</span>
-            ctls<span style="color:#666">.</span><span style="color:#b44">setReturningObjFlag</span><span style="color:#666">(</span><span style="color:#a2f;font-weight:bold">true</span><span style="color:#666">)</span><span style="color:#666">;</span>
-            NamingEnumeration enm <span style="color:#666">=</span> ctx<span style="color:#666">.</span><span style="color:#b44">search</span><span style="color:#666">(</span>base<span style="color:#666">,</span> filter<span style="color:#666">,</span> <span style="color:#a2f;font-weight:bold">new</span> String<span style="color:#666">[</span><span style="color:#666">]</span> <span style="color:#666">{</span> uid <span style="color:#666">}</span><span style="color:#666">,</span> ctls<span style="color:#666">)</span><span style="color:#666">;</span>
-            
-            String dn <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">null</span><span style="color:#666">;</span>
-            
-            <span style="color:#a2f;font-weight:bold">if</span> <span style="color:#666">(</span>enm<span style="color:#666">.</span><span style="color:#b44">hasMore</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">)</span> <span style="color:#666">{</span>
-                SearchResult result <span style="color:#666">=</span> <span style="color:#666">(</span>SearchResult<span style="color:#666">)</span> enm<span style="color:#666">.</span><span style="color:#b44">next</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
-                dn <span style="color:#666">=</span> result<span style="color:#666">.</span><span style="color:#b44">getNameInNamespace</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
-                
-                System<span style="color:#666">.</span><span style="color:#b44">out</span><span style="color:#666">.</span><span style="color:#b44">println</span><span style="color:#666">(</span><span style="color:#b44">&#34;dn: &#34;</span><span style="color:#666">+</span>dn<span style="color:#666">)</span><span style="color:#666">;</span>
-            <span style="color:#666">}</span>
-            
-            <span style="color:#a2f;font-weight:bold">if</span> <span style="color:#666">(</span>dn <span style="color:#666">=</span><span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">null</span> <span style="color:#666">|</span><span style="color:#666">|</span> enm<span style="color:#666">.</span><span style="color:#b44">hasMore</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">)</span> <span style="color:#666">{</span>
-                <span style="color:#080;font-style:italic">// uid not found or not unique
-</span><span style="color:#080;font-style:italic"></span>                <span style="color:#a2f;font-weight:bold">throw</span> <span style="color:#a2f;font-weight:bold">new</span> NamingException<span style="color:#666">(</span><span style="color:#b44">&#34;Authentication failed&#34;</span><span style="color:#666">)</span><span style="color:#666">;</span>
-            <span style="color:#666">}</span>
-            
-            <span style="color:#080;font-style:italic">// Step 3: Bind with found DN and given password
-</span><span style="color:#080;font-style:italic"></span>            ctx<span style="color:#666">.</span><span style="color:#b44">addToEnvironment</span><span style="color:#666">(</span>Context<span style="color:#666">.</span><span style="color:#b44">SECURITY_PRINCIPAL</span><span style="color:#666">,</span> dn<span style="color:#666">)</span><span style="color:#666">;</span>
-            ctx<span style="color:#666">.</span><span style="color:#b44">addToEnvironment</span><span style="color:#666">(</span>Context<span style="color:#666">.</span><span style="color:#b44">SECURITY_CREDENTIALS</span><span style="color:#666">,</span> password<span style="color:#666">)</span><span style="color:#666">;</span>
-            <span style="color:#080;font-style:italic">// Perform a lookup in order to force a bind operation with JNDI
-</span><span style="color:#080;font-style:italic"></span>            ctx<span style="color:#666">.</span><span style="color:#b44">lookup</span><span style="color:#666">(</span>dn<span style="color:#666">)</span><span style="color:#666">;</span>
-            System<span style="color:#666">.</span><span style="color:#b44">out</span><span style="color:#666">.</span><span style="color:#b44">println</span><span style="color:#666">(</span><span style="color:#b44">&#34;Authentication successful&#34;</span><span style="color:#666">)</span><span style="color:#666">;</span>
-            
-            enm<span style="color:#666">.</span><span style="color:#b44">close</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
-        <span style="color:#666">}</span> <span style="color:#a2f;font-weight:bold">catch</span> <span style="color:#666">(</span>NamingException e<span style="color:#666">)</span> <span style="color:#666">{</span>
-            System<span style="color:#666">.</span><span style="color:#b44">out</span><span style="color:#666">.</span><span style="color:#b44">println</span><span style="color:#666">(</span>e<span style="color:#666">.</span><span style="color:#b44">getMessage</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">)</span><span style="color:#666">;</span>
-        <span style="color:#666">}</span> <span style="color:#a2f;font-weight:bold">finally</span> <span style="color:#666">{</span>
-            ctx<span style="color:#666">.</span><span style="color:#b44">close</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
-        <span style="color:#666">}</span>
-    <span style="color:#666">}</span>
-<span style="color:#666">}</span>
-</code></pre></div><p>Some example calls:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">import</span><span style="color:#bbb"> </span><span style="color:#00f;font-weight:bold">java.util.Hashtable</span>;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#a2f;font-weight:bold">import</span><span style="color:#bbb"> </span><span style="color:#00f;font-weight:bold">javax.naming.Context</span>;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#a2f;font-weight:bold">import</span><span style="color:#bbb"> </span><span style="color:#00f;font-weight:bold">javax.naming.NamingEnumeration</span>;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#a2f;font-weight:bold">import</span><span style="color:#bbb"> </span><span style="color:#00f;font-weight:bold">javax.naming.NamingException</span>;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#a2f;font-weight:bold">import</span><span style="color:#bbb"> </span><span style="color:#00f;font-weight:bold">javax.naming.directory.DirContext</span>;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#a2f;font-weight:bold">import</span><span style="color:#bbb"> </span><span style="color:#00f;font-weight:bold">javax.naming.directory.InitialDirContext</span>;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#a2f;font-weight:bold">import</span><span style="color:#bbb"> </span><span style="color:#00f;font-weight:bold">javax.naming.directory.SearchControls</span>;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#a2f;font-weight:bold">import</span><span style="color:#bbb"> </span><span style="color:#00f;font-weight:bold">javax.naming.directory.SearchResult</span>;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#a2f;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">class</span> <span style="color:#00f">AdvancedBindDemo</span><span style="color:#bbb"> </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">static</span><span style="color:#bbb"> </span><span style="color:#0b0;font-weight:bold">void</span><span style="color:#bbb"> </span><span style="color:#00a000">main</span>(String<span style="color:#666">[]</span><span style="color:#bbb"> </span>args)<span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">throws</span><span style="color:#bbb"> </span>NamingException<span style="color:#bbb"> </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#a2f;font-weight:bold">if</span><span style="color:#bbb"> </span>(args.<span style="color:#b44">length</span><span style="color:#bbb"> </span><span style="color:#666">&lt;</span><span style="color:#bbb"> </span>2)<span style="color:#bbb"> </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>System.<span style="color:#b44">err</span>.<span style="color:#b44">println</span>(<span style="color:#b44">&#34;Usage: java AdvancedBindDemo &lt;uid&gt; &lt;password&gt;&#34;</span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>System.<span style="color:#b44">exit</span>(1);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>Hashtable<span style="color:#bbb"> </span>env<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>Hashtable();<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>env.<span style="color:#b44">put</span>(Context.<span style="color:#b44">INITIAL_CONTEXT_FACTORY</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;com.sun.jndi.ldap.LdapCtxFactory&#34;</span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>env.<span style="color:#b44">put</span>(Context.<span style="color:#b44">PROVIDER_URL</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;ldap://zanzibar:10389/&#34;</span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>env.<span style="color:#b44">put</span>(Context.<span style="color:#b44">SECURITY_AUTHENTICATION</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;simple&#34;</span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>String<span style="color:#bbb"> </span>uid<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span>args<span style="color:#666">[</span>0<span style="color:#666">]</span>;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>String<span style="color:#bbb"> </span>password<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span>args<span style="color:#666">[</span>1<span style="color:#666">]</span>;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>DirContext<span style="color:#bbb"> </span>ctx<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">null</span>;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#a2f;font-weight:bold">try</span><span style="color:#bbb"> </span>{<span style="color:#bbb">            
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#080;font-style:italic">// Step 1: Bind anonymously            </span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>ctx<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>InitialDirContext(env);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#080;font-style:italic">// Step 2: Search the directory</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>String<span style="color:#bbb"> </span>base<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#b44">&#34;o=sevenSeas&#34;</span>;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>String<span style="color:#bbb"> </span>filter<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#b44">&#34;(&amp;(objectClass=inetOrgPerson)(uid={0}))&#34;</span>;<span style="color:#bbb">           
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>SearchControls<span style="color:#bbb"> </span>ctls<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>SearchControls();<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>ctls.<span style="color:#b44">setSearchScope</span>(SearchControls.<span style="color:#b44">SUBTREE_SCOPE</span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>ctls.<span style="color:#b44">setReturningAttributes</span>(<span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>String<span style="color:#666">[</span>0<span style="color:#666">]</span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>ctls.<span style="color:#b44">setReturningObjFlag</span>(<span style="color:#a2f;font-weight:bold">true</span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>NamingEnumeration<span style="color:#bbb"> </span>enm<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span>ctx.<span style="color:#b44">search</span>(base,<span style="color:#bbb"> </span>filter,<span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>String<span style="color:#666">[]</span><span style="color:#bbb"> </span>{<span style="color:#bbb"> </span>uid<span style="color:#bbb"> </span>},<span style="color:#bbb"> </span>ctls);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>String<span style="color:#bbb"> </span>dn<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">null</span>;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#a2f;font-weight:bold">if</span><span style="color:#bbb"> </span>(enm.<span style="color:#b44">hasMore</span>())<span style="color:#bbb"> </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                </span>SearchResult<span style="color:#bbb"> </span>result<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span>(SearchResult)<span style="color:#bbb"> </span>enm.<span style="color:#b44">next</span>();<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                </span>dn<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span>result.<span style="color:#b44">getNameInNamespace</span>();<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                </span>System.<span style="color:#b44">out</span>.<span style="color:#b44">println</span>(<span style="color:#b44">&#34;dn: &#34;</span><span style="color:#666">+</span>dn);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#a2f;font-weight:bold">if</span><span style="color:#bbb"> </span>(dn<span style="color:#bbb"> </span><span style="color:#666">==</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">null</span><span style="color:#bbb"> </span><span style="color:#666">||</span><span style="color:#bbb"> </span>enm.<span style="color:#b44">hasMore</span>())<span style="color:#bbb"> </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                </span><span style="color:#080;font-style:italic">// uid not found or not unique</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                </span><span style="color:#a2f;font-weight:bold">throw</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>NamingException(<span style="color:#b44">&#34;Authentication failed&#34;</span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#080;font-style:italic">// Step 3: Bind with found DN and given password</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>ctx.<span style="color:#b44">addToEnvironment</span>(Context.<span style="color:#b44">SECURITY_PRINCIPAL</span>,<span style="color:#bbb"> </span>dn);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>ctx.<span style="color:#b44">addToEnvironment</span>(Context.<span style="color:#b44">SECURITY_CREDENTIALS</span>,<span style="color:#bbb"> </span>password);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#080;font-style:italic">// Perform a lookup in order to force a bind operation with JNDI</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>ctx.<span style="color:#b44">lookup</span>(dn);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>System.<span style="color:#b44">out</span>.<span style="color:#b44">println</span>(<span style="color:#b44">&#34;Authentication successful&#34;</span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>enm.<span style="color:#b44">close</span>();<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>}<span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">catch</span><span style="color:#bbb"> </span>(NamingException<span style="color:#bbb"> </span>e)<span style="color:#bbb"> </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>System.<span style="color:#b44">out</span>.<span style="color:#b44">println</span>(e.<span style="color:#b44">getMessage</span>());<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>}<span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">finally</span><span style="color:#bbb"> </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>ctx.<span style="color:#b44">close</span>();<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>}<span style="color:#bbb">
+</span></span></span></code></pre></div><p>Some example calls:</p>
 <pre><code>$ java AdvancedBindDemo unknown sailor
 Authentication failed
 
@@ -522,16 +531,18 @@ dn: cn=Horatio Hornblower,ou=people,o=sevenSeas
         <div id="endContent"></div>
     </div>
 
-    <div id="footer">
+    <div class="footer-wrapper">
+<div id="footer">
     &copy; 2003-2025, <a href="https://www.apache.org">The Apache Software Foundation</a> - <a href="https://privacy.apache.org/policies/privacy-policy-public.html">Privacy Policy</a><br />
     Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
-    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple, Fortress, Apache Fortress, EnMasse,
     Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
     trademarks of The Apache Software Foundation.
 </div>
-
 </div>
 
+</div>
+<div class="top-bottom-spacer"></div>
 </body>
 
 </html>

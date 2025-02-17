@@ -1,20 +1,29 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
+
+    
+    
+        
+    
+
 <head>
     <meta charset="utf-8">
     <title>4.13 - Add Permission &mdash; Apache Directory</title>
 
     <link href="/css/common.css" rel="stylesheet" type="text/css"/>
-    <link href="/css/turquoise.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/fortress.css" rel="stylesheet" type="text/css"/>
 
     <link rel="shortcut icon" href="/images/server-icon_16x16.png" />
     <script src="https://www.apachecon.com/event-images/snippet.js"></script>
 </head>
 
 <body>
+<div class="top-bottom-spacer"></div>
 <div id="container">
     <div id="header">
+    <span>Apache Directory</span>
     <a href="/"><div id="headerClick"></div></a>
     <div id="subProjectsNavBar">
         <a href="/">
@@ -82,7 +91,7 @@
 
                 <h5>Downloads</h5>
                 <ul>
-                    <li><a href="/fortress/downloads.html">Fortress 3.0.0</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/fortress/downloads.html">Fortress 3.0.0</a>&nbsp;&nbsp;<img src="/images/new_badge.svg" alt="" style="margin-bottom:-3px;" border="0"></li>
                     <li><a href="/fortress/download-old-versions.html">Older versions</a></li>
                 </ul>
 
@@ -156,8 +165,8 @@
 
             
 	<h1 id="413---add-permission">4.13 - Add Permission</h1>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">Permission <span style="color:#00a000">addPermission</span><span style="color:#666">(</span>Permission perm<span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> SecurityException
-</code></pre></div><p>This method will add permission operation to an existing permission object.
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>Permission<span style="color:#bbb"> </span><span style="color:#00a000">addPermission</span>(Permission<span style="color:#bbb"> </span>perm)<span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">throws</span><span style="color:#bbb"> </span>SecurityException<span style="color:#bbb">
+</span></span></span></code></pre></div><p>This method will add permission operation to an existing permission object.
 The perm operation entity may have Role or User associations.
 The target Permission must not exist prior to calling.
 A Fortress Permission instance exists in a hierarchical, one-many relationship between its parent: (PermObj-&gt;Permission).</p>
@@ -170,7 +179,7 @@ A Fortress Permission instance exists in a hierarchical, one-many relationship b
 <ul>
 <li>Permission#roles * - multi occurring attribute contains RBAC Roles that permission operation is being granted to</li>
 <li>Permission#users * - multi occurring attribute contains Users that permission operation is being granted to</li>
-<li>Permission#props * - multi-occurring property key and values are separated with a &lsquo;:'. e.g. mykey1:myvalue1</li>
+<li>Permission#props * - multi-occurring property key and values are separated with a &lsquo;:&rsquo;. e.g. mykey1:myvalue1</li>
 <li>Permission#type - any safe text</li>
 </ul>
 <p>Parameters:</p>
@@ -186,44 +195,44 @@ A Fortress Permission instance exists in a hierarchical, one-many relationship b
 <li>SecurityException - thrown in the event of perm object data or system error.</li>
 </ul>
 <h2 id="addpermission">addPermission</h2>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.AdminMgr</span><span style="color:#666">;</span>
-<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.AdminMgrFactory</span><span style="color:#666">;</span>
-<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.ReviewMgr</span><span style="color:#666">;</span>
-<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.ReviewMgrFactory</span><span style="color:#666">;</span>
-<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.model.Permission</span><span style="color:#666">;</span>
-<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.SecurityException</span><span style="color:#666">;</span>
-
-<span style="color:#a2f">@test</span>
-<span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">static</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">testAddPermission</span><span style="color:#666">(</span>String objName<span style="color:#666">,</span> String operation<span style="color:#666">)</span>
-<span style="color:#666">{</span>
-    String szLocation <span style="color:#666">=</span> <span style="color:#b44">&#34;.testAddPermissions&#34;</span><span style="color:#666">;</span>
-    <span style="color:#a2f;font-weight:bold">try</span>
-    <span style="color:#666">{</span>
-        AdminMgr adminMgr <span style="color:#666">=</span> AdminMgrFactory<span style="color:#666">.</span><span style="color:#b44">createInstance</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
-        <span style="color:#080;font-style:italic">// The Permission entity is associated with PermObj (name) entity and is uniquely identified by Operation name:
-</span><span style="color:#080;font-style:italic"></span>        Permission inPerm <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> Permission<span style="color:#666">(</span>objName<span style="color:#666">,</span> operation<span style="color:#666">)</span><span style="color:#666">;</span>
-
-        <span style="color:#080;font-style:italic">// The Permission entity will be a child node of specified PermObject entity.
-</span><span style="color:#080;font-style:italic"></span>        adminMgr<span style="color:#666">.</span><span style="color:#b44">addPermission</span><span style="color:#666">(</span>inPerm<span style="color:#666">)</span><span style="color:#666">;</span>
-
-        <span style="color:#080;font-style:italic">// Instantiate the ReviewMgr implementation which is used to interrogate policy information.
-</span><span style="color:#080;font-style:italic"></span>        ReviewMgr reviewMgr <span style="color:#666">=</span> ReviewMgrFactory<span style="color:#666">.</span><span style="color:#b44">createInstance</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
-
-        <span style="color:#080;font-style:italic">// now read the newly created Permission entity back.
-</span><span style="color:#080;font-style:italic"></span>        Permission outPerm <span style="color:#666">=</span> reviewMgr<span style="color:#666">.</span><span style="color:#b44">readPermission</span><span style="color:#666">(</span>inPerm<span style="color:#666">)</span><span style="color:#666">;</span>
-
-        <span style="color:#080;font-style:italic">// Do some validations.
-</span><span style="color:#080;font-style:italic"></span>        assertNotNull<span style="color:#666">(</span>outPerm<span style="color:#666">)</span><span style="color:#666">;</span>
-        assertTrue<span style="color:#666">(</span>szLocation <span style="color:#666">+</span> <span style="color:#b44">&#34; failed permission check&#34;</span><span style="color:#666">,</span> outPerm<span style="color:#666">.</span><span style="color:#b44">equals</span><span style="color:#666">(</span>inPerm<span style="color:#666">)</span><span style="color:#666">)</span><span style="color:#666">;</span>
-        LOG<span style="color:#666">.</span><span style="color:#b44">info</span><span style="color:#666">(</span>szLocation <span style="color:#666">+</span> <span style="color:#b44">&#34; permission object [&#34;</span> <span style="color:#666">+</span> outPerm<span style="color:#666">.</span><span style="color:#b44">getObjName</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">+</span> <span style="color:#b44">&#34;] operation name [&#34;</span> <span style="color:#666">+</span> outPerm<span style="color:#666">.</span><span style="color:#b44">getOpName</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">+</span> <span style="color:#b44">&#34;] success&#34;</span><span style="color:#666">)</span><span style="color:#666">;</span>
-    <span style="color:#666">}</span>
-    <span style="color:#a2f;font-weight:bold">catch</span> <span style="color:#666">(</span>SecurityException ex<span style="color:#666">)</span>
-    <span style="color:#666">{</span>
-        LOG<span style="color:#666">.</span><span style="color:#b44">error</span><span style="color:#666">(</span>szLocation <span style="color:#666">+</span> <span style="color:#b44">&#34; caught SecurityException rc=&#34;</span> <span style="color:#666">+</span> ex<span style="color:#666">.</span><span style="color:#b44">getErrorId</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">+</span> <span style="color:#b44">&#34;, msg=&#34;</span> <span style="color:#666">+</span> ex<span style="color:#666">.</span><span style="color:#b44">getMessage</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">,</span> ex<span style="color:#666">)</span><span style="color:#666">;</span>
-        fail<span style="color:#666">(</span>ex<span style="color:#666">.</span><span style="color:#b44">getMessage</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">)</span><span style="color:#666">;</span>
-    <span style="color:#666">}</span>
-<span style="color:#666">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">import</span><span style="color:#bbb"> </span><span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.AdminMgr</span>;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#a2f;font-weight:bold">import</span><span style="color:#bbb"> </span><span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.AdminMgrFactory</span>;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#a2f;font-weight:bold">import</span><span style="color:#bbb"> </span><span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.ReviewMgr</span>;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#a2f;font-weight:bold">import</span><span style="color:#bbb"> </span><span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.ReviewMgrFactory</span>;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#a2f;font-weight:bold">import</span><span style="color:#bbb"> </span><span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.model.Permission</span>;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#a2f;font-weight:bold">import</span><span style="color:#bbb"> </span><span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.SecurityException</span>;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#a2f">@test</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#a2f;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">static</span><span style="color:#bbb"> </span><span style="color:#0b0;font-weight:bold">void</span><span style="color:#bbb"> </span><span style="color:#00a000">testAddPermission</span>(String<span style="color:#bbb"> </span>objName,<span style="color:#bbb"> </span>String<span style="color:#bbb"> </span>operation)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>String<span style="color:#bbb"> </span>szLocation<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#b44">&#34;.testAddPermissions&#34;</span>;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">try</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>AdminMgr<span style="color:#bbb"> </span>adminMgr<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span>AdminMgrFactory.<span style="color:#b44">createInstance</span>();<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#080;font-style:italic">// The Permission entity is associated with PermObj (name) entity and is uniquely identified by Operation name:</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>Permission<span style="color:#bbb"> </span>inPerm<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>Permission(objName,<span style="color:#bbb"> </span>operation);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#080;font-style:italic">// The Permission entity will be a child node of specified PermObject entity.</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>adminMgr.<span style="color:#b44">addPermission</span>(inPerm);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#080;font-style:italic">// Instantiate the ReviewMgr implementation which is used to interrogate policy information.</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>ReviewMgr<span style="color:#bbb"> </span>reviewMgr<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span>ReviewMgrFactory.<span style="color:#b44">createInstance</span>();<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#080;font-style:italic">// now read the newly created Permission entity back.</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>Permission<span style="color:#bbb"> </span>outPerm<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span>reviewMgr.<span style="color:#b44">readPermission</span>(inPerm);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#080;font-style:italic">// Do some validations.</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>assertNotNull(outPerm);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>assertTrue(szLocation<span style="color:#bbb"> </span><span style="color:#666">+</span><span style="color:#bbb"> </span><span style="color:#b44">&#34; failed permission check&#34;</span>,<span style="color:#bbb"> </span>outPerm.<span style="color:#b44">equals</span>(inPerm));<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>LOG.<span style="color:#b44">info</span>(szLocation<span style="color:#bbb"> </span><span style="color:#666">+</span><span style="color:#bbb"> </span><span style="color:#b44">&#34; permission object [&#34;</span><span style="color:#bbb"> </span><span style="color:#666">+</span><span style="color:#bbb"> </span>outPerm.<span style="color:#b44">getObjName</span>()<span style="color:#bbb"> </span><span style="color:#666">+</span><span style="color:#bbb"> </span><span style="color:#b44">&#34;] operation name [&#34;</span><span style="color:#bbb"> </span><span style="color:#666">+</span><span style="color:#bbb"> </span>outPerm.<span style="color:#b44">getOpName</span>()<span style="color:#bbb"> </span><span style="color:#666">+</span><span style="color:#bbb"> </span><span style="color:#b44">&#34;] success&#34;</span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">catch</span><span style="color:#bbb"> </span>(SecurityException<span style="color:#bbb"> </span>ex)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>LOG.<span style="color:#b44">error</span>(szLocation<span style="color:#bbb"> </span><span style="color:#666">+</span><span style="color:#bbb"> </span><span style="color:#b44">&#34; caught SecurityException rc=&#34;</span><span style="color:#bbb"> </span><span style="color:#666">+</span><span style="color:#bbb"> </span>ex.<span style="color:#b44">getErrorId</span>()<span style="color:#bbb"> </span><span style="color:#666">+</span><span style="color:#bbb"> </span><span style="color:#b44">&#34;, msg=&#34;</span><span style="color:#bbb"> </span><span style="color:#666">+</span><span style="color:#bbb"> </span>ex.<span style="color:#b44">getMessage</span>(),<span style="color:#bbb"> </span>ex);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>fail(ex.<span style="color:#b44">getMessage</span>());<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>}<span style="color:#bbb">
+</span></span></span></code></pre></div>
 
             
     <div class="nav">
@@ -253,16 +262,18 @@ A Fortress Permission instance exists in a hierarchical, one-many relationship b
         <div id="endContent"></div>
     </div>
 
-    <div id="footer">
+    <div class="footer-wrapper">
+<div id="footer">
     &copy; 2003-2025, <a href="https://www.apache.org">The Apache Software Foundation</a> - <a href="https://privacy.apache.org/policies/privacy-policy-public.html">Privacy Policy</a><br />
     Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
-    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple, Fortress, Apache Fortress, EnMasse,
     Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
     trademarks of The Apache Software Foundation.
 </div>
-
 </div>
 
+</div>
+<div class="top-bottom-spacer"></div>
 </body>
 
 </html>

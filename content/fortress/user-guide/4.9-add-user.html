@@ -1,20 +1,29 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
+
+    
+    
+        
+    
+
 <head>
     <meta charset="utf-8">
     <title>4.9 - Add User &mdash; Apache Directory</title>
 
     <link href="/css/common.css" rel="stylesheet" type="text/css"/>
-    <link href="/css/turquoise.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/fortress.css" rel="stylesheet" type="text/css"/>
 
     <link rel="shortcut icon" href="/images/server-icon_16x16.png" />
     <script src="https://www.apachecon.com/event-images/snippet.js"></script>
 </head>
 
 <body>
+<div class="top-bottom-spacer"></div>
 <div id="container">
     <div id="header">
+    <span>Apache Directory</span>
     <a href="/"><div id="headerClick"></div></a>
     <div id="subProjectsNavBar">
         <a href="/">
@@ -82,7 +91,7 @@
 
                 <h5>Downloads</h5>
                 <ul>
-                    <li><a href="/fortress/downloads.html">Fortress 3.0.0</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/fortress/downloads.html">Fortress 3.0.0</a>&nbsp;&nbsp;<img src="/images/new_badge.svg" alt="" style="margin-bottom:-3px;" border="0"></li>
                     <li><a href="/fortress/download-old-versions.html">Older versions</a></li>
                 </ul>
 
@@ -156,8 +165,8 @@
 
             
 	<h1 id="49---add-user">4.9 - Add User</h1>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">User <span style="color:#00a000">addUser</span><span style="color:#666">(</span>User user<span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> SecurityException
-</code></pre></div><p>This command creates a new RBAC user. The command is valid only if the new user is not already a member of the USERS data set.
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>User<span style="color:#bbb"> </span><span style="color:#00a000">addUser</span>(User<span style="color:#bbb"> </span>user)<span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">throws</span><span style="color:#bbb"> </span>SecurityException<span style="color:#bbb">
+</span></span></span></code></pre></div><p>This command creates a new RBAC user. The command is valid only if the new user is not already a member of the USERS data set.
 The USER data set is updated. The new user does not own any session at the time of its creation.</p>
 <p>required parameters:</p>
 <ul>
@@ -185,7 +194,7 @@ The USER data set is updated. The new user does not own any session at the time 
 <li>User#endLockDate - YYYYMMDD - determines end of enforced inactive status</li>
 <li>User#dayMask - 1234567, 1 = Sunday, 2 = Monday, etc - specifies which day of user may sign on</li>
 <li>User#timeout - number (in minutes) of session inactivity time allowed</li>
-<li>User#props * - multivalued attribute contains property key and values are separated with a &lsquo;:'. e.g. mykey1:myvalue1</li>
+<li>User#props * - multivalued attribute contains property key and values are separated with a &lsquo;:&rsquo;. e.g. mykey1:myvalue1</li>
 </ul>
 <p>Parameters:</p>
 <ul>
@@ -200,44 +209,44 @@ The USER data set is updated. The new user does not own any session at the time 
 <li>SecurityException - thrown in the event of data validation or system error.</li>
 </ul>
 <h2 id="adduser">addUser</h2>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.SecurityException</span><span style="color:#666">;</span>
-<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.AdminMgr</span><span style="color:#666">;</span>
-<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.AdminMgrFactory</span><span style="color:#666">;</span>
-<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.ReviewMgr</span><span style="color:#666">;</span>
-<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.ReviewMgrFactory</span><span style="color:#666">;</span>
-<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.model.User</span><span style="color:#666">;</span>
-
-<span style="color:#a2f">@test</span>
-<span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">static</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">testCreateUser</span><span style="color:#666">(</span>String userId<span style="color:#666">,</span> String password<span style="color:#666">,</span> String userOu<span style="color:#666">)</span>
-<span style="color:#666">{</span>
-    String szLocation <span style="color:#666">=</span> <span style="color:#b44">&#34;.testCreateUser&#34;</span><span style="color:#666">;</span>
-    <span style="color:#a2f;font-weight:bold">try</span>
-    <span style="color:#666">{</span>
-        <span style="color:#080;font-style:italic">// Instantiate the AdminMgr implementation.  All AdminMgr APIs can throw a SecurityException in the event
-</span><span style="color:#080;font-style:italic"></span>        <span style="color:#080;font-style:italic">// of rule violation or system error.
-</span><span style="color:#080;font-style:italic"></span>        AdminMgr adminMgr <span style="color:#666">=</span> AdminMgrFactory<span style="color:#666">.</span><span style="color:#b44">createInstance</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
-        User inUser <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> User<span style="color:#666">(</span>userId<span style="color:#666">,</span> password<span style="color:#666">)</span><span style="color:#666">;</span>
-        <span style="color:#080;font-style:italic">// ou is required attribute:
-</span><span style="color:#080;font-style:italic"></span>        inUser<span style="color:#666">.</span><span style="color:#b44">setOu</span><span style="color:#666">(</span>userOu<span style="color:#666">)</span><span style="color:#666">;</span>
-        <span style="color:#080;font-style:italic">// Now call the add API.  The API will return User entity with associated LDAP dn if creation was successful.
-</span><span style="color:#080;font-style:italic"></span>        User outUser <span style="color:#666">=</span> adminMgr<span style="color:#666">.</span><span style="color:#b44">addUser</span><span style="color:#666">(</span>inUser<span style="color:#666">)</span><span style="color:#666">;</span>
-        assertNotNull<span style="color:#666">(</span>outUser<span style="color:#666">)</span><span style="color:#666">;</span>
-
-        <span style="color:#080;font-style:italic">// Instantiate the ReviewMgr implementation which is used to interrogate policy information.
-</span><span style="color:#080;font-style:italic"></span>        ReviewMgr reviewMgr <span style="color:#666">=</span> ReviewMgrFactory<span style="color:#666">.</span><span style="color:#b44">createInstance</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
-
-        <span style="color:#080;font-style:italic">// now read the newly created User entity back:
-</span><span style="color:#080;font-style:italic"></span>        User outUser2 <span style="color:#666">=</span> reviewMgr<span style="color:#666">.</span><span style="color:#b44">readUser</span><span style="color:#666">(</span>inUser<span style="color:#666">)</span><span style="color:#666">;</span>
-        assertTrue<span style="color:#666">(</span>szLocation <span style="color:#666">+</span> <span style="color:#b44">&#34; failed read&#34;</span><span style="color:#666">,</span> inUser<span style="color:#666">.</span><span style="color:#b44">equals</span><span style="color:#666">(</span>outUser2<span style="color:#666">)</span><span style="color:#666">)</span><span style="color:#666">;</span>
-        LOG<span style="color:#666">.</span><span style="color:#b44">info</span><span style="color:#666">(</span>szLocation <span style="color:#666">+</span> <span style="color:#b44">&#34; user [&#34;</span> <span style="color:#666">+</span> outUser2<span style="color:#666">.</span><span style="color:#b44">getUserId</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">+</span> <span style="color:#b44">&#34;] success&#34;</span><span style="color:#666">)</span><span style="color:#666">;</span>
-    <span style="color:#666">}</span>
-    <span style="color:#a2f;font-weight:bold">catch</span> <span style="color:#666">(</span>SecurityException ex<span style="color:#666">)</span>
-    <span style="color:#666">{</span>
-        LOG<span style="color:#666">.</span><span style="color:#b44">error</span><span style="color:#666">(</span>szLocation <span style="color:#666">+</span> <span style="color:#b44">&#34; caught SecurityException rc=&#34;</span> <span style="color:#666">+</span> ex<span style="color:#666">.</span><span style="color:#b44">getErrorId</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">+</span> <span style="color:#b44">&#34;, msg=&#34;</span> <span style="color:#666">+</span> ex<span style="color:#666">.</span><span style="color:#b44">getMessage</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">,</span> ex<span style="color:#666">)</span><span style="color:#666">;</span>
-        fail<span style="color:#666">(</span>ex<span style="color:#666">.</span><span style="color:#b44">getMessage</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">)</span><span style="color:#666">;</span>
-    <span style="color:#666">}</span>
-<span style="color:#666">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">import</span><span style="color:#bbb"> </span><span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.SecurityException</span>;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#a2f;font-weight:bold">import</span><span style="color:#bbb"> </span><span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.AdminMgr</span>;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#a2f;font-weight:bold">import</span><span style="color:#bbb"> </span><span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.AdminMgrFactory</span>;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#a2f;font-weight:bold">import</span><span style="color:#bbb"> </span><span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.ReviewMgr</span>;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#a2f;font-weight:bold">import</span><span style="color:#bbb"> </span><span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.ReviewMgrFactory</span>;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#a2f;font-weight:bold">import</span><span style="color:#bbb"> </span><span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.model.User</span>;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#a2f">@test</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#a2f;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">static</span><span style="color:#bbb"> </span><span style="color:#0b0;font-weight:bold">void</span><span style="color:#bbb"> </span><span style="color:#00a000">testCreateUser</span>(String<span style="color:#bbb"> </span>userId,<span style="color:#bbb"> </span>String<span style="color:#bbb"> </span>password,<span style="color:#bbb"> </span>String<span style="color:#bbb"> </span>userOu)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>String<span style="color:#bbb"> </span>szLocation<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#b44">&#34;.testCreateUser&#34;</span>;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">try</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#080;font-style:italic">// Instantiate the AdminMgr implementation.  All AdminMgr APIs can throw a SecurityException in the event</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#080;font-style:italic">// of rule violation or system error.</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>AdminMgr<span style="color:#bbb"> </span>adminMgr<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span>AdminMgrFactory.<span style="color:#b44">createInstance</span>();<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>User<span style="color:#bbb"> </span>inUser<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>User(userId,<span style="color:#bbb"> </span>password);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#080;font-style:italic">// ou is required attribute:</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>inUser.<span style="color:#b44">setOu</span>(userOu);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#080;font-style:italic">// Now call the add API.  The API will return User entity with associated LDAP dn if creation was successful.</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>User<span style="color:#bbb"> </span>outUser<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span>adminMgr.<span style="color:#b44">addUser</span>(inUser);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>assertNotNull(outUser);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#080;font-style:italic">// Instantiate the ReviewMgr implementation which is used to interrogate policy information.</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>ReviewMgr<span style="color:#bbb"> </span>reviewMgr<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span>ReviewMgrFactory.<span style="color:#b44">createInstance</span>();<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#080;font-style:italic">// now read the newly created User entity back:</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>User<span style="color:#bbb"> </span>outUser2<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span>reviewMgr.<span style="color:#b44">readUser</span>(inUser);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>assertTrue(szLocation<span style="color:#bbb"> </span><span style="color:#666">+</span><span style="color:#bbb"> </span><span style="color:#b44">&#34; failed read&#34;</span>,<span style="color:#bbb"> </span>inUser.<span style="color:#b44">equals</span>(outUser2));<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>LOG.<span style="color:#b44">info</span>(szLocation<span style="color:#bbb"> </span><span style="color:#666">+</span><span style="color:#bbb"> </span><span style="color:#b44">&#34; user [&#34;</span><span style="color:#bbb"> </span><span style="color:#666">+</span><span style="color:#bbb"> </span>outUser2.<span style="color:#b44">getUserId</span>()<span style="color:#bbb"> </span><span style="color:#666">+</span><span style="color:#bbb"> </span><span style="color:#b44">&#34;] success&#34;</span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">catch</span><span style="color:#bbb"> </span>(SecurityException<span style="color:#bbb"> </span>ex)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>LOG.<span style="color:#b44">error</span>(szLocation<span style="color:#bbb"> </span><span style="color:#666">+</span><span style="color:#bbb"> </span><span style="color:#b44">&#34; caught SecurityException rc=&#34;</span><span style="color:#bbb"> </span><span style="color:#666">+</span><span style="color:#bbb"> </span>ex.<span style="color:#b44">getErrorId</span>()<span style="color:#bbb"> </span><span style="color:#666">+</span><span style="color:#bbb"> </span><span style="color:#b44">&#34;, msg=&#34;</span><span style="color:#bbb"> </span><span style="color:#666">+</span><span style="color:#bbb"> </span>ex.<span style="color:#b44">getMessage</span>(),<span style="color:#bbb"> </span>ex);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>fail(ex.<span style="color:#b44">getMessage</span>());<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>}<span style="color:#bbb">
+</span></span></span></code></pre></div>
 
             
     <div class="nav">
@@ -267,16 +276,18 @@ The USER data set is updated. The new user does not own any session at the time 
         <div id="endContent"></div>
     </div>
 
-    <div id="footer">
+    <div class="footer-wrapper">
+<div id="footer">
     &copy; 2003-2025, <a href="https://www.apache.org">The Apache Software Foundation</a> - <a href="https://privacy.apache.org/policies/privacy-policy-public.html">Privacy Policy</a><br />
     Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
-    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple, Fortress, Apache Fortress, EnMasse,
     Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
     trademarks of The Apache Software Foundation.
 </div>
-
 </div>
 
+</div>
+<div class="top-bottom-spacer"></div>
 </body>
 
 </html>

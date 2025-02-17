@@ -1,20 +1,29 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
+
+    
+    
+        
+    
+
 <head>
     <meta charset="utf-8">
     <title>Command Line Inteface &mdash; Apache Directory</title>
 
     <link href="/css/common.css" rel="stylesheet" type="text/css"/>
-    <link href="/css/turquoise.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/fortress.css" rel="stylesheet" type="text/css"/>
 
     <link rel="shortcut icon" href="/images/server-icon_16x16.png" />
     <script src="https://www.apachecon.com/event-images/snippet.js"></script>
 </head>
 
 <body>
+<div class="top-bottom-spacer"></div>
 <div id="container">
     <div id="header">
+    <span>Apache Directory</span>
     <a href="/"><div id="headerClick"></div></a>
     <div id="subProjectsNavBar">
         <a href="/">
@@ -82,7 +91,7 @@
 
                 <h5>Downloads</h5>
                 <ul>
-                    <li><a href="/fortress/downloads.html">Fortress 3.0.0</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/fortress/downloads.html">Fortress 3.0.0</a>&nbsp;&nbsp;<img src="/images/new_badge.svg" alt="" style="margin-bottom:-3px;" border="0"></li>
                     <li><a href="/fortress/download-old-versions.html">Older versions</a></li>
                 </ul>
 
@@ -143,39 +152,39 @@
 <h3 id="instructions-to-run-the-fortress-command-line-interpreter-cli">Instructions to run the Fortress Command Line Interpreter (CLI)</h3>
 <p>The CLI is useful for ad-hoc policy administration in runtime environments.</p>
 <h4 id="1-from-fortress_home-enter-the-following-command">1. From <strong>FORTRESS_HOME</strong> enter the following command:</h4>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mvn -Pcli <span style="color:#a2f">test</span>
-</code></pre></div><h4 id="2-which-starts-the-fortress-command-line-interpreter">2. Which starts the Fortress command line interpreter:</h4>
-<pre><code>CommandLineInterpreter:176 - Startup to interactive mode success...
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mvn -Pcli <span style="color:#a2f">test</span>
+</span></span></code></pre></div><h4 id="2-which-starts-the-fortress-command-line-interpreter">2. Which starts the Fortress command line interpreter:</h4>
+<pre tabindex="0"><code>CommandLineInterpreter:176 - Startup to interactive mode success...
 CommandLineInterpreter:183 - CLI function groups include admin, review, system, dadmin, group
-CommandLineInterpreter:185 - Enter one from above or 'q' to quit
+CommandLineInterpreter:185 - Enter one from above or &#39;q&#39; to quit
 </code></pre><h4 id="3-where-subsequent-commands-can-be-performed--for-example-to-add-a-new-user">3. Where subsequent commands can be performed.  For example to add a new user:</h4>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">admin auser -u testuser1 -p mypasword123 -o dev1
-CommandLineInterpreter:1078 - arg:admin
-CommandLineInterpreter:1078 - arg:auser
-CommandLineInterpreter:1078 - arg:-u
-CommandLineInterpreter:1078 - arg:testuser1
-CommandLineInterpreter:1078 - arg:-p
-CommandLineInterpreter:1078 - arg:-o
-CommandLineInterpreter:1078 - arg:dev1
-CommandLineInterpreter:487 - auser
-CommandLineInterpreter:683 - command:auser was successful
-CommandLineInterpreter:183 - CLI <span style="color:#a2f;font-weight:bold">function</span> groups include admin, review, system, dadmin, group
-CommandLineInterpreter:185 - Enter one from above or <span style="color:#b44">&#39;q&#39;</span> to quit
-</code></pre></div><h4 id="4-or-to-interrogate-users">4. Or to interrogate users:</h4>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">review fuser -u testuser1
-CommandLineInterpreter:1078 - arg:review
-CommandLineInterpreter:1078 - arg:fuser
-CommandLineInterpreter:1078 - arg:-u
-CommandLineInterpreter:1078 - arg:testuser1
-CommandLineInterpreter:713 - fuser
-CommandLineInterpreter:1443 - U   CTR  <span style="color:#666">[</span>0<span style="color:#666">]</span>
-CommandLineInterpreter:1443 - U   UID  <span style="color:#666">[</span>testuser1<span style="color:#666">]</span>
-CommandLineInterpreter:1443 - U   IID  <span style="color:#666">[</span>20ef2dfd-0b86-41a5-87d6-f7081e455d76<span style="color:#666">]</span>
-CommandLineInterpreter:1443 - U   CN   <span style="color:#666">[</span>testuser1<span style="color:#666">]</span>
-CommandLineInterpreter:1443 - U   DESC <span style="color:#666">[</span>null<span style="color:#666">]</span>
-CommandLineInterpreter:1443 - U   OU   <span style="color:#666">[</span>dev1<span style="color:#666">]</span>
-CommandLineInterpreter:1443 - U   SN   <span style="color:#666">[</span>testuser1<span style="color:#666">]</span>
-</code></pre></div><h4 id="5-for-a-complete-reference-manual">5. For a complete reference manual:</h4>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>admin auser -u testuser1 -p mypasword123 -o dev1
+</span></span><span style="display:flex;"><span>CommandLineInterpreter:1078 - arg:admin
+</span></span><span style="display:flex;"><span>CommandLineInterpreter:1078 - arg:auser
+</span></span><span style="display:flex;"><span>CommandLineInterpreter:1078 - arg:-u
+</span></span><span style="display:flex;"><span>CommandLineInterpreter:1078 - arg:testuser1
+</span></span><span style="display:flex;"><span>CommandLineInterpreter:1078 - arg:-p
+</span></span><span style="display:flex;"><span>CommandLineInterpreter:1078 - arg:-o
+</span></span><span style="display:flex;"><span>CommandLineInterpreter:1078 - arg:dev1
+</span></span><span style="display:flex;"><span>CommandLineInterpreter:487 - auser
+</span></span><span style="display:flex;"><span>CommandLineInterpreter:683 - command:auser was successful
+</span></span><span style="display:flex;"><span>CommandLineInterpreter:183 - CLI <span style="color:#a2f;font-weight:bold">function</span> groups include admin, review, system, dadmin, group
+</span></span><span style="display:flex;"><span>CommandLineInterpreter:185 - Enter one from above or <span style="color:#b44">&#39;q&#39;</span> to quit
+</span></span></code></pre></div><h4 id="4-or-to-interrogate-users">4. Or to interrogate users:</h4>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>review fuser -u testuser1
+</span></span><span style="display:flex;"><span>CommandLineInterpreter:1078 - arg:review
+</span></span><span style="display:flex;"><span>CommandLineInterpreter:1078 - arg:fuser
+</span></span><span style="display:flex;"><span>CommandLineInterpreter:1078 - arg:-u
+</span></span><span style="display:flex;"><span>CommandLineInterpreter:1078 - arg:testuser1
+</span></span><span style="display:flex;"><span>CommandLineInterpreter:713 - fuser
+</span></span><span style="display:flex;"><span>CommandLineInterpreter:1443 - U   CTR  <span style="color:#666">[</span>0<span style="color:#666">]</span>
+</span></span><span style="display:flex;"><span>CommandLineInterpreter:1443 - U   UID  <span style="color:#666">[</span>testuser1<span style="color:#666">]</span>
+</span></span><span style="display:flex;"><span>CommandLineInterpreter:1443 - U   IID  <span style="color:#666">[</span>20ef2dfd-0b86-41a5-87d6-f7081e455d76<span style="color:#666">]</span>
+</span></span><span style="display:flex;"><span>CommandLineInterpreter:1443 - U   CN   <span style="color:#666">[</span>testuser1<span style="color:#666">]</span>
+</span></span><span style="display:flex;"><span>CommandLineInterpreter:1443 - U   DESC <span style="color:#666">[</span>null<span style="color:#666">]</span>
+</span></span><span style="display:flex;"><span>CommandLineInterpreter:1443 - U   OU   <span style="color:#666">[</span>dev1<span style="color:#666">]</span>
+</span></span><span style="display:flex;"><span>CommandLineInterpreter:1443 - U   SN   <span style="color:#666">[</span>testuser1<span style="color:#666">]</span>
+</span></span></code></pre></div><h4 id="5-for-a-complete-reference-manual">5. For a complete reference manual:</h4>
 <ul>
 <li><a href="https://directory.apache.org/fortress/gen-docs/latest/apidocs/org/apache/directory/fortress/core/cli/package-summary.html">CLI Reference</a></li>
 </ul>
@@ -187,16 +196,18 @@ CommandLineInterpreter:1443 - U   SN   <span style="color:#666">[</span>testuser
         <div id="endContent"></div>
     </div>
 
-    <div id="footer">
+    <div class="footer-wrapper">
+<div id="footer">
     &copy; 2003-2025, <a href="https://www.apache.org">The Apache Software Foundation</a> - <a href="https://privacy.apache.org/policies/privacy-policy-public.html">Privacy Policy</a><br />
     Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
-    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple, Fortress, Apache Fortress, EnMasse,
     Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
     trademarks of The Apache Software Foundation.
 </div>
-
 </div>
 
+</div>
+<div class="top-bottom-spacer"></div>
 </body>
 
 </html>

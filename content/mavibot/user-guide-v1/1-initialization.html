@@ -1,20 +1,29 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
+
+    
+    
+        
+    
+
 <head>
     <meta charset="utf-8">
     <title>1 - Introduction &mdash; Apache Directory</title>
 
     <link href="/css/common.css" rel="stylesheet" type="text/css"/>
-    <link href="/css/turquoise.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/mavibot.css" rel="stylesheet" type="text/css"/>
 
     <link rel="shortcut icon" href="/images/server-icon_16x16.png" />
     <script src="https://www.apachecon.com/event-images/snippet.js"></script>
 </head>
 
 <body>
+<div class="top-bottom-spacer"></div>
 <div id="container">
     <div id="header">
+    <span>Apache Directory</span>
     <a href="/"><div id="headerClick"></div></a>
     <div id="subProjectsNavBar">
         <a href="/">
@@ -81,7 +90,7 @@
 
                 <h5>Downloads</h5>
                 <ul>
-                    <li><a href="/mavibot/downloads.html">Version 1.0.0-M8</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/mavibot/downloads.html">Version 1.0.0-M8</a>&nbsp;&nbsp;<img src="/images/new_badge.svg" alt="" style="margin-bottom:-3px;" border="0"></li>
                     <li><a href="/mavibot/download-old-versions.html">Older versions</a></li>
                 </ul>
 
@@ -155,12 +164,12 @@
 	<h1 id="mavibot-initialization">Mavibot initialization</h1>
 <p>The very first step when using <strong>Mavibot</strong> is to initialize it. That means creating the database that will contain all the data (we use only one file for that).</p>
 <p>This is done with a simple call, with one or 3 parameters:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    RecordManager recordManager1 <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> RecordManager<span style="color:#666">(</span> <span style="color:#b44">&#34;MyData.db&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-
-    <span style="color:#080;font-style:italic">// or 
-</span><span style="color:#080;font-style:italic"></span>
-    RecordManager recordManager2 <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> RecordManager<span style="color:#666">(</span> <span style="color:#b44">&#34;MyData.db&#34;</span><span style="color:#666">,</span> 512<span style="color:#666">,</span> 1024 <span style="color:#666">)</span><span style="color:#666">;</span>
-</code></pre></div><p>The first method just requires that you name the file that will contain the data (<em>&ldquo;MyData.db&rdquo;</em> here), the second method allows you to configure the page size and the cache size (in number of pages). Here, we set the page size to <em>512</em> bytes and the cache will store 1024 pages.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#bbb">    </span>RecordManager<span style="color:#bbb"> </span>recordManager1<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>RecordManager(<span style="color:#bbb"> </span><span style="color:#b44">&#34;MyData.db&#34;</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#080;font-style:italic">// or </span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>RecordManager<span style="color:#bbb"> </span>recordManager2<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>RecordManager(<span style="color:#bbb"> </span><span style="color:#b44">&#34;MyData.db&#34;</span>,<span style="color:#bbb"> </span>512,<span style="color:#bbb"> </span>1024<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span></code></pre></div><p>The first method just requires that you name the file that will contain the data (<em>&ldquo;MyData.db&rdquo;</em> here), the second method allows you to configure the page size and the cache size (in number of pages). Here, we set the page size to <em>512</em> bytes and the cache will store 1024 pages.</p>
 <p>Those calls will create the inner structure needed to manage the database:</p>
 <ul>
 <li>the <em>RecordManagerHeader</em></li>
@@ -171,22 +180,22 @@
 <h2 id="the-recordmanagerheader">The RecordManagerHeader</h2>
 <p>This data structure is critical to <em>Mavibot</em>, it contains the root of all your databases. It is stored with one single page, and is written in one single write operation, guaranteeing that once written, all the databases are reachable. It cannot be corrupted. Worse case scenario, if it cannot be written, the previous version will always be available and point to the previous revision.</p>
 <p>The inner structure of this page is the following:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Text" data-lang="Text">+--------------------------+
-| PageSize                 | 4 bytes : The size of a physical page (default to 4096)
-+--------------------------+
-| Nb B-Trees               | 4 bytes : The number of managed B-trees (zero or more)
-+--------------------------+
-| Revision                 | 8 bytes : The current revision
-+--------------------------+
-| FirstFree offset         | 8 bytes : The offset of the first free page
-+--------------------------+
-| list of B-trees offset   | 8 bytes : The offset of the current list of B-trees
-+--------------------------+
-| current CP btree offset  | 8 bytes : The offset of the current BoB
-+--------------------------+
-| idCounter                | 8 bytes : The page ID counter (an incremental counter)
-+--------------------------+
-</code></pre></div><p>The <em>RecordManagerHeader</em> is a 48 bytes block, stored in a bigger page (default page size is 4096 bytes).</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Text" data-lang="Text"><span style="display:flex;"><span>+--------------------------+
+</span></span><span style="display:flex;"><span>| PageSize                 | 4 bytes : The size of a physical page (default to 4096)
+</span></span><span style="display:flex;"><span>+--------------------------+
+</span></span><span style="display:flex;"><span>| Nb B-Trees               | 4 bytes : The number of managed B-trees (zero or more)
+</span></span><span style="display:flex;"><span>+--------------------------+
+</span></span><span style="display:flex;"><span>| Revision                 | 8 bytes : The current revision
+</span></span><span style="display:flex;"><span>+--------------------------+
+</span></span><span style="display:flex;"><span>| FirstFree offset         | 8 bytes : The offset of the first free page
+</span></span><span style="display:flex;"><span>+--------------------------+
+</span></span><span style="display:flex;"><span>| list of B-trees offset   | 8 bytes : The offset of the current list of B-trees
+</span></span><span style="display:flex;"><span>+--------------------------+
+</span></span><span style="display:flex;"><span>| current CP btree offset  | 8 bytes : The offset of the current BoB
+</span></span><span style="display:flex;"><span>+--------------------------+
+</span></span><span style="display:flex;"><span>| idCounter                | 8 bytes : The page ID counter (an incremental counter)
+</span></span><span style="display:flex;"><span>+--------------------------+
+</span></span></code></pre></div><p>The <em>RecordManagerHeader</em> is a 48 bytes block, stored in a bigger page (default page size is 4096 bytes).</p>
 <p>The important information are :</p>
 <ul>
 <li>the current revision</li>
@@ -208,45 +217,45 @@
 <p>We need to keep a track of all the active <em>B-trees</em>, whatever their version. A <em>B-tree</em> is active when there is at least a read transaction using the assocciated revision. We may have many.</p>
 <p>The reason we keep them on disk is that it helps to reclaim old pages in case of a crash, otherwise we would have to parse the whole database - which would be costly.</p>
 <p>Here is the data structure as it is written on disk - and it may span on many pages - :</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Text" data-lang="Text">
-+--+--+--+--+--+--+--+--+
-|  |  |  |  |  |  |  |  |    pageID
-+--+--+--+--+--+--+--+--+
-|  |  |  |  |                number of transaction lists
-+--+--+--+--+
-                             The current RMH :
-+--+--+--+--+
-|  |  |  |  |                number of managed BTrees (N)
-+--+--+--+--+--+--+--+--+
-|  |  |  |  |  |  |  |  |    revision
-+--+--+--+--+--+--+--+--+
-...                          
-+--+--+--+--+--+--+--+--+
-|  |  |  |  |  |  |  |  |    BtreeHeader offset x N,  For each managed B-tree
-+--+--+--+--+--+--+--+--+
-...
- 
-                             The active transactions list :
-+--+--+--+--+
-|  |  |  |  |                number of managed BTrees for RMH[i] (M)
-+--+--+--+--+--+--+--+--+
-|  |  |  |  |  |  |  |  |    revision RMH[i]
-+--+--+--+--+--+--+--+--+
-...                          
-+--+--+--+--+--+--+--+--+
-|  |  |  |  |  |  |  |  |    BtreeHeader offset x M,  For each managed B-tree of RMH[i]
-+--+--+--+--+--+--+--+--+
-...
-</code></pre></div><p>Each transaction list has a size of <code>12 + (nb B-tree * 8)</code> bytes. For instance, if we manage 16 <em>B-trees</em>, that is 140 bytes (16 * 8 + 12 -&gt; 140), and add the first 12 bytes for completion). If we have 10 active transactions, a 4096 bytes page will easily hold all of them (12 + 10 x 140 -&gt; 1412 bytes).</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Text" data-lang="Text"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>+--+--+--+--+--+--+--+--+
+</span></span><span style="display:flex;"><span>|  |  |  |  |  |  |  |  |    pageID
+</span></span><span style="display:flex;"><span>+--+--+--+--+--+--+--+--+
+</span></span><span style="display:flex;"><span>|  |  |  |  |                number of transaction lists
+</span></span><span style="display:flex;"><span>+--+--+--+--+
+</span></span><span style="display:flex;"><span>                             The current RMH :
+</span></span><span style="display:flex;"><span>+--+--+--+--+
+</span></span><span style="display:flex;"><span>|  |  |  |  |                number of managed BTrees (N)
+</span></span><span style="display:flex;"><span>+--+--+--+--+--+--+--+--+
+</span></span><span style="display:flex;"><span>|  |  |  |  |  |  |  |  |    revision
+</span></span><span style="display:flex;"><span>+--+--+--+--+--+--+--+--+
+</span></span><span style="display:flex;"><span>...                          
+</span></span><span style="display:flex;"><span>+--+--+--+--+--+--+--+--+
+</span></span><span style="display:flex;"><span>|  |  |  |  |  |  |  |  |    BtreeHeader offset x N,  For each managed B-tree
+</span></span><span style="display:flex;"><span>+--+--+--+--+--+--+--+--+
+</span></span><span style="display:flex;"><span>...
+</span></span><span style="display:flex;"><span> 
+</span></span><span style="display:flex;"><span>                             The active transactions list :
+</span></span><span style="display:flex;"><span>+--+--+--+--+
+</span></span><span style="display:flex;"><span>|  |  |  |  |                number of managed BTrees for RMH[i] (M)
+</span></span><span style="display:flex;"><span>+--+--+--+--+--+--+--+--+
+</span></span><span style="display:flex;"><span>|  |  |  |  |  |  |  |  |    revision RMH[i]
+</span></span><span style="display:flex;"><span>+--+--+--+--+--+--+--+--+
+</span></span><span style="display:flex;"><span>...                          
+</span></span><span style="display:flex;"><span>+--+--+--+--+--+--+--+--+
+</span></span><span style="display:flex;"><span>|  |  |  |  |  |  |  |  |    BtreeHeader offset x M,  For each managed B-tree of RMH[i]
+</span></span><span style="display:flex;"><span>+--+--+--+--+--+--+--+--+
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></div><p>Each transaction list has a size of <code>12 + (nb B-tree * 8)</code> bytes. For instance, if we manage 16 <em>B-trees</em>, that is 140 bytes (16 * 8 + 12 -&gt; 140), and add the first 12 bytes for completion). If we have 10 active transactions, a 4096 bytes page will easily hold all of them (12 + 10 x 140 -&gt; 1412 bytes).</p>
 <h2 id="the-list-of-free-pages">The list of free pages</h2>
 <p>This is basically a pointer to the first free page. All the freed pages are linked together. Their content is not flushed or cleared.</p>
 <p>The principle is that when a page is freed, we attach it to the begining of this list, and it becomes the new head of the free pages list.</p>
 <p>For the record, when <em>Mavibot</em> needs a new page to store some data, it will first fetch some from this list, and when this list get exhausted, then it will get a new page at the end of the file, growing the file in the process.</p>
 <p>Here is a representation of this list:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Text" data-lang="Text">        +-------------+---+    +-------------+---+    +-------------+---+
-Head --&gt;| &lt;link&gt;      | o-+---&gt;| &lt;link&gt;      | o-+---&gt;| &lt;link&gt;      | x |
-        +-------------+---+    +-------------+---+    +-------------+---+
-</code></pre></div><p>Note that the links are offsets in the file, and that the pages may be spread all across the file (ie we can start with 0x2000, then jump to 0x4000, go back to 0x3000, etc).</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Text" data-lang="Text"><span style="display:flex;"><span>        +-------------+---+    +-------------+---+    +-------------+---+
+</span></span><span style="display:flex;"><span>Head --&gt;| &lt;link&gt;      | o-+---&gt;| &lt;link&gt;      | o-+---&gt;| &lt;link&gt;      | x |
+</span></span><span style="display:flex;"><span>        +-------------+---+    +-------------+---+    +-------------+---+
+</span></span></code></pre></div><p>Note that the links are offsets in the file, and that the pages may be spread all across the file (ie we can start with 0x2000, then jump to 0x4000, go back to 0x3000, etc).</p>
 <h2 id="transaction-list">Transaction list</h2>
 <p>We have now created the database, we need to initialize the <em>transaction list</em>. The <em>transaction list</em> is a list that contains all the existing transactions, as soon as they are in use. That means:</p>
 <ul>
@@ -256,20 +265,20 @@ Head --&gt;| &lt;link&gt;      | o-+---&gt;| &lt;link&gt;      | o-+---&gt;| &lt
 <p>When one start a read transaction, it always uses the current revision, but we may have other writes while the read transaction is still processing data (a read transaction can remain opened for a very long time). Of course, the database for this old revision is outdated, but this is the contract: a read transaction always uses pages created before or up to the read revision. Any data added, moddified or removed since the beginning of the read transaction won&rsquo;t be seen.</p>
 <h1 id="adding-a-b-tree">Adding a B-tree</h1>
 <p>As soon as the database has been initialized, we can now add a working <em>B-tree</em>. This is done with a <em>write transaction</em> that needs to be created:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">        <span style="color:#a2f;font-weight:bold">try</span> <span style="color:#666">(</span> WriteTransaction writeTransaction <span style="color:#666">=</span> recordManager<span style="color:#666">.</span><span style="color:#b44">beginWriteTransaction</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span>
-        <span style="color:#666">{</span>
-            <span style="color:#080;font-style:italic">// Create a new BTree with transaction and another one without
-</span><span style="color:#080;font-style:italic"></span>            <span style="color:#a2f;font-weight:bold">try</span>
-            <span style="color:#666">{</span>
-                btree <span style="color:#666">=</span> recordManager<span style="color:#666">.</span><span style="color:#b44">addBTree</span><span style="color:#666">(</span> writeTransaction<span style="color:#666">,</span> <span style="color:#b44">&#34;testWithTxn&#34;</span><span style="color:#666">,</span> LongSerializer<span style="color:#666">.</span><span style="color:#b44">INSTANCE</span><span style="color:#666">,</span> StringSerializer<span style="color:#666">.</span><span style="color:#b44">INSTANCE</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-                <span style="color:#a2f;font-weight:bold">throw</span> <span style="color:#a2f;font-weight:bold">new</span> NullPointerException<span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
-            <span style="color:#666">}</span>
-            <span style="color:#a2f;font-weight:bold">catch</span> <span style="color:#666">(</span> Exception e <span style="color:#666">)</span>
-            <span style="color:#666">{</span>
-                writeTransaction<span style="color:#666">.</span><span style="color:#b44">abort</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
-            <span style="color:#666">}</span>
-        <span style="color:#666">}</span>
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#a2f;font-weight:bold">try</span><span style="color:#bbb"> </span>(<span style="color:#bbb"> </span>WriteTransaction<span style="color:#bbb"> </span>writeTransaction<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span>recordManager.<span style="color:#b44">beginWriteTransaction</span>()<span style="color:#bbb"> </span>)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#080;font-style:italic">// Create a new BTree with transaction and another one without</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#a2f;font-weight:bold">try</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                </span>btree<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span>recordManager.<span style="color:#b44">addBTree</span>(<span style="color:#bbb"> </span>writeTransaction,<span style="color:#bbb"> </span><span style="color:#b44">&#34;testWithTxn&#34;</span>,<span style="color:#bbb"> </span>LongSerializer.<span style="color:#b44">INSTANCE</span>,<span style="color:#bbb"> </span>StringSerializer.<span style="color:#b44">INSTANCE</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                </span><span style="color:#a2f;font-weight:bold">throw</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>NullPointerException();<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#a2f;font-weight:bold">catch</span><span style="color:#bbb"> </span>(<span style="color:#bbb"> </span>Exception<span style="color:#bbb"> </span>e<span style="color:#bbb"> </span>)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                </span>writeTransaction.<span style="color:#b44">abort</span>();<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>}<span style="color:#bbb">
+</span></span></span></code></pre></div><ul>
 <li>We first create a <em>Write Transaction</em> in a <em>try_with_resource</em> block</li>
 <li>Then we add a <em>B-tree</em> (here stroring <code>&lt;Long, String&gt;</code> tuples) in a <em>try/catch</em> sequence</li>
 <li>We handle a potential exception, and rollback explicitely the transaction in this case</li>
@@ -314,16 +323,18 @@ All those pages are written to disk when the transaction is commited, otherwise 
         <div id="endContent"></div>
     </div>
 
-    <div id="footer">
+    <div class="footer-wrapper">
+<div id="footer">
     &copy; 2003-2025, <a href="https://www.apache.org">The Apache Software Foundation</a> - <a href="https://privacy.apache.org/policies/privacy-policy-public.html">Privacy Policy</a><br />
     Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
-    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple, Fortress, Apache Fortress, EnMasse,
     Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
     trademarks of The Apache Software Foundation.
 </div>
-
 </div>
 
+</div>
+<div class="top-bottom-spacer"></div>
 </body>
 
 </html>

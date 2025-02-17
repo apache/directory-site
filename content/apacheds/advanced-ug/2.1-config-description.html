@@ -1,20 +1,29 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
+
+    
+    
+        
+    
+
 <head>
     <meta charset="utf-8">
     <title>2.1 - Configuration Description &mdash; Apache Directory</title>
 
     <link href="/css/common.css" rel="stylesheet" type="text/css"/>
-    <link href="/css/green.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/apacheds.css" rel="stylesheet" type="text/css"/>
 
     <link rel="shortcut icon" href="/images/server-icon_16x16.png" />
     <script src="https://www.apachecon.com/event-images/snippet.js"></script>
 </head>
 
 <body>
+<div class="top-bottom-spacer"></div>
 <div id="container">
     <div id="header">
+    <span>Apache Directory</span>
     <a href="/"><div id="headerClick"></div></a>
     <div id="subProjectsNavBar">
         <a href="/">
@@ -83,7 +92,7 @@
 
                 <h5>Downloads</h5>
                 <ul>
-                    <li><a href="/apacheds/downloads.html">ApacheDS 2.0.0.AM27</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/apacheds/downloads.html">ApacheDS 2.0.0.AM27</a>&nbsp;&nbsp;<img src="/images/new_badge.svg" alt="" style="margin-bottom:-3px;" border="0"></li>
                     <li><a href="/apacheds/download-old-versions.html">Older versions</a></li>
                 </ul>
 
@@ -230,76 +239,76 @@ Note that bold attributes are mandatory in the following tables.
 <p>This is the heart of the entire system : the place where we store the data. Most of the servers are depending on this component. You may have more than one server(e.g LDAP, Kerberos, ChangePassword etc), but only one <em>DirectoryService</em>.</p>
 <p>Configuration options:</p>
 <table>
-<thead>
-<tr>
-<th>AttributeType</th>
-<th>type</th>
-<th>default value</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>ads-directoryServiceId</strong></td>
-<td><em>String</em></td>
-<td></td>
-<td>The unique identifier for the service</td>
-</tr>
-<tr>
-<td>ads-enabled</td>
-<td><em>boolean</em></td>
-<td>true</td>
-<td>Tells if the DirectoryService is enabled</td>
-</tr>
-<tr>
-<td>description</td>
-<td><em>String</em></td>
-<td>N/A</td>
-<td>A short optional description</td>
-</tr>
-<tr>
-<td><strong>ads-dsReplicaId</strong></td>
-<td><em>int</em></td>
-<td>1</td>
-<td>The replication identifier</td>
-</tr>
-<tr>
-<td><strong>ads-dsAccessControlEnabled</strong></td>
-<td><em>boolean</em></td>
-<td>true</td>
-<td>Tells if the Access Control interceptor is active</td>
-</tr>
-<tr>
-<td><strong>ads-dsAllowAnonymousAccess</strong></td>
-<td><em>boolean</em></td>
-<td>false</td>
-<td>Tells if the service allow anonymous access</td>
-</tr>
-<tr>
-<td><strong>ads-dsDenormalizeOpAttrsEnabled</strong></td>
-<td><em>boolean</em></td>
-<td>true</td>
-<td>Tells if the service should denormalize operational attributes</td>
-</tr>
-<tr>
-<td><strong>ads-dsPasswordHidden</strong></td>
-<td><em>boolean</em></td>
-<td>true</td>
-<td>Tells if the passwords should be encrypted (not used)</td>
-</tr>
-<tr>
-<td><strong>ads-dsSyncPeriodMillis</strong></td>
-<td><em>long</em></td>
-<td>15000</td>
-<td>The delay in milliseconds before we flush data on disk</td>
-</tr>
-<tr>
-<td>ads-dsTestEntries</td>
-<td><em>String</em></td>
-<td>N/A</td>
-<td>Not used</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>AttributeType</th>
+          <th>type</th>
+          <th>default value</th>
+          <th>Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>ads-directoryServiceId</strong></td>
+          <td><em>String</em></td>
+          <td></td>
+          <td>The unique identifier for the service</td>
+      </tr>
+      <tr>
+          <td>ads-enabled</td>
+          <td><em>boolean</em></td>
+          <td>true</td>
+          <td>Tells if the DirectoryService is enabled</td>
+      </tr>
+      <tr>
+          <td>description</td>
+          <td><em>String</em></td>
+          <td>N/A</td>
+          <td>A short optional description</td>
+      </tr>
+      <tr>
+          <td><strong>ads-dsReplicaId</strong></td>
+          <td><em>int</em></td>
+          <td>1</td>
+          <td>The replication identifier</td>
+      </tr>
+      <tr>
+          <td><strong>ads-dsAccessControlEnabled</strong></td>
+          <td><em>boolean</em></td>
+          <td>true</td>
+          <td>Tells if the Access Control interceptor is active</td>
+      </tr>
+      <tr>
+          <td><strong>ads-dsAllowAnonymousAccess</strong></td>
+          <td><em>boolean</em></td>
+          <td>false</td>
+          <td>Tells if the service allow anonymous access</td>
+      </tr>
+      <tr>
+          <td><strong>ads-dsDenormalizeOpAttrsEnabled</strong></td>
+          <td><em>boolean</em></td>
+          <td>true</td>
+          <td>Tells if the service should denormalize operational attributes</td>
+      </tr>
+      <tr>
+          <td><strong>ads-dsPasswordHidden</strong></td>
+          <td><em>boolean</em></td>
+          <td>true</td>
+          <td>Tells if the passwords should be encrypted (not used)</td>
+      </tr>
+      <tr>
+          <td><strong>ads-dsSyncPeriodMillis</strong></td>
+          <td><em>long</em></td>
+          <td>15000</td>
+          <td>The delay in milliseconds before we flush data on disk</td>
+      </tr>
+      <tr>
+          <td>ads-dsTestEntries</td>
+          <td><em>String</em></td>
+          <td>N/A</td>
+          <td>Not used</td>
+      </tr>
+  </tbody>
 </table>
 <h2 id="change-log">Change Log</h2>
 <p>The <em>ChangeLog</em> is an optional system that logs every change made on the server, and also records the revert operation, allowing the system to rollback the changes if needed. This is extremely useful when running tests.</p>
@@ -307,91 +316,91 @@ Note that bold attributes are mandatory in the following tables.
 <p>It&rsquo;s disabled by default.</p>
 <p>Configuration options:</p>
 <table>
-<thead>
-<tr>
-<th>AttributeType</th>
-<th>type</th>
-<th>default value</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>ads-changeLogId</strong></td>
-<td><em>String</em></td>
-<td></td>
-<td>The unique identifier for the system</td>
-</tr>
-<tr>
-<td>ads-enabled</td>
-<td><em>boolean</em></td>
-<td>false</td>
-<td>Tells if the ChangeLog system is enabled</td>
-</tr>
-<tr>
-<td>description</td>
-<td><em>String</em></td>
-<td>N/A</td>
-<td>A short optional description</td>
-</tr>
-<tr>
-<td><strong>ads-changeLogExposed</strong></td>
-<td><em>boolean</em></td>
-<td>false</td>
-<td>Tells if the ChangeLog is exposed to the users</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>AttributeType</th>
+          <th>type</th>
+          <th>default value</th>
+          <th>Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>ads-changeLogId</strong></td>
+          <td><em>String</em></td>
+          <td></td>
+          <td>The unique identifier for the system</td>
+      </tr>
+      <tr>
+          <td>ads-enabled</td>
+          <td><em>boolean</em></td>
+          <td>false</td>
+          <td>Tells if the ChangeLog system is enabled</td>
+      </tr>
+      <tr>
+          <td>description</td>
+          <td><em>String</em></td>
+          <td>N/A</td>
+          <td>A short optional description</td>
+      </tr>
+      <tr>
+          <td><strong>ads-changeLogExposed</strong></td>
+          <td><em>boolean</em></td>
+          <td>false</td>
+          <td>Tells if the ChangeLog is exposed to the users</td>
+      </tr>
+  </tbody>
 </table>
 <h2 id="journal">Journal</h2>
 <p>The <em>Journal</em> logs every modification on the file system. It&rsquo;s intended to be used if the <em>DirectoryService</em> crashes, as we can re-apply the journal starting from a date in the past where we know that the underlying database is correct.</p>
 <p>Configuration options:</p>
 <table>
-<thead>
-<tr>
-<th>AttributeType</th>
-<th>type</th>
-<th>default value</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>ads-journalId</strong></td>
-<td><em>String</em></td>
-<td>N/A</td>
-<td>The unique identifier for the Journal</td>
-</tr>
-<tr>
-<td>ads-enabled</td>
-<td><em>boolean</em></td>
-<td>false</td>
-<td>Tells if the Journal system is enabled</td>
-</tr>
-<tr>
-<td>description</td>
-<td><em>String</em></td>
-<td>N/A</td>
-<td>A short optional description</td>
-</tr>
-<tr>
-<td><strong>ads-journalWorkingDir</strong></td>
-<td><em>String</em></td>
-<td>N/A</td>
-<td>The working directory the Journal will be stored in</td>
-</tr>
-<tr>
-<td><strong>ads-journalRotation</strong></td>
-<td><em>String</em></td>
-<td>N/A</td>
-<td>The number of operation stored befoe the journal is rotated</td>
-</tr>
-<tr>
-<td><strong>ads-journalFileName</strong></td>
-<td><em>String</em></td>
-<td>journal.txt</td>
-<td>The file contaning the Journal</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>AttributeType</th>
+          <th>type</th>
+          <th>default value</th>
+          <th>Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>ads-journalId</strong></td>
+          <td><em>String</em></td>
+          <td>N/A</td>
+          <td>The unique identifier for the Journal</td>
+      </tr>
+      <tr>
+          <td>ads-enabled</td>
+          <td><em>boolean</em></td>
+          <td>false</td>
+          <td>Tells if the Journal system is enabled</td>
+      </tr>
+      <tr>
+          <td>description</td>
+          <td><em>String</em></td>
+          <td>N/A</td>
+          <td>A short optional description</td>
+      </tr>
+      <tr>
+          <td><strong>ads-journalWorkingDir</strong></td>
+          <td><em>String</em></td>
+          <td>N/A</td>
+          <td>The working directory the Journal will be stored in</td>
+      </tr>
+      <tr>
+          <td><strong>ads-journalRotation</strong></td>
+          <td><em>String</em></td>
+          <td>N/A</td>
+          <td>The number of operation stored befoe the journal is rotated</td>
+      </tr>
+      <tr>
+          <td><strong>ads-journalFileName</strong></td>
+          <td><em>String</em></td>
+          <td>journal.txt</td>
+          <td>The file contaning the Journal</td>
+      </tr>
+  </tbody>
 </table>
 <h2 id="interceptors">Interceptors</h2>
 <p>The default <em>Interceptors</em> are generally not configurable. You don&rsquo;t want to change their order, or remove anyone from the default interceptors unless you are very familiar with the
@@ -399,46 +408,46 @@ internals of ApacheDS and/or including a custom interceptor.</p>
 <p>However, at least one default <em>Interceptor</em> can be configured : the <em>authenticationInterceptor</em>.</p>
 <p>In the case where one would like to add an interceptor, it&rsquo;s enough to add the associated entry containing the interceptor identifier, under the <em>ou=interceptors</em> entry. It must have an order. Here are the elements that can be configured in such a case :</p>
 <table>
-<thead>
-<tr>
-<th>AttributeType</th>
-<th>type</th>
-<th>default value</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>ads-interceptorid</strong></td>
-<td><em>String</em></td>
-<td>N/A</td>
-<td>The unique identifier for this Interceptor</td>
-</tr>
-<tr>
-<td>ads-enabled</td>
-<td><em>boolean</em></td>
-<td>false</td>
-<td>Tells if the Interceptor is enabled</td>
-</tr>
-<tr>
-<td>description</td>
-<td><em>String</em></td>
-<td>N/A</td>
-<td>A short optional description</td>
-</tr>
-<tr>
-<td>ads-interceptororder</td>
-<td><em>int</em></td>
-<td>N/A</td>
-<td>The position in the chain for this interceptor</td>
-</tr>
-<tr>
-<td>ads-interceptorclassname</td>
-<td><em>String</em></td>
-<td>N/A</td>
-<td>The class implementing this interceptor</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>AttributeType</th>
+          <th>type</th>
+          <th>default value</th>
+          <th>Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>ads-interceptorid</strong></td>
+          <td><em>String</em></td>
+          <td>N/A</td>
+          <td>The unique identifier for this Interceptor</td>
+      </tr>
+      <tr>
+          <td>ads-enabled</td>
+          <td><em>boolean</em></td>
+          <td>false</td>
+          <td>Tells if the Interceptor is enabled</td>
+      </tr>
+      <tr>
+          <td>description</td>
+          <td><em>String</em></td>
+          <td>N/A</td>
+          <td>A short optional description</td>
+      </tr>
+      <tr>
+          <td>ads-interceptororder</td>
+          <td><em>int</em></td>
+          <td>N/A</td>
+          <td>The position in the chain for this interceptor</td>
+      </tr>
+      <tr>
+          <td>ads-interceptorclassname</td>
+          <td><em>String</em></td>
+          <td>N/A</td>
+          <td>The class implementing this interceptor</td>
+      </tr>
+  </tbody>
 </table>
 <h3 id="authentication-interceptor">Authentication Interceptor</h3>
 <p>This <em>Interceptor</em> is in charge of managing the users authentication. It is associated with <em><a href="#authenticators">Authenticators</a></em>, and with <em><a href="#password-policies">Password Policies</a></em>.</p>
@@ -451,192 +460,192 @@ internals of ApacheDS and/or including a custom interceptor.</p>
 </ul>
 <p>One can add a new <em>Authenticator</em>, if needed. It&rsquo;s just a matter of creating a new entry under the <em>ou=authenticators,ads-interceptorId=authenticationInterceptor,ou=interceptors</em> entry, containing the two following elements :</p>
 <table>
-<thead>
-<tr>
-<th>AttributeType</th>
-<th>type</th>
-<th>default value</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>ads-authenticatorId</strong></td>
-<td><em>String</em></td>
-<td>N/A</td>
-<td>The unique identifier for this Authenticator</td>
-</tr>
-<tr>
-<td>ads-enabled</td>
-<td><em>boolean</em></td>
-<td>false</td>
-<td>Tells if the Partition is enabled</td>
-</tr>
-<tr>
-<td>description</td>
-<td><em>String</em></td>
-<td>N/A</td>
-<td>A short optional description</td>
-</tr>
-<tr>
-<td><strong>ads-authenticatorClass</strong></td>
-<td><em>String</em></td>
-<td>N/A</td>
-<td>The FQCN for the class implementing the AUthenticator</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>AttributeType</th>
+          <th>type</th>
+          <th>default value</th>
+          <th>Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>ads-authenticatorId</strong></td>
+          <td><em>String</em></td>
+          <td>N/A</td>
+          <td>The unique identifier for this Authenticator</td>
+      </tr>
+      <tr>
+          <td>ads-enabled</td>
+          <td><em>boolean</em></td>
+          <td>false</td>
+          <td>Tells if the Partition is enabled</td>
+      </tr>
+      <tr>
+          <td>description</td>
+          <td><em>String</em></td>
+          <td>N/A</td>
+          <td>A short optional description</td>
+      </tr>
+      <tr>
+          <td><strong>ads-authenticatorClass</strong></td>
+          <td><em>String</em></td>
+          <td>N/A</td>
+          <td>The FQCN for the class implementing the AUthenticator</td>
+      </tr>
+  </tbody>
 </table>
 <h3 id="password-policies">Password Policies</h3>
 <p>There are many possible configurable options for the <em>PasswordPolicy</em> system. Here is a list of all the options. See the <a href="https://tools.ietf.org/id/draft-behera-ldap-password-policy-10.txt">password policy draft</a> for an indept explanation of the respective attributes :</p>
 <table>
-<thead>
-<tr>
-<th>AttributeType</th>
-<th>type</th>
-<th>default value</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>ads-pwdId</strong></td>
-<td><em>String</em></td>
-<td>N/A</td>
-<td>The unique ID of the <em>PasswordPolicy</em> system</td>
-</tr>
-<tr>
-<td><strong>ads-pwdAttribute</strong></td>
-<td><em>String</em></td>
-<td>userPassword</td>
-<td>The name of the attribute to which the password policy is applied</td>
-</tr>
-<tr>
-<td>ads-pwdMinAge</td>
-<td><em>int</em></td>
-<td>0</td>
-<td>Holds the number of seconds that must elapse between modifications to the password</td>
-</tr>
-<tr>
-<td>ads-pwdMaxAge</td>
-<td><em>int</em></td>
-<td>0</td>
-<td>Holds the number of seconds after which a modified password will expire. If 0, never expires</td>
-</tr>
-<tr>
-<td>ads-pwdInHistory</td>
-<td><em>boolean</em></td>
-<td>0</td>
-<td>Specifies the maximum number of used passwords stored in the pwdHistory attribute (0 means no storage)</td>
-</tr>
-<tr>
-<td>ads-pwdCheckQuality</td>
-<td><em>boolean</em></td>
-<td>0</td>
-<td>Indicates how the password quality will be verified while being modified or added (0 means no check)</td>
-</tr>
-<tr>
-<td>ads-pwdMinLength</td>
-<td><em>int</em></td>
-<td>0</td>
-<td>The minimum number of characters that must be used in a password (0 means no limit)</td>
-</tr>
-<tr>
-<td>ads-pwdMaxLength</td>
-<td><em>int</em></td>
-<td>0</td>
-<td>The maximum number of characters that may be used in a password (0 means no limit)</td>
-</tr>
-<tr>
-<td>ads-pwdExpireWarning</td>
-<td><em>boolean</em></td>
-<td>0</td>
-<td>The maximum number of seconds before a password is due to expire, and that expiration warning messages will be returned to an authenticating user (0 means no message wil be sent to user)</td>
-</tr>
-<tr>
-<td>ads-pwdGraceAuthNLimit</td>
-<td><em>int</em></td>
-<td>0</td>
-<td>The number of times an expired password can be used to authenticate (0 means do not allow a expired password for authentication)</td>
-</tr>
-<tr>
-<td>ads-pwdGraceExpire</td>
-<td><em>boolean</em></td>
-<td>0</td>
-<td>Specifies the number of seconds the grace authentications are valid  (0 means no limit)</td>
-</tr>
-<tr>
-<td>ads-pwdLockout</td>
-<td><em>boolean</em></td>
-<td>false</td>
-<td>Flag to indicate if the account needs to be locked after a specified number of</td>
-</tr>
-<tr>
-<td>consecutive failed bind attempts. The maximum number of consecutive failed bind attempts is specified in ads-pwdMaxFailure</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>ads-pwdLockoutDuration</td>
-<td><em>int</em></td>
-<td>300</td>
-<td>The number of seconds that the password cannot be used to authenticate due to too many failed bind attempts</td>
-</tr>
-<tr>
-<td>ads-pwdMaxFailure</td>
-<td><em>int</em></td>
-<td>0</td>
-<td>The number of consecutive failed bind attempts after which the password may not be used to authenticate (0 means no limit)</td>
-</tr>
-<tr>
-<td>ads-pwdFailureCountInterval</td>
-<td><em>int</em></td>
-<td>0</td>
-<td>The number of seconds after which the password failures are purged from the failure counter (0 means reset all the pwdFailureTimes after a successful authentication)</td>
-</tr>
-<tr>
-<td>ads-pwdMustChange</td>
-<td><em>boolean</em></td>
-<td>false</td>
-<td>Flag to indicate if the password must be changed by the user after they bind to the directory after a password is set or reset by a password administrator</td>
-</tr>
-<tr>
-<td>ads-pwdAllowUserChange</td>
-<td><em>boolean</em></td>
-<td>true</td>
-<td>Indicates whether users can change their own passwords</td>
-</tr>
-<tr>
-<td>ads-pwdSafeModify</td>
-<td><em>boolean</em></td>
-<td>false</td>
-<td>Flag to specify whether or not the existing password must be sent along with the new password when being changed</td>
-</tr>
-<tr>
-<td>ads-pwdMinDelay</td>
-<td><em>int</em></td>
-<td>0</td>
-<td>The number of seconds to delay responding to the first failed authentication attempt (0 means no delay)</td>
-</tr>
-<tr>
-<td>ads-pwdMaxDelay</td>
-<td><em>int</em></td>
-<td>0</td>
-<td>The maximum number of seconds to delay when responding to a failed authentication attempt (no delay) 0 means</td>
-</tr>
-<tr>
-<td>ads-pwdMaxIdle</td>
-<td><em>int</em></td>
-<td>0</td>
-<td>The number of seconds an account may remain unused before it becomes locked (0 means infinite)</td>
-</tr>
-<tr>
-<td>ads-pwdValidator</td>
-<td><em>String</em></td>
-<td>N/A</td>
-<td>The PasswordValidator FQCN (will use DefaultPasswordValidator if not provided)</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>AttributeType</th>
+          <th>type</th>
+          <th>default value</th>
+          <th>Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>ads-pwdId</strong></td>
+          <td><em>String</em></td>
+          <td>N/A</td>
+          <td>The unique ID of the <em>PasswordPolicy</em> system</td>
+      </tr>
+      <tr>
+          <td><strong>ads-pwdAttribute</strong></td>
+          <td><em>String</em></td>
+          <td>userPassword</td>
+          <td>The name of the attribute to which the password policy is applied</td>
+      </tr>
+      <tr>
+          <td>ads-pwdMinAge</td>
+          <td><em>int</em></td>
+          <td>0</td>
+          <td>Holds the number of seconds that must elapse between modifications to the password</td>
+      </tr>
+      <tr>
+          <td>ads-pwdMaxAge</td>
+          <td><em>int</em></td>
+          <td>0</td>
+          <td>Holds the number of seconds after which a modified password will expire. If 0, never expires</td>
+      </tr>
+      <tr>
+          <td>ads-pwdInHistory</td>
+          <td><em>boolean</em></td>
+          <td>0</td>
+          <td>Specifies the maximum number of used passwords stored in the pwdHistory attribute (0 means no storage)</td>
+      </tr>
+      <tr>
+          <td>ads-pwdCheckQuality</td>
+          <td><em>boolean</em></td>
+          <td>0</td>
+          <td>Indicates how the password quality will be verified while being modified or added (0 means no check)</td>
+      </tr>
+      <tr>
+          <td>ads-pwdMinLength</td>
+          <td><em>int</em></td>
+          <td>0</td>
+          <td>The minimum number of characters that must be used in a password (0 means no limit)</td>
+      </tr>
+      <tr>
+          <td>ads-pwdMaxLength</td>
+          <td><em>int</em></td>
+          <td>0</td>
+          <td>The maximum number of characters that may be used in a password (0 means no limit)</td>
+      </tr>
+      <tr>
+          <td>ads-pwdExpireWarning</td>
+          <td><em>boolean</em></td>
+          <td>0</td>
+          <td>The maximum number of seconds before a password is due to expire, and that expiration warning messages will be returned to an authenticating user (0 means no message wil be sent to user)</td>
+      </tr>
+      <tr>
+          <td>ads-pwdGraceAuthNLimit</td>
+          <td><em>int</em></td>
+          <td>0</td>
+          <td>The number of times an expired password can be used to authenticate (0 means do not allow a expired password for authentication)</td>
+      </tr>
+      <tr>
+          <td>ads-pwdGraceExpire</td>
+          <td><em>boolean</em></td>
+          <td>0</td>
+          <td>Specifies the number of seconds the grace authentications are valid  (0 means no limit)</td>
+      </tr>
+      <tr>
+          <td>ads-pwdLockout</td>
+          <td><em>boolean</em></td>
+          <td>false</td>
+          <td>Flag to indicate if the account needs to be locked after a specified number of</td>
+      </tr>
+      <tr>
+          <td>consecutive failed bind attempts. The maximum number of consecutive failed bind attempts is specified in ads-pwdMaxFailure</td>
+          <td></td>
+          <td></td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>ads-pwdLockoutDuration</td>
+          <td><em>int</em></td>
+          <td>300</td>
+          <td>The number of seconds that the password cannot be used to authenticate due to too many failed bind attempts</td>
+      </tr>
+      <tr>
+          <td>ads-pwdMaxFailure</td>
+          <td><em>int</em></td>
+          <td>0</td>
+          <td>The number of consecutive failed bind attempts after which the password may not be used to authenticate (0 means no limit)</td>
+      </tr>
+      <tr>
+          <td>ads-pwdFailureCountInterval</td>
+          <td><em>int</em></td>
+          <td>0</td>
+          <td>The number of seconds after which the password failures are purged from the failure counter (0 means reset all the pwdFailureTimes after a successful authentication)</td>
+      </tr>
+      <tr>
+          <td>ads-pwdMustChange</td>
+          <td><em>boolean</em></td>
+          <td>false</td>
+          <td>Flag to indicate if the password must be changed by the user after they bind to the directory after a password is set or reset by a password administrator</td>
+      </tr>
+      <tr>
+          <td>ads-pwdAllowUserChange</td>
+          <td><em>boolean</em></td>
+          <td>true</td>
+          <td>Indicates whether users can change their own passwords</td>
+      </tr>
+      <tr>
+          <td>ads-pwdSafeModify</td>
+          <td><em>boolean</em></td>
+          <td>false</td>
+          <td>Flag to specify whether or not the existing password must be sent along with the new password when being changed</td>
+      </tr>
+      <tr>
+          <td>ads-pwdMinDelay</td>
+          <td><em>int</em></td>
+          <td>0</td>
+          <td>The number of seconds to delay responding to the first failed authentication attempt (0 means no delay)</td>
+      </tr>
+      <tr>
+          <td>ads-pwdMaxDelay</td>
+          <td><em>int</em></td>
+          <td>0</td>
+          <td>The maximum number of seconds to delay when responding to a failed authentication attempt (no delay) 0 means</td>
+      </tr>
+      <tr>
+          <td>ads-pwdMaxIdle</td>
+          <td><em>int</em></td>
+          <td>0</td>
+          <td>The number of seconds an account may remain unused before it becomes locked (0 means infinite)</td>
+      </tr>
+      <tr>
+          <td>ads-pwdValidator</td>
+          <td><em>String</em></td>
+          <td>N/A</td>
+          <td>The PasswordValidator FQCN (will use DefaultPasswordValidator if not provided)</td>
+      </tr>
+  </tbody>
 </table>
 <h2 id="partitions">Partitions</h2>
 <p>The <em>Partition</em> is where the server stores your data. There are many parts that need to be configured in order to obtain the best performances out of the server. It&rsquo;s also the part of the configuration you are more likely to modify, adding new <em>Partitions</em> or adding new <em>Indexes</em>.</p>
@@ -644,173 +653,173 @@ internals of ApacheDS and/or including a custom interceptor.</p>
 <h3 id="jdbm-partition">JDBM Partition</h3>
 <p>A <em>JDBM Partition</em> has the following configurable options :</p>
 <table>
-<thead>
-<tr>
-<th>AttributeType</th>
-<th>type</th>
-<th>default value</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>ads-partitionid</strong></td>
-<td><em>String</em></td>
-<td>N/A</td>
-<td>The unique identifier for this Partition</td>
-</tr>
-<tr>
-<td>ads-enabled</td>
-<td><em>boolean</em></td>
-<td>false</td>
-<td>Tells if the Partition is enabled</td>
-</tr>
-<tr>
-<td>description</td>
-<td><em>String</em></td>
-<td>N/A</td>
-<td>A short optional description</td>
-</tr>
-<tr>
-<td><strong>ads-partitionsuffix</strong></td>
-<td><em>String</em></td>
-<td>N/A</td>
-<td>The partition DN</td>
-</tr>
-<tr>
-<td>ads-contextEntry</td>
-<td><em>String</em></td>
-<td>N/A</td>
-<td>The entry associated with the suffix (in LDIF format)</td>
-</tr>
-<tr>
-<td>ads-partitionSyncOnWrite</td>
-<td><em>boolean</em></td>
-<td>true</td>
-<td>Tells the server to flush on disk on each write</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>AttributeType</th>
+          <th>type</th>
+          <th>default value</th>
+          <th>Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>ads-partitionid</strong></td>
+          <td><em>String</em></td>
+          <td>N/A</td>
+          <td>The unique identifier for this Partition</td>
+      </tr>
+      <tr>
+          <td>ads-enabled</td>
+          <td><em>boolean</em></td>
+          <td>false</td>
+          <td>Tells if the Partition is enabled</td>
+      </tr>
+      <tr>
+          <td>description</td>
+          <td><em>String</em></td>
+          <td>N/A</td>
+          <td>A short optional description</td>
+      </tr>
+      <tr>
+          <td><strong>ads-partitionsuffix</strong></td>
+          <td><em>String</em></td>
+          <td>N/A</td>
+          <td>The partition DN</td>
+      </tr>
+      <tr>
+          <td>ads-contextEntry</td>
+          <td><em>String</em></td>
+          <td>N/A</td>
+          <td>The entry associated with the suffix (in LDIF format)</td>
+      </tr>
+      <tr>
+          <td>ads-partitionSyncOnWrite</td>
+          <td><em>boolean</em></td>
+          <td>true</td>
+          <td>Tells the server to flush on disk on each write</td>
+      </tr>
+  </tbody>
 </table>
 <p>Once the above elements have been added, the <em>Partition</em> is available. You still have to create some mandatory indexes though.</p>
 <h4 id="indexes">Indexes</h4>
 <p>Each <em>Partition</em> have indexes, some are mandatory, and others are user provided. Here are the mandatory indexes :</p>
 <table>
-<thead>
-<tr>
-<th>Index</th>
-<th>role</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>apacheRdn</td>
-<td>Stores the RDN for the entry, and the relation to its parent&rsquo;s RDN</td>
-</tr>
-<tr>
-<td>apachePresence</td>
-<td>Used to index the attributeTypes used in the entry</td>
-</tr>
-<tr>
-<td>apacheOneAlias</td>
-<td>Stores the aliases one level below the current entry</td>
-</tr>
-<tr>
-<td>apacheSubAlias</td>
-<td>Stores the aliases below the current entry</td>
-</tr>
-<tr>
-<td>apacheAlias</td>
-<td>Stores the aliases</td>
-</tr>
-<tr>
-<td>objectClass</td>
-<td>Stores the relation between an ObjectClass an the entry using it</td>
-</tr>
-<tr>
-<td>entryCSN</td>
-<td>Stores the CSN for each entry</td>
-</tr>
-<tr>
-<td>administrativeRole</td>
-<td>Stores the entries that are AdminstrativePoints</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Index</th>
+          <th>role</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>apacheRdn</td>
+          <td>Stores the RDN for the entry, and the relation to its parent&rsquo;s RDN</td>
+      </tr>
+      <tr>
+          <td>apachePresence</td>
+          <td>Used to index the attributeTypes used in the entry</td>
+      </tr>
+      <tr>
+          <td>apacheOneAlias</td>
+          <td>Stores the aliases one level below the current entry</td>
+      </tr>
+      <tr>
+          <td>apacheSubAlias</td>
+          <td>Stores the aliases below the current entry</td>
+      </tr>
+      <tr>
+          <td>apacheAlias</td>
+          <td>Stores the aliases</td>
+      </tr>
+      <tr>
+          <td>objectClass</td>
+          <td>Stores the relation between an ObjectClass an the entry using it</td>
+      </tr>
+      <tr>
+          <td>entryCSN</td>
+          <td>Stores the CSN for each entry</td>
+      </tr>
+      <tr>
+          <td>administrativeRole</td>
+          <td>Stores the entries that are AdminstrativePoints</td>
+      </tr>
+  </tbody>
 </table>
 <h5 id="indexed-attribute">Indexed Attribute</h5>
 <p>Indexed attributes have a type, depending on the <em>Partition</em> type they are associated with. Currently, we have only one type, <em>JdbmIndex</em>. They have specific configurable elements.</p>
 <p>Each index attribute has four basic elements that can be configured :</p>
 <table>
-<thead>
-<tr>
-<th>AttributeType</th>
-<th>type</th>
-<th>default value</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>ads-indexAttributeId</strong></td>
-<td><em>String</em></td>
-<td>N/A</td>
-<td>The unique identifier for this indexedAttribute</td>
-</tr>
-<tr>
-<td>ads-enabled</td>
-<td><em>boolean</em></td>
-<td>false</td>
-<td>Tells if the IntexedAttribute is enabled</td>
-</tr>
-<tr>
-<td>description</td>
-<td><em>String</em></td>
-<td>N/A</td>
-<td>A short optional description</td>
-</tr>
-<tr>
-<td><strong>ads-indexHasReverse</strong></td>
-<td><em>boolean</em></td>
-<td>false</td>
-<td>Tells if the IndexedAttribute has a reverse index</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>AttributeType</th>
+          <th>type</th>
+          <th>default value</th>
+          <th>Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>ads-indexAttributeId</strong></td>
+          <td><em>String</em></td>
+          <td>N/A</td>
+          <td>The unique identifier for this indexedAttribute</td>
+      </tr>
+      <tr>
+          <td>ads-enabled</td>
+          <td><em>boolean</em></td>
+          <td>false</td>
+          <td>Tells if the IntexedAttribute is enabled</td>
+      </tr>
+      <tr>
+          <td>description</td>
+          <td><em>String</em></td>
+          <td>N/A</td>
+          <td>A short optional description</td>
+      </tr>
+      <tr>
+          <td><strong>ads-indexHasReverse</strong></td>
+          <td><em>boolean</em></td>
+          <td>false</td>
+          <td>Tells if the IndexedAttribute has a reverse index</td>
+      </tr>
+  </tbody>
 </table>
 <p>The <em>JdbmIndex</em> type of index has some more configurable elements, all optional :</p>
 <table>
-<thead>
-<tr>
-<th>AttributeType</th>
-<th>type</th>
-<th>default value</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>ads-indexFileName</td>
-<td><em>String</em></td>
-<td>N/A</td>
-<td>The index file name (default to the associated attributeType name)</td>
-</tr>
-<tr>
-<td>ads-indexWorkingDir</td>
-<td><em>String</em></td>
-<td>N/A</td>
-<td>The index working directory</td>
-</tr>
-<tr>
-<td>ads-indexNumDupLimit</td>
-<td><em>int</em></td>
-<td>512</td>
-<td>The maximum number of values for a single key before we use a sub-tree</td>
-</tr>
-<tr>
-<td>ads-indexCacheSize</td>
-<td><em>int</em></td>
-<td>100</td>
-<td>The number of cached pages for this index</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>AttributeType</th>
+          <th>type</th>
+          <th>default value</th>
+          <th>Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>ads-indexFileName</td>
+          <td><em>String</em></td>
+          <td>N/A</td>
+          <td>The index file name (default to the associated attributeType name)</td>
+      </tr>
+      <tr>
+          <td>ads-indexWorkingDir</td>
+          <td><em>String</em></td>
+          <td>N/A</td>
+          <td>The index working directory</td>
+      </tr>
+      <tr>
+          <td>ads-indexNumDupLimit</td>
+          <td><em>int</em></td>
+          <td>512</td>
+          <td>The maximum number of values for a single key before we use a sub-tree</td>
+      </tr>
+      <tr>
+          <td>ads-indexCacheSize</td>
+          <td><em>int</em></td>
+          <td>100</td>
+          <td>The number of cached pages for this index</td>
+      </tr>
+  </tbody>
 </table>
 <h1 id="servers">Servers</h1>
 <p>As we can see, we can start more than one server (a.k.a service). We have :</p>
@@ -826,196 +835,196 @@ internals of ApacheDS and/or including a custom interceptor.</p>
 <p>There is a distinction though between the servers backed by a <em>DirectoryService</em>, and those that aren&rsquo;t (like the HTTP and NTP servers).</p>
 <p>All the <em>DirectoryService</em> backed servers share some common parameters, which are exposed in the following table :</p>
 <table>
-<thead>
-<tr>
-<th>AttributeType</th>
-<th>type</th>
-<th>default value</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>ads-searchBaseDN</td>
-<td><em>Dn</em></td>
-<td>N/A</td>
-<td>The place were to start looking for authentication informations</td>
-</tr>
-<tr>
-<td>ads-serverId</td>
-<td><em>String</em></td>
-<td>N/A</td>
-<td>The server unique name</td>
-</tr>
-<tr>
-<td>ads-enabled</td>
-<td><em>boolean</em></td>
-<td>N/A</td>
-<td>Tells if the Server is enabled</td>
-</tr>
-<tr>
-<td>description</td>
-<td><em>String</em></td>
-<td>N/A</td>
-<td>A short optional description</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>AttributeType</th>
+          <th>type</th>
+          <th>default value</th>
+          <th>Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>ads-searchBaseDN</td>
+          <td><em>Dn</em></td>
+          <td>N/A</td>
+          <td>The place were to start looking for authentication informations</td>
+      </tr>
+      <tr>
+          <td>ads-serverId</td>
+          <td><em>String</em></td>
+          <td>N/A</td>
+          <td>The server unique name</td>
+      </tr>
+      <tr>
+          <td>ads-enabled</td>
+          <td><em>boolean</em></td>
+          <td>N/A</td>
+          <td>Tells if the Server is enabled</td>
+      </tr>
+      <tr>
+          <td>description</td>
+          <td><em>String</em></td>
+          <td>N/A</td>
+          <td>A short optional description</td>
+      </tr>
+  </tbody>
 </table>
 <p>A server can define more than one transports : for instance, the Kerberos server uses UDP and TCP transports.</p>
 <h2 id="transports">Transports</h2>
 <p>Here are the parameters for the Transport structure :</p>
 <table>
-<thead>
-<tr>
-<th>AttributeType</th>
-<th>type</th>
-<th>default value</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>ads-transportId</strong></td>
-<td><em>String</em></td>
-<td>N/A</td>
-<td>The identification</td>
-</tr>
-<tr>
-<td><strong>ads-transportAddress</strong></td>
-<td><em>String</em></td>
-<td>localhost</td>
-<td>The IP Address</td>
-</tr>
-<tr>
-<td><strong>ads-systemPort</strong></td>
-<td><em>int</em></td>
-<td>-1</td>
-<td>The port</td>
-</tr>
-<tr>
-<td>ads-enabled</td>
-<td><em>boolean</em></td>
-<td>N/A</td>
-<td>Tells if the Transport system is enabled</td>
-</tr>
-<tr>
-<td>description</td>
-<td><em>String</em></td>
-<td>N/A</td>
-<td>A short optional description</td>
-</tr>
-<tr>
-<td>ads-transportEnableSsl</td>
-<td><em>boolean</em></td>
-<td>false</td>
-<td>Tells if SSL is activated (not used for UDP)</td>
-</tr>
-<tr>
-<td>ads-transportNbThreads</td>
-<td><em>int</em></td>
-<td>3</td>
-<td>he number of dedicated threads to process the messages</td>
-</tr>
-<tr>
-<td>ads-transportBackLog</td>
-<td><em>int</em></td>
-<td>50</td>
-<td>The number of messages on hold if the server is overloaded (not used for UDP)</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>AttributeType</th>
+          <th>type</th>
+          <th>default value</th>
+          <th>Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>ads-transportId</strong></td>
+          <td><em>String</em></td>
+          <td>N/A</td>
+          <td>The identification</td>
+      </tr>
+      <tr>
+          <td><strong>ads-transportAddress</strong></td>
+          <td><em>String</em></td>
+          <td>localhost</td>
+          <td>The IP Address</td>
+      </tr>
+      <tr>
+          <td><strong>ads-systemPort</strong></td>
+          <td><em>int</em></td>
+          <td>-1</td>
+          <td>The port</td>
+      </tr>
+      <tr>
+          <td>ads-enabled</td>
+          <td><em>boolean</em></td>
+          <td>N/A</td>
+          <td>Tells if the Transport system is enabled</td>
+      </tr>
+      <tr>
+          <td>description</td>
+          <td><em>String</em></td>
+          <td>N/A</td>
+          <td>A short optional description</td>
+      </tr>
+      <tr>
+          <td>ads-transportEnableSsl</td>
+          <td><em>boolean</em></td>
+          <td>false</td>
+          <td>Tells if SSL is activated (not used for UDP)</td>
+      </tr>
+      <tr>
+          <td>ads-transportNbThreads</td>
+          <td><em>int</em></td>
+          <td>3</td>
+          <td>he number of dedicated threads to process the messages</td>
+      </tr>
+      <tr>
+          <td>ads-transportBackLog</td>
+          <td><em>int</em></td>
+          <td>50</td>
+          <td>The number of messages on hold if the server is overloaded (not used for UDP)</td>
+      </tr>
+  </tbody>
 </table>
 <h2 id="ldap-server">Ldap Server</h2>
 <p>Let&rsquo;s start with the main server : the LDAP server.</p>
 <p>The list of attributes that can be modified is exposed in the following table.</p>
 <table>
-<thead>
-<tr>
-<th>AttributeType</th>
-<th>type</th>
-<th>default value</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>ads-enabled</td>
-<td><em>boolean</em></td>
-<td>true</td>
-<td>Tells if the LdapServer system is enabled</td>
-</tr>
-<tr>
-<td>description</td>
-<td><em>String</em></td>
-<td>N/A</td>
-<td>A short optional description</td>
-</tr>
-<tr>
-<td><strong>ads-confidentialityRequired</strong></td>
-<td><em>boolean</em></td>
-<td>false</td>
-<td>Whether or not confidentiality (TLS secured connection) is required</td>
-</tr>
-<tr>
-<td><strong>ads-maxSizeLimit</strong></td>
-<td><em>int</em></td>
-<td>1000</td>
-<td>The maximum number of entries the server will return</td>
-</tr>
-<tr>
-<td><strong>ads-maxTimeLimit</strong></td>
-<td><em>int</em></td>
-<td>1000</td>
-<td>The maximum number of seconds the server will use to process a search request</td>
-</tr>
-<tr>
-<td><strong>ads-maxPDUSize</strong></td>
-<td><em>int</em></td>
-<td>2048</td>
-<td>The maximal size for a PDU. This is currently not leveraged</td>
-</tr>
-<tr>
-<td><strong>ads-saslHost</strong></td>
-<td><em>int</em></td>
-<td>N/A</td>
-<td>The name of this host, validated during SASL negotiation</td>
-</tr>
-<tr>
-<td><strong>ads-saslPrincipal</strong></td>
-<td><em>String</em></td>
-<td>N/A</td>
-<td>The service principal, used by GSSAPI.</td>
-</tr>
-<tr>
-<td><strong>sads-saslRealms</strong></td>
-<td><em>List<String></em></td>
-<td>N/A</td>
-<td>The list of realms serviced by this host.</td>
-</tr>
-<tr>
-<td>ads-keystoreFile</td>
-<td><em>String</em></td>
-<td>N/A</td>
-<td>The place on the filesystem where the Keystore is stored</td>
-</tr>
-<tr>
-<td>ads-certificatePassword</td>
-<td><em>String</em></td>
-<td>N/A</td>
-<td>The certificate&rsquo;s password</td>
-</tr>
-<tr>
-<td>ads-replReqHandler</td>
-<td><em>String</em></td>
-<td>(*)</td>
-<td>The replication request handler FQCN</td>
-</tr>
-<tr>
-<td>ads-replEnabled</td>
-<td><em>boolean</em></td>
-<td>FALSE</td>
-<td>Tells if the replication system is enabled</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>AttributeType</th>
+          <th>type</th>
+          <th>default value</th>
+          <th>Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>ads-enabled</td>
+          <td><em>boolean</em></td>
+          <td>true</td>
+          <td>Tells if the LdapServer system is enabled</td>
+      </tr>
+      <tr>
+          <td>description</td>
+          <td><em>String</em></td>
+          <td>N/A</td>
+          <td>A short optional description</td>
+      </tr>
+      <tr>
+          <td><strong>ads-confidentialityRequired</strong></td>
+          <td><em>boolean</em></td>
+          <td>false</td>
+          <td>Whether or not confidentiality (TLS secured connection) is required</td>
+      </tr>
+      <tr>
+          <td><strong>ads-maxSizeLimit</strong></td>
+          <td><em>int</em></td>
+          <td>1000</td>
+          <td>The maximum number of entries the server will return</td>
+      </tr>
+      <tr>
+          <td><strong>ads-maxTimeLimit</strong></td>
+          <td><em>int</em></td>
+          <td>1000</td>
+          <td>The maximum number of seconds the server will use to process a search request</td>
+      </tr>
+      <tr>
+          <td><strong>ads-maxPDUSize</strong></td>
+          <td><em>int</em></td>
+          <td>2048</td>
+          <td>The maximal size for a PDU. This is currently not leveraged</td>
+      </tr>
+      <tr>
+          <td><strong>ads-saslHost</strong></td>
+          <td><em>int</em></td>
+          <td>N/A</td>
+          <td>The name of this host, validated during SASL negotiation</td>
+      </tr>
+      <tr>
+          <td><strong>ads-saslPrincipal</strong></td>
+          <td><em>String</em></td>
+          <td>N/A</td>
+          <td>The service principal, used by GSSAPI.</td>
+      </tr>
+      <tr>
+          <td><strong>sads-saslRealms</strong></td>
+          <td><em>List<String></em></td>
+          <td>N/A</td>
+          <td>The list of realms serviced by this host.</td>
+      </tr>
+      <tr>
+          <td>ads-keystoreFile</td>
+          <td><em>String</em></td>
+          <td>N/A</td>
+          <td>The place on the filesystem where the Keystore is stored</td>
+      </tr>
+      <tr>
+          <td>ads-certificatePassword</td>
+          <td><em>String</em></td>
+          <td>N/A</td>
+          <td>The certificate&rsquo;s password</td>
+      </tr>
+      <tr>
+          <td>ads-replReqHandler</td>
+          <td><em>String</em></td>
+          <td>(*)</td>
+          <td>The replication request handler FQCN</td>
+      </tr>
+      <tr>
+          <td>ads-replEnabled</td>
+          <td><em>boolean</em></td>
+          <td>FALSE</td>
+          <td>Tells if the replication system is enabled</td>
+      </tr>
+  </tbody>
 </table>
 <p>(*) org.apache.directory.server.ldap.replication.provider.SyncReplRequestHandler</p>
 <h3 id="repl-consumers">Repl Consumers</h3>
@@ -1023,130 +1032,130 @@ internals of ApacheDS and/or including a custom interceptor.</p>
 <p>All the consumers are stored under the <em>ou=replConsumers</em> entry, under the respective server entry.</p>
 <p>Here are the configurable elements :</p>
 <table>
-<thead>
-<tr>
-<th>AttributeType</th>
-<th>type</th>
-<th>default value</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>ads-replConsumerId</strong></td>
-<td><em>String</em></td>
-<td>N/A</td>
-<td>The replica unique identifier</td>
-</tr>
-<tr>
-<td><strong>ads-searchBaseDN</strong></td>
-<td><em>String</em></td>
-<td>N/A</td>
-<td>The base DN for replication</td>
-</tr>
-<tr>
-<td><strong>ads-replProvHostName</strong></td>
-<td><em>String</em></td>
-<td>N/A</td>
-<td>The provider host name</td>
-</tr>
-<tr>
-<td><strong>ads-replProvPort</strong></td>
-<td><em>int</em></td>
-<td>389</td>
-<td>The port of the remote server</td>
-</tr>
-<tr>
-<td><strong>ads-replAliasDerefMode</strong></td>
-<td><em>String</em></td>
-<td>NEVER_DEREF_ALIASES</td>
-<td>The alias dereferencing mode to use</td>
-</tr>
-<tr>
-<td><strong>ads-replAttributes</strong></td>
-<td><em>String</em></td>
-<td>*</td>
-<td>The list of attributes to get back</td>
-</tr>
-<tr>
-<td><strong>ads-replRefreshInterval</strong></td>
-<td><em>int</em></td>
-<td>60000</td>
-<td>The delay between refreshes (60 seconds)</td>
-</tr>
-<tr>
-<td><strong>ads-replRefreshNPersist</strong></td>
-<td><em>boolean</em></td>
-<td>true</td>
-<td>Sets the replication mode</td>
-</tr>
-<tr>
-<td><strong>ads-replSearchScope</strong></td>
-<td><em>String</em></td>
-<td>SUBTREE</td>
-<td>The scope to use while searching for entries</td>
-</tr>
-<tr>
-<td><strong>ads-replSearchFilter</strong></td>
-<td><em>String</em></td>
-<td>(objectClass=*)</td>
-<td>The filter to use</td>
-</tr>
-<tr>
-<td><strong>ads-replSearchSizeLimit</strong></td>
-<td><em>int</em></td>
-<td>0</td>
-<td>The maximum number of entries to get back</td>
-</tr>
-<tr>
-<td><strong>ads-replSearchTimeOut</strong></td>
-<td><em>int</em></td>
-<td>0</td>
-<td>The maximum time to wait while fetching the entries</td>
-</tr>
-<tr>
-<td><strong>ads-replUserDn</strong></td>
-<td><em>String</em></td>
-<td>N/A</td>
-<td>The user DN used to bind on the provider</td>
-</tr>
-<tr>
-<td><strong>ads-replUserPassword</strong></td>
-<td><em>String</em></td>
-<td>N/A</td>
-<td>The password of the user</td>
-</tr>
-<tr>
-<td>ads-replUseTls</td>
-<td><em>boolean</em></td>
-<td>true</td>
-<td>Tells the server to use startTLS during replication</td>
-</tr>
-<tr>
-<td>ads-replStrictCertValidation</td>
-<td><em>boolean</em></td>
-<td>true</td>
-<td>Tells the provider to check the certificate if provided</td>
-</tr>
-<tr>
-<td>ads-replPeerCertificate</td>
-<td><em>byte[]</em></td>
-<td>N/A</td>
-<td>The certificate to use for replication</td>
-</tr>
-<tr>
-<td>ads-replConsumerImpl</td>
-<td><em>String</em></td>
-<td>ReplicationConsumerImpl</td>
-<td>The implementation</td>
-</tr>
-<tr>
-<td>ads-replCookie</td>
-<td><em>byte[]</em></td>
-<td>N/A</td>
-<td>The last received cookie</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>AttributeType</th>
+          <th>type</th>
+          <th>default value</th>
+          <th>Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>ads-replConsumerId</strong></td>
+          <td><em>String</em></td>
+          <td>N/A</td>
+          <td>The replica unique identifier</td>
+      </tr>
+      <tr>
+          <td><strong>ads-searchBaseDN</strong></td>
+          <td><em>String</em></td>
+          <td>N/A</td>
+          <td>The base DN for replication</td>
+      </tr>
+      <tr>
+          <td><strong>ads-replProvHostName</strong></td>
+          <td><em>String</em></td>
+          <td>N/A</td>
+          <td>The provider host name</td>
+      </tr>
+      <tr>
+          <td><strong>ads-replProvPort</strong></td>
+          <td><em>int</em></td>
+          <td>389</td>
+          <td>The port of the remote server</td>
+      </tr>
+      <tr>
+          <td><strong>ads-replAliasDerefMode</strong></td>
+          <td><em>String</em></td>
+          <td>NEVER_DEREF_ALIASES</td>
+          <td>The alias dereferencing mode to use</td>
+      </tr>
+      <tr>
+          <td><strong>ads-replAttributes</strong></td>
+          <td><em>String</em></td>
+          <td>*</td>
+          <td>The list of attributes to get back</td>
+      </tr>
+      <tr>
+          <td><strong>ads-replRefreshInterval</strong></td>
+          <td><em>int</em></td>
+          <td>60000</td>
+          <td>The delay between refreshes (60 seconds)</td>
+      </tr>
+      <tr>
+          <td><strong>ads-replRefreshNPersist</strong></td>
+          <td><em>boolean</em></td>
+          <td>true</td>
+          <td>Sets the replication mode</td>
+      </tr>
+      <tr>
+          <td><strong>ads-replSearchScope</strong></td>
+          <td><em>String</em></td>
+          <td>SUBTREE</td>
+          <td>The scope to use while searching for entries</td>
+      </tr>
+      <tr>
+          <td><strong>ads-replSearchFilter</strong></td>
+          <td><em>String</em></td>
+          <td>(objectClass=*)</td>
+          <td>The filter to use</td>
+      </tr>
+      <tr>
+          <td><strong>ads-replSearchSizeLimit</strong></td>
+          <td><em>int</em></td>
+          <td>0</td>
+          <td>The maximum number of entries to get back</td>
+      </tr>
+      <tr>
+          <td><strong>ads-replSearchTimeOut</strong></td>
+          <td><em>int</em></td>
+          <td>0</td>
+          <td>The maximum time to wait while fetching the entries</td>
+      </tr>
+      <tr>
+          <td><strong>ads-replUserDn</strong></td>
+          <td><em>String</em></td>
+          <td>N/A</td>
+          <td>The user DN used to bind on the provider</td>
+      </tr>
+      <tr>
+          <td><strong>ads-replUserPassword</strong></td>
+          <td><em>String</em></td>
+          <td>N/A</td>
+          <td>The password of the user</td>
+      </tr>
+      <tr>
+          <td>ads-replUseTls</td>
+          <td><em>boolean</em></td>
+          <td>true</td>
+          <td>Tells the server to use startTLS during replication</td>
+      </tr>
+      <tr>
+          <td>ads-replStrictCertValidation</td>
+          <td><em>boolean</em></td>
+          <td>true</td>
+          <td>Tells the provider to check the certificate if provided</td>
+      </tr>
+      <tr>
+          <td>ads-replPeerCertificate</td>
+          <td><em>byte[]</em></td>
+          <td>N/A</td>
+          <td>The certificate to use for replication</td>
+      </tr>
+      <tr>
+          <td>ads-replConsumerImpl</td>
+          <td><em>String</em></td>
+          <td>ReplicationConsumerImpl</td>
+          <td>The implementation</td>
+      </tr>
+      <tr>
+          <td>ads-replCookie</td>
+          <td><em>byte[]</em></td>
+          <td>N/A</td>
+          <td>The last received cookie</td>
+      </tr>
+  </tbody>
 </table>
 <h3 id="extended-op-handlers">Extended Op Handlers</h3>
 <p>An LDAP server can handle <em>ExtendedOperations</em>, assuming it has the code to do so. In <strong>ApacheDS</strong>, we do that by associating a <em>Java</em> class with each <em>ExtendedOperation</em>. We may provide more <em>ExtendedOperations</em> in the future. The list of supported <em>ExtendedOperations</em> is given below :</p>
@@ -1158,40 +1167,40 @@ internals of ApacheDS and/or including a custom interceptor.</p>
 </ul>
 <p>Adding a new <em>ExntedeOperatonHandler</em> is just a matter of adding a new entry under the <em>ou=extendedOpHandlers</em> entry, with the given elements :</p>
 <table>
-<thead>
-<tr>
-<th>AttributeType</th>
-<th>type</th>
-<th>default value</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>ads-enabled</td>
-<td><em>boolean</em></td>
-<td>true</td>
-<td>Tells if the ExtendedOpHandler system is enabled</td>
-</tr>
-<tr>
-<td>description</td>
-<td><em>String</em></td>
-<td>N/A</td>
-<td>A short optional description</td>
-</tr>
-<tr>
-<td><strong>ads-extendedOpId</strong></td>
-<td><em>String</em></td>
-<td>N/A</td>
-<td>The ExtendedOpHandler unique identifier</td>
-</tr>
-<tr>
-<td><strong>ads-extendedOpHandlerClass</strong></td>
-<td><em>String</em></td>
-<td>N/A</td>
-<td>The class FQCN that implements the handler</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>AttributeType</th>
+          <th>type</th>
+          <th>default value</th>
+          <th>Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>ads-enabled</td>
+          <td><em>boolean</em></td>
+          <td>true</td>
+          <td>Tells if the ExtendedOpHandler system is enabled</td>
+      </tr>
+      <tr>
+          <td>description</td>
+          <td><em>String</em></td>
+          <td>N/A</td>
+          <td>A short optional description</td>
+      </tr>
+      <tr>
+          <td><strong>ads-extendedOpId</strong></td>
+          <td><em>String</em></td>
+          <td>N/A</td>
+          <td>The ExtendedOpHandler unique identifier</td>
+      </tr>
+      <tr>
+          <td><strong>ads-extendedOpHandlerClass</strong></td>
+          <td><em>String</em></td>
+          <td>N/A</td>
+          <td>The class FQCN that implements the handler</td>
+      </tr>
+  </tbody>
 </table>
 <h3 id="sasl-mechanisms">SASL Mechanisms</h3>
 <p>We have various SASL mechanisms, which can be configured. the list of supported SASL mechanisms is :</p>
@@ -1205,240 +1214,240 @@ internals of ApacheDS and/or including a custom interceptor.</p>
 </ul>
 <p>This list is stored in the configuration. It&rsquo;s possible to add new mechanisms if needed, simply by adding an entry containing those elements, under the <em>ou=saslMechHandlers</em></p>
 <table>
-<thead>
-<tr>
-<th>AttributeType</th>
-<th>type</th>
-<th>default value</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>ads-enabled</td>
-<td><em>boolean</em></td>
-<td>true</td>
-<td>Tells if the Transport system is enabled</td>
-</tr>
-<tr>
-<td>description</td>
-<td><em>String</em></td>
-<td>N/A</td>
-<td>A short optional description</td>
-</tr>
-<tr>
-<td><strong>ads-saslMechName</strong></td>
-<td><em>String</em></td>
-<td><one the above list></td>
-<td>The mechanism name</td>
-</tr>
-<tr>
-<td><strong>ads-saslMechClassName</strong></td>
-<td><em>String</em></td>
-<td>N/A</td>
-<td>The mechanism class name</td>
-</tr>
-<tr>
-<td>ads-ntlmMechProvider</td>
-<td><em>String</em></td>
-<td>N/A</td>
-<td>The NTLM provider</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>AttributeType</th>
+          <th>type</th>
+          <th>default value</th>
+          <th>Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>ads-enabled</td>
+          <td><em>boolean</em></td>
+          <td>true</td>
+          <td>Tells if the Transport system is enabled</td>
+      </tr>
+      <tr>
+          <td>description</td>
+          <td><em>String</em></td>
+          <td>N/A</td>
+          <td>A short optional description</td>
+      </tr>
+      <tr>
+          <td><strong>ads-saslMechName</strong></td>
+          <td><em>String</em></td>
+          <td><one the above list></td>
+          <td>The mechanism name</td>
+      </tr>
+      <tr>
+          <td><strong>ads-saslMechClassName</strong></td>
+          <td><em>String</em></td>
+          <td>N/A</td>
+          <td>The mechanism class name</td>
+      </tr>
+      <tr>
+          <td>ads-ntlmMechProvider</td>
+          <td><em>String</em></td>
+          <td>N/A</td>
+          <td>The NTLM provider</td>
+      </tr>
+  </tbody>
 </table>
 <h2 id="kerberos-server">Kerberos Server</h2>
 <p>The <em>KerberosServer</em> configuration is an important part of the configuration. It depends on a <em>DirectoryService</em> too, as most of the informations managed by a <em>KerberosServer</em> are store there.</p>
 <p>The list of attributes that can be modified is exposed in the following table.</p>
 <table>
-<thead>
-<tr>
-<th>AttributeType</th>
-<th>type</th>
-<th>default value</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>ads-enabled</td>
-<td><em>boolean</em></td>
-<td>true</td>
-<td>Tells if the KerberosServer is enabled</td>
-</tr>
-<tr>
-<td>description</td>
-<td><em>String</em></td>
-<td>N/A</td>
-<td>A short optional description</td>
-</tr>
-<tr>
-<td>ads-krbAllowableClockSkew</td>
-<td><em>int</em></td>
-<td>300000</td>
-<td>The allowable clock skew in milliseconds (5 minutes)</td>
-</tr>
-<tr>
-<td>ads-krbEncryptionTypes</td>
-<td><em>List<String></em></td>
-<td></td>
-<td>The encryption types</td>
-</tr>
-<tr>
-<td>ads-krbEmptyAddressesAllowed</td>
-<td><em>boolean</em></td>
-<td>true</td>
-<td>Whether empty addresses are allowed</td>
-</tr>
-<tr>
-<td>ads-krbForwardableAllowed</td>
-<td><em>boolean</em></td>
-<td>true</td>
-<td>Whether forwardable addresses are allowed</td>
-</tr>
-<tr>
-<td>ads-krbPaEncTimestampRequired</td>
-<td><em>boolean</em></td>
-<td>true</td>
-<td>Whether pre-authentication by encrypted timestamp is required</td>
-</tr>
-<tr>
-<td>ads-krbPostdatedAllowed</td>
-<td><em>boolean</em></td>
-<td>true</td>
-<td>Whether postdated tickets are allowed</td>
-</tr>
-<tr>
-<td>ads-krbProxiableAllowed</td>
-<td><em>boolean</em></td>
-<td>true</td>
-<td>Whether proxiable addresses are allowed</td>
-</tr>
-<tr>
-<td>ads-krbRenewableAllowed</td>
-<td><em>boolean</em></td>
-<td>true</td>
-<td>Whether renewable tickets are allowed</td>
-</tr>
-<tr>
-<td>ads-krbKdcPrincipal</td>
-<td><em>String</em></td>
-<td><a href="mailto:krbtgt/EXAMPLE.COM@EXAMPLE.COM">krbtgt/EXAMPLE.COM@EXAMPLE.COM</a></td>
-<td>The service principal name</td>
-</tr>
-<tr>
-<td>ads-krbMaximumRenewableLifetime</td>
-<td><em>long</em></td>
-<td>1000 * 60 * 60 * 24 * 7</td>
-<td>The maximum renewable lifetime in millisconds (7 days)</td>
-</tr>
-<tr>
-<td>ads-krbMaximumTicketLifetime</td>
-<td><em>long</em></td>
-<td>1000 * 60 * 60 * 24</td>
-<td>he maximum ticket lifetime in milliseconds (24 h)</td>
-</tr>
-<tr>
-<td>ads-krbPrimaryRealm</td>
-<td><em>String</em></td>
-<td>EXAMPLE.COM</td>
-<td>The primary realm</td>
-</tr>
-<tr>
-<td>ads-krbBodyChecksumVerified</td>
-<td><em>boolean</em></td>
-<td>true</td>
-<td>Whether to verify the body checksum</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>AttributeType</th>
+          <th>type</th>
+          <th>default value</th>
+          <th>Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>ads-enabled</td>
+          <td><em>boolean</em></td>
+          <td>true</td>
+          <td>Tells if the KerberosServer is enabled</td>
+      </tr>
+      <tr>
+          <td>description</td>
+          <td><em>String</em></td>
+          <td>N/A</td>
+          <td>A short optional description</td>
+      </tr>
+      <tr>
+          <td>ads-krbAllowableClockSkew</td>
+          <td><em>int</em></td>
+          <td>300000</td>
+          <td>The allowable clock skew in milliseconds (5 minutes)</td>
+      </tr>
+      <tr>
+          <td>ads-krbEncryptionTypes</td>
+          <td><em>List<String></em></td>
+          <td></td>
+          <td>The encryption types</td>
+      </tr>
+      <tr>
+          <td>ads-krbEmptyAddressesAllowed</td>
+          <td><em>boolean</em></td>
+          <td>true</td>
+          <td>Whether empty addresses are allowed</td>
+      </tr>
+      <tr>
+          <td>ads-krbForwardableAllowed</td>
+          <td><em>boolean</em></td>
+          <td>true</td>
+          <td>Whether forwardable addresses are allowed</td>
+      </tr>
+      <tr>
+          <td>ads-krbPaEncTimestampRequired</td>
+          <td><em>boolean</em></td>
+          <td>true</td>
+          <td>Whether pre-authentication by encrypted timestamp is required</td>
+      </tr>
+      <tr>
+          <td>ads-krbPostdatedAllowed</td>
+          <td><em>boolean</em></td>
+          <td>true</td>
+          <td>Whether postdated tickets are allowed</td>
+      </tr>
+      <tr>
+          <td>ads-krbProxiableAllowed</td>
+          <td><em>boolean</em></td>
+          <td>true</td>
+          <td>Whether proxiable addresses are allowed</td>
+      </tr>
+      <tr>
+          <td>ads-krbRenewableAllowed</td>
+          <td><em>boolean</em></td>
+          <td>true</td>
+          <td>Whether renewable tickets are allowed</td>
+      </tr>
+      <tr>
+          <td>ads-krbKdcPrincipal</td>
+          <td><em>String</em></td>
+          <td><a href="mailto:krbtgt/EXAMPLE.COM@EXAMPLE.COM">krbtgt/EXAMPLE.COM@EXAMPLE.COM</a></td>
+          <td>The service principal name</td>
+      </tr>
+      <tr>
+          <td>ads-krbMaximumRenewableLifetime</td>
+          <td><em>long</em></td>
+          <td>1000 * 60 * 60 * 24 * 7</td>
+          <td>The maximum renewable lifetime in millisconds (7 days)</td>
+      </tr>
+      <tr>
+          <td>ads-krbMaximumTicketLifetime</td>
+          <td><em>long</em></td>
+          <td>1000 * 60 * 60 * 24</td>
+          <td>he maximum ticket lifetime in milliseconds (24 h)</td>
+      </tr>
+      <tr>
+          <td>ads-krbPrimaryRealm</td>
+          <td><em>String</em></td>
+          <td>EXAMPLE.COM</td>
+          <td>The primary realm</td>
+      </tr>
+      <tr>
+          <td>ads-krbBodyChecksumVerified</td>
+          <td><em>boolean</em></td>
+          <td>true</td>
+          <td>Whether to verify the body checksum</td>
+      </tr>
+  </tbody>
 </table>
 <p>Of course, a <em>Transport</em> has to be defined under the <em>KerberosServer</em> entry (see <a href="#transports">Transports</a>).</p>
 <h2 id="http-server">Http Server</h2>
 <p>We have a Http Server embedded, which is used to manage some parts of the server. One can inject a web application, which has direct access to the embedded LdapServer, for instance. It can be useful for sending LDAP requests using DSML, for instance.</p>
 <p>There is one single element that can be configured :</p>
 <table>
-<thead>
-<tr>
-<th>AttributeType</th>
-<th>type</th>
-<th>default value</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>ads-enabled</td>
-<td><em>boolean</em></td>
-<td>true</td>
-<td>Tells if the HttpServer is enabled</td>
-</tr>
-<tr>
-<td>description</td>
-<td><em>String</em></td>
-<td>N/A</td>
-<td>A short optional description</td>
-</tr>
-<tr>
-<td>ads-httpConfFile</td>
-<td><em>String</em></td>
-<td>N/A</td>
-<td>The configuration file for this server</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>AttributeType</th>
+          <th>type</th>
+          <th>default value</th>
+          <th>Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>ads-enabled</td>
+          <td><em>boolean</em></td>
+          <td>true</td>
+          <td>Tells if the HttpServer is enabled</td>
+      </tr>
+      <tr>
+          <td>description</td>
+          <td><em>String</em></td>
+          <td>N/A</td>
+          <td>A short optional description</td>
+      </tr>
+      <tr>
+          <td>ads-httpConfFile</td>
+          <td><em>String</em></td>
+          <td>N/A</td>
+          <td>The configuration file for this server</td>
+      </tr>
+  </tbody>
 </table>
 <p>An <em>HttpServer</em> without webApps is pretty useless, we now have to configure the underlying web applications</p>
 <h3 id="http-web-apps">Http Web Apps</h3>
 <p>Each <em>WebApp</em> configuration must be added under the <em>ou=webapps</em> entry. Here are the configurable elements :</p>
 <table>
-<thead>
-<tr>
-<th>AttributeType</th>
-<th>type</th>
-<th>default value</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>ads-enabled</td>
-<td><em>boolean</em></td>
-<td>true</td>
-<td>Tells if the HttpServer is enabled</td>
-</tr>
-<tr>
-<td>description</td>
-<td><em>String</em></td>
-<td>N/A</td>
-<td>A short optional description</td>
-</tr>
-<tr>
-<td><strong>ads-httpWarFile</strong></td>
-<td><em>String</em></td>
-<td>N/A</td>
-<td>The WAR file to use</td>
-</tr>
-<tr>
-<td><strong>ads-id</strong></td>
-<td><em>String</em></td>
-<td>N/A</td>
-<td>The unique ID for this WebApp</td>
-</tr>
-<tr>
-<td><strong>ads-httpAppCtxPath</strong></td>
-<td><em>String</em></td>
-<td>N/A</td>
-<td>The context</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>AttributeType</th>
+          <th>type</th>
+          <th>default value</th>
+          <th>Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>ads-enabled</td>
+          <td><em>boolean</em></td>
+          <td>true</td>
+          <td>Tells if the HttpServer is enabled</td>
+      </tr>
+      <tr>
+          <td>description</td>
+          <td><em>String</em></td>
+          <td>N/A</td>
+          <td>A short optional description</td>
+      </tr>
+      <tr>
+          <td><strong>ads-httpWarFile</strong></td>
+          <td><em>String</em></td>
+          <td>N/A</td>
+          <td>The WAR file to use</td>
+      </tr>
+      <tr>
+          <td><strong>ads-id</strong></td>
+          <td><em>String</em></td>
+          <td>N/A</td>
+          <td>The unique ID for this WebApp</td>
+      </tr>
+      <tr>
+          <td><strong>ads-httpAppCtxPath</strong></td>
+          <td><em>String</em></td>
+          <td>N/A</td>
+          <td>The context</td>
+      </tr>
+  </tbody>
 </table>
 <p>Here is an example of configuration :</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">dn: ads-id=webApp1,ou=httpWebApps,ads-serverId=httpServer,ou=servers,ads-directoryServiceId=default,ou=config
-objectclass: top
-objectclass: ads-base
-objectclass: ads-httpWebApp
-ads-Id: webApp1
-ads-httpWarFile: war file 1
-ads-httpAppCtxPath: /home/app1
-</code></pre></div><h2 id="change-password-server">Change Password Server</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>dn: ads-id=webApp1,ou=httpWebApps,ads-serverId=httpServer,ou=servers,ads-directoryServiceId=default,ou=config
+</span></span><span style="display:flex;"><span>objectclass: top
+</span></span><span style="display:flex;"><span>objectclass: ads-base
+</span></span><span style="display:flex;"><span>objectclass: ads-httpWebApp
+</span></span><span style="display:flex;"><span>ads-Id: webApp1
+</span></span><span style="display:flex;"><span>ads-httpWarFile: war file 1
+</span></span><span style="display:flex;"><span>ads-httpAppCtxPath: /home/app1
+</span></span></code></pre></div><h2 id="change-password-server">Change Password Server</h2>
 <p>To be added&hellip;</p>
 <h1 id="bean-graph">Bean graph</h1>
 <p>The following picture represent the structure of the container used to store the configuration inside the server. The yellow beans are abstract beans, extended by specific beans.</p>
@@ -1474,16 +1483,18 @@ ads-httpAppCtxPath: /home/app1
         <div id="endContent"></div>
     </div>
 
-    <div id="footer">
+    <div class="footer-wrapper">
+<div id="footer">
     &copy; 2003-2025, <a href="https://www.apache.org">The Apache Software Foundation</a> - <a href="https://privacy.apache.org/policies/privacy-policy-public.html">Privacy Policy</a><br />
     Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
-    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple, Fortress, Apache Fortress, EnMasse,
     Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
     trademarks of The Apache Software Foundation.
 </div>
-
 </div>
 
+</div>
+<div class="top-bottom-spacer"></div>
 </body>
 
 </html>

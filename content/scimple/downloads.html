@@ -1,20 +1,29 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
+
+    
+    
+        
+    
+
 <head>
     <meta charset="utf-8">
     <title>SCIMple Downloads &mdash; Apache Directory</title>
 
     <link href="/css/common.css" rel="stylesheet" type="text/css"/>
-    <link href="/css/brown.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/scimple.css" rel="stylesheet" type="text/css"/>
 
     <link rel="shortcut icon" href="/images/server-icon_16x16.png" />
     <script src="https://www.apachecon.com/event-images/snippet.js"></script>
 </head>
 
 <body>
+<div class="top-bottom-spacer"></div>
 <div id="container">
     <div id="header">
+    <span>Apache Directory</span>
     <a href="/"><div id="headerClick"></div></a>
     <div id="subProjectsNavBar">
         <a href="/">
@@ -80,7 +89,7 @@
                 </ul>
                 <h5>Downloads</h5>
                 <ul>
-                    <li><a href="/scimple/downloads.html">Version 1.0.0-M1</a>&nbsp;&nbsp;<IMG src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/scimple/downloads.html">Version 1.0.0-M1</a>&nbsp;&nbsp;<IMG src="/images/new_badge.svg" alt="" style="margin-bottom:-3px;" border="0"></li>
                 </ul>
                 <h5>Documentation</h5>
                 <ul>
@@ -132,19 +141,19 @@
 <h2 id="scimple-maven-dependencies">SCIMple Maven Dependencies</h2>
 <p>To embed Apache Directory SCIMple components into applications via Maven dependencies:</p>
 <p>Add the Apache SCIMple dependencies to the project:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#008000;font-weight:bold">&lt;dependency</span><span style="color:#008000;font-weight:bold">&gt;</span>
-    <span style="color:#008000;font-weight:bold">&lt;groupId</span><span style="color:#008000;font-weight:bold">&gt;</span>org.apache.directory.scim<span style="color:#008000;font-weight:bold">&lt;/groupId&gt;</span>
-    <span style="color:#008000;font-weight:bold">&lt;artifactId</span><span style="color:#008000;font-weight:bold">&gt;</span>scim-server<span style="color:#008000;font-weight:bold">&lt;/artifactId&gt;</span>
-    <span style="color:#008000;font-weight:bold">&lt;version</span><span style="color:#008000;font-weight:bold">&gt;</span>1.0.0-M1<span style="color:#008000;font-weight:bold">&lt;/version&gt;</span>
-<span style="color:#008000;font-weight:bold">&lt;/dependency&gt;</span>
-
-<span style="color:#080;font-style:italic">&lt;!--</span><span style="color:#080;font-style:italic"> Spring Boot users, can use the starter package </span><span style="color:#080;font-style:italic">--&gt;</span>
-<span style="color:#008000;font-weight:bold">&lt;dependency</span><span style="color:#008000;font-weight:bold">&gt;</span>
-    <span style="color:#008000;font-weight:bold">&lt;groupId</span><span style="color:#008000;font-weight:bold">&gt;</span>org.apache.directory.scim<span style="color:#008000;font-weight:bold">&lt;/groupId&gt;</span>
-    <span style="color:#008000;font-weight:bold">&lt;artifactId</span><span style="color:#008000;font-weight:bold">&gt;</span>scim-spring-boot-starter<span style="color:#008000;font-weight:bold">&lt;/artifactId&gt;</span>
-    <span style="color:#008000;font-weight:bold">&lt;version</span><span style="color:#008000;font-weight:bold">&gt;</span>1.0.0-M1<span style="color:#008000;font-weight:bold">&lt;/version&gt;</span>
-<span style="color:#008000;font-weight:bold">&lt;/dependency&gt;</span>
-</code></pre></div><p>See the <a href="five-minutes-tutorial">Five Minute Spring Boot tutorial</a> for more details!</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#008000;font-weight:bold">&lt;dependency&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#008000;font-weight:bold">&lt;groupId&gt;</span>org.apache.directory.scim<span style="color:#008000;font-weight:bold">&lt;/groupId&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#008000;font-weight:bold">&lt;artifactId&gt;</span>scim-server<span style="color:#008000;font-weight:bold">&lt;/artifactId&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#008000;font-weight:bold">&lt;version&gt;</span>1.0.0-M1<span style="color:#008000;font-weight:bold">&lt;/version&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#008000;font-weight:bold">&lt;/dependency&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">&lt;!-- Spring Boot users, can use the starter package --&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#008000;font-weight:bold">&lt;dependency&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#008000;font-weight:bold">&lt;groupId&gt;</span>org.apache.directory.scim<span style="color:#008000;font-weight:bold">&lt;/groupId&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#008000;font-weight:bold">&lt;artifactId&gt;</span>scim-spring-boot-starter<span style="color:#008000;font-weight:bold">&lt;/artifactId&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#008000;font-weight:bold">&lt;version&gt;</span>1.0.0-M1<span style="color:#008000;font-weight:bold">&lt;/version&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#008000;font-weight:bold">&lt;/dependency&gt;</span>
+</span></span></code></pre></div><p>See the <a href="five-minutes-tutorial">Five Minute Spring Boot tutorial</a> for more details!</p>
 <p>Tutorials for other frameworks coming soon! If you cannot wait, look at the <a href="https://github.com/apache/directory-scimple/tree/1.0.0-M1/scim-server-examples">examples on GitHub</a>:</p>
 <ul>
 <li><a href="https://github.com/apache/directory-scimple/tree/1.0.0-M1/scim-server-examples/scim-server-quarkus">Quarkus</a></li>
@@ -160,16 +169,18 @@
         <div id="endContent"></div>
     </div>
 
-    <div id="footer">
+    <div class="footer-wrapper">
+<div id="footer">
     &copy; 2003-2025, <a href="https://www.apache.org">The Apache Software Foundation</a> - <a href="https://privacy.apache.org/policies/privacy-policy-public.html">Privacy Policy</a><br />
     Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
-    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple, Fortress, Apache Fortress, EnMasse,
     Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
     trademarks of The Apache Software Foundation.
 </div>
-
 </div>
 
+</div>
+<div class="top-bottom-spacer"></div>
 </body>
 
 </html>

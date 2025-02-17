@@ -1,20 +1,29 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
+
+    
+    
+        
+    
+
 <head>
     <meta charset="utf-8">
     <title>6.4 - AttributeType &mdash; Apache Directory</title>
 
     <link href="/css/common.css" rel="stylesheet" type="text/css"/>
-    <link href="/css/brown.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/api.css" rel="stylesheet" type="text/css"/>
 
     <link rel="shortcut icon" href="/images/server-icon_16x16.png" />
     <script src="https://www.apachecon.com/event-images/snippet.js"></script>
 </head>
 
 <body>
+<div class="top-bottom-spacer"></div>
 <div id="container">
     <div id="header">
+    <span>Apache Directory</span>
     <a href="/"><div id="headerClick"></div></a>
     <div id="subProjectsNavBar">
         <a href="/">
@@ -81,7 +90,7 @@
 
                 <h5>Downloads</h5>
                 <ul>
-                    <li><a href="/api/downloads-2.html">Version 2.1.7</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/downloads-2.html">Version 2.1.7</a>&nbsp;&nbsp;<img src="/images/new_badge.svg" alt="" style="margin-bottom:-3px;" border="0"></li>
                     <li><a href="/api/downloads-1.html">Version 1.0.3</a>&nbsp;&nbsp;</li>
                     <li><a href="/api/download-old-versions.html">Older versions</a></li>
                 </ul>
@@ -166,85 +175,85 @@
 <h2 id="description">Description</h2>
 <p>An <em>AttributeType</em> contains the following informations:</p>
 <table>
-<thead>
-<tr>
-<th>Value</th>
-<th>Description</th>
-<th>optional</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>OID</td>
-<td>An unique <em>Oid</em> for the <em>AttributeType</em></td>
-<td>no</td>
-</tr>
-<tr>
-<td>NAME</td>
-<td>some names, the fist one being considered as the <em>short name</em>.</td>
-<td>yes</td>
-</tr>
-<tr>
-<td>DESCR</td>
-<td>A textual description describing the <em>AttributeType</em> role.</td>
-<td>yes</td>
-</tr>
-<tr>
-<td>OBSOLETE</td>
-<td>A flag indicating if the <em>AttributeType</em> is deprecated</td>
-<td>yes</td>
-</tr>
-<tr>
-<td>SUP</td>
-<td>The <em>AttributeType</em> it inherit from</td>
-<td>yes (If SYNTAX is null, can&rsquo;t be null)</td>
-</tr>
-<tr>
-<td>EQUALITY</td>
-<td>The EQUALITY <em>MatchingRule</em></td>
-<td>yes (if null, and if SUP is not null, takes its SUP&rsquo;s value)</td>
-</tr>
-<tr>
-<td>ORDERING</td>
-<td>The ORDERING <em>MatchingRule</em></td>
-<td>yes (if null, and if SUP is not null, takes its SUP&rsquo;s value)</td>
-</tr>
-<tr>
-<td>SUBSTR</td>
-<td>The SUBSTR <em>MatchingRule</em></td>
-<td>yes (if null, and if SUP is not null, takes its SUP&rsquo;s value)</td>
-</tr>
-<tr>
-<td>SYNTAX</td>
-<td>The Syntax to follow</td>
-<td>yes (If SUP is null, can&rsquo;t be null)</td>
-</tr>
-<tr>
-<td>SINGLE-VALUE</td>
-<td>Tells that the <em>AttributeType</em> does not allow more than one value</td>
-<td>yes</td>
-</tr>
-<tr>
-<td>COLLECTIVE</td>
-<td>Define a collective attribute. The <em>AttributeType</em> USAGE must be <em>userApplications</em></td>
-<td>yes</td>
-</tr>
-<tr>
-<td>NO-USER-MODIFICATION</td>
-<td>Tells that the values can&rsquo;t be modified by the user. The <em>AttributeType</em> USAGE must be operational</td>
-<td>yes</td>
-</tr>
-<tr>
-<td>USAGE</td>
-<td>The kind of <em>AttributeType</em> : one of {<em>userApplications</em>, <em>directoryOperation</em>, <em>directoryOperation</em>, <em>directoryOperation</em>}</td>
-<td>yes</td>
-</tr>
-<tr>
-<td>extensions</td>
-<td>Server specific parameters</td>
-<td>yes</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Value</th>
+          <th>Description</th>
+          <th>optional</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>OID</td>
+          <td>An unique <em>Oid</em> for the <em>AttributeType</em></td>
+          <td>no</td>
+      </tr>
+      <tr>
+          <td>NAME</td>
+          <td>some names, the fist one being considered as the <em>short name</em>.</td>
+          <td>yes</td>
+      </tr>
+      <tr>
+          <td>DESCR</td>
+          <td>A textual description describing the <em>AttributeType</em> role.</td>
+          <td>yes</td>
+      </tr>
+      <tr>
+          <td>OBSOLETE</td>
+          <td>A flag indicating if the <em>AttributeType</em> is deprecated</td>
+          <td>yes</td>
+      </tr>
+      <tr>
+          <td>SUP</td>
+          <td>The <em>AttributeType</em> it inherit from</td>
+          <td>yes (If SYNTAX is null, can&rsquo;t be null)</td>
+      </tr>
+      <tr>
+          <td>EQUALITY</td>
+          <td>The EQUALITY <em>MatchingRule</em></td>
+          <td>yes (if null, and if SUP is not null, takes its SUP&rsquo;s value)</td>
+      </tr>
+      <tr>
+          <td>ORDERING</td>
+          <td>The ORDERING <em>MatchingRule</em></td>
+          <td>yes (if null, and if SUP is not null, takes its SUP&rsquo;s value)</td>
+      </tr>
+      <tr>
+          <td>SUBSTR</td>
+          <td>The SUBSTR <em>MatchingRule</em></td>
+          <td>yes (if null, and if SUP is not null, takes its SUP&rsquo;s value)</td>
+      </tr>
+      <tr>
+          <td>SYNTAX</td>
+          <td>The Syntax to follow</td>
+          <td>yes (If SUP is null, can&rsquo;t be null)</td>
+      </tr>
+      <tr>
+          <td>SINGLE-VALUE</td>
+          <td>Tells that the <em>AttributeType</em> does not allow more than one value</td>
+          <td>yes</td>
+      </tr>
+      <tr>
+          <td>COLLECTIVE</td>
+          <td>Define a collective attribute. The <em>AttributeType</em> USAGE must be <em>userApplications</em></td>
+          <td>yes</td>
+      </tr>
+      <tr>
+          <td>NO-USER-MODIFICATION</td>
+          <td>Tells that the values can&rsquo;t be modified by the user. The <em>AttributeType</em> USAGE must be operational</td>
+          <td>yes</td>
+      </tr>
+      <tr>
+          <td>USAGE</td>
+          <td>The kind of <em>AttributeType</em> : one of {<em>userApplications</em>, <em>directoryOperation</em>, <em>directoryOperation</em>, <em>directoryOperation</em>}</td>
+          <td>yes</td>
+      </tr>
+      <tr>
+          <td>extensions</td>
+          <td>Server specific parameters</td>
+          <td>yes</td>
+      </tr>
+  </tbody>
 </table>
 <p>An <em>AttributeType</em> has some default elements : it&rsquo;s not OBSOLETE, has no SUP, is not SINGLE-VALUE, is not COLLECTIVE, can be modified by the user, and has an <em>userApplications</em> USAGE.</p>
 <p>You can check some of those elements using the following methods:</p>
@@ -287,16 +296,18 @@
         <div id="endContent"></div>
     </div>
 
-    <div id="footer">
+    <div class="footer-wrapper">
+<div id="footer">
     &copy; 2003-2025, <a href="https://www.apache.org">The Apache Software Foundation</a> - <a href="https://privacy.apache.org/policies/privacy-policy-public.html">Privacy Policy</a><br />
     Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
-    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple, Fortress, Apache Fortress, EnMasse,
     Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
     trademarks of The Apache Software Foundation.
 </div>
-
 </div>
 
+</div>
+<div class="top-bottom-spacer"></div>
 </body>
 
 </html>

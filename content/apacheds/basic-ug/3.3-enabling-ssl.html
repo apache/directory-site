@@ -1,20 +1,29 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
+
+    
+    
+        
+    
+
 <head>
     <meta charset="utf-8">
     <title>3.3 - How to enable SSL &mdash; Apache Directory</title>
 
     <link href="/css/common.css" rel="stylesheet" type="text/css"/>
-    <link href="/css/green.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/apacheds.css" rel="stylesheet" type="text/css"/>
 
     <link rel="shortcut icon" href="/images/server-icon_16x16.png" />
     <script src="https://www.apachecon.com/event-images/snippet.js"></script>
 </head>
 
 <body>
+<div class="top-bottom-spacer"></div>
 <div id="container">
     <div id="header">
+    <span>Apache Directory</span>
     <a href="/"><div id="headerClick"></div></a>
     <div id="subProjectsNavBar">
         <a href="/">
@@ -83,7 +92,7 @@
 
                 <h5>Downloads</h5>
                 <ul>
-                    <li><a href="/apacheds/downloads.html">ApacheDS 2.0.0.AM27</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/apacheds/downloads.html">ApacheDS 2.0.0.AM27</a>&nbsp;&nbsp;<img src="/images/new_badge.svg" alt="" style="margin-bottom:-3px;" border="0"></li>
                     <li><a href="/apacheds/download-old-versions.html">Older versions</a></li>
                 </ul>
 
@@ -206,54 +215,54 @@ In order to keep it simple for beginners, you don't need any certificate to get 
 <h4 id="key-creation">Key creation</h4>
 <p>First it is necessary to create a key pair (public/private key) for your server, <em>zanzibar</em> in our case.  One option is to use the JDK tool <em>keytool</em> for this task. In the following example, we use these options</p>
 <table>
-<thead>
-<tr>
-<th align="center">Command Option</th>
-<th align="center">Value</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="center">-genkey</td>
-<td align="center">-</td>
-<td>Command to generate a key pair</td>
-</tr>
-<tr>
-<td align="center">-keyalg</td>
-<td align="center">&ldquo;RSA&rdquo;</td>
-<td>Algorithm to be used to generate the key pair,  in our case, default is &ldquo;DSA&rdquo;</td>
-</tr>
-<tr>
-<td align="center">-dname</td>
-<td align="center">&ldquo;cn=zanzibar, ou=ApacheDS, o=ASF, c=US&rdquo;</td>
-<td>The X.500 Distinguished Name to be associated with alias, used as the issuer and subject fields in the self-signed certificate</td>
-</tr>
-<tr>
-<td align="center">-alias</td>
-<td align="center">zanzibar</td>
-<td>Name to refer the entry within the keystore</td>
-</tr>
-<tr>
-<td align="center">-keystore</td>
-<td align="center">zanzibar.ks</td>
-<td>Keystore file location</td>
-</tr>
-<tr>
-<td align="center">-storepass</td>
-<td align="center">secret</td>
-<td>Password used to protect the integrity of the keystore</td>
-</tr>
-<tr>
-<td align="center">-validity</td>
-<td align="center">730</td>
-<td>Number of days for which the certificate should be considered valid, default is 90</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th style="text-align: center">Command Option</th>
+          <th style="text-align: center">Value</th>
+          <th>Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: center">-genkey</td>
+          <td style="text-align: center">-</td>
+          <td>Command to generate a key pair</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">-keyalg</td>
+          <td style="text-align: center">&ldquo;RSA&rdquo;</td>
+          <td>Algorithm to be used to generate the key pair,  in our case, default is &ldquo;DSA&rdquo;</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">-dname</td>
+          <td style="text-align: center">&ldquo;cn=zanzibar, ou=ApacheDS, o=ASF, c=US&rdquo;</td>
+          <td>The X.500 Distinguished Name to be associated with alias, used as the issuer and subject fields in the self-signed certificate</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">-alias</td>
+          <td style="text-align: center">zanzibar</td>
+          <td>Name to refer the entry within the keystore</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">-keystore</td>
+          <td style="text-align: center">zanzibar.ks</td>
+          <td>Keystore file location</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">-storepass</td>
+          <td style="text-align: center">secret</td>
+          <td>Password used to protect the integrity of the keystore</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">-validity</td>
+          <td style="text-align: center">730</td>
+          <td>Number of days for which the certificate should be considered valid, default is 90</td>
+      </tr>
+  </tbody>
 </table>
 <p>Learn more about keytool at the <a href="https://java.sun.com/j2se/1.5.0/docs/tooldocs/solaris/keytool.html">manpage</a>.</p>
 <pre><code>$ keytool -genkey -keyalg &quot;RSA&quot; -dname &quot;cn=zanzibar, ou=ApacheDS, o=ASF, c=US&quot; \\
-    -alias zanzibar -keystore zanzibar.ks -storepass secret -validity 730
+	-alias zanzibar -keystore zanzibar.ks -storepass secret -validity 730
 Enter key password for &lt;zanzibar&gt;
     (RETURN if same as keystore password):
 $ ls -l
@@ -278,35 +287,35 @@ $
 <p><img src="images/keystore-configuration.png" alt="Keystore Configuration"></p>
 <p>The following properties were used :</p>
 <table>
-<thead>
-<tr>
-<th align="center">Property</th>
-<th align="center">Default Value</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="center">keystoreFile</td>
-<td align="center">none</td>
-<td>Path of the X509 (or JKS) certificate file for LDAPS</td>
-</tr>
-<tr>
-<td align="center">certificatePassword</td>
-<td align="center">changeit</td>
-<td>Password which is used to load the LDAPS certificate file</td>
-</tr>
-<tr>
-<td align="center">port</td>
-<td align="center">10636</td>
-<td>LDAPS TCP/IP port number to listen to</td>
-</tr>
-<tr>
-<td align="center">enableSSL</td>
-<td align="center">true</td>
-<td>Sets if SSL is enabled or not</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th style="text-align: center">Property</th>
+          <th style="text-align: center">Default Value</th>
+          <th>Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: center">keystoreFile</td>
+          <td style="text-align: center">none</td>
+          <td>Path of the X509 (or JKS) certificate file for LDAPS</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">certificatePassword</td>
+          <td style="text-align: center">changeit</td>
+          <td>Password which is used to load the LDAPS certificate file</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">port</td>
+          <td style="text-align: center">10636</td>
+          <td>LDAPS TCP/IP port number to listen to</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">enableSSL</td>
+          <td style="text-align: center">true</td>
+          <td>Sets if SSL is enabled or not</td>
+      </tr>
+  </tbody>
 </table>
 <p>After modification of the configuration, the server has to be restarted in order to take effect.</p>
 <h2 id="verification-clients">Verification, Clients</h2>
@@ -325,42 +334,42 @@ import javax.naming.directory.*;
 
 public class ConnectWithLdaps {
 	
-    public static void main(String[] args) throws NamingException {
+	public static void main(String[] args) throws NamingException {
 		
-        Hashtable env = new Hashtable();
+		Hashtable env = new Hashtable();
 		
-        // Simple bind
-        env.put(Context.SECURITY_AUTHENTICATION, &quot;simple&quot;);
-        env.put(Context.SECURITY_PRINCIPAL,
-                &quot;cn=Horatio Hornblower,ou=people,o=sevenSeas&quot;);
-        env.put(Context.SECURITY_CREDENTIALS, &quot;pass&quot;);
+		// Simple bind
+		env.put(Context.SECURITY_AUTHENTICATION, &quot;simple&quot;);
+		env.put(Context.SECURITY_PRINCIPAL,
+				&quot;cn=Horatio Hornblower,ou=people,o=sevenSeas&quot;);
+		env.put(Context.SECURITY_CREDENTIALS, &quot;pass&quot;);
 		
-        env.put(Context.INITIAL_CONTEXT_FACTORY,
+		env.put(Context.INITIAL_CONTEXT_FACTORY,
             &quot;com.sun.jndi.ldap.LdapCtxFactory&quot;);
-        env.put(Context.PROVIDER_URL, &quot;ldaps://zanzibar:636/o=sevenSeas&quot;);
+		env.put(Context.PROVIDER_URL, &quot;ldaps://zanzibar:636/o=sevenSeas&quot;);
 		
-        DirContext ctx = new InitialDirContext(env);
-        NamingEnumeration enm = ctx.list(&quot;&quot;);
+		DirContext ctx = new InitialDirContext(env);
+		NamingEnumeration enm = ctx.list(&quot;&quot;);
 		
-        while (enm.hasMore()) {
-            System.out.println(enm.next());
-        }
+		while (enm.hasMore()) {
+			System.out.println(enm.next());
+		}
 		
-        enm.close();
-        ctx.close();
-    }
+		enm.close();
+		ctx.close();
+	}
 }
 </code></pre>
 <p>It causes a <em>CommunicationException</em>, if the certificate is not trusted:</p>
 <pre><code>$ java ConnectWithLdaps
 Exception in thread &quot;main&quot; javax.naming.CommunicationException: 
   simple bind failed: zanzibar:636 
-    [Root exception is javax.net.ssl.SSLHandshakeException: 
-       sun.security.validator.ValidatorException: PKIX path building failed:    
-       sun.security.provider.certpath.SunCertPathBuilderException: 
-       unable to find valid certification path to requested target]
-       at com.sun.jndi.ldap.LdapClient.authenticate(Unknown Source)
-       ...
+  	[Root exception is javax.net.ssl.SSLHandshakeException: 
+	   sun.security.validator.ValidatorException: PKIX path building failed:    
+	   sun.security.provider.certpath.SunCertPathBuilderException: 
+	   unable to find valid certification path to requested target]
+	   at com.sun.jndi.ldap.LdapClient.authenticate(Unknown Source)
+	   ...
 </code></pre>
 <p>In order to make the client trust our server, one option is to share a self signed certificate.
 So we export the certificate (DER format) using keytool like this:</p>
@@ -468,16 +477,18 @@ instantiated an instance of class com.sun.net.ssl.internal.ssl.SSLSocketFactoryI
         <div id="endContent"></div>
     </div>
 
-    <div id="footer">
+    <div class="footer-wrapper">
+<div id="footer">
     &copy; 2003-2025, <a href="https://www.apache.org">The Apache Software Foundation</a> - <a href="https://privacy.apache.org/policies/privacy-policy-public.html">Privacy Policy</a><br />
     Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
-    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple, Fortress, Apache Fortress, EnMasse,
     Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
     trademarks of The Apache Software Foundation.
 </div>
-
 </div>
 
+</div>
+<div class="top-bottom-spacer"></div>
 </body>
 
 </html>

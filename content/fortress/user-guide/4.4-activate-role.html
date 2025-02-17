@@ -1,20 +1,29 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
+
+    
+    
+        
+    
+
 <head>
     <meta charset="utf-8">
     <title>4.4 - Add Active Role &mdash; Apache Directory</title>
 
     <link href="/css/common.css" rel="stylesheet" type="text/css"/>
-    <link href="/css/turquoise.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/fortress.css" rel="stylesheet" type="text/css"/>
 
     <link rel="shortcut icon" href="/images/server-icon_16x16.png" />
     <script src="https://www.apachecon.com/event-images/snippet.js"></script>
 </head>
 
 <body>
+<div class="top-bottom-spacer"></div>
 <div id="container">
     <div id="header">
+    <span>Apache Directory</span>
     <a href="/"><div id="headerClick"></div></a>
     <div id="subProjectsNavBar">
         <a href="/">
@@ -82,7 +91,7 @@
 
                 <h5>Downloads</h5>
                 <ul>
-                    <li><a href="/fortress/downloads.html">Fortress 3.0.0</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/fortress/downloads.html">Fortress 3.0.0</a>&nbsp;&nbsp;<img src="/images/new_badge.svg" alt="" style="margin-bottom:-3px;" border="0"></li>
                     <li><a href="/fortress/download-old-versions.html">Older versions</a></li>
                 </ul>
 
@@ -156,8 +165,8 @@
 
             
 	<h1 id="44---add-active-role">4.4 - Add Active Role</h1>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">addActiveRole</span><span style="color:#666">(</span>Session session<span style="color:#666">,</span> UserRole role<span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> SecurityException
-</code></pre></div><p>This function adds a role as an active role of a session whose owner is a given user.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#0b0;font-weight:bold">void</span><span style="color:#bbb"> </span><span style="color:#00a000">addActiveRole</span>(Session<span style="color:#bbb"> </span>session,<span style="color:#bbb"> </span>UserRole<span style="color:#bbb"> </span>role)<span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">throws</span><span style="color:#bbb"> </span>SecurityException<span style="color:#bbb">
+</span></span></span></code></pre></div><p>This function adds a role as an active role of a session whose owner is a given user.</p>
 <p>The function is valid if and only if:</p>
 <ul>
 <li>the user is a member of the USERS data set</li>
@@ -177,30 +186,30 @@
 <li>SecurityException - is thrown if user is not allowed to activate or runtime error occurs with system.</li>
 </ul>
 <h2 id="addactiverole">addActiveRole</h2>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.AccessMgr</span><span style="color:#666">;</span>
-<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.AccessMgrFactory</span><span style="color:#666">;</span>
-<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.SecurityException</span><span style="color:#666">;</span>
-<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.model.Session</span><span style="color:#666">;</span>
-<span style="color:#a2f;font-weight:bold">import</span> <span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.model.UserRole</span><span style="color:#666">;</span>
-
-<span style="color:#a2f">@test</span>
-<span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">static</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">testAddActiveRole</span><span style="color:#666">(</span> Session session<span style="color:#666">,</span> String roleName <span style="color:#666">)</span>
-<span style="color:#666">{</span>
-    String szLocation <span style="color:#666">=</span> <span style="color:#b44">&#34;.testAddActiveRole&#34;</span><span style="color:#666">;</span>
-    <span style="color:#a2f;font-weight:bold">try</span>
-    <span style="color:#666">{</span>
-        <span style="color:#080;font-style:italic">// Instantiate the AccessMgr implementation.
-</span><span style="color:#080;font-style:italic"></span>        AccessMgr accessMgr <span style="color:#666">=</span> AccessMgrFactory<span style="color:#666">.</span><span style="color:#b44">createInstance</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
-        UserRole userRole <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> UserRole<span style="color:#666">(</span> session<span style="color:#666">.</span><span style="color:#b44">getUserId</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">,</span> roleName <span style="color:#666">)</span><span style="color:#666">;</span>
-        accessMgr<span style="color:#666">.</span><span style="color:#b44">addActiveRole</span><span style="color:#666">(</span> session<span style="color:#666">,</span> userRole <span style="color:#666">)</span><span style="color:#666">;</span>
-    <span style="color:#666">}</span>
-    <span style="color:#a2f;font-weight:bold">catch</span> <span style="color:#666">(</span> SecurityException ex <span style="color:#666">)</span>
-    <span style="color:#666">{</span>
-        LOG<span style="color:#666">.</span><span style="color:#b44">error</span><span style="color:#666">(</span> szLocation <span style="color:#666">+</span> <span style="color:#b44">&#34; caught SecurityException rc=&#34;</span> <span style="color:#666">+</span> ex<span style="color:#666">.</span><span style="color:#b44">getErrorId</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">+</span> <span style="color:#b44">&#34;, msg=&#34;</span> <span style="color:#666">+</span> ex<span style="color:#666">.</span><span style="color:#b44">getMessage</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">,</span> ex <span style="color:#666">)</span><span style="color:#666">;</span>
-        fail<span style="color:#666">(</span> ex<span style="color:#666">.</span><span style="color:#b44">getMessage</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-    <span style="color:#666">}</span>
-<span style="color:#666">}</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">import</span><span style="color:#bbb"> </span><span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.AccessMgr</span>;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#a2f;font-weight:bold">import</span><span style="color:#bbb"> </span><span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.AccessMgrFactory</span>;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#a2f;font-weight:bold">import</span><span style="color:#bbb"> </span><span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.SecurityException</span>;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#a2f;font-weight:bold">import</span><span style="color:#bbb"> </span><span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.model.Session</span>;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#a2f;font-weight:bold">import</span><span style="color:#bbb"> </span><span style="color:#00f;font-weight:bold">org.apache.directory.fortress.core.model.UserRole</span>;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#a2f">@test</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#a2f;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">static</span><span style="color:#bbb"> </span><span style="color:#0b0;font-weight:bold">void</span><span style="color:#bbb"> </span><span style="color:#00a000">testAddActiveRole</span>(<span style="color:#bbb"> </span>Session<span style="color:#bbb"> </span>session,<span style="color:#bbb"> </span>String<span style="color:#bbb"> </span>roleName<span style="color:#bbb"> </span>)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>String<span style="color:#bbb"> </span>szLocation<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#b44">&#34;.testAddActiveRole&#34;</span>;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">try</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#080;font-style:italic">// Instantiate the AccessMgr implementation.</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>AccessMgr<span style="color:#bbb"> </span>accessMgr<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span>AccessMgrFactory.<span style="color:#b44">createInstance</span>();<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>UserRole<span style="color:#bbb"> </span>userRole<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>UserRole(<span style="color:#bbb"> </span>session.<span style="color:#b44">getUserId</span>(),<span style="color:#bbb"> </span>roleName<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>accessMgr.<span style="color:#b44">addActiveRole</span>(<span style="color:#bbb"> </span>session,<span style="color:#bbb"> </span>userRole<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">catch</span><span style="color:#bbb"> </span>(<span style="color:#bbb"> </span>SecurityException<span style="color:#bbb"> </span>ex<span style="color:#bbb"> </span>)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>LOG.<span style="color:#b44">error</span>(<span style="color:#bbb"> </span>szLocation<span style="color:#bbb"> </span><span style="color:#666">+</span><span style="color:#bbb"> </span><span style="color:#b44">&#34; caught SecurityException rc=&#34;</span><span style="color:#bbb"> </span><span style="color:#666">+</span><span style="color:#bbb"> </span>ex.<span style="color:#b44">getErrorId</span>()<span style="color:#bbb"> </span><span style="color:#666">+</span><span style="color:#bbb"> </span><span style="color:#b44">&#34;, msg=&#34;</span><span style="color:#bbb"> </span><span style="color:#666">+</span><span style="color:#bbb"> </span>ex.<span style="color:#b44">getMessage</span>(),<span style="color:#bbb"> </span>ex<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>fail(<span style="color:#bbb"> </span>ex.<span style="color:#b44">getMessage</span>()<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>}<span style="color:#bbb">
+</span></span></span></code></pre></div>
 
             
     <div class="nav">
@@ -230,16 +239,18 @@
         <div id="endContent"></div>
     </div>
 
-    <div id="footer">
+    <div class="footer-wrapper">
+<div id="footer">
     &copy; 2003-2025, <a href="https://www.apache.org">The Apache Software Foundation</a> - <a href="https://privacy.apache.org/policies/privacy-policy-public.html">Privacy Policy</a><br />
     Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
-    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple, Fortress, Apache Fortress, EnMasse,
     Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
     trademarks of The Apache Software Foundation.
 </div>
-
 </div>
 
+</div>
+<div class="top-bottom-spacer"></div>
 </body>
 
 </html>

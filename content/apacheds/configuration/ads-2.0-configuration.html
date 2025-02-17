@@ -1,20 +1,29 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
+
+    
+    
+        
+    
+
 <head>
     <meta charset="utf-8">
     <title>ADS 2.0 configuration &mdash; Apache Directory</title>
 
     <link href="/css/common.css" rel="stylesheet" type="text/css"/>
-    <link href="/css/green.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/apacheds.css" rel="stylesheet" type="text/css"/>
 
     <link rel="shortcut icon" href="/images/server-icon_16x16.png" />
     <script src="https://www.apachecon.com/event-images/snippet.js"></script>
 </head>
 
 <body>
+<div class="top-bottom-spacer"></div>
 <div id="container">
     <div id="header">
+    <span>Apache Directory</span>
     <a href="/"><div id="headerClick"></div></a>
     <div id="subProjectsNavBar">
         <a href="/">
@@ -83,7 +92,7 @@
 
                 <h5>Downloads</h5>
                 <ul>
-                    <li><a href="/apacheds/downloads.html">ApacheDS 2.0.0.AM27</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/apacheds/downloads.html">ApacheDS 2.0.0.AM27</a>&nbsp;&nbsp;<img src="/images/new_badge.svg" alt="" style="margin-bottom:-3px;" border="0"></li>
                     <li><a href="/apacheds/download-old-versions.html">Older versions</a></li>
                 </ul>
 
@@ -336,82 +345,82 @@ associated transports (<em>ldapSrv1</em> and <em>ldapsSrv1</em>) :</p>
       | 	     +--ads-indexAttributeId=krb5PrincipalName
       |
       +--ou=servers
-       |
-       +--ads-serverId=changePasswordServer
-       |	|
-       |	+--ou=transports
-       |	     |
-       |	     +--ads-transportId=tcp
-       |	     |
-       |	     +--ads-transportId=udp
-       |
-       +--ads-serverId=dnsServer
-       |	|
-       |	+--ou=transports
-       |	     |
-       |	     +--ads-transportId=tcp
-       |	     |
-       |	     +--ads-transportId=udp
-       |
-       +--ads-serverId=httpServer
-       |	|
-       |	+--ou=transports
-       |	|    |
-       |	|    +--ads-transportid=http
-       |	|    |
-       |	|    +--ads-transportid=https
-       |	|
-       |	+--ou=httpWebApps
-       |	     |
-       |	     +--ads-id=testapp
-       |
-       +--ads-serverId=kerberosServer
-       |	|
-       |	+--ou=transports
-       |	     |
-       |	     +--ads-transportid=tcp
-       |	     |
-       |	     +--ads-transportid=udp
-       |
-       +--ads-serverId=ldapServer
-       |	|
-       |	+--ou=replConsumers
-       |	|
-       |	+--ou=transports
-       |	|    |
-       |	|    +--ads-transportid=ldap
-       |	|    |
-       |	|    +--ads-transportid=ldaps
-       |	|
-       |	+--ou=extendedOpHandlers
-       |	|    |
-       |	|    +--ads-extendedOpId=gracefulShutdownHandler
-       |	|    |
-       |	|    +--ads-extendedOpId=starttlshandler
-       |	|    |
-       |	|    +--ads-extendedOpId=storedprochandler
-       |	|
-       |	+--ou=saslMechHandlers
-       |	     |
-       |	     +--ads-saslMechName=CRAM-MD5
-       |	     |
-       |	     +--ads-saslMechName=DIGEST-MD5
-       |	     |
-       |	     +--ads-saslMechName=GSS-SPNEGO
-       |	     |
-       |	     +--ads-saslMechName=GSSAPI
-       |	     |
-       |	     +--ads-saslMechName=NTLM
-       |	     |
-       |	     +--ads-saslMechName=SIMPLE
-       |
-       +--ads-serverId=ntpServer
-        |
-        +--ou=transports
-             |
-             +--ads-transportId=tcp
-             |
-             +--ads-transportId=udp
+	   |
+	   +--ads-serverId=changePasswordServer
+	   |	|
+	   |	+--ou=transports
+	   |	     |
+	   |	     +--ads-transportId=tcp
+	   |	     |
+	   |	     +--ads-transportId=udp
+	   |
+	   +--ads-serverId=dnsServer
+	   |	|
+	   |	+--ou=transports
+	   |	     |
+	   |	     +--ads-transportId=tcp
+	   |	     |
+	   |	     +--ads-transportId=udp
+	   |
+	   +--ads-serverId=httpServer
+	   |	|
+	   |	+--ou=transports
+	   |	|    |
+	   |	|    +--ads-transportid=http
+	   |	|    |
+	   |	|    +--ads-transportid=https
+	   |	|
+	   |	+--ou=httpWebApps
+	   |	     |
+	   |	     +--ads-id=testapp
+	   |
+	   +--ads-serverId=kerberosServer
+	   |	|
+	   |	+--ou=transports
+	   |	     |
+	   |	     +--ads-transportid=tcp
+	   |	     |
+	   |	     +--ads-transportid=udp
+	   |
+	   +--ads-serverId=ldapServer
+	   |	|
+	   |	+--ou=replConsumers
+	   |	|
+	   |	+--ou=transports
+	   |	|    |
+	   |	|    +--ads-transportid=ldap
+	   |	|    |
+	   |	|    +--ads-transportid=ldaps
+	   |	|
+	   |	+--ou=extendedOpHandlers
+	   |	|    |
+	   |	|    +--ads-extendedOpId=gracefulShutdownHandler
+	   |	|    |
+	   |	|    +--ads-extendedOpId=starttlshandler
+	   |	|    |
+	   |	|    +--ads-extendedOpId=storedprochandler
+	   |	|
+	   |	+--ou=saslMechHandlers
+	   |	     |
+	   |	     +--ads-saslMechName=CRAM-MD5
+	   |	     |
+	   |	     +--ads-saslMechName=DIGEST-MD5
+	   |	     |
+	   |	     +--ads-saslMechName=GSS-SPNEGO
+	   |	     |
+	   |	     +--ads-saslMechName=GSSAPI
+	   |	     |
+	   |	     +--ads-saslMechName=NTLM
+	   |	     |
+	   |	     +--ads-saslMechName=SIMPLE
+	   |
+	   +--ads-serverId=ntpServer
+		|
+		+--ou=transports
+		     |
+		     +--ads-transportId=tcp
+		     |
+		     +--ads-transportId=udp
 </code></pre>
 <p><img src="../../images/configuration-dit.png" alt="configuration-schema-dit"></p>
 <p><a name="ADS2.0configuration-DirectoryService"></a></p>
@@ -888,7 +897,7 @@ for the <em>LDAP</em> server and for the <em>Kerberos</em> server :</p>
     &lt;transports&gt;
       &lt;tcpTransport address=&quot;0.0.0.0&quot; port=&quot;10389&quot; nbThreads=&quot;8&quot;
 </code></pre>
-<p>backLog=&quot;50&rdquo; enableSSL=&quot;false&rdquo;/&gt;
+<p>backLog=&ldquo;50&rdquo; enableSSL=&ldquo;false&rdquo;/&gt;
 <tcpTransport address="localhost" port="10686" enableSSL="true"/>
 </transports>
 &hellip;</p>
@@ -942,16 +951,18 @@ transport's ObjectClasses </td></tr>
         <div id="endContent"></div>
     </div>
 
-    <div id="footer">
+    <div class="footer-wrapper">
+<div id="footer">
     &copy; 2003-2025, <a href="https://www.apache.org">The Apache Software Foundation</a> - <a href="https://privacy.apache.org/policies/privacy-policy-public.html">Privacy Policy</a><br />
     Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
-    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple, Fortress, Apache Fortress, EnMasse,
     Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
     trademarks of The Apache Software Foundation.
 </div>
-
 </div>
 
+</div>
+<div class="top-bottom-spacer"></div>
 </body>
 
 </html>

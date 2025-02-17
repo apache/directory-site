@@ -1,20 +1,29 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
+
+    
+    
+        
+    
+
 <head>
     <meta charset="utf-8">
     <title>6.12 - Entry &mdash; Apache Directory</title>
 
     <link href="/css/common.css" rel="stylesheet" type="text/css"/>
-    <link href="/css/brown.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/api.css" rel="stylesheet" type="text/css"/>
 
     <link rel="shortcut icon" href="/images/server-icon_16x16.png" />
     <script src="https://www.apachecon.com/event-images/snippet.js"></script>
 </head>
 
 <body>
+<div class="top-bottom-spacer"></div>
 <div id="container">
     <div id="header">
+    <span>Apache Directory</span>
     <a href="/"><div id="headerClick"></div></a>
     <div id="subProjectsNavBar">
         <a href="/">
@@ -81,7 +90,7 @@
 
                 <h5>Downloads</h5>
                 <ul>
-                    <li><a href="/api/downloads-2.html">Version 2.1.7</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/downloads-2.html">Version 2.1.7</a>&nbsp;&nbsp;<img src="/images/new_badge.svg" alt="" style="margin-bottom:-3px;" border="0"></li>
                     <li><a href="/api/downloads-1.html">Version 1.0.3</a>&nbsp;&nbsp;</li>
                     <li><a href="/api/download-old-versions.html">Older versions</a></li>
                 </ul>
@@ -169,68 +178,68 @@
 <h2 id="creating-an-entry">Creating an Entry</h2>
 <p>We have many ways to create an <em>Entry</em>. Basically, an <em>Entry</em> has a <em>Dn</em> and some <em>Attributes</em>. It can be schema aware, or not. We provide constructors to allow a user to create the kind of <em>Entry</em> wanted.</p>
 <p>The simplest way to create an <em>Entry</em> is to call the default constructor. The created entry will have no attributes, and no <em>Dn</em>. We can also make it schema aware by passing a <em>SchemaManager</em>. Here is an example:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    Entry entry <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> DefaultEntry<span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
-
-    <span style="color:#080;font-style:italic">// Now set the DN and some attributes
-</span><span style="color:#080;font-style:italic"></span>    Entry entry <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> DefaultEntry<span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
-
-    entry<span style="color:#666">.</span><span style="color:#b44">setDn</span><span style="color:#666">(</span> <span style="color:#b44">&#34;dc=example, dc=com&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-    entry<span style="color:#666">.</span><span style="color:#b44">add</span><span style="color:#666">(</span> <span style="color:#b44">&#34;objectClass&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;top&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;domain&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-    entry<span style="color:#666">.</span><span style="color:#b44">add</span><span style="color:#666">(</span> <span style="color:#b44">&#34;dc&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;example&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-
-    <span style="color:#080;font-style:italic">// Schema aware entry
-</span><span style="color:#080;font-style:italic"></span>    Entry entry2 <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> DefaultEntry<span style="color:#666">(</span> schemaManager<span style="color:#666">)</span><span style="color:#666">;</span>
-
-    entry2<span style="color:#666">.</span><span style="color:#b44">add</span><span style="color:#666">(</span> <span style="color:#b44">&#34;objectClass&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;top&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;domain&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-    entry2<span style="color:#666">.</span><span style="color:#b44">add</span><span style="color:#666">(</span> <span style="color:#b44">&#34;dc&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;example&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-</code></pre></div><p>You can also create an <em>Entry</em> passing a <em>Dn</em>, but no attribute. We can create schema aware entries this way too, passing a <em>SchemaManager</em>.</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    Dn dn <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> Dn<span style="color:#666">(</span> schemaManager<span style="color:#666">,</span> <span style="color:#b44">&#34;DomainComponent=example, dc=COM&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-    Entry entry <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> DefaultEntry<span style="color:#666">(</span> <span style="color:#b44">&#34;dc=example, dc=com&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-
-    entry<span style="color:#666">.</span><span style="color:#b44">add</span><span style="color:#666">(</span> <span style="color:#b44">&#34;objectClass&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;top&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;domain&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-    entry<span style="color:#666">.</span><span style="color:#b44">add</span><span style="color:#666">(</span> <span style="color:#b44">&#34;dc&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;example&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-
-    Entry entry2 <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> DefaultEntry<span style="color:#666">(</span> schemaManager<span style="color:#666">,</span> <span style="color:#b44">&#34;dc=example, dc=com&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-
-    entry2<span style="color:#666">.</span><span style="color:#b44">add</span><span style="color:#666">(</span> <span style="color:#b44">&#34;objectClass&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;top&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;domain&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-    entry2<span style="color:#666">.</span><span style="color:#b44">add</span><span style="color:#666">(</span> <span style="color:#b44">&#34;dc&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;example&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-    <span style="color:#666">.</span><span style="color:#666">.</span><span style="color:#666">.</span>
-</code></pre></div><p>We can also create an entry by copying an existing entry. The created <em>Entry</em> must be schema aware. Here is an example:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    Entry entry <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> DefaultEntry<span style="color:#666">(</span> schemaManager<span style="color:#666">,</span> <span style="color:#b44">&#34;dc=example, dc=com&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-
-    entry2<span style="color:#666">.</span><span style="color:#b44">add</span><span style="color:#666">(</span> <span style="color:#b44">&#34;objectClass&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;top&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;domain&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-    entry2<span style="color:#666">.</span><span style="color:#b44">add</span><span style="color:#666">(</span> <span style="color:#b44">&#34;dc&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;example&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-    
-    Entry entry2 <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> DefaultEntry<span style="color:#666">(</span> schemaManager<span style="color:#666">,</span> entry <span style="color:#666">)</span><span style="color:#666">;</span>
-    
-    assertEquals<span style="color:#666">(</span> entry<span style="color:#666">.</span><span style="color:#b44">getDn</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">,</span> entry2<span style="color:#666">.</span><span style="color:#b44">getDn</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-    
-    entry<span style="color:#666">.</span><span style="color:#b44">clear</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
-</code></pre></div><p>Last, but not least, it&rsquo;s possible to create an <em>Entry</em> using a list of LDIF formated attributes. An example worth ten lines of documentation, so let&rsquo;s see what it means.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#bbb">    </span>Entry<span style="color:#bbb"> </span>entry<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>DefaultEntry();<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#080;font-style:italic">// Now set the DN and some attributes</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>Entry<span style="color:#bbb"> </span>entry<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>DefaultEntry();<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>entry.<span style="color:#b44">setDn</span>(<span style="color:#bbb"> </span><span style="color:#b44">&#34;dc=example, dc=com&#34;</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>entry.<span style="color:#b44">add</span>(<span style="color:#bbb"> </span><span style="color:#b44">&#34;objectClass&#34;</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;top&#34;</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;domain&#34;</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>entry.<span style="color:#b44">add</span>(<span style="color:#bbb"> </span><span style="color:#b44">&#34;dc&#34;</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;example&#34;</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#080;font-style:italic">// Schema aware entry</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>Entry<span style="color:#bbb"> </span>entry2<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>DefaultEntry(<span style="color:#bbb"> </span>schemaManager);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>entry2.<span style="color:#b44">add</span>(<span style="color:#bbb"> </span><span style="color:#b44">&#34;objectClass&#34;</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;top&#34;</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;domain&#34;</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>entry2.<span style="color:#b44">add</span>(<span style="color:#bbb"> </span><span style="color:#b44">&#34;dc&#34;</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;example&#34;</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span></code></pre></div><p>You can also create an <em>Entry</em> passing a <em>Dn</em>, but no attribute. We can create schema aware entries this way too, passing a <em>SchemaManager</em>.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#bbb">    </span>Dn<span style="color:#bbb"> </span>dn<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>Dn(<span style="color:#bbb"> </span>schemaManager,<span style="color:#bbb"> </span><span style="color:#b44">&#34;DomainComponent=example, dc=COM&#34;</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>Entry<span style="color:#bbb"> </span>entry<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>DefaultEntry(<span style="color:#bbb"> </span><span style="color:#b44">&#34;dc=example, dc=com&#34;</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>entry.<span style="color:#b44">add</span>(<span style="color:#bbb"> </span><span style="color:#b44">&#34;objectClass&#34;</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;top&#34;</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;domain&#34;</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>entry.<span style="color:#b44">add</span>(<span style="color:#bbb"> </span><span style="color:#b44">&#34;dc&#34;</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;example&#34;</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>Entry<span style="color:#bbb"> </span>entry2<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>DefaultEntry(<span style="color:#bbb"> </span>schemaManager,<span style="color:#bbb"> </span><span style="color:#b44">&#34;dc=example, dc=com&#34;</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>entry2.<span style="color:#b44">add</span>(<span style="color:#bbb"> </span><span style="color:#b44">&#34;objectClass&#34;</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;top&#34;</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;domain&#34;</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>entry2.<span style="color:#b44">add</span>(<span style="color:#bbb"> </span><span style="color:#b44">&#34;dc&#34;</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;example&#34;</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>...<span style="color:#bbb">
+</span></span></span></code></pre></div><p>We can also create an entry by copying an existing entry. The created <em>Entry</em> must be schema aware. Here is an example:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#bbb">    </span>Entry<span style="color:#bbb"> </span>entry<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>DefaultEntry(<span style="color:#bbb"> </span>schemaManager,<span style="color:#bbb"> </span><span style="color:#b44">&#34;dc=example, dc=com&#34;</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>entry2.<span style="color:#b44">add</span>(<span style="color:#bbb"> </span><span style="color:#b44">&#34;objectClass&#34;</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;top&#34;</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;domain&#34;</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>entry2.<span style="color:#b44">add</span>(<span style="color:#bbb"> </span><span style="color:#b44">&#34;dc&#34;</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;example&#34;</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>Entry<span style="color:#bbb"> </span>entry2<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>DefaultEntry(<span style="color:#bbb"> </span>schemaManager,<span style="color:#bbb"> </span>entry<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>assertEquals(<span style="color:#bbb"> </span>entry.<span style="color:#b44">getDn</span>(),<span style="color:#bbb"> </span>entry2.<span style="color:#b44">getDn</span>()<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>entry.<span style="color:#b44">clear</span>();<span style="color:#bbb">
+</span></span></span></code></pre></div><p>Last, but not least, it&rsquo;s possible to create an <em>Entry</em> using a list of LDIF formated attributes. An example worth ten lines of documentation, so let&rsquo;s see what it means.</p>
 <p>First, we will create a schema agnostic entry:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    Entry entry <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> DefaultEntry<span style="color:#666">(</span> 
-        <span style="color:#b44">&#34;dc=example, dc=com&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;objectClass: top&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;objectClass: domain&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;dc: example&#34;</span>
-        <span style="color:#666">)</span><span style="color:#666">;</span>
-</code></pre></div><p>We can also provide a complete LDIF file (except that we can&rsquo;t add the <em>dn</em>):</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    String ldif <span style="color:#666">=</span>
-        <span style="color:#b44">&#34;objectClass: top\n&#34;</span> <span style="color:#666">+</span>           <span style="color:#080;font-style:italic">// The \n is mandatory.
-</span><span style="color:#080;font-style:italic"></span>        <span style="color:#b44">&#34;objectClass: domain\n&#34;</span> <span style="color:#666">+</span>
-        <span style="color:#b44">&#34;dc: example&#34;</span><span style="color:#666">;</span>
-
-    Entry entry <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> DefaultEntry<span style="color:#666">(</span> <span style="color:#b44">&#34;dc=example, dc=com&#34;</span><span style="color:#666">,</span> ldif <span style="color:#666">)</span><span style="color:#666">;</span>
-</code></pre></div><p>One can also combine LDIF and variables like in this example (note that if you use a variable, the attribute must not be followed by the <em>':'</em> char):</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    String domain <span style="color:#666">=</span> <span style="color:#b44">&#34;example&#34;</span><span style="color:#666">;</span>
-    
-    Entry entry <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> DefaultEntry<span style="color:#666">(</span> 
-        <span style="color:#b44">&#34;dc=example, dc=com&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;objectClass: top&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;objectClass: domain&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;cc&#34;</span><span style="color:#666">,</span> domain             <span style="color:#080;font-style:italic">// No &#39;:&#39;
-</span><span style="color:#080;font-style:italic"></span>        <span style="color:#666">)</span><span style="color:#666">;</span>
-</code></pre></div><p>All in all, the following constructors are available :</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#bbb">    </span>Entry<span style="color:#bbb"> </span>entry<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>DefaultEntry(<span style="color:#bbb"> 
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;dc=example, dc=com&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;objectClass: top&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;objectClass: domain&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;dc: example&#34;</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>);<span style="color:#bbb">
+</span></span></span></code></pre></div><p>We can also provide a complete LDIF file (except that we can&rsquo;t add the <em>dn</em>):</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#bbb">    </span>String<span style="color:#bbb"> </span>ldif<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;objectClass: top\n&#34;</span><span style="color:#bbb"> </span><span style="color:#666">+</span><span style="color:#bbb">           </span><span style="color:#080;font-style:italic">// The \n is mandatory.</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;objectClass: domain\n&#34;</span><span style="color:#bbb"> </span><span style="color:#666">+</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;dc: example&#34;</span>;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>Entry<span style="color:#bbb"> </span>entry<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>DefaultEntry(<span style="color:#bbb"> </span><span style="color:#b44">&#34;dc=example, dc=com&#34;</span>,<span style="color:#bbb"> </span>ldif<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span></code></pre></div><p>One can also combine LDIF and variables like in this example (note that if you use a variable, the attribute must not be followed by the <em>&rsquo;:&rsquo;</em> char):</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#bbb">    </span>String<span style="color:#bbb"> </span>domain<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#b44">&#34;example&#34;</span>;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>Entry<span style="color:#bbb"> </span>entry<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>DefaultEntry(<span style="color:#bbb"> 
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;dc=example, dc=com&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;objectClass: top&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;objectClass: domain&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;cc&#34;</span>,<span style="color:#bbb"> </span>domain<span style="color:#bbb">             </span><span style="color:#080;font-style:italic">// No &#39;:&#39;</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>);<span style="color:#bbb">
+</span></span></span></code></pre></div><p>All in all, the following constructors are available :</p>
 <ul>
 <li>DefaultEntry() : Default constructor</li>
 <li>DefaultEntry(SchemaManager) : Default constructor for a schema aware entry</li>
@@ -250,158 +259,158 @@
 <p>In any case, we can add either an empty attribute, or an attribute with some values. Those values can be <em>Strings</em>, <em>byte[]</em> or <em>Values</em>. The added attributes can be schema aware, and we can also provide a user provided name for the attribute type.</p>
 <h5 id="add-methods">add() methods</h5>
 <p>The first method makes it possible to add some existing <em>Attribute</em> to an <em>Entry</em>. Let&rsquo;s see how it works:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    Attribute cn <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> DefaultAttribute<span style="color:#666">(</span> <span style="color:#b44">&#34;cn&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;test&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-    Attribute cn2 <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> DefaultAttribute<span style="color:#666">(</span> <span style="color:#b44">&#34;cn&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;test2&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-    
-    Entry entry <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> DefaultEntry<span style="color:#666">(</span> 
-        <span style="color:#b44">&#34;dc=example, dc=com&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;objectClass: top&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;objectClass: person&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;sn: test&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-    
-    <span style="color:#080;font-style:italic">// Add the new attribute
-</span><span style="color:#080;font-style:italic"></span>    entry<span style="color:#666">.</span><span style="color:#b44">add</span><span style="color:#666">(</span> cn <span style="color:#666">)</span><span style="color:#666">;</span>
-    
-    <span style="color:#080;font-style:italic">// Try to add a second value
-</span><span style="color:#080;font-style:italic"></span>    entry<span style="color:#666">.</span><span style="color:#b44">add</span><span style="color:#666">(</span> cn2 <span style="color:#666">)</span><span style="color:#666">;</span>
-</code></pre></div><p>Otherwise, we can add a new attribute and values into the <em>Entry</em> by passing both parameters. We can also pass an <em>AttributeType</em> to the <em>add()</em> method, making the added attribute schema aware. Note that if the <em>Entry</em> itself is already schema aware, this is not necessary.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#bbb">    </span>Attribute<span style="color:#bbb"> </span>cn<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>DefaultAttribute(<span style="color:#bbb"> </span><span style="color:#b44">&#34;cn&#34;</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;test&#34;</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>Attribute<span style="color:#bbb"> </span>cn2<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>DefaultAttribute(<span style="color:#bbb"> </span><span style="color:#b44">&#34;cn&#34;</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;test2&#34;</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>Entry<span style="color:#bbb"> </span>entry<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>DefaultEntry(<span style="color:#bbb"> 
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;dc=example, dc=com&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;objectClass: top&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;objectClass: person&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;sn: test&#34;</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#080;font-style:italic">// Add the new attribute</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>entry.<span style="color:#b44">add</span>(<span style="color:#bbb"> </span>cn<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#080;font-style:italic">// Try to add a second value</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>entry.<span style="color:#b44">add</span>(<span style="color:#bbb"> </span>cn2<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span></code></pre></div><p>Otherwise, we can add a new attribute and values into the <em>Entry</em> by passing both parameters. We can also pass an <em>AttributeType</em> to the <em>add()</em> method, making the added attribute schema aware. Note that if the <em>Entry</em> itself is already schema aware, this is not necessary.</p>
 <p>Here are some examples, the first one with a schema aware <em>Entry</em>, the second one with a schema agnostic <em>Entry</em>:</p>
 <p>For a schema aware entry :</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    Entry entry <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> DefaultEntry<span style="color:#666">(</span> 
-        schemaManager<span style="color:#666">,</span>
-        <span style="color:#b44">&#34;dc=example, dc=com&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;objectClass: top&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;objectClass: person&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;sn: test&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-    
-    <span style="color:#080;font-style:italic">// Add the new attribute
-</span><span style="color:#080;font-style:italic"></span>    entry<span style="color:#666">.</span><span style="color:#b44">add</span><span style="color:#666">(</span> <span style="color:#b44">&#34;cn&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;test&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-    
-    <span style="color:#080;font-style:italic">// Try to add a second value
-</span><span style="color:#080;font-style:italic"></span>    entry<span style="color:#666">.</span><span style="color:#b44">add</span><span style="color:#666">(</span> <span style="color:#b44">&#34;cn&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;A  second test   &#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-
-    <span style="color:#080;font-style:italic">// We can also add a value to an existing Attribute 
-</span><span style="color:#080;font-style:italic"></span>    entry<span style="color:#666">.</span><span style="color:#b44">add</span><span style="color:#666">(</span> <span style="color:#b44">&#34;sn&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;Another SN&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-
-    <span style="color:#080;font-style:italic">// And even add many values in one shot
-</span><span style="color:#080;font-style:italic"></span>    entry<span style="color:#666">.</span><span style="color:#b44">add</span><span style="color:#666">(</span> <span style="color:#b44">&#34;cn&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;value1&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;value2&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-</code></pre></div><p>For a schema agnostic entry :</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    Entry entry <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> DefaultEntry<span style="color:#666">(</span> 
-        <span style="color:#b44">&#34;dc=example, dc=com&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;objectClass: top&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;objectClass: person&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;sn: test&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-    
-    <span style="color:#080;font-style:italic">// Add the new attribute
-</span><span style="color:#080;font-style:italic"></span>    entry<span style="color:#666">.</span><span style="color:#b44">add</span><span style="color:#666">(</span> <span style="color:#b44">&#34;cn&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;test&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-    
-    <span style="color:#080;font-style:italic">// Try to add a second value
-</span><span style="color:#080;font-style:italic"></span>    entry<span style="color:#666">.</span><span style="color:#b44">add</span><span style="color:#666">(</span> <span style="color:#b44">&#34;cn&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;A  second  test&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-</code></pre></div><p>As you can see, there is no real difference between those two methods, except that we pass the <em>schemaManager</em> into the first one.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#bbb">    </span>Entry<span style="color:#bbb"> </span>entry<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>DefaultEntry(<span style="color:#bbb"> 
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>schemaManager,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;dc=example, dc=com&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;objectClass: top&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;objectClass: person&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;sn: test&#34;</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#080;font-style:italic">// Add the new attribute</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>entry.<span style="color:#b44">add</span>(<span style="color:#bbb"> </span><span style="color:#b44">&#34;cn&#34;</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;test&#34;</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#080;font-style:italic">// Try to add a second value</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>entry.<span style="color:#b44">add</span>(<span style="color:#bbb"> </span><span style="color:#b44">&#34;cn&#34;</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;A  second test   &#34;</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#080;font-style:italic">// We can also add a value to an existing Attribute </span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>entry.<span style="color:#b44">add</span>(<span style="color:#bbb"> </span><span style="color:#b44">&#34;sn&#34;</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;Another SN&#34;</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#080;font-style:italic">// And even add many values in one shot</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>entry.<span style="color:#b44">add</span>(<span style="color:#bbb"> </span><span style="color:#b44">&#34;cn&#34;</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;value1&#34;</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;value2&#34;</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span></code></pre></div><p>For a schema agnostic entry :</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#bbb">    </span>Entry<span style="color:#bbb"> </span>entry<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>DefaultEntry(<span style="color:#bbb"> 
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;dc=example, dc=com&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;objectClass: top&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;objectClass: person&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;sn: test&#34;</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#080;font-style:italic">// Add the new attribute</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>entry.<span style="color:#b44">add</span>(<span style="color:#bbb"> </span><span style="color:#b44">&#34;cn&#34;</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;test&#34;</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#080;font-style:italic">// Try to add a second value</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>entry.<span style="color:#b44">add</span>(<span style="color:#bbb"> </span><span style="color:#b44">&#34;cn&#34;</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;A  second  test&#34;</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span></code></pre></div><p>As you can see, there is no real difference between those two methods, except that we pass the <em>schemaManager</em> into the first one.</p>
 <h5 id="put-methods">put() methods</h5>
 <p>The big difference with the <em>add</em> method is that the attribute is not added, it will replace an existing one. let&rsquo;s see with an example :</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    Entry entry <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> DefaultEntry<span style="color:#666">(</span> 
-        schemaManager<span style="color:#666">,</span> 
-        <span style="color:#b44">&#34;dc=example, dc=com&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;objectClass: top&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;objectClass: person&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;sn: test&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-    
-    <span style="color:#080;font-style:italic">// Add the new attribute
-</span><span style="color:#080;font-style:italic"></span>    entry<span style="color:#666">.</span><span style="color:#b44">put</span><span style="color:#666">(</span> <span style="color:#b44">&#34;cn&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;test&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-    
-    <span style="color:#080;font-style:italic">// Try to add a second value : the &#39;cn&#39; attribute will now contain only &#39;test2&#39;
-</span><span style="color:#080;font-style:italic"></span>    entry<span style="color:#666">.</span><span style="color:#b44">put</span><span style="color:#666">(</span> <span style="color:#b44">&#34;cn&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;test2&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-</code></pre></div><h3 id="removing-attributes">Removing Attributes</h3>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#bbb">    </span>Entry<span style="color:#bbb"> </span>entry<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>DefaultEntry(<span style="color:#bbb"> 
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>schemaManager,<span style="color:#bbb"> 
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;dc=example, dc=com&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;objectClass: top&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;objectClass: person&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;sn: test&#34;</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#080;font-style:italic">// Add the new attribute</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>entry.<span style="color:#b44">put</span>(<span style="color:#bbb"> </span><span style="color:#b44">&#34;cn&#34;</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;test&#34;</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#080;font-style:italic">// Try to add a second value : the &#39;cn&#39; attribute will now contain only &#39;test2&#39;</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>entry.<span style="color:#b44">put</span>(<span style="color:#bbb"> </span><span style="color:#b44">&#34;cn&#34;</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;test2&#34;</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span></code></pre></div><h3 id="removing-attributes">Removing Attributes</h3>
 <p>We can remove either an attribute having a specific value, or an entire attribute. In order to remove a complete attribute, you just have to provide the attribute&rsquo;s name, and use the <em>removeAttributes</em> method.</p>
 <p>Here are examples for both usages :</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    Entry entry <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> DefaultEntry<span style="color:#666">(</span> 
-        schemaManager<span style="color:#666">,</span>
-        <span style="color:#b44">&#34;dc=example, dc=com&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;objectClass: top&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;objectClass: person&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;sn: test&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;cn: test1&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;cn: test2&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;cn: test3&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-    
-    <span style="color:#080;font-style:italic">// Remove the &#34;test2&#34; value
-</span><span style="color:#080;font-style:italic"></span>    entry<span style="color:#666">.</span><span style="color:#b44">remove</span><span style="color:#666">(</span> <span style="color:#b44">&#34;cn&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;test2&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-    
-    <span style="color:#080;font-style:italic">// Try to remove the full attribute
-</span><span style="color:#080;font-style:italic"></span>    entry<span style="color:#666">.</span><span style="color:#b44">removeAttributes</span><span style="color:#666">(</span> <span style="color:#b44">&#34;cn&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-</code></pre></div><h3 id="storing-a-dn">Storing a Dn</h3>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#bbb">    </span>Entry<span style="color:#bbb"> </span>entry<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>DefaultEntry(<span style="color:#bbb"> 
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>schemaManager,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;dc=example, dc=com&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;objectClass: top&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;objectClass: person&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;sn: test&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;cn: test1&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;cn: test2&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;cn: test3&#34;</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#080;font-style:italic">// Remove the &#34;test2&#34; value</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>entry.<span style="color:#b44">remove</span>(<span style="color:#bbb"> </span><span style="color:#b44">&#34;cn&#34;</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;test2&#34;</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#080;font-style:italic">// Try to remove the full attribute</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>entry.<span style="color:#b44">removeAttributes</span>(<span style="color:#bbb"> </span><span style="color:#b44">&#34;cn&#34;</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span></code></pre></div><h3 id="storing-a-dn">Storing a Dn</h3>
 <p>It&rsquo;s also possible to store a new <em>Dn</em> into the Entry, using the _setDn() method. It will replace an existing <em>Dn</em> This method takes either a <em>Dn</em> instance, or a <em>String</em> representing a valid <em>Dn</em>.</p>
 <h3 id="clearing-the-entry">Clearing the Entry</h3>
 <p>You can remove all the _Attribute_s from the entry, using the <em>clear()</em> method :</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    Entry entry <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> DefaultEntry<span style="color:#666">(</span> 
-        schemaManager<span style="color:#666">,</span>
-        <span style="color:#b44">&#34;dc=example, dc=com&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;objectClass: top&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;objectClass: person&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;sn: test&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;cn: test1&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;cn: test2&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;cn: test3&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-    
-    <span style="color:#080;font-style:italic">// Remove all the attributes
-</span><span style="color:#080;font-style:italic"></span>    entry<span style="color:#666">.</span><span style="color:#b44">clear</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
-</code></pre></div><p>The <em>Dn</em> will still be around though.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#bbb">    </span>Entry<span style="color:#bbb"> </span>entry<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>DefaultEntry(<span style="color:#bbb"> 
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>schemaManager,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;dc=example, dc=com&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;objectClass: top&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;objectClass: person&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;sn: test&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;cn: test1&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;cn: test2&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;cn: test3&#34;</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#080;font-style:italic">// Remove all the attributes</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>entry.<span style="color:#b44">clear</span>();<span style="color:#bbb">
+</span></span></span></code></pre></div><p>The <em>Dn</em> will still be around though.</p>
 <h2 id="attribute-data-access-methods">Attribute data access methods</h2>
 <p>The <em>API</em> provides convenient methods to access the <em>Entry</em> content, and to check if it contains some attributes or some values. We will show these methods in the paragraphs that follow.</p>
 <h3 id="contains-method">Contains method</h3>
 <p>The <em>contains</em> and <em>containsAttributes</em> methods check that the <em>Entry</em> contains <em>Attributes</em> and <em>values</em>.</p>
 <p>One can check for the existence of a specific value for a given attribute, or even for multiple values for a specific attribute. Let&rsquo;s see the <em>contains</em> method in action:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    Entry entry <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> DefaultEntry<span style="color:#666">(</span> 
-        schemaManager<span style="color:#666">,</span>
-        <span style="color:#b44">&#34;dc=example, dc=com&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;objectClass: top&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;objectClass: person&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;sn: test&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;cn: test1&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;cn: test2&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;cn: test3&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-    
-    <span style="color:#080;font-style:italic">// Check that the entry contains the &#39;cn&#39; and &#39;sn&#39; Attributes
-</span><span style="color:#080;font-style:italic"></span>    <span style="color:#0b0;font-weight:bold">boolean</span> contains <span style="color:#666">=</span> entry<span style="color:#666">.</span><span style="color:#b44">containsAttribute</span><span style="color:#666">(</span> <span style="color:#b44">&#34;cn&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;sn&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-
-    <span style="color:#080;font-style:italic">// Check that the entry contains 3 given values of the &#39;cn&#39; Attribute
-</span><span style="color:#080;font-style:italic"></span>    contains <span style="color:#666">=</span> entry<span style="color:#666">.</span><span style="color:#b44">contains</span><span style="color:#666">(</span> <span style="color:#b44">&#34;cn&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;test1&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;test2&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;test3&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-</code></pre></div><p>Note that if one value does not exist, the <em>contains()</em> method will return false.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#bbb">    </span>Entry<span style="color:#bbb"> </span>entry<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>DefaultEntry(<span style="color:#bbb"> 
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>schemaManager,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;dc=example, dc=com&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;objectClass: top&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;objectClass: person&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;sn: test&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;cn: test1&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;cn: test2&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;cn: test3&#34;</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#080;font-style:italic">// Check that the entry contains the &#39;cn&#39; and &#39;sn&#39; Attributes</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#0b0;font-weight:bold">boolean</span><span style="color:#bbb"> </span>contains<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span>entry.<span style="color:#b44">containsAttribute</span>(<span style="color:#bbb"> </span><span style="color:#b44">&#34;cn&#34;</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;sn&#34;</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#080;font-style:italic">// Check that the entry contains 3 given values of the &#39;cn&#39; Attribute</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>contains<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span>entry.<span style="color:#b44">contains</span>(<span style="color:#bbb"> </span><span style="color:#b44">&#34;cn&#34;</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;test1&#34;</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;test2&#34;</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;test3&#34;</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span></code></pre></div><p>Note that if one value does not exist, the <em>contains()</em> method will return false.</p>
 <h3 id="getattributes-and-get-methods">getAttributes() and get() methods</h3>
 <p>Returns the <em>Attribute</em> having the given name if it exists. The following test demonstrates its usage:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    Entry entry <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> DefaultEntry<span style="color:#666">(</span> 
-        schemaManager<span style="color:#666">,</span>
-        <span style="color:#b44">&#34;dc=example, dc=com&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;objectClass: top&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;objectClass: person&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;sn: test&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;cn: test1&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;cn: test2&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;cn: test3&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-    
-    <span style="color:#080;font-style:italic">// Get the &#39;cn&#39; Attribute
-</span><span style="color:#080;font-style:italic"></span>    Attribute cn <span style="color:#666">=</span> entry<span style="color:#666">.</span><span style="color:#b44">get</span><span style="color:#666">(</span> <span style="color:#b44">&#34;cn&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-
-    <span style="color:#080;font-style:italic">// Get all the Attributes
-</span><span style="color:#080;font-style:italic"></span>    Collection<span style="color:#666">&lt;</span>Attribute<span style="color:#666">&gt;</span> attributes <span style="color:#666">=</span> entry<span style="color:#666">.</span><span style="color:#b44">getAttributes</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
-</code></pre></div><h3 id="getdn">getDn()</h3>
-<p>This method returns the <em>Entry</em>&lsquo;s <em>Dn</em>.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#bbb">    </span>Entry<span style="color:#bbb"> </span>entry<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>DefaultEntry(<span style="color:#bbb"> 
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>schemaManager,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;dc=example, dc=com&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;objectClass: top&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;objectClass: person&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;sn: test&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;cn: test1&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;cn: test2&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;cn: test3&#34;</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#080;font-style:italic">// Get the &#39;cn&#39; Attribute</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>Attribute<span style="color:#bbb"> </span>cn<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span>entry.<span style="color:#b44">get</span>(<span style="color:#bbb"> </span><span style="color:#b44">&#34;cn&#34;</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#080;font-style:italic">// Get all the Attributes</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>Collection<span style="color:#666">&lt;</span>Attribute<span style="color:#666">&gt;</span><span style="color:#bbb"> </span>attributes<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span>entry.<span style="color:#b44">getAttributes</span>();<span style="color:#bbb">
+</span></span></span></code></pre></div><h3 id="getdn">getDn()</h3>
+<p>This method returns the <em>Entry</em>&rsquo;s <em>Dn</em>.</p>
 <h3 id="hasobjectclass-methods">hasObjectClass methods</h3>
 <p>The <em>hasObjectClass()</em> methods are used to discover if an <em>Entry</em> has a specific <em>ObjectClass</em>. This is a convenient method, as it&rsquo;s possible to do the same thing with a <em>contains()</em> call, but with one less parameter (you don&rsquo;t have to provide the <em>&ldquo;ObjectClass&rdquo;</em> as a first parameter).</p>
 <p>Here is an example using the two existing methods:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    Entry entry <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> DefaultEntry<span style="color:#666">(</span> 
-        schemaManager<span style="color:#666">,</span>
-        <span style="color:#b44">&#34;cn=example, dc=com&#34;</span><span style="color:#666">,</span> 
-        <span style="color:#b44">&#34;objectClass: top&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;objectClass: person&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;cn: example&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;sn: test&#34;</span>
-        <span style="color:#666">)</span><span style="color:#666">;</span>
-    
-    <span style="color:#080;font-style:italic">// Test the presence
-</span><span style="color:#080;font-style:italic"></span>    <span style="color:#0b0;font-weight:bold">boolean</span> isPresent <span style="color:#666">=</span> entry<span style="color:#666">.</span><span style="color:#b44">hasObjectClass</span><span style="color:#666">(</span> <span style="color:#b44">&#34;person&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34; TOP &#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-</code></pre></div><p>As for the <em>contains()</em> method, it will return true if and only if all the ObjectClasses are present in the <em>entry</em>.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#bbb">    </span>Entry<span style="color:#bbb"> </span>entry<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>DefaultEntry(<span style="color:#bbb"> 
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>schemaManager,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;cn=example, dc=com&#34;</span>,<span style="color:#bbb"> 
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;objectClass: top&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;objectClass: person&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;cn: example&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;sn: test&#34;</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#080;font-style:italic">// Test the presence</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#0b0;font-weight:bold">boolean</span><span style="color:#bbb"> </span>isPresent<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span>entry.<span style="color:#b44">hasObjectClass</span>(<span style="color:#bbb"> </span><span style="color:#b44">&#34;person&#34;</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34; TOP &#34;</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span></code></pre></div><p>As for the <em>contains()</em> method, it will return true if and only if all the ObjectClasses are present in the <em>entry</em>.</p>
 <p>Obviously, dealing with a schema agnostic <em>Entry</em>, those methods are more strict. You have to use the exact ObjectClasses case sensitive trimmed names (in the previous example, we can use upper cased names, even with spaces around the names).</p>
 <p>Also note that the <em>hasObjectClass</em> method used with <em>AttributeType</em> does not work on a schema agnostic entry.</p>
 <h2 id="miscellaneous-methods">Miscellaneous methods</h2>
@@ -410,82 +419,82 @@
 <p>Creates a copy of the current <em>Entry</em>. All the <em>Attributes</em> are also cloned.</p>
 <h4 id="iterator">iterator()</h4>
 <p>Allows an iteration over all the <em>Attributes</em>. The following examples shows how this can be used:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    <span style="color:#a2f">@Test</span>
-    Entry entry <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> DefaultEntry<span style="color:#666">(</span> 
-        <span style="color:#b44">&#34;cn=example, dc=com&#34;</span><span style="color:#666">,</span> 
-        <span style="color:#b44">&#34;objectClass: top&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;objectClass: person&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;cn: example&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;sn: test&#34;</span>
-        <span style="color:#666">)</span><span style="color:#666">;</span>
-    
-    <span style="color:#a2f;font-weight:bold">for</span> <span style="color:#666">(</span> Attribute attribute <span style="color:#666">:</span> entry <span style="color:#666">)</span>
-    <span style="color:#666">{</span>
-        System<span style="color:#666">.</span><span style="color:#b44">out</span><span style="color:#666">.</span><span style="color:#b44">println</span><span style="color:#666">(</span> <span style="color:#b44">&#34;Attribute : \n&#34;</span> <span style="color:#666">+</span> attribute<span style="color:#666">.</span><span style="color:#b44">toString</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-    <span style="color:#666">}</span>
-</code></pre></div><p>This produces the following output:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Text" data-lang="Text">    Attribute : 
-        sn: test
-
-    Attribute : 
-        cn: example
-
-    Attribute : 
-        objectclass: top
-        objectclass: person
-</code></pre></div><p>Note that the <em>Attribute</em> order is not guaranteed.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#a2f">@Test</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>Entry<span style="color:#bbb"> </span>entry<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>DefaultEntry(<span style="color:#bbb"> 
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;cn=example, dc=com&#34;</span>,<span style="color:#bbb"> 
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;objectClass: top&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;objectClass: person&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;cn: example&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;sn: test&#34;</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">for</span><span style="color:#bbb"> </span>(<span style="color:#bbb"> </span>Attribute<span style="color:#bbb"> </span>attribute<span style="color:#bbb"> </span>:<span style="color:#bbb"> </span>entry<span style="color:#bbb"> </span>)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>System.<span style="color:#b44">out</span>.<span style="color:#b44">println</span>(<span style="color:#bbb"> </span><span style="color:#b44">&#34;Attribute : \n&#34;</span><span style="color:#bbb"> </span><span style="color:#666">+</span><span style="color:#bbb"> </span>attribute.<span style="color:#b44">toString</span>()<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>}<span style="color:#bbb">
+</span></span></span></code></pre></div><p>This produces the following output:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Text" data-lang="Text"><span style="display:flex;"><span>    Attribute : 
+</span></span><span style="display:flex;"><span>        sn: test
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    Attribute : 
+</span></span><span style="display:flex;"><span>        cn: example
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    Attribute : 
+</span></span><span style="display:flex;"><span>        objectclass: top
+</span></span><span style="display:flex;"><span>        objectclass: person
+</span></span></code></pre></div><p>Note that the <em>Attribute</em> order is not guaranteed.</p>
 <h4 id="isschemaaware">isSchemaAware()</h4>
-<p>Tells if the ¨_Entry_ has an associated _SchemaManager_.</p>
+<p>Tells if the ¨<em>Entry</em> has an associated <em>SchemaManager</em>.</p>
 <h4 id="size">size()</h4>
 <p>Returns the number of <em>Attribute</em> stored in the <em>Entry</em>.</p>
 <h4 id="equalsobject">equals(Object)</h4>
 <p>Check if two <em>Entries</em> are equal or not. It&rsquo;s important to understand that depending on whether the entry is schema aware or not, the comparison will be processed differently. Typically, the attribute&rsquo;s name must be equivilent after being trimmed and set to lowercase.  If the entry is not schema aware, and we can&rsquo;t compare an attribute named &lsquo;cn&rsquo; with another one named &lsquo;2.5.4.3&rsquo; in this case (the <em>Entry</em> must be schema aware to allow such comparison). More important, the values <em>must</em> be identical (same casing, same spaces) in this case.
 The attribute&rsquo;s values order is irrelevant.</p>
 <p>Here are one example with a schema agnostic <em>Entry</em>:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    Entry entry <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> DefaultEntry<span style="color:#666">(</span> 
-        <span style="color:#b44">&#34;dc=example, dc=com&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;objectClass: top&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;objectClass: person&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;sn: test&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;cn: test1&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;cn: test2&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;cn: test3&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-
-    Entry entry2 <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> DefaultEntry<span style="color:#666">(</span> 
-        <span style="color:#b44">&#34;dc=example, dc=com&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;objectClass: top&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;objectClass: person&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;sn: test&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;cn: test2&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;CN: test1&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;cn: test3&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-    
-    <span style="color:#080;font-style:italic">// Will return true
-</span><span style="color:#080;font-style:italic"></span>    <span style="color:#0b0;font-weight:bold">boolean</span> result <span style="color:#666">=</span> entry<span style="color:#666">.</span><span style="color:#b44">equals</span><span style="color:#666">(</span> entry2 <span style="color:#666">)</span><span style="color:#666">;</span>
-</code></pre></div><p>and another example with a schema aware <em>Entry</em>:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    Entry entry <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> DefaultEntry<span style="color:#666">(</span> 
-        schemaManager<span style="color:#666">,</span>
-        <span style="color:#b44">&#34;dc=example, dc=com&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;objectClass: top&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;objectClass: person&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;sn: test&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;cn: test1&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;cn: test2&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;cn: test3&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-
-    Entry entry2 <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> DefaultEntry<span style="color:#666">(</span> 
-        schemaManager<span style="color:#666">,</span>
-        <span style="color:#b44">&#34;dc=example,dc=com&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;objectClass: TOP&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;objectClass: person&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;sn: Test&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;cn: Test2&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;2.5.4.3: test1&#34;</span><span style="color:#666">,</span>
-        <span style="color:#b44">&#34;CommonName: test3&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-
-    <span style="color:#080;font-style:italic">// Will return true
-</span><span style="color:#080;font-style:italic"></span>    <span style="color:#0b0;font-weight:bold">boolean</span> result <span style="color:#666">=</span> entry<span style="color:#666">.</span><span style="color:#b44">equals</span><span style="color:#666">(</span> entry2 <span style="color:#666">)</span><span style="color:#666">;</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#bbb">    </span>Entry<span style="color:#bbb"> </span>entry<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>DefaultEntry(<span style="color:#bbb"> 
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;dc=example, dc=com&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;objectClass: top&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;objectClass: person&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;sn: test&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;cn: test1&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;cn: test2&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;cn: test3&#34;</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>Entry<span style="color:#bbb"> </span>entry2<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>DefaultEntry(<span style="color:#bbb"> 
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;dc=example, dc=com&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;objectClass: top&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;objectClass: person&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;sn: test&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;cn: test2&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;CN: test1&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;cn: test3&#34;</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#080;font-style:italic">// Will return true</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#0b0;font-weight:bold">boolean</span><span style="color:#bbb"> </span>result<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span>entry.<span style="color:#b44">equals</span>(<span style="color:#bbb"> </span>entry2<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span></code></pre></div><p>and another example with a schema aware <em>Entry</em>:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#bbb">    </span>Entry<span style="color:#bbb"> </span>entry<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>DefaultEntry(<span style="color:#bbb"> 
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>schemaManager,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;dc=example, dc=com&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;objectClass: top&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;objectClass: person&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;sn: test&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;cn: test1&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;cn: test2&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;cn: test3&#34;</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>Entry<span style="color:#bbb"> </span>entry2<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>DefaultEntry(<span style="color:#bbb"> 
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>schemaManager,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;dc=example,dc=com&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;objectClass: TOP&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;objectClass: person&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;sn: Test&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;cn: Test2&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;2.5.4.3: test1&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#b44">&#34;CommonName: test3&#34;</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#080;font-style:italic">// Will return true</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#0b0;font-weight:bold">boolean</span><span style="color:#bbb"> </span>result<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span>entry.<span style="color:#b44">equals</span>(<span style="color:#bbb"> </span>entry2<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span></code></pre></div>
 
             
     <div class="nav">
@@ -515,16 +524,18 @@ The attribute&rsquo;s values order is irrelevant.</p>
         <div id="endContent"></div>
     </div>
 
-    <div id="footer">
+    <div class="footer-wrapper">
+<div id="footer">
     &copy; 2003-2025, <a href="https://www.apache.org">The Apache Software Foundation</a> - <a href="https://privacy.apache.org/policies/privacy-policy-public.html">Privacy Policy</a><br />
     Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
-    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple, Fortress, Apache Fortress, EnMasse,
     Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
     trademarks of The Apache Software Foundation.
 </div>
-
 </div>
 
+</div>
+<div class="top-bottom-spacer"></div>
 </body>
 
 </html>

@@ -1,20 +1,29 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
+
+    
+    
+        
+    
+
 <head>
     <meta charset="utf-8">
     <title>Coding Standards &mdash; Apache Directory</title>
 
     <link href="/css/common.css" rel="stylesheet" type="text/css"/>
-    <link href="/css/green.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/apacheds.css" rel="stylesheet" type="text/css"/>
 
     <link rel="shortcut icon" href="/images/server-icon_16x16.png" />
     <script src="https://www.apachecon.com/event-images/snippet.js"></script>
 </head>
 
 <body>
+<div class="top-bottom-spacer"></div>
 <div id="container">
     <div id="header">
+    <span>Apache Directory</span>
     <a href="/"><div id="headerClick"></div></a>
     <div id="subProjectsNavBar">
         <a href="/">
@@ -83,7 +92,7 @@
 
                 <h5>Downloads</h5>
                 <ul>
-                    <li><a href="/apacheds/downloads.html">ApacheDS 2.0.0.AM27</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/apacheds/downloads.html">ApacheDS 2.0.0.AM27</a>&nbsp;&nbsp;<img src="/images/new_badge.svg" alt="" style="margin-bottom:-3px;" border="0"></li>
                     <li><a href="/apacheds/download-old-versions.html">Older versions</a></li>
                 </ul>
 
@@ -138,38 +147,38 @@
 <p>IDEA users can import <a href="settings.jar">this file</a> to enfore the code formating.</p>
 <h2 id="headers">Headers</h2>
 <p>First, you <strong>must</strong> (and this rule accept no exception) use this header in top of all source file, or each file in which you can have comments :</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#080;font-style:italic">/*
-</span><span style="color:#080;font-style:italic"> *  Licensed to the Apache Software Foundation (ASF) under one
-</span><span style="color:#080;font-style:italic"> *  or more contributor license agreements.  See the NOTICE file
-</span><span style="color:#080;font-style:italic"> *  distributed with this work for additional information
-</span><span style="color:#080;font-style:italic"> *  regarding copyright ownership.  The ASF licenses this file
-</span><span style="color:#080;font-style:italic"> *  to you under the Apache License, Version 2.0 (the
-</span><span style="color:#080;font-style:italic"> *  &#34;License&#34;); you may not use this file except in compliance
-</span><span style="color:#080;font-style:italic"> *  with the License.  You may obtain a copy of the License at
-</span><span style="color:#080;font-style:italic"> *
-</span><span style="color:#080;font-style:italic"> *    http://www.apache.org/licenses/LICENSE-2.0
-</span><span style="color:#080;font-style:italic"> *
-</span><span style="color:#080;font-style:italic"> *  Unless required by applicable law or agreed to in writing,
-</span><span style="color:#080;font-style:italic"> *  software distributed under the License is distributed on an
-</span><span style="color:#080;font-style:italic"> *  &#34;AS IS&#34; BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-</span><span style="color:#080;font-style:italic"> *  KIND, either express or implied.  See the License for the
-</span><span style="color:#080;font-style:italic"> *  specific language governing permissions and limitations
-</span><span style="color:#080;font-style:italic"> *  under the License.
-</span><span style="color:#080;font-style:italic"> *
-</span><span style="color:#080;font-style:italic"> */</span>
-</code></pre></div><h3 id="classinterface-headers">Class/Interface headers</h3>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#080;font-style:italic">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> *  Licensed to the Apache Software Foundation (ASF) under one
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> *  or more contributor license agreements.  See the NOTICE file
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> *  distributed with this work for additional information
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> *  regarding copyright ownership.  The ASF licenses this file
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> *  to you under the Apache License, Version 2.0 (the
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> *  &#34;License&#34;); you may not use this file except in compliance
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> *  with the License.  You may obtain a copy of the License at
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> *
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> *    http://www.apache.org/licenses/LICENSE-2.0
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> *
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> *  Unless required by applicable law or agreed to in writing,
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> *  software distributed under the License is distributed on an
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> *  &#34;AS IS&#34; BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> *  KIND, either express or implied.  See the License for the
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> *  specific language governing permissions and limitations
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> *  under the License.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> *
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"> */</span><span style="color:#bbb">
+</span></span></span></code></pre></div><h3 id="classinterface-headers">Class/Interface headers</h3>
 <p>Each <strong>Class</strong> or <em>Interface</em> should have an header which must contains :</p>
 <ul>
 <li>A descrption of this class/interface</li>
 <li>an <em>author</em> tag which should be :</li>
 </ul>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a2f">@author</span> <span style="color:#666">&lt;</span>a href<span style="color:#666">=</span><span style="color:#b44">&#34;mailto:dev@directory.apache.org&#34;</span><span style="color:#666">&gt;</span>Apache Directory Project<span style="color:#666">&lt;</span><span style="color:#666">/</span>a<span style="color:#666">&gt;</span>
-</code></pre></div><DIV class="note" markdown="1">
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a2f">@author</span><span style="color:#bbb"> </span><span style="color:#666">&lt;</span>a<span style="color:#bbb"> </span>href<span style="color:#666">=</span><span style="color:#b44">&#34;mailto:dev@directory.apache.org&#34;</span><span style="color:#666">&gt;</span>Apache<span style="color:#bbb"> </span>Directory<span style="color:#bbb"> </span>Project<span style="color:#666">&lt;/</span>a<span style="color:#666">&gt;</span><span style="color:#bbb">
+</span></span></span></code></pre></div><DIV class="note" markdown="1">
 Thanks to avoid to put your name. The code is not yours, and much more important, but putting ypur name and e-mail, you will intimidate other developper ("Oh, no, I won't mess with this code, it has been developped by XXXX \!") and second, you will receive mail in three years even if you have stopped all commitment on the project (and those who have sent you an e-mail will think that the project's memeber are not responsive...)
 </DIV>
 <p>If you use <strong>html</strong> tags, remember to escape &lsquo;&lt;&rsquo; and &lsquo;&gt;&rsquo; characters&hellip;</p>
 <h3 id="static-members-and-other-members">Static members and other members</h3>
-<p>Just add a single line javadoc comment like : _/** blah &hellip; */_ before each member</p>
+<p>Just add a single line javadoc comment like : <em>/** blah &hellip; */</em> before each member</p>
 <h3 id="methods">Methods</h3>
 <p>Follow the standard <strong>javadoc</strong> rules : Description, <strong>@param</strong>, <strong>@exception</strong> and <strong>@return</strong>. It should be enough. Avoid <strong>@tags</strong>, <strong>@todo</strong> tags, etc&hellip;</p>
 <p>Escape <strong>html</strong> characters</p>
@@ -186,11 +195,11 @@ Thanks to avoid to put your name. The code is not yours, and much more important
 <p>Naming ! Sounds like Blaming :-). Ok. We use <strong>Sun(tm/c/r)</strong> style :</p>
 <ul>
 <li>Constants are in UPPER CASE with accepted &lsquo;_&rsquo;</li>
-<li>Class starts with an uppercase and each starting word is upper cased. No &lsquo;_', please !</li>
-<li>Methods starts with lower case and then follow the same rule than classes. No &lsquo;_', please !</li>
+<li>Class starts with an uppercase and each starting word is upper cased. No &lsquo;_&rsquo;, please !</li>
+<li>Methods starts with lower case and then follow the same rule than classes. No &lsquo;_&rsquo;, please !</li>
 <li>Interfaces should not start with an &lsquo;I&rsquo;</li>
 <li>Classes which implements an Interface must be followed by the postfix &lsquo;impl&rsquo;</li>
-<li>Variables follow the method naming convention. No &lsquo;_', please !</li>
+<li>Variables follow the method naming convention. No &lsquo;_&rsquo;, please !</li>
 <li>Use meaningfull names.</li>
 <li>No double letter variables like ii, jj etc&hellip;</li>
 </ul>
@@ -214,21 +223,21 @@ Thanks to avoid to put your name. The code is not yours, and much more important
 <li>Always use &lsquo;{&rsquo; and &lsquo;}&rsquo; even for a single instruction, or if you have an empty block (don&rsquo;t use &lsquo;;&rsquo; for empty blocks)</li>
 <li>No more than one instruction on a single line, the only exception is the &lsquo;?&rsquo; &lsquo;:&rsquo; operation</li>
 <li>Use <em>this</em> to address the class variable if there is a risk of confusion (for instanc eif you have a parameter with the same name.</li>
-<li>Don&rsquo;t add a &lsquo;a_', or &lsquo;the_&rsquo; before a parameter&rsquo;s name to distinguish it from the class variable which has the same name. Use **this** instead.</li>
+<li>Don&rsquo;t add a &lsquo;a_&rsquo;, or &rsquo;the_&rsquo; before a parameter&rsquo;s name to distinguish it from the class variable which has the same name. Use <strong>this</strong> instead.</li>
 <li>Don&rsquo;t add <strong>final</strong> everywhere. Even if <strong>final</strong> is a substitute for <strong>const</strong>, it&rsquo;s semantic is not clear enough that you use it everywhere.</li>
 <li>Add spaces in method calls after &lsquo;(&rsquo; and before &lsquo;)&rsquo;</li>
 <li>&lsquo;{&rsquo; and &lsquo;}&rsquo; must be on the same column</li>
 </ul>
 <p>This is a code example :</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#666">.</span><span style="color:#666">.</span><span style="color:#666">.</span>
-<span style="color:#0b0;font-weight:bold">int</span> result <span style="color:#666">=</span> myMethod<span style="color:#666">(</span> param1<span style="color:#666">,</span> param2 <span style="color:#666">)</span>
-
-<span style="color:#a2f;font-weight:bold">if</span> <span style="color:#666">(</span> result <span style="color:#666">&gt;</span> 0 <span style="color:#666">)</span>
-<span style="color:#666">{</span>
-    <span style="color:#080;font-style:italic">// do something
-</span><span style="color:#080;font-style:italic"></span><span style="color:#666">}</span>
-<span style="color:#666">.</span><span style="color:#666">.</span><span style="color:#666">.</span>
-</code></pre></div><h2 id="imports">Imports</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>...<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#0b0;font-weight:bold">int</span><span style="color:#bbb"> </span>result<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span>myMethod(<span style="color:#bbb"> </span>param1,<span style="color:#bbb"> </span>param2<span style="color:#bbb"> </span>)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#a2f;font-weight:bold">if</span><span style="color:#bbb"> </span>(<span style="color:#bbb"> </span>result<span style="color:#bbb"> </span><span style="color:#666">&gt;</span><span style="color:#bbb"> </span>0<span style="color:#bbb"> </span>)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#080;font-style:italic">// do something</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>...<span style="color:#bbb">
+</span></span></span></code></pre></div><h2 id="imports">Imports</h2>
 <p>Always declare all the classes you import, do not use <strong>x.y.*</strong></p>
 <h2 id="what-else-">What else ?</h2>
 <p>Well, this was a very short introduction about coding rules. Use commen sense, look at what you see around you when adding some code, ask people about format, if you have a question.</p>
@@ -241,16 +250,18 @@ Thanks to avoid to put your name. The code is not yours, and much more important
         <div id="endContent"></div>
     </div>
 
-    <div id="footer">
+    <div class="footer-wrapper">
+<div id="footer">
     &copy; 2003-2025, <a href="https://www.apache.org">The Apache Software Foundation</a> - <a href="https://privacy.apache.org/policies/privacy-policy-public.html">Privacy Policy</a><br />
     Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
-    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple, Fortress, Apache Fortress, EnMasse,
     Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
     trademarks of The Apache Software Foundation.
 </div>
-
 </div>
 
+</div>
+<div class="top-bottom-spacer"></div>
 </body>
 
 </html>

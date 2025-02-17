@@ -1,20 +1,29 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
+
+    
+    
+        
+    
+
 <head>
     <meta charset="utf-8">
     <title>Five Minute Tutorial &mdash; Apache Directory</title>
 
     <link href="/css/common.css" rel="stylesheet" type="text/css"/>
-    <link href="/css/brown.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/scimple.css" rel="stylesheet" type="text/css"/>
 
     <link rel="shortcut icon" href="/images/server-icon_16x16.png" />
     <script src="https://www.apachecon.com/event-images/snippet.js"></script>
 </head>
 
 <body>
+<div class="top-bottom-spacer"></div>
 <div id="container">
     <div id="header">
+    <span>Apache Directory</span>
     <a href="/"><div id="headerClick"></div></a>
     <div id="subProjectsNavBar">
         <a href="/">
@@ -80,7 +89,7 @@
                 </ul>
                 <h5>Downloads</h5>
                 <ul>
-                    <li><a href="/scimple/downloads.html">Version 1.0.0-M1</a>&nbsp;&nbsp;<IMG src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/scimple/downloads.html">Version 1.0.0-M1</a>&nbsp;&nbsp;<IMG src="/images/new_badge.svg" alt="" style="margin-bottom:-3px;" border="0"></li>
                 </ul>
                 <h5>Documentation</h5>
                 <ul>
@@ -127,26 +136,26 @@
 <h2 id="create-a-new-spring-boot-3x-project">Create a new Spring Boot 3.x project</h2>
 <p>Head over to <a href="https://start.spring.io/#!type=maven-project&amp;language=java&amp;packaging=jar&amp;jvmVersion=17">start.spring.io</a> and create a new project with Spring Boot 3.</p>
 <p>Add the Apache SCIMple dependencies to the project:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#008000;font-weight:bold">&lt;dependency</span><span style="color:#008000;font-weight:bold">&gt;</span>
-  <span style="color:#008000;font-weight:bold">&lt;groupId</span><span style="color:#008000;font-weight:bold">&gt;</span>org.apache.directory.scimple<span style="color:#008000;font-weight:bold">&lt;/groupId&gt;</span>
-  <span style="color:#008000;font-weight:bold">&lt;artifactId</span><span style="color:#008000;font-weight:bold">&gt;</span>scim-spring-boot-starter<span style="color:#008000;font-weight:bold">&lt;/artifactId&gt;</span>
-  <span style="color:#008000;font-weight:bold">&lt;version</span><span style="color:#008000;font-weight:bold">&gt;</span>1.0.0-M1<span style="color:#008000;font-weight:bold">&lt;/version&gt;</span>
-<span style="color:#008000;font-weight:bold">&lt;/dependency&gt;</span>
-<span style="color:#008000;font-weight:bold">&lt;dependency</span><span style="color:#008000;font-weight:bold">&gt;</span>
-  <span style="color:#008000;font-weight:bold">&lt;groupId</span><span style="color:#008000;font-weight:bold">&gt;</span>org.apache.directory.scimple<span style="color:#008000;font-weight:bold">&lt;/groupId&gt;</span>
-  <span style="color:#008000;font-weight:bold">&lt;artifactId</span><span style="color:#008000;font-weight:bold">&gt;</span>scim-server<span style="color:#008000;font-weight:bold">&lt;/artifactId&gt;</span>
-  <span style="color:#008000;font-weight:bold">&lt;version</span><span style="color:#008000;font-weight:bold">&gt;</span>1.0.0-M1<span style="color:#008000;font-weight:bold">&lt;/version&gt;</span>
-<span style="color:#008000;font-weight:bold">&lt;/dependency&gt;</span>
-</code></pre></div><h2 id="implement-repositories">Implement Repositories</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#008000;font-weight:bold">&lt;dependency&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#008000;font-weight:bold">&lt;groupId&gt;</span>org.apache.directory.scimple<span style="color:#008000;font-weight:bold">&lt;/groupId&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#008000;font-weight:bold">&lt;artifactId&gt;</span>scim-spring-boot-starter<span style="color:#008000;font-weight:bold">&lt;/artifactId&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#008000;font-weight:bold">&lt;version&gt;</span>1.0.0-M1<span style="color:#008000;font-weight:bold">&lt;/version&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#008000;font-weight:bold">&lt;/dependency&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#008000;font-weight:bold">&lt;dependency&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#008000;font-weight:bold">&lt;groupId&gt;</span>org.apache.directory.scimple<span style="color:#008000;font-weight:bold">&lt;/groupId&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#008000;font-weight:bold">&lt;artifactId&gt;</span>scim-server<span style="color:#008000;font-weight:bold">&lt;/artifactId&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#008000;font-weight:bold">&lt;version&gt;</span>1.0.0-M1<span style="color:#008000;font-weight:bold">&lt;/version&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#008000;font-weight:bold">&lt;/dependency&gt;</span>
+</span></span></code></pre></div><h2 id="implement-repositories">Implement Repositories</h2>
 <p>A SCIMple <code>Repository</code> is an abstraction used to reduce the boiler plain needed to implement a SCIM service. Each
 <code>Repository</code> implementation translates data to and from SCIMple&rsquo;s data model to an underlying data store.</p>
 <blockquote>
 <p><strong>TL;DR</strong> A <code>Repository</code> handles all the CRUD operations of your User and Group data store.</p>
 </blockquote>
 <p>For example, to create an in-memory <code>Repository</code> that manages users objects, create a new class:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a2f">@Service</span>
-<span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">class</span> <span style="color:#00f">InMemoryUserService</span> <span style="color:#a2f;font-weight:bold">implements</span> Repository<span style="color:#666">&lt;</span>ScimUser<span style="color:#666">&gt;</span> <span style="color:#666">{</span>
-</code></pre></div><p>Then implement each method (<code>create</code>, <code>get</code>, <code>update</code>, <code>delete</code>, and <code>find</code>).</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a2f">@Service</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#a2f;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">class</span> <span style="color:#00f">InMemoryUserService</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">implements</span><span style="color:#bbb"> </span>Repository<span style="color:#666">&lt;</span>ScimUser<span style="color:#666">&gt;</span><span style="color:#bbb"> </span>{<span style="color:#bbb">
+</span></span></span></code></pre></div><p>Then implement each method (<code>create</code>, <code>get</code>, <code>update</code>, <code>delete</code>, and <code>find</code>).</p>
 <p>The first four map to the expected CRUD operations, and the last method <code>find</code>, allows you to transform a SCIM query,
 into the query languages your objects are stored in.</p>
 <p>You can view this complete example on <a href="https://github.com/apache/directory-scimple/tree/1.0.0-M1/scim-server-examples/scim-server-spring-boot">GitHub</a>.</p>
@@ -158,16 +167,18 @@ into the query languages your objects are stored in.</p>
         <div id="endContent"></div>
     </div>
 
-    <div id="footer">
+    <div class="footer-wrapper">
+<div id="footer">
     &copy; 2003-2025, <a href="https://www.apache.org">The Apache Software Foundation</a> - <a href="https://privacy.apache.org/policies/privacy-policy-public.html">Privacy Policy</a><br />
     Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
-    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple, Fortress, Apache Fortress, EnMasse,
     Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
     trademarks of The Apache Software Foundation.
 </div>
-
 </div>
 
+</div>
+<div class="top-bottom-spacer"></div>
 </body>
 
 </html>

@@ -1,20 +1,29 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
+
+    
+    
+        
+    
+
 <head>
     <meta charset="utf-8">
     <title>Developer Guide &mdash; Apache Directory</title>
 
     <link href="/css/common.css" rel="stylesheet" type="text/css"/>
-    <link href="/css/turquoise.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/fortress.css" rel="stylesheet" type="text/css"/>
 
     <link rel="shortcut icon" href="/images/server-icon_16x16.png" />
     <script src="https://www.apachecon.com/event-images/snippet.js"></script>
 </head>
 
 <body>
+<div class="top-bottom-spacer"></div>
 <div id="container">
     <div id="header">
+    <span>Apache Directory</span>
     <a href="/"><div id="headerClick"></div></a>
     <div id="subProjectsNavBar">
         <a href="/">
@@ -82,7 +91,7 @@
 
                 <h5>Downloads</h5>
                 <ul>
-                    <li><a href="/fortress/downloads.html">Fortress 3.0.0</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/fortress/downloads.html">Fortress 3.0.0</a>&nbsp;&nbsp;<img src="/images/new_badge.svg" alt="" style="margin-bottom:-3px;" border="0"></li>
                     <li><a href="/fortress/download-old-versions.html">Older versions</a></li>
                 </ul>
 
@@ -259,54 +268,54 @@ Here, 'xxx' is one of the four fortress mdules : core, enmasse, realm or comande
 <h3 id="step-1-tagging-and-deploying">Step 1: Tagging and Deploying</h3>
 <p>First you need to configure maven for using the good username for scp and operation.</p>
 <p>In the <code>~/.m2/settings.xml</code> you need the following lines :</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#008000;font-weight:bold">&lt;settings</span> <span style="color:#b44">xmlns=</span><span style="color:#b44">&#34;http://maven.apache.org/POM/4.0.0&#34;</span>
-  <span style="color:#b44">xmlns:xsi=</span><span style="color:#b44">&#34;http://www.w3.org/2001/XMLSchema-instance&#34;</span>
-  <span style="color:#b44">xsi:schemaLocation=</span><span style="color:#b44">&#34;http://maven.apache.org/POM/4.0.0
-</span><span style="color:#b44">                      http://maven.apache.org/xsd/settings-1.0.0.xsd&#34;</span><span style="color:#008000;font-weight:bold">&gt;</span>
-
-  <span style="color:#080;font-style:italic">&lt;!--</span><span style="color:#080;font-style:italic"> SERVER SETTINGS </span><span style="color:#080;font-style:italic">--&gt;</span>
-  <span style="color:#008000;font-weight:bold">&lt;servers</span><span style="color:#008000;font-weight:bold">&gt;</span>
-    <span style="color:#080;font-style:italic">&lt;!--</span><span style="color:#080;font-style:italic"> To publish a snapshot of some part of Maven </span><span style="color:#080;font-style:italic">--&gt;</span>
-    <span style="color:#008000;font-weight:bold">&lt;server</span><span style="color:#008000;font-weight:bold">&gt;</span>
-      <span style="color:#008000;font-weight:bold">&lt;id</span><span style="color:#008000;font-weight:bold">&gt;</span>apache.snapshots.https<span style="color:#008000;font-weight:bold">&lt;/id&gt;</span>
-      <span style="color:#008000;font-weight:bold">&lt;username</span><span style="color:#008000;font-weight:bold">&gt;</span>elecharny<span style="color:#008000;font-weight:bold">&lt;/username&gt;</span>
-      <span style="color:#008000;font-weight:bold">&lt;password</span><span style="color:#008000;font-weight:bold">&gt;</span>-----Your password here-----<span style="color:#008000;font-weight:bold">&lt;/password&gt;</span>
-    <span style="color:#008000;font-weight:bold">&lt;/server&gt;</span>
-    <span style="color:#080;font-style:italic">&lt;!--</span><span style="color:#080;font-style:italic"> To publish a website of some part of Maven </span><span style="color:#080;font-style:italic">--&gt;</span>
-    <span style="color:#008000;font-weight:bold">&lt;server</span><span style="color:#008000;font-weight:bold">&gt;</span>
-      <span style="color:#008000;font-weight:bold">&lt;id</span><span style="color:#008000;font-weight:bold">&gt;</span>apache.websites<span style="color:#008000;font-weight:bold">&lt;/id&gt;</span>
-      <span style="color:#008000;font-weight:bold">&lt;username</span><span style="color:#008000;font-weight:bold">&gt;</span>elecharny<span style="color:#008000;font-weight:bold">&lt;/username&gt;</span>
-      <span style="color:#008000;font-weight:bold">&lt;filePermissions</span><span style="color:#008000;font-weight:bold">&gt;</span>664<span style="color:#008000;font-weight:bold">&lt;/filePermissions&gt;</span>
-      <span style="color:#008000;font-weight:bold">&lt;directoryPermissions</span><span style="color:#008000;font-weight:bold">&gt;</span>775<span style="color:#008000;font-weight:bold">&lt;/directoryPermissions&gt;</span>
-    <span style="color:#008000;font-weight:bold">&lt;/server&gt;</span>
-    <span style="color:#080;font-style:italic">&lt;!--</span><span style="color:#080;font-style:italic"> To stage a release of some part of Maven </span><span style="color:#080;font-style:italic">--&gt;</span>
-    <span style="color:#008000;font-weight:bold">&lt;server</span><span style="color:#008000;font-weight:bold">&gt;</span>
-      <span style="color:#008000;font-weight:bold">&lt;id</span><span style="color:#008000;font-weight:bold">&gt;</span>apache.releases.https<span style="color:#008000;font-weight:bold">&lt;/id&gt;</span>
-      <span style="color:#008000;font-weight:bold">&lt;username</span><span style="color:#008000;font-weight:bold">&gt;</span>elecharny<span style="color:#008000;font-weight:bold">&lt;/username&gt;</span>
-      <span style="color:#008000;font-weight:bold">&lt;password</span><span style="color:#008000;font-weight:bold">&gt;</span>-----Your password here-----<span style="color:#008000;font-weight:bold">&lt;/password&gt;</span>
-    <span style="color:#008000;font-weight:bold">&lt;/server&gt;</span>
-    <span style="color:#080;font-style:italic">&lt;!--</span><span style="color:#080;font-style:italic"> To stage a website of some part of Maven </span><span style="color:#080;font-style:italic">--&gt;</span>
-    <span style="color:#008000;font-weight:bold">&lt;server</span><span style="color:#008000;font-weight:bold">&gt;</span>
-      <span style="color:#008000;font-weight:bold">&lt;id</span><span style="color:#008000;font-weight:bold">&gt;</span>stagingSite<span style="color:#008000;font-weight:bold">&lt;/id&gt;</span> <span style="color:#080;font-style:italic">&lt;!--</span><span style="color:#080;font-style:italic"> must match hard</span><span style="color:#080;font-style:italic">-</span><span style="color:#080;font-style:italic">coded repository identifier in site:stage</span><span style="color:#080;font-style:italic">-</span><span style="color:#080;font-style:italic">deploy </span><span style="color:#080;font-style:italic">--&gt;</span>
-      <span style="color:#008000;font-weight:bold">&lt;username</span><span style="color:#008000;font-weight:bold">&gt;</span>elecharny<span style="color:#008000;font-weight:bold">&lt;/username&gt;</span>
-      <span style="color:#008000;font-weight:bold">&lt;filePermissions</span><span style="color:#008000;font-weight:bold">&gt;</span>664<span style="color:#008000;font-weight:bold">&lt;/filePermissions&gt;</span>
-      <span style="color:#008000;font-weight:bold">&lt;directoryPermissions</span><span style="color:#008000;font-weight:bold">&gt;</span>775<span style="color:#008000;font-weight:bold">&lt;/directoryPermissions&gt;</span>
-    <span style="color:#008000;font-weight:bold">&lt;/server&gt;</span>
-  <span style="color:#008000;font-weight:bold">&lt;/servers&gt;</span>
-
-  <span style="color:#080;font-style:italic">&lt;!--</span><span style="color:#080;font-style:italic"> PROFILE SETTINGS </span><span style="color:#080;font-style:italic">--&gt;</span>
-  <span style="color:#008000;font-weight:bold">&lt;profiles</span><span style="color:#008000;font-weight:bold">&gt;</span>
-    <span style="color:#008000;font-weight:bold">&lt;profile</span><span style="color:#008000;font-weight:bold">&gt;</span>
-      <span style="color:#008000;font-weight:bold">&lt;id</span><span style="color:#008000;font-weight:bold">&gt;</span>apache-release<span style="color:#008000;font-weight:bold">&lt;/id&gt;</span>
-      <span style="color:#008000;font-weight:bold">&lt;properties</span><span style="color:#008000;font-weight:bold">&gt;</span>
-        <span style="color:#080;font-style:italic">&lt;!--</span><span style="color:#080;font-style:italic"> Configuration for artifacts signature </span><span style="color:#080;font-style:italic">--&gt;</span>
-        <span style="color:#008000;font-weight:bold">&lt;gpg.passphrase</span><span style="color:#008000;font-weight:bold">&gt;</span>-----Your passphrase here-----<span style="color:#008000;font-weight:bold">&lt;/gpg.passphrase&gt;</span>
-      <span style="color:#008000;font-weight:bold">&lt;/properties&gt;</span>
-    <span style="color:#008000;font-weight:bold">&lt;/profile&gt;</span>
-  <span style="color:#008000;font-weight:bold">&lt;/profiles&gt;</span>
-
-<span style="color:#008000;font-weight:bold">&lt;/settings&gt;</span>
-</code></pre></div><h3 id="step-2--processing-with-a-dry-run">step 2 : Processing with a dry run</h3>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#008000;font-weight:bold">&lt;settings</span> <span style="color:#b44">xmlns=</span><span style="color:#b44">&#34;http://maven.apache.org/POM/4.0.0&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#b44">xmlns:xsi=</span><span style="color:#b44">&#34;http://www.w3.org/2001/XMLSchema-instance&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#b44">xsi:schemaLocation=</span><span style="color:#b44">&#34;http://maven.apache.org/POM/4.0.0
+</span></span></span><span style="display:flex;"><span><span style="color:#b44">                      http://maven.apache.org/xsd/settings-1.0.0.xsd&#34;</span><span style="color:#008000;font-weight:bold">&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#080;font-style:italic">&lt;!-- SERVER SETTINGS --&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#008000;font-weight:bold">&lt;servers&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#080;font-style:italic">&lt;!-- To publish a snapshot of some part of Maven --&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#008000;font-weight:bold">&lt;server&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#008000;font-weight:bold">&lt;id&gt;</span>apache.snapshots.https<span style="color:#008000;font-weight:bold">&lt;/id&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#008000;font-weight:bold">&lt;username&gt;</span>elecharny<span style="color:#008000;font-weight:bold">&lt;/username&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#008000;font-weight:bold">&lt;password&gt;</span>-----Your password here-----<span style="color:#008000;font-weight:bold">&lt;/password&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#008000;font-weight:bold">&lt;/server&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#080;font-style:italic">&lt;!-- To publish a website of some part of Maven --&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#008000;font-weight:bold">&lt;server&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#008000;font-weight:bold">&lt;id&gt;</span>apache.websites<span style="color:#008000;font-weight:bold">&lt;/id&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#008000;font-weight:bold">&lt;username&gt;</span>elecharny<span style="color:#008000;font-weight:bold">&lt;/username&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#008000;font-weight:bold">&lt;filePermissions&gt;</span>664<span style="color:#008000;font-weight:bold">&lt;/filePermissions&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#008000;font-weight:bold">&lt;directoryPermissions&gt;</span>775<span style="color:#008000;font-weight:bold">&lt;/directoryPermissions&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#008000;font-weight:bold">&lt;/server&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#080;font-style:italic">&lt;!-- To stage a release of some part of Maven --&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#008000;font-weight:bold">&lt;server&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#008000;font-weight:bold">&lt;id&gt;</span>apache.releases.https<span style="color:#008000;font-weight:bold">&lt;/id&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#008000;font-weight:bold">&lt;username&gt;</span>elecharny<span style="color:#008000;font-weight:bold">&lt;/username&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#008000;font-weight:bold">&lt;password&gt;</span>-----Your password here-----<span style="color:#008000;font-weight:bold">&lt;/password&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#008000;font-weight:bold">&lt;/server&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#080;font-style:italic">&lt;!-- To stage a website of some part of Maven --&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#008000;font-weight:bold">&lt;server&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#008000;font-weight:bold">&lt;id&gt;</span>stagingSite<span style="color:#008000;font-weight:bold">&lt;/id&gt;</span> <span style="color:#080;font-style:italic">&lt;!-- must match hard-coded repository identifier in site:stage-deploy --&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#008000;font-weight:bold">&lt;username&gt;</span>elecharny<span style="color:#008000;font-weight:bold">&lt;/username&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#008000;font-weight:bold">&lt;filePermissions&gt;</span>664<span style="color:#008000;font-weight:bold">&lt;/filePermissions&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#008000;font-weight:bold">&lt;directoryPermissions&gt;</span>775<span style="color:#008000;font-weight:bold">&lt;/directoryPermissions&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#008000;font-weight:bold">&lt;/server&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#008000;font-weight:bold">&lt;/servers&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#080;font-style:italic">&lt;!-- PROFILE SETTINGS --&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#008000;font-weight:bold">&lt;profiles&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#008000;font-weight:bold">&lt;profile&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#008000;font-weight:bold">&lt;id&gt;</span>apache-release<span style="color:#008000;font-weight:bold">&lt;/id&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#008000;font-weight:bold">&lt;properties&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#080;font-style:italic">&lt;!-- Configuration for artifacts signature --&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#008000;font-weight:bold">&lt;gpg.passphrase&gt;</span>-----Your passphrase here-----<span style="color:#008000;font-weight:bold">&lt;/gpg.passphrase&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#008000;font-weight:bold">&lt;/properties&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#008000;font-weight:bold">&lt;/profile&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#008000;font-weight:bold">&lt;/profiles&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#008000;font-weight:bold">&lt;/settings&gt;</span>
+</span></span></code></pre></div><h3 id="step-2--processing-with-a-dry-run">step 2 : Processing with a dry run</h3>
 <p>After having checked out the trunk, and built it (see step 0),</p>
 <pre><code>$ git clone https://gitbox.apache.org/repos/asf/directory-fortress-core.git directory-fortress-core
 $ cd directory-fortress-core
@@ -629,16 +638,18 @@ fortress/gen/docs/&lt;the new version&gt;
         <div id="endContent"></div>
     </div>
 
-    <div id="footer">
+    <div class="footer-wrapper">
+<div id="footer">
     &copy; 2003-2025, <a href="https://www.apache.org">The Apache Software Foundation</a> - <a href="https://privacy.apache.org/policies/privacy-policy-public.html">Privacy Policy</a><br />
     Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
-    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple, Fortress, Apache Fortress, EnMasse,
     Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
     trademarks of The Apache Software Foundation.
 </div>
-
 </div>
 
+</div>
+<div class="top-bottom-spacer"></div>
 </body>
 
 </html>

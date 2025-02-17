@@ -1,20 +1,24 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
+
 <head>
     <meta charset="utf-8">
     <title>Top Level Management Policy &mdash; Apache Directory</title>
 
     <link href="/css/common.css" rel="stylesheet" type="text/css"/>
-    <link href="/css/green.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/apacheds.css" rel="stylesheet" type="text/css"/>
 
     <link rel="shortcut icon" href="/images/server-icon_16x16.png" />
     <script src="https://www.apachecon.com/event-images/snippet.js"></script>
 </head>
 
 <body>
+<div class="top-bottom-spacer"></div>
 <div id="container">
     <div id="header">
+    <span>Apache Directory</span>
     <a href="/"><div id="headerClick"></div></a>
     <div id="subProjectsNavBar">
         <a href="/">
@@ -75,14 +79,14 @@
                 <a class="acevent" data-format="wide" data-width="170"></a>
                 <h5>Latest Downloads</h5>
                 <ul>
-                    <li><a href="/apacheds/downloads.html">ApacheDS 2.0.0.AM27</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
-                    <li><a href="/studio/downloads.html">Studio 2.0.0-M17</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
-                    <li><a href="/api/downloads-2.html">LDAP API 2.1.7</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/apacheds/downloads.html">ApacheDS 2.0.0.AM27</a>&nbsp;&nbsp;<img src="/images/new_badge.svg" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/studio/downloads.html">Studio 2.0.0-M17</a>&nbsp;&nbsp;<img src="/images/new_badge.svg" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/downloads-2.html">LDAP API 2.1.7</a>&nbsp;&nbsp;<img src="/images/new_badge.svg" alt="" style="margin-bottom:-3px;" border="0"></li>
                     <li><a href="/api/downloads-1.html">LDAP API 1.0.3</a>&nbsp;&nbsp;</li>
-                    <li><a href="/mavibot/downloads.html">Mavibot 1.0.0-M8</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
-                    <li><a href="/fortress/downloads.html">Fortress 3.0.0</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
-                    <li><a href="/scimple/downloads.html">SCIMple 1.0.0-M1</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
-                    <li><a href="/kerby/downloads.html">Kerby 2.1.0</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/mavibot/downloads.html">Mavibot 1.0.0-M8</a>&nbsp;&nbsp;<img src="/images/new_badge.svg" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/fortress/downloads.html">Fortress 3.0.0</a>&nbsp;&nbsp;<img src="/images/new_badge.svg" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/scimple/downloads.html">SCIMple 1.0.0-M1</a>&nbsp;&nbsp;<img src="/images/new_badge.svg" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/kerby/downloads.html">Kerby 2.1.0</a>&nbsp;&nbsp;<img src="/images/new_badge.svg" alt="" style="margin-bottom:-3px;" border="0"></li>
                 </ul>
 
                 <h5>Sub-Projects</h5>
@@ -162,23 +166,23 @@
 <ul>
 <li>Prepare the POM</li>
 </ul>
-<pre><code>$ mvn release:prepare -DdryRun=true
+<pre tabindex="0"><code>$ mvn release:prepare -DdryRun=true
 </code></pre><ul>
 <li>Deploy a snapshot</li>
 </ul>
-<pre><code>$ mvn deploy
+<pre tabindex="0"><code>$ mvn deploy
 </code></pre><p>This is useful to verify your settings in <em>~/.m2/settings.xml</em> (Nexus password and GPG key)</p>
 <ul>
 <li>Prepare the release</li>
 </ul>
-<pre><code>$ mvn release:clean
+<pre tabindex="0"><code>$ mvn release:clean
 $ mvn release:prepare
 </code></pre><p>When asked for the SCM release tag please remove the project prefix, the version number is enough.</p>
 <p>This creates a tag <a href="https://github.com/apache/directory-server/tree/2.0.0.AM27">here (this is an example for tag 2.0.0.AM27)</a></p>
 <ul>
 <li>Stage the release</li>
 </ul>
-<pre><code>$ mvn release:perform
+<pre tabindex="0"><code>$ mvn release:perform
 </code></pre><p>This deploys the POM to a staging repository. Go to <a href="https://repository.apache.org/index.html#stagingRepositories">the Nexus staging Repositories</a> and close the staging repository.</p>
 <ul>
 <li>Inform dev list</li>
@@ -193,16 +197,18 @@ $ mvn release:prepare
         <div id="endContent"></div>
     </div>
 
-    <div id="footer">
+    <div class="footer-wrapper">
+<div id="footer">
     &copy; 2003-2025, <a href="https://www.apache.org">The Apache Software Foundation</a> - <a href="https://privacy.apache.org/policies/privacy-policy-public.html">Privacy Policy</a><br />
     Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
-    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple, Fortress, Apache Fortress, EnMasse,
     Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
     trademarks of The Apache Software Foundation.
 </div>
-
 </div>
 
+</div>
+<div class="top-bottom-spacer"></div>
 </body>
 
 </html>

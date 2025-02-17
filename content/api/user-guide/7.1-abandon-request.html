@@ -1,20 +1,29 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
+
+    
+    
+        
+    
+
 <head>
     <meta charset="utf-8">
     <title>7.1 - AbandonRequest &mdash; Apache Directory</title>
 
     <link href="/css/common.css" rel="stylesheet" type="text/css"/>
-    <link href="/css/brown.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/api.css" rel="stylesheet" type="text/css"/>
 
     <link rel="shortcut icon" href="/images/server-icon_16x16.png" />
     <script src="https://www.apachecon.com/event-images/snippet.js"></script>
 </head>
 
 <body>
+<div class="top-bottom-spacer"></div>
 <div id="container">
     <div id="header">
+    <span>Apache Directory</span>
     <a href="/"><div id="headerClick"></div></a>
     <div id="subProjectsNavBar">
         <a href="/">
@@ -81,7 +90,7 @@
 
                 <h5>Downloads</h5>
                 <ul>
-                    <li><a href="/api/downloads-2.html">Version 2.1.7</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/downloads-2.html">Version 2.1.7</a>&nbsp;&nbsp;<img src="/images/new_badge.svg" alt="" style="margin-bottom:-3px;" border="0"></li>
                     <li><a href="/api/downloads-1.html">Version 1.0.3</a>&nbsp;&nbsp;</li>
                     <li><a href="/api/download-old-versions.html">Older versions</a></li>
                 </ul>
@@ -161,25 +170,25 @@
             
 	<h1 id="71-abandonrequest">7.1 AbandonRequest</h1>
 <p>This request is used to tell the server that a given request (sent previously) has been abandoned. The only required parameter is the <em>ID</em> field of a request you want to stop.</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">interface</span> <span style="color:#00f">AbandonRequest</span> <span style="color:#a2f;font-weight:bold">extends</span> Request
-    <span style="color:#666">{</span>
-        <span style="color:#080;font-style:italic">/**
-</span><span style="color:#080;font-style:italic">         * Gets the id of the request operation to terminate.
-</span><span style="color:#080;font-style:italic">         * 
-</span><span style="color:#080;font-style:italic">         * @return the id of the request message to abandon
-</span><span style="color:#080;font-style:italic">         */</span>
-        <span style="color:#0b0;font-weight:bold">int</span> <span style="color:#00a000">getAbandoned</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
-
-
-        <span style="color:#080;font-style:italic">/**
-</span><span style="color:#080;font-style:italic">         * Sets the id of the request operation to terminate.
-</span><span style="color:#080;font-style:italic">         * 
-</span><span style="color:#080;font-style:italic">         * @param requestId the sequence id of the request message to abandon
-</span><span style="color:#080;font-style:italic">         * @return The AbandonRequest instance
-</span><span style="color:#080;font-style:italic">         */</span>
-        AbandonRequest <span style="color:#00a000">setAbandoned</span><span style="color:#666">(</span> <span style="color:#0b0;font-weight:bold">int</span> requestId <span style="color:#666">)</span><span style="color:#666">;</span>
-    <span style="color:#666">}</span>
-</code></pre></div><p>There are two existing implementations that can used:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">interface</span> <span style="color:#00f">AbandonRequest</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">extends</span><span style="color:#bbb"> </span>Request<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#080;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         * Gets the id of the request operation to terminate.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         * 
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         * @return the id of the request message to abandon
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         */</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#0b0;font-weight:bold">int</span><span style="color:#bbb"> </span><span style="color:#00a000">getAbandoned</span>();<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#080;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         * Sets the id of the request operation to terminate.
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         * 
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         * @param requestId the sequence id of the request message to abandon
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         * @return The AbandonRequest instance
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">         */</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>AbandonRequest<span style="color:#bbb"> </span><span style="color:#00a000">setAbandoned</span>(<span style="color:#bbb"> </span><span style="color:#0b0;font-weight:bold">int</span><span style="color:#bbb"> </span>requestId<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>}<span style="color:#bbb">
+</span></span></span></code></pre></div><p>There are two existing implementations that can used:</p>
 <ul>
 <li><em>AbandonRequestImpl</em> : The default implementation.</li>
 <li><em>AbandonRequestDsml</em> : An implementation used when you want to generate a DSML request</li>
@@ -187,18 +196,18 @@
 <p>The <em>AbandonRequest</em> message does not have a response, the abandonned request will just be stopped.</p>
 <h2 id="usage">Usage</h2>
 <p>It&rsquo;s pretty easy to do. You just to inject the ID of the request you want to abandon:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    connection<span style="color:#666">.</span><span style="color:#b44">abandon</span><span style="color:#666">(</span> messageId <span style="color:#666">)</span><span style="color:#666">;</span>
-</code></pre></div><p>This will interrupt the request whose ID equals <em>messageId</em>.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#bbb">    </span>connection.<span style="color:#b44">abandon</span>(<span style="color:#bbb"> </span>messageId<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span></code></pre></div><p>This will interrupt the request whose ID equals <em>messageId</em>.</p>
 <h3 id="adding-some-controls">Adding some controls</h3>
 <p>You can add a control in the <em>AbandonRequest</em>, once you create an instance of <em>AbandonRequestImpl</em>:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    AbandonRequest abandonRequest <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> AbandonRequestImpl<span style="color:#666">(</span> messageId <span style="color:#666">)</span><span style="color:#666">;</span>
-
-    <span style="color:#080;font-style:italic">// Add your control 
-</span><span style="color:#080;font-style:italic"></span>    abandonRequest<span style="color:#666">.</span><span style="color:#b44">addControl</span><span style="color:#666">(</span> control <span style="color:#666">)</span><span style="color:#666">;</span>
-
-    <span style="color:#080;font-style:italic">// Send the request
-</span><span style="color:#080;font-style:italic"></span>    connection<span style="color:#666">.</span><span style="color:#b44">abandon</span><span style="color:#666">(</span> abandonRequest <span style="color:#666">)</span><span style="color:#666">;</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#bbb">    </span>AbandonRequest<span style="color:#bbb"> </span>abandonRequest<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>AbandonRequestImpl(<span style="color:#bbb"> </span>messageId<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#080;font-style:italic">// Add your control </span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>abandonRequest.<span style="color:#b44">addControl</span>(<span style="color:#bbb"> </span>control<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#080;font-style:italic">// Send the request</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>connection.<span style="color:#b44">abandon</span>(<span style="color:#bbb"> </span>abandonRequest<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span></code></pre></div>
 
             
     <div class="nav">
@@ -228,16 +237,18 @@
         <div id="endContent"></div>
     </div>
 
-    <div id="footer">
+    <div class="footer-wrapper">
+<div id="footer">
     &copy; 2003-2025, <a href="https://www.apache.org">The Apache Software Foundation</a> - <a href="https://privacy.apache.org/policies/privacy-policy-public.html">Privacy Policy</a><br />
     Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
-    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple, Fortress, Apache Fortress, EnMasse,
     Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
     trademarks of The Apache Software Foundation.
 </div>
-
 </div>
 
+</div>
+<div class="top-bottom-spacer"></div>
 </body>
 
 </html>

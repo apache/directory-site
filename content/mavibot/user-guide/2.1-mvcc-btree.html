@@ -1,20 +1,29 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
+
+    
+    
+        
+    
+
 <head>
     <meta charset="utf-8">
     <title>2 - MVCC B-tree &mdash; Apache Directory</title>
 
     <link href="/css/common.css" rel="stylesheet" type="text/css"/>
-    <link href="/css/turquoise.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/mavibot.css" rel="stylesheet" type="text/css"/>
 
     <link rel="shortcut icon" href="/images/server-icon_16x16.png" />
     <script src="https://www.apachecon.com/event-images/snippet.js"></script>
 </head>
 
 <body>
+<div class="top-bottom-spacer"></div>
 <div id="container">
     <div id="header">
+    <span>Apache Directory</span>
     <a href="/"><div id="headerClick"></div></a>
     <div id="subProjectsNavBar">
         <a href="/">
@@ -81,7 +90,7 @@
 
                 <h5>Downloads</h5>
                 <ul>
-                    <li><a href="/mavibot/downloads.html">Version 1.0.0-M8</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/mavibot/downloads.html">Version 1.0.0-M8</a>&nbsp;&nbsp;<img src="/images/new_badge.svg" alt="" style="margin-bottom:-3px;" border="0"></li>
                     <li><a href="/mavibot/download-old-versions.html">Older versions</a></li>
                 </ul>
 
@@ -197,7 +206,7 @@ close the WriteTransaction
 * The *RootPage*, which is the root of the **B-Tree**
 </code></pre>
 <p>Each of these elemenst are stored into <em>Pages</em>, and referenced through the offset of those <em>Pages</em> on disk (the offset is a long, and it&rsquo;s just the position of a page in the database file).</p>
-<p>The very first step is to retrieve the latest <strong>B-Tree</strong> revision. We have a management <strong>B-Tree</strong> that keeps a track of all the active revisions for every <strong>B-Tree</strong> : the <strong>BtreeOfBtrees</strong>, called <strong>BOB</strong>. It stores a reference on each <strong>B-tree</strong>&lsquo;s header for every active revision. The key is a composition of the <strong>B-Tree</strong> name and its revision : *&lt;name, revision&gt; and it reference the <em>BTreeHeader</em>&lsquo;s offset (the position of the <em>BtreeHeader</em>&lsquo;s page). Fo that, we browse the <em>BOB</em> looking for the newest &lt;Name, Revision&gt; couple (actually, we are looking for the first tuple that is lower that &lt;name, infinite&gt;).</p>
+<p>The very first step is to retrieve the latest <strong>B-Tree</strong> revision. We have a management <strong>B-Tree</strong> that keeps a track of all the active revisions for every <strong>B-Tree</strong> : the <strong>BtreeOfBtrees</strong>, called <strong>BOB</strong>. It stores a reference on each <strong>B-tree</strong>&rsquo;s header for every active revision. The key is a composition of the <strong>B-Tree</strong> name and its revision : *&lt;name, revision&gt; and it reference the <em>BTreeHeader</em>&rsquo;s offset (the position of the <em>BtreeHeader</em>&rsquo;s page). Fo that, we browse the <em>BOB</em> looking for the newest &lt;Name, Revision&gt; couple (actually, we are looking for the first tuple that is lower that &lt;name, infinite&gt;).</p>
 <p>Once we have found the tuple, we know where to fetch the <em>BtreeHeader</em> from. So do we. We can then fetch the <em>RootPage</em>, which is the starting point for any update.</p>
 <p>At this point, the update is either an addition or a removal. That will potentially change the whole structure of the <strong>B-Tree</strong>, or a single page. In any case, we will have a new <em>RootPage</em> pointing to old pages and to newly created pages. Let&rsquo;s see again the previous picture :</p>
 <p><img src="images/R4-node.png" alt="MVCC sample"></p>
@@ -255,16 +264,18 @@ We will see later on what is the Transaction Context
         <div id="endContent"></div>
     </div>
 
-    <div id="footer">
+    <div class="footer-wrapper">
+<div id="footer">
     &copy; 2003-2025, <a href="https://www.apache.org">The Apache Software Foundation</a> - <a href="https://privacy.apache.org/policies/privacy-policy-public.html">Privacy Policy</a><br />
     Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
-    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple, Fortress, Apache Fortress, EnMasse,
     Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
     trademarks of The Apache Software Foundation.
 </div>
-
 </div>
 
+</div>
+<div class="top-bottom-spacer"></div>
 </body>
 
 </html>

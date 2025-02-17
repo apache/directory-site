@@ -1,20 +1,29 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
+
+    
+    
+        
+    
+
 <head>
     <meta charset="utf-8">
     <title>2.1 - Connection and disconnection &mdash; Apache Directory</title>
 
     <link href="/css/common.css" rel="stylesheet" type="text/css"/>
-    <link href="/css/brown.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/api.css" rel="stylesheet" type="text/css"/>
 
     <link rel="shortcut icon" href="/images/server-icon_16x16.png" />
     <script src="https://www.apachecon.com/event-images/snippet.js"></script>
 </head>
 
 <body>
+<div class="top-bottom-spacer"></div>
 <div id="container">
     <div id="header">
+    <span>Apache Directory</span>
     <a href="/"><div id="headerClick"></div></a>
     <div id="subProjectsNavBar">
         <a href="/">
@@ -81,7 +90,7 @@
 
                 <h5>Downloads</h5>
                 <ul>
-                    <li><a href="/api/downloads-2.html">Version 2.1.7</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/downloads-2.html">Version 2.1.7</a>&nbsp;&nbsp;<img src="/images/new_badge.svg" alt="" style="margin-bottom:-3px;" border="0"></li>
                     <li><a href="/api/downloads-1.html">Version 1.0.3</a>&nbsp;&nbsp;</li>
                     <li><a href="/api/download-old-versions.html">Older versions</a></li>
                 </ul>
@@ -165,64 +174,64 @@
 <p>We can open a secure or a standard connection.</p>
 <h3 id="standard-connection">Standard connection</h3>
 <p>We can first establish a standard connection, where the data is sent and received in clear text (encoded in ASN.1 BER, but not encrypted). This example shows how it&rsquo;s done:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    LdapConnection connection <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> LdapNetworkConnection<span style="color:#666">(</span> <span style="color:#b44">&#34;localhost&#34;</span><span style="color:#666">,</span> 389 <span style="color:#666">)</span><span style="color:#666">;</span>
-</code></pre></div><p>Here we created an unsafe connection locally using the 389 port. Which is quite simple to do but not safe because data is not encrypted.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#bbb">    </span>LdapConnection<span style="color:#bbb"> </span>connection<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>LdapNetworkConnection(<span style="color:#bbb"> </span><span style="color:#b44">&#34;localhost&#34;</span>,<span style="color:#bbb"> </span>389<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span></code></pre></div><p>Here we created an unsafe connection locally using the 389 port. Which is quite simple to do but not safe because data is not encrypted.</p>
 <h3 id="secure-connection">Secure connection</h3>
 <p>Although the <strong>LDAPS</strong> (<strong>LDAP</strong> over <strong>SSL</strong>) is now considered as deprecated, many people still use it. The big advantage of not using <strong>LDAPS</strong> is that you don&rsquo;t need two different listening ports (one for <strong>LDAP</strong> -389- and another one for <strong>LDAPS</strong> -636- ).</p>
 <p>The only difference with the previous example is that we tell the connection to use <strong>SSL</strong>, by passing <strong><em>true</em></strong> as a third parameter (incidentally, passing <strong><em>false</em></strong> sets an unsafe connection).</p>
 <p>Here is an example</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    LdapConnection connection <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> LdapNetworkConnection<span style="color:#666">(</span> <span style="color:#b44">&#34;localhost&#34;</span><span style="color:#666">,</span> 636<span style="color:#666">,</span> <span style="color:#a2f;font-weight:bold">true</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-</code></pre></div><h2 id="maintaining-the-connection-opened">Maintaining the connection opened</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#bbb">    </span>LdapConnection<span style="color:#bbb"> </span>connection<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>LdapNetworkConnection(<span style="color:#bbb"> </span><span style="color:#b44">&#34;localhost&#34;</span>,<span style="color:#bbb"> </span>636,<span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">true</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span></code></pre></div><h2 id="maintaining-the-connection-opened">Maintaining the connection opened</h2>
 <p>We keep the connection open for a limited period of time, defaulting to 30 seconds. This might be not long enough, so one can change this delay by calling the <em>setTimeOut()</em> method :</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    LdapConnection connection <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> LdapNetworkConnection<span style="color:#666">(</span> <span style="color:#b44">&#34;localhost&#34;</span><span style="color:#666">,</span> 389 <span style="color:#666">)</span><span style="color:#666">;</span>
-    connection<span style="color:#666">.</span><span style="color:#b44">setTimeOut</span><span style="color:#666">(</span> 0 <span style="color:#666">)</span><span style="color:#666">;</span>
-    <span style="color:#666">.</span><span style="color:#666">.</span><span style="color:#666">.</span>
-    connection<span style="color:#666">.</span><span style="color:#b44">close</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
-</code></pre></div><blockquote>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#bbb">    </span>LdapConnection<span style="color:#bbb"> </span>connection<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>LdapNetworkConnection(<span style="color:#bbb"> </span><span style="color:#b44">&#34;localhost&#34;</span>,<span style="color:#bbb"> </span>389<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>connection.<span style="color:#b44">setTimeOut</span>(<span style="color:#bbb"> </span>0<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>...<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>connection.<span style="color:#b44">close</span>();<span style="color:#bbb">
+</span></span></span></code></pre></div><blockquote>
 <p><strong>Note:</strong> Setting a value equal or below 0 will keep the connection open forever (assuming the connection is not explicitly closed by the client).</p>
 </blockquote>
 <h2 id="closing-the-connection">Closing the connection</h2>
 <p>Once the connection is no longer needed (remember that holding a connection keeps the session open on the server and a socket is held open between the client and the server), then you must close it. This is done by calling the <em>close()</em> method :</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    LdapConnection connection <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> LdapNetworkConnection<span style="color:#666">(</span> <span style="color:#b44">&#34;localhost&#34;</span><span style="color:#666">,</span> 389 <span style="color:#666">)</span><span style="color:#666">;</span>
-    <span style="color:#666">.</span><span style="color:#666">.</span><span style="color:#666">.</span>
-    connection<span style="color:#666">.</span><span style="color:#b44">close</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
-</code></pre></div><h2 id="using-a-pool-of-connections">Using a pool of connections</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#bbb">    </span>LdapConnection<span style="color:#bbb"> </span>connection<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>LdapNetworkConnection(<span style="color:#bbb"> </span><span style="color:#b44">&#34;localhost&#34;</span>,<span style="color:#bbb"> </span>389<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>...<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>connection.<span style="color:#b44">close</span>();<span style="color:#bbb">
+</span></span></span></code></pre></div><h2 id="using-a-pool-of-connections">Using a pool of connections</h2>
 <p>Creating a connection is expensive. If that connection will be reused, or if your application needs multiple connections, you may want to consider using a <em>connection pool</em>.</p>
 <p>This process is slightly more complex given that there are many parameters that can be used to tune the pool.  Here is an example:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    LdapConnectionConfig config <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> LdapConnectionConfig<span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
-    config<span style="color:#666">.</span><span style="color:#b44">setLdapHost</span><span style="color:#666">(</span> hostname <span style="color:#666">)</span><span style="color:#666">;</span>
-    config<span style="color:#666">.</span><span style="color:#b44">setLdapPort</span><span style="color:#666">(</span> port <span style="color:#666">)</span><span style="color:#666">;</span>
-    config<span style="color:#666">.</span><span style="color:#b44">setName</span><span style="color:#666">(</span> adminDn <span style="color:#666">)</span><span style="color:#666">;</span>
-    config<span style="color:#666">.</span><span style="color:#b44">setCredentials</span><span style="color:#666">(</span> adminPassword <span style="color:#666">)</span><span style="color:#666">;</span>
-
-    DefaultLdapConnectionFactory factory <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> DefaultLdapConnectionFactory<span style="color:#666">(</span> config <span style="color:#666">)</span><span style="color:#666">;</span>
-    factory<span style="color:#666">.</span><span style="color:#b44">setTimeOut</span><span style="color:#666">(</span> connectionTimeout <span style="color:#666">)</span><span style="color:#666">;</span>
-
-    <span style="color:#080;font-style:italic">// optional, values below are defaults
-</span><span style="color:#080;font-style:italic"></span>    GenericObjectPool<span style="color:#666">.</span><span style="color:#b44">Config</span> poolConfig <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> GenericObjectPool<span style="color:#666">.</span><span style="color:#b44">Config</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
-    poolConfig<span style="color:#666">.</span><span style="color:#b44">lifo</span> <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">true</span><span style="color:#666">;</span>
-    poolConfig<span style="color:#666">.</span><span style="color:#b44">maxActive</span> <span style="color:#666">=</span> 8<span style="color:#666">;</span>
-    poolConfig<span style="color:#666">.</span><span style="color:#b44">maxIdle</span> <span style="color:#666">=</span> 8<span style="color:#666">;</span>
-    poolConfig<span style="color:#666">.</span><span style="color:#b44">maxWait</span> <span style="color:#666">=</span> <span style="color:#666">-</span>1L<span style="color:#666">;</span>
-    poolConfig<span style="color:#666">.</span><span style="color:#b44">minEvictableIdleTimeMillis</span> <span style="color:#666">=</span> 1000L <span style="color:#666">*</span> 60L <span style="color:#666">*</span> 30L<span style="color:#666">;</span>
-    poolConfig<span style="color:#666">.</span><span style="color:#b44">minIdle</span> <span style="color:#666">=</span> 0<span style="color:#666">;</span>
-    poolConfig<span style="color:#666">.</span><span style="color:#b44">numTestsPerEvictionRun</span> <span style="color:#666">=</span> 3<span style="color:#666">;</span>
-    poolConfig<span style="color:#666">.</span><span style="color:#b44">softMinEvictableIdleTimeMillis</span> <span style="color:#666">=</span> <span style="color:#666">-</span>1L<span style="color:#666">;</span>
-    poolConfig<span style="color:#666">.</span><span style="color:#b44">testOnBorrow</span> <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">false</span><span style="color:#666">;</span>
-    poolConfig<span style="color:#666">.</span><span style="color:#b44">testOnReturn</span> <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">false</span><span style="color:#666">;</span>
-    poolConfig<span style="color:#666">.</span><span style="color:#b44">testWhileIdle</span> <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">false</span><span style="color:#666">;</span>
-    poolConfig<span style="color:#666">.</span><span style="color:#b44">timeBetweenEvictionRunsMillis</span> <span style="color:#666">=</span> <span style="color:#666">-</span>1L<span style="color:#666">;</span>
-    poolConfig<span style="color:#666">.</span><span style="color:#b44">whenExhaustedAction</span> <span style="color:#666">=</span> GenericObjectPool<span style="color:#666">.</span><span style="color:#b44">WHEN_EXHAUSTED_BLOCK</span><span style="color:#666">;</span>
-
-    LdapConnectionPool pool <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> LdapConnectionPool<span style="color:#666">(</span>
-        <span style="color:#a2f;font-weight:bold">new</span> DefaultPoolableLdapConnectionFactory<span style="color:#666">(</span> factory <span style="color:#666">)</span><span style="color:#666">,</span> poolConfig <span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-</code></pre></div><p>This creates a pool of connections that are pre-authenticated.  If you don&rsquo;t setName and setCredentials, then the pool will contain unauthenticated connections.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#bbb">    </span>LdapConnectionConfig<span style="color:#bbb"> </span>config<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>LdapConnectionConfig();<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>config.<span style="color:#b44">setLdapHost</span>(<span style="color:#bbb"> </span>hostname<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>config.<span style="color:#b44">setLdapPort</span>(<span style="color:#bbb"> </span>port<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>config.<span style="color:#b44">setName</span>(<span style="color:#bbb"> </span>adminDn<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>config.<span style="color:#b44">setCredentials</span>(<span style="color:#bbb"> </span>adminPassword<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>DefaultLdapConnectionFactory<span style="color:#bbb"> </span>factory<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>DefaultLdapConnectionFactory(<span style="color:#bbb"> </span>config<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>factory.<span style="color:#b44">setTimeOut</span>(<span style="color:#bbb"> </span>connectionTimeout<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#080;font-style:italic">// optional, values below are defaults</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>GenericObjectPool.<span style="color:#b44">Config</span><span style="color:#bbb"> </span>poolConfig<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>GenericObjectPool.<span style="color:#b44">Config</span>();<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>poolConfig.<span style="color:#b44">lifo</span><span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">true</span>;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>poolConfig.<span style="color:#b44">maxActive</span><span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span>8;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>poolConfig.<span style="color:#b44">maxIdle</span><span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span>8;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>poolConfig.<span style="color:#b44">maxWait</span><span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#666">-</span>1L;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>poolConfig.<span style="color:#b44">minEvictableIdleTimeMillis</span><span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span>1000L<span style="color:#bbb"> </span><span style="color:#666">*</span><span style="color:#bbb"> </span>60L<span style="color:#bbb"> </span><span style="color:#666">*</span><span style="color:#bbb"> </span>30L;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>poolConfig.<span style="color:#b44">minIdle</span><span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span>0;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>poolConfig.<span style="color:#b44">numTestsPerEvictionRun</span><span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span>3;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>poolConfig.<span style="color:#b44">softMinEvictableIdleTimeMillis</span><span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#666">-</span>1L;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>poolConfig.<span style="color:#b44">testOnBorrow</span><span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">false</span>;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>poolConfig.<span style="color:#b44">testOnReturn</span><span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">false</span>;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>poolConfig.<span style="color:#b44">testWhileIdle</span><span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">false</span>;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>poolConfig.<span style="color:#b44">timeBetweenEvictionRunsMillis</span><span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#666">-</span>1L;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>poolConfig.<span style="color:#b44">whenExhaustedAction</span><span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span>GenericObjectPool.<span style="color:#b44">WHEN_EXHAUSTED_BLOCK</span>;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>LdapConnectionPool<span style="color:#bbb"> </span>pool<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>LdapConnectionPool(<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>DefaultPoolableLdapConnectionFactory(<span style="color:#bbb"> </span>factory<span style="color:#bbb"> </span>),<span style="color:#bbb"> </span>poolConfig<span style="color:#bbb"> </span>)<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span></code></pre></div><p>This creates a pool of connections that are pre-authenticated.  If you don&rsquo;t setName and setCredentials, then the pool will contain unauthenticated connections.</p>
 <p>The <em>DefaultPoolableLdapConnectionFactory</em> is sufficient for many cases.  However some operations result in modifications to the connection itself.  For example, when the pool is created, a bind operation will occur with the credentials supplied as part of the config.  If you borrow a connection and perform a bind yourself, that would result in the connection being re-bound as a different user.  The next time that connection gets borrowed, things are likely to break.  If you perform any operation that results in a modification of the connection, you should instead use <em>ValidatingPoolableLdapConnectionFactory</em>:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    <span style="color:#666">.</span><span style="color:#666">.</span><span style="color:#666">.</span>
-    LdapConnectionPool pool <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> LdapConnectionPool<span style="color:#666">(</span>
-        <span style="color:#a2f;font-weight:bold">new</span> ValidatingPoolableLdapConnectionFactory<span style="color:#666">(</span> factory <span style="color:#666">)</span><span style="color:#666">,</span> poolConfig <span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-    <span style="color:#666">.</span><span style="color:#666">.</span><span style="color:#666">.</span>
-</code></pre></div><p>A connection pool using this factory will unbind and rebind any connection that was modified while it was borrowed (<em>see the javadoc for more detail</em>).  This will be slower due to the additional operations, but not significantly.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#bbb">    </span>...<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>LdapConnectionPool<span style="color:#bbb"> </span>pool<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>LdapConnectionPool(<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>ValidatingPoolableLdapConnectionFactory(<span style="color:#bbb"> </span>factory<span style="color:#bbb"> </span>),<span style="color:#bbb"> </span>poolConfig<span style="color:#bbb"> </span>)<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>...<span style="color:#bbb">
+</span></span></span></code></pre></div><p>A connection pool using this factory will unbind and rebind any connection that was modified while it was borrowed (<em>see the javadoc for more detail</em>).  This will be slower due to the additional operations, but not significantly.</p>
 
 
             
@@ -253,16 +262,18 @@
         <div id="endContent"></div>
     </div>
 
-    <div id="footer">
+    <div class="footer-wrapper">
+<div id="footer">
     &copy; 2003-2025, <a href="https://www.apache.org">The Apache Software Foundation</a> - <a href="https://privacy.apache.org/policies/privacy-policy-public.html">Privacy Policy</a><br />
     Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
-    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple, Fortress, Apache Fortress, EnMasse,
     Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
     trademarks of The Apache Software Foundation.
 </div>
-
 </div>
 
+</div>
+<div class="top-bottom-spacer"></div>
 </body>
 
 </html>

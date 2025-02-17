@@ -1,20 +1,29 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
+
+    
+    
+        
+    
+
 <head>
     <meta charset="utf-8">
     <title>Users Guide &mdash; Apache Directory</title>
 
     <link href="/css/common.css" rel="stylesheet" type="text/css"/>
-    <link href="/css/brown.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/scimple.css" rel="stylesheet" type="text/css"/>
 
     <link rel="shortcut icon" href="/images/server-icon_16x16.png" />
     <script src="https://www.apachecon.com/event-images/snippet.js"></script>
 </head>
 
 <body>
+<div class="top-bottom-spacer"></div>
 <div id="container">
     <div id="header">
+    <span>Apache Directory</span>
     <a href="/"><div id="headerClick"></div></a>
     <div id="subProjectsNavBar">
         <a href="/">
@@ -80,7 +89,7 @@
                 </ul>
                 <h5>Downloads</h5>
                 <ul>
-                    <li><a href="/scimple/downloads.html">Version 1.0.0-M1</a>&nbsp;&nbsp;<IMG src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/scimple/downloads.html">Version 1.0.0-M1</a>&nbsp;&nbsp;<IMG src="/images/new_badge.svg" alt="" style="margin-bottom:-3px;" border="0"></li>
                 </ul>
                 <h5>Documentation</h5>
                 <ul>
@@ -152,85 +161,85 @@
 </ul>
 <h2 id="example-code">Example code</h2>
 <p>Examples of the project&rsquo;s declarative syntax are shown below. The first example shows how a SCIM resource is declared:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a2f">@Data</span>
-<span style="color:#a2f">@EqualsAndHashCode</span><span style="color:#666">(</span>callSuper <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">true</span><span style="color:#666">)</span>
-<span style="color:#a2f">@ScimResourceType</span><span style="color:#666">(</span>
-    id <span style="color:#666">=</span> ScimUser<span style="color:#666">.</span><span style="color:#b44">RESOURCE_NAME</span><span style="color:#666">,</span>
-    name <span style="color:#666">=</span> ScimUser<span style="color:#666">.</span><span style="color:#b44">RESOURCE_NAME</span><span style="color:#666">,</span>
-    schema <span style="color:#666">=</span> ScimUser<span style="color:#666">.</span><span style="color:#b44">SCHEMA_URI</span><span style="color:#666">,</span>
-    description <span style="color:#666">=</span> <span style="color:#b44">&#34;Top level ScimUser&#34;</span><span style="color:#666">,</span>
-    endpoint <span style="color:#666">=</span> <span style="color:#b44">&#34;/Users&#34;</span>
-<span style="color:#666">)</span>
-<span style="color:#a2f">@XmlRootElement</span><span style="color:#666">(</span>name <span style="color:#666">=</span> ScimUser<span style="color:#666">.</span><span style="color:#b44">RESOURCE_NAME</span><span style="color:#666">)</span>
-<span style="color:#a2f">@XmlAccessorType</span><span style="color:#666">(</span>XmlAccessType<span style="color:#666">.</span><span style="color:#b44">FIELD</span><span style="color:#666">)</span>
-<span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">class</span> <span style="color:#00f">ScimUser</span> <span style="color:#a2f;font-weight:bold">extends</span> ScimResource <span style="color:#666">{</span>
-
-    <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">static</span> <span style="color:#a2f;font-weight:bold">final</span> String RESOURCE_NAME <span style="color:#666">=</span> <span style="color:#b44">&#34;User&#34;</span><span style="color:#666">;</span>
-    <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">static</span> <span style="color:#a2f;font-weight:bold">final</span> String SCHEMA_URI <span style="color:#666">=</span> <span style="color:#b44">&#34;urn:ietf:params:scim:schemas:core:2.0:User&#34;</span><span style="color:#666">;</span>
-
-    <span style="color:#a2f">@ScimAttribute</span><span style="color:#666">(</span>
-    description<span style="color:#666">=</span><span style="color:#b44">&#34;A Boolean value indicating the User&#39;s administrative status.&#34;</span><span style="color:#666">,</span>
-    type<span style="color:#666">=</span>Type<span style="color:#666">.</span><span style="color:#b44">BOOLEAN</span>
-    <span style="color:#666">)</span>
-    
-    <span style="color:#a2f">@XmlElement</span><span style="color:#666">(</span>name <span style="color:#666">=</span> <span style="color:#b44">&#34;active&#34;</span><span style="color:#666">)</span>
-    Boolean active <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">true</span><span style="color:#666">;</span>
-
-    <span style="color:#a2f">@ScimAttribute</span><span style="color:#666">(</span>
-    type <span style="color:#666">=</span> Type<span style="color:#666">.</span><span style="color:#b44">COMPLEX</span><span style="color:#666">,</span>
-    description<span style="color:#666">=</span><span style="color:#b44">&#34;A physical mailing address for this User, as described in ...&#34;</span>
-    <span style="color:#666">)</span>
-    <span style="color:#a2f">@XmlElement</span><span style="color:#666">(</span>name <span style="color:#666">=</span> <span style="color:#b44">&#34;addresses&#34;</span><span style="color:#666">)</span>
-    List<span style="color:#666">&lt;</span>Address<span style="color:#666">&gt;</span> addresses<span style="color:#666">;</span>
-</code></pre></div><p>In the example above, annotations are used at the class level and member level to declare a new SCIM resource and its attributes respectively.  The example below shows the equivalent declaration for a resource Extension:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a2f">@XmlRootElement</span>
-<span style="color:#a2f">@XmlAccessorType</span><span style="color:#666">(</span>XmlAccessType<span style="color:#666">.</span><span style="color:#b44">NONE</span><span style="color:#666">)</span>
-<span style="color:#a2f">@ScimExtensionType</span><span style="color:#666">(</span>
-    required <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">false</span><span style="color:#666">,</span>
-    name <span style="color:#666">=</span> <span style="color:#b44">&#34;EnterpriseUser&#34;</span><span style="color:#666">,</span>
-    id <span style="color:#666">=</span> EnterpriseExtension<span style="color:#666">.</span><span style="color:#b44">URN</span><span style="color:#666">,</span>
-    description <span style="color:#666">=</span> <span style="color:#b44">&#34;Attributes commonly used in representing users that belong to, or act on behalf of, a business or enterprise.&#34;</span>
-<span style="color:#666">)</span>
-<span style="color:#a2f">@Data</span>
-<span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">class</span> <span style="color:#00f">EnterpriseExtension</span> <span style="color:#a2f;font-weight:bold">implements</span> ScimExtension <span style="color:#666">{</span>
-
-    <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">static</span> <span style="color:#a2f;font-weight:bold">final</span> String URN <span style="color:#666">=</span> <span style="color:#b44">&#34;urn:ietf:params:scim:schemas:extension:enterprise:2.0:User&#34;</span><span style="color:#666">;</span>
-
-    <span style="color:#a2f">@XmlType</span>
-    <span style="color:#a2f">@XmlAccessorType</span><span style="color:#666">(</span>XmlAccessType<span style="color:#666">.</span><span style="color:#b44">NONE</span><span style="color:#666">)</span>
-    <span style="color:#a2f">@Data</span>
-    <span style="color:#a2f">@Accessors</span><span style="color:#666">(</span>chain <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">true</span><span style="color:#666">)</span>
-    <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">static</span> <span style="color:#a2f;font-weight:bold">class</span> <span style="color:#00f">Manager</span> <span style="color:#666">{</span>
-
-        <span style="color:#a2f">@ScimAttribute</span><span style="color:#666">(</span>
-        description <span style="color:#666">=</span> <span style="color:#b44">&#34;The \&#34;id\&#34; of the SCIM resource representing the user&#39;s manager.  RECOMMENDED.&#34;</span>
-        <span style="color:#666">)</span>
-    
-        <span style="color:#a2f">@XmlElement</span>
-        <span style="color:#a2f;font-weight:bold">private</span> String value<span style="color:#666">;</span>
-
-        <span style="color:#a2f">@ScimAttribute</span><span style="color:#666">(</span>
-        description <span style="color:#666">=</span> <span style="color:#b44">&#34;The URI of the SCIM resource representing the User&#39;s manager.  RECOMMENDED.&#34;</span>
-        <span style="color:#666">)</span>
-        
-        <span style="color:#a2f">@XmlElement</span>
-        <span style="color:#a2f;font-weight:bold">private</span> String $ref<span style="color:#666">;</span>
-</code></pre></div><p>This example shows how an extension is declared at the class level, but also provides an example of how complex SCIM types can be simply defined as suitably annotated inner classes.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a2f">@Data</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#a2f">@EqualsAndHashCode</span>(callSuper<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">true</span>)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#a2f">@ScimResourceType</span>(<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>id<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span>ScimUser.<span style="color:#b44">RESOURCE_NAME</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>name<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span>ScimUser.<span style="color:#b44">RESOURCE_NAME</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>schema<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span>ScimUser.<span style="color:#b44">SCHEMA_URI</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>description<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#b44">&#34;Top level ScimUser&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>endpoint<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#b44">&#34;/Users&#34;</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#a2f">@XmlRootElement</span>(name<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span>ScimUser.<span style="color:#b44">RESOURCE_NAME</span>)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#a2f">@XmlAccessorType</span>(XmlAccessType.<span style="color:#b44">FIELD</span>)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#a2f;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">class</span> <span style="color:#00f">ScimUser</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">extends</span><span style="color:#bbb"> </span>ScimResource<span style="color:#bbb"> </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">static</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">final</span><span style="color:#bbb"> </span>String<span style="color:#bbb"> </span>RESOURCE_NAME<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#b44">&#34;User&#34;</span>;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">static</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">final</span><span style="color:#bbb"> </span>String<span style="color:#bbb"> </span>SCHEMA_URI<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#b44">&#34;urn:ietf:params:scim:schemas:core:2.0:User&#34;</span>;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#a2f">@ScimAttribute</span>(<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>description<span style="color:#666">=</span><span style="color:#b44">&#34;A Boolean value indicating the User&#39;s administrative status.&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>type<span style="color:#666">=</span>Type.<span style="color:#b44">BOOLEAN</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#a2f">@XmlElement</span>(name<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#b44">&#34;active&#34;</span>)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>Boolean<span style="color:#bbb"> </span>active<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">true</span>;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#a2f">@ScimAttribute</span>(<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>type<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span>Type.<span style="color:#b44">COMPLEX</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>description<span style="color:#666">=</span><span style="color:#b44">&#34;A physical mailing address for this User, as described in ...&#34;</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#a2f">@XmlElement</span>(name<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#b44">&#34;addresses&#34;</span>)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>List<span style="color:#666">&lt;</span>Address<span style="color:#666">&gt;</span><span style="color:#bbb"> </span>addresses;<span style="color:#bbb">
+</span></span></span></code></pre></div><p>In the example above, annotations are used at the class level and member level to declare a new SCIM resource and its attributes respectively.  The example below shows the equivalent declaration for a resource Extension:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a2f">@XmlRootElement</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#a2f">@XmlAccessorType</span>(XmlAccessType.<span style="color:#b44">NONE</span>)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#a2f">@ScimExtensionType</span>(<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>required<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">false</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>name<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#b44">&#34;EnterpriseUser&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>id<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span>EnterpriseExtension.<span style="color:#b44">URN</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>description<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#b44">&#34;Attributes commonly used in representing users that belong to, or act on behalf of, a business or enterprise.&#34;</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#a2f">@Data</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#a2f;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">class</span> <span style="color:#00f">EnterpriseExtension</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">implements</span><span style="color:#bbb"> </span>ScimExtension<span style="color:#bbb"> </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">static</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">final</span><span style="color:#bbb"> </span>String<span style="color:#bbb"> </span>URN<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#b44">&#34;urn:ietf:params:scim:schemas:extension:enterprise:2.0:User&#34;</span>;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#a2f">@XmlType</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#a2f">@XmlAccessorType</span>(XmlAccessType.<span style="color:#b44">NONE</span>)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#a2f">@Data</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#a2f">@Accessors</span>(chain<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">true</span>)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">static</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">class</span> <span style="color:#00f">Manager</span><span style="color:#bbb"> </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#a2f">@ScimAttribute</span>(<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>description<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#b44">&#34;The \&#34;id\&#34; of the SCIM resource representing the user&#39;s manager.  RECOMMENDED.&#34;</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#a2f">@XmlElement</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#a2f;font-weight:bold">private</span><span style="color:#bbb"> </span>String<span style="color:#bbb"> </span>value;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#a2f">@ScimAttribute</span>(<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>description<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#b44">&#34;The URI of the SCIM resource representing the User&#39;s manager.  RECOMMENDED.&#34;</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#a2f">@XmlElement</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#a2f;font-weight:bold">private</span><span style="color:#bbb"> </span>String<span style="color:#bbb"> </span>$ref;<span style="color:#bbb">
+</span></span></span></code></pre></div><p>This example shows how an extension is declared at the class level, but also provides an example of how complex SCIM types can be simply defined as suitably annotated inner classes.</p>
 <p>Implementations are fully customizable without altering the core server code. The example below shows how the implementation for a repository is declared:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#a2f;font-weight:bold">public</span> <span style="color:#a2f;font-weight:bold">class</span> <span style="color:#00f">InMemoryUserService</span> <span style="color:#a2f;font-weight:bold">implements</span> Respository<span style="color:#666">&lt;</span>ScimUser<span style="color:#666">&gt;</span> <span style="color:#666">{</span>
-</code></pre></div><p>Implementing the repository interface allows the customization of create, retrieve, update, and delete methods (as well as find).  Customization is flexible - if your system implements soft deletes, create a delete method that simply sets a flag and alter the find and retrieve methods to only return &ldquo;undeleted&rdquo; resources.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a2f;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">class</span> <span style="color:#00f">InMemoryUserService</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">implements</span><span style="color:#bbb"> </span>Respository<span style="color:#666">&lt;</span>ScimUser<span style="color:#666">&gt;</span><span style="color:#bbb"> </span>{<span style="color:#bbb">
+</span></span></span></code></pre></div><p>Implementing the repository interface allows the customization of create, retrieve, update, and delete methods (as well as find).  Customization is flexible - if your system implements soft deletes, create a delete method that simply sets a flag and alter the find and retrieve methods to only return &ldquo;undeleted&rdquo; resources.</p>
 <h2 id="building--contributing">Building &amp; Contributing</h2>
 <p>Clone the code and build it!</p>
 <p><strong>Prerequisites</strong></p>
 <ul>
 <li>Java 17+ to build Java 11+ at runtime.</li>
 </ul>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git clone https://github.com/apache/directory-scimple.git
-<span style="color:#a2f">cd</span> directory-scimple
-./mvnw package
-<span style="color:#080;font-style:italic"># or on windows</span>
-<span style="color:#080;font-style:italic"># mvnw.bat package</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git clone https://github.com/apache/directory-scimple.git
+</span></span><span style="display:flex;"><span><span style="color:#a2f">cd</span> directory-scimple
+</span></span><span style="display:flex;"><span>./mvnw package
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"># or on windows</span>
+</span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic"># mvnw.bat package</span>
+</span></span></code></pre></div>
 
             
 
@@ -238,16 +247,18 @@
         <div id="endContent"></div>
     </div>
 
-    <div id="footer">
+    <div class="footer-wrapper">
+<div id="footer">
     &copy; 2003-2025, <a href="https://www.apache.org">The Apache Software Foundation</a> - <a href="https://privacy.apache.org/policies/privacy-policy-public.html">Privacy Policy</a><br />
     Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
-    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple, Fortress, Apache Fortress, EnMasse,
     Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
     trademarks of The Apache Software Foundation.
 </div>
-
 </div>
 
+</div>
+<div class="top-bottom-spacer"></div>
 </body>
 
 </html>

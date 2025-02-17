@@ -1,20 +1,29 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
+
+    
+    
+        
+    
+
 <head>
     <meta charset="utf-8">
     <title>1.4.4 - Configure logging &mdash; Apache Directory</title>
 
     <link href="/css/common.css" rel="stylesheet" type="text/css"/>
-    <link href="/css/green.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/apacheds.css" rel="stylesheet" type="text/css"/>
 
     <link rel="shortcut icon" href="/images/server-icon_16x16.png" />
     <script src="https://www.apachecon.com/event-images/snippet.js"></script>
 </head>
 
 <body>
+<div class="top-bottom-spacer"></div>
 <div id="container">
     <div id="header">
+    <span>Apache Directory</span>
     <a href="/"><div id="headerClick"></div></a>
     <div id="subProjectsNavBar">
         <a href="/">
@@ -83,7 +92,7 @@
 
                 <h5>Downloads</h5>
                 <ul>
-                    <li><a href="/apacheds/downloads.html">ApacheDS 2.0.0.AM27</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/apacheds/downloads.html">ApacheDS 2.0.0.AM27</a>&nbsp;&nbsp;<img src="/images/new_badge.svg" alt="" style="margin-bottom:-3px;" border="0"></li>
                     <li><a href="/apacheds/download-old-versions.html">Older versions</a></li>
                 </ul>
 
@@ -201,35 +210,35 @@ log4j.logger.org.apache.directory.shared.asn1=WARN
 </code></pre>
 <p>In this file &ldquo;R&rdquo; is configured like this:</p>
 <table>
-<thead>
-<tr>
-<th align="center">Property name</th>
-<th align="center">Value in file above</th>
-<th>Meaning</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="center">File</td>
-<td align="center">apacheds-rolling.log</td>
-<td>Path to the output log file, in our case relative to <em>var/log</em></td>
-</tr>
-<tr>
-<td align="center">MaxFileSize</td>
-<td align="center">1024KB</td>
-<td>Maximum size that the output file is allowed to reach before being rolled over to backup files</td>
-</tr>
-<tr>
-<td align="center">MaxBackupIndex</td>
-<td align="center">5</td>
-<td>Number of backup files kept</td>
-</tr>
-<tr>
-<td align="center">layout.ConversionPattern</td>
-<td align="center">[%d{HH:mm:ss}] %p [%c] - %m%n</td>
-<td>Format string for logging events</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th style="text-align: center">Property name</th>
+          <th style="text-align: center">Value in file above</th>
+          <th>Meaning</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: center">File</td>
+          <td style="text-align: center">apacheds-rolling.log</td>
+          <td>Path to the output log file, in our case relative to <em>var/log</em></td>
+      </tr>
+      <tr>
+          <td style="text-align: center">MaxFileSize</td>
+          <td style="text-align: center">1024KB</td>
+          <td>Maximum size that the output file is allowed to reach before being rolled over to backup files</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">MaxBackupIndex</td>
+          <td style="text-align: center">5</td>
+          <td>Number of backup files kept</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">layout.ConversionPattern</td>
+          <td style="text-align: center">[%d{HH:mm:ss}] %p [%c] - %m%n</td>
+          <td>Format string for logging events</td>
+      </tr>
+  </tbody>
 </table>
 <p>If the default logging does not meet your requirements, you can easily adjust the configuration to your needs.</p>
 <h2 id="adjusting-logging-to-your-needs">Adjusting logging to your needs</h2>
@@ -249,34 +258,34 @@ $APACHEDS_HOME start
 <h3 id="log-level-how-detailed-the-logs-are">Log level (how detailed the logs are)</h3>
 <p>The following log levels from log4j are used for messages within ApacheDS:</p>
 <table>
-<thead>
-<tr>
-<th align="center">Level</th>
-<th>Description from log4j documentation</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="center">DEBUG</td>
-<td>Designates fine-grained informational events that are most useful to debug an application</td>
-</tr>
-<tr>
-<td align="center">INFO</td>
-<td>Designates informational messages that highlight the progress of the application at coarse-grained level</td>
-</tr>
-<tr>
-<td align="center">WARN</td>
-<td>Designates potentially harmful situations</td>
-</tr>
-<tr>
-<td align="center">ERROR</td>
-<td>Designates error events that might still allow the application to continue running</td>
-</tr>
-<tr>
-<td align="center">FATAL</td>
-<td>Designates very severe error events that will presumably lead the application to abort</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th style="text-align: center">Level</th>
+          <th>Description from log4j documentation</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: center">DEBUG</td>
+          <td>Designates fine-grained informational events that are most useful to debug an application</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">INFO</td>
+          <td>Designates informational messages that highlight the progress of the application at coarse-grained level</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">WARN</td>
+          <td>Designates potentially harmful situations</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">ERROR</td>
+          <td>Designates error events that might still allow the application to continue running</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">FATAL</td>
+          <td>Designates very severe error events that will presumably lead the application to abort</td>
+      </tr>
+  </tbody>
 </table>
 <p>The default (global) log level in the configuration is <em>WARN</em>. All messages of level WARN and more severe (ERROR, FATAL) are written to the rolling log file. The easiest way to get finer log messages is to change it like this</p>
 <pre><code>log4j.rootCategory=DEBUG, stdout, R
@@ -302,44 +311,44 @@ log4j.appender.R.layout.ConversionPattern=[%d{HH:mm:ss}] %p [%c] - %m%n
 <p>Some examples lines within the log file, formatted with the pattern &ldquo;[%d{HH:mm:ss}] %p [%c] - %m%n&rdquo; are:</p>
 <pre><code>...
 [12:29:03] WARN [org.apache.directory.server.core.DefaultDirectoryService]
-    - You didn't change the admin password of directory service instance 'default'.
-    Please update the admin password as soon as possible to prevent a possible security breach.
+	- You didn't change the admin password of directory service instance 'default'.
+	Please update the admin password as soon as possible to prevent a possible security breach.
 ...
 [12:29:05] INFO [org.apache.directory.server.jndi.ServerContextFactory]
-    - Successful bind of an LDAP Service (636) is complete.
+	- Successful bind of an LDAP Service (636) is complete.
 [12:29:05] INFO [org.apache.directory.server.Service] - server: started in 6750 milliseconds
 ...
 </code></pre>
 <p>The pattern uses the following conversion characters:</p>
 <table>
-<thead>
-<tr>
-<th align="center">Character</th>
-<th>Output</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="center">%d</td>
-<td>Date of the logging event in the given format. like &ldquo;12:29:05&rdquo; for %d{HH:mm:ss}</td>
-</tr>
-<tr>
-<td align="center">%p</td>
-<td>Priority (level) of the logging event, like &ldquo;INFO&rdquo; or &ldquo;WARN&rdquo;</td>
-</tr>
-<tr>
-<td align="center">%c</td>
-<td>Category of the logging event, like &ldquo;org.apache.directory.server.Service&rdquo;</td>
-</tr>
-<tr>
-<td align="center">%m</td>
-<td>Application supplied message associated with the logging event</td>
-</tr>
-<tr>
-<td align="center">%n</td>
-<td>Platform dependent line separator</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th style="text-align: center">Character</th>
+          <th>Output</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: center">%d</td>
+          <td>Date of the logging event in the given format. like &ldquo;12:29:05&rdquo; for %d{HH:mm:ss}</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">%p</td>
+          <td>Priority (level) of the logging event, like &ldquo;INFO&rdquo; or &ldquo;WARN&rdquo;</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">%c</td>
+          <td>Category of the logging event, like &ldquo;org.apache.directory.server.Service&rdquo;</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">%m</td>
+          <td>Application supplied message associated with the logging event</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">%n</td>
+          <td>Platform dependent line separator</td>
+      </tr>
+  </tbody>
 </table>
 <p>The <a href="https://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/PatternLayout.html">javadoc of log4j</a> contains a table with all valid %-characters and their meaning.</p>
 <p>Simple adjust the pattern in the <em>log4j.properties file</em> to get the log format of your choice, for instance</p>
@@ -348,7 +357,7 @@ log4j.appender.R.layout.ConversionPattern=[%d{HH:mm:ss}] %p [%c] - %m%n
 <p>leads to messages of this form:</p>
 <pre><code>...
 [29.12.2006 13:50:44] INFO: ServerContextFactory.startLDAP0() 
-    - Successful bind of an LDAP Service (636) is complete.
+	- Successful bind of an LDAP Service (636) is complete.
 [29.12.2006 13:50:44] INFO: Service.init() - server: started in 3016 milliseconds
 ...
 </code></pre>
@@ -409,16 +418,18 @@ log4j.logger.org.apache.directory.server.ldap.handlers.ModifyDnHandler=DEBUG
         <div id="endContent"></div>
     </div>
 
-    <div id="footer">
+    <div class="footer-wrapper">
+<div id="footer">
     &copy; 2003-2025, <a href="https://www.apache.org">The Apache Software Foundation</a> - <a href="https://privacy.apache.org/policies/privacy-policy-public.html">Privacy Policy</a><br />
     Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
-    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple, Fortress, Apache Fortress, EnMasse,
     Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
     trademarks of The Apache Software Foundation.
 </div>
-
 </div>
 
+</div>
+<div class="top-bottom-spacer"></div>
 </body>
 
 </html>

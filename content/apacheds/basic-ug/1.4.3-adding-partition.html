@@ -1,20 +1,29 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
+
+    
+    
+        
+    
+
 <head>
     <meta charset="utf-8">
     <title>1.4.3 - Adding your own partition &mdash; Apache Directory</title>
 
     <link href="/css/common.css" rel="stylesheet" type="text/css"/>
-    <link href="/css/green.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/apacheds.css" rel="stylesheet" type="text/css"/>
 
     <link rel="shortcut icon" href="/images/server-icon_16x16.png" />
     <script src="https://www.apachecon.com/event-images/snippet.js"></script>
 </head>
 
 <body>
+<div class="top-bottom-spacer"></div>
 <div id="container">
     <div id="header">
+    <span>Apache Directory</span>
     <a href="/"><div id="headerClick"></div></a>
     <div id="subProjectsNavBar">
         <a href="/">
@@ -83,7 +92,7 @@
 
                 <h5>Downloads</h5>
                 <ul>
-                    <li><a href="/apacheds/downloads.html">ApacheDS 2.0.0.AM27</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/apacheds/downloads.html">ApacheDS 2.0.0.AM27</a>&nbsp;&nbsp;<img src="/images/new_badge.svg" alt="" style="margin-bottom:-3px;" border="0"></li>
                     <li><a href="/apacheds/download-old-versions.html">Older versions</a></li>
                 </ul>
 
@@ -191,90 +200,90 @@ objectClass: organization
 description: The context entry for suffix o=sevenSeas
 </code></pre>
 <p>It is also possible to import a file to ApacheDS which only contains such an entry, of cause. Here is an example on how to procede for the seven seas :</p>
-<p>In the LDAP Browser of Directory Studio, right click on the DIT entry and select &ldquo;Import -&gt; LDIF Import&hellip;&quot;. A file selections dialog appears. Browse to the LDIF file and click Finish. The entry (or entries, if you provide more of them) will be added to the partition.</p>
+<p>In the LDAP Browser of Directory Studio, right click on the DIT entry and select &ldquo;Import -&gt; LDIF Import&hellip;&rdquo;. A file selections dialog appears. Browse to the LDIF file and click Finish. The entry (or entries, if you provide more of them) will be added to the partition.</p>
 <p>The following image depicts the partitions after reconnecting with Apache Directory Studio (<em>LDAP Browser</em> view).</p>
 <p><img src="images/partitions-in-studio-after-addition.png" alt="Partition in Studio after addition"></p>
 <h2 id="adding-a-partition-programmatically">Adding a partition programmatically</h2>
 <p>The same o=sevenseas partition can be created through the application code using the Partition and DirectoryService API</p>
 <p>Here is the sample code to create a new partition o=sevenseas and its context entry programmatically</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#080;font-style:italic">// Get the SchemaManager, we need it for this addition
-</span><span style="color:#080;font-style:italic"></span>SchemaManager schemaManager <span style="color:#666">=</span> directoryService<span style="color:#666">.</span><span style="color:#b44">getSchemaManager</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
-
-<span style="color:#080;font-style:italic">// Create the partition
-</span><span style="color:#080;font-style:italic"></span>JdbmPartition sevenseasPartition <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> JdbmPartition<span style="color:#666">(</span> schemaManager <span style="color:#666">)</span><span style="color:#666">;</span>
-sevenseasPartition<span style="color:#666">.</span><span style="color:#b44">setId</span><span style="color:#666">(</span><span style="color:#b44">&#34;sevenseas&#34;</span><span style="color:#666">)</span><span style="color:#666">;</span>
-Dn suffixDn <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> Dn<span style="color:#666">(</span> schemaManager<span style="color:#666">,</span> <span style="color:#b44">&#34;o=sevenseas&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-sevenseasPartition<span style="color:#666">.</span><span style="color:#b44">setSuffix</span><span style="color:#666">(</span> suffixDn <span style="color:#666">)</span><span style="color:#666">;</span>
-sevenseasPartition<span style="color:#666">.</span><span style="color:#b44">setCacheSize</span><span style="color:#666">(</span>1000<span style="color:#666">)</span><span style="color:#666">;</span>
-sevenseasPartition<span style="color:#666">.</span><span style="color:#b44">init</span><span style="color:#666">(</span>directoryService<span style="color:#666">)</span><span style="color:#666">;</span>
-sevenseasPartition<span style="color:#666">.</span><span style="color:#b44">setPartitionPath</span><span style="color:#666">(</span> <span style="color:#666">&lt;</span>a path on your disk<span style="color:#666">&gt;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-
-<span style="color:#080;font-style:italic">// Create some indices (optional)
-</span><span style="color:#080;font-style:italic"></span>sevenseasPartition<span style="color:#666">.</span><span style="color:#b44">addindex</span><span style="color:#666">(</span> <span style="color:#a2f;font-weight:bold">new</span> JdbmIndex<span style="color:#666">(</span> <span style="color:#b44">&#34;objectClass&#34;</span><span style="color:#666">,</span> <span style="color:#a2f;font-weight:bold">false</span> <span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-sevenseasPartition<span style="color:#666">.</span><span style="color:#b44">addindex</span><span style="color:#666">(</span> <span style="color:#a2f;font-weight:bold">new</span> JdbmIndex<span style="color:#666">(</span> <span style="color:#b44">&#34;o&#34;</span><span style="color:#666">,</span> <span style="color:#a2f;font-weight:bold">false</span> <span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-
-<span style="color:#080;font-style:italic">// Initialize the partition
-</span><span style="color:#080;font-style:italic"></span>sevenseasPartition<span style="color:#666">.</span><span style="color:#b44">initialize</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
-
-<span style="color:#080;font-style:italic">// create the context entry
-</span><span style="color:#080;font-style:italic"></span>Entry contextEntry <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> DefaultEntry<span style="color:#666">(</span> schemaManager<span style="color:#666">,</span> <span style="color:#b44">&#34;o=sevenseas&#34;</span><span style="color:#666">,</span>
-    <span style="color:#b44">&#34;objectClass: top&#34;</span><span style="color:#666">,</span> 
-    <span style="color:#b44">&#34;objectClass: organization&#34;</span><span style="color:#666">,</span>
-    <span style="color:#b44">&#34;o: sevenseas&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-
-<span style="color:#080;font-style:italic">// add the context entry
-</span><span style="color:#080;font-style:italic"></span>sevenseasPartition<span style="color:#666">.</span><span style="color:#b44">add</span><span style="color:#666">(</span> <span style="color:#a2f;font-weight:bold">new</span> AddOperationContext<span style="color:#666">(</span> <span style="color:#a2f;font-weight:bold">null</span><span style="color:#666">,</span> entry <span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-
-<span style="color:#080;font-style:italic">// We are done !
-</span></code></pre></div><h2 id="more-configuration-options-for-a-jdbm-partition">More configuration options for a JDBM partition</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#080;font-style:italic">// Get the SchemaManager, we need it for this addition</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>SchemaManager<span style="color:#bbb"> </span>schemaManager<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span>directoryService.<span style="color:#b44">getSchemaManager</span>();<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#080;font-style:italic">// Create the partition</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>JdbmPartition<span style="color:#bbb"> </span>sevenseasPartition<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>JdbmPartition(<span style="color:#bbb"> </span>schemaManager<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>sevenseasPartition.<span style="color:#b44">setId</span>(<span style="color:#b44">&#34;sevenseas&#34;</span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>Dn<span style="color:#bbb"> </span>suffixDn<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>Dn(<span style="color:#bbb"> </span>schemaManager,<span style="color:#bbb"> </span><span style="color:#b44">&#34;o=sevenseas&#34;</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>sevenseasPartition.<span style="color:#b44">setSuffix</span>(<span style="color:#bbb"> </span>suffixDn<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>sevenseasPartition.<span style="color:#b44">setCacheSize</span>(1000);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>sevenseasPartition.<span style="color:#b44">init</span>(directoryService);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>sevenseasPartition.<span style="color:#b44">setPartitionPath</span>(<span style="color:#bbb"> </span><span style="color:#666">&lt;</span>a<span style="color:#bbb"> </span>path<span style="color:#bbb"> </span>on<span style="color:#bbb"> </span>your<span style="color:#bbb"> </span>disk<span style="color:#666">&gt;</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#080;font-style:italic">// Create some indices (optional)</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>sevenseasPartition.<span style="color:#b44">addindex</span>(<span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>JdbmIndex(<span style="color:#bbb"> </span><span style="color:#b44">&#34;objectClass&#34;</span>,<span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">false</span><span style="color:#bbb"> </span>)<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>sevenseasPartition.<span style="color:#b44">addindex</span>(<span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>JdbmIndex(<span style="color:#bbb"> </span><span style="color:#b44">&#34;o&#34;</span>,<span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">false</span><span style="color:#bbb"> </span>)<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#080;font-style:italic">// Initialize the partition</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>sevenseasPartition.<span style="color:#b44">initialize</span>();<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#080;font-style:italic">// create the context entry</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>Entry<span style="color:#bbb"> </span>contextEntry<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>DefaultEntry(<span style="color:#bbb"> </span>schemaManager,<span style="color:#bbb"> </span><span style="color:#b44">&#34;o=sevenseas&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#b44">&#34;objectClass: top&#34;</span>,<span style="color:#bbb"> 
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#b44">&#34;objectClass: organization&#34;</span>,<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#b44">&#34;o: sevenseas&#34;</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#080;font-style:italic">// add the context entry</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>sevenseasPartition.<span style="color:#b44">add</span>(<span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>AddOperationContext(<span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">null</span>,<span style="color:#bbb"> </span>entry<span style="color:#bbb"> </span>)<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#080;font-style:italic">// We are done !</span><span style="color:#bbb">
+</span></span></span></code></pre></div><h2 id="more-configuration-options-for-a-jdbm-partition">More configuration options for a JDBM partition</h2>
 <p>Here is a list of the used attributes, their default values and meaning :</p>
 <table>
-<thead>
-<tr>
-<th align="center">Property</th>
-<th align="center">Description</th>
-<th align="center">Default Value</th>
-<th align="center">Required</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td align="center">ads-partitionId</td>
-<td align="center">Uniquely identifies the partition</td>
-<td align="center">N/A</td>
-<td align="center">yes</td>
-</tr>
-<tr>
-<td align="center">ads-partitionSuffix</td>
-<td align="center">A DN (&ldquo;o=sevenseas&rdquo;), for instance</td>
-<td align="center">N/A</td>
-<td align="center">yes</td>
-</tr>
-<tr>
-<td align="center">ads-contextEntry</td>
-<td align="center">The context entry</td>
-<td align="center">Will be automatically deduced if no value is provided</td>
-<td align="center">no</td>
-</tr>
-<tr>
-<td align="center">ads-optimizerEnabled</td>
-<td align="center">Tells the server to turn on the optimizer</td>
-<td align="center">true</td>
-<td align="center">no</td>
-</tr>
-<tr>
-<td align="center">ads-partitionCacheSize</td>
-<td align="center">The cache size (only for JDBM partitions)</td>
-<td align="center">-1 (no cache)</td>
-<td align="center">no</td>
-</tr>
-<tr>
-<td align="center">ads-partitionSyncOnWrite</td>
-<td align="center">Syncs disks on every write operation</td>
-<td align="center">true</td>
-<td align="center">no</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th style="text-align: center">Property</th>
+          <th style="text-align: center">Description</th>
+          <th style="text-align: center">Default Value</th>
+          <th style="text-align: center">Required</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: center">ads-partitionId</td>
+          <td style="text-align: center">Uniquely identifies the partition</td>
+          <td style="text-align: center">N/A</td>
+          <td style="text-align: center">yes</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">ads-partitionSuffix</td>
+          <td style="text-align: center">A DN (&ldquo;o=sevenseas&rdquo;), for instance</td>
+          <td style="text-align: center">N/A</td>
+          <td style="text-align: center">yes</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">ads-contextEntry</td>
+          <td style="text-align: center">The context entry</td>
+          <td style="text-align: center">Will be automatically deduced if no value is provided</td>
+          <td style="text-align: center">no</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">ads-optimizerEnabled</td>
+          <td style="text-align: center">Tells the server to turn on the optimizer</td>
+          <td style="text-align: center">true</td>
+          <td style="text-align: center">no</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">ads-partitionCacheSize</td>
+          <td style="text-align: center">The cache size (only for JDBM partitions)</td>
+          <td style="text-align: center">-1 (no cache)</td>
+          <td style="text-align: center">no</td>
+      </tr>
+      <tr>
+          <td style="text-align: center">ads-partitionSyncOnWrite</td>
+          <td style="text-align: center">Syncs disks on every write operation</td>
+          <td style="text-align: center">true</td>
+          <td style="text-align: center">no</td>
+      </tr>
+  </tbody>
 </table>
 <h2 id="adding-a-partition-manually">Adding a partition manually</h2>
 <p>When migrating from an earlier release, or perhaps a different LDAP Directory product, you might prefer to manually add your own partition with your specific directory root DN. There are two techniques available, and the most appropriate will depend on whether you have already allowed the apacheds server to start.</p>
@@ -340,16 +349,18 @@ e.g. <em>&ldquo;dn: cn=lécharny,dc=com&rdquo;</em> needs to be specified as <em
         <div id="endContent"></div>
     </div>
 
-    <div id="footer">
+    <div class="footer-wrapper">
+<div id="footer">
     &copy; 2003-2025, <a href="https://www.apache.org">The Apache Software Foundation</a> - <a href="https://privacy.apache.org/policies/privacy-policy-public.html">Privacy Policy</a><br />
     Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
-    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple, Fortress, Apache Fortress, EnMasse,
     Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
     trademarks of The Apache Software Foundation.
 </div>
-
 </div>
 
+</div>
+<div class="top-bottom-spacer"></div>
 </body>
 
 </html>

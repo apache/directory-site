@@ -1,20 +1,29 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
+
+    
+    
+        
+    
+
 <head>
     <meta charset="utf-8">
     <title>4 - Mavibot B-tree operations &mdash; Apache Directory</title>
 
     <link href="/css/common.css" rel="stylesheet" type="text/css"/>
-    <link href="/css/turquoise.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/mavibot.css" rel="stylesheet" type="text/css"/>
 
     <link rel="shortcut icon" href="/images/server-icon_16x16.png" />
     <script src="https://www.apachecon.com/event-images/snippet.js"></script>
 </head>
 
 <body>
+<div class="top-bottom-spacer"></div>
 <div id="container">
     <div id="header">
+    <span>Apache Directory</span>
     <a href="/"><div id="headerClick"></div></a>
     <div id="subProjectsNavBar">
         <a href="/">
@@ -81,7 +90,7 @@
 
                 <h5>Downloads</h5>
                 <ul>
-                    <li><a href="/mavibot/downloads.html">Version 1.0.0-M8</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/mavibot/downloads.html">Version 1.0.0-M8</a>&nbsp;&nbsp;<img src="/images/new_badge.svg" alt="" style="margin-bottom:-3px;" border="0"></li>
                     <li><a href="/mavibot/download-old-versions.html">Older versions</a></li>
                 </ul>
 
@@ -262,7 +271,7 @@ returned).</p>
 boolean result = btree.contains( 1L, &quot;V1&quot; );
 ...
 </code></pre>
-<p>If the <em>B-tree</em> contains the &lt;1L, &ldquo;V1&quot;&gt; tuple, then the method will return true, false otherwise.</p>
+<p>If the <em>B-tree</em> contains the &lt;1L, &ldquo;V1&rdquo;&gt; tuple, then the method will return true, false otherwise.</p>
 <h3 id="432-btreecontains-long-revision-k-key-v-value-">4.3.2 BTree.contains( long revision, K key, V value )</h3>
 <p>This is the same method that the previous one, except that it&rsquo;s applied on a specific revision of a <em>B-tree</em>. The first parameter is the revision.</p>
 <h2 id="44-haskey-operations">4.4 HasKey Operations</h2>
@@ -432,16 +441,18 @@ V3
         <div id="endContent"></div>
     </div>
 
-    <div id="footer">
+    <div class="footer-wrapper">
+<div id="footer">
     &copy; 2003-2025, <a href="https://www.apache.org">The Apache Software Foundation</a> - <a href="https://privacy.apache.org/policies/privacy-policy-public.html">Privacy Policy</a><br />
     Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
-    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple, Fortress, Apache Fortress, EnMasse,
     Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
     trademarks of The Apache Software Foundation.
 </div>
-
 </div>
 
+</div>
+<div class="top-bottom-spacer"></div>
 </body>
 
 </html>

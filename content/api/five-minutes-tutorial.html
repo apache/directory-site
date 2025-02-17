@@ -1,20 +1,29 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
+
+    
+    
+        
+    
+
 <head>
     <meta charset="utf-8">
     <title>Five Minute Tutorial &mdash; Apache Directory</title>
 
     <link href="/css/common.css" rel="stylesheet" type="text/css"/>
-    <link href="/css/brown.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/api.css" rel="stylesheet" type="text/css"/>
 
     <link rel="shortcut icon" href="/images/server-icon_16x16.png" />
     <script src="https://www.apachecon.com/event-images/snippet.js"></script>
 </head>
 
 <body>
+<div class="top-bottom-spacer"></div>
 <div id="container">
     <div id="header">
+    <span>Apache Directory</span>
     <a href="/"><div id="headerClick"></div></a>
     <div id="subProjectsNavBar">
         <a href="/">
@@ -81,7 +90,7 @@
 
                 <h5>Downloads</h5>
                 <ul>
-                    <li><a href="/api/downloads-2.html">Version 2.1.7</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/downloads-2.html">Version 2.1.7</a>&nbsp;&nbsp;<img src="/images/new_badge.svg" alt="" style="margin-bottom:-3px;" border="0"></li>
                     <li><a href="/api/downloads-1.html">Version 1.0.3</a>&nbsp;&nbsp;</li>
                     <li><a href="/api/download-old-versions.html">Older versions</a></li>
                 </ul>
@@ -152,8 +161,8 @@
 <p>In order to create a connection, you first have to provide the name of the server, and the port to use. Those parameters will be defaulted to <strong>localHost</strong> and <strong>389</strong> if nothing is defined.</p>
 <h3 id="opening-a-connection">Opening a connection</h3>
 <p>Here is an example :</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">LdapConnection connection <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> LdapNetworkConnection<span style="color:#666">(</span> <span style="color:#b44">&#34;localhost&#34;</span><span style="color:#666">,</span> 389 <span style="color:#666">)</span><span style="color:#666">;</span>
-</code></pre></div><p>It&rsquo;s important to note that the connection has nothing to do with being bound, and this is a major difference with JNDI, where you create some context and provide the principalDN. A Connection is just a channel opened with the server, here.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>LdapConnection<span style="color:#bbb"> </span>connection<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>LdapNetworkConnection(<span style="color:#bbb"> </span><span style="color:#b44">&#34;localhost&#34;</span>,<span style="color:#bbb"> </span>389<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span></code></pre></div><p>It&rsquo;s important to note that the connection has nothing to do with being bound, and this is a major difference with JNDI, where you create some context and provide the principalDN. A Connection is just a channel opened with the server, here.</p>
 <p>Another important thing to understand is that the connection is not explicitly opened. In fact, the <strong>bind</strong> operation will open the connection.</p>
 <h3 id="secure-connection">Secure connection</h3>
 <blockquote>
@@ -163,15 +172,15 @@
 <p>Now that the connection has been created, you can call the <strong>bind()</strong> method. This will create a identified connection between a client and the server. The <strong>bind</strong> operation has nothing to do with the <strong>JNDI</strong> bind, as no entry will be created.</p>
 <h3 id="anonymous-bind">Anonymous bind</h3>
 <p>You can bind using no identifier, and in this case, you&rsquo;ll create an anonymous LDAP session. This is done this way :</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">connection<span style="color:#666">.</span><span style="color:#b44">bind</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
-</code></pre></div><h3 id="simple-bind">Simple bind</h3>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>connection.<span style="color:#b44">bind</span>();<span style="color:#bbb">
+</span></span></span></code></pre></div><h3 id="simple-bind">Simple bind</h3>
 <p>The most common bind uses an identifier and a password. The identifier must be a <em>DN</em>, and the password can be encrypted. Here is an example of a bind operation :</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java"><span style="color:#080;font-style:italic">// Don&#39;t do that ! Password in clear text = danger !
-</span><span style="color:#080;font-style:italic"></span>connection<span style="color:#666">.</span><span style="color:#b44">bind</span><span style="color:#666">(</span> <span style="color:#b44">&#34;ou=example, dc=com&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;secret&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-
-<span style="color:#080;font-style:italic">// The password is encrypted, but it does not protect against a MITM attack
-</span><span style="color:#080;font-style:italic"></span>connection<span style="color:#666">.</span><span style="color:#b44">bind</span><span style="color:#666">(</span> <span style="color:#b44">&#34;ou=example, dc=com&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;{crypt}wSiewPyxdEC2c&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-</code></pre></div><h2 id="search-operation">Search operation</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#080;font-style:italic">// Don&#39;t do that ! Password in clear text = danger !</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>connection.<span style="color:#b44">bind</span>(<span style="color:#bbb"> </span><span style="color:#b44">&#34;ou=example, dc=com&#34;</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;secret&#34;</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#080;font-style:italic">// The password is encrypted, but it does not protect against a MITM attack</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>connection.<span style="color:#b44">bind</span>(<span style="color:#bbb"> </span><span style="color:#b44">&#34;ou=example, dc=com&#34;</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;{crypt}wSiewPyxdEC2c&#34;</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span></code></pre></div><h2 id="search-operation">Search operation</h2>
 <p>We have tried to make it easy to search information in a LDAP server, as this is the most frequently used operation.</p>
 <p>Many parameters can be used in a search. The most commonly used are :</p>
 <ul>
@@ -182,23 +191,23 @@
 </ul>
 <h3 id="simple-search-operation">Simple search operation</h3>
 <p>Here is a simple search, done using only those four parameters :</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">EntryCursor cursor <span style="color:#666">=</span> connection<span style="color:#666">.</span><span style="color:#b44">search</span><span style="color:#666">(</span> <span style="color:#b44">&#34;ou=system&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;(objectclass=*)&#34;</span><span style="color:#666">,</span> SearchScope<span style="color:#666">.</span><span style="color:#b44">ONELEVEL</span><span style="color:#666">,</span> <span style="color:#b44">&#34;*&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-
-<span style="color:#a2f;font-weight:bold">while</span> <span style="color:#666">(</span> cursor<span style="color:#666">.</span><span style="color:#b44">next</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span>
-<span style="color:#666">{</span>
-    Entry entry <span style="color:#666">=</span> cursor<span style="color:#666">.</span><span style="color:#b44">get</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
-
-    <span style="color:#080;font-style:italic">// Process the entry
-</span><span style="color:#080;font-style:italic"></span>    <span style="color:#666">.</span><span style="color:#666">.</span><span style="color:#666">.</span>
-<span style="color:#666">}</span>
-</code></pre></div><p>Here, we call the search operation, and we get back a cursor. Reading search result from the cursor is done with the <strong>get()</strong> method, moving forward uses the <strong>next()</strong> method.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>EntryCursor<span style="color:#bbb"> </span>cursor<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span>connection.<span style="color:#b44">search</span>(<span style="color:#bbb"> </span><span style="color:#b44">&#34;ou=system&#34;</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;(objectclass=*)&#34;</span>,<span style="color:#bbb"> </span>SearchScope.<span style="color:#b44">ONELEVEL</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;*&#34;</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span><span style="color:#a2f;font-weight:bold">while</span><span style="color:#bbb"> </span>(<span style="color:#bbb"> </span>cursor.<span style="color:#b44">next</span>()<span style="color:#bbb"> </span>)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>Entry<span style="color:#bbb"> </span>entry<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span>cursor.<span style="color:#b44">get</span>();<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#080;font-style:italic">// Process the entry</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>...<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb"></span>}<span style="color:#bbb">
+</span></span></span></code></pre></div><p>Here, we call the search operation, and we get back a cursor. Reading search result from the cursor is done with the <strong>get()</strong> method, moving forward uses the <strong>next()</strong> method.</p>
 <h2 id="unbinding">Unbinding</h2>
 <p>When you are done with the operation, you can unbind. This is done by calling the <strong>unbind()</strong> method, this way :</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">connection<span style="color:#666">.</span><span style="color:#b44">unbind</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
-</code></pre></div><h2 id="closing-the-connection">Closing the connection</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>connection.<span style="color:#b44">unbind</span>();<span style="color:#bbb">
+</span></span></span></code></pre></div><h2 id="closing-the-connection">Closing the connection</h2>
 <p>Once you are done with the connection, don&rsquo;t forget to close it. It&rsquo;s done by calling the <strong>close()</strong> method :</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-java" data-lang="java">connection<span style="color:#666">.</span><span style="color:#b44">close</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
-</code></pre></div><p>If you explicitly call the <strong>unbind()</strong> method, the connection will also be closed, and in this case, you wont have to close it explicitly.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span>connection.<span style="color:#b44">close</span>();<span style="color:#bbb">
+</span></span></span></code></pre></div><p>If you explicitly call the <strong>unbind()</strong> method, the connection will also be closed, and in this case, you wont have to close it explicitly.</p>
 <h2 id="conclusion">Conclusion</h2>
 <p>This very limited presentation was written to give users a quick insight about how to use the <strong>API</strong>. In order to get some further information, please check the <strong><a href="user-guide.html">User Guide</a></strong></p>
 
@@ -209,16 +218,18 @@
         <div id="endContent"></div>
     </div>
 
-    <div id="footer">
+    <div class="footer-wrapper">
+<div id="footer">
     &copy; 2003-2025, <a href="https://www.apache.org">The Apache Software Foundation</a> - <a href="https://privacy.apache.org/policies/privacy-policy-public.html">Privacy Policy</a><br />
     Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
-    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple, Fortress, Apache Fortress, EnMasse,
     Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
     trademarks of The Apache Software Foundation.
 </div>
-
 </div>
 
+</div>
+<div class="top-bottom-spacer"></div>
 </body>
 
 </html>

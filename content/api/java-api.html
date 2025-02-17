@@ -1,20 +1,29 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
+
+    
+    
+        
+    
+
 <head>
     <meta charset="utf-8">
     <title>LDAP Java API &mdash; Apache Directory</title>
 
     <link href="/css/common.css" rel="stylesheet" type="text/css"/>
-    <link href="/css/brown.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/api.css" rel="stylesheet" type="text/css"/>
 
     <link rel="shortcut icon" href="/images/server-icon_16x16.png" />
     <script src="https://www.apachecon.com/event-images/snippet.js"></script>
 </head>
 
 <body>
+<div class="top-bottom-spacer"></div>
 <div id="container">
     <div id="header">
+    <span>Apache Directory</span>
     <a href="/"><div id="headerClick"></div></a>
     <div id="subProjectsNavBar">
         <a href="/">
@@ -81,7 +90,7 @@
 
                 <h5>Downloads</h5>
                 <ul>
-                    <li><a href="/api/downloads-2.html">Version 2.1.7</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/downloads-2.html">Version 2.1.7</a>&nbsp;&nbsp;<img src="/images/new_badge.svg" alt="" style="margin-bottom:-3px;" border="0"></li>
                     <li><a href="/api/downloads-1.html">Version 1.0.3</a>&nbsp;&nbsp;</li>
                     <li><a href="/api/download-old-versions.html">Older versions</a></li>
                 </ul>
@@ -142,64 +151,64 @@
 <h2 id="background">Background</h2>
 <p>There are a few existing <strong>Java LDAP API</strong> around there. Here is a short list and description.</p>
 <table>
-<thead>
-<tr>
-<th>API</th>
-<th>Version</th>
-<th>License</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><a href="https://directory.apache.org/api/">Apache Directory Client API 1.0</a></td>
-<td>1.0.0</td>
-<td>ASL 2.0</td>
-<td>The Apache Directory Server CLient API.</td>
-</tr>
-<tr>
-<td><a href="https://directory.apache.org/api/">Apache Directory Client API 2.0</a></td>
-<td>2.0.0</td>
-<td>ASL 2.0</td>
-<td>The Apache Directory Server CLient API, V2.</td>
-</tr>
-<tr>
-<td><a href="https://www.openldap.org/jldap/">jLDAP</a></td>
-<td>2008_03-01-1</td>
-<td>OpenLDAP Public License</td>
-<td>A Novell™ contribution to the OpenLDAP project</td>
-</tr>
-<tr>
-<td><a href="https://docs.oracle.com/javase/tutorial/jndi/index.html">JNDI</a></td>
-<td>1.2</td>
-<td>Sun license</td>
-<td>This is not a pure LDAP API, however it&rsquo;s included in J2SE since Java 5. (Probably the API selected by many developers</td>
-</tr>
-<tr>
-<td><a href="https://wiki.mozilla.org/Mozilla_LDAP_SDK_Programmer%27s_Guide">ldapSDK</a></td>
-<td>4.17 (discontinued)</td>
-<td>Netscape Public License</td>
-<td>The Mozilla™ API, formally the Netscape LDAP API</td>
-</tr>
-<tr>
-<td><a href="https://backstage.forgerock.com/docs/opendj/2.6/dev-guide/">OpenDJ LDAP SDK</a></td>
-<td>2.6.4 (discontinued)</td>
-<td>CDDL</td>
-<td>The ForgeRock™ OpenDJ LDAP SDK</td>
-</tr>
-<tr>
-<td>OpenDS client API</td>
-<td>Discontinued</td>
-<td>CDDL</td>
-<td>The OpenDS™ API</td>
-</tr>
-<tr>
-<td><a href="https://github.com/pingidentity/ldapsdk">UnboundID API</a></td>
-<td>3.2.0</td>
-<td>Apache License API 2.0, GNU GPLv2 or LGPLv2.1</td>
-<td>A new API developed by the UnboundID™ company</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>API</th>
+          <th>Version</th>
+          <th>License</th>
+          <th>Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><a href="https://directory.apache.org/api/">Apache Directory Client API 1.0</a></td>
+          <td>1.0.0</td>
+          <td>ASL 2.0</td>
+          <td>The Apache Directory Server CLient API.</td>
+      </tr>
+      <tr>
+          <td><a href="https://directory.apache.org/api/">Apache Directory Client API 2.0</a></td>
+          <td>2.0.0</td>
+          <td>ASL 2.0</td>
+          <td>The Apache Directory Server CLient API, V2.</td>
+      </tr>
+      <tr>
+          <td><a href="https://www.openldap.org/jldap/">jLDAP</a></td>
+          <td>2008_03-01-1</td>
+          <td>OpenLDAP Public License</td>
+          <td>A Novell™ contribution to the OpenLDAP project</td>
+      </tr>
+      <tr>
+          <td><a href="https://docs.oracle.com/javase/tutorial/jndi/index.html">JNDI</a></td>
+          <td>1.2</td>
+          <td>Sun license</td>
+          <td>This is not a pure LDAP API, however it&rsquo;s included in J2SE since Java 5. (Probably the API selected by many developers</td>
+      </tr>
+      <tr>
+          <td><a href="https://wiki.mozilla.org/Mozilla_LDAP_SDK_Programmer%27s_Guide">ldapSDK</a></td>
+          <td>4.17 (discontinued)</td>
+          <td>Netscape Public License</td>
+          <td>The Mozilla™ API, formally the Netscape LDAP API</td>
+      </tr>
+      <tr>
+          <td><a href="https://backstage.forgerock.com/docs/opendj/2.6/dev-guide/">OpenDJ LDAP SDK</a></td>
+          <td>2.6.4 (discontinued)</td>
+          <td>CDDL</td>
+          <td>The ForgeRock™ OpenDJ LDAP SDK</td>
+      </tr>
+      <tr>
+          <td>OpenDS client API</td>
+          <td>Discontinued</td>
+          <td>CDDL</td>
+          <td>The OpenDS™ API</td>
+      </tr>
+      <tr>
+          <td><a href="https://github.com/pingidentity/ldapsdk">UnboundID API</a></td>
+          <td>3.2.0</td>
+          <td>Apache License API 2.0, GNU GPLv2 or LGPLv2.1</td>
+          <td>A new API developed by the UnboundID™ company</td>
+      </tr>
+  </tbody>
 </table>
 <p>(There may be some more we don&rsquo;t know about)</p>
 <h2 id="features">Features</h2>
@@ -214,16 +223,18 @@
         <div id="endContent"></div>
     </div>
 
-    <div id="footer">
+    <div class="footer-wrapper">
+<div id="footer">
     &copy; 2003-2025, <a href="https://www.apache.org">The Apache Software Foundation</a> - <a href="https://privacy.apache.org/policies/privacy-policy-public.html">Privacy Policy</a><br />
     Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
-    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple, Fortress, Apache Fortress, EnMasse,
     Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
     trademarks of The Apache Software Foundation.
 </div>
-
 </div>
 
+</div>
+<div class="top-bottom-spacer"></div>
 </body>
 
 </html>

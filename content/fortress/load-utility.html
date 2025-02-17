@@ -1,20 +1,29 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
+
+    
+    
+        
+    
+
 <head>
     <meta charset="utf-8">
     <title>Load Utility &mdash; Apache Directory</title>
 
     <link href="/css/common.css" rel="stylesheet" type="text/css"/>
-    <link href="/css/turquoise.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/fortress.css" rel="stylesheet" type="text/css"/>
 
     <link rel="shortcut icon" href="/images/server-icon_16x16.png" />
     <script src="https://www.apachecon.com/event-images/snippet.js"></script>
 </head>
 
 <body>
+<div class="top-bottom-spacer"></div>
 <div id="container">
     <div id="header">
+    <span>Apache Directory</span>
     <a href="/"><div id="headerClick"></div></a>
     <div id="subProjectsNavBar">
         <a href="/">
@@ -82,7 +91,7 @@
 
                 <h5>Downloads</h5>
                 <ul>
-                    <li><a href="/fortress/downloads.html">Fortress 3.0.0</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/fortress/downloads.html">Fortress 3.0.0</a>&nbsp;&nbsp;<img src="/images/new_badge.svg" alt="" style="margin-bottom:-3px;" border="0"></li>
                     <li><a href="/fortress/download-old-versions.html">Older versions</a></li>
                 </ul>
 
@@ -144,92 +153,92 @@ For samples look here: <a href="https://github.com/apache/directory-fortress-cor
 <h3 id="instructions-to-run-the-load-utility">Instructions to run the Load Utility</h3>
 <h4 id="1-create-a-load-file-using-examples-like-the-roleengineeringsamplehttpsgithubcomapachedirectory-fortress-coreblobmasterldapsetuproleengineeringsamplexml">1. Create a load file using examples like the <a href="https://github.com/apache/directory-fortress-core/blob/master/ldap/setup/RoleEngineeringSample.xml">RoleEngineeringSample</a>.</h4>
 <p>The XML tags mappings and the precendence of operations are documented here: <a href="https://directory.apache.org/fortress/gen-docs/latest/apidocs/org/apache/directory/fortress/core/ant/FortressAntTask.html">FortressAntTask</a>.</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-xml" data-lang="xml"><span style="color:#080;font-style:italic">&lt;!--</span><span style="color:#080;font-style:italic"> Every script starts with this line. The name is arbitrary: </span><span style="color:#080;font-style:italic">--&gt;</span>
-<span style="color:#008000;font-weight:bold">&lt;project</span> <span style="color:#b44">basedir=</span><span style="color:#b44">&#34;.&#34;</span> <span style="color:#b44">default=</span><span style="color:#b44">&#34;all&#34;</span> <span style="color:#b44">name=</span><span style="color:#b44">&#34;My First Fortress Load Script&#34;</span><span style="color:#008000;font-weight:bold">&gt;</span>
-    <span style="color:#080;font-style:italic">&lt;!--</span><span style="color:#080;font-style:italic"> Boilerplate </span><span style="color:#080;font-style:italic">--&gt;</span>    
-    <span style="color:#008000;font-weight:bold">&lt;taskdef</span> <span style="color:#b44">classname=</span><span style="color:#b44">&#34;org.apache.directory.fortress.core.ant.FortressAntTask&#34;</span> <span style="color:#b44">name=</span><span style="color:#b44">&#34;FortressAdmin&#34;</span><span style="color:#008000;font-weight:bold">&gt;</span>
-        <span style="color:#008000;font-weight:bold">&lt;classpath</span> <span style="color:#b44">path=</span><span style="color:#b44">&#34;${java.class.path}&#34;</span><span style="color:#008000;font-weight:bold">/&gt;</span>
-    <span style="color:#008000;font-weight:bold">&lt;/taskdef&gt;</span>
-
-    <span style="color:#080;font-style:italic">&lt;!--</span><span style="color:#080;font-style:italic"> More boilerplate </span><span style="color:#080;font-style:italic">--&gt;</span>    
-    <span style="color:#008000;font-weight:bold">&lt;target</span> <span style="color:#b44">name=</span><span style="color:#b44">&#34;all&#34;</span><span style="color:#008000;font-weight:bold">&gt;</span>
-        <span style="color:#008000;font-weight:bold">&lt;FortressAdmin</span><span style="color:#008000;font-weight:bold">&gt;</span>
-
-            <span style="color:#080;font-style:italic">&lt;!--</span><span style="color:#080;font-style:italic"> Now, the load data. The tags and operation precedence is defined in FortressAntTask  </span><span style="color:#080;font-style:italic">--&gt;</span>            
-            <span style="color:#080;font-style:italic">&lt;!--</span><span style="color:#080;font-style:italic"> These users will be added  </span><span style="color:#080;font-style:italic">--&gt;</span>            
-            <span style="color:#008000;font-weight:bold">&lt;adduser</span><span style="color:#008000;font-weight:bold">&gt;</span>
-                <span style="color:#008000;font-weight:bold">&lt;user</span> <span style="color:#b44">userId=</span><span style="color:#b44">&#34;johndoe&#34;</span> <span style="color:#b44">password=</span><span style="color:#b44">&#34;password&#34;</span> <span style="color:#b44">description=</span><span style="color:#b44">&#34;Assigned Buyer and Seller Roles&#34;</span> <span style="color:#b44">cn=</span><span style="color:#b44">&#34;Jon Doe&#34;</span> <span style="color:#b44">sn=</span><span style="color:#b44">&#34;Doe&#34;</span> <span style="color:#b44">ou=</span><span style="color:#b44">&#34;u1&#34;</span> <span style="color:#008000;font-weight:bold">/&gt;</span>
-                <span style="color:#008000;font-weight:bold">&lt;user</span> <span style="color:#b44">userId=</span><span style="color:#b44">&#34;ssmith&#34;</span> <span style="color:#b44">password=</span><span style="color:#b44">&#34;password&#34;</span> <span style="color:#b44">description=</span><span style="color:#b44">&#34;Buyer Role Assigned&#34;</span> <span style="color:#b44">cn=</span><span style="color:#b44">&#34;Steve Smith&#34;</span> <span style="color:#b44">sn=</span><span style="color:#b44">&#34;Smith&#34;</span> <span style="color:#b44">ou=</span><span style="color:#b44">&#34;u1&#34;</span> <span style="color:#008000;font-weight:bold">/&gt;</span>
-                <span style="color:#008000;font-weight:bold">&lt;user</span> <span style="color:#b44">userId=</span><span style="color:#b44">&#34;rtaylor&#34;</span> <span style="color:#b44">password=</span><span style="color:#b44">&#34;password&#34;</span> <span style="color:#b44">description=</span><span style="color:#b44">&#34;Seller Role Assigned&#34;</span> <span style="color:#b44">cn=</span><span style="color:#b44">&#34;Ricky Taylor&#34;</span> <span style="color:#b44">sn=</span><span style="color:#b44">&#34;Taylor&#34;</span> <span style="color:#b44">ou=</span><span style="color:#b44">&#34;u1&#34;</span> <span style="color:#008000;font-weight:bold">/&gt;</span>
-            <span style="color:#008000;font-weight:bold">&lt;/adduser&gt;</span>
-
-            <span style="color:#080;font-style:italic">&lt;!--</span><span style="color:#080;font-style:italic"> These roles will be added  </span><span style="color:#080;font-style:italic">--&gt;</span>
-            <span style="color:#008000;font-weight:bold">&lt;addrole</span><span style="color:#008000;font-weight:bold">&gt;</span>
-                <span style="color:#008000;font-weight:bold">&lt;role</span> <span style="color:#b44">name=</span><span style="color:#b44">&#34;Users&#34;</span> <span style="color:#b44">description=</span><span style="color:#b44">&#34;Basic rights for all Buyers and Sellers&#34;</span><span style="color:#008000;font-weight:bold">/&gt;</span>
-                <span style="color:#008000;font-weight:bold">&lt;role</span> <span style="color:#b44">name=</span><span style="color:#b44">&#34;Buyers&#34;</span> <span style="color:#b44">description=</span><span style="color:#b44">&#34;May bid on and purchase products&#34;</span><span style="color:#008000;font-weight:bold">/&gt;</span>
-                <span style="color:#008000;font-weight:bold">&lt;role</span> <span style="color:#b44">name=</span><span style="color:#b44">&#34;Sellers&#34;</span> <span style="color:#b44">description=</span><span style="color:#b44">&#34;May start auctions and ship items&#34;</span><span style="color:#008000;font-weight:bold">/&gt;</span>
-            <span style="color:#008000;font-weight:bold">&lt;/addrole&gt;</span>
-            
-            <span style="color:#080;font-style:italic">&lt;!--</span><span style="color:#080;font-style:italic"> These role assignments  </span><span style="color:#080;font-style:italic">--&gt;</span>
-            <span style="color:#008000;font-weight:bold">&lt;adduserrole</span><span style="color:#008000;font-weight:bold">&gt;</span>
-                <span style="color:#008000;font-weight:bold">&lt;userrole</span> <span style="color:#b44">userId=</span><span style="color:#b44">&#34;johndoe&#34;</span> <span style="color:#b44">name=</span><span style="color:#b44">&#34;Buyers&#34;</span><span style="color:#008000;font-weight:bold">/&gt;</span>
-                <span style="color:#008000;font-weight:bold">&lt;userrole</span> <span style="color:#b44">userId=</span><span style="color:#b44">&#34;johndoe&#34;</span> <span style="color:#b44">name=</span><span style="color:#b44">&#34;Sellers&#34;</span><span style="color:#008000;font-weight:bold">/&gt;</span>
-                <span style="color:#008000;font-weight:bold">&lt;userrole</span> <span style="color:#b44">userId=</span><span style="color:#b44">&#34;ssmith&#34;</span> <span style="color:#b44">name=</span><span style="color:#b44">&#34;Buyers&#34;</span><span style="color:#008000;font-weight:bold">/&gt;</span>
-                <span style="color:#008000;font-weight:bold">&lt;userrole</span> <span style="color:#b44">userId=</span><span style="color:#b44">&#34;rtaylor&#34;</span> <span style="color:#b44">name=</span><span style="color:#b44">&#34;Sellers&#34;</span><span style="color:#008000;font-weight:bold">/&gt;</span>
-            <span style="color:#008000;font-weight:bold">&lt;/adduserrole&gt;</span>
-
-            <span style="color:#080;font-style:italic">&lt;!--</span><span style="color:#080;font-style:italic"> Place inheritance relationships between these roles  </span><span style="color:#080;font-style:italic">--&gt;</span>
-            <span style="color:#008000;font-weight:bold">&lt;addroleinheritance</span><span style="color:#008000;font-weight:bold">&gt;</span>
-                <span style="color:#008000;font-weight:bold">&lt;relationship</span> <span style="color:#b44">child=</span><span style="color:#b44">&#34;Buyers&#34;</span> <span style="color:#b44">parent=</span><span style="color:#b44">&#34;Users&#34;</span><span style="color:#008000;font-weight:bold">/&gt;</span>
-                <span style="color:#008000;font-weight:bold">&lt;relationship</span> <span style="color:#b44">child=</span><span style="color:#b44">&#34;Sellers&#34;</span> <span style="color:#b44">parent=</span><span style="color:#b44">&#34;Users&#34;</span><span style="color:#008000;font-weight:bold">/&gt;</span>
-            <span style="color:#008000;font-weight:bold">&lt;/addroleinheritance&gt;</span>
-
-            <span style="color:#080;font-style:italic">&lt;!--</span><span style="color:#080;font-style:italic"> Establish dynamic separation of duties constraints by making these roles mutually exclusive for activation  </span><span style="color:#080;font-style:italic">--&gt;</span>            
-            <span style="color:#008000;font-weight:bold">&lt;addsdset</span><span style="color:#008000;font-weight:bold">&gt;</span>
-                <span style="color:#008000;font-weight:bold">&lt;sdset</span> <span style="color:#b44">name=</span><span style="color:#b44">&#34;BuySel&#34;</span> <span style="color:#b44">setmembers=</span><span style="color:#b44">&#34;Buyers,Sellers&#34;</span> <span style="color:#b44">cardinality=</span><span style="color:#b44">&#34;2&#34;</span> <span style="color:#b44">setType=</span><span style="color:#b44">&#34;DYNAMIC&#34;</span> 
-                       <span style="color:#b44">description=</span><span style="color:#b44">&#34;User can only be activate one role of this set&#34;</span><span style="color:#008000;font-weight:bold">/&gt;</span>
-            <span style="color:#008000;font-weight:bold">&lt;/addsdset&gt;</span>
-
-            <span style="color:#080;font-style:italic">&lt;!--</span><span style="color:#080;font-style:italic"> These permission objects are added  </span><span style="color:#080;font-style:italic">--&gt;</span>            
-            <span style="color:#008000;font-weight:bold">&lt;addpermobj</span><span style="color:#008000;font-weight:bold">&gt;</span>
-                <span style="color:#008000;font-weight:bold">&lt;permobj</span> <span style="color:#b44">objName=</span><span style="color:#b44">&#34;Item&#34;</span> <span style="color:#b44">description=</span><span style="color:#b44">&#34;This product is available for purchase&#34;</span> <span style="color:#b44">ou=</span><span style="color:#b44">&#34;p1&#34;</span> <span style="color:#008000;font-weight:bold">/&gt;</span>
-                <span style="color:#008000;font-weight:bold">&lt;permobj</span> <span style="color:#b44">objName=</span><span style="color:#b44">&#34;Auction&#34;</span> <span style="color:#b44">description=</span><span style="color:#b44">&#34;Controls a particular online auction&#34;</span> <span style="color:#b44">ou=</span><span style="color:#b44">&#34;p1&#34;</span> <span style="color:#008000;font-weight:bold">/&gt;</span>
-                <span style="color:#008000;font-weight:bold">&lt;permobj</span> <span style="color:#b44">objName=</span><span style="color:#b44">&#34;Account&#34;</span> <span style="color:#b44">description=</span><span style="color:#b44">&#34;Each user must have one of these&#34;</span> <span style="color:#b44">ou=</span><span style="color:#b44">&#34;p1&#34;</span> <span style="color:#008000;font-weight:bold">/&gt;</span>
-            <span style="color:#008000;font-weight:bold">&lt;/addpermobj&gt;</span>
-
-            <span style="color:#080;font-style:italic">&lt;!--</span><span style="color:#080;font-style:italic"> These permission operations are mapped to objects  </span><span style="color:#080;font-style:italic">--&gt;</span>            
-            <span style="color:#008000;font-weight:bold">&lt;addpermop</span><span style="color:#008000;font-weight:bold">&gt;</span>
-                <span style="color:#008000;font-weight:bold">&lt;permop</span> <span style="color:#b44">objName=</span><span style="color:#b44">&#34;Item&#34;</span> <span style="color:#b44">opName=</span><span style="color:#b44">&#34;bid&#34;</span> <span style="color:#b44">description=</span><span style="color:#b44">&#34;Bid on a given product&#34;</span><span style="color:#008000;font-weight:bold">/&gt;</span>
-                <span style="color:#008000;font-weight:bold">&lt;permop</span> <span style="color:#b44">objName=</span><span style="color:#b44">&#34;Item&#34;</span> <span style="color:#b44">opName=</span><span style="color:#b44">&#34;buy&#34;</span> <span style="color:#b44">description=</span><span style="color:#b44">&#34;Purchase a given product&#34;</span><span style="color:#008000;font-weight:bold">/&gt;</span>
-                <span style="color:#008000;font-weight:bold">&lt;permop</span> <span style="color:#b44">objName=</span><span style="color:#b44">&#34;Item&#34;</span> <span style="color:#b44">opName=</span><span style="color:#b44">&#34;ship&#34;</span> <span style="color:#b44">description=</span><span style="color:#b44">&#34;Place a product up for sale&#34;</span><span style="color:#008000;font-weight:bold">/&gt;</span>
-                <span style="color:#008000;font-weight:bold">&lt;permop</span> <span style="color:#b44">objName=</span><span style="color:#b44">&#34;Item&#34;</span> <span style="color:#b44">opName=</span><span style="color:#b44">&#34;search&#34;</span> <span style="color:#b44">description=</span><span style="color:#b44">&#34;Search through item list&#34;</span><span style="color:#008000;font-weight:bold">/&gt;</span>
-                <span style="color:#008000;font-weight:bold">&lt;permop</span> <span style="color:#b44">objName=</span><span style="color:#b44">&#34;Auction&#34;</span> <span style="color:#b44">opName=</span><span style="color:#b44">&#34;create&#34;</span> <span style="color:#b44">description=</span><span style="color:#b44">&#34;May start a new auction&#34;</span><span style="color:#008000;font-weight:bold">/&gt;</span>
-                <span style="color:#008000;font-weight:bold">&lt;permop</span> <span style="color:#b44">objName=</span><span style="color:#b44">&#34;Account&#34;</span> <span style="color:#b44">opName=</span><span style="color:#b44">&#34;create&#34;</span> <span style="color:#b44">description=</span><span style="color:#b44">&#34;Ability to add a new account&#34;</span><span style="color:#008000;font-weight:bold">/&gt;</span>
-            <span style="color:#008000;font-weight:bold">&lt;/addpermop&gt;</span>
-
-            <span style="color:#080;font-style:italic">&lt;!--</span><span style="color:#080;font-style:italic"> These roles will be granted the following permissions  </span><span style="color:#080;font-style:italic">--&gt;</span>            
-            <span style="color:#008000;font-weight:bold">&lt;addpermgrant</span><span style="color:#008000;font-weight:bold">&gt;</span>
-                <span style="color:#008000;font-weight:bold">&lt;permgrant</span> <span style="color:#b44">objName=</span><span style="color:#b44">&#34;Item&#34;</span> <span style="color:#b44">opName=</span><span style="color:#b44">&#34;bid&#34;</span> <span style="color:#b44">roleNm=</span><span style="color:#b44">&#34;Buyers&#34;</span><span style="color:#008000;font-weight:bold">/&gt;</span>
-                <span style="color:#008000;font-weight:bold">&lt;permgrant</span> <span style="color:#b44">objName=</span><span style="color:#b44">&#34;Item&#34;</span> <span style="color:#b44">opName=</span><span style="color:#b44">&#34;buy&#34;</span> <span style="color:#b44">roleNm=</span><span style="color:#b44">&#34;Buyers&#34;</span><span style="color:#008000;font-weight:bold">/&gt;</span>
-                <span style="color:#008000;font-weight:bold">&lt;permgrant</span> <span style="color:#b44">objName=</span><span style="color:#b44">&#34;Item&#34;</span> <span style="color:#b44">opName=</span><span style="color:#b44">&#34;ship&#34;</span> <span style="color:#b44">roleNm=</span><span style="color:#b44">&#34;Sellers&#34;</span><span style="color:#008000;font-weight:bold">/&gt;</span>
-                <span style="color:#008000;font-weight:bold">&lt;permgrant</span> <span style="color:#b44">objName=</span><span style="color:#b44">&#34;Auction&#34;</span> <span style="color:#b44">opName=</span><span style="color:#b44">&#34;create&#34;</span> <span style="color:#b44">roleNm=</span><span style="color:#b44">&#34;Sellers&#34;</span><span style="color:#008000;font-weight:bold">/&gt;</span>
-                <span style="color:#008000;font-weight:bold">&lt;permgrant</span> <span style="color:#b44">objName=</span><span style="color:#b44">&#34;Item&#34;</span> <span style="color:#b44">opName=</span><span style="color:#b44">&#34;search&#34;</span> <span style="color:#b44">roleNm=</span><span style="color:#b44">&#34;Users&#34;</span><span style="color:#008000;font-weight:bold">/&gt;</span>
-                <span style="color:#008000;font-weight:bold">&lt;permgrant</span> <span style="color:#b44">objName=</span><span style="color:#b44">&#34;Account&#34;</span> <span style="color:#b44">opName=</span><span style="color:#b44">&#34;create&#34;</span> <span style="color:#b44">roleNm=</span><span style="color:#b44">&#34;Users&#34;</span><span style="color:#008000;font-weight:bold">/&gt;</span>
-            <span style="color:#008000;font-weight:bold">&lt;/addpermgrant&gt;</span>
-
-            <span style="color:#080;font-style:italic">&lt;!--</span><span style="color:#080;font-style:italic"> These organizations are defined for the user and permissions  </span><span style="color:#080;font-style:italic">--&gt;</span>            
-            <span style="color:#008000;font-weight:bold">&lt;addorgunit</span><span style="color:#008000;font-weight:bold">&gt;</span>
-                <span style="color:#008000;font-weight:bold">&lt;orgunit</span> <span style="color:#b44">name=</span><span style="color:#b44">&#34;u1&#34;</span> <span style="color:#b44">typeName=</span><span style="color:#b44">&#34;USER&#34;</span> <span style="color:#b44">description=</span><span style="color:#b44">&#34;Test User Org for Rbac Role Engineering Sample&#34;</span><span style="color:#008000;font-weight:bold">/&gt;</span>
-                <span style="color:#008000;font-weight:bold">&lt;orgunit</span> <span style="color:#b44">name=</span><span style="color:#b44">&#34;p1&#34;</span> <span style="color:#b44">typeName=</span><span style="color:#b44">&#34;PERM&#34;</span> <span style="color:#b44">description=</span><span style="color:#b44">&#34;Test Perm Org for Rbac Role Engineering Sample&#34;</span><span style="color:#008000;font-weight:bold">/&gt;</span>
-            <span style="color:#008000;font-weight:bold">&lt;/addorgunit&gt;</span>
-
-        <span style="color:#008000;font-weight:bold">&lt;/FortressAdmin&gt;</span>
-    <span style="color:#008000;font-weight:bold">&lt;/target&gt;</span>
-<span style="color:#008000;font-weight:bold">&lt;/project&gt;</span>
-</code></pre></div><h4 id="2-to-run-the-script">2. To run the script:</h4>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-xml" data-lang="xml"><span style="display:flex;"><span><span style="color:#080;font-style:italic">&lt;!-- Every script starts with this line. The name is arbitrary: --&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#008000;font-weight:bold">&lt;project</span> <span style="color:#b44">basedir=</span><span style="color:#b44">&#34;.&#34;</span> <span style="color:#b44">default=</span><span style="color:#b44">&#34;all&#34;</span> <span style="color:#b44">name=</span><span style="color:#b44">&#34;My First Fortress Load Script&#34;</span><span style="color:#008000;font-weight:bold">&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#080;font-style:italic">&lt;!-- Boilerplate --&gt;</span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#008000;font-weight:bold">&lt;taskdef</span> <span style="color:#b44">classname=</span><span style="color:#b44">&#34;org.apache.directory.fortress.core.ant.FortressAntTask&#34;</span> <span style="color:#b44">name=</span><span style="color:#b44">&#34;FortressAdmin&#34;</span><span style="color:#008000;font-weight:bold">&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#008000;font-weight:bold">&lt;classpath</span> <span style="color:#b44">path=</span><span style="color:#b44">&#34;${java.class.path}&#34;</span><span style="color:#008000;font-weight:bold">/&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#008000;font-weight:bold">&lt;/taskdef&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#080;font-style:italic">&lt;!-- More boilerplate --&gt;</span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#008000;font-weight:bold">&lt;target</span> <span style="color:#b44">name=</span><span style="color:#b44">&#34;all&#34;</span><span style="color:#008000;font-weight:bold">&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#008000;font-weight:bold">&lt;FortressAdmin&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#080;font-style:italic">&lt;!-- Now, the load data. The tags and operation precedence is defined in FortressAntTask  --&gt;</span>            
+</span></span><span style="display:flex;"><span>            <span style="color:#080;font-style:italic">&lt;!-- These users will be added  --&gt;</span>            
+</span></span><span style="display:flex;"><span>            <span style="color:#008000;font-weight:bold">&lt;adduser&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#008000;font-weight:bold">&lt;user</span> <span style="color:#b44">userId=</span><span style="color:#b44">&#34;johndoe&#34;</span> <span style="color:#b44">password=</span><span style="color:#b44">&#34;password&#34;</span> <span style="color:#b44">description=</span><span style="color:#b44">&#34;Assigned Buyer and Seller Roles&#34;</span> <span style="color:#b44">cn=</span><span style="color:#b44">&#34;Jon Doe&#34;</span> <span style="color:#b44">sn=</span><span style="color:#b44">&#34;Doe&#34;</span> <span style="color:#b44">ou=</span><span style="color:#b44">&#34;u1&#34;</span> <span style="color:#008000;font-weight:bold">/&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#008000;font-weight:bold">&lt;user</span> <span style="color:#b44">userId=</span><span style="color:#b44">&#34;ssmith&#34;</span> <span style="color:#b44">password=</span><span style="color:#b44">&#34;password&#34;</span> <span style="color:#b44">description=</span><span style="color:#b44">&#34;Buyer Role Assigned&#34;</span> <span style="color:#b44">cn=</span><span style="color:#b44">&#34;Steve Smith&#34;</span> <span style="color:#b44">sn=</span><span style="color:#b44">&#34;Smith&#34;</span> <span style="color:#b44">ou=</span><span style="color:#b44">&#34;u1&#34;</span> <span style="color:#008000;font-weight:bold">/&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#008000;font-weight:bold">&lt;user</span> <span style="color:#b44">userId=</span><span style="color:#b44">&#34;rtaylor&#34;</span> <span style="color:#b44">password=</span><span style="color:#b44">&#34;password&#34;</span> <span style="color:#b44">description=</span><span style="color:#b44">&#34;Seller Role Assigned&#34;</span> <span style="color:#b44">cn=</span><span style="color:#b44">&#34;Ricky Taylor&#34;</span> <span style="color:#b44">sn=</span><span style="color:#b44">&#34;Taylor&#34;</span> <span style="color:#b44">ou=</span><span style="color:#b44">&#34;u1&#34;</span> <span style="color:#008000;font-weight:bold">/&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#008000;font-weight:bold">&lt;/adduser&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#080;font-style:italic">&lt;!-- These roles will be added  --&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#008000;font-weight:bold">&lt;addrole&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#008000;font-weight:bold">&lt;role</span> <span style="color:#b44">name=</span><span style="color:#b44">&#34;Users&#34;</span> <span style="color:#b44">description=</span><span style="color:#b44">&#34;Basic rights for all Buyers and Sellers&#34;</span><span style="color:#008000;font-weight:bold">/&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#008000;font-weight:bold">&lt;role</span> <span style="color:#b44">name=</span><span style="color:#b44">&#34;Buyers&#34;</span> <span style="color:#b44">description=</span><span style="color:#b44">&#34;May bid on and purchase products&#34;</span><span style="color:#008000;font-weight:bold">/&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#008000;font-weight:bold">&lt;role</span> <span style="color:#b44">name=</span><span style="color:#b44">&#34;Sellers&#34;</span> <span style="color:#b44">description=</span><span style="color:#b44">&#34;May start auctions and ship items&#34;</span><span style="color:#008000;font-weight:bold">/&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#008000;font-weight:bold">&lt;/addrole&gt;</span>
+</span></span><span style="display:flex;"><span>            
+</span></span><span style="display:flex;"><span>            <span style="color:#080;font-style:italic">&lt;!-- These role assignments  --&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#008000;font-weight:bold">&lt;adduserrole&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#008000;font-weight:bold">&lt;userrole</span> <span style="color:#b44">userId=</span><span style="color:#b44">&#34;johndoe&#34;</span> <span style="color:#b44">name=</span><span style="color:#b44">&#34;Buyers&#34;</span><span style="color:#008000;font-weight:bold">/&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#008000;font-weight:bold">&lt;userrole</span> <span style="color:#b44">userId=</span><span style="color:#b44">&#34;johndoe&#34;</span> <span style="color:#b44">name=</span><span style="color:#b44">&#34;Sellers&#34;</span><span style="color:#008000;font-weight:bold">/&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#008000;font-weight:bold">&lt;userrole</span> <span style="color:#b44">userId=</span><span style="color:#b44">&#34;ssmith&#34;</span> <span style="color:#b44">name=</span><span style="color:#b44">&#34;Buyers&#34;</span><span style="color:#008000;font-weight:bold">/&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#008000;font-weight:bold">&lt;userrole</span> <span style="color:#b44">userId=</span><span style="color:#b44">&#34;rtaylor&#34;</span> <span style="color:#b44">name=</span><span style="color:#b44">&#34;Sellers&#34;</span><span style="color:#008000;font-weight:bold">/&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#008000;font-weight:bold">&lt;/adduserrole&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#080;font-style:italic">&lt;!-- Place inheritance relationships between these roles  --&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#008000;font-weight:bold">&lt;addroleinheritance&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#008000;font-weight:bold">&lt;relationship</span> <span style="color:#b44">child=</span><span style="color:#b44">&#34;Buyers&#34;</span> <span style="color:#b44">parent=</span><span style="color:#b44">&#34;Users&#34;</span><span style="color:#008000;font-weight:bold">/&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#008000;font-weight:bold">&lt;relationship</span> <span style="color:#b44">child=</span><span style="color:#b44">&#34;Sellers&#34;</span> <span style="color:#b44">parent=</span><span style="color:#b44">&#34;Users&#34;</span><span style="color:#008000;font-weight:bold">/&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#008000;font-weight:bold">&lt;/addroleinheritance&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#080;font-style:italic">&lt;!-- Establish dynamic separation of duties constraints by making these roles mutually exclusive for activation  --&gt;</span>            
+</span></span><span style="display:flex;"><span>            <span style="color:#008000;font-weight:bold">&lt;addsdset&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#008000;font-weight:bold">&lt;sdset</span> <span style="color:#b44">name=</span><span style="color:#b44">&#34;BuySel&#34;</span> <span style="color:#b44">setmembers=</span><span style="color:#b44">&#34;Buyers,Sellers&#34;</span> <span style="color:#b44">cardinality=</span><span style="color:#b44">&#34;2&#34;</span> <span style="color:#b44">setType=</span><span style="color:#b44">&#34;DYNAMIC&#34;</span> 
+</span></span><span style="display:flex;"><span>                       <span style="color:#b44">description=</span><span style="color:#b44">&#34;User can only be activate one role of this set&#34;</span><span style="color:#008000;font-weight:bold">/&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#008000;font-weight:bold">&lt;/addsdset&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#080;font-style:italic">&lt;!-- These permission objects are added  --&gt;</span>            
+</span></span><span style="display:flex;"><span>            <span style="color:#008000;font-weight:bold">&lt;addpermobj&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#008000;font-weight:bold">&lt;permobj</span> <span style="color:#b44">objName=</span><span style="color:#b44">&#34;Item&#34;</span> <span style="color:#b44">description=</span><span style="color:#b44">&#34;This product is available for purchase&#34;</span> <span style="color:#b44">ou=</span><span style="color:#b44">&#34;p1&#34;</span> <span style="color:#008000;font-weight:bold">/&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#008000;font-weight:bold">&lt;permobj</span> <span style="color:#b44">objName=</span><span style="color:#b44">&#34;Auction&#34;</span> <span style="color:#b44">description=</span><span style="color:#b44">&#34;Controls a particular online auction&#34;</span> <span style="color:#b44">ou=</span><span style="color:#b44">&#34;p1&#34;</span> <span style="color:#008000;font-weight:bold">/&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#008000;font-weight:bold">&lt;permobj</span> <span style="color:#b44">objName=</span><span style="color:#b44">&#34;Account&#34;</span> <span style="color:#b44">description=</span><span style="color:#b44">&#34;Each user must have one of these&#34;</span> <span style="color:#b44">ou=</span><span style="color:#b44">&#34;p1&#34;</span> <span style="color:#008000;font-weight:bold">/&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#008000;font-weight:bold">&lt;/addpermobj&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#080;font-style:italic">&lt;!-- These permission operations are mapped to objects  --&gt;</span>            
+</span></span><span style="display:flex;"><span>            <span style="color:#008000;font-weight:bold">&lt;addpermop&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#008000;font-weight:bold">&lt;permop</span> <span style="color:#b44">objName=</span><span style="color:#b44">&#34;Item&#34;</span> <span style="color:#b44">opName=</span><span style="color:#b44">&#34;bid&#34;</span> <span style="color:#b44">description=</span><span style="color:#b44">&#34;Bid on a given product&#34;</span><span style="color:#008000;font-weight:bold">/&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#008000;font-weight:bold">&lt;permop</span> <span style="color:#b44">objName=</span><span style="color:#b44">&#34;Item&#34;</span> <span style="color:#b44">opName=</span><span style="color:#b44">&#34;buy&#34;</span> <span style="color:#b44">description=</span><span style="color:#b44">&#34;Purchase a given product&#34;</span><span style="color:#008000;font-weight:bold">/&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#008000;font-weight:bold">&lt;permop</span> <span style="color:#b44">objName=</span><span style="color:#b44">&#34;Item&#34;</span> <span style="color:#b44">opName=</span><span style="color:#b44">&#34;ship&#34;</span> <span style="color:#b44">description=</span><span style="color:#b44">&#34;Place a product up for sale&#34;</span><span style="color:#008000;font-weight:bold">/&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#008000;font-weight:bold">&lt;permop</span> <span style="color:#b44">objName=</span><span style="color:#b44">&#34;Item&#34;</span> <span style="color:#b44">opName=</span><span style="color:#b44">&#34;search&#34;</span> <span style="color:#b44">description=</span><span style="color:#b44">&#34;Search through item list&#34;</span><span style="color:#008000;font-weight:bold">/&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#008000;font-weight:bold">&lt;permop</span> <span style="color:#b44">objName=</span><span style="color:#b44">&#34;Auction&#34;</span> <span style="color:#b44">opName=</span><span style="color:#b44">&#34;create&#34;</span> <span style="color:#b44">description=</span><span style="color:#b44">&#34;May start a new auction&#34;</span><span style="color:#008000;font-weight:bold">/&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#008000;font-weight:bold">&lt;permop</span> <span style="color:#b44">objName=</span><span style="color:#b44">&#34;Account&#34;</span> <span style="color:#b44">opName=</span><span style="color:#b44">&#34;create&#34;</span> <span style="color:#b44">description=</span><span style="color:#b44">&#34;Ability to add a new account&#34;</span><span style="color:#008000;font-weight:bold">/&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#008000;font-weight:bold">&lt;/addpermop&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#080;font-style:italic">&lt;!-- These roles will be granted the following permissions  --&gt;</span>            
+</span></span><span style="display:flex;"><span>            <span style="color:#008000;font-weight:bold">&lt;addpermgrant&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#008000;font-weight:bold">&lt;permgrant</span> <span style="color:#b44">objName=</span><span style="color:#b44">&#34;Item&#34;</span> <span style="color:#b44">opName=</span><span style="color:#b44">&#34;bid&#34;</span> <span style="color:#b44">roleNm=</span><span style="color:#b44">&#34;Buyers&#34;</span><span style="color:#008000;font-weight:bold">/&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#008000;font-weight:bold">&lt;permgrant</span> <span style="color:#b44">objName=</span><span style="color:#b44">&#34;Item&#34;</span> <span style="color:#b44">opName=</span><span style="color:#b44">&#34;buy&#34;</span> <span style="color:#b44">roleNm=</span><span style="color:#b44">&#34;Buyers&#34;</span><span style="color:#008000;font-weight:bold">/&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#008000;font-weight:bold">&lt;permgrant</span> <span style="color:#b44">objName=</span><span style="color:#b44">&#34;Item&#34;</span> <span style="color:#b44">opName=</span><span style="color:#b44">&#34;ship&#34;</span> <span style="color:#b44">roleNm=</span><span style="color:#b44">&#34;Sellers&#34;</span><span style="color:#008000;font-weight:bold">/&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#008000;font-weight:bold">&lt;permgrant</span> <span style="color:#b44">objName=</span><span style="color:#b44">&#34;Auction&#34;</span> <span style="color:#b44">opName=</span><span style="color:#b44">&#34;create&#34;</span> <span style="color:#b44">roleNm=</span><span style="color:#b44">&#34;Sellers&#34;</span><span style="color:#008000;font-weight:bold">/&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#008000;font-weight:bold">&lt;permgrant</span> <span style="color:#b44">objName=</span><span style="color:#b44">&#34;Item&#34;</span> <span style="color:#b44">opName=</span><span style="color:#b44">&#34;search&#34;</span> <span style="color:#b44">roleNm=</span><span style="color:#b44">&#34;Users&#34;</span><span style="color:#008000;font-weight:bold">/&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#008000;font-weight:bold">&lt;permgrant</span> <span style="color:#b44">objName=</span><span style="color:#b44">&#34;Account&#34;</span> <span style="color:#b44">opName=</span><span style="color:#b44">&#34;create&#34;</span> <span style="color:#b44">roleNm=</span><span style="color:#b44">&#34;Users&#34;</span><span style="color:#008000;font-weight:bold">/&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#008000;font-weight:bold">&lt;/addpermgrant&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#080;font-style:italic">&lt;!-- These organizations are defined for the user and permissions  --&gt;</span>            
+</span></span><span style="display:flex;"><span>            <span style="color:#008000;font-weight:bold">&lt;addorgunit&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#008000;font-weight:bold">&lt;orgunit</span> <span style="color:#b44">name=</span><span style="color:#b44">&#34;u1&#34;</span> <span style="color:#b44">typeName=</span><span style="color:#b44">&#34;USER&#34;</span> <span style="color:#b44">description=</span><span style="color:#b44">&#34;Test User Org for Rbac Role Engineering Sample&#34;</span><span style="color:#008000;font-weight:bold">/&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#008000;font-weight:bold">&lt;orgunit</span> <span style="color:#b44">name=</span><span style="color:#b44">&#34;p1&#34;</span> <span style="color:#b44">typeName=</span><span style="color:#b44">&#34;PERM&#34;</span> <span style="color:#b44">description=</span><span style="color:#b44">&#34;Test Perm Org for Rbac Role Engineering Sample&#34;</span><span style="color:#008000;font-weight:bold">/&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#008000;font-weight:bold">&lt;/addorgunit&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#008000;font-weight:bold">&lt;/FortressAdmin&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#008000;font-weight:bold">&lt;/target&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#008000;font-weight:bold">&lt;/project&gt;</span>
+</span></span></code></pre></div><h4 id="2-to-run-the-script">2. To run the script:</h4>
 <p>From <strong>FORTRESS_HOME</strong> folder, enter the following command:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mvn install -Dload.file<span style="color:#666">=</span>./ldap/setup/RoleEngineeringSample.xml
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mvn install -Dload.file<span style="color:#666">=</span>./ldap/setup/RoleEngineeringSample.xml
+</span></span></code></pre></div>
 
             
 
@@ -237,16 +246,18 @@ For samples look here: <a href="https://github.com/apache/directory-fortress-cor
         <div id="endContent"></div>
     </div>
 
-    <div id="footer">
+    <div class="footer-wrapper">
+<div id="footer">
     &copy; 2003-2025, <a href="https://www.apache.org">The Apache Software Foundation</a> - <a href="https://privacy.apache.org/policies/privacy-policy-public.html">Privacy Policy</a><br />
     Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
-    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple, Fortress, Apache Fortress, EnMasse,
     Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
     trademarks of The Apache Software Foundation.
 </div>
-
 </div>
 
+</div>
+<div class="top-bottom-spacer"></div>
 </body>
 
 </html>

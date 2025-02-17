@@ -1,20 +1,29 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
+
+    
+    
+        
+    
+
 <head>
     <meta charset="utf-8">
     <title>Table widget &mdash; Apache Directory</title>
 
     <link href="/css/common.css" rel="stylesheet" type="text/css"/>
-    <link href="/css/blue.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/studio.css" rel="stylesheet" type="text/css"/>
 
     <link rel="shortcut icon" href="/images/server-icon_16x16.png" />
     <script src="https://www.apachecon.com/event-images/snippet.js"></script>
 </head>
 
 <body>
+<div class="top-bottom-spacer"></div>
 <div id="container">
     <div id="header">
+    <span>Apache Directory</span>
     <a href="/"><div id="headerClick"></div></a>
     <div id="subProjectsNavBar">
         <a href="/">
@@ -82,7 +91,7 @@
 
                 <h5>Downloads</h5>
                 <ul>
-                    <li><a href="/studio/downloads.html">Version 2.0.0-M17</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/studio/downloads.html">Version 2.0.0-M17</a>&nbsp;&nbsp;<img src="/images/new_badge.svg" alt="" style="margin-bottom:-3px;" border="0"></li>
                     <li><a href="/studio/download-old-versions.html">Older Versions</a></li>
                 </ul>
 
@@ -153,7 +162,7 @@
 <p>Clicking on an element will select it, so that one can delete it.</p>
 <p>Last, not least, double clicking on an element will edit it, if allowed. In this case, a dedicated Dialog will be opened.</p>
 <h2 id="ordered-table">Ordered table</h2>
-<p>Here, we are not talking about the fact that the elements are ordered using some comparator, but the fact that the elements have an associated numeral prefix which is used to order the elements, regardeless of the element&rsquo;s content. This is an OpenLDAP extension, where elements are prefixed with a <em>{n}</em> String, where &lsquo;n&rsquo; is a vlaue between 0 to MAX_INTEGER (but it can also be -1, in one specific case).</p>
+<p>Here, we are not talking about the fact that the elements are ordered using some comparator, but the fact that the elements have an associated numeral prefix which is used to order the elements, regardeless of the element&rsquo;s content. This is an OpenLDAP extension, where elements are prefixed with a <em>{n}</em> String, where &rsquo;n&rsquo; is a vlaue between 0 to MAX_INTEGER (but it can also be -1, in one specific case).</p>
 <p>Bottom line, when a table is declared as Ordered, we use this prefix (which is shown) to order the elements in the tbale, otherwise we use the <em>compareTo</em> method.</p>
 <h2 id="the-element-requirements">The Element requirements</h2>
 <p>First of all, we have to focus on the elements. There are some requirements that such Objects much fulfill :</p>
@@ -546,16 +555,18 @@ protected methods :
         <div id="endContent"></div>
     </div>
 
-    <div id="footer">
+    <div class="footer-wrapper">
+<div id="footer">
     &copy; 2003-2025, <a href="https://www.apache.org">The Apache Software Foundation</a> - <a href="https://privacy.apache.org/policies/privacy-policy-public.html">Privacy Policy</a><br />
     Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
-    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple, Fortress, Apache Fortress, EnMasse,
     Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
     trademarks of The Apache Software Foundation.
 </div>
-
 </div>
 
+</div>
+<div class="top-bottom-spacer"></div>
 </body>
 
 </html>

@@ -1,20 +1,29 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
+
+    
+    
+        
+    
+
 <head>
     <meta charset="utf-8">
     <title>News &mdash; Apache Directory</title>
 
     <link href="/css/common.css" rel="stylesheet" type="text/css"/>
-    <link href="/css/brown.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/api.css" rel="stylesheet" type="text/css"/>
 
     <link rel="shortcut icon" href="/images/server-icon_16x16.png" />
     <script src="https://www.apachecon.com/event-images/snippet.js"></script>
 </head>
 
 <body>
+<div class="top-bottom-spacer"></div>
 <div id="container">
     <div id="header">
+    <span>Apache Directory</span>
     <a href="/"><div id="headerClick"></div></a>
     <div id="subProjectsNavBar">
         <a href="/">
@@ -81,7 +90,7 @@
 
                 <h5>Downloads</h5>
                 <ul>
-                    <li><a href="/api/downloads-2.html">Version 2.1.7</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/downloads-2.html">Version 2.1.7</a>&nbsp;&nbsp;<img src="/images/new_badge.svg" alt="" style="margin-bottom:-3px;" border="0"></li>
                     <li><a href="/api/downloads-1.html">Version 1.0.3</a>&nbsp;&nbsp;</li>
                     <li><a href="/api/download-old-versions.html">Older versions</a></li>
                 </ul>
@@ -167,7 +176,7 @@
 <p>The Apache Directory LDAP API is an ongoing effort to provide an enhanced LDAP API, as a replacement for JNDI and the existing LDAP API (jLdap and Mozilla LDAP API).</p>
 <p>This is a schema aware API, with some convenient ways to access a LDAP server. This API is not only targeting the Apache Directory Server, but should work pristine with any LDAP server.</p>
 <p>It&rsquo;s also an extensible API : new Controls, schema elements and network layer could be added or used in the near future. It&rsquo;s also OSGi capable.</p>
-<p>This is a &lsquo;technical&rsquo; release, mostly bumping up dependencies, in order to use the latest versions of them. We needed to get this release out for the <strong>Apache Directory Server</strong> release that will come in the next few days.</p>
+<p>This is a &rsquo;technical&rsquo; release, mostly bumping up dependencies, in order to use the latest versions of them. We needed to get this release out for the <strong>Apache Directory Server</strong> release that will come in the next few days.</p>
 <p>Downloads are available <a href="downloads-2.html">here</a> and the User&rsquo;s Guide is <a href="user-guide.html">there</a></p>
 <h2 class="news">Apache Directory LDAP API 2.1.4 released <em>posted on August 29th, 2023</em></h2>
 <p>The Apache Directory Team is proud to announce the availability of version 2.1.4 of the Apache Directory LDAP API.</p>
@@ -469,12 +478,12 @@ slow to fetch from a Map or a Set. That impacted Studio startup, making it slow 
 <li><a href="https://issues.apache.org/jira/browse/DIRAPI-244">DIRAPI-244</a> - Error in loading schema</li>
 <li><a href="https://issues.apache.org/jira/browse/DIRAPI-249">DIRAPI-249</a> - Performance issue LDAP API 1.0.0-M31</li>
 <li><a href="https://issues.apache.org/jira/browse/DIRAPI-265">DIRAPI-265</a> - Deserialized Dn loses bytes field resulting in null dn, treated as Root DSE when encoded in ModifyRequests</li>
-<li><a href="https://issues.apache.org/jira/browse/DIRAPI-266">DIRAPI-266</a> - ResultCodeEnum &lsquo;NO_SUCH_OBJECT&rsquo; should have message &lsquo;noSuchObject&rsquo;</li>
+<li><a href="https://issues.apache.org/jira/browse/DIRAPI-266">DIRAPI-266</a> - ResultCodeEnum &lsquo;NO_SUCH_OBJECT&rsquo; should have message &rsquo;noSuchObject&rsquo;</li>
 <li><a href="https://issues.apache.org/jira/browse/DIRAPI-273">DIRAPI-273</a> - api-ldap-net-mina bundle remains in STARTING mode</li>
 <li><a href="https://issues.apache.org/jira/browse/DIRAPI-274">DIRAPI-274</a> - The AttributeTypeHolder.toLdif method does not convert the m-usage Attribute correctly</li>
 <li><a href="https://issues.apache.org/jira/browse/DIRAPI-275">DIRAPI-275</a> - Many AttributeType are defined with the wrong m-usage</li>
 <li><a href="https://issues.apache.org/jira/browse/DIRAPI-280">DIRAPI-280</a> - The LdapNetworkConnection.getTimeout() method is wrong</li>
-<li><a href="https://issues.apache.org/jira/browse/DIRAPI-245">DIRAPI-245</a> - LdifUtils.convertToLdif(LdifEntry, int) does not honor the &lsquo;length&rsquo; parameter fully</li>
+<li><a href="https://issues.apache.org/jira/browse/DIRAPI-245">DIRAPI-245</a> - LdifUtils.convertToLdif(LdifEntry, int) does not honor the &rsquo;length&rsquo; parameter fully</li>
 <li><a href="https://issues.apache.org/jira/browse/DIRAPI-258">DIRAPI-258</a> - Add support for the Microsoft LDAP server show deleted objects control</li>
 <li><a href="https://issues.apache.org/jira/browse/DIRAPI-260">DIRAPI-260</a> - OID can&rsquo;t process nodes which are bigger than a long</li>
 <li><a href="https://issues.apache.org/jira/browse/DIRAPI-261">DIRAPI-261</a> - OID don&rsquo;t encode correctly joint-iso-itu-t arcs</li>
@@ -502,7 +511,7 @@ slow to fetch from a Map or a Set. That impacted Studio startup, making it slow 
 <p>Here is the list of fixed issues and added features :</p>
 <p><b>Bugs :</b></p>
 <ul>
-<li><a href="https://issues.apache.org/jira/browse/DIRAPI-245">DIRAPI-245</a> - LdifUtils.convertToLdif(LdifEntry, int) does not honor the &lsquo;length&rsquo; parameter fully</li>
+<li><a href="https://issues.apache.org/jira/browse/DIRAPI-245">DIRAPI-245</a> - LdifUtils.convertToLdif(LdifEntry, int) does not honor the &rsquo;length&rsquo; parameter fully</li>
 <li><a href="https://issues.apache.org/jira/browse/DIRAPI-258">DIRAPI-258</a> - Add support for the Microsoft LDAP server show deleted objects control</li>
 <li><a href="https://issues.apache.org/jira/browse/DIRAPI-260">DIRAPI-260</a> - OID can&rsquo;t process nodes which are bigger than a long</li>
 <li><a href="https://issues.apache.org/jira/browse/DIRAPI-261">DIRAPI-261</a> - OID don&rsquo;t encode correctly joint-iso-itu-t arcs</li>
@@ -532,7 +541,7 @@ slow to fetch from a Map or a Set. That impacted Studio startup, making it slow 
 <li><a href="https://issues.apache.org/jira/browse/DIRAPI-246">DIRAPI-246</a> - Error in parsing LDIF file</li>
 <li><a href="https://issues.apache.org/jira/browse/DIRAPI-252">DIRAPI-252</a> - Compiling warnings while api-all is in dependencies</li>
 <li><a href="https://issues.apache.org/jira/browse/DIRAPI-253">DIRAPI-253</a> - The AVA class is not handling correctly the values wrt the SchemaManager</li>
-<li><a href="https://issues.apache.org/jira/browse/DIRAPI-254">DIRAPI-254</a> - Value&lt;?&gt; don&rsquo;t have a apply(AttributeType) method</li>
+<li><a href="https://issues.apache.org/jira/browse/DIRAPI-254">DIRAPI-254</a> - Value<?> don&rsquo;t have a apply(AttributeType) method</li>
 <li><a href="https://issues.apache.org/jira/browse/DIRAPI-255">DIRAPI-255</a> - An escaped space at the end of a RDN will not be kept due to a bug in the ComplexDNParser</li>
 </ul>
 <p><b>Task :</b></p>
@@ -857,7 +866,7 @@ slow to fetch from a Map or a Set. That impacted Studio startup, making it slow 
 <li><a href="https://issues.apache.org/jira/browse/DIRAPI-92">DIRAPI-92</a> - LdapConnectionPool should extend GenericObjectPool<LdapConnection></li>
 <li><a href="https://issues.apache.org/jira/browse/DIRAPI-94">DIRAPI-94</a> - Random failure of ClientAbandonRequestTest</li>
 </ul>
-<p><strong>WARNING:</strong> An important <strong>package renaming</strong> took place in this milestone. The previously named &ldquo;<strong><em>org.apache.directory.shared</em></strong>&rdquo; package has been renamed &ldquo;<strong><em>org.apache.directory.api</em></strong>&quot;. If you were using the Apache Directory LDAP API before, please <strong>make sure to update your own code</strong> to match this important change.</p>
+<p><strong>WARNING:</strong> An important <strong>package renaming</strong> took place in this milestone. The previously named &ldquo;<strong><em>org.apache.directory.shared</em></strong>&rdquo; package has been renamed &ldquo;<strong><em>org.apache.directory.api</em></strong>&rdquo;. If you were using the Apache Directory LDAP API before, please <strong>make sure to update your own code</strong> to match this important change.</p>
 <p>Feel free to experiment, we highly appreciate your feedback !</p>
 <p>Downloads are available <a href="downloads-1.html">here</a> and the User&rsquo;s Guide is <a href="user-guide.html">there</a></p>
 <h2 class="news">Apache Directory LDAP API 1.0.0-M13 released <em>posted on October 12th, 2012</em></h2>
@@ -884,16 +893,18 @@ slow to fetch from a Map or a Set. That impacted Studio startup, making it slow 
         <div id="endContent"></div>
     </div>
 
-    <div id="footer">
+    <div class="footer-wrapper">
+<div id="footer">
     &copy; 2003-2025, <a href="https://www.apache.org">The Apache Software Foundation</a> - <a href="https://privacy.apache.org/policies/privacy-policy-public.html">Privacy Policy</a><br />
     Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
-    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple, Fortress, Apache Fortress, EnMasse,
     Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
     trademarks of The Apache Software Foundation.
 </div>
-
 </div>
 
+</div>
+<div class="top-bottom-spacer"></div>
 </body>
 
 </html>

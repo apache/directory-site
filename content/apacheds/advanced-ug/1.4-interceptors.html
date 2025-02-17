@@ -1,20 +1,29 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
+
+    
+    
+        
+    
+
 <head>
     <meta charset="utf-8">
     <title>1.4 - Interceptors &mdash; Apache Directory</title>
 
     <link href="/css/common.css" rel="stylesheet" type="text/css"/>
-    <link href="/css/green.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/apacheds.css" rel="stylesheet" type="text/css"/>
 
     <link rel="shortcut icon" href="/images/server-icon_16x16.png" />
     <script src="https://www.apachecon.com/event-images/snippet.js"></script>
 </head>
 
 <body>
+<div class="top-bottom-spacer"></div>
 <div id="container">
     <div id="header">
+    <span>Apache Directory</span>
     <a href="/"><div id="headerClick"></div></a>
     <div id="subProjectsNavBar">
         <a href="/">
@@ -83,7 +92,7 @@
 
                 <h5>Downloads</h5>
                 <ul>
-                    <li><a href="/apacheds/downloads.html">ApacheDS 2.0.0.AM27</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/apacheds/downloads.html">ApacheDS 2.0.0.AM27</a>&nbsp;&nbsp;<img src="/images/new_badge.svg" alt="" style="margin-bottom:-3px;" border="0"></li>
                     <li><a href="/apacheds/download-old-versions.html">Older versions</a></li>
                 </ul>
 
@@ -159,707 +168,707 @@
 <h2 id="handled-operations">Handled operations</h2>
 <p>Each <em>Interceptor</em> handles a subset of the possible operations, among those listed in the following table :</p>
 <table>
-<thead>
-<tr>
-<th>Operation</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>add</td>
-<td>Adds an entry in the backend</td>
-</tr>
-<tr>
-<td>bind</td>
-<td>Binds on the DirectoryService</td>
-</tr>
-<tr>
-<td>compare</td>
-<td>Compares the elements with the associated entry in the backend</td>
-</tr>
-<tr>
-<td>delete</td>
-<td>Deletes the entry</td>
-</tr>
-<tr>
-<td>getRooDSE</td>
-<td>Gets back the RootDSE entry</td>
-</tr>
-<tr>
-<td>hasEntry</td>
-<td>Tells if an entry exists</td>
-</tr>
-<tr>
-<td>lookup</td>
-<td>Fetches an entry</td>
-</tr>
-<tr>
-<td>modify</td>
-<td>Modifies an entry</td>
-</tr>
-<tr>
-<td>move</td>
-<td>Moves an entry</td>
-</tr>
-<tr>
-<td>moveAndRename</td>
-<td>Moves and renames an entry</td>
-</tr>
-<tr>
-<td>rename</td>
-<td>Renames an entry</td>
-</tr>
-<tr>
-<td>search</td>
-<td>Searches for entries</td>
-</tr>
-<tr>
-<td>unbind</td>
-<td>Unbinds from the DirectoryService</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Operation</th>
+          <th>Description</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>add</td>
+          <td>Adds an entry in the backend</td>
+      </tr>
+      <tr>
+          <td>bind</td>
+          <td>Binds on the DirectoryService</td>
+      </tr>
+      <tr>
+          <td>compare</td>
+          <td>Compares the elements with the associated entry in the backend</td>
+      </tr>
+      <tr>
+          <td>delete</td>
+          <td>Deletes the entry</td>
+      </tr>
+      <tr>
+          <td>getRooDSE</td>
+          <td>Gets back the RootDSE entry</td>
+      </tr>
+      <tr>
+          <td>hasEntry</td>
+          <td>Tells if an entry exists</td>
+      </tr>
+      <tr>
+          <td>lookup</td>
+          <td>Fetches an entry</td>
+      </tr>
+      <tr>
+          <td>modify</td>
+          <td>Modifies an entry</td>
+      </tr>
+      <tr>
+          <td>move</td>
+          <td>Moves an entry</td>
+      </tr>
+      <tr>
+          <td>moveAndRename</td>
+          <td>Moves and renames an entry</td>
+      </tr>
+      <tr>
+          <td>rename</td>
+          <td>Renames an entry</td>
+      </tr>
+      <tr>
+          <td>search</td>
+          <td>Searches for entries</td>
+      </tr>
+      <tr>
+          <td>unbind</td>
+          <td>Unbinds from the DirectoryService</td>
+      </tr>
+  </tbody>
 </table>
 <p>It is important to understand that each operation will go through each <em>Interceptor</em> declared to handle the operation, down to the backend.</p>
 <h2 id="existing-interceptors">Existing interceptors</h2>
 <p>The following interceptors are already present in the server, even if they are not enabled.
 In this table, we list all the operations each interceptor is handling, and if the <em>interceptor</em> is enabled by default or not :</p>
 <table>
-<thead>
-<tr>
-<th>Interceptor</th>
-<th>Enabled</th>
-<th>add</th>
-<th>bnd</th>
-<th>cmp</th>
-<th>del</th>
-<th>DSE</th>
-<th>has</th>
-<th>lkp</th>
-<th>mod</th>
-<th>mov</th>
-<th>m&amp;r</th>
-<th>ren</th>
-<th>sea</th>
-<th>ubd</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>AciAuthorizationInterceptor</td>
-<td>yes</td>
-<td>X</td>
-<td>-</td>
-<td>X</td>
-<td>X</td>
-<td>-</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-<td>-</td>
-</tr>
-<tr>
-<td>AdministrativePointInterceptor</td>
-<td>yes</td>
-<td>X</td>
-<td>-</td>
-<td>-</td>
-<td>X</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-<td>?</td>
-<td>-</td>
-</tr>
-<tr>
-<td>AuthenticationInterceptor</td>
-<td>yes</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-</tr>
-<tr>
-<td>ChangeLogInterceptor</td>
-<td>yes</td>
-<td></td>
-<td>X</td>
-<td>-</td>
-<td>-</td>
-<td>X</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-<td>-</td>
-</tr>
-<tr>
-<td>CollectiveAttributeInterceptor</td>
-<td>yes</td>
-<td>X</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>X</td>
-<td>X</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>X</td>
-<td>-</td>
-</tr>
-<tr>
-<td>DefaultAuthorizationInterceptor</td>
-<td>yes</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>X</td>
-<td>-</td>
-<td>-</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-<td>-</td>
-</tr>
-<tr>
-<td>DelayInducingInterceptor</td>
-<td>no</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>X</td>
-<td>-</td>
-</tr>
-<tr>
-<td>EventInterceptor</td>
-<td>yes</td>
-<td>X</td>
-<td>-</td>
-<td>-</td>
-<td>X</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-<td>-</td>
-<td>-</td>
-</tr>
-<tr>
-<td>ExceptionInterceptor</td>
-<td>yes</td>
-<td>X</td>
-<td>-</td>
-<td>-</td>
-<td>X</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-<td>-</td>
-<td>-</td>
-</tr>
-<tr>
-<td>JournalInterceptor</td>
-<td>yes</td>
-<td>X</td>
-<td>-</td>
-<td>-</td>
-<td>X</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-<td>-</td>
-<td>-</td>
-</tr>
-<tr>
-<td>KeyDerivationInterceptor</td>
-<td>no</td>
-<td>X</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>X</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-</tr>
-<tr>
-<td>NormalizationInterceptor</td>
-<td>yes</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-<td>-</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-<td>-</td>
-</tr>
-<tr>
-<td>NumberIncrementInterceptor</td>
-<td>yes</td>
-<td>X</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-</tr>
-<tr>
-<td>OperationalAttributeInterceptor</td>
-<td>yes</td>
-<td>X</td>
-<td>-</td>
-<td>-</td>
-<td>X</td>
-<td>-</td>
-<td>-</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-<td>-</td>
-</tr>
-<tr>
-<td>PasswordHashingInterceptor</td>
-<td>no</td>
-<td>X</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>X</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-</tr>
-<tr>
-<td>CryptPasswordHashingInterceptor</td>
-<td>no</td>
-<td>X</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>X</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-</tr>
-<tr>
-<td>Md5PasswordHashingInterceptor</td>
-<td>no</td>
-<td>X</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>X</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-</tr>
-<tr>
-<td>Pkcs5s2PasswordHashingInterceptor</td>
-<td>no</td>
-<td>X</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>X</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-</tr>
-<tr>
-<td>Sha256PasswordHashingInterceptor</td>
-<td>no</td>
-<td>X</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>X</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-</tr>
-<tr>
-<td>Sha384PasswordHashingInterceptor</td>
-<td>no</td>
-<td>X</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>X</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-</tr>
-<tr>
-<td>Sha512PasswordHashingInterceptor</td>
-<td>no</td>
-<td>X</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>X</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-</tr>
-<tr>
-<td>ShaPasswordHashingInterceptor</td>
-<td>no</td>
-<td>X</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>X</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-</tr>
-<tr>
-<td>Smd5PasswordHashingInterceptor</td>
-<td>no</td>
-<td>X</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>X</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-</tr>
-<tr>
-<td>Ssha256PasswordHashingInterceptor</td>
-<td>no</td>
-<td>X</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>X</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-</tr>
-<tr>
-<td>Ssha384PasswordHashingInterceptor</td>
-<td>no</td>
-<td>X</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>X</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-</tr>
-<tr>
-<td>Ssha512PasswordHashingInterceptor</td>
-<td>no</td>
-<td>X</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>X</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-</tr>
-<tr>
-<td>SshaPasswordHashingInterceptor</td>
-<td>no</td>
-<td>X</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>X</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-</tr>
-<tr>
-<td>ReferralInterceptor</td>
-<td>yes</td>
-<td>X</td>
-<td>-</td>
-<td>-</td>
-<td>X</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-<td>-</td>
-<td>-</td>
-</tr>
-<tr>
-<td>SchemaInterceptor</td>
-<td>yes</td>
-<td>X</td>
-<td>-</td>
-<td>X</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>X</td>
-<td>X</td>
-<td>-</td>
-<td>?</td>
-<td>X</td>
-<td>X</td>
-<td>-</td>
-</tr>
-<tr>
-<td>SubentryInterceptor</td>
-<td>yes</td>
-<td>X</td>
-<td>-</td>
-<td>-</td>
-<td>X</td>
-<td>-</td>
-<td>-</td>
-<td>?</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-<td>-</td>
-</tr>
-<tr>
-<td>TimerInterceptor</td>
-<td>no</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-</tr>
-<tr>
-<td>TriggerInterceptor</td>
-<td>yes</td>
-<td>X</td>
-<td>-</td>
-<td>-</td>
-<td>X</td>
-<td>-</td>
-<td>-</td>
-<td>-</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-<td>X</td>
-<td>-</td>
-<td>-</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Interceptor</th>
+          <th>Enabled</th>
+          <th>add</th>
+          <th>bnd</th>
+          <th>cmp</th>
+          <th>del</th>
+          <th>DSE</th>
+          <th>has</th>
+          <th>lkp</th>
+          <th>mod</th>
+          <th>mov</th>
+          <th>m&amp;r</th>
+          <th>ren</th>
+          <th>sea</th>
+          <th>ubd</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>AciAuthorizationInterceptor</td>
+          <td>yes</td>
+          <td>X</td>
+          <td>-</td>
+          <td>X</td>
+          <td>X</td>
+          <td>-</td>
+          <td>X</td>
+          <td>X</td>
+          <td>X</td>
+          <td>X</td>
+          <td>X</td>
+          <td>X</td>
+          <td>X</td>
+          <td>-</td>
+      </tr>
+      <tr>
+          <td>AdministrativePointInterceptor</td>
+          <td>yes</td>
+          <td>X</td>
+          <td>-</td>
+          <td>-</td>
+          <td>X</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>X</td>
+          <td>X</td>
+          <td>X</td>
+          <td>X</td>
+          <td>?</td>
+          <td>-</td>
+      </tr>
+      <tr>
+          <td>AuthenticationInterceptor</td>
+          <td>yes</td>
+          <td>X</td>
+          <td>X</td>
+          <td>X</td>
+          <td>X</td>
+          <td>X</td>
+          <td>X</td>
+          <td>X</td>
+          <td>X</td>
+          <td>X</td>
+          <td>X</td>
+          <td>X</td>
+          <td>X</td>
+          <td>X</td>
+      </tr>
+      <tr>
+          <td>ChangeLogInterceptor</td>
+          <td>yes</td>
+          <td></td>
+          <td>X</td>
+          <td>-</td>
+          <td>-</td>
+          <td>X</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>X</td>
+          <td>X</td>
+          <td>X</td>
+          <td>X</td>
+          <td>-</td>
+      </tr>
+      <tr>
+          <td>CollectiveAttributeInterceptor</td>
+          <td>yes</td>
+          <td>X</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>X</td>
+          <td>X</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>X</td>
+          <td>-</td>
+      </tr>
+      <tr>
+          <td>DefaultAuthorizationInterceptor</td>
+          <td>yes</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>X</td>
+          <td>-</td>
+          <td>-</td>
+          <td>X</td>
+          <td>X</td>
+          <td>X</td>
+          <td>X</td>
+          <td>X</td>
+          <td>X</td>
+          <td>-</td>
+      </tr>
+      <tr>
+          <td>DelayInducingInterceptor</td>
+          <td>no</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>X</td>
+          <td>-</td>
+      </tr>
+      <tr>
+          <td>EventInterceptor</td>
+          <td>yes</td>
+          <td>X</td>
+          <td>-</td>
+          <td>-</td>
+          <td>X</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>X</td>
+          <td>X</td>
+          <td>X</td>
+          <td>X</td>
+          <td>-</td>
+          <td>-</td>
+      </tr>
+      <tr>
+          <td>ExceptionInterceptor</td>
+          <td>yes</td>
+          <td>X</td>
+          <td>-</td>
+          <td>-</td>
+          <td>X</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>X</td>
+          <td>X</td>
+          <td>X</td>
+          <td>X</td>
+          <td>-</td>
+          <td>-</td>
+      </tr>
+      <tr>
+          <td>JournalInterceptor</td>
+          <td>yes</td>
+          <td>X</td>
+          <td>-</td>
+          <td>-</td>
+          <td>X</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>X</td>
+          <td>X</td>
+          <td>X</td>
+          <td>X</td>
+          <td>-</td>
+          <td>-</td>
+      </tr>
+      <tr>
+          <td>KeyDerivationInterceptor</td>
+          <td>no</td>
+          <td>X</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>X</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+      </tr>
+      <tr>
+          <td>NormalizationInterceptor</td>
+          <td>yes</td>
+          <td>X</td>
+          <td>X</td>
+          <td>X</td>
+          <td>X</td>
+          <td>-</td>
+          <td>X</td>
+          <td>X</td>
+          <td>X</td>
+          <td>X</td>
+          <td>X</td>
+          <td>X</td>
+          <td>X</td>
+          <td>-</td>
+      </tr>
+      <tr>
+          <td>NumberIncrementInterceptor</td>
+          <td>yes</td>
+          <td>X</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+      </tr>
+      <tr>
+          <td>OperationalAttributeInterceptor</td>
+          <td>yes</td>
+          <td>X</td>
+          <td>-</td>
+          <td>-</td>
+          <td>X</td>
+          <td>-</td>
+          <td>-</td>
+          <td>X</td>
+          <td>X</td>
+          <td>X</td>
+          <td>X</td>
+          <td>X</td>
+          <td>X</td>
+          <td>-</td>
+      </tr>
+      <tr>
+          <td>PasswordHashingInterceptor</td>
+          <td>no</td>
+          <td>X</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>X</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+      </tr>
+      <tr>
+          <td>CryptPasswordHashingInterceptor</td>
+          <td>no</td>
+          <td>X</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>X</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+      </tr>
+      <tr>
+          <td>Md5PasswordHashingInterceptor</td>
+          <td>no</td>
+          <td>X</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>X</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+      </tr>
+      <tr>
+          <td>Pkcs5s2PasswordHashingInterceptor</td>
+          <td>no</td>
+          <td>X</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>X</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+      </tr>
+      <tr>
+          <td>Sha256PasswordHashingInterceptor</td>
+          <td>no</td>
+          <td>X</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>X</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+      </tr>
+      <tr>
+          <td>Sha384PasswordHashingInterceptor</td>
+          <td>no</td>
+          <td>X</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>X</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+      </tr>
+      <tr>
+          <td>Sha512PasswordHashingInterceptor</td>
+          <td>no</td>
+          <td>X</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>X</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+      </tr>
+      <tr>
+          <td>ShaPasswordHashingInterceptor</td>
+          <td>no</td>
+          <td>X</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>X</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+      </tr>
+      <tr>
+          <td>Smd5PasswordHashingInterceptor</td>
+          <td>no</td>
+          <td>X</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>X</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+      </tr>
+      <tr>
+          <td>Ssha256PasswordHashingInterceptor</td>
+          <td>no</td>
+          <td>X</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>X</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+      </tr>
+      <tr>
+          <td>Ssha384PasswordHashingInterceptor</td>
+          <td>no</td>
+          <td>X</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>X</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+      </tr>
+      <tr>
+          <td>Ssha512PasswordHashingInterceptor</td>
+          <td>no</td>
+          <td>X</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>X</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+      </tr>
+      <tr>
+          <td>SshaPasswordHashingInterceptor</td>
+          <td>no</td>
+          <td>X</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>X</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+      </tr>
+      <tr>
+          <td>ReferralInterceptor</td>
+          <td>yes</td>
+          <td>X</td>
+          <td>-</td>
+          <td>-</td>
+          <td>X</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>X</td>
+          <td>X</td>
+          <td>X</td>
+          <td>X</td>
+          <td>-</td>
+          <td>-</td>
+      </tr>
+      <tr>
+          <td>SchemaInterceptor</td>
+          <td>yes</td>
+          <td>X</td>
+          <td>-</td>
+          <td>X</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>X</td>
+          <td>X</td>
+          <td>-</td>
+          <td>?</td>
+          <td>X</td>
+          <td>X</td>
+          <td>-</td>
+      </tr>
+      <tr>
+          <td>SubentryInterceptor</td>
+          <td>yes</td>
+          <td>X</td>
+          <td>-</td>
+          <td>-</td>
+          <td>X</td>
+          <td>-</td>
+          <td>-</td>
+          <td>?</td>
+          <td>X</td>
+          <td>X</td>
+          <td>X</td>
+          <td>X</td>
+          <td>X</td>
+          <td>-</td>
+      </tr>
+      <tr>
+          <td>TimerInterceptor</td>
+          <td>no</td>
+          <td>X</td>
+          <td>X</td>
+          <td>X</td>
+          <td>X</td>
+          <td>X</td>
+          <td>X</td>
+          <td>X</td>
+          <td>X</td>
+          <td>X</td>
+          <td>X</td>
+          <td>X</td>
+          <td>X</td>
+          <td>X</td>
+      </tr>
+      <tr>
+          <td>TriggerInterceptor</td>
+          <td>yes</td>
+          <td>X</td>
+          <td>-</td>
+          <td>-</td>
+          <td>X</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>X</td>
+          <td>X</td>
+          <td>X</td>
+          <td>X</td>
+          <td>-</td>
+          <td>-</td>
+      </tr>
+  </tbody>
 </table>
 <p>The operations that are available are the operations for which we have some implementation in the interceptor class. For instance, the <em>JournalInterceptor</em> class implement the <em>add</em>, <em>delete</em>, <em>modify</em>, <em>move</em>, <em>moveAndRename</em> and <em>rename</em> methods.</p>
 <h2 id="interceptors-order">Interceptors order</h2>
 <p>As we already said, the <em>Interceptors</em> order is significant : why would we proceed an <em>Add</em> operation through all the <em>Interceptors</em> if the user is simply denied the right to add an entry by the <em>AciAuthorizationInterceptor</em> ?</p>
 <p>Currently, the following order is enforced :</p>
 <table>
-<thead>
-<tr>
-<th>Order</th>
-<th>Interceptor</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>NormalizationInterceptor</td>
-</tr>
-<tr>
-<td>2</td>
-<td>AuthenticationInterceptor</td>
-</tr>
-<tr>
-<td>3</td>
-<td>ReferralInterceptor</td>
-</tr>
-<tr>
-<td>4</td>
-<td>AciAuthorizationInterceptor</td>
-</tr>
-<tr>
-<td>5</td>
-<td>DefaultAuthorizationInterceptor</td>
-</tr>
-<tr>
-<td>6</td>
-<td>AdministrativePointInterceptor</td>
-</tr>
-<tr>
-<td>7</td>
-<td>ExceptionInterceptor</td>
-</tr>
-<tr>
-<td>8</td>
-<td>SchemaInterceptor</td>
-</tr>
-<tr>
-<td>9</td>
-<td>OperationalAttributeInterceptor</td>
-</tr>
-<tr>
-<td>10</td>
-<td>SubentryInterceptor</td>
-</tr>
-<tr>
-<td>11</td>
-<td>EventInterceptor</td>
-</tr>
-<tr>
-<td>12</td>
-<td>TriggerInterceptor</td>
-</tr>
-<tr>
-<td>13</td>
-<td>ChangeLogInterceptor</td>
-</tr>
-<tr>
-<td>14</td>
-<td>JournalInterceptor</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th>Order</th>
+          <th>Interceptor</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>1</td>
+          <td>NormalizationInterceptor</td>
+      </tr>
+      <tr>
+          <td>2</td>
+          <td>AuthenticationInterceptor</td>
+      </tr>
+      <tr>
+          <td>3</td>
+          <td>ReferralInterceptor</td>
+      </tr>
+      <tr>
+          <td>4</td>
+          <td>AciAuthorizationInterceptor</td>
+      </tr>
+      <tr>
+          <td>5</td>
+          <td>DefaultAuthorizationInterceptor</td>
+      </tr>
+      <tr>
+          <td>6</td>
+          <td>AdministrativePointInterceptor</td>
+      </tr>
+      <tr>
+          <td>7</td>
+          <td>ExceptionInterceptor</td>
+      </tr>
+      <tr>
+          <td>8</td>
+          <td>SchemaInterceptor</td>
+      </tr>
+      <tr>
+          <td>9</td>
+          <td>OperationalAttributeInterceptor</td>
+      </tr>
+      <tr>
+          <td>10</td>
+          <td>SubentryInterceptor</td>
+      </tr>
+      <tr>
+          <td>11</td>
+          <td>EventInterceptor</td>
+      </tr>
+      <tr>
+          <td>12</td>
+          <td>TriggerInterceptor</td>
+      </tr>
+      <tr>
+          <td>13</td>
+          <td>ChangeLogInterceptor</td>
+      </tr>
+      <tr>
+          <td>14</td>
+          <td>JournalInterceptor</td>
+      </tr>
+  </tbody>
 </table>
 <h2 id="example">Example</h2>
 <p>Let&rsquo;s consider the <em>search</em> operation. It will be processed successively by the following <em>Interceptors</em>, as it can be deduced by the two previous tables :</p>
@@ -908,16 +917,18 @@ In this table, we list all the operations each interceptor is handling, and if t
         <div id="endContent"></div>
     </div>
 
-    <div id="footer">
+    <div class="footer-wrapper">
+<div id="footer">
     &copy; 2003-2025, <a href="https://www.apache.org">The Apache Software Foundation</a> - <a href="https://privacy.apache.org/policies/privacy-policy-public.html">Privacy Policy</a><br />
     Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
-    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple, Fortress, Apache Fortress, EnMasse,
     Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
     trademarks of The Apache Software Foundation.
 </div>
-
 </div>
 
+</div>
+<div class="top-bottom-spacer"></div>
 </body>
 
 </html>

@@ -1,20 +1,29 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
+
+    
+    
+        
+    
+
 <head>
     <meta charset="utf-8">
     <title>5 - Network &mdash; Apache Directory</title>
 
     <link href="/css/common.css" rel="stylesheet" type="text/css"/>
-    <link href="/css/brown.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/api.css" rel="stylesheet" type="text/css"/>
 
     <link rel="shortcut icon" href="/images/server-icon_16x16.png" />
     <script src="https://www.apachecon.com/event-images/snippet.js"></script>
 </head>
 
 <body>
+<div class="top-bottom-spacer"></div>
 <div id="container">
     <div id="header">
+    <span>Apache Directory</span>
     <a href="/"><div id="headerClick"></div></a>
     <div id="subProjectsNavBar">
         <a href="/">
@@ -81,7 +90,7 @@
 
                 <h5>Downloads</h5>
                 <ul>
-                    <li><a href="/api/downloads-2.html">Version 2.1.7</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/downloads-2.html">Version 2.1.7</a>&nbsp;&nbsp;<img src="/images/new_badge.svg" alt="" style="margin-bottom:-3px;" border="0"></li>
                     <li><a href="/api/downloads-1.html">Version 1.0.3</a>&nbsp;&nbsp;</li>
                     <li><a href="/api/download-old-versions.html">Older versions</a></li>
                 </ul>
@@ -200,43 +209,43 @@
 <p>Currently, we have a dedicated *<em>MINA</em> module that covers a part of that, but the <em>Connector</em> creation and initialization is done in the <em>LdapNetworkConnection</em> class - which is a mistake, it should be delegated to a class in the <strong>MINA</strong> module-.</p>
 <h3 id="initialization">Initialization</h3>
 <p>The initialization is done in the <em>LdapnetworkConnection.connect()</em> method :</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    <span style="color:#a2f;font-weight:bold">public</span> <span style="color:#0b0;font-weight:bold">boolean</span> <span style="color:#00a000">connect</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> LdapException
-     <span style="color:#666">{</span>
-         <span style="color:#666">.</span><span style="color:#666">.</span><span style="color:#666">.</span>
-
-         <span style="color:#080;font-style:italic">// Create the connector if needed
-</span><span style="color:#080;font-style:italic"></span>         <span style="color:#a2f;font-weight:bold">if</span> <span style="color:#666">(</span> connector <span style="color:#666">=</span><span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">null</span> <span style="color:#666">)</span>
-         <span style="color:#666">{</span>
-             createConnector<span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
-         <span style="color:#666">}</span>
-</code></pre></div><p>and the private <em>createConnector()</em> method does all the work :</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    <span style="color:#a2f;font-weight:bold">private</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">createConnector</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> LdapException
-    <span style="color:#666">{</span>
-        <span style="color:#080;font-style:italic">// Use only one thread inside the connector
-</span><span style="color:#080;font-style:italic"></span>        connector <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> NioSocketConnector<span style="color:#666">(</span> 1 <span style="color:#666">)</span><span style="color:#666">;</span>
-        
-        <span style="color:#a2f;font-weight:bold">if</span> <span style="color:#666">(</span> connectionConfig <span style="color:#666">!</span><span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">null</span> <span style="color:#666">)</span>
-        <span style="color:#666">{</span>
-            <span style="color:#666">(</span> <span style="color:#666">(</span> SocketSessionConfig <span style="color:#666">)</span> connector<span style="color:#666">.</span><span style="color:#b44">getSessionConfig</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">.</span><span style="color:#b44">setAll</span><span style="color:#666">(</span> connectionConfig <span style="color:#666">)</span><span style="color:#666">;</span>
-        <span style="color:#666">}</span>
-        <span style="color:#a2f;font-weight:bold">else</span>
-        <span style="color:#666">{</span>
-            <span style="color:#666">(</span> <span style="color:#666">(</span> SocketSessionConfig <span style="color:#666">)</span> connector<span style="color:#666">.</span><span style="color:#b44">getSessionConfig</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">.</span><span style="color:#b44">setReuseAddress</span><span style="color:#666">(</span> <span style="color:#a2f;font-weight:bold">true</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-        <span style="color:#666">}</span>
-
-        <span style="color:#080;font-style:italic">// Add the codec to the chain
-</span><span style="color:#080;font-style:italic"></span>        connector<span style="color:#666">.</span><span style="color:#b44">getFilterChain</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">.</span><span style="color:#b44">addLast</span><span style="color:#666">(</span> <span style="color:#b44">&#34;ldapCodec&#34;</span><span style="color:#666">,</span> ldapProtocolFilter <span style="color:#666">)</span><span style="color:#666">;</span>
-
-        <span style="color:#080;font-style:italic">// If we use SSL, we have to add the SslFilter to the chain
-</span><span style="color:#080;font-style:italic"></span>        <span style="color:#a2f;font-weight:bold">if</span> <span style="color:#666">(</span> config<span style="color:#666">.</span><span style="color:#b44">isUseSsl</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span>
-        <span style="color:#666">{</span>
-            addSslFilter<span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
-        <span style="color:#666">}</span>
-
-        <span style="color:#080;font-style:italic">// Inject the protocolHandler
-</span><span style="color:#080;font-style:italic"></span>        connector<span style="color:#666">.</span><span style="color:#b44">setHandler</span><span style="color:#666">(</span> <span style="color:#a2f;font-weight:bold">this</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-    <span style="color:#666">}</span>
-</code></pre></div><p>A few things :</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#0b0;font-weight:bold">boolean</span><span style="color:#bbb"> </span><span style="color:#00a000">connect</span>()<span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">throws</span><span style="color:#bbb"> </span>LdapException<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">     </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">         </span>...<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">         </span><span style="color:#080;font-style:italic">// Create the connector if needed</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">         </span><span style="color:#a2f;font-weight:bold">if</span><span style="color:#bbb"> </span>(<span style="color:#bbb"> </span>connector<span style="color:#bbb"> </span><span style="color:#666">==</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">null</span><span style="color:#bbb"> </span>)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">         </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">             </span>createConnector();<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">         </span>}<span style="color:#bbb">
+</span></span></span></code></pre></div><p>and the private <em>createConnector()</em> method does all the work :</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">private</span><span style="color:#bbb"> </span><span style="color:#0b0;font-weight:bold">void</span><span style="color:#bbb"> </span><span style="color:#00a000">createConnector</span>()<span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">throws</span><span style="color:#bbb"> </span>LdapException<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#080;font-style:italic">// Use only one thread inside the connector</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>connector<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>NioSocketConnector(<span style="color:#bbb"> </span>1<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#a2f;font-weight:bold">if</span><span style="color:#bbb"> </span>(<span style="color:#bbb"> </span>connectionConfig<span style="color:#bbb"> </span><span style="color:#666">!=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">null</span><span style="color:#bbb"> </span>)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>(<span style="color:#bbb"> </span>(<span style="color:#bbb"> </span>SocketSessionConfig<span style="color:#bbb"> </span>)<span style="color:#bbb"> </span>connector.<span style="color:#b44">getSessionConfig</span>()<span style="color:#bbb"> </span>).<span style="color:#b44">setAll</span>(<span style="color:#bbb"> </span>connectionConfig<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#a2f;font-weight:bold">else</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>(<span style="color:#bbb"> </span>(<span style="color:#bbb"> </span>SocketSessionConfig<span style="color:#bbb"> </span>)<span style="color:#bbb"> </span>connector.<span style="color:#b44">getSessionConfig</span>()<span style="color:#bbb"> </span>).<span style="color:#b44">setReuseAddress</span>(<span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">true</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#080;font-style:italic">// Add the codec to the chain</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>connector.<span style="color:#b44">getFilterChain</span>().<span style="color:#b44">addLast</span>(<span style="color:#bbb"> </span><span style="color:#b44">&#34;ldapCodec&#34;</span>,<span style="color:#bbb"> </span>ldapProtocolFilter<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#080;font-style:italic">// If we use SSL, we have to add the SslFilter to the chain</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#a2f;font-weight:bold">if</span><span style="color:#bbb"> </span>(<span style="color:#bbb"> </span>config.<span style="color:#b44">isUseSsl</span>()<span style="color:#bbb"> </span>)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>addSslFilter();<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#080;font-style:italic">// Inject the protocolHandler</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>connector.<span style="color:#b44">setHandler</span>(<span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">this</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>}<span style="color:#bbb">
+</span></span></span></code></pre></div><p>A few things :</p>
 <ul>
 <li>We use one thread as a default to handle the communication with the server, it&rsquo;s enough as we are only talking to one server anyawy. This is the reason we use &lsquo;1&rsquo; as a parameter to the <em>Connector</em> constructor.</li>
 <li>We may have a SocketSessionConfig instance, as soon as one is passed to the <em>LdapNetworkConnection</em> instance before the first call to the <em>connect</em> method is done. By default, we just set the <em>SO_REUSE</em> flag.</li>
@@ -247,19 +256,19 @@
 <p>Note : We could share the <em>Connector</em> between many <strong>LdapConnections</strong>, using less threads.</p>
 <h4 id="example--using-a-ldapconnectionconfig">Example : using a LdapConnectionConfig</h4>
 <p>Here is an example on how we can create and use a <em>LdapConnectionConfig</em> to set up a secured connection :</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    LdapConnectionConfig sslConfig <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> LdapConnectionConfig<span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">;</span>
-    sslConfig<span style="color:#666">.</span><span style="color:#b44">setLdapHost</span><span style="color:#666">(</span> Network<span style="color:#666">.</span><span style="color:#b44">LOOPBACK_HOSTNAME</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-    sslConfig<span style="color:#666">.</span><span style="color:#b44">setUseSsl</span><span style="color:#666">(</span> <span style="color:#a2f;font-weight:bold">true</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-    sslConfig<span style="color:#666">.</span><span style="color:#b44">setLdapPort</span><span style="color:#666">(</span> getLdapServer<span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">.</span><span style="color:#b44">getPortSSL</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-    sslConfig<span style="color:#666">.</span><span style="color:#b44">setTrustManagers</span><span style="color:#666">(</span> <span style="color:#a2f;font-weight:bold">new</span> NoVerificationTrustManager<span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-    sslConfig<span style="color:#666">.</span><span style="color:#b44">setBinaryAttributeDetector</span><span style="color:#666">(</span> <span style="color:#a2f;font-weight:bold">new</span> SchemaBinaryAttributeDetector<span style="color:#666">(</span>
-            ldapServer<span style="color:#666">.</span><span style="color:#b44">getDirectoryService</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">.</span><span style="color:#b44">getSchemaManager</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-
-    <span style="color:#a2f;font-weight:bold">try</span> <span style="color:#666">(</span> LdapNetworkConnection connection <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> LdapNetworkConnection<span style="color:#666">(</span> sslConfig <span style="color:#666">)</span> <span style="color:#666">)</span>
-        <span style="color:#666">{</span>
-            connection<span style="color:#666">.</span><span style="color:#b44">bind</span><span style="color:#666">(</span> <span style="color:#b44">&#34;uid=admin,ou=system&#34;</span><span style="color:#666">,</span> <span style="color:#b44">&#34;secret&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-            <span style="color:#666">.</span><span style="color:#666">.</span><span style="color:#666">.</span>
-</code></pre></div><h3 id="mina-events-processing">MINA Events processing</h3>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#bbb">    </span>LdapConnectionConfig<span style="color:#bbb"> </span>sslConfig<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>LdapConnectionConfig();<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>sslConfig.<span style="color:#b44">setLdapHost</span>(<span style="color:#bbb"> </span>Network.<span style="color:#b44">LOOPBACK_HOSTNAME</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>sslConfig.<span style="color:#b44">setUseSsl</span>(<span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">true</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>sslConfig.<span style="color:#b44">setLdapPort</span>(<span style="color:#bbb"> </span>getLdapServer().<span style="color:#b44">getPortSSL</span>()<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>sslConfig.<span style="color:#b44">setTrustManagers</span>(<span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>NoVerificationTrustManager()<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>sslConfig.<span style="color:#b44">setBinaryAttributeDetector</span>(<span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>SchemaBinaryAttributeDetector(<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>ldapServer.<span style="color:#b44">getDirectoryService</span>().<span style="color:#b44">getSchemaManager</span>()<span style="color:#bbb"> </span>)<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">try</span><span style="color:#bbb"> </span>(<span style="color:#bbb"> </span>LdapNetworkConnection<span style="color:#bbb"> </span>connection<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>LdapNetworkConnection(<span style="color:#bbb"> </span>sslConfig<span style="color:#bbb"> </span>)<span style="color:#bbb"> </span>)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>connection.<span style="color:#b44">bind</span>(<span style="color:#bbb"> </span><span style="color:#b44">&#34;uid=admin,ou=system&#34;</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;secret&#34;</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>...<span style="color:#bbb">
+</span></span></span></code></pre></div><h3 id="mina-events-processing">MINA Events processing</h3>
 <p>There are many aspects we need to consider when it comes to use <strong>MINA</strong> :</p>
 <ul>
 <li>events processing</li>
@@ -286,89 +295,89 @@
 <p>Actually, we only implement the <em>messageReceived</em>, <em>exceptionCaught</em>, <em>inputClose</em>, <em>sessionCreated</em> and <em>sessionClosed</em> methods, the other are handled by the <em>IoHandlerAdpater</em> methods (which does nothing with it).</p>
 <h4 id="sending-a-message">Sending a message</h4>
 <p>There are two modes : <strong>Synchronous</strong> and <strong>Asyncrhonous</strong>. The methods are respectively described in the <em>LdapConnection</em> interface and <em>LdapAsyncConnection</em> interface. Actually, <em>synchronous</em> methods are calling <em>asynchronous</em> methods, which returns a <em>Future</em> :</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    <span style="color:#080;font-style:italic">/**
-</span><span style="color:#080;font-style:italic">     * {@inheritDoc}
-</span><span style="color:#080;font-style:italic">     */</span>
-    <span style="color:#a2f">@Override</span>
-    <span style="color:#a2f;font-weight:bold">public</span> AddResponse <span style="color:#00a000">add</span><span style="color:#666">(</span> AddRequest addRequest <span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> LdapException
-    <span style="color:#666">{</span>
-        <span style="color:#666">.</span><span style="color:#666">.</span><span style="color:#666">.</span>
-
-        AddFuture addFuture <span style="color:#666">=</span> addAsync<span style="color:#666">(</span> addRequest <span style="color:#666">)</span><span style="color:#666">;</span>
-
-        <span style="color:#080;font-style:italic">// Get the result from the future
-</span><span style="color:#080;font-style:italic"></span>        <span style="color:#a2f;font-weight:bold">try</span>
-        <span style="color:#666">{</span>
-            <span style="color:#080;font-style:italic">// Read the response, waiting for it if not available immediately
-</span><span style="color:#080;font-style:italic"></span>            <span style="color:#080;font-style:italic">// Get the response, blocking
-</span><span style="color:#080;font-style:italic"></span>            AddResponse addResponse <span style="color:#666">=</span> addFuture<span style="color:#666">.</span><span style="color:#b44">get</span><span style="color:#666">(</span> timeout<span style="color:#666">,</span> TimeUnit<span style="color:#666">.</span><span style="color:#b44">MILLISECONDS</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-
-            <span style="color:#a2f;font-weight:bold">if</span> <span style="color:#666">(</span> addResponse <span style="color:#666">=</span><span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">null</span> <span style="color:#666">)</span>
-            <span style="color:#666">{</span>
-                <span style="color:#080;font-style:italic">// We didn&#39;t received anything : this is an error
-</span><span style="color:#080;font-style:italic"></span>                LOG<span style="color:#666">.</span><span style="color:#b44">error</span><span style="color:#666">(</span> <span style="color:#b44">&#34;Add failed : timeout occurred&#34;</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-                <span style="color:#a2f;font-weight:bold">throw</span> <span style="color:#a2f;font-weight:bold">new</span> LdapException<span style="color:#666">(</span> TIME_OUT_ERROR <span style="color:#666">)</span><span style="color:#666">;</span>
-            <span style="color:#666">}</span>
-
-            <span style="color:#a2f;font-weight:bold">if</span> <span style="color:#666">(</span> addResponse<span style="color:#666">.</span><span style="color:#b44">getLdapResult</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">.</span><span style="color:#b44">getResultCode</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">=</span><span style="color:#666">=</span> ResultCodeEnum<span style="color:#666">.</span><span style="color:#b44">SUCCESS</span> <span style="color:#666">)</span>
-            <span style="color:#666">{</span>
-                <span style="color:#080;font-style:italic">// Everything is fine, return the response
-</span><span style="color:#080;font-style:italic"></span>                LOG<span style="color:#666">.</span><span style="color:#b44">debug</span><span style="color:#666">(</span> <span style="color:#b44">&#34;Add successful : {}&#34;</span><span style="color:#666">,</span> addResponse <span style="color:#666">)</span><span style="color:#666">;</span>
-            <span style="color:#666">}</span>
-            <span style="color:#a2f;font-weight:bold">else</span>
-            <span style="color:#666">{</span>
-                <span style="color:#080;font-style:italic">// We have had an error
-</span><span style="color:#080;font-style:italic"></span>                LOG<span style="color:#666">.</span><span style="color:#b44">debug</span><span style="color:#666">(</span> <span style="color:#b44">&#34;Add failed : {}&#34;</span><span style="color:#666">,</span> addResponse <span style="color:#666">)</span><span style="color:#666">;</span>
-            <span style="color:#666">}</span>
-
-            <span style="color:#a2f;font-weight:bold">return</span> addResponse<span style="color:#666">;</span>
-        <span style="color:#666">}</span>
-        <span style="color:#a2f;font-weight:bold">catch</span> <span style="color:#666">(</span> Exception ie <span style="color:#666">)</span>
-        <span style="color:#666">{</span>
-            <span style="color:#080;font-style:italic">// Catch all other exceptions
-</span><span style="color:#080;font-style:italic"></span>            <span style="color:#080;font-style:italic">// Send an abandon request
-</span><span style="color:#080;font-style:italic"></span>            <span style="color:#a2f;font-weight:bold">if</span> <span style="color:#666">(</span> <span style="color:#666">!</span>addFuture<span style="color:#666">.</span><span style="color:#b44">isCancelled</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span>
-            <span style="color:#666">{</span>
-                abandon<span style="color:#666">(</span> addRequest<span style="color:#666">.</span><span style="color:#b44">getMessageId</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-            <span style="color:#666">}</span>
-
-            <span style="color:#a2f;font-weight:bold">throw</span> <span style="color:#a2f;font-weight:bold">new</span> LdapException<span style="color:#666">(</span> NO_RESPONSE_ERROR<span style="color:#666">,</span> ie <span style="color:#666">)</span><span style="color:#666">;</span>
-        <span style="color:#666">}</span>
-    <span style="color:#666">}</span>
-</code></pre></div><p>You can see we wait until the timeout expired, or until we got the response, calling the <em>addAsync</em> method, getting back a <em>Future</em> and waiting on it.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#080;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">     * {@inheritDoc}
+</span></span></span><span style="display:flex;"><span><span style="color:#080;font-style:italic">     */</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#a2f">@Override</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">public</span><span style="color:#bbb"> </span>AddResponse<span style="color:#bbb"> </span><span style="color:#00a000">add</span>(<span style="color:#bbb"> </span>AddRequest<span style="color:#bbb"> </span>addRequest<span style="color:#bbb"> </span>)<span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">throws</span><span style="color:#bbb"> </span>LdapException<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>...<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>AddFuture<span style="color:#bbb"> </span>addFuture<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span>addAsync(<span style="color:#bbb"> </span>addRequest<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#080;font-style:italic">// Get the result from the future</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#a2f;font-weight:bold">try</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#080;font-style:italic">// Read the response, waiting for it if not available immediately</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#080;font-style:italic">// Get the response, blocking</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>AddResponse<span style="color:#bbb"> </span>addResponse<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span>addFuture.<span style="color:#b44">get</span>(<span style="color:#bbb"> </span>timeout,<span style="color:#bbb"> </span>TimeUnit.<span style="color:#b44">MILLISECONDS</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#a2f;font-weight:bold">if</span><span style="color:#bbb"> </span>(<span style="color:#bbb"> </span>addResponse<span style="color:#bbb"> </span><span style="color:#666">==</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">null</span><span style="color:#bbb"> </span>)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                </span><span style="color:#080;font-style:italic">// We didn&#39;t received anything : this is an error</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                </span>LOG.<span style="color:#b44">error</span>(<span style="color:#bbb"> </span><span style="color:#b44">&#34;Add failed : timeout occurred&#34;</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                </span><span style="color:#a2f;font-weight:bold">throw</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>LdapException(<span style="color:#bbb"> </span>TIME_OUT_ERROR<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#a2f;font-weight:bold">if</span><span style="color:#bbb"> </span>(<span style="color:#bbb"> </span>addResponse.<span style="color:#b44">getLdapResult</span>().<span style="color:#b44">getResultCode</span>()<span style="color:#bbb"> </span><span style="color:#666">==</span><span style="color:#bbb"> </span>ResultCodeEnum.<span style="color:#b44">SUCCESS</span><span style="color:#bbb"> </span>)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                </span><span style="color:#080;font-style:italic">// Everything is fine, return the response</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                </span>LOG.<span style="color:#b44">debug</span>(<span style="color:#bbb"> </span><span style="color:#b44">&#34;Add successful : {}&#34;</span>,<span style="color:#bbb"> </span>addResponse<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#a2f;font-weight:bold">else</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                </span><span style="color:#080;font-style:italic">// We have had an error</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                </span>LOG.<span style="color:#b44">debug</span>(<span style="color:#bbb"> </span><span style="color:#b44">&#34;Add failed : {}&#34;</span>,<span style="color:#bbb"> </span>addResponse<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#a2f;font-weight:bold">return</span><span style="color:#bbb"> </span>addResponse;<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#a2f;font-weight:bold">catch</span><span style="color:#bbb"> </span>(<span style="color:#bbb"> </span>Exception<span style="color:#bbb"> </span>ie<span style="color:#bbb"> </span>)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#080;font-style:italic">// Catch all other exceptions</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#080;font-style:italic">// Send an abandon request</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#a2f;font-weight:bold">if</span><span style="color:#bbb"> </span>(<span style="color:#bbb"> </span><span style="color:#666">!</span>addFuture.<span style="color:#b44">isCancelled</span>()<span style="color:#bbb"> </span>)<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">                </span>abandon(<span style="color:#bbb"> </span>addRequest.<span style="color:#b44">getMessageId</span>()<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#a2f;font-weight:bold">throw</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>LdapException(<span style="color:#bbb"> </span>NO_RESPONSE_ERROR,<span style="color:#bbb"> </span>ie<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>}<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>}<span style="color:#bbb">
+</span></span></span></code></pre></div><p>You can see we wait until the timeout expired, or until we got the response, calling the <em>addAsync</em> method, getting back a <em>Future</em> and waiting on it.</p>
 <p>This method take a <em>AddRequest</em> but we have other simpler flavors (see the <strong>LDAP API</strong> documentation).</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Text" data-lang="Text">   AddResponse ldapConnection.add( AddResquest )
-       |
-       +-- AddFuture addAsync( AddRequest )
-       |       |
-       |       +-- connect()
-       |       |       |
-       |       |       +-- createConnector()
-       |       |       |       |
-       |       |       |       +-- new NioSocketConnector()
-       |       |       |       |
-       |       |       |       +-- NioSocketConnector.getFilterChain().addLast( &#34;ldapCodec&#34;, ldapProtocolFilter );
-       |       |       |       |
-       |       |       |      [+-- addSslFilter()]
-       |       |       |       |
-       |       |       |       +-- NioSocketConnector.setHandler( this )
-       |       |       |
-       |       |       +-- IoConnector.connect( address )
-       |       |
-       |       +-- checkSession()
-       |       |
-       |       +-- new AddFuture( LdapConnection, ID )
-       |       |
-       |       +-- addToFutureMap( ID, AddFuture )
-       |       |
-       |       +-- writeRequest( AddRequest )
-       |               |
-       |               +-- WriteFuture IoSession.write( request )
-       |               |
-       |               +-- WriteFuture.awaitUninterruptibly( 100 )
-       |
-       +-- AddFuture.get()
-</code></pre></div><p>Here, we first create a connection if we don&rsquo;t have one yet, and then we try to write the message to the remote server, and wait for the message to be sent. That means sending message is synchronous, while receiving is aysnchronous by default. (NOTE : This may change in the next version.)</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Text" data-lang="Text"><span style="display:flex;"><span>   AddResponse ldapConnection.add( AddResquest )
+</span></span><span style="display:flex;"><span>       |
+</span></span><span style="display:flex;"><span>       +-- AddFuture addAsync( AddRequest )
+</span></span><span style="display:flex;"><span>       |       |
+</span></span><span style="display:flex;"><span>       |       +-- connect()
+</span></span><span style="display:flex;"><span>       |       |       |
+</span></span><span style="display:flex;"><span>       |       |       +-- createConnector()
+</span></span><span style="display:flex;"><span>       |       |       |       |
+</span></span><span style="display:flex;"><span>       |       |       |       +-- new NioSocketConnector()
+</span></span><span style="display:flex;"><span>       |       |       |       |
+</span></span><span style="display:flex;"><span>       |       |       |       +-- NioSocketConnector.getFilterChain().addLast( &#34;ldapCodec&#34;, ldapProtocolFilter );
+</span></span><span style="display:flex;"><span>       |       |       |       |
+</span></span><span style="display:flex;"><span>       |       |       |      [+-- addSslFilter()]
+</span></span><span style="display:flex;"><span>       |       |       |       |
+</span></span><span style="display:flex;"><span>       |       |       |       +-- NioSocketConnector.setHandler( this )
+</span></span><span style="display:flex;"><span>       |       |       |
+</span></span><span style="display:flex;"><span>       |       |       +-- IoConnector.connect( address )
+</span></span><span style="display:flex;"><span>       |       |
+</span></span><span style="display:flex;"><span>       |       +-- checkSession()
+</span></span><span style="display:flex;"><span>       |       |
+</span></span><span style="display:flex;"><span>       |       +-- new AddFuture( LdapConnection, ID )
+</span></span><span style="display:flex;"><span>       |       |
+</span></span><span style="display:flex;"><span>       |       +-- addToFutureMap( ID, AddFuture )
+</span></span><span style="display:flex;"><span>       |       |
+</span></span><span style="display:flex;"><span>       |       +-- writeRequest( AddRequest )
+</span></span><span style="display:flex;"><span>       |               |
+</span></span><span style="display:flex;"><span>       |               +-- WriteFuture IoSession.write( request )
+</span></span><span style="display:flex;"><span>       |               |
+</span></span><span style="display:flex;"><span>       |               +-- WriteFuture.awaitUninterruptibly( 100 )
+</span></span><span style="display:flex;"><span>       |
+</span></span><span style="display:flex;"><span>       +-- AddFuture.get()
+</span></span></code></pre></div><p>Here, we first create a connection if we don&rsquo;t have one yet, and then we try to write the message to the remote server, and wait for the message to be sent. That means sending message is synchronous, while receiving is aysnchronous by default. (NOTE : This may change in the next version.)</p>
 <p>Once the request has been written, we do a <em>get</em> on the returned <em>Future</em>. Either we get an <em>AddResponse</em>, or an error/timeout.</p>
 <h4 id="receiving-a-message">Receiving a message</h4>
 <p>Once the <em>IoSession.write()</em> method is called, we can assume the message has been sent to the remote server (sort of). The response will come as an event : <em>messageReceived()</em>, which is implemented in <em>LdapNetworkConnection</em>.</p>
@@ -376,16 +385,16 @@
 <h4 id="encodingdecoding">Encoding/decoding</h4>
 <p>Messages are encoded and decoded when we send or receive them. This is done by <strong>MINA</strong>, using a callback in the <strong>LDAP API</strong>. That means we configured <strong>MINA</strong> to process <strong>LDAP</strong> messages.</p>
 <p>The codec is inserted in <strong>MINA</strong> chain while connecting :</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">    <span style="color:#080;font-style:italic">/** The Ldap codec protocol filter */</span>
-    <span style="color:#a2f;font-weight:bold">private</span> IoFilter ldapProtocolFilter <span style="color:#666">=</span> <span style="color:#a2f;font-weight:bold">new</span> ProtocolCodecFilter<span style="color:#666">(</span> codec<span style="color:#666">.</span><span style="color:#b44">getProtocolCodecFactory</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#666">)</span><span style="color:#666">;</span>
-
-    <span style="color:#a2f;font-weight:bold">private</span> <span style="color:#0b0;font-weight:bold">void</span> <span style="color:#00a000">createConnector</span><span style="color:#666">(</span><span style="color:#666">)</span> <span style="color:#a2f;font-weight:bold">throws</span> LdapException
-    <span style="color:#666">{</span>
-        <span style="color:#666">.</span><span style="color:#666">.</span><span style="color:#666">.</span>
-
-        <span style="color:#080;font-style:italic">// Add the codec to the chain
-</span><span style="color:#080;font-style:italic"></span>        connector<span style="color:#666">.</span><span style="color:#b44">getFilterChain</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">.</span><span style="color:#b44">addLast</span><span style="color:#666">(</span> <span style="color:#b44">&#34;ldapCodec&#34;</span><span style="color:#666">,</span> ldapProtocolFilter <span style="color:#666">)</span><span style="color:#666">;</span>
-</code></pre></div><p>So the <em>ProtocolCodecFilter</em> class is responsible for initializing the codec (it&rsquo;s a <strong>MINA</strong> class), and here, we use a factory to inject the encoder and decoder instances. This factory is <em>LdapProtocolCodecFactory</em>.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#080;font-style:italic">/** The Ldap codec protocol filter */</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">private</span><span style="color:#bbb"> </span>IoFilter<span style="color:#bbb"> </span>ldapProtocolFilter<span style="color:#bbb"> </span><span style="color:#666">=</span><span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>ProtocolCodecFilter(<span style="color:#bbb"> </span>codec.<span style="color:#b44">getProtocolCodecFactory</span>()<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">private</span><span style="color:#bbb"> </span><span style="color:#0b0;font-weight:bold">void</span><span style="color:#bbb"> </span><span style="color:#00a000">createConnector</span>()<span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">throws</span><span style="color:#bbb"> </span>LdapException<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>{<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>...<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#080;font-style:italic">// Add the codec to the chain</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>connector.<span style="color:#b44">getFilterChain</span>().<span style="color:#b44">addLast</span>(<span style="color:#bbb"> </span><span style="color:#b44">&#34;ldapCodec&#34;</span>,<span style="color:#bbb"> </span>ldapProtocolFilter<span style="color:#bbb"> </span>);<span style="color:#bbb">
+</span></span></span></code></pre></div><p>So the <em>ProtocolCodecFilter</em> class is responsible for initializing the codec (it&rsquo;s a <strong>MINA</strong> class), and here, we use a factory to inject the encoder and decoder instances. This factory is <em>LdapProtocolCodecFactory</em>.</p>
 <p>This class, which is part of the <em>mina</em> module, instanciate an instance of the statefull <strong>LDAP</strong> encoder and decoder classes, <em>LdapProtocolEncoder</em> and <em>LdapProtocolDecoder</em>, which also belongs to the <em>mina</em> module.</p>
 <p>What is important to remember is that <strong>TCP</strong> is not dealing with <strong>LDAP</strong> messages, but with bytes. The decoder must be able to start decoding a message, even if it does not have all the necessary bytes to decode a full <strong>LDAP</strong> message. It should also be able to decode more than one message if the bytes it received contains more than the bytes necessary to hold a message. All of this is handle by MINA anyway, but we must provide a way for the decoder to keep the current state. Check the <a href="6-codec.html">codec</a> page for more explainations.</p>
 <h2 id="ssl-handling">SSL Handling</h2>
@@ -394,39 +403,39 @@
 <h2 id="starttls-handling">StartTLS Handling</h2>
 <p>The <strong>StartTLS</strong> extended operation is a bit specific, as it is set over an existing connection, and based on a <strong>LDAP</strong> message being sent to the remote server. The big plus is that it uses the standard <strong>LDAP</strong> port, so there is no need to declare a dedicated port for a secured connection (aka <strong>LDAPS</strong>).</p>
 <p>The logic is the following :</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Text" data-lang="Text">    - The client sends a **startTLS** extended operation to the server - assuming the server supports it -
-    - The server setup a **TLS** &#39;listener&#39;, configure it, and send back an extended response to inform the client it is ready to proceed further. At this point, the server will not proceed any non-handshake messages received for this **LDAP** session, not will it send any response (they will be enqueued)
-    - On reception of this response, the client will add the **SslFilter** into the MINA network chain, configure it, and start the handshake (by sending a **CLIENT HELLO** message). No further message can be sent for this session, beside the handsake messages (they will be enqueued and delivered when teh handshake has been completed successfully)
-    - The handshake is performed: messages and responses are send and received, up to teh completion point.
-    - When the handshake is completed, the **SslFilter** inform the  connection that it&#39;s done by &#39;sending&#39; (locally) a **SESSION_SECURED* message
-    - enqueued messages are flushed on bith the client and server. We are done, the session is secured.
-</code></pre></div><p>There are many aspect that are tricky here. One of them is to be sure we don&rsquo;t send messages to the remote peer while processing the handshake</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Text" data-lang="Text"><span style="display:flex;"><span>    - The client sends a **startTLS** extended operation to the server - assuming the server supports it -
+</span></span><span style="display:flex;"><span>    - The server setup a **TLS** &#39;listener&#39;, configure it, and send back an extended response to inform the client it is ready to proceed further. At this point, the server will not proceed any non-handshake messages received for this **LDAP** session, not will it send any response (they will be enqueued)
+</span></span><span style="display:flex;"><span>    - On reception of this response, the client will add the **SslFilter** into the MINA network chain, configure it, and start the handshake (by sending a **CLIENT HELLO** message). No further message can be sent for this session, beside the handsake messages (they will be enqueued and delivered when teh handshake has been completed successfully)
+</span></span><span style="display:flex;"><span>    - The handshake is performed: messages and responses are send and received, up to teh completion point.
+</span></span><span style="display:flex;"><span>    - When the handshake is completed, the **SslFilter** inform the  connection that it&#39;s done by &#39;sending&#39; (locally) a **SESSION_SECURED* message
+</span></span><span style="display:flex;"><span>    - enqueued messages are flushed on bith the client and server. We are done, the session is secured.
+</span></span></code></pre></div><p>There are many aspect that are tricky here. One of them is to be sure we don&rsquo;t send messages to the remote peer while processing the handshake</p>
 <p>On the server :</p>
 <p>Init: the SSLContext is configured to TLS, regardless of the configuration&hellip;</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">SslHandler<span style="color:#666">.</span><span style="color:#b44">handleExtendedOperation</span>
-  <span style="color:#a2f;font-weight:bold">new</span> <span style="color:#00a000">SslFilter</span><span style="color:#666">(</span><span style="color:#666">)</span>
-    DefaultIoFilterChain<span style="color:#666">.</span><span style="color:#b44">addFirst</span><span style="color:#666">(</span><span style="color:#666">)</span>
-      DefaultIoFilterChain<span style="color:#666">.</span><span style="color:#b44">register</span><span style="color:#666">(</span><span style="color:#666">)</span>
-        SslFilter<span style="color:#666">.</span><span style="color:#b44">onPreAdd</span><span style="color:#666">(</span><span style="color:#666">)</span>
-          <span style="color:#a2f;font-weight:bold">new</span> SslHandler<span style="color:#666">(</span><span style="color:#666">)</span>
-          SslHandler<span style="color:#666">.</span><span style="color:#b44">init</span><span style="color:#666">(</span><span style="color:#666">)</span>
-            SSLContext<span style="color:#666">.</span><span style="color:#b44">createSSLEngine</span><span style="color:#666">(</span><span style="color:#666">)</span>
-            <span style="color:#666">[</span>SSLEngine<span style="color:#666">.</span><span style="color:#b44">beginHandshake</span><span style="color:#666">(</span><span style="color:#666">)</span><span style="color:#666">]</span>  <span style="color:#666">&lt;</span><span style="color:#666">&lt;</span><span style="color:#666">&lt;</span><span style="color:#666">-</span><span style="color:#666">-</span><span style="color:#666">-</span><span style="color:#666">-</span>
-        SslFilter<span style="color:#666">.</span><span style="color:#b44">onPostAdd</span><span style="color:#666">(</span><span style="color:#666">)</span>
-  write response
-</code></pre></div><p>On the client :</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Java" data-lang="Java">addSslFilter
-  SSLContext<span style="color:#666">.</span><span style="color:#b44">getInstance</span><span style="color:#666">(</span><span style="color:#666">)</span>
-  <span style="color:#a2f;font-weight:bold">new</span> SslFilter<span style="color:#666">(</span><span style="color:#666">)</span>
-  DefaultIoFilterChain<span style="color:#666">.</span><span style="color:#b44">addFirst</span><span style="color:#666">(</span><span style="color:#666">)</span>
-    DefaultIoFilterChain<span style="color:#666">.</span><span style="color:#b44">register</span><span style="color:#666">(</span><span style="color:#666">)</span>
-      SslFilter<span style="color:#666">.</span><span style="color:#b44">onPreAdd</span><span style="color:#666">(</span><span style="color:#666">)</span>
-        <span style="color:#a2f;font-weight:bold">new</span> SslHandler<span style="color:#666">(</span><span style="color:#666">)</span>
-        SslHandler<span style="color:#666">.</span><span style="color:#b44">init</span><span style="color:#666">(</span><span style="color:#666">)</span>
-          SSLContext<span style="color:#666">.</span><span style="color:#b44">createSSLEngine</span><span style="color:#666">(</span><span style="color:#666">)</span>
-          SSLEngine<span style="color:#666">.</span><span style="color:#b44">beginHandshake</span><span style="color:#666">(</span><span style="color:#666">)</span>  <span style="color:#666">&lt;</span><span style="color:#666">&lt;</span><span style="color:#666">&lt;</span><span style="color:#666">-</span><span style="color:#666">-</span><span style="color:#666">-</span><span style="color:#666">-</span>
-        SslFilter<span style="color:#666">.</span><span style="color:#b44">onPostAdd</span><span style="color:#666">(</span><span style="color:#666">)</span>
-</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span>SslHandler.<span style="color:#b44">handleExtendedOperation</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">  </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span><span style="color:#00a000">SslFilter</span>()<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>DefaultIoFilterChain.<span style="color:#b44">addFirst</span>()<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">      </span>DefaultIoFilterChain.<span style="color:#b44">register</span>()<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>SslFilter.<span style="color:#b44">onPreAdd</span>()<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">          </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>SslHandler()<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">          </span>SslHandler.<span style="color:#b44">init</span>()<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span>SSLContext.<span style="color:#b44">createSSLEngine</span>()<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">            </span><span style="color:#666">[</span>SSLEngine.<span style="color:#b44">beginHandshake</span>()<span style="color:#666">]</span><span style="color:#bbb">  </span><span style="color:#666">&lt;&lt;&lt;----</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>SslFilter.<span style="color:#b44">onPostAdd</span>()<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">  </span>write<span style="color:#bbb"> </span>response<span style="color:#bbb">
+</span></span></span></code></pre></div><p>On the client :</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span>addSslFilter<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">  </span>SSLContext.<span style="color:#b44">getInstance</span>()<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">  </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>SslFilter()<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">  </span>DefaultIoFilterChain.<span style="color:#b44">addFirst</span>()<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>DefaultIoFilterChain.<span style="color:#b44">register</span>()<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">      </span>SslFilter.<span style="color:#b44">onPreAdd</span>()<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#a2f;font-weight:bold">new</span><span style="color:#bbb"> </span>SslHandler()<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>SslHandler.<span style="color:#b44">init</span>()<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">          </span>SSLContext.<span style="color:#b44">createSSLEngine</span>()<span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">          </span>SSLEngine.<span style="color:#b44">beginHandshake</span>()<span style="color:#bbb">  </span><span style="color:#666">&lt;&lt;&lt;----</span><span style="color:#bbb">
+</span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>SslFilter.<span style="color:#b44">onPostAdd</span>()<span style="color:#bbb">
+</span></span></span></code></pre></div>
 
             
     <div class="nav">
@@ -456,16 +465,18 @@
         <div id="endContent"></div>
     </div>
 
-    <div id="footer">
+    <div class="footer-wrapper">
+<div id="footer">
     &copy; 2003-2025, <a href="https://www.apache.org">The Apache Software Foundation</a> - <a href="https://privacy.apache.org/policies/privacy-policy-public.html">Privacy Policy</a><br />
     Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
-    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple, Fortress, Apache Fortress, EnMasse,
     Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
     trademarks of The Apache Software Foundation.
 </div>
-
 </div>
 
+</div>
+<div class="top-bottom-spacer"></div>
 </body>
 
 </html>

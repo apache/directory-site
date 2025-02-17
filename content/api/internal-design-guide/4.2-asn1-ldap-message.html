@@ -1,20 +1,29 @@
 <!DOCTYPE html>
 
 <html lang="en">
+
+
+    
+    
+        
+    
+
 <head>
     <meta charset="utf-8">
     <title>4-2 - ASN/1 LDAP grammar &mdash; Apache Directory</title>
 
     <link href="/css/common.css" rel="stylesheet" type="text/css"/>
-    <link href="/css/brown.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/api.css" rel="stylesheet" type="text/css"/>
 
     <link rel="shortcut icon" href="/images/server-icon_16x16.png" />
     <script src="https://www.apachecon.com/event-images/snippet.js"></script>
 </head>
 
 <body>
+<div class="top-bottom-spacer"></div>
 <div id="container">
     <div id="header">
+    <span>Apache Directory</span>
     <a href="/"><div id="headerClick"></div></a>
     <div id="subProjectsNavBar">
         <a href="/">
@@ -81,7 +90,7 @@
 
                 <h5>Downloads</h5>
                 <ul>
-                    <li><a href="/api/downloads-2.html">Version 2.1.7</a>&nbsp;&nbsp;<img src="/images/new_badge.gif" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/downloads-2.html">Version 2.1.7</a>&nbsp;&nbsp;<img src="/images/new_badge.svg" alt="" style="margin-bottom:-3px;" border="0"></li>
                     <li><a href="/api/downloads-1.html">Version 1.0.3</a>&nbsp;&nbsp;</li>
                     <li><a href="/api/download-old-versions.html">Older versions</a></li>
                 </ul>
@@ -193,312 +202,312 @@
 <h1 id="asn1-ldap-grammar">ASN/1 LDAP grammar</h1>
 <p>The <strong>LDAP</strong> grammar is defined in <a href="https://www.rfc-editor.org/rfc/rfc4511#appendix-B">RFC 4511, appendix B</a>.</p>
 <p>Here it is:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-Text" data-lang="Text">Lightweight-Directory-Access-Protocol-V3 {1 3 6 1 1 18}
-        -- Copyright (C) The Internet Society (2006).  This version of
-        -- this ASN.1 module is part of RFC 4511; see the RFC itself
-        -- for full legal notices.
-        DEFINITIONS
-        IMPLICIT TAGS
-        EXTENSIBILITY IMPLIED ::=
-
-        BEGIN
-
-        LDAPMessage ::= SEQUENCE {
-             messageID       MessageID,
-             protocolOp      CHOICE {
-                  bindRequest           BindRequest,
-                  bindResponse          BindResponse,
-                  unbindRequest         UnbindRequest,
-                  searchRequest         SearchRequest,
-                  searchResEntry        SearchResultEntry,
-                  searchResDone         SearchResultDone,
-                  searchResRef          SearchResultReference,
-                  modifyRequest         ModifyRequest,
-                  modifyResponse        ModifyResponse,
-                  addRequest            AddRequest,
-                  addResponse           AddResponse,
-                  delRequest            DelRequest,
-                  delResponse           DelResponse,
-                  modDNRequest          ModifyDNRequest,
-                  modDNResponse         ModifyDNResponse,
-                  compareRequest        CompareRequest,
-                  compareResponse       CompareResponse,
-                  abandonRequest        AbandonRequest,
-                  extendedReq           ExtendedRequest,
-                  extendedResp          ExtendedResponse,
-                  ...,
-                  intermediateResponse  IntermediateResponse },
-             controls       [0] Controls OPTIONAL }
-
-        MessageID ::= INTEGER (0 ..  maxInt)
-
-        maxInt INTEGER ::= 2147483647 -- (2^^31 - 1) --
-
-        LDAPString ::= OCTET STRING -- UTF-8 encoded,
-                                    -- [ISO10646] characters
-
-        LDAPOID ::= OCTET STRING -- Constrained to &lt;numericoid&gt;
-                                 -- [RFC4512]
-
-        LDAPDN ::= LDAPString -- Constrained to &lt;distinguishedName&gt;
-                              -- [RFC4514]
-
-        RelativeLDAPDN ::= LDAPString -- Constrained to &lt;name-component&gt;
-                                      -- [RFC4514]
-
-        AttributeDescription ::= LDAPString
-                                -- Constrained to &lt;attributedescription&gt;
-                                -- [RFC4512]
-
-        AttributeValue ::= OCTET STRING
-
-        AttributeValueAssertion ::= SEQUENCE {
-             attributeDesc   AttributeDescription,
-             assertionValue  AssertionValue }
-
-        AssertionValue ::= OCTET STRING
-
-        PartialAttribute ::= SEQUENCE {
-             type       AttributeDescription,
-             vals       SET OF value AttributeValue }
-
-        Attribute ::= PartialAttribute(WITH COMPONENTS {
-             ...,
-             vals (SIZE(1..MAX))})
-
-        MatchingRuleId ::= LDAPString
-
-        LDAPResult ::= SEQUENCE {
-             resultCode         ENUMERATED {
-                  success                      (0),
-                  operationsError              (1),
-                  protocolError                (2),
-                  timeLimitExceeded            (3),
-                  sizeLimitExceeded            (4),
-                  compareFalse                 (5),
-                  compareTrue                  (6),
-                  authMethodNotSupported       (7),
-                  strongerAuthRequired         (8),
-                       -- 9 reserved --
-                  referral                     (10),
-                  adminLimitExceeded           (11),
-                  unavailableCriticalExtension (12),
-                  confidentialityRequired      (13),
-                  saslBindInProgress           (14),
-                  noSuchAttribute              (16),
-                  undefinedAttributeType       (17),
-                  inappropriateMatching        (18),
-                  constraintViolation          (19),
-                  attributeOrValueExists       (20),
-                  invalidAttributeSyntax       (21),
-                       -- 22-31 unused --
-                  noSuchObject                 (32),
-                  aliasProblem                 (33),
-                  invalidDNSyntax              (34),
-                       -- 35 reserved for undefined isLeaf --
-                  aliasDereferencingProblem    (36),
-                       -- 37-47 unused --
-                  inappropriateAuthentication  (48),
-                  invalidCredentials           (49),
-                  insufficientAccessRights     (50),
-                  busy                         (51),
-                  unavailable                  (52),
-                  unwillingToPerform           (53),
-                  loopDetect                   (54),
-                       -- 55-63 unused --
-                  namingViolation              (64),
-                  objectClassViolation         (65),
-                  notAllowedOnNonLeaf          (66),
-                  notAllowedOnRDN              (67),
-                  entryAlreadyExists           (68),
-                  objectClassModsProhibited    (69),
-                       -- 70 reserved for CLDAP --
-                  affectsMultipleDSAs          (71),
-                       -- 72-79 unused --
-                  other                        (80),
-                  ...  },
-             matchedDN          LDAPDN,
-             diagnosticMessage  LDAPString,
-             referral           [3] Referral OPTIONAL }
-
-        Referral ::= SEQUENCE SIZE (1..MAX) OF uri URI
-
-        URI ::= LDAPString     -- limited to characters permitted in
-                               -- URIs
-
-        Controls ::= SEQUENCE OF control Control
-
-        Control ::= SEQUENCE {
-             controlType             LDAPOID,
-             criticality             BOOLEAN DEFAULT FALSE,
-             controlValue            OCTET STRING OPTIONAL }
-
-        BindRequest ::= [APPLICATION 0] SEQUENCE {
-             version                 INTEGER (1 ..  127),
-             name                    LDAPDN,
-             authentication          AuthenticationChoice }
-
-        AuthenticationChoice ::= CHOICE {
-             simple                  [0] OCTET STRING,
-                                     -- 1 and 2 reserved
-             sasl                    [3] SaslCredentials,
-             ...  }
-
-        SaslCredentials ::= SEQUENCE {
-             mechanism               LDAPString,
-             credentials             OCTET STRING OPTIONAL }
-
-        BindResponse ::= [APPLICATION 1] SEQUENCE {
-             COMPONENTS OF LDAPResult,
-             serverSaslCreds    [7] OCTET STRING OPTIONAL }
-
-        UnbindRequest ::= [APPLICATION 2] NULL
-
-        SearchRequest ::= [APPLICATION 3] SEQUENCE {
-             baseObject      LDAPDN,
-             scope           ENUMERATED {
-                  baseObject              (0),
-                  singleLevel             (1),
-                  wholeSubtree            (2),
-                  ...  },
-             derefAliases    ENUMERATED {
-                  neverDerefAliases       (0),
-                  derefInSearching        (1),
-                  derefFindingBaseObj     (2),
-                  derefAlways             (3) },
-             sizeLimit       INTEGER (0 ..  maxInt),
-             timeLimit       INTEGER (0 ..  maxInt),
-             typesOnly       BOOLEAN,
-             filter          Filter,
-             attributes      AttributeSelection }
-
-        AttributeSelection ::= SEQUENCE OF selector LDAPString
-                       -- The LDAPString is constrained to
-                       -- &lt;attributeSelector&gt; in Section 4.5.1.8
-
-        Filter ::= CHOICE {
-             and             [0] SET SIZE (1..MAX) OF filter Filter,
-             or              [1] SET SIZE (1..MAX) OF filter Filter,
-             not             [2] Filter,
-             equalityMatch   [3] AttributeValueAssertion,
-             substrings      [4] SubstringFilter,
-             greaterOrEqual  [5] AttributeValueAssertion,
-             lessOrEqual     [6] AttributeValueAssertion,
-             present         [7] AttributeDescription,
-             approxMatch     [8] AttributeValueAssertion,
-             extensibleMatch [9] MatchingRuleAssertion,
-             ...  }
-
-        SubstringFilter ::= SEQUENCE {
-             type           AttributeDescription,
-             substrings     SEQUENCE SIZE (1..MAX) OF substring CHOICE {
-                  initial [0] AssertionValue,  -- can occur at most once
-                  any     [1] AssertionValue,
-                  final   [2] AssertionValue } -- can occur at most once
-             }
-
-        MatchingRuleAssertion ::= SEQUENCE {
-             matchingRule    [1] MatchingRuleId OPTIONAL,
-             type            [2] AttributeDescription OPTIONAL,
-             matchValue      [3] AssertionValue,
-             dnAttributes    [4] BOOLEAN DEFAULT FALSE }
-
-        SearchResultEntry ::= [APPLICATION 4] SEQUENCE {
-             objectName      LDAPDN,
-             attributes      PartialAttributeList }
-
-        PartialAttributeList ::= SEQUENCE OF
-                             partialAttribute PartialAttribute
-
-        SearchResultReference ::= [APPLICATION 19] SEQUENCE
-                                  SIZE (1..MAX) OF uri URI
-
-        SearchResultDone ::= [APPLICATION 5] LDAPResult
-
-        ModifyRequest ::= [APPLICATION 6] SEQUENCE {
-             object          LDAPDN,
-             changes         SEQUENCE OF change SEQUENCE {
-                  operation       ENUMERATED {
-                       add         (0),
-                       delete      (1),
-                       replace     (2),
-                       increment   (3), // RFC 4525 addition
-                       ...  },
-                  modification    PartialAttribute } }
-
-        ModifyResponse ::= [APPLICATION 7] LDAPResult
-
-        AddRequest ::= [APPLICATION 8] SEQUENCE {
-             entry           LDAPDN,
-             attributes      AttributeList }
-
-        AttributeList ::= SEQUENCE OF attribute Attribute
-
-        AddResponse ::= [APPLICATION 9] LDAPResult
-
-        DelRequest ::= [APPLICATION 10] LDAPDN
-
-        DelResponse ::= [APPLICATION 11] LDAPResult
-
-        ModifyDNRequest ::= [APPLICATION 12] SEQUENCE {
-             entry           LDAPDN,
-             newrdn          RelativeLDAPDN,
-             deleteoldrdn    BOOLEAN,
-             newSuperior     [0] LDAPDN OPTIONAL }
-
-        ModifyDNResponse ::= [APPLICATION 13] LDAPResult
-
-        CompareRequest ::= [APPLICATION 14] SEQUENCE {
-             entry           LDAPDN,
-             ava             AttributeValueAssertion }
-
-        CompareResponse ::= [APPLICATION 15] LDAPResult
-
-        AbandonRequest ::= [APPLICATION 16] MessageID
-
-        ExtendedRequest ::= [APPLICATION 23] SEQUENCE {
-             requestName      [0] LDAPOID,
-             requestValue     [1] OCTET STRING OPTIONAL }
-
-        ExtendedResponse ::= [APPLICATION 24] SEQUENCE {
-             COMPONENTS OF LDAPResult,
-             responseName     [10] LDAPOID OPTIONAL,
-             responseValue    [11] OCTET STRING OPTIONAL }
-
-        IntermediateResponse ::= [APPLICATION 25] SEQUENCE {
-             responseName     [0] LDAPOID OPTIONAL,
-             responseValue    [1] OCTET STRING OPTIONAL }
-
-        END
-</code></pre></div><h2 id="ldapmessage">LdapMessage</h2>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Text" data-lang="Text"><span style="display:flex;"><span>Lightweight-Directory-Access-Protocol-V3 {1 3 6 1 1 18}
+</span></span><span style="display:flex;"><span>        -- Copyright (C) The Internet Society (2006).  This version of
+</span></span><span style="display:flex;"><span>        -- this ASN.1 module is part of RFC 4511; see the RFC itself
+</span></span><span style="display:flex;"><span>        -- for full legal notices.
+</span></span><span style="display:flex;"><span>        DEFINITIONS
+</span></span><span style="display:flex;"><span>        IMPLICIT TAGS
+</span></span><span style="display:flex;"><span>        EXTENSIBILITY IMPLIED ::=
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        BEGIN
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        LDAPMessage ::= SEQUENCE {
+</span></span><span style="display:flex;"><span>             messageID       MessageID,
+</span></span><span style="display:flex;"><span>             protocolOp      CHOICE {
+</span></span><span style="display:flex;"><span>                  bindRequest           BindRequest,
+</span></span><span style="display:flex;"><span>                  bindResponse          BindResponse,
+</span></span><span style="display:flex;"><span>                  unbindRequest         UnbindRequest,
+</span></span><span style="display:flex;"><span>                  searchRequest         SearchRequest,
+</span></span><span style="display:flex;"><span>                  searchResEntry        SearchResultEntry,
+</span></span><span style="display:flex;"><span>                  searchResDone         SearchResultDone,
+</span></span><span style="display:flex;"><span>                  searchResRef          SearchResultReference,
+</span></span><span style="display:flex;"><span>                  modifyRequest         ModifyRequest,
+</span></span><span style="display:flex;"><span>                  modifyResponse        ModifyResponse,
+</span></span><span style="display:flex;"><span>                  addRequest            AddRequest,
+</span></span><span style="display:flex;"><span>                  addResponse           AddResponse,
+</span></span><span style="display:flex;"><span>                  delRequest            DelRequest,
+</span></span><span style="display:flex;"><span>                  delResponse           DelResponse,
+</span></span><span style="display:flex;"><span>                  modDNRequest          ModifyDNRequest,
+</span></span><span style="display:flex;"><span>                  modDNResponse         ModifyDNResponse,
+</span></span><span style="display:flex;"><span>                  compareRequest        CompareRequest,
+</span></span><span style="display:flex;"><span>                  compareResponse       CompareResponse,
+</span></span><span style="display:flex;"><span>                  abandonRequest        AbandonRequest,
+</span></span><span style="display:flex;"><span>                  extendedReq           ExtendedRequest,
+</span></span><span style="display:flex;"><span>                  extendedResp          ExtendedResponse,
+</span></span><span style="display:flex;"><span>                  ...,
+</span></span><span style="display:flex;"><span>                  intermediateResponse  IntermediateResponse },
+</span></span><span style="display:flex;"><span>             controls       [0] Controls OPTIONAL }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        MessageID ::= INTEGER (0 ..  maxInt)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        maxInt INTEGER ::= 2147483647 -- (2^^31 - 1) --
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        LDAPString ::= OCTET STRING -- UTF-8 encoded,
+</span></span><span style="display:flex;"><span>                                    -- [ISO10646] characters
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        LDAPOID ::= OCTET STRING -- Constrained to &lt;numericoid&gt;
+</span></span><span style="display:flex;"><span>                                 -- [RFC4512]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        LDAPDN ::= LDAPString -- Constrained to &lt;distinguishedName&gt;
+</span></span><span style="display:flex;"><span>                              -- [RFC4514]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        RelativeLDAPDN ::= LDAPString -- Constrained to &lt;name-component&gt;
+</span></span><span style="display:flex;"><span>                                      -- [RFC4514]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        AttributeDescription ::= LDAPString
+</span></span><span style="display:flex;"><span>                                -- Constrained to &lt;attributedescription&gt;
+</span></span><span style="display:flex;"><span>                                -- [RFC4512]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        AttributeValue ::= OCTET STRING
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        AttributeValueAssertion ::= SEQUENCE {
+</span></span><span style="display:flex;"><span>             attributeDesc   AttributeDescription,
+</span></span><span style="display:flex;"><span>             assertionValue  AssertionValue }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        AssertionValue ::= OCTET STRING
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        PartialAttribute ::= SEQUENCE {
+</span></span><span style="display:flex;"><span>             type       AttributeDescription,
+</span></span><span style="display:flex;"><span>             vals       SET OF value AttributeValue }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        Attribute ::= PartialAttribute(WITH COMPONENTS {
+</span></span><span style="display:flex;"><span>             ...,
+</span></span><span style="display:flex;"><span>             vals (SIZE(1..MAX))})
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        MatchingRuleId ::= LDAPString
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        LDAPResult ::= SEQUENCE {
+</span></span><span style="display:flex;"><span>             resultCode         ENUMERATED {
+</span></span><span style="display:flex;"><span>                  success                      (0),
+</span></span><span style="display:flex;"><span>                  operationsError              (1),
+</span></span><span style="display:flex;"><span>                  protocolError                (2),
+</span></span><span style="display:flex;"><span>                  timeLimitExceeded            (3),
+</span></span><span style="display:flex;"><span>                  sizeLimitExceeded            (4),
+</span></span><span style="display:flex;"><span>                  compareFalse                 (5),
+</span></span><span style="display:flex;"><span>                  compareTrue                  (6),
+</span></span><span style="display:flex;"><span>                  authMethodNotSupported       (7),
+</span></span><span style="display:flex;"><span>                  strongerAuthRequired         (8),
+</span></span><span style="display:flex;"><span>                       -- 9 reserved --
+</span></span><span style="display:flex;"><span>                  referral                     (10),
+</span></span><span style="display:flex;"><span>                  adminLimitExceeded           (11),
+</span></span><span style="display:flex;"><span>                  unavailableCriticalExtension (12),
+</span></span><span style="display:flex;"><span>                  confidentialityRequired      (13),
+</span></span><span style="display:flex;"><span>                  saslBindInProgress           (14),
+</span></span><span style="display:flex;"><span>                  noSuchAttribute              (16),
+</span></span><span style="display:flex;"><span>                  undefinedAttributeType       (17),
+</span></span><span style="display:flex;"><span>                  inappropriateMatching        (18),
+</span></span><span style="display:flex;"><span>                  constraintViolation          (19),
+</span></span><span style="display:flex;"><span>                  attributeOrValueExists       (20),
+</span></span><span style="display:flex;"><span>                  invalidAttributeSyntax       (21),
+</span></span><span style="display:flex;"><span>                       -- 22-31 unused --
+</span></span><span style="display:flex;"><span>                  noSuchObject                 (32),
+</span></span><span style="display:flex;"><span>                  aliasProblem                 (33),
+</span></span><span style="display:flex;"><span>                  invalidDNSyntax              (34),
+</span></span><span style="display:flex;"><span>                       -- 35 reserved for undefined isLeaf --
+</span></span><span style="display:flex;"><span>                  aliasDereferencingProblem    (36),
+</span></span><span style="display:flex;"><span>                       -- 37-47 unused --
+</span></span><span style="display:flex;"><span>                  inappropriateAuthentication  (48),
+</span></span><span style="display:flex;"><span>                  invalidCredentials           (49),
+</span></span><span style="display:flex;"><span>                  insufficientAccessRights     (50),
+</span></span><span style="display:flex;"><span>                  busy                         (51),
+</span></span><span style="display:flex;"><span>                  unavailable                  (52),
+</span></span><span style="display:flex;"><span>                  unwillingToPerform           (53),
+</span></span><span style="display:flex;"><span>                  loopDetect                   (54),
+</span></span><span style="display:flex;"><span>                       -- 55-63 unused --
+</span></span><span style="display:flex;"><span>                  namingViolation              (64),
+</span></span><span style="display:flex;"><span>                  objectClassViolation         (65),
+</span></span><span style="display:flex;"><span>                  notAllowedOnNonLeaf          (66),
+</span></span><span style="display:flex;"><span>                  notAllowedOnRDN              (67),
+</span></span><span style="display:flex;"><span>                  entryAlreadyExists           (68),
+</span></span><span style="display:flex;"><span>                  objectClassModsProhibited    (69),
+</span></span><span style="display:flex;"><span>                       -- 70 reserved for CLDAP --
+</span></span><span style="display:flex;"><span>                  affectsMultipleDSAs          (71),
+</span></span><span style="display:flex;"><span>                       -- 72-79 unused --
+</span></span><span style="display:flex;"><span>                  other                        (80),
+</span></span><span style="display:flex;"><span>                  ...  },
+</span></span><span style="display:flex;"><span>             matchedDN          LDAPDN,
+</span></span><span style="display:flex;"><span>             diagnosticMessage  LDAPString,
+</span></span><span style="display:flex;"><span>             referral           [3] Referral OPTIONAL }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        Referral ::= SEQUENCE SIZE (1..MAX) OF uri URI
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        URI ::= LDAPString     -- limited to characters permitted in
+</span></span><span style="display:flex;"><span>                               -- URIs
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        Controls ::= SEQUENCE OF control Control
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        Control ::= SEQUENCE {
+</span></span><span style="display:flex;"><span>             controlType             LDAPOID,
+</span></span><span style="display:flex;"><span>             criticality             BOOLEAN DEFAULT FALSE,
+</span></span><span style="display:flex;"><span>             controlValue            OCTET STRING OPTIONAL }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        BindRequest ::= [APPLICATION 0] SEQUENCE {
+</span></span><span style="display:flex;"><span>             version                 INTEGER (1 ..  127),
+</span></span><span style="display:flex;"><span>             name                    LDAPDN,
+</span></span><span style="display:flex;"><span>             authentication          AuthenticationChoice }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        AuthenticationChoice ::= CHOICE {
+</span></span><span style="display:flex;"><span>             simple                  [0] OCTET STRING,
+</span></span><span style="display:flex;"><span>                                     -- 1 and 2 reserved
+</span></span><span style="display:flex;"><span>             sasl                    [3] SaslCredentials,
+</span></span><span style="display:flex;"><span>             ...  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        SaslCredentials ::= SEQUENCE {
+</span></span><span style="display:flex;"><span>             mechanism               LDAPString,
+</span></span><span style="display:flex;"><span>             credentials             OCTET STRING OPTIONAL }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        BindResponse ::= [APPLICATION 1] SEQUENCE {
+</span></span><span style="display:flex;"><span>             COMPONENTS OF LDAPResult,
+</span></span><span style="display:flex;"><span>             serverSaslCreds    [7] OCTET STRING OPTIONAL }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        UnbindRequest ::= [APPLICATION 2] NULL
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        SearchRequest ::= [APPLICATION 3] SEQUENCE {
+</span></span><span style="display:flex;"><span>             baseObject      LDAPDN,
+</span></span><span style="display:flex;"><span>             scope           ENUMERATED {
+</span></span><span style="display:flex;"><span>                  baseObject              (0),
+</span></span><span style="display:flex;"><span>                  singleLevel             (1),
+</span></span><span style="display:flex;"><span>                  wholeSubtree            (2),
+</span></span><span style="display:flex;"><span>                  ...  },
+</span></span><span style="display:flex;"><span>             derefAliases    ENUMERATED {
+</span></span><span style="display:flex;"><span>                  neverDerefAliases       (0),
+</span></span><span style="display:flex;"><span>                  derefInSearching        (1),
+</span></span><span style="display:flex;"><span>                  derefFindingBaseObj     (2),
+</span></span><span style="display:flex;"><span>                  derefAlways             (3) },
+</span></span><span style="display:flex;"><span>             sizeLimit       INTEGER (0 ..  maxInt),
+</span></span><span style="display:flex;"><span>             timeLimit       INTEGER (0 ..  maxInt),
+</span></span><span style="display:flex;"><span>             typesOnly       BOOLEAN,
+</span></span><span style="display:flex;"><span>             filter          Filter,
+</span></span><span style="display:flex;"><span>             attributes      AttributeSelection }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        AttributeSelection ::= SEQUENCE OF selector LDAPString
+</span></span><span style="display:flex;"><span>                       -- The LDAPString is constrained to
+</span></span><span style="display:flex;"><span>                       -- &lt;attributeSelector&gt; in Section 4.5.1.8
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        Filter ::= CHOICE {
+</span></span><span style="display:flex;"><span>             and             [0] SET SIZE (1..MAX) OF filter Filter,
+</span></span><span style="display:flex;"><span>             or              [1] SET SIZE (1..MAX) OF filter Filter,
+</span></span><span style="display:flex;"><span>             not             [2] Filter,
+</span></span><span style="display:flex;"><span>             equalityMatch   [3] AttributeValueAssertion,
+</span></span><span style="display:flex;"><span>             substrings      [4] SubstringFilter,
+</span></span><span style="display:flex;"><span>             greaterOrEqual  [5] AttributeValueAssertion,
+</span></span><span style="display:flex;"><span>             lessOrEqual     [6] AttributeValueAssertion,
+</span></span><span style="display:flex;"><span>             present         [7] AttributeDescription,
+</span></span><span style="display:flex;"><span>             approxMatch     [8] AttributeValueAssertion,
+</span></span><span style="display:flex;"><span>             extensibleMatch [9] MatchingRuleAssertion,
+</span></span><span style="display:flex;"><span>             ...  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        SubstringFilter ::= SEQUENCE {
+</span></span><span style="display:flex;"><span>             type           AttributeDescription,
+</span></span><span style="display:flex;"><span>             substrings     SEQUENCE SIZE (1..MAX) OF substring CHOICE {
+</span></span><span style="display:flex;"><span>                  initial [0] AssertionValue,  -- can occur at most once
+</span></span><span style="display:flex;"><span>                  any     [1] AssertionValue,
+</span></span><span style="display:flex;"><span>                  final   [2] AssertionValue } -- can occur at most once
+</span></span><span style="display:flex;"><span>             }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        MatchingRuleAssertion ::= SEQUENCE {
+</span></span><span style="display:flex;"><span>             matchingRule    [1] MatchingRuleId OPTIONAL,
+</span></span><span style="display:flex;"><span>             type            [2] AttributeDescription OPTIONAL,
+</span></span><span style="display:flex;"><span>             matchValue      [3] AssertionValue,
+</span></span><span style="display:flex;"><span>             dnAttributes    [4] BOOLEAN DEFAULT FALSE }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        SearchResultEntry ::= [APPLICATION 4] SEQUENCE {
+</span></span><span style="display:flex;"><span>             objectName      LDAPDN,
+</span></span><span style="display:flex;"><span>             attributes      PartialAttributeList }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        PartialAttributeList ::= SEQUENCE OF
+</span></span><span style="display:flex;"><span>                             partialAttribute PartialAttribute
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        SearchResultReference ::= [APPLICATION 19] SEQUENCE
+</span></span><span style="display:flex;"><span>                                  SIZE (1..MAX) OF uri URI
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        SearchResultDone ::= [APPLICATION 5] LDAPResult
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        ModifyRequest ::= [APPLICATION 6] SEQUENCE {
+</span></span><span style="display:flex;"><span>             object          LDAPDN,
+</span></span><span style="display:flex;"><span>             changes         SEQUENCE OF change SEQUENCE {
+</span></span><span style="display:flex;"><span>                  operation       ENUMERATED {
+</span></span><span style="display:flex;"><span>                       add         (0),
+</span></span><span style="display:flex;"><span>                       delete      (1),
+</span></span><span style="display:flex;"><span>                       replace     (2),
+</span></span><span style="display:flex;"><span>                       increment   (3), // RFC 4525 addition
+</span></span><span style="display:flex;"><span>                       ...  },
+</span></span><span style="display:flex;"><span>                  modification    PartialAttribute } }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        ModifyResponse ::= [APPLICATION 7] LDAPResult
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        AddRequest ::= [APPLICATION 8] SEQUENCE {
+</span></span><span style="display:flex;"><span>             entry           LDAPDN,
+</span></span><span style="display:flex;"><span>             attributes      AttributeList }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        AttributeList ::= SEQUENCE OF attribute Attribute
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        AddResponse ::= [APPLICATION 9] LDAPResult
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        DelRequest ::= [APPLICATION 10] LDAPDN
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        DelResponse ::= [APPLICATION 11] LDAPResult
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        ModifyDNRequest ::= [APPLICATION 12] SEQUENCE {
+</span></span><span style="display:flex;"><span>             entry           LDAPDN,
+</span></span><span style="display:flex;"><span>             newrdn          RelativeLDAPDN,
+</span></span><span style="display:flex;"><span>             deleteoldrdn    BOOLEAN,
+</span></span><span style="display:flex;"><span>             newSuperior     [0] LDAPDN OPTIONAL }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        ModifyDNResponse ::= [APPLICATION 13] LDAPResult
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        CompareRequest ::= [APPLICATION 14] SEQUENCE {
+</span></span><span style="display:flex;"><span>             entry           LDAPDN,
+</span></span><span style="display:flex;"><span>             ava             AttributeValueAssertion }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        CompareResponse ::= [APPLICATION 15] LDAPResult
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        AbandonRequest ::= [APPLICATION 16] MessageID
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        ExtendedRequest ::= [APPLICATION 23] SEQUENCE {
+</span></span><span style="display:flex;"><span>             requestName      [0] LDAPOID,
+</span></span><span style="display:flex;"><span>             requestValue     [1] OCTET STRING OPTIONAL }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        ExtendedResponse ::= [APPLICATION 24] SEQUENCE {
+</span></span><span style="display:flex;"><span>             COMPONENTS OF LDAPResult,
+</span></span><span style="display:flex;"><span>             responseName     [10] LDAPOID OPTIONAL,
+</span></span><span style="display:flex;"><span>             responseValue    [11] OCTET STRING OPTIONAL }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        IntermediateResponse ::= [APPLICATION 25] SEQUENCE {
+</span></span><span style="display:flex;"><span>             responseName     [0] LDAPOID OPTIONAL,
+</span></span><span style="display:flex;"><span>             responseValue    [1] OCTET STRING OPTIONAL }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        END
+</span></span></code></pre></div><h2 id="ldapmessage">LdapMessage</h2>
 <p>The <strong>LDAPMessage</strong> grammar starts with this part:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">        LDAPMessage ::= SEQUENCE {
-             messageID       INTEGER (0 .. maxInt),
-             protocolOp      CHOICE {
-                  bindRequest           BindRequest,
-                  bindResponse          BindResponse,
-                  unbindRequest         UnbindRequest,
-                  searchRequest         SearchRequest,
-                  searchResEntry        SearchResultEntry,
-                  searchResDone         SearchResultDone,
-                  searchResRef          SearchResultReference,
-                  modifyRequest         ModifyRequest,
-                  modifyResponse        ModifyResponse,
-                  addRequest            AddRequest,
-                  addResponse           AddResponse,
-                  delRequest            DelRequest,
-                  delResponse           DelResponse,
-                  modDNRequest          ModifyDNRequest,
-                  modDNResponse         ModifyDNResponse,
-                  compareRequest        CompareRequest,
-                  compareResponse       CompareResponse,
-                  abandonRequest        AbandonRequest,
-                  extendedReq           ExtendedRequest,
-                  extendedResp          ExtendedResponse,
-                  ...,
-                  intermediateResponse  IntermediateResponse },
-             controls       [0] Controls OPTIONAL }
-</code></pre></div><p>We have three parts:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>        LDAPMessage ::= SEQUENCE {
+</span></span><span style="display:flex;"><span>             messageID       INTEGER (0 .. maxInt),
+</span></span><span style="display:flex;"><span>             protocolOp      CHOICE {
+</span></span><span style="display:flex;"><span>                  bindRequest           BindRequest,
+</span></span><span style="display:flex;"><span>                  bindResponse          BindResponse,
+</span></span><span style="display:flex;"><span>                  unbindRequest         UnbindRequest,
+</span></span><span style="display:flex;"><span>                  searchRequest         SearchRequest,
+</span></span><span style="display:flex;"><span>                  searchResEntry        SearchResultEntry,
+</span></span><span style="display:flex;"><span>                  searchResDone         SearchResultDone,
+</span></span><span style="display:flex;"><span>                  searchResRef          SearchResultReference,
+</span></span><span style="display:flex;"><span>                  modifyRequest         ModifyRequest,
+</span></span><span style="display:flex;"><span>                  modifyResponse        ModifyResponse,
+</span></span><span style="display:flex;"><span>                  addRequest            AddRequest,
+</span></span><span style="display:flex;"><span>                  addResponse           AddResponse,
+</span></span><span style="display:flex;"><span>                  delRequest            DelRequest,
+</span></span><span style="display:flex;"><span>                  delResponse           DelResponse,
+</span></span><span style="display:flex;"><span>                  modDNRequest          ModifyDNRequest,
+</span></span><span style="display:flex;"><span>                  modDNResponse         ModifyDNResponse,
+</span></span><span style="display:flex;"><span>                  compareRequest        CompareRequest,
+</span></span><span style="display:flex;"><span>                  compareResponse       CompareResponse,
+</span></span><span style="display:flex;"><span>                  abandonRequest        AbandonRequest,
+</span></span><span style="display:flex;"><span>                  extendedReq           ExtendedRequest,
+</span></span><span style="display:flex;"><span>                  extendedResp          ExtendedResponse,
+</span></span><span style="display:flex;"><span>                  ...,
+</span></span><span style="display:flex;"><span>                  intermediateResponse  IntermediateResponse },
+</span></span><span style="display:flex;"><span>             controls       [0] Controls OPTIONAL }
+</span></span></code></pre></div><p>We have three parts:</p>
 <ul>
 <li>The message <em>ID</em></li>
 <li>The protocol part</li>
@@ -529,40 +538,40 @@ Dashed arrows are optional transitions.</p>
 <li><em>SEARCH_RESULT_ENTRY_STATE</em></li>
 </ul>
 <p>Here is a flat representation of a <strong>LDAP</strong> message structure, where we see the encapsulated <strong>TLVs</strong>:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">+---+---+-----------------------------------------------------------------------------------------------------------------+
-|   |   | +---+---+------------+ +---+---+--------------------+ [+---+---+---------------------------------------------+] |
-|   |   | |   |   |            | |   |   |                    | [|   |   | +---+---+---------+     +---+---+---------+ |] |
-| T | L | | T | L | message ID | | T | L | protocol operation | [| T | L | | T | L | control | ... | T | L | control | |] |
-|   |   | |   |   |            | |   |   |                    | [|   |   | +-o-+-o-+----o----+     +---+---+---------+ |] |
-|   |   | +-o-+-o-+-----o------+ +-o-+-o-+---------o----------+ [+-o-+-o-+---|---|------|------------------------------+] |
-+-o-+-o-+---|---|-------|----------|---|-----------|---------------|---|-----|---|------|---------------------------------+
-  |   |     |   |       |          |   |           |               |   |     |   |      |
-  |   |     |   |       |          |   |           |               |   |     |   |      +----------&gt; A control&#39;s encoded value
-  |   |     |   |       |          |   |           |               |   |     |   |       
-  |   |     |   |       |          |   |           |               |   |     |   +-----------------&gt; A control&#39;s length
-  |   |     |   |       |          |   |           |               |   |     |   
-  |   |     |   |       |          |   |           |               |   |     +---------------------&gt; A control&#39;s sequence (0x30)   
-  |   |     |   |       |          |   |           |               |   |     
-  |   |     |   |       |          |   |           |               |   +---------------------------&gt; The controls total length
-  |   |     |   |       |          |   |           |               |
-  |   |     |   |       |          |   |           |               +-------------------------------&gt; The controls sequence tag (0xA0)
-  |   |     |   |       |          |   |           |
-  |   |     |   |       |          |   |           +-----------------------------------------------&gt; The encoded operation
-  |   |     |   |       |          |   |
-  |   |     |   |       |          |   +-----------------------------------------------------------&gt; The operation length
-  |   |     |   |       |          |
-  |   |     |   |       |          +---------------------------------------------------------------&gt; The operation code (can be 0x60 for a BindRequest)
-  |   |     |   |       |
-  |   |     |   |       +--------------------------------------------------------------------------&gt; The message ID
-  |   |     |   |
-  |   |     |   +----------------------------------------------------------------------------------&gt; The message ID&#39;s length (from 1 to 4)
-  |   |     |
-  |   |     +--------------------------------------------------------------------------------------&gt; The message ID&#39;s tag, 0x02 for an INTEGER
-  |   |
-  |   +--------------------------------------------------------------------------------------------&gt; The LDAP message&#39;s length
-  |
-  +------------------------------------------------------------------------------------------------&gt; The LDAP message sequence (0x30)
-</code></pre></div><p>Now, here is the sub-message <strong>protocolOp</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>+---+---+-----------------------------------------------------------------------------------------------------------------+
+</span></span><span style="display:flex;"><span>|   |   | +---+---+------------+ +---+---+--------------------+ [+---+---+---------------------------------------------+] |
+</span></span><span style="display:flex;"><span>|   |   | |   |   |            | |   |   |                    | [|   |   | +---+---+---------+     +---+---+---------+ |] |
+</span></span><span style="display:flex;"><span>| T | L | | T | L | message ID | | T | L | protocol operation | [| T | L | | T | L | control | ... | T | L | control | |] |
+</span></span><span style="display:flex;"><span>|   |   | |   |   |            | |   |   |                    | [|   |   | +-o-+-o-+----o----+     +---+---+---------+ |] |
+</span></span><span style="display:flex;"><span>|   |   | +-o-+-o-+-----o------+ +-o-+-o-+---------o----------+ [+-o-+-o-+---|---|------|------------------------------+] |
+</span></span><span style="display:flex;"><span>+-o-+-o-+---|---|-------|----------|---|-----------|---------------|---|-----|---|------|---------------------------------+
+</span></span><span style="display:flex;"><span>  |   |     |   |       |          |   |           |               |   |     |   |      |
+</span></span><span style="display:flex;"><span>  |   |     |   |       |          |   |           |               |   |     |   |      +----------&gt; A control&#39;s encoded value
+</span></span><span style="display:flex;"><span>  |   |     |   |       |          |   |           |               |   |     |   |       
+</span></span><span style="display:flex;"><span>  |   |     |   |       |          |   |           |               |   |     |   +-----------------&gt; A control&#39;s length
+</span></span><span style="display:flex;"><span>  |   |     |   |       |          |   |           |               |   |     |   
+</span></span><span style="display:flex;"><span>  |   |     |   |       |          |   |           |               |   |     +---------------------&gt; A control&#39;s sequence (0x30)   
+</span></span><span style="display:flex;"><span>  |   |     |   |       |          |   |           |               |   |     
+</span></span><span style="display:flex;"><span>  |   |     |   |       |          |   |           |               |   +---------------------------&gt; The controls total length
+</span></span><span style="display:flex;"><span>  |   |     |   |       |          |   |           |               |
+</span></span><span style="display:flex;"><span>  |   |     |   |       |          |   |           |               +-------------------------------&gt; The controls sequence tag (0xA0)
+</span></span><span style="display:flex;"><span>  |   |     |   |       |          |   |           |
+</span></span><span style="display:flex;"><span>  |   |     |   |       |          |   |           +-----------------------------------------------&gt; The encoded operation
+</span></span><span style="display:flex;"><span>  |   |     |   |       |          |   |
+</span></span><span style="display:flex;"><span>  |   |     |   |       |          |   +-----------------------------------------------------------&gt; The operation length
+</span></span><span style="display:flex;"><span>  |   |     |   |       |          |
+</span></span><span style="display:flex;"><span>  |   |     |   |       |          +---------------------------------------------------------------&gt; The operation code (can be 0x60 for a BindRequest)
+</span></span><span style="display:flex;"><span>  |   |     |   |       |
+</span></span><span style="display:flex;"><span>  |   |     |   |       +--------------------------------------------------------------------------&gt; The message ID
+</span></span><span style="display:flex;"><span>  |   |     |   |
+</span></span><span style="display:flex;"><span>  |   |     |   +----------------------------------------------------------------------------------&gt; The message ID&#39;s length (from 1 to 4)
+</span></span><span style="display:flex;"><span>  |   |     |
+</span></span><span style="display:flex;"><span>  |   |     +--------------------------------------------------------------------------------------&gt; The message ID&#39;s tag, 0x02 for an INTEGER
+</span></span><span style="display:flex;"><span>  |   |
+</span></span><span style="display:flex;"><span>  |   +--------------------------------------------------------------------------------------------&gt; The LDAP message&#39;s length
+</span></span><span style="display:flex;"><span>  |
+</span></span><span style="display:flex;"><span>  +------------------------------------------------------------------------------------------------&gt; The LDAP message sequence (0x30)
+</span></span></code></pre></div><p>Now, here is the sub-message <strong>protocolOp</strong>:</p>
 <img src="images/asn1-protocol-op.png" alt="protocol operations state machine" width="100%"/>
 <p>It covers all the existing <strong>LDAP</strong> messages.</p>
 <h2 id="ldapresult">LdapResult</h2>
@@ -574,90 +583,89 @@ Dashed arrows are optional transitions.</p>
 <li>An optional list of <strong>LDAP URL</strong> that may be able to process the operation.</li>
 </ul>
 <p>Here is the complete grammar, as defined in <a href="https://www.rfc-editor.org/rfc/rfc4511">RFC4511</a>:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">LDAPResult ::= SEQUENCE {
-             resultCode         ENUMERATED {
-                  success                      (0),
-                  operationsError              (1),
-                  protocolError                (2),
-                  timeLimitExceeded            (3),
-                  sizeLimitExceeded            (4),
-                  compareFalse                 (5),
-                  compareTrue                  (6),
-                  authMethodNotSupported       (7),
-                  strongerAuthRequired         (8),
-                  referral                     (10),
-                  adminLimitExceeded           (11),
-                  unavailableCriticalExtension (12),
-                  confidentialityRequired      (13),
-                  saslBindInProgress           (14),
-                  noSuchAttribute              (16),
-                  undefinedAttributeType       (17),
-                  inappropriateMatching        (18),
-                  constraintViolation          (19),
-                  attributeOrValueExists       (20),
-                  invalidAttributeSyntax       (21),
-                  noSuchObject                 (32),
-                  aliasProblem                 (33),
-                  invalidDNSyntax              (34),
-                  aliasDereferencingProblem    (36),
-                  inappropriateAuthentication  (48),
-                  invalidCredentials           (49),
-                  insufficientAccessRights     (50),
-                  busy                         (51),
-                  unavailable                  (52),
-                  unwillingToPerform           (53),
-                  loopDetect                   (54),
-                  namingViolation              (64),
-                  objectClassViolation         (65),
-                  notAllowedOnNonLeaf          (66),
-                  notAllowedOnRDN              (67),
-                  entryAlreadyExists           (68),
-                  objectClassModsProhibited    (69),
-                  affectsMultipleDSAs          (71),
-                  other                        (80),
-                  ...  },
-             matchedDN          OCTET STRING,
-             diagnosticMessage  OCTET STRING,
-             referral           [3] Referral OPTIONAL }
-
-        Referral ::= SEQUENCE SIZE (1..MAX) OF uri OCTET STRING
-
-        URI ::= LDAPString     -- limited to characters permitted in
-                               -- URIs
-
-</code></pre></div><p>The associated state machine is given by this schema:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>LDAPResult ::= SEQUENCE {
+</span></span><span style="display:flex;"><span>             resultCode         ENUMERATED {
+</span></span><span style="display:flex;"><span>                  success                      (0),
+</span></span><span style="display:flex;"><span>                  operationsError              (1),
+</span></span><span style="display:flex;"><span>                  protocolError                (2),
+</span></span><span style="display:flex;"><span>                  timeLimitExceeded            (3),
+</span></span><span style="display:flex;"><span>                  sizeLimitExceeded            (4),
+</span></span><span style="display:flex;"><span>                  compareFalse                 (5),
+</span></span><span style="display:flex;"><span>                  compareTrue                  (6),
+</span></span><span style="display:flex;"><span>                  authMethodNotSupported       (7),
+</span></span><span style="display:flex;"><span>                  strongerAuthRequired         (8),
+</span></span><span style="display:flex;"><span>                  referral                     (10),
+</span></span><span style="display:flex;"><span>                  adminLimitExceeded           (11),
+</span></span><span style="display:flex;"><span>                  unavailableCriticalExtension (12),
+</span></span><span style="display:flex;"><span>                  confidentialityRequired      (13),
+</span></span><span style="display:flex;"><span>                  saslBindInProgress           (14),
+</span></span><span style="display:flex;"><span>                  noSuchAttribute              (16),
+</span></span><span style="display:flex;"><span>                  undefinedAttributeType       (17),
+</span></span><span style="display:flex;"><span>                  inappropriateMatching        (18),
+</span></span><span style="display:flex;"><span>                  constraintViolation          (19),
+</span></span><span style="display:flex;"><span>                  attributeOrValueExists       (20),
+</span></span><span style="display:flex;"><span>                  invalidAttributeSyntax       (21),
+</span></span><span style="display:flex;"><span>                  noSuchObject                 (32),
+</span></span><span style="display:flex;"><span>                  aliasProblem                 (33),
+</span></span><span style="display:flex;"><span>                  invalidDNSyntax              (34),
+</span></span><span style="display:flex;"><span>                  aliasDereferencingProblem    (36),
+</span></span><span style="display:flex;"><span>                  inappropriateAuthentication  (48),
+</span></span><span style="display:flex;"><span>                  invalidCredentials           (49),
+</span></span><span style="display:flex;"><span>                  insufficientAccessRights     (50),
+</span></span><span style="display:flex;"><span>                  busy                         (51),
+</span></span><span style="display:flex;"><span>                  unavailable                  (52),
+</span></span><span style="display:flex;"><span>                  unwillingToPerform           (53),
+</span></span><span style="display:flex;"><span>                  loopDetect                   (54),
+</span></span><span style="display:flex;"><span>                  namingViolation              (64),
+</span></span><span style="display:flex;"><span>                  objectClassViolation         (65),
+</span></span><span style="display:flex;"><span>                  notAllowedOnNonLeaf          (66),
+</span></span><span style="display:flex;"><span>                  notAllowedOnRDN              (67),
+</span></span><span style="display:flex;"><span>                  entryAlreadyExists           (68),
+</span></span><span style="display:flex;"><span>                  objectClassModsProhibited    (69),
+</span></span><span style="display:flex;"><span>                  affectsMultipleDSAs          (71),
+</span></span><span style="display:flex;"><span>                  other                        (80),
+</span></span><span style="display:flex;"><span>                  ...  },
+</span></span><span style="display:flex;"><span>             matchedDN          OCTET STRING,
+</span></span><span style="display:flex;"><span>             diagnosticMessage  OCTET STRING,
+</span></span><span style="display:flex;"><span>             referral           [3] Referral OPTIONAL }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        Referral ::= SEQUENCE SIZE (1..MAX) OF uri OCTET STRING
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        URI ::= LDAPString     -- limited to characters permitted in
+</span></span><span style="display:flex;"><span>                               -- URIs
+</span></span></code></pre></div><p>The associated state machine is given by this schema:</p>
 <img src="images/asn1-ldap-result.png" alt="LDAPResult state machine" width="100%"/>
 <h2 id="controls">Controls</h2>
 <p>The <strong>Control</strong> grammar is the following:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">     Controls ::= SEQUENCE OF control Control
-
-     Control ::= SEQUENCE {
-             controlType             OCTET STRING,
-             criticality             BOOLEAN DEFAULT FALSE,
-             controlValue            OCTET STRING OPTIONAL 
-</code></pre></div><p>The associated state machine is given by this schema:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>     Controls ::= SEQUENCE OF control Control
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>     Control ::= SEQUENCE {
+</span></span><span style="display:flex;"><span>             controlType             OCTET STRING,
+</span></span><span style="display:flex;"><span>             criticality             BOOLEAN DEFAULT FALSE,
+</span></span><span style="display:flex;"><span>             controlValue            OCTET STRING OPTIONAL 
+</span></span></code></pre></div><p>The associated state machine is given by this schema:</p>
 <img src="images/asn1-controls.png" alt="Controls state machine" width="100%"/>
 <p>There is no mandatory transition.</p>
 <h2 id="abandonrequest-operation">AbandonRequest operation</h2>
 <p>The <strong>AbandonRequest</strong> message grammar is the following:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">AbandonRequest ::= [APPLICATION 16] INTEGER (0 .. maxInt)
-</code></pre></div><p>The state machine for this operation is already described in the <a href="#ldapmessage">LdapMessage</a> state machine. The operation code (0x50) is completed with the <em>ID</em> of the message to be abandonned.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>AbandonRequest ::= [APPLICATION 16] INTEGER (0 .. maxInt)
+</span></span></code></pre></div><p>The state machine for this operation is already described in the <a href="#ldapmessage">LdapMessage</a> state machine. The operation code (0x50) is completed with the <em>ID</em> of the message to be abandonned.</p>
 <h2 id="addrequest-operation">AddRequest operation</h2>
 <p>The <strong>AddRequest</strong> message grammar is the following:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">AddRequest ::= [APPLICATION 8] SEQUENCE {
-             entry           OCTET STRING,
-             attributes      AttributeList }
-
-AttributeList ::= SEQUENCE OF attribute Attribute
-
-Attribute ::= PartialAttribute(WITH COMPONENTS {
-             ...,
-             vals (SIZE(1..MAX))})
-
-PartialAttribute ::= SEQUENCE {
-             type       OCTET STRING,
-             vals       SET OF value OCTET STRING }
-</code></pre></div><p>Its state machine is shown in this picture:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>AddRequest ::= [APPLICATION 8] SEQUENCE {
+</span></span><span style="display:flex;"><span>             entry           OCTET STRING,
+</span></span><span style="display:flex;"><span>             attributes      AttributeList }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>AttributeList ::= SEQUENCE OF attribute Attribute
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Attribute ::= PartialAttribute(WITH COMPONENTS {
+</span></span><span style="display:flex;"><span>             ...,
+</span></span><span style="display:flex;"><span>             vals (SIZE(1..MAX))})
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>PartialAttribute ::= SEQUENCE {
+</span></span><span style="display:flex;"><span>             type       OCTET STRING,
+</span></span><span style="display:flex;"><span>             vals       SET OF value OCTET STRING }
+</span></span></code></pre></div><p>Its state machine is shown in this picture:</p>
 <img src="images/asn1-add-request.png" alt="AddRequest state machine" width="100%"/>
 <p>For a <strong>AddRequest</strong>, only one state is mandatory and must be followed by another state:</p>
 <ul>
@@ -665,26 +673,26 @@ PartialAttribute ::= SEQUENCE {
 </ul>
 <h2 id="addresponse-operation">AddResponse operation</h2>
 <p>The <strong>Add</strong> operation response is described by this part of the <strong>LDAP</strong> grammar:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">    AddResponse ::= [APPLICATION 9] LDAPResult
-</code></pre></div><p>The associated state machine is shown below:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>    AddResponse ::= [APPLICATION 9] LDAPResult
+</span></span></code></pre></div><p>The associated state machine is shown below:</p>
 <img src="images/asn1-add-response.png" alt="AddResponse state machine" width="100%"/>
 <p>There are no mandatory state.</p>
 <h2 id="bindrequest-operation">BindRequest operation</h2>
 <p>The <strong>BindRequest</strong> message grammar is the following:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">        BindRequest ::= [APPLICATION 0] SEQUENCE {
-             version                 INTEGER (1 ..  127),
-             name                    OCTET STRING,
-             authentication          AuthenticationChoice }
-
-        AuthenticationChoice ::= CHOICE {
-             simple                  [0] OCTET STRING,
-             sasl                    [3] SaslCredentials,
-             ...  }
-
-        SaslCredentials ::= SEQUENCE {
-             mechanism               OCTET STRING,
-             credentials             OCTET STRING OPTIONAL }
-</code></pre></div><p>Its state machine is shown in this picture:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>        BindRequest ::= [APPLICATION 0] SEQUENCE {
+</span></span><span style="display:flex;"><span>             version                 INTEGER (1 ..  127),
+</span></span><span style="display:flex;"><span>             name                    OCTET STRING,
+</span></span><span style="display:flex;"><span>             authentication          AuthenticationChoice }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        AuthenticationChoice ::= CHOICE {
+</span></span><span style="display:flex;"><span>             simple                  [0] OCTET STRING,
+</span></span><span style="display:flex;"><span>             sasl                    [3] SaslCredentials,
+</span></span><span style="display:flex;"><span>             ...  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        SaslCredentials ::= SEQUENCE {
+</span></span><span style="display:flex;"><span>             mechanism               OCTET STRING,
+</span></span><span style="display:flex;"><span>             credentials             OCTET STRING OPTIONAL }
+</span></span></code></pre></div><p>Its state machine is shown in this picture:</p>
 <img src="images/asn1-bind-request.png" alt="BindRequest state machine" width="100%"/>
 <p>We have two flavors of <strong>Bind</strong>:</p>
 <ul>
@@ -702,10 +710,10 @@ PartialAttribute ::= SEQUENCE {
 <li>A <em>LdapResult</em> element</li>
 <li>An optional response used in a aunthentication dialogue, if the <strong>BindRequest</strong> message was a <strong>SASL</strong> one</li>
 </ul>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">BindResponse ::= [APPLICATION 1] SEQUENCE {
-             COMPONENTS OF LDAPResult,
-             serverSaslCreds    [7] OCTET STRING OPTIONAL }
-</code></pre></div><p>The associated state machine is shown below:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>BindResponse ::= [APPLICATION 1] SEQUENCE {
+</span></span><span style="display:flex;"><span>             COMPONENTS OF LDAPResult,
+</span></span><span style="display:flex;"><span>             serverSaslCreds    [7] OCTET STRING OPTIONAL }
+</span></span></code></pre></div><p>The associated state machine is shown below:</p>
 <img src="images/asn1-bind-response.png" alt="BindResponse state machine" width="100%"/>
 <p>Just because we may have some data after the <strong>LDAPResult</strong> element, we use a special version of the <strong>LDAPResult</strong> state machine:</p>
 <img src="images/asn1-ldap-result-BR.png" alt="BindResponse LDAPResult state machine" width="100%"/>
@@ -716,14 +724,14 @@ PartialAttribute ::= SEQUENCE {
 </ul>
 <h2 id="comparerequest-operation">CompareRequest operation</h2>
 <p>The <strong>CompareRequest</strong> message grammar is the following:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">CompareRequest ::= [APPLICATION 14] SEQUENCE {
-             entry           OCTET STRING,
-             ava             AttributeValueAssertion }
-
-AttributeValueAssertion ::= SEQUENCE {
-             attributeDesc   OCTET STRING,
-             assertionValue  OCTET STRING }
-</code></pre></div><p>Its state machine is shown in this picture:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>CompareRequest ::= [APPLICATION 14] SEQUENCE {
+</span></span><span style="display:flex;"><span>             entry           OCTET STRING,
+</span></span><span style="display:flex;"><span>             ava             AttributeValueAssertion }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>AttributeValueAssertion ::= SEQUENCE {
+</span></span><span style="display:flex;"><span>             attributeDesc   OCTET STRING,
+</span></span><span style="display:flex;"><span>             assertionValue  OCTET STRING }
+</span></span></code></pre></div><p>Its state machine is shown in this picture:</p>
 <img src="images/asn1-compare-request.png" alt="CompareRequest state machine" width="100%"/>
 <p>For a <strong>CompareRequest</strong>, only one state is mandatory and must be followed by another state:</p>
 <ul>
@@ -731,35 +739,35 @@ AttributeValueAssertion ::= SEQUENCE {
 </ul>
 <h2 id="compareresponse-operation">CompareResponse operation</h2>
 <p>The <strong>CompareResponse</strong> message is described by this part of the <strong>LDAP</strong> grammar:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">    CompareResponse ::= [APPLICATION 15] LDAPResult
-</code></pre></div><p>The associated state machine is shown below:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>    CompareResponse ::= [APPLICATION 15] LDAPResult
+</span></span></code></pre></div><p>The associated state machine is shown below:</p>
 <img src="images/asn1-compare-response.png" alt="CompareResponse state machine" width="100%"/>
 <p>There are no mandatory state.</p>
 <h2 id="delrequest-operation">DelRequest operation</h2>
 <p>The <strong>DelRequest</strong> message is described by this part of the <strong>LDAP</strong> grammar:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">    DelRequest ::= [APPLICATION 10] OCTET STRING
-</code></pre></div><p>The state machine for this operation is already described in the <a href="#ldapmessage">LdapMessage</a> state machine. The operation code (0x4A) is completed with the Object&rsquo;s DN to be removed.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>    DelRequest ::= [APPLICATION 10] OCTET STRING
+</span></span></code></pre></div><p>The state machine for this operation is already described in the <a href="#ldapmessage">LdapMessage</a> state machine. The operation code (0x4A) is completed with the Object&rsquo;s DN to be removed.</p>
 <h2 id="delresponse-operation">DelResponse operation</h2>
 <p>The <strong>DelResponse</strong> message is described by this part of the <strong>LDAP</strong> grammar:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">    DelResponse ::= [APPLICATION 11] LDAPResult
-</code></pre></div><p>The associated state machine is shown below:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>    DelResponse ::= [APPLICATION 11] LDAPResult
+</span></span></code></pre></div><p>The associated state machine is shown below:</p>
 <img src="images/asn1-del-response.png" alt="DelResponse state machine" width="100%"/>
 <p>There are no mandatory state.</p>
 <h2 id="extendedrequest-operation">ExtendedRequest operation</h2>
 <p>The <strong>ExtendedRequest</strong> message is described by this part of the <strong>LDAP</strong> grammar:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">          ExtendedRequest ::= [APPLICATION 23] SEQUENCE {
-             requestName      [0] OCTET STRING,
-             requestValue     [1] OCTET STRING OPTIONAL }
-</code></pre></div><p>The associated state machine is shown below:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>          ExtendedRequest ::= [APPLICATION 23] SEQUENCE {
+</span></span><span style="display:flex;"><span>             requestName      [0] OCTET STRING,
+</span></span><span style="display:flex;"><span>             requestValue     [1] OCTET STRING OPTIONAL }
+</span></span></code></pre></div><p>The associated state machine is shown below:</p>
 <img src="images/asn1-extended-request.png" alt="ExtendedRequest state machine" width="100%"/>
 <p>There are no mandatory state.</p>
 <h2 id="extendedresponse-operation">ExtendedResponse operation</h2>
 <p>The <strong>ExtendedResponse</strong> message is described by this part of the <strong>LDAP</strong> grammar:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">    ExtendedResponse ::= [APPLICATION 24] SEQUENCE {
-             COMPONENTS OF LDAPResult,
-             responseName     [10] OCTET STRING OPTIONAL,
-             responseValue    [11] OCTET STRING OPTIONAL }
-</code></pre></div><p>The associated state machine is shown below:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>    ExtendedResponse ::= [APPLICATION 24] SEQUENCE {
+</span></span><span style="display:flex;"><span>             COMPONENTS OF LDAPResult,
+</span></span><span style="display:flex;"><span>             responseName     [10] OCTET STRING OPTIONAL,
+</span></span><span style="display:flex;"><span>             responseValue    [11] OCTET STRING OPTIONAL }
+</span></span></code></pre></div><p>The associated state machine is shown below:</p>
 <img src="images/asn1-extended-response.png" alt="ExtendedResponse state machine" width="100%"/>
 <p>There are no mandatory state.</p>
 <p>Just because we may have some data after the <strong>LDAPResult</strong> element, we use a special version of the <strong>LDAPResult</strong> state machine:</p>
@@ -771,29 +779,29 @@ AttributeValueAssertion ::= SEQUENCE {
 </ul>
 <h2 id="intermediateresponse-operation">IntermediateResponse operation</h2>
 <p>The <strong>IntermediateResponse</strong> message is described by this part of the <strong>LDAP</strong> grammar:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">        IntermediateResponse ::= [APPLICATION 25] SEQUENCE {
-             responseName     [0] LDAPOID OPTIONAL,
-             responseValue    [1] OCTET STRING OPTIONAL }
-</code></pre></div><p>The associated state machine is shown below:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>        IntermediateResponse ::= [APPLICATION 25] SEQUENCE {
+</span></span><span style="display:flex;"><span>             responseName     [0] LDAPOID OPTIONAL,
+</span></span><span style="display:flex;"><span>             responseValue    [1] OCTET STRING OPTIONAL }
+</span></span></code></pre></div><p>The associated state machine is shown below:</p>
 <img src="images/asn1-intermediate-response.png" alt="IntermediateResponse state machine" width="100%"/>
 <p>There are no mandatory state.</p>
 <h2 id="modifyrequest-operation">ModifyRequest operation</h2>
 <p>The <strong>ModifyRequest</strong> message is described by this part of the <strong>LDAP</strong> grammar:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">ModifyRequest ::= [APPLICATION 6] SEQUENCE {
-             object          OCTET STRING,
-             changes         SEQUENCE OF change SEQUENCE {
-                  operation       ENUMERATED {
-                       add       (0),
-                       delete    (1),
-                       replace   (2),
-                       increment (3),
-                       ...  },
-                  modification    PartialAttribute } }
-</code></pre></div><p>With this common element, <strong>PartialAttribute</strong>:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">PartialAttribute ::= SEQUENCE {
-             type       OCTET STRING,
-             vals       SET OF value OCTET STRING }
-</code></pre></div><p>(Note: the <strong>PartialAttribute</strong> sub-element is shared with the <a href="#addrequest-message"><strong>AddRequest</strong></a> and <a href="#search-result-entry"><strong>SearchResultEntry</strong></a> messages)</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>ModifyRequest ::= [APPLICATION 6] SEQUENCE {
+</span></span><span style="display:flex;"><span>             object          OCTET STRING,
+</span></span><span style="display:flex;"><span>             changes         SEQUENCE OF change SEQUENCE {
+</span></span><span style="display:flex;"><span>                  operation       ENUMERATED {
+</span></span><span style="display:flex;"><span>                       add       (0),
+</span></span><span style="display:flex;"><span>                       delete    (1),
+</span></span><span style="display:flex;"><span>                       replace   (2),
+</span></span><span style="display:flex;"><span>                       increment (3),
+</span></span><span style="display:flex;"><span>                       ...  },
+</span></span><span style="display:flex;"><span>                  modification    PartialAttribute } }
+</span></span></code></pre></div><p>With this common element, <strong>PartialAttribute</strong>:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>PartialAttribute ::= SEQUENCE {
+</span></span><span style="display:flex;"><span>             type       OCTET STRING,
+</span></span><span style="display:flex;"><span>             vals       SET OF value OCTET STRING }
+</span></span></code></pre></div><p>(Note: the <strong>PartialAttribute</strong> sub-element is shared with the <a href="#addrequest-message"><strong>AddRequest</strong></a> and <a href="#search-result-entry"><strong>SearchResultEntry</strong></a> messages)</p>
 <p>The associated state machine is shown below:</p>
 <img src="images/asn1-modify-request.png" alt="ModifyRequest state machine" width="100%"/>
 <p>Two states are mandatory:</p>
@@ -803,18 +811,18 @@ AttributeValueAssertion ::= SEQUENCE {
 </ul>
 <h2 id="modifyresponse-operation">ModifyResponse operation</h2>
 <p>The <strong>ModifyResponse</strong> message is described by this part of the <strong>LDAP</strong> grammar:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">    ModifyResponse ::= [APPLICATION 7] LDAPResult
-</code></pre></div><p>The associated state machine is shown below:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>    ModifyResponse ::= [APPLICATION 7] LDAPResult
+</span></span></code></pre></div><p>The associated state machine is shown below:</p>
 <img src="images/asn1-modify-response.png" alt="ModifyResponse state machine" width="100%"/>
 <p>There are no mandatory state.</p>
 <h2 id="modifydnrequest-operation">ModifyDNRequest operation</h2>
 <p>The <strong>ModifyDNRequest</strong> message grammar is the following:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">        ModifyDNRequest ::= [APPLICATION 12] SEQUENCE {
-             entry           OCTET STRING,
-             newrdn          OCTET STRING,
-             deleteoldrdn    BOOLEAN,
-             newSuperior     [0] OCTET STRING OPTIONAL }
-</code></pre></div><p>Its state machine is shown in this picture:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>        ModifyDNRequest ::= [APPLICATION 12] SEQUENCE {
+</span></span><span style="display:flex;"><span>             entry           OCTET STRING,
+</span></span><span style="display:flex;"><span>             newrdn          OCTET STRING,
+</span></span><span style="display:flex;"><span>             deleteoldrdn    BOOLEAN,
+</span></span><span style="display:flex;"><span>             newSuperior     [0] OCTET STRING OPTIONAL }
+</span></span></code></pre></div><p>Its state machine is shown in this picture:</p>
 <img src="images/asn1-modify-dn-request.png" alt="ModifyRequest state machine" width="100%"/>
 <p>For a <strong>ModifyRequest</strong>, one state is mandatory and must be followed by another state:</p>
 <ul>
@@ -822,32 +830,32 @@ AttributeValueAssertion ::= SEQUENCE {
 </ul>
 <h2 id="modifydnresponse--operation">ModifyDNResponse  operation</h2>
 <p>The <strong>ModifyDNResponse</strong> message is described by this part of the <strong>LDAP</strong> grammar:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">    ModifyResponse ::= [APPLICATION 13] LDAPResult
-</code></pre></div><p>The associated state machine is shown below:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>    ModifyResponse ::= [APPLICATION 13] LDAPResult
+</span></span></code></pre></div><p>The associated state machine is shown below:</p>
 <img src="images/asn1-modify-dn-response.png" alt="ModifyDNResponse state machine" width="100%"/>
 <p>There are no mandatory state.</p>
 <h2 id="searchrequest">SearchRequest</h2>
 <p>The <strong>SearchRequest</strong> message is described by this part of the <strong>LDAP</strong> grammar:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">SearchRequest ::= [APPLICATION 3] SEQUENCE {
-             baseObject      OCTET STRING,
-             scope           ENUMERATED {
-                  baseObject              (0),
-                  singleLevel             (1),
-                  wholeSubtree            (2),
-                  ...  },
-             derefAliases    ENUMERATED {
-                  neverDerefAliases       (0),
-                  derefInSearching        (1),
-                  derefFindingBaseObj     (2),
-                  derefAlways             (3) },
-             sizeLimit       INTEGER (0 ..  maxInt),
-             timeLimit       INTEGER (0 ..  maxInt),
-             typesOnly       BOOLEAN,
-             filter          Filter,
-             attributes      AttributeSelection }
-
-AttributeSelection ::= SEQUENCE OF selector OCTET STRING
-</code></pre></div><p>It uses a set of elements (<em>Filter</em>, <em>SubstringFilter</em>, <em>MatchingRuleAssertion</em>, <em>AttributeValueAssertion</em>) that are described below.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>SearchRequest ::= [APPLICATION 3] SEQUENCE {
+</span></span><span style="display:flex;"><span>             baseObject      OCTET STRING,
+</span></span><span style="display:flex;"><span>             scope           ENUMERATED {
+</span></span><span style="display:flex;"><span>                  baseObject              (0),
+</span></span><span style="display:flex;"><span>                  singleLevel             (1),
+</span></span><span style="display:flex;"><span>                  wholeSubtree            (2),
+</span></span><span style="display:flex;"><span>                  ...  },
+</span></span><span style="display:flex;"><span>             derefAliases    ENUMERATED {
+</span></span><span style="display:flex;"><span>                  neverDerefAliases       (0),
+</span></span><span style="display:flex;"><span>                  derefInSearching        (1),
+</span></span><span style="display:flex;"><span>                  derefFindingBaseObj     (2),
+</span></span><span style="display:flex;"><span>                  derefAlways             (3) },
+</span></span><span style="display:flex;"><span>             sizeLimit       INTEGER (0 ..  maxInt),
+</span></span><span style="display:flex;"><span>             timeLimit       INTEGER (0 ..  maxInt),
+</span></span><span style="display:flex;"><span>             typesOnly       BOOLEAN,
+</span></span><span style="display:flex;"><span>             filter          Filter,
+</span></span><span style="display:flex;"><span>             attributes      AttributeSelection }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>AttributeSelection ::= SEQUENCE OF selector OCTET STRING
+</span></span></code></pre></div><p>It uses a set of elements (<em>Filter</em>, <em>SubstringFilter</em>, <em>MatchingRuleAssertion</em>, <em>AttributeValueAssertion</em>) that are described below.</p>
 <p>The associated state machine is shown below:</p>
 <img src="images/asn1-search-request.png" alt="SearchRequest state machine" width="100%"/>
 <p>There are six mandatory states:</p>
@@ -861,23 +869,23 @@ AttributeSelection ::= SEQUENCE OF selector OCTET STRING
 </ul>
 <h3 id="filter">Filter</h3>
 <p>The <strong>Filter</strong> grammar part is given below:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">Filter ::= CHOICE {
-             and             [0] SET SIZE (1..MAX) OF filter Filter,
-             or              [1] SET SIZE (1..MAX) OF filter Filter,
-             not             [2] Filter,
-             equalityMatch   [3] AttributeValueAssertion,
-             substrings      [4] SubstringFilter,
-             greaterOrEqual  [5] AttributeValueAssertion,
-             lessOrEqual     [6] AttributeValueAssertion,
-             present         [7] OCTET STRING,
-             approxMatch     [8] AttributeValueAssertion,
-             extensibleMatch [9] MatchingRuleAssertion,
-             ...  }
-
-AttributeValueAssertion ::= SEQUENCE {
-             attributeDesc   OCTET STRING,
-             assertionValue  OCTET STRING }
-</code></pre></div><p>The associated state machine is shown below:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>Filter ::= CHOICE {
+</span></span><span style="display:flex;"><span>             and             [0] SET SIZE (1..MAX) OF filter Filter,
+</span></span><span style="display:flex;"><span>             or              [1] SET SIZE (1..MAX) OF filter Filter,
+</span></span><span style="display:flex;"><span>             not             [2] Filter,
+</span></span><span style="display:flex;"><span>             equalityMatch   [3] AttributeValueAssertion,
+</span></span><span style="display:flex;"><span>             substrings      [4] SubstringFilter,
+</span></span><span style="display:flex;"><span>             greaterOrEqual  [5] AttributeValueAssertion,
+</span></span><span style="display:flex;"><span>             lessOrEqual     [6] AttributeValueAssertion,
+</span></span><span style="display:flex;"><span>             present         [7] OCTET STRING,
+</span></span><span style="display:flex;"><span>             approxMatch     [8] AttributeValueAssertion,
+</span></span><span style="display:flex;"><span>             extensibleMatch [9] MatchingRuleAssertion,
+</span></span><span style="display:flex;"><span>             ...  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>AttributeValueAssertion ::= SEQUENCE {
+</span></span><span style="display:flex;"><span>             attributeDesc   OCTET STRING,
+</span></span><span style="display:flex;"><span>             assertionValue  OCTET STRING }
+</span></span></code></pre></div><p>The associated state machine is shown below:</p>
 <img src="images/asn1-filter.png" alt="Filter state machine" width="100%"/>
 <p>There are six mandatory states:</p>
 <ul>
@@ -890,12 +898,12 @@ AttributeValueAssertion ::= SEQUENCE {
 </ul>
 <h3 id="matchingruleassertion">MatchingRuleAssertion</h3>
 <p>The <strong>MatchingRuleAssertion</strong> grammar part is given below:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">MatchingRuleAssertion ::= SEQUENCE {
-             matchingRule    [1] OCTET STRING OPTIONAL,
-             type            [2] OCTET STRING OPTIONAL,
-             matchValue      [3] OCTET STRING,
-             dnAttributes    [4] BOOLEAN DEFAULT FALSE }
-</code></pre></div><p>The associated state machine is shown below:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>MatchingRuleAssertion ::= SEQUENCE {
+</span></span><span style="display:flex;"><span>             matchingRule    [1] OCTET STRING OPTIONAL,
+</span></span><span style="display:flex;"><span>             type            [2] OCTET STRING OPTIONAL,
+</span></span><span style="display:flex;"><span>             matchValue      [3] OCTET STRING,
+</span></span><span style="display:flex;"><span>             dnAttributes    [4] BOOLEAN DEFAULT FALSE }
+</span></span></code></pre></div><p>The associated state machine is shown below:</p>
 <img src="images/asn1-matching-rule-assertion.png" alt="Filter Matching Rule Assertion state machine" width="100%"/>
 <p>There are two mandatory states:</p>
 <ul>
@@ -904,35 +912,35 @@ AttributeValueAssertion ::= SEQUENCE {
 </ul>
 <h3 id="substringfilter">SubstringFilter</h3>
 <p>The <strong>SubstringFilter</strong> grammar part is given below:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">SubstringFilter ::= SEQUENCE {
-             type           OCTET STRING,
-             substrings     SEQUENCE SIZE (1..MAX) OF substring CHOICE {
-                  initial [0] OCTET STRING,
-                  any     [1] OCTET STRING,
-                  final   [2] OCTET STRING }
-             }
-</code></pre></div><p>The associated state machine is shown below:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>SubstringFilter ::= SEQUENCE {
+</span></span><span style="display:flex;"><span>             type           OCTET STRING,
+</span></span><span style="display:flex;"><span>             substrings     SEQUENCE SIZE (1..MAX) OF substring CHOICE {
+</span></span><span style="display:flex;"><span>                  initial [0] OCTET STRING,
+</span></span><span style="display:flex;"><span>                  any     [1] OCTET STRING,
+</span></span><span style="display:flex;"><span>                  final   [2] OCTET STRING }
+</span></span><span style="display:flex;"><span>             }
+</span></span></code></pre></div><p>The associated state machine is shown below:</p>
 <img src="images/asn1-substrings-filter.png" alt="Substrings Filter state machine" width="100%"/>
 <p>There is no mandatory transition</p>
 <h2 id="searchresultdone">SearchResultDone</h2>
 <p>The <strong>SearchResultDone</strong> message is described by this part of the <strong>LDAP</strong> grammar:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">    SearchResultDone ::= [APPLICATION 5] LDAPResult
-</code></pre></div><p>The associated state machine is shown below:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>    SearchResultDone ::= [APPLICATION 5] LDAPResult
+</span></span></code></pre></div><p>The associated state machine is shown below:</p>
 <img src="images/asn1-search-result-done.png" alt="SearchResultDone state machine" width="100%"/>
 <p>There are no mandatory state.</p>
 <h2 id="searchresultentry">SearchResultEntry</h2>
 <p>The <strong>SearchResultEntry</strong> message is described by this part of the <strong>LDAP</strong> grammar:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">    SearchResultEntry ::= [APPLICATION 4] SEQUENCE {
-             objectName      OCTET STRING,
-             attributes      PartialAttributeList }
-
-        PartialAttributeList ::= SEQUENCE OF
-                             partialAttribute PartialAttribute
-
-        PartialAttribute ::= SEQUENCE {
-             type       OCTET STRING,
-             vals       SET OF value OCTET STRING }
-</code></pre></div><p>The associated state machine is shown below:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>    SearchResultEntry ::= [APPLICATION 4] SEQUENCE {
+</span></span><span style="display:flex;"><span>             objectName      OCTET STRING,
+</span></span><span style="display:flex;"><span>             attributes      PartialAttributeList }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        PartialAttributeList ::= SEQUENCE OF
+</span></span><span style="display:flex;"><span>                             partialAttribute PartialAttribute
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        PartialAttribute ::= SEQUENCE {
+</span></span><span style="display:flex;"><span>             type       OCTET STRING,
+</span></span><span style="display:flex;"><span>             vals       SET OF value OCTET STRING }
+</span></span></code></pre></div><p>The associated state machine is shown below:</p>
 <img src="images/asn1-search-result-entry.png" alt="SearchResultEntry state machine" width="100%"/>
 <p>There are two mandatory transitions:</p>
 <ul>
@@ -941,14 +949,14 @@ AttributeValueAssertion ::= SEQUENCE {
 </ul>
 <h2 id="searchresultreference">SearchResultReference</h2>
 <p>The <strong>SearchResultReference</strong> message is described by this part of the <strong>LDAP</strong> grammar:</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">    SearchResultDone ::= [APPLICATION 5] LDAPResult
-</code></pre></div><p>The associated state machine is shown below:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>    SearchResultDone ::= [APPLICATION 5] LDAPResult
+</span></span></code></pre></div><p>The associated state machine is shown below:</p>
 <img src="images/asn1-search-result-reference.png" alt="SearchResultReference state machine" width="100%"/>
 <p>There are no mandatory state.</p>
 <h2 id="unbindrequest-operation">UnbindRequest operation</h2>
 <p>This is the simplest operation. Its <strong>PDU</strong> contains only 2 bytes: <strong>0x42 0x00</strong>.</p>
-<div class="highlight"><pre style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">        UnbindRequest ::= [APPLICATION 2] NULL
-</code></pre></div><p>Its state machine is already fully contained in the <strong>LDAPMEssage</strong> state machine, as it&rsquo;s encoded directly.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>        UnbindRequest ::= [APPLICATION 2] NULL
+</span></span></code></pre></div><p>Its state machine is already fully contained in the <strong>LDAPMEssage</strong> state machine, as it&rsquo;s encoded directly.</p>
 <h1 id="state-transitions">State transitions</h1>
 <h2 id="state-followers">State followers</h2>
 <p>This list gives all the possible tags for each of the state machine elements:</p>
@@ -1365,16 +1373,18 @@ AttributeValueAssertion ::= SEQUENCE {
         <div id="endContent"></div>
     </div>
 
-    <div id="footer">
+    <div class="footer-wrapper">
+<div id="footer">
     &copy; 2003-2025, <a href="https://www.apache.org">The Apache Software Foundation</a> - <a href="https://privacy.apache.org/policies/privacy-policy-public.html">Privacy Policy</a><br />
     Apache Directory, ApacheDS, Apache Directory Server, Apache Directory Studio, Apache LDAP API, Apache Triplesec,
-    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple,Fortress, Apache Fortress, EnMasse,
+    Triplesec, Apache Mavibot, Mavibot, Apache eSCIMo, eSCIMo, Apache SCIMple, SCIMple, Fortress, Apache Fortress, EnMasse,
     Apache EnMasse, Apache Kerby, Kerby, Apache, the Apache feather logo, and the Apache Directory project logos are
     trademarks of The Apache Software Foundation.
 </div>
-
 </div>
 
+</div>
+<div class="top-bottom-spacer"></div>
 </body>
 
 </html>
