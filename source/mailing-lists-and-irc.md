@@ -28,7 +28,7 @@ An article by Eric Steven Raymond very worth reading is found here: [How To Ask 
 
 ## Project mailing lists
 
-These are the mailing lists that have been established for this project. We haven't a distinguished mailing list for each of the sub-projects : if you have questions about Escimo, Mavibot or ApacheDS, for instance, you have to use the Directory Users or Developpers mailing list.
+These are the mailing lists that have been established for this project. We haven't a distinguished mailing list for each of the sub-projects : if you have questions about SCIMple, Mavibot or ApacheDS, for instance, you have to use the Directory Users or Developpers mailing list.
 
 ### Subscribing
 

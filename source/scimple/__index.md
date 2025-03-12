@@ -1,6 +1,6 @@
 ---
 type: scimple
-title: Welcome to Apache eSCIMo
+title: Welcome to Apache SCIMple
 slug: index
 ---
 
