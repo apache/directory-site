@@ -34,6 +34,7 @@ This guide get you a deep further into ApacheDS 2.0. Once you have installed the
             * [4.1.1.1 - Anonymous Authentication](advanced-ug/4.1.1.1-anonymous-authn.html)
             * [4.1.1.2 - Name/Password Authentication](advanced-ug/4.1.1.2-name-password-authn.html)
             * [4.1.1.3 - Unauthenticated Authentication](advanced-ug/4.1.1.3-unauthenticated-authn.html)
+            * [4.1.1.4 - Server side password hashing](advanced-ug/4.1.1.4-ss-password-hash.html)
         * [4.1.2 - SASL authentication](advanced-ug/4.1.2-sasl-authn.html)
             * [4.1.2.1 - SASL PLAIN text Authentication](advanced-ug/4.1.2.1-sasl-plain-text-authn.html)
             * [4.1.2.2 - SASL CRAM-MD5 Authentication](advanced-ug/4.1.2.2-sasl-cram-md5-authn.html)
