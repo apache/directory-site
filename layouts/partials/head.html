@@ -1,9 +1,16 @@
+{{ $sectionCode := "apacheds" }}
+{{ with .context.Section }}
+    {{ $cssSectionPath := printf "/static/css/%s.css" . }}
+    {{ if fileExists $cssSectionPath }}
+        {{ $sectionCode = printf "%s" . }}
+    {{ end }}
+{{ end }}
 <head>
     <meta charset="utf-8">
     <title>{{ .context.Title }} &mdash; Apache Directory</title>
 
     <link href="/css/common.css" rel="stylesheet" type="text/css"/>
-    <link href="/css/{{ .csscolor }}.css" rel="stylesheet" type="text/css"/>
+    <link href="/css/{{ $sectionCode }}.css" rel="stylesheet" type="text/css"/>
 
     <link rel="shortcut icon" href="/images/server-icon_16x16.png" />
     <script src="https://www.apachecon.com/event-images/snippet.js"></script>
