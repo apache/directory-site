@@ -17,7 +17,7 @@ navNextText: 4.1 - Authentication
         * [4.1.1.1 - Anonymous Authentication](4.1.1.1-anonymous-authn.html)
         * [4.1.1.2 - Name/Password Authentication](4.1.1.2-name-password-authn.html)
         * [4.1.1.3 - Unauthenticated Authentication](4.1.1.3-unauthenticated-authn.html)
-        * [4.1.1.4 - Server side password hashing](advanced-ug/4.1.1.4-ss-password-hash.html)
+        * [4.1.1.4 - Server side password hashing](4.1.1.4-ss-password-hash.html)
     * [4.1.2 - SASL authentication](4.1.2-sasl-authn.html)
         * [4.1.2.1 - SASL PLAIN text Authentication](4.1.2.1-sasl-plain-text-authn.html)
         * [4.1.2.2 - SASL CRAM-MD5 Authentication](4.1.2.2-sasl-cram-md5-authn.html)
