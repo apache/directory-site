@@ -169,14 +169,10 @@
 
             
 	<h1 id="2---basic-ldap-api-usage-">2 - Basic LDAP API usage (&hellip;)</h1>
-<p>We provide three different sets of methods to send requests to the <strong>LDAP</strong> server:</p>
-<ul>
-<li>The first set is the simplest.  Its methods don&rsquo;t return a response but may throw a LdapOperationException if the operation was not successful.</li>
-<li>The second set is for advanced users.  It works with dedicated Request and Response objects and allows fine-grained control at the LDAP protocol level.</li>
-<li>The third set allows users to send asynchronous requests.</li>
-</ul>
-<p>The first set of methods covers all basic LDAP operations: Bind, Add, Delete, Modify, Move/Rename/MoveAndRename, Compare, and Unbind operations</p>
-<p>The second and third sets cover all basic LDAP operations, Extended operations, and LDAP Controls.</p>
+<p>Each LDAP operations are requests that may get a response (except the <em>Abandon</em> or <em>Unbind</em> requests).</p>
+<p>Some request though may get more than one response, like the <em>Search</em> operation (which may get one or more_SearchResult Entry_, <em>SearchResultReference</em> and <em>SearchResultDone</em>).</p>
+<p>Last, not least, in specific cases an <em>IntermediateResponse</em> may be sent as a reponse to an <em>ExtendedRequest</em> (which will receive an <em>ExtendedResponse</em> at some point later).</p>
+<p>We will explain some of the most used operations in this chapter.</p>
 <h2 id="contents">Contents</h2>
 <ul>
 <li><a href="2.1-connection-disconnection.html">2.1 - Connection and disconnection</a></li>

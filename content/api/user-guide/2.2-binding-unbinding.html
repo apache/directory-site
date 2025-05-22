@@ -169,28 +169,28 @@
 
             
 	<h1 id="22---binding-and-unbinding">2.2 - Binding and unbinding</h1>
-<p>In <strong>LDAP</strong>, if one wants to access the data in the base, the common way to do it is to bind to the server. However, it&rsquo;s important to understand that binding is a different from connecting.</p>
+<p>In <strong>LDAP</strong>, if one wants to access the server data, the common way to do it is to bind to the server. However, it&rsquo;s important to understand that binding is different from connecting.</p>
 <p>Creating a connection to an <strong>LDAP</strong> server opens a socket between the client and the server. You must provide the address and the port in order to do this.</p>
-<p>The <strong>bind</strong> operation, on the other hand, creates a <em>Session</em> which will hold user information for the duration of the session. This information is limited, but includes the user&rsquo;s credentials.</p>
-<p>But it&rsquo;s important to know that it&rsquo;s possible to bind anonymously, which doesn&rsquo;t require a user or password, and still be able to send requests to the server (although the server can forbid anonymous binds).</p>
-<p>Once the user has finished interacting with the server, they can unbind, destroying the session held on the server. This operation does not close the connection, because, again <em>bind != connection</em>!</p>
+<p>The <strong>bind</strong> operation, on the other hand, creates a <em>LdapSession</em> which will hold user&rsquo;s information for the duration of the session. This information are limited.</p>
+<p>But it&rsquo;s important to know that it&rsquo;s possible to <em>bind</em> anonymously, which doesn&rsquo;t require a user or password, and still be able to send requests to the server (although the server can forbid anonymous binds).</p>
+<p>Once the user has finished interacting with the server, they can <em>unbind</em>, destroying the session held on the server. This operation does not close the connection, because, again <em>bind != connection</em>!</p>
 <h2 id="binding">Binding</h2>
 <p>There are two possible types of binds in <em>LDAP</em>:</p>
 <ul>
 <li><strong>Simple</strong></li>
 <li><strong>SASL</strong></li>
 </ul>
-<p>The first one is based on a userid/password sent to the server, which verifies the credentials are valid. It&rsquo;s also possible to proceed with an anonymous bind explicitly.</p>
-<p>The second type is more complicated, and is used whenever authentication with a specific mechanism, like <strong>DIGEST-MD5</strong>, <strong>Kerberos</strong> or certificate based is required.</p>
+<p>The first one is based on a user/password sent to the server, which verifies the credentials are valid. It&rsquo;s also possible to proceed with an anonymous bind explicitly.</p>
+<p>The second type is more complicated, and is used whenever authentication uses a specific mechanism, like <strong>DIGEST-MD5</strong>, <strong>Kerberos</strong> or certificate based is required.</p>
 <h3 id="simple-bind">Simple Bind</h3>
-<p>One can issue three kinds of simple binds:</p>
+<p>One can issue three kinds of simple bind:</p>
 <ul>
 <li><em>anonymous bind</em></li>
 <li><em>name/password bind</em></li>
 <li><em>unauthenticated authentication bind</em></li>
 </ul>
 <p>The first one is the easiest, but depending on the server&rsquo;s configuration, will be accepted or rejected (not all servers allow anonymous binds)</p>
-<p>Most of the time, the <em>bind</em> operation will not return anything. You either get bound, or will receive an <em>LdapException</em> if an error occurs.</p>
+<p>Most of the time, the <em>bind</em> operation will not return anything but a success or an error result code. You either get bound, or will receive an <em>LdapException</em> if an error occurs, so there is no need to proceed with the returned <em>BindResponse</em>.</p>
 <p>Issuing an anonymous bind is simple, you neither provide a user nor a password:</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#a2f">@Test</span><span style="color:#bbb">
 </span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#0b0;font-weight:bold">void</span><span style="color:#bbb"> </span><span style="color:#00a000">testAnonymousBindRequest</span>()<span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">throws</span><span style="color:#bbb"> </span>Exception<span style="color:#bbb">
@@ -206,12 +206,11 @@
 </span></span></span></code></pre></div><blockquote>
 <p><strong>Note</strong> It&rsquo;s important to note that the user&rsquo;s name is a <em><a href="6.9-dn.html">Dn</a></em>, not a simple name like &lsquo;John Doe&quot;</p>
 </blockquote>
-<p>Last, not least, there is a quite unknown feature in <strong>LDAP</strong> bind that allows you to issue a Bind request without providing a password. It&rsquo;s equivalent to an anonymous bind, except that the server can log the user&rsquo;s name, thus being able to trace what the user does. Servers might forbid such bind, and this will be the case if the server disallow anonymous binds.</p>
-<p>Note that this kind of bind will be supported only if the server allows anonymous binds. It&rsquo;s not supported by <em>ApacheDS</em>.</p>
+<p>Last, not least, there is a quite unknown feature in <strong>LDAP</strong> bind that allows you to issue a <em>Bind request</em> without providing a password. It&rsquo;s equivalent to an <em>anonymous</em> bind, except that the server can log the user&rsquo;s name, thus being able to trace what the user does. Servers might forbid such bind, and this will be the case if the server disallow anonymous binds.</p>
+<p>Note that this kind of bind will be supported only if the server allows anonymous binds. It&rsquo;s not supported by <em>ApacheDS</em> by default.</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#a2f">@Test</span><span style="color:#bbb">
 </span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#0b0;font-weight:bold">void</span><span style="color:#bbb"> </span><span style="color:#00a000">testSimpleBindRequest</span>()<span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">throws</span><span style="color:#bbb"> </span>Exception<span style="color:#bbb">
 </span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>{<span style="color:#bbb">
-</span></span></span><span style="display:flex;"><span><span style="color:#bbb">
 </span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>connection.<span style="color:#b44">bind</span>(<span style="color:#bbb"> </span><span style="color:#b44">&#34;uid=admin,ou=system&#34;</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
 </span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>}<span style="color:#bbb">
 </span></span></span></code></pre></div><h3 id="sasl-binding">SASL Binding</h3>
@@ -298,7 +297,7 @@ This is not an issue if your authentication comes from key tables or prompts the
 </li>
 </ul>
 <h2 id="rebinding">Rebinding</h2>
-<p>It&rsquo;s possible to issue a <strong>Bind</strong> on an already bound connection and the existing LDAP session will be terminated, and replaced by a new LDAP session. In any case, the connection is not dropped when doing so. Note that if the connection was encrypted, it remains encrypted.</p>
+<p>It&rsquo;s possible to issue a <strong>Bind</strong> on an already bound connection and the existing <strong>LDAP</strong> session will be terminated, and replaced by a new <strong>LDAP</strong> session. In any case, the connection is not dropped when doing so. Note that if the connection was encrypted, it remains encrypted.</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-Java" data-lang="Java"><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#a2f">@Test</span><span style="color:#bbb">
 </span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span><span style="color:#a2f;font-weight:bold">public</span><span style="color:#bbb"> </span><span style="color:#0b0;font-weight:bold">void</span><span style="color:#bbb"> </span><span style="color:#00a000">testRebind</span>()<span style="color:#bbb"> </span><span style="color:#a2f;font-weight:bold">throws</span><span style="color:#bbb"> </span>Exception<span style="color:#bbb">
 </span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>{<span style="color:#bbb">
@@ -310,7 +309,7 @@ This is not an issue if your authentication comes from key tables or prompts the
 </span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>assertTrue(<span style="color:#bbb"> </span>connection.<span style="color:#b44">isConnected</span>()<span style="color:#bbb"> </span>);<span style="color:#bbb">
 </span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>assertTrue(<span style="color:#bbb"> </span>connection.<span style="color:#b44">isAuthenticated</span>()<span style="color:#bbb"> </span>);<span style="color:#bbb">
 </span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>}<span style="color:#bbb">
-</span></span></span></code></pre></div><p>If you issue a <em>bind</em> on the same connection with some different credentials, then the existing session will be terminated on the server, and a new one will be created. All the pending requests for the initial session will be lost.</p>
+</span></span></span></code></pre></div><p>If you issue a <em>bind</em> on the same connection with different credentials, then the existing session will be terminated on the server, and a new one will be created. All the pending requests for the initial session will be lost.</p>
 <h2 id="unbinding">Unbinding</h2>
 <p>This is a trivial operation : you just send an <strong>UnbindRequest</strong> to the server, which will invalidate your session.</p>
 <p>It&rsquo;s important to know that when you issue an <strong>Unbind</strong>, the connection is dropped. It&rsquo;s done like this:</p>
@@ -327,7 +326,10 @@ This is not an issue if your authentication comes from key tables or prompts the
 </span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span><span style="color:#080;font-style:italic">// And Bind again.</span><span style="color:#bbb">
 </span></span></span><span style="display:flex;"><span><span style="color:#bbb">        </span>connection.<span style="color:#b44">bind</span>(<span style="color:#bbb"> </span><span style="color:#b44">&#34;uid=admin,ou=system&#34;</span>,<span style="color:#bbb"> </span><span style="color:#b44">&#34;secret&#34;</span><span style="color:#bbb"> </span>);<span style="color:#bbb">
 </span></span></span><span style="display:flex;"><span><span style="color:#bbb">    </span>}<span style="color:#bbb">
-</span></span></span></code></pre></div><p>Last, but not least, if you close the connection, the session also terminates.</p>
+</span></span></span></code></pre></div><blockquote>
+<p><strong>Note</strong> In this example, we have called the <em>unbind</em> operation, which has closed the connection. How is it possible that a <em>bind</em> operation can be applied on a closed connection? Actually, the <strong>LDAP API</strong> will automatically recreate a connection in this case.</p>
+</blockquote>
+<p>Last, but not least, if you close the connection, the session also terminates, without having to call <em>unbind</em>.</p>
 
 
             
