@@ -10,15 +10,13 @@ navNextText: 3 - Advanced LDAP API Usage
 
 # 2 - Basic LDAP API usage (...)
 
-We provide three different sets of methods to send requests to the **LDAP** server:
+Each LDAP operations are requests that may get a response (except the _Abandon_ or _Unbind_ requests).
 
-* The first set is the simplest.  Its methods don't return a response but may throw a LdapOperationException if the operation was not successful.
-* The second set is for advanced users.  It works with dedicated Request and Response objects and allows fine-grained control at the LDAP protocol level.
-* The third set allows users to send asynchronous requests.
+Some request though may get more than one response, like the _Search_ operation (which may get one or more_SearchResult Entry_, _SearchResultReference_ and _SearchResultDone_).
 
-The first set of methods covers all basic LDAP operations: Bind, Add, Delete, Modify, Move/Rename/MoveAndRename, Compare, and Unbind operations
+Last, not least, in specific cases an _IntermediateResponse_ may be sent as a reponse to an _ExtendedRequest_ (which will receive an _ExtendedResponse_ at some point later).
 
-The second and third sets cover all basic LDAP operations, Extended operations, and LDAP Controls.
+We will explain some of the most used operations in this chapter.
 
 ## Contents
 
