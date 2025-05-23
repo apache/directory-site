@@ -216,7 +216,35 @@
 </span></span></span></code></pre></div><h3 id="sasl-binding">SASL Binding</h3>
 <p>There are various <strong>SASL</strong> mechanisms that can be used to bind to a <strong>LDAP</strong> server. The <strong>Apache LDAP API</strong> support the following 5 mechanisms:</p>
 <h4 id="plain">PLAIN</h4>
-<p>To be completed&hellip;</p>
+<p>A PLAIN SASL bind will authenticate a user by its name and credentials, instead of using a DN.</p>
+<p>It&rsquo;s described in <a href="https://datatracker.ietf.org/doc/html/rfc4616">RFC 4616</a>.</p>
+<p>When using <strong>Apache Directory Server</strong>, configured to accept such <strong>SASL</strong> mechanism, the user can be configured to search for such users in a specific subtree (default to <em>ou=users,ou=system</em>).</p>
+<p>The coder looks like that:</p>
+<pre tabindex="0"><code>        SaslPlainRequest saslPlainRequest = new SaslPlainRequest();
+        saslPlainRequest.setAuthorizationId(null);
+        saslPlainRequest.setUsername( &#34;superuser&#34; );
+        saslPlainRequest.setCredentials( &#34;test&#34; );
+
+        connection.bind( saslPlainRequest );
+        
+        // At this point, if all goes fine, the user has been authenticated
+</code></pre><p>assuming an entry for <strong>superuser</strong> exists:</p>
+<pre tabindex="0"><code>dn: uid=superuser,ou=users,ou=system
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: top
+cn: superuser
+sn: administrator
+displayName: Directory Superuser
+uid: superuser
+userPassword: test
+</code></pre><blockquote>
+<p><strong>NOTE:</strong> The password is stored as plain text in this sample, it does not have to be. It would also work if it were hashed, and it most certainly should be&hellip;</p>
+</blockquote>
+<p>What is important is that we need to have an entry which <strong>uid</strong> contains the user&rsquo;s name (here, <em>superuser</em>), and this entry is under <em>ou=users,ou=system</em>.</p>
+<p>It&rsquo;s up to the server you are binding to accept or not such feature.</p>
+<p>Now, the right question would be: why would one use <strong>SASL PLAIN</strong> authentication, when it&rsquo;s pretty much like a simple bind? In some ways, it allows an authentication using a simple name, instead of providing a full <strong>DN</strong>.</p>
 <h4 id="cram-md5">CRAM-MD5</h4>
 <p>To be completed&hellip;</p>
 <h4 id="digest-md5">DIGEST-MD5</h4>
@@ -285,7 +313,7 @@
 <p><strong>Apache Kerby</strong> does not implement the option to prompt the user for a password, nor does it permit a password to be passed to <strong>GSSAPI</strong>. Thus authentication is limited to key tables and credential caches.</p>
 </li>
 <li>
-<p>The ** Apache Kerby** code sets two system properties. In the default case, it clears <strong>KRB5_CONF</strong> and sets <em>javax.security.auth.useSubjectCredsOnly</em> to true. If other code in your application uses <strong>Kerberos</strong>, be aware that there could be conflicts. Be particularly concerned about multi-threaded code that uses different values. Note that in Kirby you can explicitly set <strong>KRB5_CONF</strong>, with <em>setKrb5ConfFilePath</em>, or cause Kirby to set it with setRealmName, setKdcHost, and setKdcPort. If you use different settings for these options in different threads, there is a potential thread-safety issue.</p>
+<p>The <strong>Apache Kerby</strong> code sets two system properties. In the default case, it clears <strong>KRB5_CONF</strong> and sets <em>javax.security.auth.useSubjectCredsOnly</em> to true. If other code in your application uses <strong>Kerberos</strong>, be aware that there could be conflicts. Be particularly concerned about multi-threaded code that uses different values. Note that in Kirby you can explicitly set <strong>KRB5_CONF</strong>, with <em>setKrb5ConfFilePath</em>, or cause Kirby to set it with setRealmName, setKdcHost, and setKdcPort. If you use different settings for these options in different threads, there is a potential thread-safety issue.</p>
 </li>
 <li>
 <p>The Java implementation of <strong>Kerberos</strong> has the ability to read standard <strong>Kerberos</strong> credential cache files, e.g. <em>/tmp/krb5cc</em>%{uid}<em>. However it can’t read credentials from <strong>KEYRING</strong> or <strong>KCM</strong>. If your code asks for authentication to come from an existing credential cache, make sure that it is in a file. If you write an application that expects to use existing credentials for logged in users, without prompting for a password, you may need to set <em>default_ccache_name</em> in <em>/etc/krb5.conf</em> to a file, e.g.
