@@ -11,9 +11,11 @@ This guide is intened to be read by those who participate into the development o
 To get the source, build the *trunks/api* and get along with Maven.
 
 <DIV class="info" markdown="1">
-    We require the use of Java 11 for the recent versions. The resulting package will work with Java 8 though.
+    We require the use of Java 17 for the recent versions. The resulting package will work with Java 8 though. 
 
-    Th eminimum version of Maven to use is 3.5.4.
+    Starting from Java version 24 the removal of the SecurityManager will result in some build failure.
+
+    The minimum version of Maven to use is 3.6.2.
 </DIV>
 
 ## Versioning Scheme
