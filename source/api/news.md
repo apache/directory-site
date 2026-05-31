@@ -4,6 +4,56 @@ title: News
 
 # News 
 
+<h2 class="news">Apache Directory LDAP API 2.1.8 released <em>posted on May 31th, 2026</em></h2>
+
+It fixes an important CVE (CVE-2026-35563):
+
+It was identified that the LDAP client implementation in version 2.1.7
+does not verify if the server certificate matches the intended LDAP
+hostname. While the underlying code validates the certificate chain
+against a trusted authority, the absence of endpoint identification
+allows a valid certificate issued for an entirely unrelated host to be
+improperly accepted. This oversight leaves the connection highly
+vulnerable to server impersonation and complete connection compromise.
+
+The root cause of this vulnerability lies in the incomplete TLS server
+identity verification within the LDAP client implementation.
+
+The attacker requires MITM capability on the network to exploit this
+vulnerability. This attacker must be able to present a certificate
+trusted by the client's configured trust store.
+
+The hostname verification has been enforced in the new version of the LDAP API
+
+This release also fixes many issues in the LDAP messages decoding when using
+drafted PDU, replace all the AntLR parsed grammars by hand crafter
+parsers, allowing the API to now be complied with Java up to 25, plus
+many other issues:
+
+[DIRAPI-406](https://issues.apache.org/jira/browse/DIRAPI-406): Identical Branches in Conditional Node in `action` Method
+[DIRAPI-407](https://issues.apache.org/jira/browse/DIRAPI-407): Dereferencing Variables Before Null Comparison in Multiple Files
+[DIRAPI-410](https://issues.apache.org/jira/browse/DIRAPI-410): unchecked function result in Ava.java
+[DIRAPI-411](https://issues.apache.org/jira/browse/DIRAPI-411): Unused field `normValue` in `UpAndNormValue`
+[DIRAPI-412](https://issues.apache.org/jira/browse/DIRAPI-412): ArrayIndexOutOfBoundsException in Ldap Url parse
+[DIRAPI-414](https://issues.apache.org/jira/browse/DIRAPI-414): NullPointerException in LdapEncoder.encodeMessage
+[DIRAPI-415](https://issues.apache.org/jira/browse/DIRAPI-415): ClassCastException in Asn1Decoder
+[DIRAPI-416](https://issues.apache.org/jira/browse/DIRAPI-416): IllegalArgumentException in Asn1Decoder
+[DIRAPI-417](https://issues.apache.org/jira/browse/DIRAPI-417): ArrayIndexOutOfBoundsException in Asn1Decoder
+[DIRAPI-418](https://issues.apache.org/jira/browse/DIRAPI-418): NullPointerException in Asn1Decoder
+[DIRAPI-419](https://issues.apache.org/jira/browse/DIRAPI-419): NumberFormatException in Asn1Decoder
+[DIRAPI-420](https://issues.apache.org/jira/browse/DIRAPI-420): The Modification operation with an increment accepts more than one value
+[DIRAPI-421](https://issues.apache.org/jira/browse/DIRAPI-421): BAD_COPY_PASTE issue in /ldap/model/src/main/java/org/apache/directory/api/ldap/model/message/SearchParams.java
+[DIRAPI-423](https://issues.apache.org/jira/browse/DIRAPI-423): Update Apache MINA Core from 2.2.3 to 2.2.4 (actually, 2.2.7)
+[DIRAPI-424](https://issues.apache.org/jira/browse/DIRAPI-424): The AttributeType hashCode method can use a pre-computed value
+[DIRAPI-429](https://issues.apache.org/jira/browse/DIRAPI-429): Get rid of AntLR parsers
+
+It also fixes all the existing Javadoc issues.
+
+Downloads are available [here](downloads-2.html) and the User's Guide is [there](user-guide.html)
+
+
+# News 
+
 <h2 class="news">Apache Directory LDAP API 2.1.7 released <em>posted on August 08th, 2024</em></h2>
 
 The Apache Directory Team is proud to announce the availability of version 2.1.7 of the Apache Directory LDAP API.
