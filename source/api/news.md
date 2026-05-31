@@ -30,22 +30,22 @@ drafted PDU, replace all the AntLR parsed grammars by hand crafter
 parsers, allowing the API to now be complied with Java up to 25, plus
 many other issues:
 
-[DIRAPI-406](https://issues.apache.org/jira/browse/DIRAPI-406): Identical Branches in Conditional Node in `action` Method
-[DIRAPI-407](https://issues.apache.org/jira/browse/DIRAPI-407): Dereferencing Variables Before Null Comparison in Multiple Files
-[DIRAPI-410](https://issues.apache.org/jira/browse/DIRAPI-410): unchecked function result in Ava.java
-[DIRAPI-411](https://issues.apache.org/jira/browse/DIRAPI-411): Unused field `normValue` in `UpAndNormValue`
-[DIRAPI-412](https://issues.apache.org/jira/browse/DIRAPI-412): ArrayIndexOutOfBoundsException in Ldap Url parse
-[DIRAPI-414](https://issues.apache.org/jira/browse/DIRAPI-414): NullPointerException in LdapEncoder.encodeMessage
-[DIRAPI-415](https://issues.apache.org/jira/browse/DIRAPI-415): ClassCastException in Asn1Decoder
-[DIRAPI-416](https://issues.apache.org/jira/browse/DIRAPI-416): IllegalArgumentException in Asn1Decoder
-[DIRAPI-417](https://issues.apache.org/jira/browse/DIRAPI-417): ArrayIndexOutOfBoundsException in Asn1Decoder
-[DIRAPI-418](https://issues.apache.org/jira/browse/DIRAPI-418): NullPointerException in Asn1Decoder
-[DIRAPI-419](https://issues.apache.org/jira/browse/DIRAPI-419): NumberFormatException in Asn1Decoder
-[DIRAPI-420](https://issues.apache.org/jira/browse/DIRAPI-420): The Modification operation with an increment accepts more than one value
-[DIRAPI-421](https://issues.apache.org/jira/browse/DIRAPI-421): BAD_COPY_PASTE issue in /ldap/model/src/main/java/org/apache/directory/api/ldap/model/message/SearchParams.java
-[DIRAPI-423](https://issues.apache.org/jira/browse/DIRAPI-423): Update Apache MINA Core from 2.2.3 to 2.2.4 (actually, 2.2.7)
-[DIRAPI-424](https://issues.apache.org/jira/browse/DIRAPI-424): The AttributeType hashCode method can use a pre-computed value
-[DIRAPI-429](https://issues.apache.org/jira/browse/DIRAPI-429): Get rid of AntLR parsers
+* [DIRAPI-406](https://issues.apache.org/jira/browse/DIRAPI-406): Identical Branches in Conditional Node in `action` Method
+* [DIRAPI-407](https://issues.apache.org/jira/browse/DIRAPI-407): Dereferencing Variables Before Null Comparison in Multiple Files
+* [DIRAPI-410](https://issues.apache.org/jira/browse/DIRAPI-410): unchecked function result in Ava.java
+* [DIRAPI-411](https://issues.apache.org/jira/browse/DIRAPI-411): Unused field `normValue` in `UpAndNormValue`
+* [DIRAPI-412](https://issues.apache.org/jira/browse/DIRAPI-412): ArrayIndexOutOfBoundsException in Ldap Url parse
+* [DIRAPI-414](https://issues.apache.org/jira/browse/DIRAPI-414): NullPointerException in LdapEncoder.encodeMessage
+* [DIRAPI-415](https://issues.apache.org/jira/browse/DIRAPI-415): ClassCastException in Asn1Decoder
+* [DIRAPI-416](https://issues.apache.org/jira/browse/DIRAPI-416): IllegalArgumentException in Asn1Decoder
+* [DIRAPI-417](https://issues.apache.org/jira/browse/DIRAPI-417): ArrayIndexOutOfBoundsException in Asn1Decoder
+* [DIRAPI-418](https://issues.apache.org/jira/browse/DIRAPI-418): NullPointerException in Asn1Decoder
+* [DIRAPI-419](https://issues.apache.org/jira/browse/DIRAPI-419): NumberFormatException in Asn1Decoder
+* [DIRAPI-420](https://issues.apache.org/jira/browse/DIRAPI-420): The Modification operation with an increment accepts more than one value
+* [DIRAPI-421](https://issues.apache.org/jira/browse/DIRAPI-421): BAD_COPY_PASTE issue in /ldap/model/src/main/java/org/apache/directory/api/ldap/model/message/SearchParams.java
+* [DIRAPI-423](https://issues.apache.org/jira/browse/DIRAPI-423): Update Apache MINA Core from 2.2.3 to 2.2.4 (actually, 2.2.7)
+* [DIRAPI-424](https://issues.apache.org/jira/browse/DIRAPI-424): The AttributeType hashCode method can use a pre-computed value
+* [DIRAPI-429](https://issues.apache.org/jira/browse/DIRAPI-429): Get rid of AntLR parsers
 
 It also fixes all the existing Javadoc issues.
 
