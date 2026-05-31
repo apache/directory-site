@@ -3,6 +3,12 @@ title: News
 ---
 
 # News
+<h2 class="news">Apache Kerby 2.1.1 released <em>posted on Nov 20, 2025</em></h2>
+
+The Apache Directory team is pleased to announce the release of Apache Kerby
+2.1.1.
+
+Downloads are available [here](downloads.html)
 <h2 class="news">Apache Kerby 2.1.0 released <em>posted on Aug 14, 2024</em></h2>
 
 The Apache Directory team is pleased to announce the release of Apache Kerby

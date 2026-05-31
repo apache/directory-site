@@ -4,7 +4,7 @@ title: News
 
 # News
 
-<h2 class="news">Apache Directory Studio 2.0-0-M176 released <em>posted on July 24th, 2021</em></h2>
+<h2 class="news">Apache Directory Studio 2.0-0-M17 released <em>posted on July 24th, 2021</em></h2>
 
 The Apache Directory Team is pleased to announce the release of Apache
 Directory Studio 2.0.0-M17, the next milestone release of the version 2.0 of its Eclipse based LDAP Browser and Directory client.

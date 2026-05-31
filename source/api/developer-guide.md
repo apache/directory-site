@@ -1,4 +1,4 @@
-f---
+---
 title: LDAP Java API - Developer Guide
 ---
 
@@ -11,9 +11,9 @@ This guide is intened to be read by those who participate into the development o
 To get the source, build the *trunks/api* and get along with Maven.
 
 <DIV class="info" markdown="1">
-    We require the use of Java 11 for the recent versions. The resulting package will work with Java 8 though.
+    We require the use of Java 21 for the recent versions. The resulting package will work with Java 8 though. 
 
-    Th eminimum version of Maven to use is 3.5.4.
+    The minimum version of Maven to use is 3.9.0.
 </DIV>
 
 ## Versioning Scheme
@@ -44,7 +44,7 @@ and an optional label that indicates the maturity of a release:
 
 ## Coding standards 
 
-The applicable coding standards for LDAP API 1.0 are described in [Coding Standards](coding-standards.html)
+The applicable coding standards for LDAP API are described in [Coding Standards](coding-standards.html)
 
 There are some more rules, as we are using **Java 8** now :
 
@@ -59,7 +59,7 @@ There are some more rules, as we are using **Java 8** now :
 
 Here is a guide on how to cut a new release. This is a long process, expect it to last a couple of hours !
 
-First, you need to have a recent version of Maven (we are using 3.0.4) and a recent version of the JDK (1.7 is ok, it should also build with 1.6).
+First, you need to have a recent version of Maven (we are using 3.9) and a recent version of the JDK (it should be build withJava 21 or 25).
 
 ### Maven Settings
 
@@ -145,8 +145,7 @@ You can generate and upload a PGP key to a PGP keyserver using the following com
 
 
 <DIV class="info" markdown="1">
-Make sure to have created the .pgpkey in your <em>p.a.o/~</em> directory and to have added your public key to the <b>KEYS</b> file.
-See also http://people.apache.org/~henkp/repo/faq.html#4
+Make sure you have added your public key to the <b>KEYS</b> file.
 </DIV>
 
 ## Release process
@@ -163,11 +162,11 @@ Be aware that this phase will ask you about the next version, and most important
     
     ...
     [INFO] Checking dependencies and plugins for snapshots ...
-    What is the release version for "Apache Directory LDAP API"? (org.apache.directory.api:api-parent) 1.0.0-M16: : 
-    What is the release version for "Apache Directory LDAP API I18n"? (org.apache.directory.api:api-i18n) 1.0.0-M16: : 
-    What is the release version for "Apache Directory LDAP API Utilities"? (org.apache.directory.api:api-util) 1.0.0-M16: : 
+    What is the release version for "Apache Directory LDAP API"? (org.apache.directory.api:api-parent) 2.1.7: : 
+    What is the release version for "Apache Directory LDAP API I18n"? (org.apache.directory.api:api-i18n) 2.1.7: : 
+    What is the release version for "Apache Directory LDAP API Utilities"? (org.apache.directory.api:api-util) 2.1.7: : 
     ...
-    What is SCM release tag or label for "Apache Directory LDAP API"? (org.apache.directory.api:api-parent) 1.0.0-M16: :
+    What is SCM release tag or label for "Apache Directory LDAP API"? (org.apache.directory.api:api-parent) 2.1.7: :
     ...
 
 ### Deploy a Snapshot
@@ -196,38 +195,7 @@ Go to [the nexus server](https://repository.apache.org/index.html#stagingReposit
 
 ### Build the Site
 
-In order to be able to generate the site, you will have to modify the target/checkout/pom.xml file, by adding a line to the javadoc configuration (in two places) :
-
-    
-    $ vi target/checkout/pom.xml
-    ...
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <configuration>
-          <show>private</show>
-          <nohelp>true</nohelp>
-          <doclint>none</doclint>     <---- This line 
-    ...
-
-and
-
-    
-    ...
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-javadoc-plugin</artifactId>
-        <configuration>
-          <windowtitle>Apache LDAP API ${project.version} API Documentation</windowtitle>
-          <doctitle>Apache LDAP API ${project.version} API Documentation</doctitle>
-          <minmemory>512m</minmemory>
-          <maxmemory>1g</maxmemory>
-          <linksource>true</linksource>
-          <doclint>none</doclint>   <---- This line too
-    ...
-
-
-then run the maven site goal :
+Run the maven site goal :
 
     
     $ cd target/checkout
@@ -324,22 +292,22 @@ You may want to checkout only the part that you are going to generate, to avoid 
     $ mkdir -p ~/apacheds/dist/dev/directory/api
     $ svn co https://dist.apache.org/repos/dist/dev/directory/api ~/apacheds/dist/dev/directory/api
 
-Now, create a sub-directory for the version you have generated (here, for version 1.0.0-RC1) :
+Now, create a sub-directory for the version you have generated (here, for version 2.1.7) :
 
     
-    $ mkdir ~/apacheds/dist/dev/directory/api/1.0.0-RC1
+    $ mkdir ~/apacheds/dist/dev/directory/api/2.1.7
 
 and copy the packages and signature to this area :
 
     
     $ cd distributions/target
-    $ cp apache-ldap-api-<version>-* ~/apacheds/dist/dev/directory/api/1.0.0-RC1
+    $ cp apache-ldap-api-<version>-* ~/apacheds/dist/dev/directory/api/2.1.7
 
 Last, not least, commit your changes
 
     
-    $ svn add ~/apacheds/dist/dev/directory/api/1.0.0-RC1
-    $ svn ci ~/apacheds/dist/dev/directory/api/1.0.0-RC1 -m "Apache LDAP API 1.0.0-RC1 packages"
+    $ svn add ~/apacheds/dist/dev/directory/api/2.1.7
+    $ svn ci ~/apacheds/dist/dev/directory/api/2.1.7 -m "Apache LDAP API 2.1.7 packages"
 
 ### Test the New Version in ApacheDS and Studio
 
@@ -407,9 +375,9 @@ They are uploaded to https://nightlies.apache.org/ via WebDAV protocol.
 
 First create the folders for the version:
 
-    $ curl -u <your asf id> -X MKCOL 'https://nightlies.apache.org/directory/api/2.0.2/'
-    $ curl -u <your asf id> -X MKCOL 'https://nightlies.apache.org/directory/api/2.0.2/apidocs'
-    $ curl -u <your asf id> -X MKCOL 'https://nightlies.apache.org/directory/api/2.0.2/xref'
+    $ curl -u <your asf id> -X MKCOL 'https://nightlies.apache.org/directory/api/2.1.7/'
+    $ curl -u <your asf id> -X MKCOL 'https://nightlies.apache.org/directory/api/2.1.7/apidocs'
+    $ curl -u <your asf id> -X MKCOL 'https://nightlies.apache.org/directory/api/2.1.7/xref'
 
 I used [Rclone](https://rclone.org/) to copy folders via WebDAV.
 
@@ -426,13 +394,13 @@ After intallation run `rclone config` and configure the `nightlies` connection:
 Then copy the directories:
 
     cd target/checkout/target/site
-    rclone copy --progress apidocs nightlies:/directory/api/2.0.2/apidocs
-    rclone copy --progress xref nightlies:/directory/api/2.0.2/xref
+    rclone copy --progress apidocs nightlies:/directory/api/2.1.7/apidocs
+    rclone copy --progress xref nightlies:/directory/api/2.1.7/xref
 
 Finally update the links in the `static/api/gen-docs/.htaccess` of the directory-site repo:
 
-    RewriteRule ^latest2$ https://nightlies.apache.org/directory/api/2.0.2/ [QSA,L]
-    RewriteRule ^latest2/(.*)$ https://nightlies.apache.org/directory/api/2.0.2/$1 [QSA,L]
+    RewriteRule ^latest2$ https://nightlies.apache.org/directory/api/2.1.7/ [QSA,L]
+    RewriteRule ^latest2/(.*)$ https://nightlies.apache.org/directory/api/2.1.7/$1 [QSA,L]
 
 Save and commit the file.
 
