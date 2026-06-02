@@ -10,6 +10,7 @@ title: Security Advisories
 
 ## Apache LDAP API
 
+ * [CVE-2026-35563](https://nvd.nist.gov/vuln/detail/CVE-2026-35563)
  * [CVE-2018-1337](https://nvd.nist.gov/vuln/detail/CVE-2018-1337)
  * [CVE-2015-3250](https://nvd.nist.gov/vuln/detail/CVE-2015-3250)
 
