@@ -6,6 +6,7 @@ title: Security Advisories
 
 ## Apache Kerby
 
+ * [CVE-2026-57914](https://nvd.nist.gov/vuln/detail/CVE-2026-57914) Apache Kerby: StackOverflow on parsing deeply nested ASN1 structures
  * [CVE-2023-25613](https://nvd.nist.gov/vuln/detail/CVE-2023-25613)
 
 ## Apache LDAP API

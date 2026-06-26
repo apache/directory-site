@@ -3,6 +3,15 @@ title: News
 ---
 
 # News
+<h2 class="news">Apache Kerby 2.1.2 released <em>posted on Jun 25, 2026</em></h2>
+
+The Apache Directory team is pleased to announce the release of Apache Kerby
+2.1.2.
+
+This release fixes a new CVE in the ASN1 parser - [CVE-2026-57914](security-advisories.html).
+
+Downloads are available [here](downloads.html)
+
 <h2 class="news">Apache Kerby 2.1.1 released <em>posted on Nov 20, 2025</em></h2>
 
 The Apache Directory team is pleased to announce the release of Apache Kerby
@@ -24,7 +33,7 @@ The Apache Directory team is pleased to announce the release of Apache Kerby
 
 The issues fixed are available [here](https://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12310910&version=12351717).
 
-This release fixes a new CVE in the LDAP backend - CVE-2023-25613.
+This release fixes a new CVE in the LDAP backend - [CVE-2023-25613](security-advisories.html).
 
 Downloads are available [here](downloads.html)
 <h2 class="news">Apache Kerby 2.0.2 released <em>posted on May 9, 2022</em></h2>
