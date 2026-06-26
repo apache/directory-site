@@ -9,8 +9,8 @@ The Apache Directory team is pleased to announce the release of Apache Kerby
 2.1.2.
 
 This release fixes the following new CVEs:
- * ASN1 parse stackoverflow issue - [CVE-2026-57914](security-advisories.html).
- * Kerberos Pre-Authentication Bypass - [CVE-2026-57915](security-advisories.html).
+ * ASN1 parse stackoverflow issue - [CVE-2026-57914](https://directory.apache.org/security-advisories.html).
+ * Kerberos Pre-Authentication Bypass - [CVE-2026-57915](https://directory.apache.org/security-advisories.html).
 
 Downloads are available [here](downloads.html)
 
