@@ -1,0 +1,271 @@
+Stock controls
+
+- Cascade(1.3.6.1.4.1.18060.0.0.1) : request
+
+	No ASN.1
+
+	org.apache.directory.api.ldap.model.message.controls
+		CascadeDecorator
+		CascadeImpl
+
+- EntryChange(2.16.840.1.1.3.6.1.4.1.4203.1.10.1.3.4.7) : response (SearchResultEntry)
+
+           EntryChangeNotification ::= SEQUENCE {
+                     changeType ENUMERATED {
+                             add             (1),
+                             delete          (2),
+                             modify          (4),
+                             modDN           (8)
+                     },
+                     previousDN   LDAPDN OPTIONAL,     -- modifyDN ops. only
+                     changeNumber INTEGER OPTIONAL     -- if supported
+           }
+
+- ManageDsaIT(2.16.840.1.113730.3.4.2) : request
+
+	No ASN.1
+
+- PagedResults(1.2.840.113556.1.4.319) : request/response (searchRequest and searchResultDone)
+
+	realSearchControlValue ::= SEQUENCE {
+    	    size            INTEGER (0..maxInt),
+        	                        -- requested page size from client
+            	                    -- result set size estimate from server
+	        cookie          OCTET STRING
+	}
+
+- PersistentSearch(2.16.840.1.113730.3.4.3) : request
+
+           PersistentSearch ::= SEQUENCE {
+                   changeTypes INTEGER,
+                   changesOnly BOOLEAN,
+                   returnECs BOOLEAN
+           }
+
+- ProxiedAuthz(2.16.840.1.113730.3.4.18) : request (SearchRequest, compare, modify, add, delete, or modifyDN)
+
+	authzId/empty
+
+- SortRequest(1.2.840.113556.1.4.473) : request
+
+ 	SortKeyList ::= SEQUENCE OF SEQUENCE {
+ 		attributeType   AttributeDescription,
+ 		orderingRule    [0] MatchingRuleId OPTIONAL,
+ 		reverseOrder    [1] BOOLEAN DEFAULT FALSE }
+
+- SortResponse(1.2.840.113556.1.4.474) : response
+
+ 	SortResult ::= SEQUENCE {
+ 	         sortResult  ENUMERATED {
+ 	         success                   (0), -- results are sorted
+ 	         operationsError           (1), -- server internal failure
+ 	         timeLimitExceeded         (3), -- timelimit reached before sorting was completed
+ 	         strongAuthRequired        (8), -- refused to return sorted results via insecure protocol
+ 	         adminLimitExceeded       (11), -- too many matching entries for the server to sort
+ 	         noSuchAttribute          (16), -- unrecognized attribute type in sort key
+ 	         inappropriateMatching    (18), -- unrecognized or inappropriate matching rule in sort key
+ 	         insufficientAccessRights (50), -- refused to return sorted results to this client
+ 	         busy                     (51), -- too busy to process
+   		     unwillingToPerform       (53), -- unable to sort
+	         other                    (80)<br>
+	         },
+	      attributeType [0] AttributeDescription OPTIONAL }
+
+- Subentries(1.3.6.1.4.1.4203.1.10.1) : request
+
+	visible BOOLEAN
+
+
+
+Extended controls
+-----------------
+* DONE AdDirSyncRequest(1.2.840.113556.1.4.841) : request
+
+	realReplControlValue ::= SEQUENCE {
+	    parentsFirst            integer
+	    maxAttributeCount       integer
+	    cookie                  OCTET STRING
+	}
+
+	org.apache.directory.api.ldap.extras.controls.ad
+		AdDirSyncRequest
+	org.apache.directory.api.ldap.extras.controls.ad_impl
+		AdDirSyncRequestDecorator
+		AdDirSyncRequestImpl
+
+* DONE AdDirSyncResponse(1.2.840.113556.1.4.841) : response
+
+	realReplControlValue ::= SEQUENCE {
+	    flag                    integer
+	    maxReturnLength         integer
+	    cookie                  OCTET STRING
+	}
+
+
+	org.apache.directory.api.ldap.extras.controls.ad
+	org.apache.directory.api.ldap.extras.controls.ad_impl
+		AdDirSyncResponseDecorator
+		AdDirSyncResponseImpl
+
+* DONE AdPolicyHints(1.2.840.113556.1.4.2239) : request
+
+	PolicyHintsRequestValue ::= SEQUENCE {
+	      Flags    INTEGER
+	  }
+
+
+	org.apache.directory.api.ldap.extras.controls.ad
+		AdPolicyHints
+	org.apache.directory.api.ldap.extras.controls.ad_impl
+		AdPolicyHintsDecorator
+		AdPolicyHintsImpl
+
+
+* DONE AdShowDeleted(1.2.840.113556.1.4.417) : request
+
+	no ASN.1 
+
+
+	org.apache.directory.api.ldap.extras.controls.ad
+	org.apache.directory.api.ldap.extras.controls.ad_impl
+
+
+* DONE ChangeNotifications(1.2.840.113556.1.4.528) : request (SearchRequest)
+
+	no ASN.1
+
+	org.apache.directory.api.ldap.extras.controls.ad
+	org.apache.directory.api.ldap.extras.controls.ad_impl
+
+* DONE PasswordPolicy(1.3.6.1.4.1.42.2.27.8.5.1) : request/response
+
+	request: No ASN.1
+
+	response :
+
+	PasswordPolicyResponseValue ::= SEQUENCE {
+         warning [0] CHOICE {
+            timeBeforeExpiration [0] INTEGER (0 .. maxInt),
+            graceAuthNsRemaining [1] INTEGER (0 .. maxInt) } OPTIONAL,
+         error   [1] ENUMERATED {
+            passwordExpired             (0),
+            accountLocked               (1),
+            changeAfterReset            (2),
+            passwordModNotAllowed       (3),
+            mustSupplyOldPassword       (4),
+            insufficientPasswordQuality (5),
+            passwordTooShort            (6),
+            passwordTooYoung            (7),
+            passwordInHistory           (8) } OPTIONAL }
+
+	org.apache.directory.api.ldap.extras.controls.ad
+	org.apache.directory.api.ldap.extras.controls.ad_impl
+
+* DONE PermissiveModify(1.2.840.113556.1.4.1413) : request (Modify)
+
+	No ASN.1
+
+	org.apache.directory.api.ldap.extras.controls.ad
+	org.apache.directory.api.ldap.extras.controls.ad_impl
+
+* DONE SyncDoneValue(1.3.6.1.4.1.4203.1.9.1.3) : response (SearchResultDone)
+
+ 	syncDoneValue ::= SEQUENCE {
+ 		cookie          syncCookie OPTIONAL,
+ 		refreshDeletes  BOOLEAN DEFAULT FALSE
+ 	}
+
+	org.apache.directory.api.ldap.extras.controls.ad
+	org.apache.directory.api.ldap.extras.controls.ad_impl
+
+* DONE SyncRequestValue(1.3.6.1.4.1.4203.1.9.1.1) : request
+
+      syncRequestValue ::= SEQUENCE {
+          mode ENUMERATED {
+              -- 0 unused
+              refreshOnly       (1),
+              -- 2 reserved
+              refreshAndPersist (3)
+          },
+          cookie     syncCookie OPTIONAL,
+          reloadHint BOOLEAN DEFAULT FALSE
+      }
+
+	org.apache.directory.api.ldap.extras.controls.ad
+	org.apache.directory.api.ldap.extras.controls.ad_impl
+
+* DONE (SyncStateValue)(1.3.6.1.4.1.4203.1.9.1.2) : response (SearchResultEntry, SearchResultReference)
+
+      syncStateValue ::= SEQUENCE {
+          state ENUMERATED {
+              present (0),
+              add (1),
+              modify (2),
+              delete (3)
+          },
+          entryUUID syncUUID,
+          cookie    syncCookie OPTIONAL
+      }
+
+	org.apache.directory.api.ldap.extras.controls.ad
+	org.apache.directory.api.ldap.extras.controls.ad_impl
+
+* DONE TransactionSpecification(1.3.6.1.1.21.2) : request (Add, Delete, Modify, ModifyDN, passwordModify)
+
+	byte[] (transaction identifier)
+
+	org.apache.directory.api.ldap.extras.controls.ad
+	org.apache.directory.api.ldap.extras.controls.ad_impl
+
+* DONE VirtualListViewRequest(2.16.840.1.113730.3.4.9) : request
+
+	VirtualListViewRequest ::= SEQUENCE {
+	       beforeCount    INTEGER (0..maxInt),
+	       afterCount     INTEGER (0..maxInt),
+	       target       CHOICE {
+	                      byOffset        [0] SEQUENCE {
+	                           offset          INTEGER (1 .. maxInt),
+	                           contentCount    INTEGER (0 .. maxInt) },
+	                      greaterThanOrEqual [1] AssertionValue },
+	       contextID     OCTET STRING OPTIONAL }
+
+	org.apache.directory.api.ldap.extras.controls.vlv
+		VirtualListViewRequest
+	org.apache.directory.api.ldap.extras.controls.vlv_impl
+
+* DONE VirtualListViewResponse(2.16.840.1.113730.3.4.10) : response
+
+   VirtualListViewResponse ::= SEQUENCE {
+          targetPosition    INTEGER (0 .. maxInt),
+          contentCount     INTEGER (0 .. maxInt),
+          virtualListViewResult ENUMERATED {
+               success (0),
+               operationsError (1),
+               protocolError (3),
+               unwillingToPerform (53),
+               insufficientAccessRights (50),
+               timeLimitExceeded (3),
+               adminLimitExceeded (11),
+               innapropriateMatching (18),
+               sortControlMissing (60),
+               offsetRangeError (61),
+               other(80),
+               ... },
+          contextID     OCTET STRING OPTIONAL }
+
+	org.apache.directory.api.ldap.extras.controls.vlv
+		VirtualListViewResponse
+	org.apache.directory.api.ldap.extras.controls.vlv_impl
+		VirtualListViewResponseDecorator
+		VirtualListViewResponseImpl
+
+
+
+1) ControlFactory for requests and for responses
+
+That means we have two places to register controls.
+
+2) ControlFactory handle requests and responses
+
+We have one single registry, Factories have 2 methods, one for requests and oine for responses (we always know which one to use).
+
