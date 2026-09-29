@@ -90,7 +90,7 @@
 
                 <h5>Downloads</h5>
                 <ul>
-                    <li><a href="/api/downloads-2.html">Version 2.1.8</a>&nbsp;&nbsp;<img src="/images/new_badge.svg" alt="" style="margin-bottom:-3px;" border="0"></li>
+                    <li><a href="/api/downloads-2.html">Version 2.1.9</a>&nbsp;&nbsp;<img src="/images/new_badge.svg" alt="" style="margin-bottom:-3px;" border="0"></li>
                     <li><a href="/api/downloads-1.html">Version 1.0.3</a>&nbsp;&nbsp;</li>
                     <li><a href="/api/download-old-versions.html">Older versions</a></li>
                 </ul>
@@ -328,7 +328,7 @@
                 <div class="download-package-icon"></div>
                 <div class="download-button-text">
                     Download Apache<br>
-                    LDAP API 2.1.8
+                    LDAP API 2.1.9
                 </div>
             </div>
             <div class="button-bottom-text">Free for Linux, macOS, & Windows</div>
@@ -524,6 +524,78 @@
 <div class="news">
     
     <h1 id="news">News</h1>
+    <h2 class="news">Apache Directory LDAP API 2.1.9 released <em>posted on Sep 28th, 2026</em></h2>
+    <p>This release fixes many issues found by <em>Glasswind</em> and <em>Claude</em> analysis.</p>
+    <p>Here is the list of the found and fixed issues:</p>
+    <h2 id="critical">Critical</h2>
+    <ul>
+    <li><a href="https://issues.apache.org/jira/browse/DIRAPI-437">DIRAPI-437</a>: Attacker-declared TLV length drives up-front unbounded byte[] allocation; no default PDU cap</li>
+    <li><a href="https://issues.apache.org/jira/browse/DIRAPI-438">DIRAPI-438</a>: Unbounded filter-nesting recursion causes StackOverflowError at decode time</li>
+    <li><a href="https://issues.apache.org/jira/browse/DIRAPI-439">DIRAPI-439</a>: Hostile server subschema bytecode is class-loaded and instantiated on the client</li>
+    </ul>
+    <h2 id="major">Major</h2>
+    <ul>
+    <li><a href="https://issues.apache.org/jira/browse/DIRAPI-440">DIRAPI-440</a>: Dsmlv2Engine processes batch requests after its bind fails</li>
+    <li><a href="https://issues.apache.org/jira/browse/DIRAPI-441">DIRAPI-441</a>: Malformed base64 in DSML document throws uncaught IllegalArgumentException</li>
+    <li><a href="https://issues.apache.org/jira/browse/DIRAPI-442">DIRAPI-442</a>: Unbounded DSML filter nesting causes StackOverflowError during parse</li>
+    <li><a href="https://issues.apache.org/jira/browse/DIRAPI-443">DIRAPI-443</a>: Synchronous simple bind sends unauthenticated bind on empty password</li>
+    <li><a href="https://issues.apache.org/jira/browse/DIRAPI-444">DIRAPI-444</a>: EntryCursorImpl.next() spins forever on IntermediateResponse</li>
+    <li><a href="https://issues.apache.org/jira/browse/DIRAPI-445">DIRAPI-445</a>: GSSAPI bind silently replaces JVM-global JAAS and Kerberos configuration</li>
+    <li><a href="https://issues.apache.org/jira/browse/DIRAPI-446">DIRAPI-446</a>: StartTLS transition accepts plaintext LDAP PDUs injected before handshake</li>
+    <li><a href="https://issues.apache.org/jira/browse/DIRAPI-447">DIRAPI-447</a>: LdifAnonymizer emits original DN-valued attributes in change-add entries</li>
+    <li><a href="https://issues.apache.org/jira/browse/DIRAPI-448">DIRAPI-448</a>: FilterBuilder concatenates attribute names and matching rules unvalidated</li>
+    <li><a href="https://issues.apache.org/jira/browse/DIRAPI-449">DIRAPI-449</a>: Grammar transitions ignore TLV nesting, enabling filter-structure smuggling</li>
+    <li><a href="https://issues.apache.org/jira/browse/DIRAPI-450">DIRAPI-450</a>: Zero-length control/extended values pass null into factory decodeValue, NPE</li>
+    <li><a href="https://issues.apache.org/jira/browse/DIRAPI-451">DIRAPI-451</a>: Encoder recurses once per filter sibling and per control, stack overflow</li>
+    <li><a href="https://issues.apache.org/jira/browse/DIRAPI-452">DIRAPI-452</a>: Unbounded mutual recursion in ACI refinement parsing (StackOverflowError)</li>
+    <li><a href="https://issues.apache.org/jira/browse/DIRAPI-453">DIRAPI-453</a>: ACIItem missing itemFirst/userFirst passes check() but NPEs parse()</li>
+    <li><a href="https://issues.apache.org/jira/browse/DIRAPI-454">DIRAPI-454</a>: NPE decoding endTransaction response control with unregistered OID</li>
+    <li><a href="https://issues.apache.org/jira/browse/DIRAPI-455">DIRAPI-455</a>: Uncaught IllegalArgumentException on out-of-range ppolicy error value</li>
+    <li><a href="https://issues.apache.org/jira/browse/DIRAPI-456">DIRAPI-456</a>: Uncaught IllegalArgumentException on unknown VLV result code</li>
+    <li><a href="https://issues.apache.org/jira/browse/DIRAPI-457">DIRAPI-457</a>: Java deserialization of server-controlled extended-response payload</li>
+    <li><a href="https://issues.apache.org/jira/browse/DIRAPI-458">DIRAPI-458</a>: FilterEncoder passes attacker hex escapes through unencoded</li>
+    <li><a href="https://issues.apache.org/jira/browse/DIRAPI-459">DIRAPI-459</a>: FilterParser recurses without depth limit; StackOverflowError on nested filters</li>
+    <li><a href="https://issues.apache.org/jira/browse/DIRAPI-460">DIRAPI-460</a>: ComplexDnParser silently discards trailing garbage after last RDN</li>
+    <li><a href="https://issues.apache.org/jira/browse/DIRAPI-461">DIRAPI-461</a>: Rdn.unescapeValue mis-decodes specials and silently drops invalid escapes</li>
+    <li><a href="https://issues.apache.org/jira/browse/DIRAPI-462">DIRAPI-462</a>: Rdn.hashCode() always returns 0 due to variable shadowing</li>
+    <li><a href="https://issues.apache.org/jira/browse/DIRAPI-463">DIRAPI-463</a>: Unrecognized password-scheme prefix silently falls back to plaintext comparison</li>
+    <li><a href="https://issues.apache.org/jira/browse/DIRAPI-464">DIRAPI-464</a>: Stored-credential bcrypt work factor drives unbounded CPU cost at bind</li>
+    <li><a href="https://issues.apache.org/jira/browse/DIRAPI-465">DIRAPI-465</a>: Schema description escape scan reads past end of line</li>
+    <li><a href="https://issues.apache.org/jira/browse/DIRAPI-466">DIRAPI-466</a>: Telephone-number syntax regex has catastrophic exponential backtracking</li>
+    <li><a href="https://issues.apache.org/jira/browse/DIRAPI-467">DIRAPI-467</a>: Strings.toLowerCase(byte[]) crashes on non-ASCII attribute id from network</li>
+    </ul>
+    <h2 id="minor">Minor</h2>
+    <ul>
+    <li><a href="https://issues.apache.org/jira/browse/DIRAPI-468">DIRAPI-468</a>: Oid.fromBytes crashes and misdecodes multi-byte OID arcs</li>
+    <li><a href="https://issues.apache.org/jira/browse/DIRAPI-469">DIRAPI-469</a>: BER indefinite-length octet 0x80 silently decoded as zero length</li>
+    <li><a href="https://issues.apache.org/jira/browse/DIRAPI-470">DIRAPI-470</a>: 5-byte BER INTEGER in [2^31,2^32) silently wraps negative</li>
+    <li><a href="https://issues.apache.org/jira/browse/DIRAPI-471">DIRAPI-471</a>: TLV.getSize() integer overflow bypasses parent length-containment check</li>
+    <li><a href="https://issues.apache.org/jira/browse/DIRAPI-472">DIRAPI-472</a>: Pooled connections keep previous borrower&rsquo;s bind identity with default factory</li>
+    <li><a href="https://issues.apache.org/jira/browse/DIRAPI-473">DIRAPI-473</a>: Authenticated flag set before client-side SASL verification completes</li>
+    <li><a href="https://issues.apache.org/jira/browse/DIRAPI-474">DIRAPI-474</a>: Deprecated TLSv1 and TLSv1.1 enabled by default for LDAPS/StartTLS</li>
+    <li><a href="https://issues.apache.org/jira/browse/DIRAPI-475">DIRAPI-475</a>: StartTLS detection tests hasControl() instead of the request OID</li>
+    <li><a href="https://issues.apache.org/jira/browse/DIRAPI-476">DIRAPI-476</a>: Extended request value unconditionally cast to OpaqueExtendedRequest</li>
+    <li><a href="https://issues.apache.org/jira/browse/DIRAPI-477">DIRAPI-477</a>: SASL layer length field lacks negative and short-read handling</li>
+    <li><a href="https://issues.apache.org/jira/browse/DIRAPI-478">DIRAPI-478</a>: PasswordModifyResponse toString prints generated password in clear</li>
+    <li><a href="https://issues.apache.org/jira/browse/DIRAPI-479">DIRAPI-479</a>: parseQuotedSafeUtf8 called on token instead of spec (SIOOBE)</li>
+    <li><a href="https://issues.apache.org/jira/browse/DIRAPI-480">DIRAPI-480</a>: TriggerUtils builds DNs by string concatenation without escaping</li>
+    <li><a href="https://issues.apache.org/jira/browse/DIRAPI-481">DIRAPI-481</a>: Multi-wildcard substring filters compile to super-linearly backtracking regex</li>
+    <li><a href="https://issues.apache.org/jira/browse/DIRAPI-482">DIRAPI-482</a>: Schema-aware LDIF parse silently drops attributes that fail validation</li>
+    <li><a href="https://issues.apache.org/jira/browse/DIRAPI-483">DIRAPI-483</a>: Programmatic Ava/Rdn constructors accept structural characters in attribute type</li>
+    <li><a href="https://issues.apache.org/jira/browse/DIRAPI-484">DIRAPI-484</a>: Malformed stored credentials crash compareCredentials with unchecked exceptions</li>
+    <li><a href="https://issues.apache.org/jira/browse/DIRAPI-485">DIRAPI-485</a>: Subtree refinement parser recurses without depth limit</li>
+    <li><a href="https://issues.apache.org/jira/browse/DIRAPI-486">DIRAPI-486</a>: GeneralizedTime accepts arbitrary trailing garbage after fractional par</li>
+    <li><a href="https://issues.apache.org/jira/browse/DIRAPI-487">DIRAPI-487</a>: ParseOid/parseDescr index past end of input (SIOOBE)</li>
+    <li><a href="https://issues.apache.org/jira/browse/DIRAPI-488">DIRAPI-488</a>: Serialize.deserializeInt sign-extends bytes, corrupting stored lengths</li>
+    <li><a href="https://issues.apache.org/jira/browse/DIRAPI-489">DIRAPI-489</a>: Reject trailing chars after a numeric OID matching rule in FilterBuilder</li>
+    <li><a href="https://issues.apache.org/jira/browse/DIRAPI-490">DIRAPI-490</a>: Never let an unchecked exception escape the OpenLdapSchemaParser</li>
+    <li><a href="https://issues.apache.org/jira/browse/DIRAPI-491">DIRAPI-491</a>: Don&rsquo;t mask chars above the case tables in Strings upper/lower case methods</li>
+    <li><a href="https://issues.apache.org/jira/browse/DIRAPI-492">DIRAPI-492</a>: Restore the pool identity after a SASL bind on a pooled connection</li>
+    <li><a href="https://issues.apache.org/jira/browse/DIRAPI-493">DIRAPI-493</a>: Check the attribute type of an Ava built from the public Rdn constructors</li>
+    <li><a href="https://issues.apache.org/jira/browse/DIRAPI-494">DIRAPI-494</a>: Only consider a bind as successful when the server returns SUCCESS</li>
+    </ul>
+    <p>Downloads are available <a href="downloads-2.html">here</a> and the User&rsquo;s Guide is <a href="user-guide.html">there</a></p>
+    <h1 id="news-1">News</h1>
     <h2 class="news">Apache Directory LDAP API 2.1.8 released <em>posted on May 31th, 2026</em></h2>
     <p>It fixes an important CVE (CVE-2026-35563):</p>
     <p>It was identified that the LDAP client implementation in version 2.1.7
@@ -563,7 +635,7 @@
     </ul>
     <p>It also fixes all the existing Javadoc issues.</p>
     <p>Downloads are available <a href="downloads-2.html">here</a> and the User&rsquo;s Guide is <a href="user-guide.html">there</a></p>
-    <h1 id="news-1">News</h1>
+    <h1 id="news-2">News</h1>
     <h2 class="news">Apache Directory LDAP API 2.1.7 released <em>posted on August 08th, 2024</em></h2>
     <p>The Apache Directory Team is proud to announce the availability of version 2.1.7 of the Apache Directory LDAP API.</p>
     <p>The Apache Directory LDAP API is an ongoing effort to provide an enhanced LDAP API, as a replacement for JNDI and the existing LDAP API (jLdap and Mozilla LDAP API).</p>
@@ -714,7 +786,7 @@
     <li><a href="https://issues.apache.org/jira/browse/DIRAPI-353">DIRAPI-353</a> - Automatic-Module-Name need to be added to jar files</li>
     </ul>
     <p>Downloads are available <a href="downloads-2.html">here</a> and the User&rsquo;s Guide is <a href="user-guide.html">there</a></p>
-    <h1 id="news-2">News</h1>
+    <h1 id="news-3">News</h1>
     <h2 class="news">Apache Directory LDAP API 2.0.0 released <em>posted on November 13th, 2019</em></h2>
     <p>The Apache Directory Team is proud to announce the availability of version 2.0.0 of the Apache Directory LDAP API.</p>
     <p>The Apache Directory LDAP API is an ongoing effort to provide an enhanced LDAP API, as a replacement for JNDI and the existing LDAP API (jLdap and Mozilla LDAP API).</p>
@@ -731,7 +803,7 @@
     <li><a href="https://issues.apache.org/jira/browse/DIRAPI-344">DIRAPI-344</a> - Allow a LDIF entry loading to be accepted when the SchemaManager is in relaxed mode</li>
     </ul>
     <p>Downloads are available <a href="downloads-2.html">here</a> and the User&rsquo;s Guide is <a href="user-guide.html">there</a></p>
-    <h1 id="news-3">News</h1>
+    <h1 id="news-4">News</h1>
     <h2 class="news">Apache Directory LDAP API 2.0.0.AM4 released <em>posted on June 9th, 2019</em></h2>
     <p>The Apache Directory Team is proud to announce the availability of version 2.0.0.AM4 of the Apache Directory LDAP API.</p>
     <p>The Apache Directory LDAP API is an ongoing effort to provide an enhanced LDAP API, as a replacement for JNDI and the existing LDAP API (jLdap and Mozilla LDAP API).</p>
@@ -739,7 +811,7 @@
     <p>It&rsquo;s also an extensible API : new Controls, schema elements and network layer could be added or used in the near future. It&rsquo;s also OSGi capable.</p>
     <p>It fixes an important race condition (when closing a session, and re-binding it immediately, there might be some cancelled operations). We also benefited from a <em>MINA</em> release (2.1.3) which fixes a 100% CPU usage in some corner case. A couple of other minor issues have also been fixed (DIRAPI-343 and DIRAPI-328).</p>
     <p>Downloads are available <a href="downloads-2.html">here</a> and the User&rsquo;s Guide is <a href="user-guide.html">there</a></p>
-    <h1 id="news-4">News</h1>
+    <h1 id="news-5">News</h1>
     <h2 class="news">Apache Directory LDAP API 2.0.0.AM3 released <em>posted on May 15th, 2019</em></h2>
     <p>The Apache Directory Team is proud to announce the availability of version 2.0.0.AM3 of the Apache Directory LDAP API.</p>
     <p>The Apache Directory LDAP API is an ongoing effort to provide an enhanced LDAP API, as a replacement for JNDI and the existing LDAP API (jLdap and Mozilla LDAP API).</p>
@@ -800,7 +872,7 @@
     <li><a href="https://issues.apache.org/jira/browse/DIRAPI-333">DIRAPI-333</a> - Switch to Junit 5</li>
     </ul>
     <p>Downloads are available <a href="downloads-2.html">here</a> and the User&rsquo;s Guide is <a href="user-guide.html">there</a></p>
-    <h1 id="news-5">News</h1>
+    <h1 id="news-6">News</h1>
     <h2 class="news">Apache Directory LDAP API 1.0.3 released <em>posted on April 19th, 2019</em></h2>
     <p>The Apache Directory Team is proud to announce the availability of version 1.0.3 of the Apache Directory LDAP API.</p>
     <p>The Apache Directory LDAP API is an ongoing effort to provide an enhanced LDAP API, as a replacement for JNDI and the existing LDAP API (jLdap and Mozilla LDAP API).</p>
@@ -808,7 +880,7 @@
     <p>It&rsquo;s also an extensible API : new Controls, schema elements and network layer could be added or used in the near future. It&rsquo;s also OSGi capable.</p>
     <p>This is a bug fix release that fixes an issue when using <em>MINA 2.1.1</em> version: a <em>SSL/TLS</em> connection would stall because we were waiting on an event that <em>MINA 2.1.1</em> would never produced.</p>
     <p>Downloads are available <a href="downloads-1.html">here</a> and the User&rsquo;s Guide is <a href="user-guide.html">there</a></p>
-    <h1 id="news-6">News</h1>
+    <h1 id="news-7">News</h1>
     <h2 class="news">Apache Directory LDAP API 2.0.0.AM2 released <em>posted on September 3rd, 2018</em></h2>
     <p>The Apache Directory Team is proud to announce the availability of version 2.0.0.AM2 of the Apache Directory LDAP API.</p>
     <p>The Apache Directory LDAP API is an ongoing effort to provide an enhanced LDAP API, as a replacement for JNDI and the existing LDAP API (jLdap and Mozilla LDAP API).</p>
@@ -828,7 +900,7 @@
     <p>The Apache LDAP API 1.0.2 that has just been released fix a <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=2018-1337">critical security issue</a>: A bug in the way the SSL Filter was setup made it possible for another thread to use the connection before the TLS layer has been established, if the connection has already been used and put back in a pool of connections, leading to leaking any information contained in this request (including the credentials when sending a BIND request)</p>
     <p>We urge you to switch to this version.</p>
     <p>Downloads are available <a href="downloads-1.html">here</a></p>
-    <h1 id="news-7">News</h1>
+    <h1 id="news-8">News</h1>
     <h2 class="news">Apache Directory LDAP API 1.0.2 released <em>posted on June 6st, 2018</em></h2>
     <p>The Apache Directory Team is proud to announce the availability of version 1.0.2 of the Apache Directory LDAP API.</p>
     <p>The Apache Directory LDAP API is an ongoing effort to provide an enhanced LDAP API, as a replacement for JNDI and the existing LDAP API (jLdap and Mozilla LDAP API).</p>
@@ -974,7 +1046,7 @@
     <li><a href="https://issues.apache.org/jira/browse/DIRAPI-191">DIRAPI-191</a> - How to get attributes list according to objectClass</li>
     </ul>
     <p>Downloads are available <a href="downloads-1.html">here</a> and the User&rsquo;s Guide is <a href="user-guide.html">there</a></p>
-    <h1 id="news-8">News</h1>
+    <h1 id="news-9">News</h1>
     <h2 class="news">Apache Directory LDAP API 1.0.0-M31 released <em>posted on July 5th, 2015</em></h2>
     <p>The Apache Directory Team is proud to announce the availability of version 1.0.0-M31 of the Apache Directory LDAP API.</p>
     <p>The Apache Directory LDAP API is an ongoing effort to provide an enhanced LDAP API, as a replacement for JNDI and the existing LDAP API (jLdap and Mozilla LDAP API).</p>
@@ -983,7 +1055,7 @@
     <p>This release fixes a security vulnerability, <a href="https://cve.mitre.org/cgi-bin/cvename.cgi?name=2015-3250">CVE-2015-3250</a>.</p>
     <p>Feel free to experiment, we highly appreciate your feedback !</p>
     <p>Downloads are available <a href="downloads-1.html">here</a> and the User&rsquo;s Guide is <a href="user-guide.html">there</a></p>
-    <h1 id="news-9">News</h1>
+    <h1 id="news-10">News</h1>
     <h2 class="news">Apache Directory LDAP API 1.0.0-M30 released <em>posted on May 2nd, 2015</em></h2>
     <p>The Apache Directory Team is proud to announce the availability of version 1.0.0-M30 of the Apache Directory LDAP API.</p>
     <p>The Apache Directory LDAP API is an ongoing effort to provide an enhanced LDAP API, as a replacement for JNDI and the existing LDAP API (jLdap and Mozilla LDAP API).</p>
@@ -1010,7 +1082,7 @@
     </ul>
     <p>Feel free to experiment, we highly appreciate your feedback !</p>
     <p>Downloads are available <a href="downloads-1.html">here</a> and the User&rsquo;s Guide is <a href="user-guide.html">there</a></p>
-    <h1 id="news-10">News</h1>
+    <h1 id="news-11">News</h1>
     <h2 class="news">Apache Directory LDAP API 1.0.0-M29 released <em>posted on April 2nd, 2015</em></h2>
     <p>The Apache Directory Team is proud to announce the availability of version 1.0.0-M29 of the Apache Directory LDAP API.</p>
     <p>The Apache Directory LDAP API is an ongoing effort to provide an enhanced LDAP API, as a replacement for JNDI and the existing LDAP API (jLdap and Mozilla LDAP API).</p>
@@ -1043,7 +1115,7 @@
     </ul>
     <p>Feel free to experiment, we highly appreciate your feedback !</p>
     <p>Downloads are available <a href="downloads-1.html">here</a> and the User&rsquo;s Guide is <a href="user-guide.html">there</a></p>
-    <h1 id="news-11">News</h1>
+    <h1 id="news-12">News</h1>
     <h2 class="news">Apache Directory LDAP API 1.0.0-M28 released <em>posted on January 15th, 2015</em></h2>
     <p>The Apache Directory Team is proud to announce the availability of version 1.0.0-M28 of the Apache Directory LDAP API.</p>
     <p>The Apache Directory LDAP API is an ongoing effort to provide an enhanced LDAP API, as a replacement for JNDI and the existing LDAP API (jLdap and Mozilla LDAP API).</p>
@@ -1058,7 +1130,7 @@
     </ul>
     <p>Feel free to experiment, we highly appreciate your feedback !</p>
     <p>Downloads are available <a href="downloads-1.html">here</a> and the User&rsquo;s Guide is <a href="user-guide.html">there</a></p>
-    <h1 id="news-12">News</h1>
+    <h1 id="news-13">News</h1>
     <h2 class="news">Apache Directory LDAP API 1.0.0-M27 released <em>posted on December 29th, 2014</em></h2>
     <p>The Apache Directory Team is proud to announce the availability of version 1.0.0-M27 of the Apache Directory LDAP API.</p>
     <p>The Apache Directory LDAP API is an ongoing effort to provide an enhanced LDAP API, as a replacement for JNDI and the existing LDAP API (jLdap and Mozilla LDAP API).</p>
@@ -1067,7 +1139,7 @@
     <p>This release included a new Control : <em>proxied-authz</em> <a href="https://www.rfc-editor.org/rfc/rfc4370.txt">RFC-4370</a>, and a major cleanup of the OSGi Manifests.</p>
     <p>Feel free to experiment, we highly appreciate your feedback !</p>
     <p>Downloads are available <a href="downloads-1.html">here</a> and the User&rsquo;s Guide is <a href="user-guide.html">there</a></p>
-    <h1 id="news-13">News</h1>
+    <h1 id="news-14">News</h1>
     <h2 class="news">Apache Directory LDAP API 1.0.0-M26 released <em>posted on November 22th, 2014</em></h2>
     <p>The Apache Directory Team is proud to announce the availability of version 1.0.0-M26 of the Apache Directory LDAP API.</p>
     <p>The Apache Directory LDAP API is an ongoing effort to provide an enhanced LDAP API, as a replacement for JNDI and the existing LDAP API (jLdap and Mozilla LDAP API).</p>
@@ -1077,7 +1149,7 @@
     <p><b>Bugs : </b></p>
     <p>Feel free to experiment, we highly appreciate your feedback !</p>
     <p>Downloads are available <a href="downloads-1.html">here</a> and the User&rsquo;s Guide is <a href="user-guide.html">there</a></p>
-    <h1 id="news-14">News</h1>
+    <h1 id="news-15">News</h1>
     <h2 class="news">Apache Directory LDAP API 1.0.0-M25 released <em>posted on November 11th, 2014</em></h2>
     <p>The Apache Directory Team is proud to announce the availability of version 1.0.0-M25 of the Apache Directory LDAP API.</p>
     <p>The Apache Directory LDAP API is an ongoing effort to provide an enhanced LDAP API, as a replacement for JNDI and the existing LDAP API (jLdap and Mozilla LDAP API).</p>
@@ -1096,7 +1168,7 @@
     </ul>
     <p>Feel free to experiment, we highly appreciate your feedback !</p>
     <p>Downloads are available <a href="downloads-1.html">here</a> and the User&rsquo;s Guide is <a href="user-guide.html">there</a></p>
-    <h1 id="news-15">News</h1>
+    <h1 id="news-16">News</h1>
     <h2 class="news">Apache Directory LDAP API 1.0.0-M24 released <em>posted on August 2th, 2014</em></h2>
     <p>The Apache Directory Team is proud to announce the availability of version 1.0.0-M24 of the Apache Directory LDAP API.</p>
     <p>The Apache Directory LDAP API is an ongoing effort to provide an enhanced LDAP API, as a replacement for JNDI and the existing LDAP API (jLdap and Mozilla LDAP API).</p>
@@ -1111,7 +1183,7 @@
     </ul>
     <p>Feel free to experiment, we highly appreciate your feedback !</p>
     <p>Downloads are available <a href="downloads-1.html">here</a> and the User&rsquo;s Guide is <a href="user-guide.html">there</a></p>
-    <h1 id="news-16">News</h1>
+    <h1 id="news-17">News</h1>
     <h2 class="news">Apache Directory LDAP API 1.0.0-M23 released <em>posted on July 4th, 2014</em></h2>
     <p>The Apache Directory Team is proud to announce the availability of version 1.0.0-M23 of the Apache Directory LDAP API.</p>
     <p>The Apache Directory LDAP API is an ongoing effort to provide an enhanced LDAP API, as a replacement for JNDI and the existing LDAP API (jLdap and Mozilla LDAP API).</p>
@@ -1129,7 +1201,7 @@
     </ul>
     <p>Feel free to experiment, we highly appreciate your feedback !</p>
     <p>Downloads are available <a href="downloads-1.html">here</a> and the User&rsquo;s Guide is <a href="user-guide.html">there</a></p>
-    <h1 id="news-17">News</h1>
+    <h1 id="news-18">News</h1>
     <h2 class="news">Apache Directory LDAP API 1.0.0-M22 released <em>posted on April 22th, 2014</em></h2>
     <p>The Apache Directory Team is proud to announce the availability of version 1.0.0-M22 of the Apache Directory LDAP API.</p>
     <p>The Apache Directory LDAP API is an ongoing effort to provide an enhanced LDAP API, as a replacement for JNDI and the existing LDAP API (jLdap and Mozilla LDAP API).</p>
