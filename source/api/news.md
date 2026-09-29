@@ -4,6 +4,83 @@ title: News
 
 # News 
 
+<h2 class="news">Apache Directory LDAP API 2.1.9 released <em>posted on Sep 28th, 2026</em></h2>
+
+This release fixes many issues found by *Glasswind* and *Claude* analysis.
+
+Here is the list of the found and fixed issues:
+
+## Critical
+
+* [DIRAPI-437](https://issues.apache.org/jira/browse/DIRAPI-437): Attacker-declared TLV length drives up-front unbounded byte\[\] allocation; no default PDU cap
+* [DIRAPI-438](https://issues.apache.org/jira/browse/DIRAPI-438): Unbounded filter-nesting recursion causes StackOverflowError at decode time
+* [DIRAPI-439](https://issues.apache.org/jira/browse/DIRAPI-439): Hostile server subschema bytecode is class-loaded and instantiated on the client
+
+## Major
+
+* [DIRAPI-440](https://issues.apache.org/jira/browse/DIRAPI-440): Dsmlv2Engine processes batch requests after its bind fails
+* [DIRAPI-441](https://issues.apache.org/jira/browse/DIRAPI-441): Malformed base64 in DSML document throws uncaught IllegalArgumentException
+* [DIRAPI-442](https://issues.apache.org/jira/browse/DIRAPI-442): Unbounded DSML filter nesting causes StackOverflowError during parse
+* [DIRAPI-443](https://issues.apache.org/jira/browse/DIRAPI-443): Synchronous simple bind sends unauthenticated bind on empty password
+* [DIRAPI-444](https://issues.apache.org/jira/browse/DIRAPI-444): EntryCursorImpl.next() spins forever on IntermediateResponse
+* [DIRAPI-445](https://issues.apache.org/jira/browse/DIRAPI-445): GSSAPI bind silently replaces JVM-global JAAS and Kerberos configuration
+* [DIRAPI-446](https://issues.apache.org/jira/browse/DIRAPI-446): StartTLS transition accepts plaintext LDAP PDUs injected before handshake
+* [DIRAPI-447](https://issues.apache.org/jira/browse/DIRAPI-447): LdifAnonymizer emits original DN-valued attributes in change-add entries
+* [DIRAPI-448](https://issues.apache.org/jira/browse/DIRAPI-448): FilterBuilder concatenates attribute names and matching rules unvalidated
+* [DIRAPI-449](https://issues.apache.org/jira/browse/DIRAPI-449): Grammar transitions ignore TLV nesting, enabling filter-structure smuggling
+* [DIRAPI-450](https://issues.apache.org/jira/browse/DIRAPI-450): Zero-length control/extended values pass null into factory decodeValue, NPE
+* [DIRAPI-451](https://issues.apache.org/jira/browse/DIRAPI-451): Encoder recurses once per filter sibling and per control, stack overflow
+* [DIRAPI-452](https://issues.apache.org/jira/browse/DIRAPI-452): Unbounded mutual recursion in ACI refinement parsing (StackOverflowError)
+* [DIRAPI-453](https://issues.apache.org/jira/browse/DIRAPI-453): ACIItem missing itemFirst/userFirst passes check() but NPEs parse()
+* [DIRAPI-454](https://issues.apache.org/jira/browse/DIRAPI-454): NPE decoding endTransaction response control with unregistered OID
+* [DIRAPI-455](https://issues.apache.org/jira/browse/DIRAPI-455): Uncaught IllegalArgumentException on out-of-range ppolicy error value
+* [DIRAPI-456](https://issues.apache.org/jira/browse/DIRAPI-456): Uncaught IllegalArgumentException on unknown VLV result code
+* [DIRAPI-457](https://issues.apache.org/jira/browse/DIRAPI-457): Java deserialization of server-controlled extended-response payload
+* [DIRAPI-458](https://issues.apache.org/jira/browse/DIRAPI-458): FilterEncoder passes attacker hex escapes through unencoded
+* [DIRAPI-459](https://issues.apache.org/jira/browse/DIRAPI-459): FilterParser recurses without depth limit; StackOverflowError on nested filters
+* [DIRAPI-460](https://issues.apache.org/jira/browse/DIRAPI-460): ComplexDnParser silently discards trailing garbage after last RDN
+* [DIRAPI-461](https://issues.apache.org/jira/browse/DIRAPI-461): Rdn.unescapeValue mis-decodes specials and silently drops invalid escapes
+* [DIRAPI-462](https://issues.apache.org/jira/browse/DIRAPI-462): Rdn.hashCode() always returns 0 due to variable shadowing
+* [DIRAPI-463](https://issues.apache.org/jira/browse/DIRAPI-463): Unrecognized password-scheme prefix silently falls back to plaintext comparison
+* [DIRAPI-464](https://issues.apache.org/jira/browse/DIRAPI-464): Stored-credential bcrypt work factor drives unbounded CPU cost at bind
+* [DIRAPI-465](https://issues.apache.org/jira/browse/DIRAPI-465): Schema description escape scan reads past end of line
+* [DIRAPI-466](https://issues.apache.org/jira/browse/DIRAPI-466): Telephone-number syntax regex has catastrophic exponential backtracking
+* [DIRAPI-467](https://issues.apache.org/jira/browse/DIRAPI-467): Strings.toLowerCase(byte[]) crashes on non-ASCII attribute id from network
+
+## Minor
+
+* [DIRAPI-468](https://issues.apache.org/jira/browse/DIRAPI-468): Oid.fromBytes crashes and misdecodes multi-byte OID arcs
+* [DIRAPI-469](https://issues.apache.org/jira/browse/DIRAPI-469): BER indefinite-length octet 0x80 silently decoded as zero length
+* [DIRAPI-470](https://issues.apache.org/jira/browse/DIRAPI-470): 5-byte BER INTEGER in [2^31,2^32) silently wraps negative
+* [DIRAPI-471](https://issues.apache.org/jira/browse/DIRAPI-471): TLV.getSize() integer overflow bypasses parent length-containment check
+* [DIRAPI-472](https://issues.apache.org/jira/browse/DIRAPI-472): Pooled connections keep previous borrower's bind identity with default factory
+* [DIRAPI-473](https://issues.apache.org/jira/browse/DIRAPI-473): Authenticated flag set before client-side SASL verification completes
+* [DIRAPI-474](https://issues.apache.org/jira/browse/DIRAPI-474): Deprecated TLSv1 and TLSv1.1 enabled by default for LDAPS/StartTLS
+* [DIRAPI-475](https://issues.apache.org/jira/browse/DIRAPI-475): StartTLS detection tests hasControl() instead of the request OID
+* [DIRAPI-476](https://issues.apache.org/jira/browse/DIRAPI-476): Extended request value unconditionally cast to OpaqueExtendedRequest
+* [DIRAPI-477](https://issues.apache.org/jira/browse/DIRAPI-477): SASL layer length field lacks negative and short-read handling
+* [DIRAPI-478](https://issues.apache.org/jira/browse/DIRAPI-478): PasswordModifyResponse toString prints generated password in clear
+* [DIRAPI-479](https://issues.apache.org/jira/browse/DIRAPI-479): parseQuotedSafeUtf8 called on token instead of spec (SIOOBE)
+* [DIRAPI-480](https://issues.apache.org/jira/browse/DIRAPI-480): TriggerUtils builds DNs by string concatenation without escaping
+* [DIRAPI-481](https://issues.apache.org/jira/browse/DIRAPI-481): Multi-wildcard substring filters compile to super-linearly backtracking regex
+* [DIRAPI-482](https://issues.apache.org/jira/browse/DIRAPI-482): Schema-aware LDIF parse silently drops attributes that fail validation
+* [DIRAPI-483](https://issues.apache.org/jira/browse/DIRAPI-483): Programmatic Ava/Rdn constructors accept structural characters in attribute type
+* [DIRAPI-484](https://issues.apache.org/jira/browse/DIRAPI-484): Malformed stored credentials crash compareCredentials with unchecked exceptions
+* [DIRAPI-485](https://issues.apache.org/jira/browse/DIRAPI-485): Subtree refinement parser recurses without depth limit
+* [DIRAPI-486](https://issues.apache.org/jira/browse/DIRAPI-486): GeneralizedTime accepts arbitrary trailing garbage after fractional par
+* [DIRAPI-487](https://issues.apache.org/jira/browse/DIRAPI-487): ParseOid/parseDescr index past end of input (SIOOBE)
+* [DIRAPI-488](https://issues.apache.org/jira/browse/DIRAPI-488): Serialize.deserializeInt sign-extends bytes, corrupting stored lengths
+* [DIRAPI-489](https://issues.apache.org/jira/browse/DIRAPI-489): Reject trailing chars after a numeric OID matching rule in FilterBuilder
+* [DIRAPI-490](https://issues.apache.org/jira/browse/DIRAPI-490): Never let an unchecked exception escape the OpenLdapSchemaParser
+* [DIRAPI-491](https://issues.apache.org/jira/browse/DIRAPI-491): Don't mask chars above the case tables in Strings upper/lower case methods
+* [DIRAPI-492](https://issues.apache.org/jira/browse/DIRAPI-492): Restore the pool identity after a SASL bind on a pooled connection
+* [DIRAPI-493](https://issues.apache.org/jira/browse/DIRAPI-493): Check the attribute type of an Ava built from the public Rdn constructors
+* [DIRAPI-494](https://issues.apache.org/jira/browse/DIRAPI-494): Only consider a bind as successful when the server returns SUCCESS
+
+Downloads are available [here](downloads-2.html) and the User's Guide is [there](user-guide.html)
+
+# News 
+
 <h2 class="news">Apache Directory LDAP API 2.1.8 released <em>posted on May 31th, 2026</em></h2>
 
 It fixes an important CVE (CVE-2026-35563):
