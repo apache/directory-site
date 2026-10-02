@@ -4,9 +4,23 @@ title: News
 
 # News 
 
-<h2 class="news">Apache Directory LDAP API 2.1.9 released <em>posted on Sep 28th, 2026</em></h2>
+<h2 class="news">Apache Directory LDAP API 2.1.9 CVEs and release <em>posted on Oct 3nd, 2026</em></h2>
 
-This release fixes many issues found by *Glasswind* and *Claude* analysis.
+The following vulnerabilities have been fixed in the latest release.
+
+Users are urged to upgrade to *Apache LDAP API 2.1.9* which contains fixes for those vulnerabilities, and many others
+
+## Vulnerabilities
+
+* [CVE-2026-102731](https://www.cve.org/CVERecord?id=CVE-2026-102731): Denial of service via excessive memory allocation in BER decode
+* [CVE-2026-103552](https://www.cve.org/CVERecord?id=CVE-2026-103552): A unbound client can send a deeply nested search filter that overflows the stack in the server's decoder
+
+* [CVE-2026-103877](https://www.cve.org/CVERecord?id=CVE-2026-103877): Unsafe loading of Java code from LDAP schema elements
+* [CVE-2026-103878](https://www.cve.org/CVERecord?id=CVE-2026-103878): Injection of plaintext responses during StartTLS
+* [CVE-2026-103880](https://www.cve.org/CVERecord?id=CVE-2026-103880): Denial of service via excessive bcrypt cost factor in stored passwords
+* [CVE-2026-103885](https://www.cve.org/CVERecord?id=CVE-2026-103885): Denial of service via crafted telephone number values
+
+This release also fixes many issues found by *Glasswind* and *Claude* analysis.
 
 Here is the list of the found and fixed issues:
 
