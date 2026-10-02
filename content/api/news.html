@@ -86,6 +86,7 @@
                 <ul>
                     <li><a href="/api/">Home</a></li>
                     <li><a href="/api/news.html">News</a></li>
+                    <li><a href="https://security.apache.org/projects/directory/">Security Advisories</a></li>
                 </ul>
 
                 <h5>Downloads</h5>
@@ -147,8 +148,31 @@
 
             
 	<h1 id="news">News</h1>
-<h2 class="news">Apache Directory LDAP API 2.1.9 released <em>posted on Sep 28th, 2026</em></h2>
-<p>This release fixes many issues found by <em>Glasswind</em> and <em>Claude</em> analysis.</p>
+<h2 class="news">Apache Directory LDAP API 2.1.9 CVEs and release <em>posted on Oct 3nd, 2026</em></h2>
+<p>The following vulnerabilities have been fixed in the latest release.</p>
+<p>Users are urged to upgrade to <em>Apache LDAP API 2.1.9</em> which contains fixes for those vulnerabilities, and many others</p>
+<h2 id="vulnerabilities">Vulnerabilities</h2>
+<ul>
+<li>
+<p><a href="https://www.cve.org/CVERecord?id=CVE-2026-102731">CVE-2026-102731</a>: Denial of service via excessive memory allocation in BER decode</p>
+</li>
+<li>
+<p><a href="https://www.cve.org/CVERecord?id=CVE-2026-103552">CVE-2026-103552</a>: A unbound client can send a deeply nested search filter that overflows the stack in the server&rsquo;s decoder</p>
+</li>
+<li>
+<p><a href="https://www.cve.org/CVERecord?id=CVE-2026-103877">CVE-2026-103877</a>: Unsafe loading of Java code from LDAP schema elements</p>
+</li>
+<li>
+<p><a href="https://www.cve.org/CVERecord?id=CVE-2026-103878">CVE-2026-103878</a>: Injection of plaintext responses during StartTLS</p>
+</li>
+<li>
+<p><a href="https://www.cve.org/CVERecord?id=CVE-2026-103880">CVE-2026-103880</a>: Denial of service via excessive bcrypt cost factor in stored passwords</p>
+</li>
+<li>
+<p><a href="https://www.cve.org/CVERecord?id=CVE-2026-103885">CVE-2026-103885</a>: Denial of service via crafted telephone number values</p>
+</li>
+</ul>
+<p>This release also fixes many issues found by <em>Glasswind</em> and <em>Claude</em> analysis.</p>
 <p>Here is the list of the found and fixed issues:</p>
 <h2 id="critical">Critical</h2>
 <ul>
