@@ -26,7 +26,7 @@ The **Apache LDAP API** is split into many modules. Here is their hierarchy :
 
 * The **integ** module is for integration tests, covering many of the existing modules
 
-* The **integ-osgi** module covers tests related to **OSGi** integration. It checks that we can instanciate some component within an **OSGi** framework.
+* The **integ-osgi** module covers tests related to **OSGi** integration. It checks that we can instantiate some component within an **OSGi** framework.
 
 * The **ldap** modules are the meat of the *API* : they contain all the needed modules related to *LDAP*, and mainly the *model* module. Note that the *net* module should not be part of **ldap**, per se...
 
